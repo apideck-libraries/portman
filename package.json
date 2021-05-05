@@ -1,0 +1,82 @@
+{
+  "name": "portman",
+  "version": "1.0.0",
+  "description": "Port OpenApi Spces to Postman Collection",
+  "homepage": "https://apideck.com",
+  "author": "Apideck <support@apideck.com> (https://apideck.com/)",
+  "contributors": [
+    "Nick Lloyd <nick@apideck.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apideck-io/portman"
+  },
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "portman:dev": "ts-node ./src/index.ts",
+    "lint": "eslint ./src --ext ts,js",
+    "test": "jest --detectOpenHandles --colors --verbose --reporters=default --collectCoverage --no-cache",
+    "test:watch": "jest  --verbose --bail --watch",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "prepare": "yarn run build",
+    "prepublishOnly": "yarn test && yarn run lint",
+    "preversion": "yarn run lint",
+    "version": "yarn run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "bin": {
+    "portman": "./bin/portman"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.8",
+    "@types/node-fetch": "^2.5.8",
+    "@types/postman-collection": "^3.5.5",
+    "@types/yargs": "^16.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "husky": "^6.0.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.2.2"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.20",
+    "axios": "^0.21.1",
+    "camel-case": "^4.1.2",
+    "chalk": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "fp-ts": "^2.9.5",
+    "fs-extra": "^9.1.0",
+    "jest": "^26.6.3",
+    "newman": "^5.2.2",
+    "node-emoji": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "openapi-to-postmanv2": "git://github.com/thim81/openapi-to-postman.git#latest.2.5.2",
+    "pluralize": "^8.0.0",
+    "postman-collection": "^3.6.9",
+    "replace-in-file": "^6.2.0",
+    "ts-jest": "^26.5.3",
+    "yargs": "^16.2.0"
+  },
+  "keywords": [
+    "apideck",
+    "openapi",
+    "newman",
+    "postman"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  }
+}

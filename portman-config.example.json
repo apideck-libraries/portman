@@ -1,0 +1,14 @@
+{
+  "preRequestScripts": [
+    "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+  ],
+  "variableOverwrites": {
+    "application_id": "{{applicationId}}"
+  },
+  "globalReplacements": [
+    {
+      "searchFor": "\"maxItems\":2,",
+      "replaceWith": ""
+    }
+  ]
+}

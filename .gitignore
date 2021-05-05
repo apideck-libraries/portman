@@ -1,0 +1,12 @@
+node_modules
+coverage
+.env
+tmp/*
+/lib
+.release
+
+portman-config.json
+postman-config.json
+postman-testsuite.json
+
+.DS_Store
