@@ -12,6 +12,9 @@
     "type": "git",
     "url": "https://github.com/apideck-io/portman"
   },
+  "bugs": {
+    "url": "https://github.com/apideck-libraries/portman/issues"
+  },
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
