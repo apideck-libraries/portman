@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/apideck-io/portman"
+    "url": "https://github.com/apideck-libraries/portman"
   },
   "bugs": {
     "url": "https://github.com/apideck-libraries/portman/issues"
