@@ -1,13 +1,13 @@
 {
   "name": "portman",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Port OpenApi Spces to Postman Collection",
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
   "contributors": [
     "Nick Lloyd <nick@apideck.com>"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/apideck-io/portman"

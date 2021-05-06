@@ -2,7 +2,7 @@
 
 Port OpenAPI Spec to Postman Collection!
 
-Portman sits on top of [@thim81](https://github.com/thim81)'s [open PR](https://github.com/thim81/openapi-to-postman). Tim has mad awesome progress in converting an OAS to a Postman Collection with automated test injection. At [Apideck](https://apideck.com), we wanted to include this as part of an automated process that couldbe injecting directly into our CI/CD pipeline.
+Portman sits on top of [@thim81](https://github.com/thim81)'s [open PR](https://github.com/thim81/openapi-to-postman). Tim has made awesome progress in converting an OAS to a Postman Collection with automated test injection. At [Apideck](https://apideck.com), we wanted to include this as part of an automated process that could be injecting directly into our CI/CD pipeline.
 
 With Portman, we can:
 
@@ -18,9 +18,9 @@ With Portman, we can:
 
 ## Install
 
-1. yarn
+1. yarn add -D portman
 2. copy `.env.example` to `.env` and add environment variables you need available to your collection.
-3. rename and customize each of the \_\_\_\_.example.json config files in the root directory to your needs.
+3. copy and rename and customize each of the \_\_\_\_.example.json config files in the root directory to your needs.
 
 ## Usage
 
@@ -119,6 +119,7 @@ Your generated Postman Collection is written to `./tmp/converted/${specName}.jso
 
 ### TODO:
 
+- add task to initalize config files
 - add interactive cli prompts
 - render better error on postman upload fail
 - create collection if postman doesn't exist
