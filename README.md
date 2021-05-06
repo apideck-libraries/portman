@@ -22,6 +22,9 @@ With Portman, we can:
 2. copy `.env.example` to `.env` and add environment variables you need available to your collection.
 3. copy and rename and customize each of the \_\_\_\_.example.json config files in the root directory to your needs.
 
+- Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/OPTIONS.md)
+- Configuring test generation can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/TESTGENERATION.md)
+
 ## Usage
 
 ```
