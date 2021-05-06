@@ -2,7 +2,7 @@ node_modules
 coverage
 .env
 tmp/*
-/lib
+/dist
 .release
 
 portman-config.json

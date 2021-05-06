@@ -1,7 +1,7 @@
 {
-  "name": "portman",
-  "version": "0.0.1",
-  "description": "Port OpenApi Spces to Postman Collection",
+  "name": "@apideck/portman",
+  "version": "0.0.0",
+  "description": "Port OpenApi Specs to Postman Collection",
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
   "contributors": [
@@ -23,14 +23,11 @@
     "test:watch": "jest  --verbose --bail --watch",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
-    "prepare": "yarn run build",
-    "prepublishOnly": "yarn test && yarn run lint",
-    "preversion": "yarn run lint",
-    "version": "yarn run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "release": "np --branch main"
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*",
+    "bin/portman"
   ],
   "bin": {
     "portman": "./bin/portman"
@@ -47,6 +44,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "husky": "^6.0.0",
+    "np": "^7.5.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
