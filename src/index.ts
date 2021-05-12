@@ -65,8 +65,18 @@ require('dotenv').config()
       type: 'boolean'
     })
     .option('c', {
-      alias: 'configFile',
+      alias: 'portmanConfigFile',
       describe: 'Path to portman-config.json',
+      type: 'string'
+    })
+    .option('s', {
+      alias: 'postmanConfigFile',
+      describe: 'Path to postman-config.json',
+      type: 'string'
+    })
+    .option('g', {
+      alias: 'testSuiteConfigFile',
+      describe: 'Path to postman-testsuite.json',
       type: 'string'
     }).argv
 
@@ -78,9 +88,13 @@ require('dotenv').config()
   const newmanData = options.d || ''
   const syncToPostman = !!options.p
   const collectionId = options.p
-  const configFile = options.c
+  const portmanConfigFile = options.c || 'portman-config.json'
+  const postmanConfigFile = options.s || 'postman-config.json'
+  const testSuiteConfigFile = options.g || 'postman-testsuite.json'
 
-  const { variableOverwrites, preRequestScripts, globalReplacements } = await getConfig(configFile)
+  const { variableOverwrites, preRequestScripts, globalReplacements } = await getConfig(
+    portmanConfigFile
+  )
 
   console.log(
     chalk.red(`=================================================================
@@ -90,7 +104,17 @@ require('dotenv').config()
   url && console.log(chalk`{cyan  Remote Url: } {green ${url}}`)
   local && console.log(chalk`{cyan  Local Path: } {green ${local}}`)
 
-  console.log(chalk`{cyan  Portman Config: } {green ${configFile ? configFile : 'unspecified'}}`)
+  console.log(
+    chalk`{cyan  Portman Config: } {green ${portmanConfigFile ? portmanConfigFile : 'unspecified'}}`
+  )
+  console.log(
+    chalk`{cyan  Postman Config: } {green ${postmanConfigFile ? postmanConfigFile : 'unspecified'}}`
+  )
+  console.log(
+    chalk`{cyan  Testsuite Config: } {green ${
+      testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'
+    }}`
+  )
   console.log(chalk`{cyan  Inject Tests: } {green ${includeTests}}`)
   console.log(chalk`{cyan  Run Newman: } {green ${!!runNewman}}`)
   console.log(chalk`{cyan  Newman Iteration Data: } {green ${newmanData ? newmanData : false}}`)
@@ -121,8 +145,8 @@ require('dotenv').config()
 
   const collectionGenerated = await execShellCommand(
     `openapi2postmanv2 -s ${openApiSpec} -o ${tmpCollectionFile} -p ${
-      includeTests && '-g postman-testsuite.json'
-    } -c ./postman-config.json`
+      includeTests && `-g ${testSuiteConfigFile}`
+    } -c ${postmanConfigFile}`
   )
 
   if (!collectionGenerated) {

@@ -20,7 +20,7 @@ With Portman, we can:
 
 1. yarn add -D portman
 2. copy `.env.example` to `.env` and add environment variables you need available to your collection.
-3. copy and rename and customize each of the \_\_\_\_.example.json config files in the root directory to your needs.
+3. copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
 
 - Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/OPTIONS.md)
 - Configuring test generation can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/TESTGENERATION.md)
@@ -31,16 +31,18 @@ With Portman, we can:
 Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>
 
 Options:
-      --help                 Show help                                                  [boolean]
-      --version              Show version number                                        [boolean]
-  -u, --url                  URL of OAS to port to postman collection                   [string]
-  -l, --local                Use local OAS to port to postman collection                [string]
-  -b, --baseUrl              Override spec baseUrl to use in test suite                 [string]
-  -n, --runNewman            Run newman on newly created collection                     [boolean]
-  -d, --newmanIterationData  Iteration data to run newman with newly created collection [string]
-  -p, --postmanUid           Collection ID to upload generated collection to postman    [string]
-  -t, --includeTests         Inject test suite (default: true)                          [boolean]
-  -c, --configFile           Path to portman-config.json                                [string]
+      --help                 Show help                                                    [boolean]
+      --version              Show version number                                          [boolean]
+  -u, --url                  URL of OAS to port to postman collection                     [string]
+  -l, --local                Use local OAS to port to postman collection                  [string]
+  -b, --baseUrl              Override spec baseUrl to use in test suite                   [string]
+  -n, --runNewman            Run newman on newly created collection                       [boolean]
+  -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
+  -p, --postmanUid           Collection ID to upload generated collection to postman      [string]
+  -t, --includeTests         Inject test suite (default: true)                            [boolean]
+  -c, --portmanConfigFile    Path to portman-config.json                                  [string]
+  -s, --postmanConfigFile    Path to postman-config.json                                  [string]
+  -g, --testSuiteConfigFile  Path to postman-testsuite.json                               [string]
 
 ```
 
@@ -83,13 +85,13 @@ To generate the collection with tests, define a JSON file like the example (port
 Pass in the remote hosted spec:
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml -c portman-config.json
+yarn portman -u https://specs.apideck.com/crm.yml
 ```
 
 Overwrite the baseUrl in spec and run newman.
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -c portman-config.json
+yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true
 ```
 
 Path pass to local data file for newman to use for iterations.
@@ -101,19 +103,25 @@ yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n tr
 Pass path to a local spec (useful when updating your specs)
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -c portman-config.json
+yarn portman -l ./tmp/specs/crm.yml
 ```
 
 Skip tests and just generate collection.
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -t false -c portman-config.json
+yarn portman -l ./tmp/specs/crm.yml -t false
 ```
 
 Upload newly generated collection to Postman using the collection ID.
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748 -c portman-config.json
+yarn portman -l ./tmp/specs/crm.yml -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
+```
+
+Pass custom paths for config files
+
+```
+yarn portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/postman-testsuite.json  -s ./common/postman-config.json
 ```
 
 ### Output:
