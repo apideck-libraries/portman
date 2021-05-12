@@ -5066,9 +5066,9 @@ open@^7.3.0:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
 
-"openapi-to-postmanv2@git://github.com/thim81/openapi-to-postman.git#latest.2.5.2":
+"openapi-to-postmanv2@git://github.com/thim81/openapi-to-postman.git#latest.2.5.3":
   version "2.5.1"
-  resolved "git://github.com/thim81/openapi-to-postman.git#702f365b3aa89035f09101138c55143f912606d5"
+  resolved "git://github.com/thim81/openapi-to-postman.git#72192003ced01a894c58c1f575ff6f267424196d"
   dependencies:
     ajv "6.12.3"
     async "3.2.0"

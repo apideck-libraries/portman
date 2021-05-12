@@ -62,7 +62,7 @@
     "newman": "^5.2.2",
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.1",
-    "openapi-to-postmanv2": "git://github.com/thim81/openapi-to-postman.git#latest.2.5.2",
+    "openapi-to-postmanv2": "git://github.com/thim81/openapi-to-postman.git#latest.2.5.3",
     "pluralize": "^8.0.0",
     "postman-collection": "^3.6.9",
     "replace-in-file": "^6.2.0",
