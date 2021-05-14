@@ -5,7 +5,8 @@ import { PortmanConfig } from 'src/types'
 const defaultConfig: PortmanConfig = {
   preRequestScripts: [],
   variableOverwrites: {},
-  globalReplacements: []
+  globalReplacements: [],
+  orderOfOperations: []
 }
 
 export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {

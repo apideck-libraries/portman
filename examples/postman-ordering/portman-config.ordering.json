@@ -1,0 +1,21 @@
+{
+  "preRequestScripts": [
+    "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+  ],
+  "variableOverwrites": {
+    "application_id": "{{applicationId}}"
+  },
+  "globalReplacements": [
+    {
+      "searchFor": "\"maxItems\":2,",
+      "replaceWith": ""
+    }
+  ],
+  "orderOfOperations": [
+    "POST::/crm/leads",
+    "GET::/crm/leads/{id}",
+    "PATCH::/crm/leads/{id}",
+    "DELETE::/crm/leads/{id}",
+    "GET::/crm/leads"
+  ]
+}
