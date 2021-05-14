@@ -1,0 +1,26 @@
+{
+  "version": 1.0,
+  "generateTests": {
+    "responseChecks": {
+      "StatusSuccess": {
+        "enabled": true
+      },
+      "responseTime": {
+        "enabled": true,
+        "maxMs": 300
+      },
+      "headersPresent": {
+        "enabled": true
+      },
+      "contentType": {
+        "enabled": true
+      },
+      "jsonBody": {
+        "enabled": true
+      },
+      "schemaValidation": {
+        "enabled": true
+      }
+    }
+  }
+}

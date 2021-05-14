@@ -4,6 +4,7 @@
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
+import path from 'path'
 import emoji from 'node-emoji'
 import { CollectionDefinition } from 'postman-collection'
 import yargs from 'yargs'
@@ -27,7 +28,7 @@ import {
 
 require('dotenv').config()
 ;(async () => {
-  const options = yargs
+  let options = yargs
     .usage('Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>')
     .option('u', {
       alias: 'url',
@@ -78,19 +79,46 @@ require('dotenv').config()
       alias: 'testSuiteConfigFile',
       describe: 'Path to postman-testsuite.json',
       type: 'string'
-    }).argv
+    })
+    .option('cliOptionsFile', {
+      // alias: 'cliOptionsFile',
+      describe: 'Path to the file with the Portman CLI options',
+      type: 'string'
+    })
+    .argv
 
-  const url = options.u || ''
-  const local = options.l || ''
-  const baseUrl = options.b || ''
-  const includeTests = options.t ?? true
-  const runNewman = options.n
-  const newmanData = options.d || ''
-  const syncToPostman = !!options.p
-  const collectionId = options.p
-  const portmanConfigFile = options.c || 'portman-config.json'
-  const postmanConfigFile = options.s || 'postman-config.json'
-  const testSuiteConfigFile = options.g || 'postman-testsuite.json'
+  let cliOptions = {}
+  if (options.cliOptionsFile) {
+    try {
+      const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
+      cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+
+      console.log(chalk.green(`=================================================================`))
+      chalk`{cyan  Portman CLI Config: } {green ${options.cliOptionsFile}}`
+      console.log(chalk.green(`=================================================================`))
+    } catch (err) {
+      console.error('\x1b[31m', 'Portman CLI Config error - no such file or directory "' + options.cliOptionsFile + '"')
+      process.exit(0)
+    }
+  }
+
+  // Merge CLI configuration file with CLI parameters
+  options = { ...cliOptions, ...options }
+
+  const oaUrl = options.url as string || '' as string
+  const oaLocal = options.local as string || '' as string
+  const baseUrl = options.baseUrl as string || '' as string
+  const includeTests = options.includeTests ?? true
+  const runNewman = options.runNewman
+  const newmanData = options.newmanIterationData as string || '' as string
+  const syncToPostman = !!options.postmanUid
+  const collectionId = options.postmanUid as string
+  const portmanConfigFile = options.portmanConfigFile as string || 'portman-config.json' as string
+  const postmanConfigFile = options.postmanConfigFile as string || 'postman-config.json' as string
+  const testSuiteConfigFile = options.testSuiteConfigFile as string || 'postman-testsuite.json' as string
+
+  console.log('cliOptions', cliOptions)
+  console.log('options', options)
 
   const { variableOverwrites, preRequestScripts, globalReplacements } = await getConfig(
     portmanConfigFile
@@ -101,8 +129,8 @@ require('dotenv').config()
   `)
   )
 
-  url && console.log(chalk`{cyan  Remote Url: } {green ${url}}`)
-  local && console.log(chalk`{cyan  Local Path: } {green ${local}}`)
+  oaUrl && console.log(chalk`{cyan  Remote Url: } {green ${oaUrl}}`)
+  oaLocal && console.log(chalk`{cyan  Local Path: } {green ${oaLocal}}`)
 
   console.log(
     chalk`{cyan  Portman Config: } {green ${portmanConfigFile ? portmanConfigFile : 'unspecified'}}`
@@ -129,11 +157,17 @@ require('dotenv').config()
   await fs.ensureDir('./tmp/converted/')
   await fs.ensureDir('./tmp/newman/')
 
-  if (local) {
-    await fs.copyFile(local, './tmp/converted/spec.yml')
+  if (oaLocal) {
+    try {
+      const oaLocalPath = path.resolve(oaLocal)
+      await fs.copyFile(oaLocalPath, './tmp/converted/spec.yml')
+    } catch (err) {
+      console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
+      process.exit(0)
+    }
   }
 
-  const openApiSpec = local ? './tmp/converted/spec.yml' : await new DownloadService().get(url)
+  const openApiSpec = (oaLocal) ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
 
   const specExists = await fs.pathExists(openApiSpec)
 
@@ -153,7 +187,13 @@ require('dotenv').config()
     throw new Error(`Collection generation failed.`)
   }
 
-  const collectionJson = require(`${tmpCollectionFile}`) as CollectionDefinition
+  let collectionJson = {}
+  try {
+    collectionJson = require(`${tmpCollectionFile}`) as CollectionDefinition
+  } catch (err) {
+    console.error('\x1b[31m', 'Collection generation failed ')
+    process.exit(0)
+  }
 
   let collection = replaceVariables(collectionJson, {
     ...variableOverwrites,

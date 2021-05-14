@@ -1,0 +1,10 @@
+{
+  "local": "./examples/cli-options/crm.yml",
+  "baseUrl": "http://localhost:3050",
+  "portmanConfigFile": "./examples/cli-options/portman-config.crm.json",
+  "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
+  "includeTests": true,
+  "testSuiteConfigFile": "./examples/cli-options/postman-testsuite.crm.json",
+  "postmanUid": "b43ee029-7e3f-4e20-9b81-f4a47dfb9c48",
+  "runNewman": false
+}
