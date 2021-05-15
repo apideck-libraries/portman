@@ -36,6 +36,7 @@ Options:
   -u, --url                  URL of OAS to port to postman collection                     [string]
   -l, --local                Use local OAS to port to postman collection                  [string]
   -b, --baseUrl              Override spec baseUrl to use in test suite                   [string]
+  -o, --output               Write the Postman collection to an output file               [string]
   -n, --runNewman            Run newman on newly created collection                       [boolean]
   -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
   -p, --postmanUid           Collection ID to upload generated collection to postman      [string]
