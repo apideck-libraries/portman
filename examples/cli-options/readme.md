@@ -16,8 +16,9 @@ yarn portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 
 ```json
 {
-  "local": "./examples/cli-options/crm.yml",
+  "local": "./examples/cli-options/crm.openapi.yml",
   "baseUrl": "http://localhost:3050",
+  "output": "./examples/cli-options/crm.postman.json",
   "portmanConfigFile": "./examples/cli-options/portman-config.crm.json",
   "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
   "includeTests": true,
@@ -32,14 +33,15 @@ yarn portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 In our example we want to define all the CLI options upfront and store it in GIT, so that it can be executed in a CI/CD
 pipeline
 
-- local: refers to the local OpenApi file location to port to postman collection
-- baseUrl : Overrides spec baseUrl with the defined value to use in test suite
+- **local**: refers to the local OpenApi file location to port to postman collection (examples/cli-options/crm.openapi.yml)
+- **baseUrl**: overrides spec baseUrl with the defined value to use in test suite
+- **output**: refers to the location where the generated Postman collection file be stored (examples/cli-options/crm.postman.json)
 - portmanConfigFile: refers to the portman configuration file with Portman settings, like Postman values to be replaced,
-  overwriten, ...
-- postmanConfigFile: refers to the openapi-to-postman configuration file location with settings on how to transform and
-  organise the Postman collection
-- includeTests: a toggle to generate Postman tests based on the OpenApi specification
+  overwriten, ... (examples/cli-options/portman-config.crm.json)
+- **postmanConfigFile**: refers to the openapi-to-postman configuration file location with settings on how to transform and
+  organise the Postman collection (examples/cli-options/postman-config.crm.json)
+- **includeTests**: a toggle to generate Postman tests based on the OpenApi specification
 - testSuiteConfigFile: refers to the openapi-to-postman testsuite configuration file location, which defines the test
-  suite generation
-- postmanUid : refers to the collection ID to upload the generated collection to your postman app
-- runNewman: a toggle to run newman on newly created collection                       
+  suite generation (examples/cli-options/postman-testsuite.crm.json)
+- **postmanUid**: refers to the collection ID to upload the generated collection to your postman app
+- **runNewman**: a toggle to run newman on newly created collection

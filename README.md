@@ -101,10 +101,10 @@ yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n tr
 yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d ./tmp/newman/data/crm.json
 ```
 
-- Pass path to a local spec (useful when updating your specs)
+- Pass path to a local spec (useful when updating your specs) and output Postman collection locally
 
 ```
-yarn portman -l ./tmp/specs/crm.yml
+yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
 ```
 
 - Skip tests and just generate collection.
