@@ -59,6 +59,11 @@ require('dotenv').config()
       describe: 'Collection ID to upload generated collection to postman',
       type: 'string'
     })
+    .option('syncPostman', {
+      alias: 'syncPostman',
+      describe: 'Upload generated collection to postman',
+      type: 'boolean'
+    })
     .option('t', {
       alias: 'includeTests',
       describe: 'Inject test suite (default: true)',
@@ -86,8 +91,7 @@ require('dotenv').config()
   const includeTests = options.t ?? true
   const runNewman = options.n
   const newmanData = options.d || ''
-  const syncToPostman = !!options.p
-  const collectionId = options.p
+  const syncToPostman = options.syncPostman || false
   const portmanConfigFile = options.c || 'portman-config.json'
   const postmanConfigFile = options.s || 'postman-config.json'
   const testSuiteConfigFile = options.g || 'postman-testsuite.json'
@@ -204,10 +208,20 @@ require('dotenv').config()
     }
   }
 
-  if (collectionId) {
-    console.log('Uploading to Postman...')
+  if (syncToPostman) {
+    console.log('⚡ Uploading to Postman...')
+    const collectionIdentification = options.p ? options.p : collection.info.name
     const postman = new PostmanService()
-    await postman.updateCollection(JSON.parse(collectionString), collectionId)
+    if (postman.isGuid(collectionIdentification)) {
+      await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
+    } else {
+      const pmColl = await postman.findCollectionByName(collectionIdentification) as any
+      if (pmColl && pmColl.uid) {
+        await postman.updateCollection(JSON.parse(collectionString), pmColl.uid)
+      } else {
+        await postman.createCollection(JSON.parse(collectionString))
+      }
+    }
   }
 
   await clearTmpDirectory()

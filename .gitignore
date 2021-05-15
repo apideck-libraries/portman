@@ -10,3 +10,4 @@ postman-config.json
 postman-testsuite.json
 
 .DS_Store
+.idea
