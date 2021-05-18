@@ -4,6 +4,8 @@
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
+import path from 'path'
+import * as readline from 'readline'
 import emoji from 'node-emoji'
 import { CollectionDefinition } from 'postman-collection'
 import yargs from 'yargs'
@@ -17,6 +19,7 @@ import {
   getConfig,
   injectEnvVariables,
   injectPreRequest,
+  orderCollectionRequests,
   overridePathParams,
   replaceValues,
   replaceVariables,
@@ -27,7 +30,7 @@ import {
 
 require('dotenv').config()
 ;(async () => {
-  const options = yargs
+  let options = yargs
     .usage('Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>')
     .option('u', {
       alias: 'url',
@@ -42,6 +45,11 @@ require('dotenv').config()
     .option('b', {
       alias: 'baseUrl',
       describe: 'Override spec baseUrl to use in test suite',
+      type: 'string'
+    })
+    .option('o', {
+      alias: 'output',
+      describe: 'Write the Postman collection to an output file',
       type: 'string'
     })
     .option('n', {
@@ -83,82 +91,105 @@ require('dotenv').config()
       alias: 'testSuiteConfigFile',
       describe: 'Path to postman-testsuite.json',
       type: 'string'
-    }).argv
+    })
+    .option('cliOptionsFile', {
+      // alias: 'cliOptionsFile',
+      describe: 'Path to the file with the Portman CLI options',
+      type: 'string'
+    })
+    .argv
 
-  const url = options.u || ''
-  const local = options.l || ''
-  const baseUrl = options.b || ''
-  const includeTests = options.t ?? true
-  const runNewman = options.n
-  const newmanData = options.d || ''
+  let cliOptions = {}
+  if (options.cliOptionsFile) {
+    try {
+      const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
+      cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    } catch (err) {
+      console.error('\x1b[31m', 'Portman CLI Config error - no such file or directory "' + options.cliOptionsFile + '"')
+      process.exit(0)
+    }
+  }
+
+  // Merge CLI configuration file with CLI parameters
+  options = { ...cliOptions, ...options }
+
+  // Load all Portman CLI options & configuration files
+  const oaUrl = options.url as string || '' as string
+  const oaLocal = options.local as string || '' as string
+  const baseUrl = options.baseUrl as string || '' as string
+  const includeTests = options.includeTests ?? true
+  const runNewman = options.runNewman
+  const newmanData = options.newmanIterationData as string || '' as string
   const syncToPostman = options.syncPostman || false
-  const portmanConfigFile = options.c || 'portman-config.json'
-  const postmanConfigFile = options.s || 'postman-config.json'
-  const testSuiteConfigFile = options.g || 'postman-testsuite.json'
+  const portmanConfigFile = options.portmanConfigFile as string || 'portman-config.json' as string
+  const postmanConfigFile = options.postmanConfigFile as string || 'postman-config.json' as string
+  const testSuiteConfigFile = options.testSuiteConfigFile as string || 'postman-testsuite.json' as string
 
-  const { variableOverwrites, preRequestScripts, globalReplacements } = await getConfig(
-    portmanConfigFile
-  )
+  const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
+    await getConfig(portmanConfigFile)
 
-  console.log(
-    chalk.red(`=================================================================
-  `)
-  )
+  // --- Portman - Show processing output
+  const consoleLine = '='.repeat(process.stdout.columns-80)
+  console.log(chalk.red(consoleLine))
 
-  url && console.log(chalk`{cyan  Remote Url: } {green ${url}}`)
-  local && console.log(chalk`{cyan  Local Path: } {green ${local}}`)
+  oaUrl && console.log(chalk`{cyan  Remote Url: } \t\t{green ${oaUrl}}`)
+  oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
 
-  console.log(
-    chalk`{cyan  Portman Config: } {green ${portmanConfigFile ? portmanConfigFile : 'unspecified'}}`
-  )
-  console.log(
-    chalk`{cyan  Postman Config: } {green ${postmanConfigFile ? postmanConfigFile : 'unspecified'}}`
-  )
-  console.log(
-    chalk`{cyan  Testsuite Config: } {green ${
-      testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'
-    }}`
-  )
-  console.log(chalk`{cyan  Inject Tests: } {green ${includeTests}}`)
-  console.log(chalk`{cyan  Run Newman: } {green ${!!runNewman}}`)
-  console.log(chalk`{cyan  Newman Iteration Data: } {green ${newmanData ? newmanData : false}}`)
-  console.log(chalk`{cyan  Upload to Postman: } {green ${syncToPostman}}
-  `)
-  console.log(
-    chalk.red(`=================================================================
-  `)
-  )
+  options.cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
+  console.log(chalk`{cyan  Portman Config: } \t{green ${portmanConfigFile ? portmanConfigFile : 'unspecified'}}`)
+  console.log(chalk`{cyan  Postman Config: } \t{green ${postmanConfigFile ? postmanConfigFile : 'unspecified'}}`)
+  console.log(chalk`{cyan  Testsuite Config: } \t{green ${testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'}}`)
+  console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
+  console.log(chalk`{cyan  Run Newman: } \t\t{green ${!!runNewman}}`)
+  console.log(chalk`{cyan  Newman Iteration Data: }{green ${newmanData ? newmanData : false}}`)
+  console.log(chalk`{cyan  Upload to Postman: } \t{green ${syncToPostman}}  `)
+  console.log(chalk.red(consoleLine))
 
   await fs.ensureDir('./tmp/working/')
   await fs.ensureDir('./tmp/converted/')
   await fs.ensureDir('./tmp/newman/')
 
-  if (local) {
-    await fs.copyFile(local, './tmp/converted/spec.yml')
+  // --- OpenApi - Get OpenApi file locally or remote
+  if (oaLocal) {
+    try {
+      const oaLocalPath = path.resolve(oaLocal)
+      await fs.copyFile(oaLocalPath, './tmp/converted/spec.yml')
+    } catch (err) {
+      console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
+      process.exit(0)
+    }
   }
 
-  const openApiSpec = local ? './tmp/converted/spec.yml' : await new DownloadService().get(url)
-
+  const openApiSpec = (oaLocal) ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
   const specExists = await fs.pathExists(openApiSpec)
-
   if (!specExists) {
     throw new Error(`Download failed. ${openApiSpec} doesn't exist. `)
   }
 
+  // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
+  process.stdout.write(`\r 🕓 Starting OpenApi to Postman conversion ...`)
   const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
-
   const collectionGenerated = await execShellCommand(
     `openapi2postmanv2 -s ${openApiSpec} -o ${tmpCollectionFile} -p ${
       includeTests && `-g ${testSuiteConfigFile}`
     } -c ${postmanConfigFile}`
   )
+  readline.clearLine(process.stdout, 0) // clear previous stdout message
 
   if (!collectionGenerated) {
     throw new Error(`Collection generation failed.`)
   }
 
-  const collectionJson = require(`${tmpCollectionFile}`) as CollectionDefinition
+  // --- Portman - load generated Postman collection
+  let collectionJson = {}
+  try {
+    collectionJson = require(`${tmpCollectionFile}`) as CollectionDefinition
+  } catch (err) {
+    console.error('\x1b[31m', 'Collection generation failed ')
+    process.exit(0)
+  }
 
+  // --- Portman - Overwrite Postman variables & values
   let collection = replaceVariables(collectionJson, {
     ...variableOverwrites,
     limit: includeTests ? '3' : '20'
@@ -167,49 +198,63 @@ require('dotenv').config()
   collection = injectEnvVariables(collection, baseUrl)
   collection = overridePathParams(collection)
   collection = disableOptionalParams(collection)
+  collection = orderCollectionRequests(collection, orderOfOperations)
 
+  // --- Portman - Set Postman pre-requests
   if (includeTests) {
     collection = skip501s(collection)
     collection = injectPreRequest(collection, preRequestScripts)
   }
 
+  // --- Portman - Replace & clean-up Postman
   const collectionString = cleanupTestSchemaDefs(
     JSON.stringify(collection, null, 2),
     globalReplacements
   )
-  const postmanCollectionFile = `./tmp/converted/${camelCase(collection.info.name)}.json`
 
-  fs.writeFileSync(postmanCollectionFile, collectionString)
+  // --- Portman - Write Postman collection to file
+  let postmanCollectionFile = `./tmp/converted/${camelCase(collection.info.name)}.json`
+  if (options.output) {
+    postmanCollectionFile = options.output as string
+    if (!postmanCollectionFile.includes('.json')) {
+      console.error('\x1b[31m', 'Output file error - Only .json filenames are allowed for "' + postmanCollectionFile + '"')
+      process.exit(0)
+    }
+  }
 
+  try {
+    fs.writeFileSync(postmanCollectionFile, collectionString, 'utf8')
+    // info('Output file: ' + options.output)
+  } catch (err) {
+    console.error('\x1b[31m', 'Output file error - no such file or directory "' + postmanCollectionFile + '"')
+    process.exit(0)
+  }
+
+  // --- Portman - Execute Newman tests
   if (runNewman) {
     const newmanEnvFile = `./tmp/newman/${camelCase(collection.info.name)}-env.json`
     writeNewmanEnv(collection, newmanEnvFile)
 
     try {
-      console.log(chalk.green(`=================================================================`))
+      console.log(chalk.green(consoleLine))
       console.log(chalk`{cyan  Run Newman against: } {green ${baseUrl}}`)
-      console.log(chalk.green(`=================================================================`))
+      console.log(chalk.green(consoleLine))
 
       await runNewmanWith(postmanCollectionFile, newmanEnvFile, newmanData)
     } catch (error) {
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       console.log(chalk.red(`Newman failed to run`))
       console.log(`\n`)
       console.log(error?.message)
       console.log(`\n`)
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       process.exit(0)
     }
   }
 
+  // --- Portman - Upload Postman collection to Postman app
   if (syncToPostman) {
-    console.log('⚡ Uploading to Postman...')
+    process.stdout.write(`\r ⚡ Uploading to Postman ...`)
     const collectionIdentification = options.p ? options.p : collection.info.name
     const postman = new PostmanService()
     if (postman.isGuid(collectionIdentification)) {
@@ -226,7 +271,7 @@ require('dotenv').config()
 
   await clearTmpDirectory()
 
-  console.log(chalk.green(`=================================================================`))
+  console.log(chalk.green(consoleLine))
 
   console.log(
     emoji.get(':rocket:'),
@@ -234,8 +279,5 @@ require('dotenv').config()
     emoji.get(':rocket:')
   )
 
-  console.log(
-    chalk.green(`=================================================================
-  `)
-  )
+  console.log(chalk.green(consoleLine))
 })()

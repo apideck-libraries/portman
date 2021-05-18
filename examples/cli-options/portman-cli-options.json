@@ -1,0 +1,10 @@
+{
+  "local": "./examples/cli-options/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/cli-options/crm.postman.json",
+  "portmanConfigFile": "./examples/cli-options/portman-config.crm.json",
+  "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
+  "includeTests": true,
+  "testSuiteConfigFile": "./examples/cli-options/postman-testsuite.crm.json",
+  "runNewman": false
+}

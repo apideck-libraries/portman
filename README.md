@@ -1,4 +1,4 @@
-# Portman
+# Portman 👨🏽‍🚀
 
 Port OpenAPI Spec to Postman Collection!
 
@@ -36,6 +36,7 @@ Options:
   -u, --url                  URL of OAS to port to postman collection                     [string]
   -l, --local                Use local OAS to port to postman collection                  [string]
   -b, --baseUrl              Override spec baseUrl to use in test suite                   [string]
+  -o, --output               Write the Postman collection to an output file               [string]
   -n, --runNewman            Run newman on newly created collection                       [boolean]
   -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
   --syncPostman              Upload generated collection to postman (default: false)      [boolean]
@@ -44,6 +45,7 @@ Options:
   -c, --portmanConfigFile    Path to portman-config.json                                  [string]
   -s, --postmanConfigFile    Path to postman-config.json                                  [string]
   -g, --testSuiteConfigFile  Path to postman-testsuite.json                               [string]
+  --cliConfigFile            Path to the file with the Portman CLI options                [string]
 
 ```
 
@@ -81,39 +83,39 @@ To generate the collection with tests, define a JSON file like the example (port
 - **preRequestScripts**: Array of scripts that will be injected as Postman Pre-request Scripts that will execute before every request in this collection.
 - **variableOverwrites**: A map of parameter key names that will have their values replaced with the provided Postman variables.
 
-### Options:
+### CLI Options:
 
-Pass in the remote hosted spec:
+- Pass in the remote hosted spec:
 
 ```
 yarn portman -u https://specs.apideck.com/crm.yml
 ```
 
-Overwrite the baseUrl in spec and run newman.
+- Overwrite the baseUrl in spec and run newman.
 
 ```
 yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true
 ```
 
-Path pass to local data file for newman to use for iterations.
+- Path pass to local data file for newman to use for iterations.
 
 ```
 yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d ./tmp/newman/data/crm.json
 ```
 
-Pass path to a local spec (useful when updating your specs)
+- Pass path to a local spec (useful when updating your specs) and output Postman collection locally
 
 ```
-yarn portman -l ./tmp/specs/crm.yml
+yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
 ```
 
-Skip tests and just generate collection.
+- Skip tests and just generate collection.
 
 ```
 yarn portman -l ./tmp/specs/crm.yml -t false
 ```
 
-Upload newly generated collection to Postman which will upsert the collection, based on the collection name
+- Upload newly generated collection to Postman which will upsert the collection, based on the collection name
 
 ```
 yarn portman -l ./tmp/specs/crm.yml --syncPostman true
@@ -126,11 +128,23 @@ yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a
 ```
 
 
-Pass custom paths for config files
+- Pass custom paths for config files
 
 ```
 yarn portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/postman-testsuite.json  -s ./common/postman-config.json
 ```
+
+- Pass all CLI options as JSON file
+
+All the CLI options can be managed in a separate configuration file and passed along to the portman command. This will
+make configuration easier, especially in CI/CD implementations.
+
+```
+yarn portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
+```
+
+All the available Portman CLI options can be used in the config file.
+By passing the CLI options as parameter, you can overwrite the defined CLI options defined in the file.
 
 ### Output:
 

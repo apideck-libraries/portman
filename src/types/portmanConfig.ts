@@ -7,4 +7,5 @@ export type PortmanConfig = {
   preRequestScripts: string[]
   variableOverwrites: Record<string, string>
   globalReplacements: GlobalReplacement[]
+  orderOfOperations: string[]
 }

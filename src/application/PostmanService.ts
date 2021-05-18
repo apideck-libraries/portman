@@ -12,6 +12,7 @@ export class PostmanService {
   }
 
   async createCollection(collection: CollectionDefinition): Promise<string> {
+    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -32,25 +33,20 @@ export class PostmanService {
       console.log('Upload to Postman Success:', data)
       return JSON.stringify(data, null, 2)
     } catch (error) {
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       console.log(
         chalk.red(`Upload to Postman Failed'
       `)
       )
       console.log(error?.response?.data)
       console.log(`\n`)
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       return error.toString()
     }
   }
 
   async updateCollection(collection: CollectionDefinition, uuid: string): Promise<string> {
+    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -68,23 +64,17 @@ export class PostmanService {
     try {
       const res = await axios(config)
       const data = res.data
-      console.log('Upload to Postman Success:', data)
+      console.log('\nUpload to Postman Success:', data)
       return JSON.stringify(data, null, 2)
     } catch (error) {
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       console.log(
         chalk.red(`Upload to Postman Failed'
       `)
       )
       console.log(error?.response?.data)
       console.log(`\n`)
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       return error.toString()
     }
   }
@@ -120,7 +110,7 @@ export class PostmanService {
             // to get a value that is either negative, positive, or zero.
             return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
           })
-          console.log('Multiple Postman collection matching "' + collName + '", the most recent collection is updated.')
+          console.log('\nMultiple Postman collection matching "' + collName + '", the most recent collection is updated.')
           match = matches[0]
         }
       }

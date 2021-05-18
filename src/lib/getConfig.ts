@@ -5,7 +5,8 @@ import { PortmanConfig } from 'src/types'
 const defaultConfig: PortmanConfig = {
   preRequestScripts: [],
   variableOverwrites: {},
-  globalReplacements: []
+  globalReplacements: [],
+  orderOfOperations: []
 }
 
 export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {
@@ -14,7 +15,7 @@ export const getConfig = async (configPath: string | undefined): Promise<Portman
   if (configPath && (await fs.pathExists(configPath))) {
     config = await import(`${__dirname}/../../${configPath}`)
   } else {
-    console.log(chalk.red(`Config file not provided. Using empty default.`))
+    console.log(chalk.red(`Portman config file not provided. Using empty default.`))
   }
 
   return config
