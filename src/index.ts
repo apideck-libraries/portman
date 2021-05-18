@@ -17,6 +17,7 @@ import {
   getConfig,
   injectEnvVariables,
   injectPreRequest,
+  orderCollectionRequests,
   overridePathParams,
   replaceValues,
   replaceVariables,
@@ -92,9 +93,8 @@ require('dotenv').config()
   const postmanConfigFile = options.s || 'postman-config.json'
   const testSuiteConfigFile = options.g || 'postman-testsuite.json'
 
-  const { variableOverwrites, preRequestScripts, globalReplacements } = await getConfig(
-    portmanConfigFile
-  )
+  const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
+    await getConfig(portmanConfigFile)
 
   console.log(
     chalk.red(`=================================================================
@@ -163,6 +163,7 @@ require('dotenv').config()
   collection = injectEnvVariables(collection, baseUrl)
   collection = overridePathParams(collection)
   collection = disableOptionalParams(collection)
+  collection = orderCollectionRequests(collection, orderOfOperations)
 
   if (includeTests) {
     collection = skip501s(collection)
