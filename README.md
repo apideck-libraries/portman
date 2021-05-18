@@ -39,7 +39,8 @@ Options:
   -o, --output               Write the Postman collection to an output file               [string]
   -n, --runNewman            Run newman on newly created collection                       [boolean]
   -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
-  -p, --postmanUid           Collection ID to upload generated collection to postman      [string]
+  --syncPostman              Upload generated collection to postman (default: false)      [boolean]
+  -p, --postmanUid           Collection UID to upload&overwrite with generated collection [string]
   -t, --includeTests         Inject test suite (default: true)                            [boolean]
   -c, --portmanConfigFile    Path to portman-config.json                                  [string]
   -s, --postmanConfigFile    Path to postman-config.json                                  [string]
@@ -114,11 +115,18 @@ yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
 yarn portman -l ./tmp/specs/crm.yml -t false
 ```
 
-- Upload newly generated collection to Postman using the collection ID.
+- Upload newly generated collection to Postman which will upsert the collection, based on the collection name
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
+yarn portman -l ./tmp/specs/crm.yml --syncPostman true
 ```
+
+Upload newly generated collection to Postman using the collection ID to overwrite the existing.
+
+```
+yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
+```
+
 
 - Pass custom paths for config files
 
@@ -144,7 +152,7 @@ Your generated Postman Collection is written to `./tmp/converted/${specName}.jso
 
 ### TODO:
 
-- add task to initalize config files
-- add interactive cli prompts
-- render better error on postman upload fail
-- create collection if postman doesn't exist
+- [ ] add task to initalize config files
+- [ ] add interactive cli prompts
+- [ ] render better error on postman upload fail
+- [x] create collection if postman doesn't exist

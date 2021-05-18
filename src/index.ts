@@ -5,6 +5,7 @@ import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
+import * as readline from 'readline'
 import emoji from 'node-emoji'
 import { CollectionDefinition } from 'postman-collection'
 import yargs from 'yargs'
@@ -66,6 +67,11 @@ require('dotenv').config()
       describe: 'Collection ID to upload generated collection to postman',
       type: 'string'
     })
+    .option('syncPostman', {
+      alias: 'syncPostman',
+      describe: 'Upload generated collection to postman',
+      type: 'boolean'
+    })
     .option('t', {
       alias: 'includeTests',
       describe: 'Inject test suite (default: true)',
@@ -114,8 +120,7 @@ require('dotenv').config()
   const includeTests = options.includeTests ?? true
   const runNewman = options.runNewman
   const newmanData = options.newmanIterationData as string || '' as string
-  const syncToPostman = !!options.postmanUid
-  const collectionId = options.postmanUid as string
+  const syncToPostman = options.syncPostman || false
   const portmanConfigFile = options.portmanConfigFile as string || 'portman-config.json' as string
   const postmanConfigFile = options.postmanConfigFile as string || 'postman-config.json' as string
   const testSuiteConfigFile = options.testSuiteConfigFile as string || 'postman-testsuite.json' as string
@@ -169,7 +174,7 @@ require('dotenv').config()
       includeTests && `-g ${testSuiteConfigFile}`
     } -c ${postmanConfigFile}`
   )
-  process.stdout.write(`\r`) // clear previous stdout message
+  readline.clearLine(process.stdout, 0) // clear previous stdout message
 
   if (!collectionGenerated) {
     throw new Error(`Collection generation failed.`)
@@ -248,10 +253,20 @@ require('dotenv').config()
   }
 
   // --- Portman - Upload Postman collection to Postman app
-  if (collectionId) {
-    console.log('Uploading to Postman...')
+  if (syncToPostman) {
+    process.stdout.write(`\r ⚡ Uploading to Postman ...`)
+    const collectionIdentification = options.p ? options.p : collection.info.name
     const postman = new PostmanService()
-    await postman.updateCollection(JSON.parse(collectionString), collectionId)
+    if (postman.isGuid(collectionIdentification)) {
+      await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
+    } else {
+      const pmColl = await postman.findCollectionByName(collectionIdentification) as any
+      if (pmColl && pmColl.uid) {
+        await postman.updateCollection(JSON.parse(collectionString), pmColl.uid)
+      } else {
+        await postman.createCollection(JSON.parse(collectionString))
+      }
+    }
   }
 
   await clearTmpDirectory()

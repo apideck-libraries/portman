@@ -11,7 +11,42 @@ export class PostmanService {
     this.apiKey = `${process.env.POSTMAN_API_KEY}`
   }
 
+  async createCollection(collection: CollectionDefinition): Promise<string> {
+    const consoleLine = '='.repeat(process.stdout.columns - 80)
+    const data = JSON.stringify({
+      collection: collection
+    })
+
+    const config = {
+      method: 'post',
+      url: `${this.baseUrl}/collections`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.apiKey
+      },
+      data: data
+    } as AxiosRequestConfig
+
+    try {
+      const res = await axios(config)
+      const data = res.data
+      console.log('Upload to Postman Success:', data)
+      return JSON.stringify(data, null, 2)
+    } catch (error) {
+      console.log(chalk.red(consoleLine))
+      console.log(
+        chalk.red(`Upload to Postman Failed'
+      `)
+      )
+      console.log(error?.response?.data)
+      console.log(`\n`)
+      console.log(chalk.red(consoleLine))
+      return error.toString()
+    }
+  }
+
   async updateCollection(collection: CollectionDefinition, uuid: string): Promise<string> {
+    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -29,24 +64,64 @@ export class PostmanService {
     try {
       const res = await axios(config)
       const data = res.data
-      console.log('Upload to Postman Success:', data)
+      console.log('\nUpload to Postman Success:', data)
       return JSON.stringify(data, null, 2)
     } catch (error) {
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       console.log(
         chalk.red(`Upload to Postman Failed'
       `)
       )
       console.log(error?.response?.data)
       console.log(`\n`)
-      console.log(
-        chalk.red(`=================================================================
-      `)
-      )
+      console.log(chalk.red(consoleLine))
       return error.toString()
     }
+  }
+
+  async findCollectionByName(collName: string): Promise<object> {
+    const config = {
+      method: 'get',
+      url: `${this.baseUrl}/collections`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.apiKey
+      }
+    } as AxiosRequestConfig
+
+    try {
+      const res = await axios(config)
+      const data = res.data
+      let match = {}
+
+      if (data.collections) {
+        // Match all items by name, since Postman API does not support filtering by name
+        const matches = data.collections.filter(function(o) {
+          return o.name.toLowerCase().replace(/\s/g, '') === collName.toLowerCase().replace(/\s/g, '')
+        })
+
+        if (matches.length === 1) {
+          match = matches[0]
+        }
+        if (matches.length > 1) {
+          // Sort by date and take newest
+          matches.sort(function(a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
+          })
+          console.log('\nMultiple Postman collection matching "' + collName + '", the most recent collection is updated.')
+          match = matches[0]
+        }
+      }
+      return match
+    } catch (error) {
+      console.log(error?.response?.data)
+      return error.toString()
+    }
+  }
+
+  isGuid(value: string | undefined): boolean {
+    return /^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}?$/.test(<string>value)
   }
 }
