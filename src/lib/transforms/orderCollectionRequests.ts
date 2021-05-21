@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
-export const orderCollectionRequests = (obj: any, orderOfOperations: string[]): any => {
+export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): any => {
   // Normalize orderOfOperations ({id}) to match with Postman format (:id)
   const orderOfOperationsNorm = orderOfOperations.map(item =>
     item.replace('{', ':').replace('}', '')
@@ -28,7 +28,7 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: string[]): 
  * @returns {(function(*=, *=): (number|number))|*}
  */
 const propComparatorPortmanOperation = (priorityArr: any): any => {
-  return function (a, b) {
+  return function(a, b) {
     if (
       a['_portman_operation'] &&
       b['_portman_operation'] &&
