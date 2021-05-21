@@ -1,8 +1,8 @@
 # OpenApi Postman test suite generation
 
-This example contains the setup of OpenApi to Postman test suite generation, which will convert the OpenApi document to a Postman collection, while adding Postman tests.
+This example contains the setup of OpenApi to Postman test suite generation, which will convert the OpenApi document to a Postman collection, while adding Postman tests. The generated tests are focussed on the API contracts (the definition of the request/response with all properties), hence the reference to "API contract testing".
 
-_use-case_: convert OpenApi to Postman with a range of Postman tests automatically generated without any complex configuration or writing of tests.
+_use-case_: convert OpenApi to Postman with a range of Postman contract tests, automatically generated, without any complex configuration or manual writing of tests.
 
 ## CLI usage
 
@@ -12,9 +12,7 @@ yarn portman --cliOptionsFile ./examples/testsuite-default-checks/portman-cli-op
 
 Configured by using the portman-cli config.
 
-
-
-This is an example where we take the the `crm.yml` OpenApi, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default testuite tests generated out-of-the-box.
+This is an example where we take the OpenAPi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box.
 
 ## Testsuite settings
 
@@ -122,10 +120,7 @@ file: examples/testsuite-default-checks/crm.postman.json >>
 
 Postman request "Leads"" >> Get lead"
 
-```json
-// Validate status Implemented 
-if(pm.response.status === 'Not Implemented'){ return };
-
+```js
 // Validate status 2xx 
 pm.test("[GET] /crm/leads/{id} - Status code is 2xx", function () {
    pm.response.to.be.success;
@@ -158,9 +153,6 @@ pm.test("[GET] /crm/leads/{id} - Schema is valid", function() {
 pm.test("[GET] /crm/leads/{id} - Response header Operation-Location is present", function () {
    pm.response.to.have.header("Operation-Location");
 });
-
-
-
 ```
 
 ### StatusSuccess
@@ -196,7 +188,6 @@ Generates a check to measure the response time, to be a maximum ms (which is set
 pm.test("[GET] /crm/leads/{id} - Response time is less than 300ms", function () {
     pm.expect(pm.response.responseTime).to.be.below(300);
 });
-
 ```
 
 ### contentType

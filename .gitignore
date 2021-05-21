@@ -11,3 +11,5 @@ postman-testsuite.json
 
 .DS_Store
 .idea
+/examples/testsuite-default-checks/tmp/
+/examples/testsuite-content-checks/tmp/
