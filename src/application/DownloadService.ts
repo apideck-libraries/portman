@@ -13,7 +13,7 @@ export class DownloadService {
       res.body.on('error', err => {
         reject(err.toString())
       })
-      fileStream.on('finish', function () {
+      fileStream.on('finish', () => {
         resolve(filePath)
       })
     })

@@ -108,7 +108,7 @@ export class PostmanService {
         }
         if (matches.length > 1) {
           // Sort by date and take newest
-          matches.sort(function (a, b) {
+          matches.sort((a, b) => {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
 

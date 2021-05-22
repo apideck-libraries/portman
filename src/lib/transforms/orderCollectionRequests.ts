@@ -28,7 +28,7 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
  * @returns {(function(*=, *=): (number|number))|*}
  */
 const propComparatorPortmanOperation = (priorityArr: any): any => {
-  return function (a, b) {
+  return (a, b) => {
     if (
       a['_portman_operation'] &&
       b['_portman_operation'] &&

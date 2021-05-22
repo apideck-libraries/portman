@@ -25,7 +25,7 @@ export const runNewmanWith = (
   }
 
   return new Promise((resolve, reject) => {
-    newman.run(newmanOptions).on('done', function (err: Error, summary) {
+    newman.run(newmanOptions).on('done', (err: Error, summary) => {
       if (err || summary.error) {
         reject(err || summary.error)
       } else {
