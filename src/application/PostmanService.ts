@@ -79,7 +79,7 @@ export class PostmanService {
     }
   }
 
-  async findCollectionByName(collName: string): Promise<object> {
+  async findCollectionByName(collName: string): Promise<CollectionDefinition> {
     const config = {
       method: 'get',
       url: `${this.baseUrl}/collections`,
@@ -96,8 +96,11 @@ export class PostmanService {
 
       if (data.collections) {
         // Match all items by name, since Postman API does not support filtering by name
-        const matches = data.collections.filter(function(o) {
-          return o.name.toLowerCase().replace(/\s/g, '') === collName.toLowerCase().replace(/\s/g, '')
+        const matches = data.collections.filter((o: CollectionDefinition) => {
+          if (!o?.name) return
+          return (
+            o.name.toLowerCase().replace(/\s/g, '') === collName.toLowerCase().replace(/\s/g, '')
+          )
         })
 
         if (matches.length === 1) {
@@ -105,12 +108,18 @@ export class PostmanService {
         }
         if (matches.length > 1) {
           // Sort by date and take newest
-          matches.sort(function(a, b) {
+          matches.sort(function (a, b) {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
           })
-          console.log('\nMultiple Postman collection matching "' + collName + '", the most recent collection is updated.')
+          console.log(
+            '\nMultiple Postman collection matching "' +
+              collName +
+              '", the most recent collection is updated.'
+          )
           match = matches[0]
         }
       }
@@ -122,6 +131,8 @@ export class PostmanService {
   }
 
   isGuid(value: string | undefined): boolean {
-    return /^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}?$/.test(<string>value)
+    return /^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}?$/.test(
+      <string>value
+    )
   }
 }
