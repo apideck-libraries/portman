@@ -4,10 +4,10 @@
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
-import path from 'path'
-import * as readline from 'readline'
 import emoji from 'node-emoji'
+import path from 'path'
 import { CollectionDefinition } from 'postman-collection'
+import * as readline from 'readline'
 import yargs from 'yargs'
 import { DownloadService } from './application/DownloadService'
 import { PostmanService } from './application/PostmanService'
@@ -96,8 +96,7 @@ require('dotenv').config()
       // alias: 'cliOptionsFile',
       describe: 'Path to the file with the Portman CLI options',
       type: 'string'
-    })
-    .argv
+    }).argv
 
   let cliOptions = {}
   if (options.cliOptionsFile) {
@@ -105,7 +104,10 @@ require('dotenv').config()
       const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
       cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
     } catch (err) {
-      console.error('\x1b[31m', 'Portman CLI Config error - no such file or directory "' + options.cliOptionsFile + '"')
+      console.error(
+        '\x1b[31m',
+        'Portman CLI Config error - no such file or directory "' + options.cliOptionsFile + '"'
+      )
       process.exit(0)
     }
   }
@@ -114,31 +116,47 @@ require('dotenv').config()
   options = { ...cliOptions, ...options }
 
   // Load all Portman CLI options & configuration files
-  const oaUrl = options.url as string || '' as string
-  const oaLocal = options.local as string || '' as string
-  const baseUrl = options.baseUrl as string || '' as string
+  const oaUrl = (options.url as string) || ('' as string)
+  const oaLocal = (options.local as string) || ('' as string)
+  const baseUrl = (options.baseUrl as string) || ('' as string)
   const includeTests = options.includeTests ?? true
   const runNewman = options.runNewman
-  const newmanData = options.newmanIterationData as string || '' as string
+  const newmanData = (options.newmanIterationData as string) || ('' as string)
   const syncToPostman = options.syncPostman || false
-  const portmanConfigFile = options.portmanConfigFile as string || 'portman-config.json' as string
-  const postmanConfigFile = options.postmanConfigFile as string || 'postman-config.json' as string
-  const testSuiteConfigFile = options.testSuiteConfigFile as string || 'postman-testsuite.json' as string
+  const portmanConfigFile =
+    (options.portmanConfigFile as string) || ('portman-config.json' as string)
+  const postmanConfigFile =
+    (options.postmanConfigFile as string) || ('postman-config.json' as string)
+  const testSuiteConfigFile =
+    (options.testSuiteConfigFile as string) || ('postman-testsuite.json' as string)
 
   const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
     await getConfig(portmanConfigFile)
 
   // --- Portman - Show processing output
-  const consoleLine = '='.repeat(process.stdout.columns-80)
+  const consoleLine = '='.repeat(process.stdout.columns - 80)
   console.log(chalk.red(consoleLine))
 
   oaUrl && console.log(chalk`{cyan  Remote Url: } \t\t{green ${oaUrl}}`)
   oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
 
-  options.cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
-  console.log(chalk`{cyan  Portman Config: } \t{green ${portmanConfigFile ? portmanConfigFile : 'unspecified'}}`)
-  console.log(chalk`{cyan  Postman Config: } \t{green ${postmanConfigFile ? postmanConfigFile : 'unspecified'}}`)
-  console.log(chalk`{cyan  Testsuite Config: } \t{green ${testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'}}`)
+  options.cliOptionsFile &&
+    console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
+  console.log(
+    chalk`{cyan  Portman Config: } \t{green ${
+      portmanConfigFile ? portmanConfigFile : 'unspecified'
+    }}`
+  )
+  console.log(
+    chalk`{cyan  Postman Config: } \t{green ${
+      postmanConfigFile ? postmanConfigFile : 'unspecified'
+    }}`
+  )
+  console.log(
+    chalk`{cyan  Testsuite Config: } \t{green ${
+      testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'
+    }}`
+  )
   console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
   console.log(chalk`{cyan  Run Newman: } \t\t{green ${!!runNewman}}`)
   console.log(chalk`{cyan  Newman Iteration Data: }{green ${newmanData ? newmanData : false}}`)
@@ -160,7 +178,7 @@ require('dotenv').config()
     }
   }
 
-  const openApiSpec = (oaLocal) ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
+  const openApiSpec = oaLocal ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
   const specExists = await fs.pathExists(openApiSpec)
   if (!specExists) {
     throw new Error(`Download failed. ${openApiSpec} doesn't exist. `)
@@ -217,7 +235,10 @@ require('dotenv').config()
   if (options.output) {
     postmanCollectionFile = options.output as string
     if (!postmanCollectionFile.includes('.json')) {
-      console.error('\x1b[31m', 'Output file error - Only .json filenames are allowed for "' + postmanCollectionFile + '"')
+      console.error(
+        '\x1b[31m',
+        'Output file error - Only .json filenames are allowed for "' + postmanCollectionFile + '"'
+      )
       process.exit(0)
     }
   }
@@ -226,7 +247,10 @@ require('dotenv').config()
     fs.writeFileSync(postmanCollectionFile, collectionString, 'utf8')
     // info('Output file: ' + options.output)
   } catch (err) {
-    console.error('\x1b[31m', 'Output file error - no such file or directory "' + postmanCollectionFile + '"')
+    console.error(
+      '\x1b[31m',
+      'Output file error - no such file or directory "' + postmanCollectionFile + '"'
+    )
     process.exit(0)
   }
 
@@ -260,9 +284,12 @@ require('dotenv').config()
     if (postman.isGuid(collectionIdentification)) {
       await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
     } else {
-      const pmColl = await postman.findCollectionByName(collectionIdentification) as any
-      if (pmColl && pmColl.uid) {
-        await postman.updateCollection(JSON.parse(collectionString), pmColl.uid)
+      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<
+        string,
+        unknown
+      >
+      if (pmColl?.uid) {
+        await postman.updateCollection(JSON.parse(collectionString), pmColl.uid as string)
       } else {
         await postman.createCollection(JSON.parse(collectionString))
       }
