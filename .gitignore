@@ -13,3 +13,4 @@ postman-testsuite.json
 .idea
 /examples/testsuite-default-checks/tmp/
 /examples/testsuite-content-checks/tmp/
+/examples/testsuite-overwrites/tmp/

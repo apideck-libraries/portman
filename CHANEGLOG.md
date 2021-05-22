@@ -3,6 +3,7 @@
 ### OpenApi-to-postman
 Bumped openapi-to-postman to version 2.7.0, which includes ContentCheck test capabilities
 Added examples for the test suite generation
+Added examples for the test suite contentChecks function
 Made the "orderOfOperations" property optional
 
 ### CLI options
