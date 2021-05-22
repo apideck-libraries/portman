@@ -1,6 +1,6 @@
 {
   "name": "@apideck/portman",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Port OpenApi Specs to Postman Collection",
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
@@ -30,7 +30,7 @@
     "bin/portman"
   ],
   "bin": {
-    "portman": "./bin/portman"
+    "portman": "bin/portman"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.8",
