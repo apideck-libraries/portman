@@ -4,10 +4,10 @@
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
-import path from 'path'
-import * as readline from 'readline'
 import emoji from 'node-emoji'
+import path from 'path'
 import { CollectionDefinition } from 'postman-collection'
+import * as readline from 'readline'
 import yargs from 'yargs'
 import { DownloadService } from './application/DownloadService'
 import { PostmanService } from './application/PostmanService'
@@ -284,9 +284,12 @@ require('dotenv').config()
     if (postman.isGuid(collectionIdentification)) {
       await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
     } else {
-      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as any
-      if (pmColl && pmColl.uid) {
-        await postman.updateCollection(JSON.parse(collectionString), pmColl.uid)
+      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<
+        string,
+        unknown
+      >
+      if (pmColl?.uid) {
+        await postman.updateCollection(JSON.parse(collectionString), pmColl.uid as string)
       } else {
         await postman.createCollection(JSON.parse(collectionString))
       }
