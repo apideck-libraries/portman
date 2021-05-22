@@ -291,7 +291,7 @@ file: examples/testsuite-overwrites/crm.postman.json >>
 
 Postman request "Leads" >> "Delete lead" Request query params:
 
-![](/Users/Haselaars/Sites/portman/examples/testsuite-overwrites/images/overwriteRequestQueryParams.png)
+![](./images/overwriteRequestQueryParams.png)
 
 ## overwriteRequestPathVariables
 
@@ -318,7 +318,7 @@ file: examples/testsuite-overwrites/crm.postman.json >>
 
 Postman request "Leads" >> "Delete lead" Request query params:
 
-![](/Users/Haselaars/Sites/portman/examples/testsuite-overwrites/images/overwriteRequestPathVariables.png)
+![](./images/overwriteRequestPathVariables.png)
 
 ### overwriteRequestQueryParams
 
@@ -345,7 +345,7 @@ file: examples/testsuite-overwrites/crm.postman.json >>
 
 Postman request "Leads" >> "Update lead" Request headers:
 
-![](/Users/Haselaars/Sites/portman/examples/testsuite-overwrites/images/overwriteRequestHeaders.png)
+![](./images/overwriteRequestHeaders.png)
 
 ## Postman test suite targeting for variables & overwrites
 
