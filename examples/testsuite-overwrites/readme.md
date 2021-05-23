@@ -138,6 +138,7 @@ These target options are both supported for defining a target. In case both are 
 
 - **overwriteRequestPathVariables (Array)** : 
   Array of key/value pairs to overwrite in the Postman Request Path Variables.  
+  
   - **key (string)** : The key that will be targeted in the request Path variables to overwrite/extend.  
   - **value (string)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/)  to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.  
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request path variable value OR attach the value  to the original request Path variable value.  
@@ -214,7 +215,6 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json >>
       ]
     }
   ]
-
 ```
 
 ### overwriteRequestBody
@@ -242,8 +242,6 @@ This will target the OpenApi `"openApiOperationId": "leadsAdd"` and will overwri
 1) the `name` property will be **extended** (because overwrite:false) with `--{{$randomInt}}` 
 
 2) the `company_name`property will be **overwritten** (because overwrite:true) with `{{randomCompanyName}} {{randomColor}}`
-
-
 
 After the conversion, in the "leadsAdd" request (POST::/crm/leads) in the Postman app, you can find the following result in the request body.
 
