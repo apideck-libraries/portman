@@ -7,6 +7,7 @@ import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
 import { CollectionDefinition } from 'postman-collection'
+import { PortmanOptions } from 'types/PortmanOptions'
 import yargs from 'yargs'
 import { DownloadService } from './application/DownloadService'
 import { OpenApiToPostmanService } from './application/OpenApiToPostmanService'
@@ -27,21 +28,6 @@ import {
   writeNewmanEnv
 } from './lib'
 
-export interface PortmanOptions {
-  url?: string
-  local?: string
-  baseUrl?: string
-  output?: string
-  runNewman?: boolean
-  newmanIterationData?: string
-  postmanUid?: string
-  syncPostman?: boolean
-  includeTests?: boolean
-  portmanConfigFile?: string
-  postmanConfigFile?: string
-  testSuiteConfigFile?: string
-  cliOptionsFile?: string
-}
 require('dotenv').config()
 ;(async () => {
   let options = yargs
