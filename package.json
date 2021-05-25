@@ -18,7 +18,7 @@
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "lint": "eslint ./src --ext ts,js",
+    "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
     "test": "jest --detectOpenHandles --colors --verbose --reporters=default --collectCoverage --no-cache",
     "test:watch": "jest  --verbose --bail --watch",
     "build": "tsc",
@@ -36,9 +36,9 @@
     "@types/fs-extra": "^9.0.8",
     "@types/node-fetch": "^2.5.8",
     "@types/postman-collection": "^3.5.5",
-    "@types/yargs": "^16.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
+    "@types/yargs": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.22.1",
@@ -46,7 +46,7 @@
     "husky": "^6.0.0",
     "np": "^7.5.0",
     "prettier": "^2.2.1",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.2.2"
   },
@@ -55,7 +55,7 @@
     "axios": "^0.21.1",
     "camel-case": "^4.1.2",
     "chalk": "^4.1.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "fp-ts": "^2.9.5",
     "fs-extra": "^9.1.0",
     "jest": "^26.6.3",
@@ -63,11 +63,12 @@
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.1",
     "openapi-to-postmanv2": "git://github.com/thim81/openapi-to-postman.git#latest.2.7.0",
+    "ora": "^5.4.0",
     "pluralize": "^8.0.0",
     "postman-collection": "^3.6.11",
     "replace-in-file": "^6.2.0",
     "ts-jest": "^26.5.3",
-    "yargs": "^16.2.0"
+    "yargs": "^17.0.1"
   },
   "keywords": [
     "apideck",
