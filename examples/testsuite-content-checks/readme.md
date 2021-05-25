@@ -62,7 +62,7 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json
   "contentChecks": [
     {
       "openApiOperationId": "leadsAll",
-      "checkRequestBody": [
+      "checkResponseBody": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"
@@ -88,21 +88,20 @@ Version 1.0
 Next to the generated tests, it is possible to define "content" checks where a property and the value of the response body should exist and match a specific value or variable.
 
 The contentChecks are mapped based on the OpenApi operationId or the OpenApi Operation reference (method + path).
-
-Anything added in `checkRequestBody` array, will be add as content check to the Postman tests.
+Anything added in `checkResponseBody` array, will be added as content check to the Postman tests.
 
 ##### Target options:
 
-- **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman request body will be tested. (example: `leadsAll`)
-- **openApiOperation (String)** : Reference to the combination of the OpenApi method & path, for which the Postman request body will be test (example: `GET::/leads`)
+- **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman Response body will be tested. (example: `leadsAll`)
+- **openApiOperation (String)** : Reference to the combination of the OpenApi method & path, for which the Postman Response body will be test (example: `GET::/leads`)
 
-These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for overwrites.
+These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for content checks.
 
 ##### Content check options:
 
-- **checkRequestBody (Array)** : Array of key/value pairs of properties & values in the Postman Request Body.
-  - **key (string)** : The key that will be targeted in the request body to check if it exists.
-  - **value (string)** : The value that will be used to check if the value in the request body matches.
+- **checkResponseBody (Array)** : Array of key/value pairs of properties & values in the Postman response body.
+  - **key (string)** : The key that will be targeted in the response body to check if it exists.
+  - **value (string)** : The value that will be used to check if the value in the response body matches.
 
 ## Example explained
 
@@ -114,7 +113,7 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json >>
 "contentChecks": [
     {
       "openApiOperationId": "leadsAll",
-      "checkRequestBody": [
+      "checkResponseBody": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"
@@ -222,7 +221,7 @@ pm.test("[GET] /crm/leads - Content check if value for 'resource' matches 'compa
 })};
 ```
 
-Per defined contenCheck item, Portman will generated 2 checks:
+Per defined "contenCheck" item, Portman will generated 2 checks:
 
 ```js
 // Response body should have property "data[0].company_name"
@@ -247,9 +246,9 @@ These 2 checks are added for each "contentCheck" item that is defined.
 
 ## Alternative targetting option
 
-In the above example we are using the OpenApi `operationId: leadsOne`to target the contect check for that specific operation.
+In the above example we are using the OpenApi `operationId: leadsOne`to target the content check for that specific operation.
 
-As alternative you can also define the target as `openApiOperation`, which is the combination of the OpenApi method & path
+As alternative, you can also define the target as `openApiOperation`, which is the combination of the OpenApi method & path
 
 In the example below, we target the `GET` method for the path `/crm/leads`.
 
@@ -257,7 +256,7 @@ In the example below, we target the `GET` method for the path `/crm/leads`.
 "contentChecks": [
     {
       "openApiOperation": "GET::/crm/leads",
-      "checkRequestBody": [
+      "checkResponseBody": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"
