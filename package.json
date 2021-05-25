@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.8",
+    "@types/node-emoji": "^1.8.1",
     "@types/node-fetch": "^2.5.8",
     "@types/postman-collection": "^3.5.5",
     "@types/yargs": "^17.0.0",

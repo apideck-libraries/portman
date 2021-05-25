@@ -15,7 +15,6 @@ import { PostmanService } from './application/PostmanService'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
-  disableOptionalParams,
   getConfig,
   injectEnvVariables,
   injectPreRequest,
@@ -222,7 +221,6 @@ require('dotenv').config()
   collection = replaceValues(['Bearer <token>', '<Bearer Token>'], '{{bearerToken}}', collection)
   collection = injectEnvVariables(collection, baseUrl)
   collection = overridePathParams(collection)
-  collection = disableOptionalParams(collection)
   collection = orderCollectionRequests(collection, orderOfOperations)
 
   // --- Portman - Set Postman pre-requests
