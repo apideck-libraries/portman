@@ -26,7 +26,7 @@
   "contentChecks": [
     {
       "openApiOperationId": "leadsAll",
-      "checkRequestBody": [
+      "checkResponseBody": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"
