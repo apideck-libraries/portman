@@ -59,7 +59,7 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json
       },
       "contentType": {
         "enabled": true
-     },
+      },
       "jsonBody": {
         "enabled": true
       },
@@ -89,10 +89,17 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json
     },
     {
       "openApiOperation": "DELETE::/crm/leads/{id}",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "raw",
+          "value": false,
+          "overwrite": true
+        }
+      ],
       "overwriteRequestPathVariables": [
         {
           "key": "id",
-          "value": "{{leadsAdd.id}}",
+          "value": "123456789",
           "overwrite": true
         }
       ]
@@ -104,6 +111,15 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json
           "key": "x-apideck-consumer-id",
           "value": "portman-id-{{$randomInt}}",
           "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "disable": true
         }
       ]
     }
@@ -171,7 +187,7 @@ In this example, we are zooming in on only the overwriteRequests usage. For the 
 file: examples/testsuite-overwrites/postman-testsuite.crm.json >>
 
 ```json
-"overwriteRequests": [
+  "overwriteRequests": [
     {
       "openApiOperationId": "leadsAdd",
       "overwriteRequestBody": [
@@ -211,6 +227,15 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json >>
           "key": "x-apideck-consumer-id",
           "value": "portman-id-{{$randomInt}}",
           "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "disable": true
         }
       ]
     }
@@ -290,6 +315,29 @@ file: examples/testsuite-overwrites/crm.postman.json >>
 Postman request "Leads" >> "Delete lead" Request query params:
 
 ![](./images/overwriteRequestQueryParams.png)
+
+The example below will showcase the "disable" setting. 
+
+```json
+{
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "disable": true
+        }
+      ]
+    }
+```
+
+This will target the OpenApi `"openApiOperationId": "leadsAll"` and will modify the request query params to set the `limit`property as **disabled** (because disable:true) in Postman.
+
+file: examples/testsuite-overwrites/crm.postman.json >>
+
+Postman request "Leads" >> "Get leads" Request query params:
+
+![](./images/overwriteRequestQueryParamsDisable.png)
+
 
 ## overwriteRequestPathVariables
 
