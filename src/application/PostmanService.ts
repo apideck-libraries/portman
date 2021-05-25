@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import chalk from 'chalk'
+import ora from 'ora'
 import { CollectionDefinition } from 'postman-collection'
 
 export class PostmanService {
@@ -61,17 +62,28 @@ export class PostmanService {
       data: data
     } as AxiosRequestConfig
 
+    const spinner = ora({
+      prefixText: ' ',
+      text: 'Uploading to Postman ...'
+    })
+
     try {
+      axios.interceptors.request.use(req => {
+        spinner.start()
+        return req
+      })
+
       const res = await axios(config)
       const data = res.data
-      console.log('\nUpload to Postman Success:', data)
+
+      spinner.succeed('Upload to Postman Success')
+
+      console.log(chalk`{cyan    -> Name: } \t\t{green ${data?.collection?.name}}`)
+      console.log(chalk`{cyan    -> UID: } \t\t{green ${data?.collection?.uid}}`)
       return JSON.stringify(data, null, 2)
     } catch (error) {
       console.log(chalk.red(consoleLine))
-      console.log(
-        chalk.red(`Upload to Postman Failed'
-      `)
-      )
+      spinner.fail(chalk.red(`Upload to Postman Failed`))
       console.log(error?.response?.data)
       console.log(`\n`)
       console.log(chalk.red(consoleLine))

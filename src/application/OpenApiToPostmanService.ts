@@ -1,5 +1,6 @@
 import fs from 'fs-extra'
 import oaConverter from 'openapi-to-postmanv2'
+import ora from 'ora'
 import path from 'path'
 
 export class OpenApiToPostmanService {
@@ -31,6 +32,11 @@ export class OpenApiToPostmanService {
         options.testSuiteSettings = JSON.parse(fs.readFileSync(testsuiteFile, 'utf8'))
       }
 
+      const spinner = ora({
+        prefixText: ' ',
+        text: 'Converting OpenApi to Postman Collection'
+      }).start()
+
       // Convert OpenApi to Postman collection
       oaConverter.convert(
         {
@@ -40,28 +46,29 @@ export class OpenApiToPostmanService {
         options,
         (err, status) => {
           if (err) {
+            spinner.fail(err.toString())
             reject(err)
           }
           if (!status.result) {
             // console.log(status.reason)
+            spinner.fail(status.reason)
             reject(status.reason)
           } else if (options.outputFile) {
             const filePath = path.resolve(options.outputFile)
-            // console.log('Writing to Postman collection: ', options.prettyPrintFlag, filePath, status) // eslint-disable-line no-console
-            fs.writeFile(filePath, JSON.stringify(status.output[0].data, null, 4), err => {
-              if (err) {
-                console.log('Could not write to file', err)
-                reject(err)
-              }
-              console.log(
-                '\x1b[32m%s\x1b[0m',
-                '\n ✅ Conversion successful, Postman collection written to file\n '
-              )
-            })
+
+            try {
+              fs.writeFileSync(filePath, JSON.stringify(status.output[0].data, null, 4))
+            } catch (error) {
+              console.log('Could not write to file', error)
+              spinner.fail(error.toString())
+              reject(error)
+            }
+
             // Return Postman collection
+            spinner.succeed('Conversion successful')
             resolve(status.output[0].data)
           } else {
-            // console.log(status.output[0].data)
+            spinner.succeed('Conversion successful')
             resolve(status.output[0].data)
           }
         }

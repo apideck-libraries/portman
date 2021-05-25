@@ -185,7 +185,6 @@ require('dotenv').config()
   }
 
   // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
-  process.stdout.write(`\r 🕓 Starting OpenApi to Postman conversion ...`)
   const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
 
   const oaToPostman = new OpenApiToPostmanService()
@@ -285,7 +284,6 @@ require('dotenv').config()
 
   // --- Portman - Upload Postman collection to Postman app
   if (syncToPostman) {
-    console.log(`⚡ Uploading to Postman ...`)
     const collectionIdentification = options?.postmanUid || collection.info.name
     const postman = new PostmanService()
     if (postman.isGuid(collectionIdentification)) {
