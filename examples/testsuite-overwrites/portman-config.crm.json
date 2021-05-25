@@ -1,0 +1,12 @@
+{
+  "preRequestScripts": [],
+  "variableOverwrites": {
+    "application_id": "{{applicationId}}"
+  },
+  "globalReplacements": [
+    {
+      "searchFor": "\"maxItems\":2,",
+      "replaceWith": ""
+    }
+  ]
+}

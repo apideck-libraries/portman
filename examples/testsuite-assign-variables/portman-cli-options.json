@@ -1,0 +1,11 @@
+{
+  "local": "./examples/testsuite-assign-variables/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/testsuite-assign-variables/crm.postman.json",
+  "portmanConfigFile": "./examples/testsuite-assign-variables/portman-config.crm.json",
+  "postmanConfigFile": "./examples/testsuite-assign-variables/postman-config.crm.json",
+  "includeTests": true,
+  "testSuiteConfigFile": "./examples/testsuite-assign-variables/postman-testsuite.crm.json",
+  "syncPostman": true,
+  "runNewman": false
+}

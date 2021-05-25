@@ -1,8 +1,16 @@
+## v0.0.x - (2021-xx-xx)
+
+### OpenApi-to-postman
+Bumped openapi-to-postman to the latest version, which includes extended assignPmVariables test capabilities
+Added examples for the test suite assignPmVariables function
+Added examples for the test suite overwriteRequests function
+
 ## v0.0.4 - (2021-05-18)
 
 ### OpenApi-to-postman
 Bumped openapi-to-postman to version 2.7.0, which includes ContentCheck test capabilities
 Added examples for the test suite generation
+Added examples for the test suite contentChecks function
 Made the "orderOfOperations" property optional
 
 ### CLI options
