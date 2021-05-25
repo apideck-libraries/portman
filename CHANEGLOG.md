@@ -1,3 +1,8 @@
+## v0.0.7 - (2021-05-25)
+
+### OpenApi-to-postman
+Corrected the incorrect "checkRequestBody" variable definition to "checkResponseBody"
+
 ## v0.0.6 - (2021-05-25)
 
 ### CLI options
