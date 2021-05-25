@@ -9,8 +9,8 @@ import path from 'path'
 import { CollectionDefinition } from 'postman-collection'
 import yargs from 'yargs'
 import { DownloadService } from './application/DownloadService'
-import { PostmanService } from './application/PostmanService'
 import { OpenApiToPostmanService } from './application/OpenApiToPostmanService'
+import { PostmanService } from './application/PostmanService'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
@@ -27,6 +27,21 @@ import {
   writeNewmanEnv
 } from './lib'
 
+export interface PortmanOptions {
+  url?: string
+  local?: string
+  baseUrl?: string
+  output?: string
+  runNewman?: boolean
+  newmanIterationData?: string
+  postmanUid?: string
+  syncPostman?: boolean
+  includeTests?: boolean
+  portmanConfigFile?: string
+  postmanConfigFile?: string
+  testSuiteConfigFile?: string
+  cliOptionsFile?: string
+}
 require('dotenv').config()
 ;(async () => {
   let options = yargs
@@ -95,7 +110,7 @@ require('dotenv').config()
       // alias: 'cliOptionsFile',
       describe: 'Path to the file with the Portman CLI options',
       type: 'string'
-    }).argv
+    }).argv as PortmanOptions
 
   let cliOptions = {}
   if (options.cliOptionsFile) {
@@ -140,7 +155,7 @@ require('dotenv').config()
   oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
 
   options.cliOptionsFile &&
-  console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
+    console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
   console.log(
     chalk`{cyan  Portman Config: } \t{green ${
       portmanConfigFile ? portmanConfigFile : 'unspecified'
@@ -197,8 +212,9 @@ require('dotenv').config()
     testsuiteFile: testSuiteConfigFile,
     testFlag: tmpCollectionFile
   }
-  const collectionGenerated = await oaToPostman.convert(openApiSpec, oaToPostmanConfig)
-    .catch(function(err) {
+  const collectionGenerated = await oaToPostman
+    .convert(openApiSpec, oaToPostmanConfig)
+    .catch(function (err) {
       console.log('error: ', err)
       throw new Error(`Collection generation failed.`)
     })
@@ -237,7 +253,7 @@ require('dotenv').config()
 
   // --- Portman - Write Postman collection to file
   let postmanCollectionFile = `./tmp/converted/${camelCase(collection.info.name)}.json`
-  if (options.output) {
+  if (options?.output) {
     postmanCollectionFile = options.output as string
     if (!postmanCollectionFile.includes('.json')) {
       console.error(
@@ -284,13 +300,15 @@ require('dotenv').config()
   // --- Portman - Upload Postman collection to Postman app
   if (syncToPostman) {
     console.log(`⚡ Uploading to Postman ...`)
-    const collectionIdentification = options.p ? options.p : collection.info.name
+    const collectionIdentification = options?.postmanUid || collection.info.name
     const postman = new PostmanService()
     if (postman.isGuid(collectionIdentification)) {
       await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
     } else {
-      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<string,
-        unknown>
+      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<
+        string,
+        unknown
+      >
       if (pmColl?.uid) {
         await postman.updateCollection(JSON.parse(collectionString), pmColl.uid as string)
       } else {

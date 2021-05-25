@@ -4,6 +4,7 @@ coverage
 tmp/*
 /dist
 .release
+.eslintcache
 
 portman-config.json
 postman-config.json
