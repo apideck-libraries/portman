@@ -1,6 +1,6 @@
 # OpenApi Postman test suite generation - Content checks
 
-In the "[examples/testsuite-default-checks](examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
+In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
 
 This example focusses on the extension of the contract test suite with specific content checks. While the contract tests focusses on the validation of the request/response properties, the "content checks" focusses on validating the actual values of the API.
 
@@ -105,7 +105,7 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the contenChecks usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("examples/testsuite-default-checks")
+In this example, we are zooming in on only the contenChecks usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
 
 file: examples/testsuite-content-checks/postman-testsuite.crm.json >>
 

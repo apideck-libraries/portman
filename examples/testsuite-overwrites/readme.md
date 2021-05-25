@@ -1,6 +1,6 @@
 # OpenApi Postman test suite generation - overwriteRequests
 
-In the "[examples/testsuite-default-checks](examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
+In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
 
 This example focusses on the manipulation of the Postman collection to make it possible to setup automation, by manipulating
 
@@ -182,7 +182,7 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the overwriteRequests usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("examples/testsuite-default-checks")
+In this example, we are zooming in on only the overwriteRequests usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
 
 file: examples/testsuite-overwrites/postman-testsuite.crm.json >>
 
