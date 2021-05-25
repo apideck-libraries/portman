@@ -127,8 +127,9 @@ require('dotenv').config()
     (options.portmanConfigFile as string) || ('portman-config.json' as string)
   const postmanConfigFile =
     (options.postmanConfigFile as string) || ('postman-config.json' as string)
-  const testSuiteConfigFile =
-    (options.testSuiteConfigFile as string) || ('postman-testsuite.json' as string)
+  const testSuiteConfigFile = !includeTests
+    ? undefined
+    : options.testSuiteConfigFile || 'postman-testsuite.json'
 
   const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
     await getConfig(portmanConfigFile)
@@ -193,7 +194,7 @@ require('dotenv').config()
     outputFile: tmpCollectionFile,
     prettyPrintFlag: true,
     configFile: postmanConfigFile,
-    testSuite: includeTests || false,
+    testSuite: includeTests,
     testsuiteFile: testSuiteConfigFile,
     testFlag: tmpCollectionFile
   }

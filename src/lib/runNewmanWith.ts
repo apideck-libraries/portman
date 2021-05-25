@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import newman from 'newman'
+import path from 'path'
 
 export const runNewmanWith = (
   postmanCollectionFile: string,
@@ -7,8 +8,8 @@ export const runNewmanWith = (
   newmanDataFile: string
 ): Promise<void> => {
   const newmanOptions = {
-    collection: require(`../.${postmanCollectionFile}`),
-    environment: require(`../.${newmanEnvFile}`),
+    collection: require(path.resolve(postmanCollectionFile)),
+    environment: require(path.resolve(newmanEnvFile)),
     reporters: ['cli'],
     reporter: {
       htmlextra: {
@@ -20,7 +21,7 @@ export const runNewmanWith = (
 
   if (newmanDataFile) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const iterationData = require(`../.${newmanDataFile}`)
+    const iterationData = require(path.resolve(newmanDataFile))
     newmanOptions['iterationData'] = iterationData
   }
 
