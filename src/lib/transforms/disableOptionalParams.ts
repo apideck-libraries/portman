@@ -8,7 +8,13 @@ export const disableOptionalParams = (obj: any): any => {
     const hasQuery = resource.item.filter(({ request: { url } }) => {
       return (
         url.query.filter(({ key }) => {
-          return ['cursor', 'email', 'name'].includes(key)
+          return [
+            'cursor',
+            'filter[email]',
+            'filter[first_name]',
+            'filter[last_name]',
+            'filter[name]'
+          ].includes(key)
         }).length > 0
       )
     })
@@ -16,7 +22,15 @@ export const disableOptionalParams = (obj: any): any => {
     hasQuery &&
       hasQuery.map(item => {
         item.request.url.query.map(item => {
-          if (['cursor', 'email', 'name'].includes(item.key)) {
+          if (
+            [
+              'cursor',
+              'filter[email]',
+              'filter[first_name]',
+              'filter[last_name]',
+              'filter[name]'
+            ].includes(item.key)
+          ) {
             item.disabled = true
           }
         })
