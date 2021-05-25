@@ -140,7 +140,7 @@ require('dotenv').config()
   oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
 
   options.cliOptionsFile &&
-    console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
+  console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
   console.log(
     chalk`{cyan  Portman Config: } \t{green ${
       portmanConfigFile ? portmanConfigFile : 'unspecified'
@@ -203,21 +203,10 @@ require('dotenv').config()
       throw new Error(`Collection generation failed.`)
     })
 
-  // const collectionGenerated = await execShellCommand(
-  //   `openapi2postmanv2 -s ${openApiSpec} -o ${tmpCollectionFile} -p ${
-  //     includeTests && `-g ${testSuiteConfigFile}`
-  //   } -c ${postmanConfigFile}`
-  // )
-
-  // if (!collectionGenerated) {
-  //   throw new Error(`Collection generation failed.`)
-  // }
-
   // --- Portman - load generated Postman collection
   let collectionJson = {}
   try {
     collectionJson = collectionGenerated as CollectionDefinition
-    // collectionJson = require(`${tmpCollectionFile}`) as CollectionDefinition
   } catch (err) {
     console.error('\x1b[31m', 'Collection generation failed ')
     process.exit(0)
@@ -300,10 +289,8 @@ require('dotenv').config()
     if (postman.isGuid(collectionIdentification)) {
       await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
     } else {
-      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<
-        string,
-        unknown
-      >
+      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<string,
+        unknown>
       if (pmColl?.uid) {
         await postman.updateCollection(JSON.parse(collectionString), pmColl.uid as string)
       } else {

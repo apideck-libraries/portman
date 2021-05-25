@@ -24,11 +24,6 @@ export class OpenApiToPostmanService {
         options = Object.assign({}, options, configFileOptions)
       }
 
-      // override options provided via cli
-      // if (definedOptions && !_.isEmpty(definedOptions)) {
-      //   options = definedOptions;
-      // }
-
       if (options.testsuiteFile) {
         let testsuiteFile = path.resolve(options.testsuiteFile)
         // console.log('Testsuite file: ', testsuiteFile)
