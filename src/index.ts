@@ -7,15 +7,14 @@ import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
 import { CollectionDefinition } from 'postman-collection'
-import * as readline from 'readline'
 import yargs from 'yargs'
 import { DownloadService } from './application/DownloadService'
 import { PostmanService } from './application/PostmanService'
+import { OpenApiToPostmanService } from './application/OpenApiToPostmanService'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
   disableOptionalParams,
-  execShellCommand,
   getConfig,
   injectEnvVariables,
   injectPreRequest,
@@ -141,7 +140,7 @@ require('dotenv').config()
   oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
 
   options.cliOptionsFile &&
-    console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
+  console.log(chalk`{cyan  Portman CLI Config: } \t{green ${options.cliOptionsFile}}`)
   console.log(
     chalk`{cyan  Portman Config: } \t{green ${
       portmanConfigFile ? portmanConfigFile : 'unspecified'
@@ -187,21 +186,27 @@ require('dotenv').config()
   // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
   process.stdout.write(`\r 🕓 Starting OpenApi to Postman conversion ...`)
   const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
-  const collectionGenerated = await execShellCommand(
-    `openapi2postmanv2 -s ${openApiSpec} -o ${tmpCollectionFile} -p ${
-      includeTests && `-g ${testSuiteConfigFile}`
-    } -c ${postmanConfigFile}`
-  )
-  readline.clearLine(process.stdout, 0) // clear previous stdout message
 
-  if (!collectionGenerated) {
-    throw new Error(`Collection generation failed.`)
+  const oaToPostman = new OpenApiToPostmanService()
+  const oaToPostmanConfig = {
+    inputFile: openApiSpec,
+    outputFile: tmpCollectionFile,
+    prettyPrintFlag: true,
+    configFile: postmanConfigFile,
+    testSuite: includeTests || false,
+    testsuiteFile: testSuiteConfigFile,
+    testFlag: tmpCollectionFile
   }
+  const collectionGenerated = await oaToPostman.convert(openApiSpec, oaToPostmanConfig)
+    .catch(function(err) {
+      console.log('error: ', err)
+      throw new Error(`Collection generation failed.`)
+    })
 
   // --- Portman - load generated Postman collection
   let collectionJson = {}
   try {
-    collectionJson = require(`${tmpCollectionFile}`) as CollectionDefinition
+    collectionJson = collectionGenerated as CollectionDefinition
   } catch (err) {
     console.error('\x1b[31m', 'Collection generation failed ')
     process.exit(0)
@@ -278,16 +283,14 @@ require('dotenv').config()
 
   // --- Portman - Upload Postman collection to Postman app
   if (syncToPostman) {
-    process.stdout.write(`\r ⚡ Uploading to Postman ...`)
+    console.log(`⚡ Uploading to Postman ...`)
     const collectionIdentification = options.p ? options.p : collection.info.name
     const postman = new PostmanService()
     if (postman.isGuid(collectionIdentification)) {
       await postman.updateCollection(JSON.parse(collectionString), collectionIdentification)
     } else {
-      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<
-        string,
-        unknown
-      >
+      const pmColl = (await postman.findCollectionByName(collectionIdentification)) as Record<string,
+        unknown>
       if (pmColl?.uid) {
         await postman.updateCollection(JSON.parse(collectionString), pmColl.uid as string)
       } else {
