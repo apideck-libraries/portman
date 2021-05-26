@@ -45,7 +45,7 @@
                   "value": ""
                 },
                 {
-                  "disabled": false,
+                  "disabled": true,
                   "description": {
                     "content": "Number of records to return",
                     "type": "text/plain"

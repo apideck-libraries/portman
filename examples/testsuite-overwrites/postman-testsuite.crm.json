@@ -65,6 +65,15 @@
           "overwrite": true
         }
       ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "disable": true
+        }
+      ]
     }
   ]
 }

@@ -1,6 +1,6 @@
 # OpenApi Postman test suite generation - assignPmVariables
 
-In the "[examples/testsuite-default-checks](examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
+In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
 
 This example focusses on assigning Postman variables based on the response of an API request, with the goal to be able to reuse them in other requests.
 
@@ -172,7 +172,7 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the overwriteRequests usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("examples/testsuite-default-checks")
+In this example, we are zooming in on only the overwriteRequests usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
 
 file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
 
