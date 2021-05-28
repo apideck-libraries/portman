@@ -127,7 +127,6 @@ Upload newly generated collection to Postman using the collection ID to overwrit
 yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
 ```
 
-
 - Pass custom paths for config files
 
 ```
@@ -149,6 +148,12 @@ By passing the CLI options as parameter, you can overwrite the defined CLI optio
 ### Output:
 
 Your generated Postman Collection is written to `./tmp/converted/${specName}.json` if you are manually importing to Postman or need to inspect for debugging.
+
+### To Note:
+
+Newman is set to ignoreRedirects to allow for testing redirect response codes. If you are running collections within Postman UI, you'll need to ensure Postman is set to the same or your redirect tests will fail.
+
+Postman > Preferences > Automatically follow redirects > OFF
 
 ### TODO:
 

@@ -1,9 +1,15 @@
+## v0.0.8 - (2021-05-28)
+
+### Newman
+
+- Set Newman option to ignore redirects
+
 ## v0.0.7 - (2021-05-25)
 
 ### OpenApi-to-postman
 
 - Corrected the incorrect "checkRequestBody" variable definition to "checkResponseBody"
-- Let testsuite overwriteRequests handle the disabling of params.
+- Let testsuite overwriteRequests handle the disabling of params
 
 ## v0.0.6 - (2021-05-25)
 
