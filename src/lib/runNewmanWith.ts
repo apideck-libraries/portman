@@ -16,7 +16,8 @@ export const runNewmanWith = (
         showEnvironmentData: true
       }
     },
-    abortOnFailure: true
+    abortOnFailure: true,
+    ignoreRedirects: true
   }
 
   if (newmanDataFile) {
