@@ -91,6 +91,10 @@ require('dotenv').config()
       describe: 'Path to postman-testsuite.json',
       type: 'string'
     })
+    .option('envFile', {
+      describe: 'Path to .env file to use for variable injection',
+      type: 'string'
+    })
     .option('cliOptionsFile', {
       // alias: 'cliOptionsFile',
       describe: 'Path to the file with the Portman CLI options',
@@ -129,6 +133,7 @@ require('dotenv').config()
   const testSuiteConfigFile = !includeTests
     ? undefined
     : options.testSuiteConfigFile || 'postman-testsuite.json'
+  const envFile = options.envFile || '.env'
 
   const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
     await getConfig(portmanConfigFile)
@@ -157,6 +162,8 @@ require('dotenv').config()
       testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'
     }}`
   )
+
+  console.log(chalk`{cyan  Environment: } \t\t{green ${envFile}}`)
   console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
   console.log(chalk`{cyan  Run Newman: } \t\t{green ${!!runNewman}}`)
   console.log(chalk`{cyan  Newman Iteration Data: }{green ${newmanData ? newmanData : false}}`)
@@ -219,7 +226,7 @@ require('dotenv').config()
     limit: includeTests ? '3' : '20'
   })
   collection = replaceValues(['Bearer <token>', '<Bearer Token>'], '{{bearerToken}}', collection)
-  collection = injectEnvVariables(collection, baseUrl)
+  collection = injectEnvVariables(collection, envFile, baseUrl)
   collection = overridePathParams(collection)
   collection = orderCollectionRequests(collection, orderOfOperations)
 

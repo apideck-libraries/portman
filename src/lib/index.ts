@@ -1,5 +1,4 @@
 export * from './clearTmpDirectory'
-export * from './execShellCommand'
 export * from './getConfig'
 export * from './runNewmanWith'
 export * from './transforms/cleanupTestSchemaDefs'
