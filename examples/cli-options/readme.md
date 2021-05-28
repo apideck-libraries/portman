@@ -23,6 +23,7 @@ yarn portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
   "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
   "includeTests": true,
   "testSuiteConfigFile": "./examples/cli-options/postman-testsuite.crm.json",
+  "envFile": "./examples/cli-options/.env",
   "postmanUid": "b43ee029-7e3f-4e20-9b81-f4a47dfb9c48",
   "runNewman": false
 }
@@ -43,5 +44,6 @@ pipeline
 - **includeTests**: a toggle to generate Postman tests based on the OpenApi specification
 - **testSuiteConfigFile**: refers to the openapi-to-postman testsuite configuration file location, which defines the test
   suite generation (examples/cli-options/postman-testsuite.crm.json)
+- **envFile**: refers to the .env file you want to use for environment variable injection (/examples/cli-options/.env)
 - **postmanUid**: refers to the collection ID to upload the generated collection to your postman app
 - **runNewman**: a toggle to run newman on newly created collection

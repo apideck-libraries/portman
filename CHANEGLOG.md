@@ -1,3 +1,9 @@
+## v0.0.9 - (2021-05-28)
+
+### CLI options
+
+- Added CLI Option `envFile` to pass a path to `.env` that Portman should use for variable injection
+
 ## v0.0.8 - (2021-05-28)
 
 ### Newman

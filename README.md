@@ -45,6 +45,7 @@ Options:
   -c, --portmanConfigFile    Path to portman-config.json                                  [string]
   -s, --postmanConfigFile    Path to postman-config.json                                  [string]
   -g, --testSuiteConfigFile  Path to postman-testsuite.json                               [string]
+  --envFile                  Path to the .env file to inject environment variables        [string]
   --cliConfigFile            Path to the file with the Portman CLI options                [string]
 
 ```
@@ -63,6 +64,11 @@ will be available in your collection or tests by referencing:
 ```
 {{consumerId}}
 ```
+
+#### Recommended:
+
+A separate `.env` file lives in the root of your project to hold your `POSTMAN_API_KEY`, but a spec specific `.env` file can live next to your config files, and the path passed in via `envFile` cli option.
+This is useful if you have Portman managing multiple specs that have unique environment requirements.
 
 ### Config:
 

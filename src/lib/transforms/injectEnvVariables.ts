@@ -1,5 +1,6 @@
 import { camelCase } from 'camel-case'
 import { config } from 'dotenv'
+import path from 'path'
 import { CollectionDefinition, VariableDefinition } from 'postman-collection'
 
 const upsertEnvVariable = (
@@ -22,6 +23,7 @@ const upsertEnvVariable = (
 
 export const injectEnvVariables = (
   obj: CollectionDefinition,
+  envFile: string,
   baseUrl: string | undefined
 ): CollectionDefinition => {
   let variables = (obj.variable as VariableDefinition[]) || []
@@ -29,7 +31,7 @@ export const injectEnvVariables = (
     return (item.id = 'baseUrl')
   })?.value
 
-  const { parsed = {} } = config()
+  const { parsed = {} } = config({ path: path.resolve(envFile) })
 
   for (const [key, val] of Object.entries(parsed)) {
     if (key.startsWith('PORTMAN_')) {
