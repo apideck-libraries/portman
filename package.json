@@ -63,6 +63,7 @@
     "newman": "^5.2.3",
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.1",
+    "openapi-format": "^1.2.3",
     "openapi-to-postmanv2": "git://github.com/thim81/openapi-to-postman.git#latest.2.7.0",
     "ora": "^5.4.0",
     "pluralize": "^8.0.0",

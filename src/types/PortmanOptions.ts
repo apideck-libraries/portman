@@ -11,6 +11,7 @@ export interface PortmanOptions {
   portmanConfigFile?: string
   postmanConfigFile?: string
   testSuiteConfigFile?: string
+  filterFile?: string
   envFile?: string
   cliOptionsFile?: string
 }
