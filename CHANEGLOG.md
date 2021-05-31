@@ -1,3 +1,9 @@
+## v0.1.0 - (2021-05-31)
+
+### OpenApi-Format / CLI options
+
+- Added CLI Option filterFile to pass path to filter options for ignoring requests in spec before passing to Postman conversion
+
 ## v0.0.9 - (2021-05-28)
 
 ### CLI options
