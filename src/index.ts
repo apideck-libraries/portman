@@ -9,9 +9,12 @@ import path from 'path'
 import { CollectionDefinition } from 'postman-collection'
 import { PortmanOptions } from 'types/PortmanOptions'
 import yargs from 'yargs'
-import { DownloadService } from './application/DownloadService'
-import { OpenApiToPostmanService } from './application/OpenApiToPostmanService'
-import { PostmanService } from './application/PostmanService'
+import {
+  DownloadService,
+  OpenApiParser,
+  OpenApiToPostmanService,
+  PostmanService
+} from './application'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
@@ -205,6 +208,20 @@ require('dotenv').config()
     )
     openApiSpec = openApiSpecPath
   }
+
+  // --- openapi-typescript - Generate a typed schema of OpenApi
+
+  const oasParser = new OpenApiParser()
+  const oasDocument = await oasParser
+    .convert({
+      inputFile: openApiSpec
+    })
+    .catch(err => {
+      console.log('error: ', err)
+      throw new Error(`Parsing ${openApiSpec} failed.`)
+    })
+
+  console.log(oasDocument)
   // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
   const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
 

@@ -32,7 +32,7 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "paths": {
-      "*": ["./src/*", "./*"]
+      "*": ["./src/*", "./*", "./__test__/*"]
     }
   },
   "include": ["src"],
