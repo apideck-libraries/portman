@@ -15,6 +15,7 @@ import { PostmanService } from './application/PostmanService'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
+  execShellCommand,
   getConfig,
   injectEnvVariables,
   injectPreRequest,
@@ -91,6 +92,10 @@ require('dotenv').config()
       describe: 'Path to postman-testsuite.json',
       type: 'string'
     })
+    .option('filterFile', {
+      describe: 'Path to openapi-format-filter.json',
+      type: 'string'
+    })
     .option('envFile', {
       describe: 'Path to .env file to use for variable injection',
       type: 'string'
@@ -134,6 +139,7 @@ require('dotenv').config()
     ? undefined
     : options.testSuiteConfigFile || 'postman-testsuite.json'
   const envFile = options.envFile || '.env'
+  const filterFile = options.filterFile
 
   const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
     await getConfig(portmanConfigFile)
@@ -185,12 +191,20 @@ require('dotenv').config()
     }
   }
 
-  const openApiSpec = oaLocal ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
+  let openApiSpec = oaLocal ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
   const specExists = await fs.pathExists(openApiSpec)
   if (!specExists) {
     throw new Error(`Download failed. ${openApiSpec} doesn't exist. `)
   }
 
+  if (filterFile && (await fs.pathExists(filterFile))) {
+    const openApiSpecPath = './tmp/converted/filtered.yml'
+
+    await execShellCommand(
+      `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
+    )
+    openApiSpec = openApiSpecPath
+  }
   // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
   const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
 
