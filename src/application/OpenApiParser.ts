@@ -1,25 +1,21 @@
 import SwaggerParser from '@apidevtools/swagger-parser'
-import { OpenAPI } from 'openapi-types'
+import { OpenAPIV3 } from 'openapi-types'
 import path from 'path'
+import { MappedOperation } from '../lib/oas/MappedOperation'
 
 export interface OpenApiParserConfig {
   inputFile: string
 }
 
-export interface PortmanOperation {
-  id: string
-  pathRef: string
-  operation: OpenAPI.Operation
-}
-
 export class OpenApiParser {
-  public oas: OpenAPI.Document
-  public operationMap: PortmanOperation[]
+  public oas: OpenAPIV3.Document
+  public mappedOperations: MappedOperation[]
 
-  async convert(options: OpenApiParserConfig): Promise<OpenAPI.Document> {
+  async convert(options: OpenApiParserConfig): Promise<OpenAPIV3.Document> {
     const inputFile = path.resolve(options.inputFile)
+    // Dereference the spec so all entities have encapsulated schemas
     const api = await SwaggerParser.dereference(inputFile)
-    const oasDoc = await SwaggerParser.bundle(api, {
+    const oasDoc = (await SwaggerParser.bundle(api, {
       parse: {
         json: false, // Disable the JSON parser
         yaml: {
@@ -32,42 +28,39 @@ export class OpenApiParser {
       validate: {
         spec: false // Don't validate against the Swagger spec
       }
-    })
+    })) as OpenAPIV3.Document
+
     this.oas = oasDoc
-    this.operationMap = this.pathsToOperations()
+    this.mappedOperations = this.pathsToOperations()
     return oasDoc
   }
 
-  pathsToOperations = (): PortmanOperation[] => {
-    const {
-      oas: { paths = {} }
-    } = this
-
+  pathsToOperations = (): MappedOperation[] => {
+    const paths = this.oas.paths
     const mappedOperations = Object.entries(paths)
+      .filter(([_path, operations]) => !!operations)
       .map(([path, operations]) => {
-        return Object.entries(operations).map(([method, operation]): PortmanOperation => {
-          const mappedOperation = operation as OpenAPI.Operation
-          return {
-            id: mappedOperation?.operationId || '',
-            pathRef: `${method.toUpperCase()}::${path}`,
-            operation: mappedOperation
-          }
-        })
+        return (
+          operations &&
+          Object.entries(operations).map(([method, operation]): MappedOperation => {
+            return new MappedOperation(path, method, operation as OpenAPIV3.OperationObject)
+          })
+        )
       })
-      .reduce((acc, resource) => {
-        resource.map(item => acc.push(item))
+      .reduce<MappedOperation[]>((acc, resource) => {
+        resource && resource.map(item => acc.push(item))
         return acc
       }, [])
 
-    this.operationMap = mappedOperations
-    return this.operationMap
+    this.mappedOperations = mappedOperations
+    return this.mappedOperations
   }
 
-  public getOperationById(operationId: string): OpenAPI.Operation | null {
-    return this.operationMap.find(({ id }) => id === operationId)?.operation || null
+  public getOperationById(operationId: string): MappedOperation | null {
+    return this.mappedOperations.find(({ id }) => id === operationId) || null
   }
 
-  public getOperationByPath(path: string): OpenAPI.Operation | null {
-    return this.operationMap.find(({ pathRef }) => pathRef === path)?.operation || null
+  public getOperationByPath(path: string): MappedOperation | null {
+    return this.mappedOperations.find(({ pathRef }) => pathRef === path) || null
   }
 }
