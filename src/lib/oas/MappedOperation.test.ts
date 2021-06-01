@@ -13,8 +13,13 @@ describe('MappedOperation', () => {
   })
 
   it(`should set itself up using operation and params`, async () => {
-    const operation = Object.values(parser.oas.paths)[0]['post']
-    const mappedOperation = new MappedOperation(path, method, operation)
+    const paths = parser.oas?.paths
+    expect(paths).toBeDefined()
+
+    const specOperation = Object.values(paths)?.[0]?.['post']
+    expect(specOperation).toBeDefined()
+
+    const mappedOperation = new MappedOperation(path, method, specOperation)
     expect(mappedOperation).toMatchSnapshot()
   })
 })
