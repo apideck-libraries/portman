@@ -1,7 +1,11 @@
+import { OpenAPIV3 } from 'openapi-types'
 import { OpenApiParser } from '../../application/OpenApiParser'
 import { MappedOperation } from './MappedOperation'
 
 describe('MappedOperation', () => {
+  let specOperation: OpenAPIV3.OperationObject
+  let mappedOperation: MappedOperation
+
   const oasYml = '__tests__/fixtures/crm.yml'
   const parser = new OpenApiParser()
 
@@ -10,16 +14,44 @@ describe('MappedOperation', () => {
 
   beforeEach(async () => {
     await parser.convert({ inputFile: oasYml })
-  })
-
-  it(`should set itself up using operation and params`, async () => {
     const paths = parser.oas?.paths
     expect(paths).toBeDefined()
 
-    const specOperation = Object.values(paths)?.[0]?.['post']
+    specOperation = Object.values(paths)?.[0]?.['post'] || {}
     expect(specOperation).toBeDefined()
+    mappedOperation = new MappedOperation(path, method, specOperation)
+  })
 
-    const mappedOperation = new MappedOperation(path, method, specOperation)
+  it(`should set itself up using operation and params`, () => {
     expect(mappedOperation).toMatchSnapshot()
+  })
+
+  it('should handle operationId not present', () => {
+    const { operationId, ...operation } = specOperation
+    mappedOperation = new MappedOperation(path, method, operation)
+    expect(mappedOperation.id).not.toBeDefined()
+  })
+
+  describe('requestBodySchema', () => {
+    it('should have access to the requestBody for mediaType', () => {
+      const mediaType = 'application/json'
+      const requestBody = mappedOperation.requestBodySchema(mediaType)
+      expect(requestBody).toMatchSnapshot()
+    })
+
+    it('should return null for unknown mediaType', () => {
+      const mediaType = 'application/xml'
+      const requestBodySchema = mappedOperation.requestBodySchema(mediaType)
+      expect(requestBodySchema).not.toBeDefined()
+    })
+
+    it('should return null when no requestBody schema exists', () => {
+      const mediaType = 'application/xml'
+      const { requestBody, ...operation } = specOperation
+      mappedOperation = new MappedOperation(path, method, operation)
+
+      const requestBodySchema = mappedOperation.requestBodySchema(mediaType)
+      expect(requestBodySchema).not.toBeDefined()
+    })
   })
 })

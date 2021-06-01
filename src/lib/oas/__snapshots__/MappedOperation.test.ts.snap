@@ -1,5 +1,361 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`MappedOperation requestBodySchema should have access to the requestBody for mediaType 1`] = `
+Object {
+  "additionalProperties": false,
+  "properties": Object {
+    "addresses": Object {
+      "items": Object {
+        "properties": Object {
+          "city": Object {
+            "description": "Name of city.",
+            "example": "San Francisco",
+            "nullable": true,
+            "type": "string",
+          },
+          "country": Object {
+            "description": "country code according to ISO 3166-1 alpha-2.",
+            "example": "US",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "123",
+            "nullable": true,
+            "type": "string",
+          },
+          "latitude": Object {
+            "example": "40.759211",
+            "nullable": true,
+            "type": "string",
+          },
+          "line1": Object {
+            "description": "Line 1 of the address e.g. number, street, suite, apt #, etc.",
+            "example": "Main street",
+            "nullable": true,
+            "type": "string",
+          },
+          "line2": Object {
+            "description": "Line 2 of the address",
+            "example": "apt #",
+            "nullable": true,
+            "type": "string",
+          },
+          "longitude": Object {
+            "example": "-73.984638",
+            "nullable": true,
+            "type": "string",
+          },
+          "name": Object {
+            "example": "HQ US",
+            "nullable": true,
+            "type": "string",
+          },
+          "postal_code": Object {
+            "description": "Zip code or equivalent.",
+            "example": "94104",
+            "nullable": true,
+            "type": "string",
+          },
+          "state": Object {
+            "description": "Name of state",
+            "example": "CA",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "home",
+              "office",
+              "shipping",
+              "billing",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "AddressType",
+          },
+        },
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "bank_accounts": Object {
+      "items": Object {
+        "properties": Object {
+          "bic": Object {
+            "example": "AUDSCHGGXXX",
+            "nullable": true,
+            "type": "string",
+          },
+          "iban": Object {
+            "example": "CH2989144532982975332",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "created_at": Object {
+      "example": "2020-09-30T07:43:32.000Z",
+      "readOnly": true,
+      "type": "string",
+    },
+    "created_by": Object {
+      "example": "12345",
+      "nullable": true,
+      "readOnly": true,
+      "type": "string",
+    },
+    "currency": Object {
+      "example": "USD",
+      "nullable": true,
+      "type": "string",
+    },
+    "custom_fields": Object {
+      "items": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "id": Object {
+            "example": "custom_technologies",
+            "type": "string",
+          },
+          "value": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Uses Salesforce and Marketo",
+                "nullable": true,
+                "type": "string",
+              },
+              Object {
+                "example": 10,
+                "nullable": true,
+                "type": "number",
+              },
+              Object {
+                "example": true,
+                "nullable": true,
+                "type": "boolean",
+              },
+              Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "type": "array",
+              },
+            ],
+          },
+        },
+        "required": Array [
+          "id",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "description": Object {
+      "example": "A crm that works for you, so you can spend time on relationships instead of data.",
+      "nullable": true,
+      "type": "string",
+    },
+    "emails": Object {
+      "items": Object {
+        "properties": Object {
+          "email": Object {
+            "example": "elon@musk.com",
+            "format": "email",
+            "type": "string",
+          },
+          "id": Object {
+            "example": "123",
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "work",
+              "personal",
+              "billing",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "EmailType",
+          },
+        },
+        "required": Array [
+          "email",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "fax": Object {
+      "example": "+12129876543",
+      "nullable": true,
+      "type": "string",
+    },
+    "id": Object {
+      "example": "12345",
+      "readOnly": true,
+      "type": "string",
+    },
+    "image_url": Object {
+      "example": "https://www.spacex.com/static/images/share.jpg",
+      "nullable": true,
+      "type": "string",
+    },
+    "interaction_count": Object {
+      "example": 1,
+      "nullable": true,
+      "readOnly": true,
+      "type": "integer",
+    },
+    "name": Object {
+      "example": "Copper",
+      "type": "string",
+    },
+    "owner_id": Object {
+      "example": "12345",
+      "type": "string",
+    },
+    "phone_numbers": Object {
+      "items": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "number": Object {
+            "example": "111-111-1111",
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "home",
+              "office",
+              "mobile",
+              "assistant",
+              "fax",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "PhoneType",
+          },
+        },
+        "required": Array [
+          "number",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "social_links": Object {
+      "items": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "example": "twitter",
+            "nullable": true,
+            "type": "string",
+          },
+          "url": Object {
+            "example": "https://www.twitter.com/apideck-io",
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "url",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "status": Object {
+      "example": "Open",
+      "minLength": 1,
+      "nullable": true,
+      "type": "string",
+    },
+    "tags": Object {
+      "example": Array [
+        "New",
+      ],
+      "items": Object {
+        "type": "string",
+      },
+      "type": "array",
+    },
+    "updated_at": Object {
+      "example": "2020-09-30T07:43:32.000Z",
+      "readOnly": true,
+      "type": "string",
+    },
+    "updated_by": Object {
+      "example": "12345",
+      "nullable": true,
+      "readOnly": true,
+      "type": "string",
+    },
+    "vat_number": Object {
+      "description": "VAT number",
+      "example": "BE0689615164",
+      "nullable": true,
+      "type": "string",
+    },
+    "websites": Object {
+      "items": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "work",
+              "personal",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "WebsiteType",
+          },
+          "url": Object {
+            "example": "http://example.com",
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "url",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+  },
+  "required": Array [
+    "name",
+  ],
+  "type": "object",
+}
+`;
+
 exports[`MappedOperation should set itself up using operation and params 1`] = `
 MappedOperation {
   "cookieParams": Array [],

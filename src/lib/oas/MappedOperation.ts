@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types'
 
 export interface IMappedOperation {
-  id: string
+  id?: string
   path: string
   method: string
   pathRef: string
@@ -15,7 +15,7 @@ export interface IMappedOperation {
 }
 
 export class MappedOperation implements IMappedOperation {
-  public id: string
+  public id?: string
   public path: string
   public method: string
   public pathRef: string
@@ -27,7 +27,7 @@ export class MappedOperation implements IMappedOperation {
 
   constructor(path: string, method: string, operation: OpenAPIV3.OperationObject) {
     this.schema = { ...operation }
-    this.id = this.schema?.operationId || ''
+    this.id = this.schema?.operationId
     this.method = method.toUpperCase()
     this.path = path
     this.pathRef = `${this.method}::${path}`
