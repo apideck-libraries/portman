@@ -38406,7 +38406,7 @@ If you have problems or need help with your case, you can always reach out to ou
 }
 `;
 
-exports[`OpenApiParser getOperationById should be able to retrieve a MappedOperation by operationId 1`] = `
+exports[`OpenApiParser getOperationById should be able to retrieve a OasMappedOperation by operationId 1`] = `
 Object {
   "description": "List users",
   "operationId": "usersAll",
@@ -38938,7 +38938,7 @@ Object {
 }
 `;
 
-exports[`OpenApiParser getOperationByPath should be able to retrieve a MappedOperation by operationId with path param 1`] = `
+exports[`OpenApiParser getOperationByPath should be able to retrieve a OasMappedOperation by operationId with path param 1`] = `
 Object {
   "description": "Create company",
   "operationId": "companiesAdd",
@@ -39686,7 +39686,7 @@ Object {
 }
 `;
 
-exports[`OpenApiParser getOperationByPath should be able to retrieve a read MappedOperation by operationId 1`] = `
+exports[`OpenApiParser getOperationByPath should be able to retrieve a read OasMappedOperation by operationId 1`] = `
 Object {
   "description": "Get company",
   "operationId": "companiesOne",

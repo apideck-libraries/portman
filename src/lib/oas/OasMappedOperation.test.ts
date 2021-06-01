@@ -1,10 +1,10 @@
 import { OpenAPIV3 } from 'openapi-types'
 import { OpenApiParser } from '../../application/OpenApiParser'
-import { MappedOperation } from './MappedOperation'
+import { OasMappedOperation } from './OasMappedOperation'
 
-describe('MappedOperation', () => {
+describe('OasMappedOperation', () => {
   let specOperation: OpenAPIV3.OperationObject
-  let mappedOperation: MappedOperation
+  let mappedOperation: OasMappedOperation
 
   const oasYml = '__tests__/fixtures/crm.yml'
   const parser = new OpenApiParser()
@@ -19,7 +19,7 @@ describe('MappedOperation', () => {
 
     specOperation = Object.values(paths)?.[0]?.['post'] || {}
     expect(specOperation).toBeDefined()
-    mappedOperation = new MappedOperation(path, method, specOperation)
+    mappedOperation = new OasMappedOperation(path, method, specOperation)
   })
 
   it(`should set itself up using operation and params`, () => {
@@ -28,7 +28,7 @@ describe('MappedOperation', () => {
 
   it('should handle operationId not present', () => {
     const { operationId, ...operation } = specOperation
-    mappedOperation = new MappedOperation(path, method, operation)
+    mappedOperation = new OasMappedOperation(path, method, operation)
     expect(mappedOperation.id).not.toBeDefined()
   })
 
@@ -48,7 +48,7 @@ describe('MappedOperation', () => {
     it('should return null when no requestBody schema exists', () => {
       const mediaType = 'application/xml'
       const { requestBody, ...operation } = specOperation
-      mappedOperation = new MappedOperation(path, method, operation)
+      mappedOperation = new OasMappedOperation(path, method, operation)
 
       const requestBodySchema = mappedOperation.requestBodySchema(mediaType)
       expect(requestBodySchema).not.toBeDefined()

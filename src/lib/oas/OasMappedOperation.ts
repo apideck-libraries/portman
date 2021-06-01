@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types'
 
-export interface IMappedOperation {
+export interface IOasMappedOperation {
   id?: string
   path: string
   method: string
@@ -14,7 +14,7 @@ export interface IMappedOperation {
   requestBody(): OpenAPIV3.RequestBodyObject | undefined
 }
 
-export class MappedOperation implements IMappedOperation {
+export class OasMappedOperation implements IOasMappedOperation {
   public id?: string
   public path: string
   public method: string

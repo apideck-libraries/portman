@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MappedOperation requestBodySchema should have access to the requestBody for mediaType 1`] = `
+exports[`OasMappedOperation requestBodySchema should have access to the requestBody for mediaType 1`] = `
 Object {
   "additionalProperties": false,
   "properties": Object {
@@ -356,8 +356,8 @@ Object {
 }
 `;
 
-exports[`MappedOperation should set itself up using operation and params 1`] = `
-MappedOperation {
+exports[`OasMappedOperation should set itself up using operation and params 1`] = `
+OasMappedOperation {
   "cookieParams": Array [],
   "id": "companiesAdd",
   "method": "POST",

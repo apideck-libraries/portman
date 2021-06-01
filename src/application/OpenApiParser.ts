@@ -1,15 +1,24 @@
 import SwaggerParser from '@apidevtools/swagger-parser'
 import { OpenAPIV3 } from 'openapi-types'
 import path from 'path'
-import { MappedOperation } from '../lib/oas/MappedOperation'
+import { OasMappedOperation } from '../lib/oas/OasMappedOperation'
 
 export interface OpenApiParserConfig {
   inputFile: string
 }
 
+export interface IOpenApiParser {
+  oas: OpenAPIV3.Document
+  mappedOperations: OasMappedOperation[]
+  operationIdMap: Record<string, OasMappedOperation>
+  getOperationById(operationId: string): OasMappedOperation | null
+  getOperationByPath(path: string): OasMappedOperation | null
+}
+
 export class OpenApiParser {
   public oas: OpenAPIV3.Document
-  public mappedOperations: MappedOperation[]
+  public mappedOperations: OasMappedOperation[]
+  public operationIdMap: Record<string, OasMappedOperation>
 
   async convert(options: OpenApiParserConfig): Promise<OpenAPIV3.Document> {
     const inputFile = path.resolve(options.inputFile)
@@ -31,23 +40,24 @@ export class OpenApiParser {
     })) as OpenAPIV3.Document
 
     this.oas = oasDoc
-    this.mappedOperations = this.pathsToOperations()
+    this.pathsToOperations()
+    this.mapOperationIds()
     return oasDoc
   }
 
-  pathsToOperations = (): MappedOperation[] => {
+  pathsToOperations = (): OasMappedOperation[] => {
     const paths = this.oas.paths
     const mappedOperations = Object.entries(paths)
       .filter(([_path, operations]) => !!operations)
       .map(([path, operations]) => {
         return (
           operations &&
-          Object.entries(operations).map(([method, operation]): MappedOperation => {
-            return new MappedOperation(path, method, operation as OpenAPIV3.OperationObject)
+          Object.entries(operations).map(([method, operation]): OasMappedOperation => {
+            return new OasMappedOperation(path, method, operation as OpenAPIV3.OperationObject)
           })
         )
       })
-      .reduce<MappedOperation[]>((acc, resource) => {
+      .reduce<OasMappedOperation[]>((acc, resource) => {
         resource && resource.map(item => acc.push(item))
         return acc
       }, [])
@@ -56,11 +66,20 @@ export class OpenApiParser {
     return this.mappedOperations
   }
 
-  public getOperationById(operationId: string): MappedOperation | null {
+  mapOperationIds = (): void => {
+    const operationIdMap = this.mappedOperations.reduce((acc, operation) => {
+      acc[operation.pathRef] = operation
+      return acc
+    }, {})
+
+    this.operationIdMap = operationIdMap
+  }
+
+  public getOperationById(operationId: string): OasMappedOperation | null {
     return this.mappedOperations.find(({ id }) => id === operationId) || null
   }
 
-  public getOperationByPath(path: string): MappedOperation | null {
+  public getOperationByPath(path: string): OasMappedOperation | null {
     return this.mappedOperations.find(({ pathRef }) => pathRef === path) || null
   }
 }
