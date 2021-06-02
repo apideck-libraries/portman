@@ -1,5 +1,5 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
-import { Request } from 'postman-collection'
+import { Item, Request } from 'postman-collection'
 
 export interface IPostmanMappedOperation {
   id?: string
@@ -11,6 +11,7 @@ export interface IPostmanMappedOperation {
   queryParams: Record<string, unknown>
   pathParams: Record<string, unknown>
   request: Request
+  item: Item
 }
 
 export class PostmanMappedOperation implements IPostmanMappedOperation {
@@ -23,8 +24,10 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
   public queryParams: Record<string, unknown>
   public pathParams: Record<string, unknown>
   public request: Request
+  public item: Item
 
-  constructor(request: Request, operationIdMap: Record<string, OasMappedOperation>) {
+  constructor(item: Item, request: Request, operationIdMap: Record<string, OasMappedOperation>) {
+    this.item = item
     this.request = request
     this.method = request.method.toUpperCase()
 

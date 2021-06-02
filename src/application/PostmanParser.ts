@@ -21,6 +21,7 @@ export class PostmanParser {
   public collection: Collection
   public mappedOperations: PostmanMappedOperation[]
   public requests: Request[]
+  public pmItems: []
 
   private oasParser?: IOpenApiParser
 
@@ -30,6 +31,7 @@ export class PostmanParser {
     this.oasParser = oasParser
     this.collection = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))
     this.requests = []
+    this.pmItems = []
     this.itemsToOperations()
   }
 
@@ -39,6 +41,7 @@ export class PostmanParser {
       const request = (item as Item).request
       if (request && Request.isRequest(request)) {
         requests.push(request)
+        this.pmItems.push({ pmItem: item as Item, pmRequest: request as Request })
       }
     }
     // Check if this is a nested folder
@@ -72,8 +75,8 @@ export class PostmanParser {
     })
 
     const operationIdMap = this.oasParser?.operationIdMap || {}
-    this.mappedOperations = requests.map(request => {
-      return new PostmanMappedOperation(request, operationIdMap)
+    this.mappedOperations = this.pmItems.map(request => {
+      return new PostmanMappedOperation(request.pmItem, request.pmRequest, operationIdMap)
     })
   }
 

@@ -20,6 +20,7 @@ import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
   execShellCommand,
+  generateRequestChecks,
   getConfig,
   injectEnvVariables,
   injectPreRequest,
@@ -222,7 +223,7 @@ require('dotenv').config()
       throw new Error(`Parsing ${openApiSpec} failed.`)
     })
 
-  console.log(oasDocument)
+  // console.log(oasDocument)
   // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
   const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
 
@@ -245,9 +246,15 @@ require('dotenv').config()
 
   // --- Portman - load generated Postman collection
   console.log('options', options)
-  const postmanParser = new PostmanParser({ inputFile: options.output, oasParser: oasParser })
+  // const postmanParser = new PostmanParser({ inputFile: options.output, oasParser: oasParser })
+  const postmanObj = new PostmanParser({ inputFile: options.output, oasParser: oasParser })
 
-  console.log(postmanParser.requests)
+  // console.log(postmanParser.requests)
+
+  // const PortmanCollection =
+  generateRequestChecks(postmanObj, oasParser)
+
+  // console.log('PortmanCollection', PortmanCollection)
 
   let collectionJson = {}
   try {
@@ -256,6 +263,7 @@ require('dotenv').config()
     console.error('\x1b[31m', 'Collection generation failed ')
     process.exit(0)
   }
+  // console.log('collectionJson', collectionJson)
 
   // --- Portman - Overwrite Postman variables & values
   let collection = replaceVariables(collectionJson, {
