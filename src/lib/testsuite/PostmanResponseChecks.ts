@@ -67,7 +67,7 @@ const generateResponseSuccessCheck = (pmOperation: any, oaOperation: any): any =
   // console.log('oaResponse', oaResponse)
 
   // Add status success check
-  const pmTest = []
+  const pmTest: string[] = []
   pmTest.push('// Validate status 2xx \n')
   pmTest.push('pm.test("[' + pmOperation.method.toUpperCase() + '] /' + pmOperation.path)
   pmTest.push(' - Status code is 2xx", function () {\n')
