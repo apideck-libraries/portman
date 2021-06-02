@@ -13,6 +13,7 @@ import {
   DownloadService,
   OpenApiParser,
   OpenApiToPostmanService,
+  PostmanParser,
   PostmanService
 } from './application'
 import {
@@ -243,6 +244,11 @@ require('dotenv').config()
     })
 
   // --- Portman - load generated Postman collection
+  console.log('options', options)
+  const postmanParser = new PostmanParser({ inputFile: options.output, oasParser: oasParser })
+
+  console.log(postmanParser.requests)
+
   let collectionJson = {}
   try {
     collectionJson = collectionGenerated as CollectionDefinition
