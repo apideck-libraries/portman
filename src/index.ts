@@ -6,21 +6,21 @@ import chalk from 'chalk'
 import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
-import { CollectionDefinition } from 'postman-collection'
 import { PortmanOptions } from 'types/PortmanOptions'
 import yargs from 'yargs'
 import {
   DownloadService,
+  IOpenApiToPostmanConfig,
   OpenApiParser,
   OpenApiToPostmanService,
   PostmanParser,
-  PostmanService
+  PostmanService,
+  TestSuiteService
 } from './application'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
   execShellCommand,
-  generateRequestChecks,
   getConfig,
   injectEnvVariables,
   injectPreRequest,
@@ -198,8 +198,9 @@ require('dotenv').config()
 
   let openApiSpec = oaLocal ? './tmp/converted/spec.yml' : await new DownloadService().get(oaUrl)
   const specExists = await fs.pathExists(openApiSpec)
+
   if (!specExists) {
-    throw new Error(`Download failed. ${openApiSpec} doesn't exist. `)
+    throw new Error(`${openApiSpec} doesn't exist. `)
   }
 
   if (filterFile && (await fs.pathExists(filterFile))) {
@@ -211,10 +212,8 @@ require('dotenv').config()
     openApiSpec = openApiSpecPath
   }
 
-  // --- openapi-typescript - Generate a typed schema of OpenApi
-
   const oasParser = new OpenApiParser()
-  const oasDocument = await oasParser
+  await oasParser
     .convert({
       inputFile: openApiSpec
     })
@@ -223,47 +222,29 @@ require('dotenv').config()
       throw new Error(`Parsing ${openApiSpec} failed.`)
     })
 
-  // console.log(oasDocument)
-  // --- openapi-to-postman - Transform OpenApi to Postman collection, with optional test suite generation
-  const tmpCollectionFile = `${process.cwd()}/tmp/working/tmpCollection.json`
-
+  // --- openapi-to-postman - Transform OpenApi to Postman collection
   const oaToPostman = new OpenApiToPostmanService()
-  const oaToPostmanConfig = {
-    inputFile: openApiSpec,
-    outputFile: tmpCollectionFile,
-    prettyPrintFlag: true,
-    configFile: postmanConfigFile,
-    testSuite: includeTests,
-    testsuiteFile: testSuiteConfigFile,
-    testFlag: tmpCollectionFile
+  const oaToPostmanConfig: IOpenApiToPostmanConfig = {
+    openApiObj: oasParser.oas,
+    outputFile: `${process.cwd()}/tmp/working/tmpCollection.json`,
+    configFile: postmanConfigFile
   }
-  const collectionGenerated = await oaToPostman
-    .convert(openApiSpec, oaToPostmanConfig)
-    .catch(function (err) {
-      console.log('error: ', err)
-      throw new Error(`Collection generation failed.`)
-    })
+
+  const postmanObj = await oaToPostman.convert(oaToPostmanConfig).catch(err => {
+    console.log('error: ', err)
+    throw new Error(`Collection generation failed.`)
+  })
 
   // --- Portman - load generated Postman collection
-  console.log('options', options)
-  // const postmanParser = new PostmanParser({ inputFile: options.output, oasParser: oasParser })
-  const postmanObj = new PostmanParser({ inputFile: options.output, oasParser: oasParser })
+  const postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
+  let collectionJson = postmanParser.collection.toJSON()
 
-  // console.log(postmanParser.requests)
+  if (includeTests && testSuiteConfigFile) {
+    const testSuite = new TestSuiteService({ oasParser, postmanParser, testSuiteConfigFile })
+    testSuite.generateAutomatedTests()
 
-  const PortmanCollection = generateRequestChecks(postmanObj, oasParser)
-
-  // console.log('PortmanCollection', PortmanCollection.collection)
-
-  let collectionJson = {}
-  try {
-    collectionJson = PortmanCollection.collection.toJSON() as CollectionDefinition
-    // collectionJson = collectionGenerated as CollectionDefinition
-  } catch (err) {
-    console.error('\x1b[31m', 'Collection generation failed ')
-    process.exit(0)
+    collectionJson = testSuite.collection.toJSON()
   }
-  console.log('collectionJson', collectionJson)
 
   // --- Portman - Overwrite Postman variables & values
   let collection = replaceVariables(collectionJson, {
@@ -302,7 +283,6 @@ require('dotenv').config()
 
   try {
     fs.writeFileSync(postmanCollectionFile, collectionString, 'utf8')
-    // info('Output file: ' + options.output)
   } catch (err) {
     console.error(
       '\x1b[31m',

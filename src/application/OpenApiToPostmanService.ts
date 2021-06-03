@@ -1,35 +1,36 @@
 import fs from 'fs-extra'
 import oaConverter from 'openapi-to-postmanv2'
+import { OpenAPIV3 } from 'openapi-types'
 import ora from 'ora'
 import path from 'path'
+import { Collection } from 'postman-collection'
+
+export interface IOpenApiToPostmanConfig {
+  inputFile?: string
+  openApiObj?: OpenAPIV3.Document
+  outputFile: string
+  configFile: string
+}
 
 export class OpenApiToPostmanService {
-  /**
-   * Helper function for the CLI to convert OpenApi data input
-   * (ported from https://github.com/postmanlabs/openapi-to-postman)
-   * @param {String} openApiObj - OpenApi spec file used for conversion input
-   * @param options - OpenApi to Postman conversion options
-   * @returns {string}
-   */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  async convert(openApiObj: string, options: any): Promise<string> {
-    return await new Promise((resolve, reject) => {
-      const inputFile = path.resolve(options.inputFile)
-      openApiObj = fs.readFileSync(inputFile, 'utf8')
+  openApiObj: OpenAPIV3.Document
 
-      // apply options from config file if present
-      if (options.configFile) {
-        const configFile = path.resolve(options.configFile)
-        // console.log('Options Config file: ', configFile)
-        const configFileOptions = JSON.parse(fs.readFileSync(configFile, 'utf8'))
-        options = Object.assign({}, options, configFileOptions)
+  async convert(options: IOpenApiToPostmanConfig): Promise<Collection> {
+    return await new Promise((resolve, reject) => {
+      let converterOptions = {}
+      const { inputFile, openApiObj, configFile, outputFile } = options
+
+      if (openApiObj) {
+        this.openApiObj = openApiObj
+      } else if (inputFile) {
+        this.openApiObj = JSON.parse(fs.readFileSync(path.resolve(inputFile), 'utf8'))
+      } else {
+        throw new Error('Missing OpenApiSpec Input.')
       }
 
-      if (options.testsuiteFile) {
-        const testsuiteFile = path.resolve(options.testsuiteFile)
-        // console.log('Testsuite file: ', testsuiteFile)
-        options.testSuite = true
-        options.testSuiteSettings = JSON.parse(fs.readFileSync(testsuiteFile, 'utf8'))
+      // apply options from config file if present
+      if (configFile) {
+        converterOptions = JSON.parse(fs.readFileSync(path.resolve(configFile), 'utf8'))
       }
 
       const spinner = ora({
@@ -40,21 +41,20 @@ export class OpenApiToPostmanService {
       // Convert OpenApi to Postman collection
       oaConverter.convert(
         {
-          type: 'string',
-          data: openApiObj
+          type: 'json',
+          data: this.openApiObj
         },
-        options,
+        converterOptions,
         (err, status) => {
           if (err) {
             spinner.fail(err.toString())
             reject(err)
           }
           if (!status.result) {
-            // console.log(status.reason)
             spinner.fail(status.reason)
             reject(status.reason)
-          } else if (options.outputFile) {
-            const filePath = path.resolve(options.outputFile)
+          } else if (outputFile) {
+            const filePath = path.resolve(outputFile)
 
             try {
               fs.writeFileSync(filePath, JSON.stringify(status.output[0].data, null, 4))

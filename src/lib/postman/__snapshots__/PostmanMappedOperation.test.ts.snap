@@ -3,6 +3,782 @@
 exports[`PostmanMappedOperation should use the normalise the paths 1`] = `
 PostmanMappedOperation {
   "id": "companiesOne",
+  "item": Object {
+    "event": Array [],
+    "id": "bad87c65-a857-43dd-aafe-8f3bc965fa09",
+    "name": "Get company",
+    "request": Object {
+      "auth": Object {
+        "bearer": Array [
+          Object {
+            "key": "token",
+            "type": "string",
+            "value": "{{bearerToken}}",
+          },
+        ],
+        "type": "bearer",
+      },
+      "description": Object {
+        "content": "Get company",
+        "type": "text/plain",
+      },
+      "header": Array [
+        Object {
+          "description": Object {
+            "content": "(Required) ID of the consumer which you want to get or push data from",
+            "type": "text/plain",
+          },
+          "key": "x-apideck-consumer-id",
+          "value": "{{consumerId}}",
+        },
+        Object {
+          "description": Object {
+            "content": "(Required) The ID of your Unify application",
+            "type": "text/plain",
+          },
+          "key": "x-apideck-app-id",
+          "value": "{{applicationId}}",
+        },
+        Object {
+          "description": Object {
+            "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+            "type": "text/plain",
+          },
+          "key": "x-apideck-service-id",
+          "value": "{{serviceId}}",
+        },
+      ],
+      "method": "GET",
+      "url": Object {
+        "host": Array [
+          "{{baseUrl}}",
+        ],
+        "path": Array [
+          "crm",
+          "companies",
+          ":id",
+        ],
+        "query": Array [
+          Object {
+            "description": Object {
+              "content": "Include raw response. Mostly used for debugging purposes",
+              "type": "text/plain",
+            },
+            "key": "raw",
+            "value": "true",
+          },
+        ],
+        "variable": Array [
+          Object {
+            "description": Object {
+              "content": "(Required) ID of the record you are acting upon.",
+              "type": "text/plain",
+            },
+            "key": "id",
+            "type": "any",
+            "value": "{{companyId}}",
+          },
+        ],
+      },
+    },
+    "response": Array [
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 200,
+ \\"status\\": \\"OK\\",
+ \\"service\\": \\"zoho-crm\\",
+ \\"resource\\": \\"companies\\",
+ \\"operation\\": \\"one\\",
+ \\"data\\": {
+  \\"name\\": \\"Copper\\",
+  \\"id\\": \\"12345\\",
+  \\"interaction_count\\": 1,
+  \\"owner_id\\": \\"12345\\",
+  \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+  \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+  \\"vat_number\\": \\"BE0689615164\\",
+  \\"currency\\": \\"USD\\",
+  \\"status\\": \\"Open\\",
+  \\"fax\\": \\"+12129876543\\",
+  \\"bank_accounts\\": [
+   {
+    \\"iban\\": \\"CH2989144532982975332\\",
+    \\"bic\\": \\"AUDSCHGGXXX\\"
+   },
+   {
+    \\"iban\\": \\"CH2989144532982975332\\",
+    \\"bic\\": \\"AUDSCHGGXXX\\"
+   }
+  ],
+  \\"websites\\": [
+   {
+    \\"url\\": \\"http://example.com\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   },
+   {
+    \\"url\\": \\"http://example.com\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   }
+  ],
+  \\"addresses\\": [
+   {
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\",
+    \\"name\\": \\"HQ US\\",
+    \\"line1\\": \\"Main street\\",
+    \\"line2\\": \\"apt #\\",
+    \\"city\\": \\"San Francisco\\",
+    \\"state\\": \\"CA\\",
+    \\"postal_code\\": \\"94104\\",
+    \\"country\\": \\"US\\",
+    \\"latitude\\": \\"40.759211\\",
+    \\"longitude\\": \\"-73.984638\\"
+   },
+   {
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\",
+    \\"name\\": \\"HQ US\\",
+    \\"line1\\": \\"Main street\\",
+    \\"line2\\": \\"apt #\\",
+    \\"city\\": \\"San Francisco\\",
+    \\"state\\": \\"CA\\",
+    \\"postal_code\\": \\"94104\\",
+    \\"country\\": \\"US\\",
+    \\"latitude\\": \\"40.759211\\",
+    \\"longitude\\": \\"-73.984638\\"
+   }
+  ],
+  \\"social_links\\": [
+   {
+    \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"twitter\\"
+   },
+   {
+    \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"twitter\\"
+   }
+  ],
+  \\"phone_numbers\\": [
+   {
+    \\"number\\": \\"111-111-1111\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   },
+   {
+    \\"number\\": \\"111-111-1111\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   }
+  ],
+  \\"emails\\": [
+   {
+    \\"email\\": \\"elon@musk.com\\",
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\"
+   },
+   {
+    \\"email\\": \\"elon@musk.com\\",
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\"
+   }
+  ],
+  \\"custom_fields\\": [
+   {
+    \\"id\\": \\"custom_technologies\\",
+    \\"value\\": \\"Uses Salesforce and Marketo\\"
+   },
+   {
+    \\"id\\": \\"custom_technologies\\",
+    \\"value\\": true
+   }
+  ],
+  \\"tags\\": [
+   \\"New\\"
+  ],
+  \\"updated_by\\": \\"12345\\",
+  \\"created_by\\": \\"12345\\",
+  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
+  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+ }
+}",
+        "code": 200,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "5b0f96f3-fc47-4f4e-9db4-f726fe4f0fa1",
+        "name": "Company",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "OK",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 400,
+ \\"error\\": \\"Bad Request\\",
+ \\"typeName\\": \\"MissingHeadersError\\",
+ \\"message\\": \\"Invalid Params\\",
+ \\"detail\\": {},
+ \\"ref\\": \\"https://developers.apideck.com/errors#missingheaderserror\\"
+}",
+        "code": 400,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "64b33a56-2df4-4ef5-8ddd-475fb145f3d7",
+        "name": "Bad Request",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Bad Request",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 401,
+ \\"error\\": \\"Unauthorized\\",
+ \\"typeName\\": \\"UnauthorizedError\\",
+ \\"message\\": \\"Unauthorized Request\\",
+ \\"detail\\": {},
+ \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
+}",
+        "code": 401,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "4f68d451-3ec9-470e-836e-af5d6e5dbed8",
+        "name": "Unauthorized",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Unauthorized",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 402,
+ \\"error\\": \\"Payment Required\\",
+ \\"typeName\\": \\"RequestLimitError\\",
+ \\"message\\": \\"Request Limit Reached\\",
+ \\"detail\\": \\"You have reached your limit of 2000\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#requestlimiterror\\"
+}",
+        "code": 402,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "792a6430-8ed1-4cd6-be53-e110ff3d3373",
+        "name": "Payment Required",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Payment Required",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 404,
+ \\"error\\": \\"Not Found\\",
+ \\"typeName\\": \\"EntityNotFoundError\\",
+ \\"message\\": \\"Unknown Widget\\",
+ \\"detail\\": \\"Could not find widget with id: '123'\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#entitynotfounderror\\"
+}",
+        "code": 404,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "f19ab134-f93a-419e-b527-1bad7a9f001b",
+        "name": "The specified resource was not found",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Not Found",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 422,
+ \\"error\\": \\"Unprocessable Entity\\",
+ \\"typeName\\": \\"InvalidStateError\\",
+ \\"message\\": \\"Invalid State\\",
+ \\"detail\\": \\"State did not include unified_api\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#invalidstateerror\\"
+}",
+        "code": 422,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "a1222144-edbd-4df1-b3f7-bc6914099091",
+        "name": "Unprocessable",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 400,
+ \\"error\\": \\"Bad Request\\",
+ \\"typeName\\": \\"MissingHeadersError\\",
+ \\"message\\": \\"Invalid Params\\",
+ \\"detail\\": \\"occaecat Excepteur incididunt magna\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
+}",
+        "code": 500,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "62212cc5-855c-4911-a236-5d0ea29d45ca",
+        "name": "Unexpected error",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Internal Server Error",
+      },
+    ],
+  },
   "method": "GET",
   "path": "/crm/companies/:id",
   "pathParams": Array [
@@ -20,80 +796,6 @@ PostmanMappedOperation {
       "value": "true",
     },
   ],
-  "request": Object {
-    "auth": Object {
-      "bearer": Array [
-        Object {
-          "key": "token",
-          "type": "string",
-          "value": "{{bearerToken}}",
-        },
-      ],
-      "type": "bearer",
-    },
-    "description": Object {
-      "content": "Get company",
-      "type": "text/plain",
-    },
-    "header": Array [
-      Object {
-        "description": Object {
-          "content": "(Required) ID of the consumer which you want to get or push data from",
-          "type": "text/plain",
-        },
-        "key": "x-apideck-consumer-id",
-        "value": "{{consumerId}}",
-      },
-      Object {
-        "description": Object {
-          "content": "(Required) The ID of your Unify application",
-          "type": "text/plain",
-        },
-        "key": "x-apideck-app-id",
-        "value": "{{applicationId}}",
-      },
-      Object {
-        "description": Object {
-          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
-          "type": "text/plain",
-        },
-        "key": "x-apideck-service-id",
-        "value": "{{serviceId}}",
-      },
-    ],
-    "method": "GET",
-    "url": Object {
-      "host": Array [
-        "{{baseUrl}}",
-      ],
-      "path": Array [
-        "crm",
-        "companies",
-        ":id",
-      ],
-      "query": Array [
-        Object {
-          "description": Object {
-            "content": "Include raw response. Mostly used for debugging purposes",
-            "type": "text/plain",
-          },
-          "key": "raw",
-          "value": "true",
-        },
-      ],
-      "variable": Array [
-        Object {
-          "description": Object {
-            "content": "(Required) ID of the record you are acting upon.",
-            "type": "text/plain",
-          },
-          "key": "id",
-          "type": "any",
-          "value": "{{companyId}}",
-        },
-      ],
-    },
-  },
   "requestHeaders": Array [
     Object {
       "description": "(Required) ID of the consumer which you want to get or push data from",
@@ -117,6 +819,782 @@ PostmanMappedOperation {
 exports[`PostmanMappedOperation should use the operationIdMap to add id 1`] = `
 PostmanMappedOperation {
   "id": "companiesOne",
+  "item": Object {
+    "event": Array [],
+    "id": "873f8631-71f7-4d15-b2e5-a31f13cfac96",
+    "name": "Get company",
+    "request": Object {
+      "auth": Object {
+        "bearer": Array [
+          Object {
+            "key": "token",
+            "type": "string",
+            "value": "{{bearerToken}}",
+          },
+        ],
+        "type": "bearer",
+      },
+      "description": Object {
+        "content": "Get company",
+        "type": "text/plain",
+      },
+      "header": Array [
+        Object {
+          "description": Object {
+            "content": "(Required) ID of the consumer which you want to get or push data from",
+            "type": "text/plain",
+          },
+          "key": "x-apideck-consumer-id",
+          "value": "{{consumerId}}",
+        },
+        Object {
+          "description": Object {
+            "content": "(Required) The ID of your Unify application",
+            "type": "text/plain",
+          },
+          "key": "x-apideck-app-id",
+          "value": "{{applicationId}}",
+        },
+        Object {
+          "description": Object {
+            "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+            "type": "text/plain",
+          },
+          "key": "x-apideck-service-id",
+          "value": "{{serviceId}}",
+        },
+      ],
+      "method": "GET",
+      "url": Object {
+        "host": Array [
+          "{{baseUrl}}",
+        ],
+        "path": Array [
+          "crm",
+          "companies",
+          ":id",
+        ],
+        "query": Array [
+          Object {
+            "description": Object {
+              "content": "Include raw response. Mostly used for debugging purposes",
+              "type": "text/plain",
+            },
+            "key": "raw",
+            "value": "true",
+          },
+        ],
+        "variable": Array [
+          Object {
+            "description": Object {
+              "content": "(Required) ID of the record you are acting upon.",
+              "type": "text/plain",
+            },
+            "key": "id",
+            "type": "any",
+            "value": "{{companyId}}",
+          },
+        ],
+      },
+    },
+    "response": Array [
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 200,
+ \\"status\\": \\"OK\\",
+ \\"service\\": \\"zoho-crm\\",
+ \\"resource\\": \\"companies\\",
+ \\"operation\\": \\"one\\",
+ \\"data\\": {
+  \\"name\\": \\"Copper\\",
+  \\"id\\": \\"12345\\",
+  \\"interaction_count\\": 1,
+  \\"owner_id\\": \\"12345\\",
+  \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+  \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+  \\"vat_number\\": \\"BE0689615164\\",
+  \\"currency\\": \\"USD\\",
+  \\"status\\": \\"Open\\",
+  \\"fax\\": \\"+12129876543\\",
+  \\"bank_accounts\\": [
+   {
+    \\"iban\\": \\"CH2989144532982975332\\",
+    \\"bic\\": \\"AUDSCHGGXXX\\"
+   },
+   {
+    \\"iban\\": \\"CH2989144532982975332\\",
+    \\"bic\\": \\"AUDSCHGGXXX\\"
+   }
+  ],
+  \\"websites\\": [
+   {
+    \\"url\\": \\"http://example.com\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   },
+   {
+    \\"url\\": \\"http://example.com\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   }
+  ],
+  \\"addresses\\": [
+   {
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\",
+    \\"name\\": \\"HQ US\\",
+    \\"line1\\": \\"Main street\\",
+    \\"line2\\": \\"apt #\\",
+    \\"city\\": \\"San Francisco\\",
+    \\"state\\": \\"CA\\",
+    \\"postal_code\\": \\"94104\\",
+    \\"country\\": \\"US\\",
+    \\"latitude\\": \\"40.759211\\",
+    \\"longitude\\": \\"-73.984638\\"
+   },
+   {
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\",
+    \\"name\\": \\"HQ US\\",
+    \\"line1\\": \\"Main street\\",
+    \\"line2\\": \\"apt #\\",
+    \\"city\\": \\"San Francisco\\",
+    \\"state\\": \\"CA\\",
+    \\"postal_code\\": \\"94104\\",
+    \\"country\\": \\"US\\",
+    \\"latitude\\": \\"40.759211\\",
+    \\"longitude\\": \\"-73.984638\\"
+   }
+  ],
+  \\"social_links\\": [
+   {
+    \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"twitter\\"
+   },
+   {
+    \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"twitter\\"
+   }
+  ],
+  \\"phone_numbers\\": [
+   {
+    \\"number\\": \\"111-111-1111\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   },
+   {
+    \\"number\\": \\"111-111-1111\\",
+    \\"id\\": \\"12345\\",
+    \\"type\\": \\"primary\\"
+   }
+  ],
+  \\"emails\\": [
+   {
+    \\"email\\": \\"elon@musk.com\\",
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\"
+   },
+   {
+    \\"email\\": \\"elon@musk.com\\",
+    \\"id\\": \\"123\\",
+    \\"type\\": \\"primary\\"
+   }
+  ],
+  \\"custom_fields\\": [
+   {
+    \\"id\\": \\"custom_technologies\\",
+    \\"value\\": \\"Uses Salesforce and Marketo\\"
+   },
+   {
+    \\"id\\": \\"custom_technologies\\",
+    \\"value\\": true
+   }
+  ],
+  \\"tags\\": [
+   \\"New\\"
+  ],
+  \\"updated_by\\": \\"12345\\",
+  \\"created_by\\": \\"12345\\",
+  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
+  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+ }
+}",
+        "code": 200,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "43c17027-0583-4b23-b666-072bd4537be6",
+        "name": "Company",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "OK",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 400,
+ \\"error\\": \\"Bad Request\\",
+ \\"typeName\\": \\"MissingHeadersError\\",
+ \\"message\\": \\"Invalid Params\\",
+ \\"detail\\": {},
+ \\"ref\\": \\"https://developers.apideck.com/errors#missingheaderserror\\"
+}",
+        "code": 400,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "3f225ea0-2d87-412b-a780-5e91889ca68c",
+        "name": "Bad Request",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Bad Request",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 401,
+ \\"error\\": \\"Unauthorized\\",
+ \\"typeName\\": \\"UnauthorizedError\\",
+ \\"message\\": \\"Unauthorized Request\\",
+ \\"detail\\": {},
+ \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
+}",
+        "code": 401,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "3a4e5c62-9779-4a38-a0a0-77bb11f14b8a",
+        "name": "Unauthorized",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Unauthorized",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 402,
+ \\"error\\": \\"Payment Required\\",
+ \\"typeName\\": \\"RequestLimitError\\",
+ \\"message\\": \\"Request Limit Reached\\",
+ \\"detail\\": \\"You have reached your limit of 2000\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#requestlimiterror\\"
+}",
+        "code": 402,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "da2c8e7c-8d72-434b-bae2-1ebd150c6928",
+        "name": "Payment Required",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Payment Required",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 404,
+ \\"error\\": \\"Not Found\\",
+ \\"typeName\\": \\"EntityNotFoundError\\",
+ \\"message\\": \\"Unknown Widget\\",
+ \\"detail\\": \\"Could not find widget with id: '123'\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#entitynotfounderror\\"
+}",
+        "code": 404,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "569e80f6-083c-4725-8304-badace54671b",
+        "name": "The specified resource was not found",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Not Found",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 422,
+ \\"error\\": \\"Unprocessable Entity\\",
+ \\"typeName\\": \\"InvalidStateError\\",
+ \\"message\\": \\"Invalid State\\",
+ \\"detail\\": \\"State did not include unified_api\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#invalidstateerror\\"
+}",
+        "code": 422,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "df9eaf6c-18e2-455a-8f42-46cc7b88df09",
+        "name": "Unprocessable",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+      },
+      Object {
+        "_": Object {
+          "postman_previewlanguage": "json",
+        },
+        "body": "{
+ \\"status_code\\": 400,
+ \\"error\\": \\"Bad Request\\",
+ \\"typeName\\": \\"MissingHeadersError\\",
+ \\"message\\": \\"Invalid Params\\",
+ \\"detail\\": \\"occaecat Excepteur incididunt magna\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
+}",
+        "code": 500,
+        "cookie": Array [],
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "application/json",
+          },
+        ],
+        "id": "ec7710b7-3e2c-4d39-bd2d-b0170a5557d2",
+        "name": "Unexpected error",
+        "originalRequest": Object {
+          "header": Array [
+            Object {
+              "description": Object {
+                "content": "Added as a part of security scheme: bearer",
+                "type": "text/plain",
+              },
+              "key": "Authorization",
+              "value": "{{bearerToken}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) ID of the consumer which you want to get or push data from",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-consumer-id",
+              "value": "{{consumerId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "(Required) The ID of your Unify application",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-app-id",
+              "value": "{{applicationId}}",
+            },
+            Object {
+              "description": Object {
+                "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "type": "text/plain",
+              },
+              "key": "x-apideck-service-id",
+              "value": "{{serviceId}}",
+            },
+          ],
+          "method": "GET",
+          "url": Object {
+            "host": Array [
+              "{{baseUrl}}",
+            ],
+            "path": Array [
+              "crm",
+              "companies",
+              ":id",
+            ],
+            "query": Array [
+              Object {
+                "key": "raw",
+                "value": "true",
+              },
+            ],
+            "variable": Array [
+              Object {
+                "key": "id",
+                "type": "any",
+              },
+            ],
+          },
+        },
+        "status": "Internal Server Error",
+      },
+    ],
+  },
   "method": "GET",
   "path": "/crm/companies/:id",
   "pathParams": Array [
@@ -134,80 +1612,6 @@ PostmanMappedOperation {
       "value": "true",
     },
   ],
-  "request": Object {
-    "auth": Object {
-      "bearer": Array [
-        Object {
-          "key": "token",
-          "type": "string",
-          "value": "{{bearerToken}}",
-        },
-      ],
-      "type": "bearer",
-    },
-    "description": Object {
-      "content": "Get company",
-      "type": "text/plain",
-    },
-    "header": Array [
-      Object {
-        "description": Object {
-          "content": "(Required) ID of the consumer which you want to get or push data from",
-          "type": "text/plain",
-        },
-        "key": "x-apideck-consumer-id",
-        "value": "{{consumerId}}",
-      },
-      Object {
-        "description": Object {
-          "content": "(Required) The ID of your Unify application",
-          "type": "text/plain",
-        },
-        "key": "x-apideck-app-id",
-        "value": "{{applicationId}}",
-      },
-      Object {
-        "description": Object {
-          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
-          "type": "text/plain",
-        },
-        "key": "x-apideck-service-id",
-        "value": "{{serviceId}}",
-      },
-    ],
-    "method": "GET",
-    "url": Object {
-      "host": Array [
-        "{{baseUrl}}",
-      ],
-      "path": Array [
-        "crm",
-        "companies",
-        ":id",
-      ],
-      "query": Array [
-        Object {
-          "description": Object {
-            "content": "Include raw response. Mostly used for debugging purposes",
-            "type": "text/plain",
-          },
-          "key": "raw",
-          "value": "true",
-        },
-      ],
-      "variable": Array [
-        Object {
-          "description": Object {
-            "content": "(Required) ID of the record you are acting upon.",
-            "type": "text/plain",
-          },
-          "key": "id",
-          "type": "any",
-          "value": "{{companyId}}",
-        },
-      ],
-    },
-  },
   "requestHeaders": Array [
     Object {
       "description": "(Required) ID of the consumer which you want to get or push data from",

@@ -1,5 +1,5 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
-import { Item, Request } from 'postman-collection'
+import { Item } from 'postman-collection'
 
 export interface IPostmanMappedOperation {
   id?: string
@@ -10,7 +10,6 @@ export interface IPostmanMappedOperation {
   requestHeaders: Record<string, unknown>
   queryParams: Record<string, unknown>
   pathParams: Record<string, unknown>
-  request: Request
   item: Item
 }
 
@@ -23,24 +22,26 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
   public requestHeaders: Record<string, unknown>
   public queryParams: Record<string, unknown>
   public pathParams: Record<string, unknown>
-  public request: Request
   public item: Item
 
-  constructor(item: Item, request: Request, operationIdMap: Record<string, OasMappedOperation>) {
+  constructor(item: Item, operationIdMap: Record<string, OasMappedOperation>) {
     this.item = item
-    this.request = request
-    this.method = request.method.toUpperCase()
+    const { request } = item
 
+    this.method = request.method.toUpperCase()
     this.path = request.url.path ? `/${request.url.path.join('/')}` : '/'
     this.pathRef = this.normalizedPathRef(this.method)
     this.pathRefVariable = `${this.method}::${request.url.getPath()}`
+
     this.requestHeaders = request.headers.toJSON().map(({ key, value, description }) => {
       return { name: key, value, description: description?.content }
     })
+
     this.queryParams = request.url.query.map(({ key, value }) => {
       return { name: key, value }
     })
-    this.pathParams = this.request.url.variables.toJSON().map(({ key, value, description }) => {
+
+    this.pathParams = request.url.variables.toJSON().map(({ key, value, description }) => {
       return { name: key, value, description: description?.content }
     })
 
@@ -49,8 +50,11 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
 
   private normalizedPathRef(method: string): string {
     const {
-      request: { url }
+      item: {
+        request: { url }
+      }
     } = this
+
     const path = url?.path
       ?.map(segment => {
         return segment.includes(':') ? `{${segment}}`.replace(':', '') : segment

@@ -5,78 +5,80 @@ import { IOpenApiParser } from '../application'
 import { PostmanMappedOperation } from '../lib/postman/PostmanMappedOperation'
 
 export interface PostmanParserConfig {
-  inputFile: string
+  inputFile?: string
+  postmanObj?: Collection
   oasParser?: IOpenApiParser
 }
 
 export interface IPostmanParser {
   collection: Collection
   mappedOperations: PostmanMappedOperation[]
-  requests: Request[]
+  pmItems: Item[]
   getOperationById(operationId: string): PostmanMappedOperation | null
   getOperationByPath(path: string): PostmanMappedOperation | null
 }
 
-export class PostmanParser {
+export class PostmanParser implements IPostmanParser {
   public collection: Collection
   public mappedOperations: PostmanMappedOperation[]
-  public requests: Request[]
-  public pmItems: []
+  public pmItems: Item[]
 
   private oasParser?: IOpenApiParser
 
   constructor(options: PostmanParserConfig) {
-    const { inputFile, oasParser } = options
-    const postmanJson = path.resolve(inputFile)
+    const { inputFile, postmanObj, oasParser } = options
     this.oasParser = oasParser
-    this.collection = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))
-    this.requests = []
+
+    if (postmanObj) {
+      this.collection = new Collection(postmanObj)
+    } else if (inputFile) {
+      const postmanJson = path.resolve(inputFile)
+      this.collection = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))
+    }
+
     this.pmItems = []
     this.itemsToOperations()
   }
 
-  getRequests = (item: Item | ItemGroup<Item>): void => {
-    const { requests } = this
+  getItems = (item: Item | ItemGroup<Item>): void => {
     if (Item.isItem(item)) {
       const request = (item as Item).request
       if (request && Request.isRequest(request)) {
-        requests.push(request)
-        this.pmItems.push({ pmItem: item as Item, pmRequest: request as Request })
+        this.pmItems.push(item as Item)
       }
     }
     // Check if this is a nested folder
     else if (ItemGroup.isItemGroup(item)) {
-      const items = (item as ItemGroup<Item>).items
+      const items = (item as ItemGroup<Item>)?.items
       // Check if this is an empty folder
       if (items && items.count() === 0) return
 
       items.map(item => {
-        return this.getRequests(item)
+        return this.getItems(item)
       })
     }
   }
 
   itemsToOperations = (): void => {
-    const { collection, requests } = this
-
-    collection.items.map(item => {
+    const { collection } = this
+    collection?.items.map(item => {
       // Check if this is a request at the top level
       if (Item.isItem(item)) {
-        return this.getRequests(item)
+        return this.getItems(item)
       }
       // Check if this is a folder at the top level
       else if (ItemGroup.isItemGroup(item)) {
         const items = (item as ItemGroup<Item>).items
 
         items.each(item => {
-          return this.getRequests(item)
+          return this.getItems(item)
         })
       }
     })
 
     const operationIdMap = this.oasParser?.operationIdMap || {}
-    this.mappedOperations = this.pmItems.map(request => {
-      return new PostmanMappedOperation(request.pmItem, request.pmRequest, operationIdMap)
+    this.mappedOperations = this.pmItems.map(item => {
+      return new PostmanMappedOperation(item, operationIdMap)
     })
   }
 
