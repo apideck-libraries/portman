@@ -1,5 +1,4 @@
 import fs from 'fs-extra'
-import { Collection } from 'postman-collection'
 import { OpenApiParser, PostmanParser } from '../../application'
 import { IPostmanMappedOperation } from './PostmanMappedOperation'
 
@@ -14,7 +13,7 @@ describe('PostmanMappedOperation', () => {
   beforeEach(async () => {
     oasParser = new OpenApiParser()
     await oasParser.convert({ inputFile: oasYml })
-    const postmanObj = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))
+    const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
     postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
     mappedOperation = postmanParser.mappedOperations[2]
   })
