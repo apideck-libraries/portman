@@ -2,7 +2,7 @@
   "version": 1.0,
   "generateTests": {
     "responseChecks": {
-      "StatusSuccess": {
+      "statusSuccess": {
         "enabled": true
       },
       "responseTime": {
