@@ -22,8 +22,8 @@ export const generateRequestChecks = (
 
   // Iterate over all requests
   pmObj.mappedOperations.map(pmOperation => {
-    console.log('pmOperation', pmOperation)
-    console.log('events', pmOperation.item.events)
+    // console.log('pmOperation', pmOperation)
+    // console.log('events', pmOperation.item.events)
 
     // Get OpenApi responses
     const oaOperation = oaObj.getOperationByPath(pmOperation.pathRef)
@@ -61,10 +61,8 @@ const generateResponseTests = (pmOperation: any, oaOperation: any): any => {
  * @param oaOperation
  */
 const generateResponseSuccessCheck = (pmOperation: any, oaOperation: any): any => {
-  console.log('pmOperation', pmOperation)
+  // console.log('pmOperation', pmOperation)
   console.log('oaOperation', oaOperation)
-  // console.log('oaResponseCode', oaResponseCode)
-  // console.log('oaResponse', oaResponse)
 
   // Add status success check
   const pmTest: string[] = []
@@ -74,8 +72,9 @@ const generateResponseSuccessCheck = (pmOperation: any, oaOperation: any): any =
   pmTest.push('   pm.response.to.be.success;\n')
   pmTest.push('});\n')
 
-  pmOperation = appendTestScript(pmOperation, pmTest)
-  console.log('pmOperation after', pmOperation.item.events.all())
+  return appendTestScript(pmOperation, pmTest)
+  // pmOperation = appendTestScript(pmOperation, pmTest)
+  // console.log('pmOperation after', pmOperation.item.events.all())
 }
 
 /***** UTILS *****/

@@ -251,19 +251,19 @@ require('dotenv').config()
 
   // console.log(postmanParser.requests)
 
-  // const PortmanCollection =
-  generateRequestChecks(postmanObj, oasParser)
+  const PortmanCollection = generateRequestChecks(postmanObj, oasParser)
 
-  // console.log('PortmanCollection', PortmanCollection)
+  // console.log('PortmanCollection', PortmanCollection.collection)
 
   let collectionJson = {}
   try {
-    collectionJson = collectionGenerated as CollectionDefinition
+    collectionJson = PortmanCollection.collection.toJSON() as CollectionDefinition
+    // collectionJson = collectionGenerated as CollectionDefinition
   } catch (err) {
     console.error('\x1b[31m', 'Collection generation failed ')
     process.exit(0)
   }
-  // console.log('collectionJson', collectionJson)
+  console.log('collectionJson', collectionJson)
 
   // --- Portman - Overwrite Postman variables & values
   let collection = replaceVariables(collectionJson, {
@@ -272,7 +272,7 @@ require('dotenv').config()
   })
   collection = replaceValues(['Bearer <token>', '<Bearer Token>'], '{{bearerToken}}', collection)
   collection = injectEnvVariables(collection, envFile, baseUrl)
-  collection = overridePathParams(collection)
+  // collection = overridePathParams(collection)
   collection = orderCollectionRequests(collection, orderOfOperations)
 
   // --- Portman - Set Postman pre-requests
