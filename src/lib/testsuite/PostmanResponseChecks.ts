@@ -62,7 +62,7 @@ const generateResponseTests = (pmOperation: any, oaOperation: any): any => {
  */
 const generateResponseSuccessCheck = (pmOperation: any, oaOperation: any): any => {
   // console.log('pmOperation', pmOperation)
-  console.log('oaOperation', oaOperation)
+  // console.log('oaOperation', oaOperation)
 
   // Add status success check
   const pmTest: string[] = []
@@ -72,7 +72,7 @@ const generateResponseSuccessCheck = (pmOperation: any, oaOperation: any): any =
   pmTest.push('   pm.response.to.be.success;\n')
   pmTest.push('});\n')
 
-  return appendTestScript(pmOperation, pmTest)
+  return appendTestScript(pmOperation, [pmTest.join('')])
   // pmOperation = appendTestScript(pmOperation, pmTest)
   // console.log('pmOperation after', pmOperation.item.events.all())
 }
@@ -98,6 +98,5 @@ const appendTestScript = (pmOperation: any, pmTest: any) => {
 
   // Merge new tests in existing events
   pmTests.script.exec = [...pmTests.script.exec, ...pmTest]
-
   return pmOperation
 }
