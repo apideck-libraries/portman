@@ -272,7 +272,7 @@ require('dotenv').config()
   })
   collection = replaceValues(['Bearer <token>', '<Bearer Token>'], '{{bearerToken}}', collection)
   collection = injectEnvVariables(collection, envFile, baseUrl)
-  // collection = overridePathParams(collection)
+  collection = overridePathParams(collection)
   collection = orderCollectionRequests(collection, orderOfOperations)
 
   // --- Portman - Set Postman pre-requests
