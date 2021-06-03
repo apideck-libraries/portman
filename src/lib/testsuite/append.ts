@@ -14,7 +14,7 @@ export const append = (
       new Event({
         listen: 'test',
         script: {
-          exec: pmTest,
+          exec: [pmTest],
           type: 'text/javascript'
         }
       })
@@ -25,6 +25,6 @@ export const append = (
     pmTests.script.exec = []
   }
   // Merge new tests in existing events
-  pmTests.script.exec = [...pmTests.script.exec, ...pmTest]
+  pmTests.script.exec.push(pmTest)
   return pmOperation
 }

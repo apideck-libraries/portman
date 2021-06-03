@@ -2,17 +2,18 @@ import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { append } from './append'
 
-export const checkForSuccessStatus = (
+export const checkForResponseContentType = (
+  contentType: string,
   pmOperation: PostmanMappedOperation,
-  _oaOperation: OasMappedOperation
+  _aOperation: OasMappedOperation
 ): PostmanMappedOperation => {
-  // Check - Success 2xx response checks
+  // Check - Response content-type check
   const pmTest: string = [
-    '// Validate status 2xx \n',
+    `// Validate content-type \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
-    ' - Status code is 2xx", function () {\n',
-    '   pm.response.to.be.success;\n',
-    '});\n'
+    ` - Content-Type is ${contentType}", function () {\n`,
+    `   pm.expect(pm.response.headers.get("Content-Type")).to.include("${contentType}");\n`,
+    `});\n`
   ].join('')
 
   append(pmOperation, pmTest)
