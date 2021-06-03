@@ -17,7 +17,6 @@ describe('PostmanMappedOperation', () => {
     const postmanObj = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))
     postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
     mappedOperation = postmanParser.mappedOperations[2]
-    expect(mappedOperation).toMatchSnapshot()
   })
 
   it('should use the operationIdMap to add id', () => {
