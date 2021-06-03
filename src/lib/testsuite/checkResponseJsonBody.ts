@@ -2,17 +2,16 @@ import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { append } from './append'
 
-export const checkForResponseContentType = (
-  contentType: string,
+export const checkForResponseJsonBody = (
   pmOperation: PostmanMappedOperation,
   _aOperation: OasMappedOperation
 ): PostmanMappedOperation => {
-  // Check - Response content-type check
+  // Check - Response json body check
   const pmTest: string = [
-    `// Validate if response header has matching content-type\n`,
+    `// Validate if response has JSON Body \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
-    ` - Content-Type is ${contentType}", function () {\n`,
-    `   pm.expect(pm.response.headers.get("Content-Type")).to.include("${contentType}");\n`,
+    ` - Response has JSON Body", function () {\n`,
+    `    pm.response.to.have.jsonBody();`,
     `});\n`
   ].join('')
 

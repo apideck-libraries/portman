@@ -6,6 +6,8 @@ import {
   checkForSuccessStatus,
   checkForResponseTime,
   checkForResponseContentType,
+  checkForResponseJsonBody,
+  checkForResponseJsonSchema,
   OasMappedOperation,
   PostmanMappedOperation
 } from '../lib'
@@ -80,11 +82,10 @@ export class TestSuiteService {
         pmOperation = checkForResponseTime(pmOperation, oaOperation, responseChecks)
       }
 
+      // Add response content checks
       if (response.content) {
         // Process all content-types
         for (const [contentType, content] of Object.entries(response.content)) {
-          // console.log('contentType', contentType)
-          // console.log('content', content)
           // Early skip if no content-types defined
           if (!contentType) continue
 
@@ -93,12 +94,30 @@ export class TestSuiteService {
             pmOperation = checkForResponseContentType(contentType, pmOperation, oaOperation)
           }
 
-          // // Add contentType check
-          // if (responseChecks.includes('contentType')) {
-          //   pmOperation = checkForResponseContentType(response, pmOperation, oaOperation)
-          // }
+          // // Add json body check
+          if (responseChecks.includes('jsonBody') && contentType === 'application/json') {
+            pmOperation = checkForResponseJsonBody(pmOperation, oaOperation)
+          }
+          // // Add json schema check
+          if (responseChecks.includes('schemaValidation') && content.schema) {
+            pmOperation = checkForResponseJsonSchema(content.schema, pmOperation, oaOperation)
+          }
         }
       }
+
+      // console.log('response', response)
+      // console.log('oaOperation', oaOperation)
+      // if (response.headers) {
+      // Process all content-types
+      // for (const [contentType, content] of Object.entries(response.content)) {
+      //   // Early skip if no content-types defined
+      //   if (!contentType) continue
+      //   // Add response header checks
+      //   if (responseChecks.includes('headersPresent')) {
+      //     pmOperation = checkForResponseTime(pmOperation, oaOperation, responseChecks)
+      //   }
+      // }
+      // }
     }
     return pmOperation
   }
