@@ -30,7 +30,7 @@ export class PostmanParser implements IPostmanParser {
     this.oasParser = oasParser
 
     if (postmanObj) {
-      this.collection = new Collection(postmanObj)
+      this.collection = postmanObj
     } else if (inputFile) {
       const postmanJson = path.resolve(inputFile)
       this.collection = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))

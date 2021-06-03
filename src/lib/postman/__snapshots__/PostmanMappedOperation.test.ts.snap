@@ -5,7 +5,7 @@ PostmanMappedOperation {
   "id": "companiesOne",
   "item": Object {
     "event": Array [],
-    "id": "bad87c65-a857-43dd-aafe-8f3bc965fa09",
+    "id": "29efaf91-99a8-4b1a-977b-05bc92d78cc8",
     "name": "Get company",
     "request": Object {
       "auth": Object {
@@ -216,7 +216,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "5b0f96f3-fc47-4f4e-9db4-f726fe4f0fa1",
+        "id": "d9aab1a8-788b-4dff-a4a6-8ba084de37f8",
         "name": "Company",
         "originalRequest": Object {
           "header": Array [
@@ -299,7 +299,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "64b33a56-2df4-4ef5-8ddd-475fb145f3d7",
+        "id": "1a422ad9-e1b9-4789-9c89-ecac0315ec24",
         "name": "Bad Request",
         "originalRequest": Object {
           "header": Array [
@@ -382,7 +382,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "4f68d451-3ec9-470e-836e-af5d6e5dbed8",
+        "id": "494592ad-92dc-4dd5-8dc2-7ea0c2081e61",
         "name": "Unauthorized",
         "originalRequest": Object {
           "header": Array [
@@ -465,7 +465,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "792a6430-8ed1-4cd6-be53-e110ff3d3373",
+        "id": "00fccb65-70a5-4ee8-a35e-3e1a049ef212",
         "name": "Payment Required",
         "originalRequest": Object {
           "header": Array [
@@ -548,7 +548,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "f19ab134-f93a-419e-b527-1bad7a9f001b",
+        "id": "e382a9cf-df83-478c-b77e-c2b242fe0273",
         "name": "The specified resource was not found",
         "originalRequest": Object {
           "header": Array [
@@ -631,7 +631,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "a1222144-edbd-4df1-b3f7-bc6914099091",
+        "id": "cf3cab28-497b-4110-af07-743f4cc62c4c",
         "name": "Unprocessable",
         "originalRequest": Object {
           "header": Array [
@@ -714,7 +714,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "62212cc5-855c-4911-a236-5d0ea29d45ca",
+        "id": "7fbf39c2-8bcc-4db0-9620-c36550bedee1",
         "name": "Unexpected error",
         "originalRequest": Object {
           "header": Array [
@@ -821,7 +821,7 @@ PostmanMappedOperation {
   "id": "companiesOne",
   "item": Object {
     "event": Array [],
-    "id": "873f8631-71f7-4d15-b2e5-a31f13cfac96",
+    "id": "bac30fca-56f9-429b-a9a7-8c014d30961c",
     "name": "Get company",
     "request": Object {
       "auth": Object {
@@ -1032,7 +1032,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "43c17027-0583-4b23-b666-072bd4537be6",
+        "id": "b0e0dc3f-072a-404e-bb12-35ebe9d23e13",
         "name": "Company",
         "originalRequest": Object {
           "header": Array [
@@ -1115,7 +1115,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "3f225ea0-2d87-412b-a780-5e91889ca68c",
+        "id": "b10ec508-2530-40ee-93c4-8ccc5951a47f",
         "name": "Bad Request",
         "originalRequest": Object {
           "header": Array [
@@ -1198,7 +1198,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "3a4e5c62-9779-4a38-a0a0-77bb11f14b8a",
+        "id": "fa1711b4-e0d1-4c83-8786-14b3d6c32f8b",
         "name": "Unauthorized",
         "originalRequest": Object {
           "header": Array [
@@ -1281,7 +1281,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "da2c8e7c-8d72-434b-bae2-1ebd150c6928",
+        "id": "847cb2e3-8af8-4625-87d8-6b12e3091794",
         "name": "Payment Required",
         "originalRequest": Object {
           "header": Array [
@@ -1364,7 +1364,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "569e80f6-083c-4725-8304-badace54671b",
+        "id": "6ffcd0c1-aa7a-4eb3-bd8b-ff20811999eb",
         "name": "The specified resource was not found",
         "originalRequest": Object {
           "header": Array [
@@ -1447,7 +1447,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "df9eaf6c-18e2-455a-8f42-46cc7b88df09",
+        "id": "e2296bb1-f6c5-40d9-88e8-1e2499b9ce10",
         "name": "Unprocessable",
         "originalRequest": Object {
           "header": Array [
@@ -1530,7 +1530,7 @@ PostmanMappedOperation {
             "value": "application/json",
           },
         ],
-        "id": "ec7710b7-3e2c-4d39-bd2d-b0170a5557d2",
+        "id": "5e6a65d6-e275-419f-b416-3c3dc2eab05d",
         "name": "Unexpected error",
         "originalRequest": Object {
           "header": Array [
