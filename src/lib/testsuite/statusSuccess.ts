@@ -16,14 +16,15 @@ export const generateForSuccessStatus = (
       continue // skip this response
     }
     // Check - Success 2xx response checks
-    const pmTest: string[] = []
-    pmTest.push('// Validate status 2xx \n')
-    pmTest.push('pm.test("[' + pmOperation.method.toUpperCase() + '] ' + pmOperation.path)
-    pmTest.push(' - Status code is 2xx", function () {\n')
-    pmTest.push('   pm.response.to.be.success;\n')
-    pmTest.push('});\n')
+    const pmTest: string = [
+      '// Validate status 2xx \n',
+      `pm.test("[${pmOperation.method.toUpperCase()}] ${pmOperation.path}`,
+      ' - Status code is 2xx", function () {\n',
+      '   pm.response.to.be.success;\n',
+      '});\n'
+    ].join('')
 
-    append(pmOperation, pmTest.join(''))
+    append(pmOperation, pmTest)
   }
 
   return pmOperation
