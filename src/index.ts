@@ -119,6 +119,7 @@ require('dotenv').config()
   const filterFile = options.filterFile
 
   const portman = new Portman({
+    ...options,
     oaUrl,
     oaLocal,
     baseUrl,

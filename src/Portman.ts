@@ -1,3 +1,10 @@
+import { camelCase } from 'camel-case'
+import chalk from 'chalk'
+import fs from 'fs-extra'
+import emoji from 'node-emoji'
+import path from 'path'
+import { Collection, CollectionDefinition } from 'postman-collection'
+import { PortmanOptions } from 'types/PortmanOptions'
 import {
   DownloadService,
   IOpenApiToPostmanConfig,
@@ -6,10 +13,7 @@ import {
   PostmanParser,
   PostmanService,
   TestSuiteService
-} from 'application'
-import { camelCase } from 'camel-case'
-import chalk from 'chalk'
-import fs from 'fs-extra'
+} from './application'
 import {
   cleanupTestSchemaDefs,
   clearTmpDirectory,
@@ -24,11 +28,7 @@ import {
   runNewmanWith,
   skip501s,
   writeNewmanEnv
-} from 'lib'
-import emoji from 'node-emoji'
-import path from 'path'
-import { Collection, CollectionDefinition } from 'postman-collection'
-import { PortmanOptions } from 'types/PortmanOptions'
+} from './lib'
 
 export class Portman {
   options: PortmanOptions
@@ -211,7 +211,6 @@ export class Portman {
     if (includeTests && testSuiteConfigFile) {
       const testSuite = new TestSuiteService({ oasParser, postmanParser, testSuiteConfigFile })
       testSuite.generateAutomatedTests()
-
       this.portmanCollection = testSuite.collection.toJSON()
     }
   }
