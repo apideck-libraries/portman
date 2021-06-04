@@ -52,4 +52,37 @@ describe('OpenApiParser', () => {
       expect(operation).toStrictEqual(null)
     })
   })
+
+  describe('getOperationsByIds', () => {
+    it('should be able to retrieve OasMappedOperations by operationIds', async () => {
+      const operations = oasParser.getOperationsByIds(['usersAll', 'companiesOne'])
+      expect(operations.map(({ id }) => id)).toEqual(['companiesOne', 'usersAll'])
+    })
+
+    it('should be fail gracefully if not found', async () => {
+      const operations = oasParser.getOperationsByIds(['notAnOperation'])
+      expect(operations).toStrictEqual([])
+    })
+  })
+
+  describe('getOperationsByPath', () => {
+    it('should be able to retrieve OasMappedOperations by pathRef', async () => {
+      const operations = oasParser.getOperationsByPath('GET::/crm/companies')
+      expect(operations.map(({ id }) => id)).toEqual(['companiesAll'])
+    })
+
+    it('should be able to retrieve OasMappedOperations via wildcarded pathRef', async () => {
+      const operations = oasParser.getOperationsByPath('*::/crm/companies/*')
+      expect(operations.map(({ id }) => id)).toEqual([
+        'companiesOne',
+        'companiesUpdate',
+        'companiesDelete'
+      ])
+    })
+
+    it('should be able to retrieve OasMappedOperations by pathRef with wildcard method', async () => {
+      const operations = oasParser.getOperationsByPath('*::/crm/companies')
+      expect(operations.map(({ id }) => id)).toEqual(['companiesAll', 'companiesAdd'])
+    })
+  })
 })
