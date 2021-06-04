@@ -35,7 +35,7 @@ export class TestSuiteService {
     this.postmanParser = postmanParser
     this.config = JSON.parse(fs.readFileSync(path.resolve(testSuiteConfigFile)).toString())
 
-    this.collection = postmanParser.collection
+    this.collection = new Collection(postmanParser.collection.toJSON())
   }
 
   public generateAutomatedTests = (): PostmanMappedOperation[] => {

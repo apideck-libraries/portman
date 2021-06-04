@@ -23,9 +23,11 @@ const upsertEnvVariable = (
 
 export const injectEnvVariables = (
   obj: CollectionDefinition,
-  envFile: string,
+  envFile: string | undefined,
   baseUrl: string | undefined
 ): CollectionDefinition => {
+  if (!envFile) return obj
+
   let variables = (obj.variable as VariableDefinition[]) || []
   const baseUrlFromSpec = variables.find(item => {
     return (item.id = 'baseUrl')

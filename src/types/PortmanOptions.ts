@@ -14,4 +14,6 @@ export interface PortmanOptions {
   filterFile?: string
   envFile?: string
   cliOptionsFile?: string
+  oaLocal?: string
+  oaUrl?: string
 }

@@ -5,7 +5,7 @@ import path from 'path'
 export const runNewmanWith = (
   postmanCollectionFile: string,
   newmanEnvFile: string,
-  newmanDataFile: string
+  newmanDataFile: string | undefined
 ): Promise<void> => {
   const newmanOptions = {
     collection: require(path.resolve(postmanCollectionFile)),
