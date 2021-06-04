@@ -1,13 +1,14 @@
 import { OpenApiParser, PostmanParser } from 'application'
 import fs from 'fs-extra'
+import { OpenAPIV3 } from 'openapi-types'
 import path from 'path'
 import { Collection } from 'postman-collection'
 import {
-  checkForSuccessStatus,
-  checkForResponseTime,
   checkForResponseContentType,
   checkForResponseJsonBody,
   checkForResponseJsonSchema,
+  checkForResponseTime,
+  checkForSuccessStatus,
   OasMappedOperation,
   PostmanMappedOperation
 } from '../lib'
@@ -67,6 +68,8 @@ export class TestSuiteService {
 
     // Process all responses
     for (const [code, response] of Object.entries(oaOperation.schema.responses)) {
+      const responseObject = response as OpenAPIV3.ResponseObject
+
       // // Only support 2xx response checks - Happy path
       if (!inRange(parseInt(code), 200, 299)) {
         continue // skip this response
@@ -83,9 +86,9 @@ export class TestSuiteService {
       }
 
       // Add response content checks
-      if (response.content) {
+      if (responseObject.content) {
         // Process all content-types
-        for (const [contentType, content] of Object.entries(response.content)) {
+        for (const [contentType, content] of Object.entries(responseObject.content)) {
           // Early skip if no content-types defined
           if (!contentType) continue
 
@@ -99,8 +102,8 @@ export class TestSuiteService {
             pmOperation = checkForResponseJsonBody(pmOperation, oaOperation)
           }
           // // Add json schema check
-          if (responseChecks.includes('schemaValidation') && content.schema) {
-            pmOperation = checkForResponseJsonSchema(content.schema, pmOperation, oaOperation)
+          if (responseChecks.includes('schemaValidation') && content?.schema) {
+            pmOperation = checkForResponseJsonSchema(content?.schema, pmOperation, oaOperation)
           }
         }
       }

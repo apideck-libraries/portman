@@ -3,6 +3,7 @@ import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { append } from './append'
 
 export const checkForResponseJsonSchema = (
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   jsonSchema: any,
   pmOperation: PostmanMappedOperation,
   _aOperation: OasMappedOperation
@@ -30,7 +31,7 @@ export const checkForResponseJsonSchema = (
  * @param {*} oaSchema openAPI schema
  * @returns {*} Modified openAPI schema object that is compatible with JSON schema validation
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
   const jsonSchema = JSON.parse(JSON.stringify(oaSchema)) // Deep copy of the schema object
 
@@ -41,10 +42,10 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
   // Recurse through OpenAPI Schema
   const traverse = obj => {
     for (const k in obj) {
-      if (obj.hasOwnProperty(k) && obj[k] && typeof obj[k] === 'object') {
-        if (obj[k].nullable && obj[k].nullable === true) {
+      if (typeof obj[k] === 'object') {
+        if (obj[k]?.nullable === true) {
           // deletes nullable and adds "null" to type array if nullable is true
-          const jsonTypes = []
+          const jsonTypes: string[] = []
           jsonTypes.push(obj[k].type)
           jsonTypes.push('null')
           obj[k].type = jsonTypes

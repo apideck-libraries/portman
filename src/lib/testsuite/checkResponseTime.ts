@@ -5,7 +5,7 @@ import { append } from './append'
 export const checkForResponseTime = (
   pmOperation: PostmanMappedOperation,
   _oaOperation: OasMappedOperation,
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   config: any
 ): PostmanMappedOperation => {
   // Early exit if no maxMs defined
