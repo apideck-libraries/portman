@@ -50,4 +50,37 @@ describe('PostmanParser', () => {
       expect(operation).toStrictEqual(null)
     })
   })
+
+  describe('getOperationsByIds', () => {
+    it('should be able to retrieve PostmanMappedOperations by operationIds', async () => {
+      const operations = postmanParser.getOperationsByIds(['usersAll', 'companiesOne'])
+      expect(operations.map(({ id }) => id)).toEqual(['companiesOne', 'usersAll'])
+    })
+
+    it('should be fail gracefully if not found', async () => {
+      const operations = postmanParser.getOperationsByIds(['notAnOperation'])
+      expect(operations).toStrictEqual([])
+    })
+  })
+
+  describe('getOperationsByPath', () => {
+    it('should be able to retrieve PostmanMappedOperations by pathRef', async () => {
+      const operations = postmanParser.getOperationsByPath('GET::/crm/companies')
+      expect(operations.map(({ id }) => id)).toEqual(['companiesAll'])
+    })
+
+    it('should be able to retrieve PostmanMappedOperations via wildcarded pathRef', async () => {
+      const operations = postmanParser.getOperationsByPath('*::/crm/companies/*')
+      expect(operations.map(({ id }) => id)).toEqual([
+        'companiesOne',
+        'companiesUpdate',
+        'companiesDelete'
+      ])
+    })
+
+    it('should be able to retrieve PostmanMappedOperations by pathRef with wildcard method', async () => {
+      const operations = postmanParser.getOperationsByPath('*::/crm/companies')
+      expect(operations.map(({ id }) => id)).toEqual(['companiesAll', 'companiesAdd'])
+    })
+  })
 })
