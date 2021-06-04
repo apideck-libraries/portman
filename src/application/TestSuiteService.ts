@@ -81,8 +81,11 @@ export class TestSuiteService {
       }
       // Add responseTime check
       if (responseChecks.includes('responseTime')) {
-        const { responseChecks } = this.config.generateTests
-        pmOperation = checkForResponseTime(pmOperation, oaOperation, responseChecks)
+        pmOperation = checkForResponseTime(
+          pmOperation,
+          oaOperation,
+          this.config.generateTests.responseChecks
+        )
       }
 
       // Add response content checks
