@@ -3,6 +3,8 @@ import path from 'path'
 import { Collection, Item, ItemGroup, Request } from 'postman-collection'
 import { IOpenApiParser } from '../application'
 import { PostmanMappedOperation } from '../lib/postman/PostmanMappedOperation'
+import { matchPath } from '../utils/matchPath'
+import { METHODS } from '../utils/methods'
 
 export interface PostmanParserConfig {
   inputFile?: string
@@ -88,5 +90,21 @@ export class PostmanParser implements IPostmanParser {
 
   public getOperationById(operationId: string): PostmanMappedOperation | null {
     return this.mappedOperations.find(({ id }) => id === operationId) || null
+  }
+
+  public getOperationsByIds(operationIds: string[]): PostmanMappedOperation[] {
+    return this.mappedOperations.filter(({ id }) => id && operationIds.includes(id))
+  }
+
+  public getOperationsByPath(path: string): PostmanMappedOperation[] {
+    const targetSplit = path.split('::')
+    const targetMethod = targetSplit[0].includes('*') ? METHODS : targetSplit[0]
+    const targetPath = targetSplit[1]
+
+    return this.mappedOperations.filter(mappedOperation => {
+      return (
+        targetMethod.includes(mappedOperation.method) && matchPath(targetPath, mappedOperation.path)
+      )
+    })
   }
 }

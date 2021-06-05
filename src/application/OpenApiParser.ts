@@ -2,6 +2,8 @@ import SwaggerParser from '@apidevtools/swagger-parser'
 import { OpenAPIV3 } from 'openapi-types'
 import path from 'path'
 import { OasMappedOperation } from '../lib/oas/OasMappedOperation'
+import { matchPath } from '../utils/matchPath'
+import { METHODS } from '../utils/methods'
 
 export interface OpenApiParserConfig {
   inputFile: string
@@ -81,5 +83,21 @@ export class OpenApiParser {
 
   public getOperationByPath(path: string): OasMappedOperation | null {
     return this.mappedOperations.find(({ pathRef }) => pathRef === path) || null
+  }
+
+  public getOperationsByIds(operationIds: string[]): OasMappedOperation[] {
+    return this.mappedOperations.filter(({ id }) => id && operationIds.includes(id))
+  }
+
+  public getOperationsByPath(path: string): OasMappedOperation[] {
+    const targetSplit = path.split('::')
+    const targetMethod = targetSplit[0].includes('*') ? METHODS : targetSplit[0]
+    const targetPath = targetSplit[1]
+
+    return this.mappedOperations.filter(mappedOperation => {
+      return (
+        targetMethod.includes(mappedOperation.method) && matchPath(targetPath, mappedOperation.path)
+      )
+    })
   }
 }
