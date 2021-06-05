@@ -5,6 +5,7 @@ import path from 'path'
 import { Collection } from 'postman-collection'
 import {
   checkForResponseContentType,
+  checkForResponseHeader,
   checkForResponseJsonBody,
   checkForResponseJsonSchema,
   checkForResponseTime,
@@ -82,9 +83,9 @@ export class TestSuiteService {
       // Add responseTime check
       if (responseChecks.includes('responseTime')) {
         pmOperation = checkForResponseTime(
+          this.config.generateTests.responseChecks,
           pmOperation,
-          oaOperation,
-          this.config.generateTests.responseChecks
+          oaOperation
         )
       }
 
@@ -111,19 +112,19 @@ export class TestSuiteService {
         }
       }
 
-      // console.log('response', response)
+      // console.log('response', responseObject.headers)
       // console.log('oaOperation', oaOperation)
-      // if (response.headers) {
-      // Process all content-types
-      // for (const [contentType, content] of Object.entries(response.content)) {
-      //   // Early skip if no content-types defined
-      //   if (!contentType) continue
-      //   // Add response header checks
-      //   if (responseChecks.includes('headersPresent')) {
-      //     pmOperation = checkForResponseTime(pmOperation, oaOperation, responseChecks)
-      //   }
-      // }
-      // }
+      if (responseObject.headers) {
+        // Process all response headers
+        for (const [headerName] of Object.entries(responseObject.headers)) {
+          // Early skip if no schema defined
+          if (!headerName) continue
+          // Add response header checks
+          if (responseChecks.includes('headersPresent')) {
+            pmOperation = checkForResponseHeader(headerName, pmOperation, oaOperation)
+          }
+        }
+      }
     }
     return pmOperation
   }
