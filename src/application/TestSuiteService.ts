@@ -8,8 +8,8 @@ import {
   checkForResponseHeader,
   checkForResponseJsonBody,
   checkForResponseJsonSchema,
+  checkForResponseStatusSuccess,
   checkForResponseTime,
-  checkForSuccessStatus,
   OasMappedOperation,
   overwriteRequestBody,
   PostmanMappedOperation
@@ -95,7 +95,7 @@ export class TestSuiteService {
 
       // Add status success check
       if (responseChecks.includes('statusSuccess')) {
-        pmOperation = checkForSuccessStatus(pmOperation, oaOperation)
+        pmOperation = checkForResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
       if (responseChecks.includes('responseTime')) {

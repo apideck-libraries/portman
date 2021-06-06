@@ -1,5 +1,5 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
-import { Item } from 'postman-collection'
+import { Event, Item } from 'postman-collection'
 
 export interface IPostmanMappedOperation {
   id?: string
@@ -46,6 +46,10 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
     })
 
     this.id = operationIdMap[this.pathRef]?.id
+  }
+
+  public getTests(): Event {
+    return this.item.events.find(e => e?.listen === 'test', null)
   }
 
   private normalizedPathRef(method: string): string {

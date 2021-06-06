@@ -2,8 +2,14 @@ import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { append } from './append'
 
+type ResponseTimeConfig = {
+  responseTime?: ResponseTime
+}
+type ResponseTime = {
+  maxMs: number
+}
 export const checkForResponseTime = (
-  config: any,
+  config: ResponseTimeConfig,
   pmOperation: PostmanMappedOperation,
   _oaOperation: OasMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

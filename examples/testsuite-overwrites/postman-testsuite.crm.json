@@ -36,6 +36,15 @@
           "key": "company_name",
           "value": "{{$randomCompanyName}} {{$randomColor}}",
           "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{$randomInt}}",
+          "overwrite": true
+        },
+        {
+          "key": "websites[0].url",
+          "remove": true
         }
       ]
     },
