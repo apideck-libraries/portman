@@ -2,7 +2,7 @@ import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { append } from './append'
 
-export const checkForSuccessStatus = (
+export const checkForResponseStatusSuccess = (
   pmOperation: PostmanMappedOperation,
   _oaOperation: OasMappedOperation
 ): PostmanMappedOperation => {

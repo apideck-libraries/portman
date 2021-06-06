@@ -8,8 +8,8 @@ import {
   checkForResponseHeader,
   checkForResponseJsonBody,
   checkForResponseJsonSchema,
+  checkForResponseStatusSuccess,
   checkForResponseTime,
-  checkForSuccessStatus,
   OasMappedOperation,
   PostmanMappedOperation
 } from '../lib'
@@ -78,7 +78,7 @@ export class TestSuiteService {
 
       // Add status success check
       if (responseChecks.includes('statusSuccess')) {
-        pmOperation = checkForSuccessStatus(pmOperation, oaOperation)
+        pmOperation = checkForResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
       if (responseChecks.includes('responseTime')) {
@@ -112,8 +112,6 @@ export class TestSuiteService {
         }
       }
 
-      // console.log('response', responseObject.headers)
-      // console.log('oaOperation', oaOperation)
       if (responseObject.headers) {
         // Process all response headers
         for (const [headerName] of Object.entries(responseObject.headers)) {
