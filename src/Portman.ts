@@ -210,7 +210,12 @@ export class Portman {
 
     if (includeTests && testSuiteConfigFile) {
       const testSuite = new TestSuiteService({ oasParser, postmanParser, testSuiteConfigFile })
+      // Inject automated tests
       testSuite.generateAutomatedTests()
+
+      // Inject overwrites
+      testSuite.injectOverwriteRequest()
+
       this.portmanCollection = testSuite.collection.toJSON()
     }
   }

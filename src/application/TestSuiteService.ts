@@ -11,6 +11,7 @@ import {
   checkForResponseTime,
   checkForSuccessStatus,
   OasMappedOperation,
+  overwriteRequestBody,
   PostmanMappedOperation
 } from '../lib'
 import { inRange } from '../utils/inRange'
@@ -53,16 +54,32 @@ export class TestSuiteService {
     })
   }
 
-  responseChecks = (): string[] => {
+  responseCheckSettings = (): string[] => {
     const { responseChecks } = this.config.generateTests
     return Object.keys(responseChecks).map(key => key)
+  }
+
+  public getOperationByPath(path: string, settings: []): any | null {
+    return settings.find(({ pathRef }) => pathRef === path) || null
+  }
+
+  public getOperationById(operationId: string, settings: []): any | null {
+    return settings.find(({ id }) => id === operationId) || null
+  }
+
+  public getOperationsByIds(settings: []): [] | null {
+    return settings.filter(item => !!item.openApiOperationId)
+  }
+
+  public getOperationsByPaths(settings: []): [] | null {
+    return settings.filter(item => !!item.openApiOperation)
   }
 
   injectChecksForResponses = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation
   ): PostmanMappedOperation => {
-    const responseChecks = this.responseChecks()
+    const responseChecks = this.responseCheckSettings()
 
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -112,8 +129,6 @@ export class TestSuiteService {
         }
       }
 
-      // console.log('response', responseObject.headers)
-      // console.log('oaOperation', oaOperation)
       if (responseObject.headers) {
         // Process all response headers
         for (const [headerName] of Object.entries(responseObject.headers)) {
@@ -127,5 +142,20 @@ export class TestSuiteService {
       }
     }
     return pmOperation
+  }
+
+  public injectOverwriteRequest = (): PostmanMappedOperation[] => {
+    const reqOverwriteSettings = this.getOperationsByIds(this.config.overwriteRequests) as []
+    reqOverwriteSettings.map(overwriteSetting => {
+      //Get Postman operation
+      const pmOperation = this.postmanParser.getOperationById(
+        overwriteSetting.openApiOperationId
+      ) as PostmanMappedOperation
+
+      // overwrite request body
+      overwriteRequestBody(overwriteSetting.overwriteRequestBody, pmOperation)
+    })
+
+    return this.postmanParser.mappedOperations
   }
 }
