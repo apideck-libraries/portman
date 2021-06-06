@@ -3,6 +3,7 @@ export const skip501s = (obj: any): any => {
   const requests = obj?.item
 
   if (!requests) {
+    console.log('Skipped')
     return obj
   }
   requests.map(obj => injectSkip(obj))
