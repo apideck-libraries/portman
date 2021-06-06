@@ -12,7 +12,7 @@ import {
   checkForResponseTime,
   OasMappedOperation,
   overwriteRequestBody,
-  overwriteRequestHeader,
+  overwriteRequestHeaders,
   overwriteRequestPath,
   overwriteRequestQueryParams,
   PostmanMappedOperation
@@ -160,6 +160,12 @@ export class TestSuiteService {
 
       // overwrite request query params
       overwriteRequestQueryParams(overwriteSetting.overwriteRequestQueryParams, pmOperation)
+
+      // overwrite request path variables
+      overwriteRequestPath(overwriteSetting.overwriteRequestPathVariables, pmOperation)
+
+      // overwrite request headers
+      overwriteRequestHeaders(overwriteSetting.overwriteRequestHeaders, pmOperation)
     })
 
     return this.postmanParser.mappedOperations

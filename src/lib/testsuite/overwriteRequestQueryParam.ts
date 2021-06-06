@@ -18,10 +18,10 @@ export const overwriteRequestQueryParams = (
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
-  // Early exit if no request body is defined
+  // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
-  // Early exit if no request url query is defined
+  // Early exit if request url query is not defined
   if (!pmOperation.item?.request?.url?.query?.members) return pmOperation
 
   pmOperation.item.request.url.query.members.forEach(pmQueryParam => {

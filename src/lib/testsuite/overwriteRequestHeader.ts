@@ -1,14 +1,11 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { getByPath } from '../../utils/getByPath'
-import { setByPath } from '../../utils/setByPath'
-import { omitByPath } from '../../utils/omitByPath'
 
 /**
  * Overwrite Postman request headers with values defined by the portman testsuite
  * @param overwriteValues
  * @param pmOperation
  */
-export const overwriteRequestHeader = (
+export const overwriteRequestHeaders = (
   overwriteValues: [
     {
       key: string
@@ -21,10 +18,10 @@ export const overwriteRequestHeader = (
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
-  // Early exit if no request body is defined
+  // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
-  // Early exit if no request url headers is defined
+  // Early exit if request url headers are not defined
   if (!pmOperation.item?.request?.headers?.members) return pmOperation
 
   pmOperation.item.request.headers.members.forEach(pmHeader => {
