@@ -3,6 +3,11 @@ import { getByPath } from '../../utils/getByPath'
 import { setByPath } from '../../utils/setByPath'
 import { omitByPath } from '../../utils/omitByPath'
 
+/**
+ * Overwrite Postman request body with values defined by the portman testsuite
+ * @param overwriteValues
+ * @param pmOperation
+ */
 export const overwriteRequestBody = (
   overwriteValues: [
     {
