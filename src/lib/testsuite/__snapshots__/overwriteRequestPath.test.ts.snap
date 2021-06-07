@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overwriteRequestPath should append the request path variable when overwrite is false 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "key": "id",
+    "type": "string",
+    "value": "{{companyId}}foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestPath should overwrite the request path variable 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "key": "id",
+    "type": "string",
+    "value": "foo-bar-baz",
+  },
+]
+`;
