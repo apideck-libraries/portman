@@ -9,7 +9,8 @@ type ContentType = ResponseCheck
 type JsonBody = ResponseCheck
 type SchemaValidation = ResponseCheck
 type HeadersPresent = ResponseCheck
-type ResponseTime = ResponseCheck & {
+
+export type ResponseTime = ResponseCheck & {
   maxMs: number
 }
 

@@ -15,9 +15,9 @@ export const overwriteRequestHeaders = (
   if (!(overwriteValues instanceof Array)) return pmOperation
 
   // Early exit if request url headers are not defined
-  if (!pmOperation.item?.request?.headers?.members) return pmOperation
+  if (!pmOperation.item?.request?.headers) return pmOperation
 
-  pmOperation.item.request.headers.members.forEach(pmHeader => {
+  pmOperation.item.request.headers.each(pmHeader => {
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteValue => {
       // Skip keys when no overwrite is defined
@@ -26,12 +26,12 @@ export const overwriteRequestHeaders = (
       }
 
       // Test suite - Overwrite/extend header value
-      if (overwriteValue.hasOwnProperty('value') && pmHeader.hasOwnProperty('value')) {
-        const orgValue = pmHeader.value
+      if (overwriteValue?.value && pmHeader?.value) {
+        const originalValue = pmHeader.value
         let newValue = overwriteValue.value
 
         if (overwriteValue.overwrite === false) {
-          newValue = orgValue + newValue
+          newValue = originalValue + newValue
         }
         pmHeader.value = newValue
       }

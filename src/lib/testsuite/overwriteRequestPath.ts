@@ -17,11 +17,11 @@ export const overwriteRequestPath = (
   // Early exit if request path variables are not defined
   if (!pmOperation.item?.request) return pmOperation
 
-  pmOperation.item.request.url.path.forEach(pathVar => {
+  pmOperation.item.request.url.path.variables.each(pathVar => {
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteValue => {
       // Skip keys when no overwrite is defined
-      if (!(overwriteValue.key && pmHeader.key && overwriteValue.key === pmHeader.key)) {
+      if (!(overwriteValue.key && pathVar.key && overwriteValue.key === pathVar.key)) {
         return
       }
 

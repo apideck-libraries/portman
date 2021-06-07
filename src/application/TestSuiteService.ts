@@ -8,6 +8,8 @@ import {
   ContentCheckConfig,
   GeneratedTestConfig,
   OverwriteRequestConfig,
+  ResponseChecks,
+  ResponseTime,
   TestSuiteConfig,
   TestSuiteServiceOptions
 } from 'types/TestSuiteConfig'
@@ -107,11 +109,8 @@ export class TestSuiteService {
       }
       // Add responseTime check
       if (responseChecks.includes('responseTime')) {
-        pmOperation = checkForResponseTime(
-          this.config.generateTests.responseChecks,
-          pmOperation,
-          oaOperation
-        )
+        const { responseTime } = this.config?.generateTests?.responseChecks as ResponseChecks
+        pmOperation = checkForResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
       }
 
       // Add response content checks
