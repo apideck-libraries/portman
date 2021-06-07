@@ -1,4 +1,5 @@
-// TODO review this method to use cleaner implementation
+import dot from 'dot-object'
+import { isObject } from './isObject'
 
 /**
  * Method to set the value of a nested property from an object by passing a path notation
@@ -9,17 +10,17 @@
 export const setByPath = (
   obj: Record<string, unknown>,
   path: string,
-  newValue: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
+  newValue: any,
+  force = false
 ): Record<string, unknown> => {
-  const keys = path.replace('[', '.').replace(']', '').split('.')
-  const last = keys.length - 1
+  if (!isObject(obj)) return obj
 
-  for (let i = 0; i < last; i++) {
-    const prop = keys[i]
-    if (!obj[prop]) obj[prop] = {}
-    obj = obj[prop]
+  const flatInput = dot.dot(obj)
+
+  if (flatInput[path] || force) {
+    flatInput[path] = newValue
   }
 
-  obj[keys[last]] = newValue
-  return obj
+  return dot.object(flatInput)
 }

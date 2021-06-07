@@ -39,7 +39,7 @@ export const overwriteRequestPath = (
         overwriteValue.hasOwnProperty('value') &&
         pathVar.schema
       ) {
-        let orgValue = pathVar.schema.example ? pathVar.schema.example : null,
+        const orgValue = pathVar.schema.example ? pathVar.schema.example : null,
           newValue = overwriteValue.value
 
         if (overwriteValue.overwrite === false) {
