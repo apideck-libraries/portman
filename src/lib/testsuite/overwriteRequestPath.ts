@@ -40,10 +40,6 @@ export const overwriteRequestPath = (
 
         variable.type = 'string' // Set schema as type string dynamic variable
         variable.value = newValue
-
-        // if (overwriteValue.remove === true) {
-        //   pmOperation.item.request.url.path.splice(index, 1)
-        // }
       }
     })
   })
