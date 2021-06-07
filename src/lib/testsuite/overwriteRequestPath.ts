@@ -49,7 +49,7 @@ export const overwriteRequestPath = (
         pathVar.schema.example = newValue
 
         if (overwriteValue.remove === true) {
-          testRequestPathVariables.splice(index, 1)
+          pmOperation.item.request.url.path.splice(index, 1)
         }
       }
     })
