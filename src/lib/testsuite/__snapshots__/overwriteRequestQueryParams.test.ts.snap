@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overwriteRequestQueryParams should append the request path variable when overwrite is false 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "key": "raw",
+    "value": "truefoo",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should disable the request query param 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "raw",
+    "value": "true",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite the request query param 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "key": "raw",
+    "value": "foo",
+  },
+]
+`;
