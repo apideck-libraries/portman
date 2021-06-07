@@ -1,7 +1,8 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
+import { OverwriteRequestBodyConfig } from 'types/TestSuiteConfig'
 import { getByPath } from '../../utils/getByPath'
-import { setByPath } from '../../utils/setByPath'
 import { omitByPath } from '../../utils/omitByPath'
+import { setByPath } from '../../utils/setByPath'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite
@@ -9,15 +10,7 @@ import { omitByPath } from '../../utils/omitByPath'
  * @param pmOperation
  */
 export const overwriteRequestBody = (
-  overwriteValues: [
-    {
-      key: string
-      value: string
-      overwrite: boolean
-      disable: boolean
-      remove: boolean
-    }
-  ],
+  overwriteValues: OverwriteRequestBodyConfig[],
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {

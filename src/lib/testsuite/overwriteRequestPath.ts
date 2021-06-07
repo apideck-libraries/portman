@@ -1,4 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
+import { OverwritePathVariableConfig } from 'types/TestSuiteConfig'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite
@@ -6,15 +7,7 @@ import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
  * @param pmOperation
  */
 export const overwriteRequestPath = (
-  overwriteValues: [
-    {
-      key: string
-      value: string
-      overwrite: boolean
-      disable: boolean
-      remove: boolean
-    }
-  ],
+  overwriteValues: OverwritePathVariableConfig[],
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {

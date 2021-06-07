@@ -1,3 +1,5 @@
+import { OpenApiParser, PostmanParser } from 'application'
+
 type ResponseCheck = {
   enabled: boolean
 }
@@ -52,7 +54,9 @@ export type OverwriteRequestBodyConfig = OverwriteConfig & {
 }
 
 export type OverwritePathVariableConfig = OverwriteConfig
-export type OverwriteRequestHeadersConfig = OverwriteConfig
+export type OverwriteRequestHeadersConfig = OverwriteConfig & {
+  disable?: boolean
+}
 
 export type OverwriteRequestConfig = {
   openApiOperationId?: string
@@ -83,4 +87,10 @@ export interface TestSuiteConfig {
   contentChecks?: ContentCheckConfig[]
   overwriteRequests?: OverwriteRequestConfig[]
   assignPmVariables?: AssignPmVariablesConfig[]
+}
+
+export interface TestSuiteServiceOptions {
+  oasParser: OpenApiParser
+  postmanParser: PostmanParser
+  testSuiteConfigFile: string
 }

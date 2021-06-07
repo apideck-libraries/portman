@@ -1,4 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
+import { OverwriteQueryParamConfig } from 'types/TestSuiteConfig'
 
 /**
  * Overwrite Postman request query params with values defined by the portman testsuite
@@ -6,15 +7,7 @@ import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
  * @param pmOperation
  */
 export const overwriteRequestQueryParams = (
-  overwriteValues: [
-    {
-      key: string
-      value: string
-      overwrite: boolean
-      disable: boolean
-      remove: boolean
-    }
-  ],
+  overwriteValues: OverwriteQueryParamConfig[],
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
