@@ -17,33 +17,33 @@ export const overwriteRequestPath = (
   // Early exit if request path variables are not defined
   if (!pmOperation.item?.request) return pmOperation
 
-  pmOperation.item.request.url.path.variables.each(pathVar => {
+  pmOperation.item.request.url.variables.each(variable => {
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteValue => {
       // Skip keys when no overwrite is defined
-      if (!(overwriteValue.key && pathVar.key && overwriteValue.key === pathVar.key)) {
+      if (!(overwriteValue.key && variable.key && overwriteValue.key === variable.key)) {
         return
       }
 
       if (
         overwriteValue.key &&
-        pathVar.name &&
-        overwriteValue.key === pathVar.name &&
-        overwriteValue.hasOwnProperty('value') &&
-        pathVar.schema
+        variable.key &&
+        overwriteValue.key === variable.key &&
+        overwriteValue?.value
       ) {
-        const orgValue = pathVar.schema.example ? pathVar.schema.example : null,
-          newValue = overwriteValue.value
+        const orgValue = variable?.value || null
+        let newValue = overwriteValue.value
 
         if (overwriteValue.overwrite === false) {
           newValue = orgValue + newValue
         }
-        pathVar.schema.type = 'string' // Set schema as type string dynamic variable
-        pathVar.schema.example = newValue
 
-        if (overwriteValue.remove === true) {
-          pmOperation.item.request.url.path.splice(index, 1)
-        }
+        variable.type = 'string' // Set schema as type string dynamic variable
+        variable.value = newValue
+
+        // if (overwriteValue.remove === true) {
+        //   pmOperation.item.request.url.path.splice(index, 1)
+        // }
       }
     })
   })
