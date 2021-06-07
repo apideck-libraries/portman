@@ -25,11 +25,11 @@ export const overwriteRequestBody = (
   let bodyData = JSON.parse(requestBody)
   overwriteValues.map(overwriteValue => {
     if (overwriteValue.key && overwriteValue.value) {
-      const orgValue = getByPath(bodyData, overwriteValue.key)
+      const orgiginalValue = getByPath(bodyData, overwriteValue.key)
       let newValue = overwriteValue.value
 
       if (overwriteValue.overwrite === false) {
-        newValue = orgValue + newValue
+        newValue = orgiginalValue + newValue
       }
       bodyData = setByPath(bodyData, overwriteValue.key, newValue)
     }

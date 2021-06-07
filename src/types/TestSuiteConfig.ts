@@ -49,9 +49,12 @@ type OverwriteConfig = {
 export type OverwriteQueryParamConfig = OverwriteConfig & {
   disable?: boolean
 }
-export type OverwriteRequestBodyConfig = OverwriteConfig & {
+export type OverwriteRequestBodyConfig = {
+  key: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any
+  value?: any
+  overwrite?: boolean
+  remove?: boolean
 }
 
 export type OverwritePathVariableConfig = Omit<OverwriteConfig, 'remove'>
