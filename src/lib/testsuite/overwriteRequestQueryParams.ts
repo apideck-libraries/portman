@@ -43,14 +43,14 @@ export const overwriteRequestQueryParams = (
 
       // Set Postman query param
       pmOperation.item.request.url.query.upsert(pmQueryParam)
-
-      // Test suite - Remove query param
-      if (overwriteValue.remove === true) {
-        // TODO figure out why this alters the other overwrites
-        // pmOperation.item.request.removeQueryParams(overwriteValue.key)
-      }
     })
   })
+  // Test suite - Remove query param
+  overwriteValues
+    .filter(({ remove }) => remove)
+    .map(paramToRemove => {
+      pmOperation.item.request.url.removeQueryParams(paramToRemove.key)
+    })
 
   return pmOperation
 }

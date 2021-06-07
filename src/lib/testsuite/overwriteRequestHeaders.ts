@@ -43,14 +43,17 @@ export const overwriteRequestHeaders = (
 
       // Set Postman header
       pmOperation.item.request.upsertHeader(pmHeader)
-
-      // Test suite - Remove header
-      if (overwriteValue.remove === true) {
-        // TODO figure out why this alters the other overwrites
-        // pmOperation.item.request.removeQueryParams(overwriteValue.key)
-      }
     })
   })
+
+  // Test suite - Remove headers
+  overwriteValues
+    .filter(({ remove }) => remove)
+    .map(headerToRemove => {
+      pmOperation.item.request.headers.remove(header => {
+        return header.key === headerToRemove.key
+      }, null)
+    })
 
   return pmOperation
 }
