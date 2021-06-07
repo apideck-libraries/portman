@@ -1,4 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
+import { OverwriteQueryParamConfig } from 'types/TestSuiteConfig'
 
 /**
  * Overwrite Postman request query params with values defined by the portman testsuite
@@ -6,15 +7,7 @@ import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
  * @param pmOperation
  */
 export const overwriteRequestQueryParams = (
-  overwriteValues: [
-    {
-      key: string
-      value: string
-      overwrite: boolean
-      disable: boolean
-      remove: boolean
-    }
-  ],
+  overwriteValues: OverwriteQueryParamConfig[],
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
@@ -22,9 +15,9 @@ export const overwriteRequestQueryParams = (
   if (!(overwriteValues instanceof Array)) return pmOperation
 
   // Early exit if request url query is not defined
-  if (!pmOperation.item?.request?.url?.query?.members) return pmOperation
+  if (!pmOperation.item?.request?.url?.query) return pmOperation
 
-  pmOperation.item.request.url.query.members.forEach(pmQueryParam => {
+  pmOperation.item.request.url.query.each(pmQueryParam => {
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteValue => {
       // Skip keys when no overwrite is defined
@@ -33,18 +26,18 @@ export const overwriteRequestQueryParams = (
       }
 
       // Test suite - Overwrite/extend query param value
-      if (overwriteValue.hasOwnProperty('value') && pmQueryParam.hasOwnProperty('value')) {
-        const orgValue = pmQueryParam.value
+      if (overwriteValue?.value && pmQueryParam?.value) {
+        const orginalValue = pmQueryParam.value
         let newValue = overwriteValue.value
 
         if (overwriteValue.overwrite === false) {
-          newValue = orgValue + newValue
+          newValue = orginalValue + newValue
         }
         pmQueryParam.value = newValue
       }
 
       // Test suite - Disable query param
-      if (overwriteValue.disable === true) {
+      if (overwriteValue?.disable === true) {
         pmQueryParam.disabled = true
       }
 

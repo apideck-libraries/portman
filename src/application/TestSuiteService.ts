@@ -4,6 +4,16 @@ import { OpenAPIV3 } from 'openapi-types'
 import path from 'path'
 import { Collection } from 'postman-collection'
 import {
+  AssignPmVariablesConfig,
+  ContentCheckConfig,
+  GeneratedTestConfig,
+  OverwriteRequestConfig,
+  ResponseChecks,
+  ResponseTime,
+  TestSuiteConfig,
+  TestSuiteServiceOptions
+} from 'types/TestSuiteConfig'
+import {
   checkForResponseContentType,
   checkForResponseHeader,
   checkForResponseJsonBody,
@@ -19,26 +29,21 @@ import {
 } from '../lib'
 import { inRange } from '../utils/inRange'
 
-export interface TestSuiteServiceOptions {
-  oasParser: OpenApiParser
-  postmanParser: PostmanParser
-  testSuiteConfigFile: string
-}
-
 export class TestSuiteService {
   public collection: Collection
 
   oasParser: OpenApiParser
   postmanParser: PostmanParser
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  config: any
+  config: TestSuiteConfig
 
   constructor(options: TestSuiteServiceOptions) {
     const { oasParser, postmanParser, testSuiteConfigFile } = options
 
     this.oasParser = oasParser
     this.postmanParser = postmanParser
-    this.config = JSON.parse(fs.readFileSync(path.resolve(testSuiteConfigFile)).toString())
+    this.config = JSON.parse(
+      fs.readFileSync(path.resolve(testSuiteConfigFile)).toString()
+    ) as TestSuiteConfig
 
     this.collection = postmanParser.collection
   }
@@ -58,24 +63,26 @@ export class TestSuiteService {
   }
 
   responseCheckSettings = (): string[] => {
-    const { responseChecks } = this.config.generateTests
+    if (!this.config?.generateTests?.responseChecks) return []
+    const { responseChecks }: GeneratedTestConfig = this.config.generateTests
+
     return Object.keys(responseChecks).map(key => key)
   }
 
-  public getOperationByPath(path: string, settings: []): any | null {
-    return settings.find(({ pathRef }) => pathRef === path) || null
-  }
+  getOperationsFromSetting(
+    settings: OverwriteRequestConfig | AssignPmVariablesConfig | ContentCheckConfig
+  ): PostmanMappedOperation[] {
+    const { openApiOperation, openApiOperationId } = settings
 
-  public getOperationById(operationId: string, settings: []): any | null {
-    return settings.find(({ id }) => id === operationId) || null
-  }
+    let pmOperations: PostmanMappedOperation[] = []
 
-  public getOperationsByIds(settings: []): [] | null {
-    return settings.filter(item => !!item.openApiOperationId)
-  }
+    if (openApiOperation) {
+      pmOperations = this.postmanParser.getOperationsByPath(openApiOperation)
+    } else if (openApiOperationId) {
+      pmOperations = this.postmanParser.getOperationsByIds([openApiOperationId])
+    }
 
-  public getOperationsByPaths(settings: []): [] | null {
-    return settings.filter(item => !!item.openApiOperation)
+    return pmOperations
   }
 
   injectChecksForResponses = (
@@ -102,11 +109,8 @@ export class TestSuiteService {
       }
       // Add responseTime check
       if (responseChecks.includes('responseTime')) {
-        pmOperation = checkForResponseTime(
-          this.config.generateTests.responseChecks,
-          pmOperation,
-          oaOperation
-        )
+        const { responseTime } = this.config?.generateTests?.responseChecks as ResponseChecks
+        pmOperation = checkForResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
       }
 
       // Add response content checks
@@ -148,24 +152,31 @@ export class TestSuiteService {
   }
 
   public injectOverwriteRequest = (): PostmanMappedOperation[] => {
-    const reqOverwriteSettings = this.getOperationsByIds(this.config.overwriteRequests) as []
-    reqOverwriteSettings.map(overwriteSetting => {
-      //Get Postman operation
-      const pmOperation = this.postmanParser.getOperationById(
-        overwriteSetting.openApiOperationId
-      ) as PostmanMappedOperation
+    if (!this.config?.overwriteRequests) return this.postmanParser.mappedOperations
 
-      // overwrite request body
-      overwriteRequestBody(overwriteSetting.overwriteRequestBody, pmOperation)
+    const overwriteRequestSettings = this.config.overwriteRequests
 
-      // overwrite request query params
-      overwriteRequestQueryParams(overwriteSetting.overwriteRequestQueryParams, pmOperation)
+    overwriteRequestSettings.map(overwriteSetting => {
+      //Get Postman operations to apply overwrites to
+      const pmOperations = this.getOperationsFromSetting(overwriteSetting)
 
-      // overwrite request path variables
-      overwriteRequestPath(overwriteSetting.overwriteRequestPathVariables, pmOperation)
+      pmOperations.map(pmOperation => {
+        // overwrite request body
+        overwriteSetting?.overwriteRequestBody &&
+          overwriteRequestBody(overwriteSetting.overwriteRequestBody, pmOperation)
 
-      // overwrite request headers
-      overwriteRequestHeaders(overwriteSetting.overwriteRequestHeaders, pmOperation)
+        // overwrite request query params
+        overwriteSetting?.overwriteRequestQueryParams &&
+          overwriteRequestQueryParams(overwriteSetting.overwriteRequestQueryParams, pmOperation)
+
+        // overwrite request path variables
+        overwriteSetting?.overwriteRequestPathVariables &&
+          overwriteRequestPath(overwriteSetting.overwriteRequestPathVariables, pmOperation)
+
+        // overwrite request headers
+        overwriteSetting?.overwriteRequestHeaders &&
+          overwriteRequestHeaders(overwriteSetting.overwriteRequestHeaders, pmOperation)
+      })
     })
 
     return this.postmanParser.mappedOperations
