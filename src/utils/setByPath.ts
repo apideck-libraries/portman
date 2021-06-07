@@ -16,6 +16,10 @@ export const setByPath = (
 ): Record<string, unknown> => {
   if (!isObject(obj)) return obj
 
+  if (Array.isArray(newValue)) {
+    dot.keepArray = true
+  }
+
   const flatInput = dot.dot(obj)
 
   if (flatInput[path] || force) {

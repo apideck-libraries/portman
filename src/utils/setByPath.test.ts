@@ -10,7 +10,7 @@ describe('setByPath', () => {
     ]
   }
 
-  it('should set the value using dot notation', () => {
+  it('should set a flat value using dot notation', () => {
     const result = setByPath(objUnderTest, 'websites[1].url', 'http://new-example.com')
     expect(result).toEqual({
       foo: 'bar',
@@ -19,6 +19,18 @@ describe('setByPath', () => {
         { url: 'http://example.com', type: 'primary' },
         { url: 'http://new-example.com', type: 'secondary' }
       ]
+    })
+  })
+
+  it('should set an object/array value using dot notation', () => {
+    const result = setByPath(objUnderTest, 'websites', [
+      { url: 'http://one-example.com', type: 'work' }
+    ])
+
+    expect(result).toEqual({
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [{ url: 'http://one-example.com', type: 'work' }]
     })
   })
 
