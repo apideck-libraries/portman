@@ -10,7 +10,8 @@ import { isObject } from './isObject'
 export const getByPath = (
   obj: Record<string, unknown>,
   path: string,
-  defaultValue = undefined
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValue: any | undefined = undefined
 ): string | undefined => {
   if (!isObject(obj)) return
 

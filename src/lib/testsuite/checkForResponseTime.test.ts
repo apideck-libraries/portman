@@ -13,7 +13,7 @@ describe('checkForResponseTime', () => {
   })
 
   it('should add test for response time', async () => {
-    pmOperation = checkForResponseTime({ responseTime: { maxMs: 300 } }, pmOperation, oasOperation)
+    pmOperation = checkForResponseTime({ enabled: true, maxMs: 300 }, pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
