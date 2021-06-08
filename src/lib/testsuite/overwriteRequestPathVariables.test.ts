@@ -1,7 +1,7 @@
 import { getPostmanMappedOperation } from '../../../__tests__/getPostmanMappedOperation'
-import { overwriteRequestPath } from './overwriteRequestPath'
+import { overwriteRequestPathVariables } from './overwriteRequestPathVariables'
 
-describe('overwriteRequestPath', () => {
+describe('overwriteRequestPathVariables', () => {
   it('should overwrite the request path variable', async () => {
     const overwriteValues = [
       {
@@ -10,7 +10,7 @@ describe('overwriteRequestPath', () => {
       }
     ]
     const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPath(overwriteValues, pmOperation)
+    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -23,7 +23,7 @@ describe('overwriteRequestPath', () => {
       }
     ]
     const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPath(overwriteValues, pmOperation)
+    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -36,7 +36,7 @@ describe('overwriteRequestPath', () => {
     ]
 
     const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPath(overwriteValues, pmOperation)
+    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
 
     expect(result.item.request.url.variables).toEqual(pmOperation.item.request.url.variables)
   })

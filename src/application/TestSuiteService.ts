@@ -5,11 +5,11 @@ import path from 'path'
 import { Collection } from 'postman-collection'
 import {
   AssignPmVariablesConfig,
-  ContentCheckConfig,
-  GeneratedTestConfig,
+  ContentTestConfig,
   OverwriteRequestConfig,
-  ResponseChecks,
+  ResponseTestConfig,
   ResponseTime,
+  TestConfig,
   TestSuiteConfig,
   TestSuiteServiceOptions
 } from 'types/TestSuiteConfig'
@@ -23,7 +23,7 @@ import {
   OasMappedOperation,
   overwriteRequestBody,
   overwriteRequestHeaders,
-  overwriteRequestPath,
+  overwriteRequestPathVariables,
   overwriteRequestQueryParams,
   PostmanMappedOperation
 } from '../lib'
@@ -55,22 +55,31 @@ export class TestSuiteService {
 
       // Generate response checks
       if (oaOperation) {
-        pmOperation = this.injectChecksForResponses(pmOperation, oaOperation)
+        pmOperation = this.injectResponseTests(pmOperation, oaOperation)
       }
 
       return pmOperation
     })
   }
 
-  responseCheckSettings = (): string[] => {
-    if (!this.config?.generateTests?.responseChecks) return []
-    const { responseChecks }: GeneratedTestConfig = this.config.generateTests
+  responseTestSettings = (): string[] => {
+    if (!this.config?.tests?.responseTests) return []
+    const { responseTests }: TestConfig = this.config.tests
 
-    return Object.keys(responseChecks).map(key => key)
+    const responseTestKeys = responseTests.reduce((acc, responseTest) => {
+      const responseTestKey = Object.keys(responseTest).find(key => {
+        return !['openApiOperation', 'openApiOperationId'].includes(key)
+      })
+      if (responseTestKey) acc.push(responseTestKey)
+
+      return acc
+    }, [] as string[])
+
+    return responseTestKeys
   }
 
   getOperationsFromSetting(
-    settings: OverwriteRequestConfig | AssignPmVariablesConfig | ContentCheckConfig
+    settings: OverwriteRequestConfig | AssignPmVariablesConfig | ContentTestConfig
   ): PostmanMappedOperation[] {
     const { openApiOperation, openApiOperationId } = settings
 
@@ -85,11 +94,11 @@ export class TestSuiteService {
     return pmOperations
   }
 
-  injectChecksForResponses = (
+  injectResponseTests = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation
   ): PostmanMappedOperation => {
-    const responseChecks = this.responseCheckSettings()
+    const responseTests = this.responseTestSettings()
 
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -104,12 +113,14 @@ export class TestSuiteService {
       }
 
       // Add status success check
-      if (responseChecks.includes('statusSuccess')) {
+      if (responseTests.includes('statusSuccess')) {
         pmOperation = checkForResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
-      if (responseChecks.includes('responseTime')) {
-        const { responseTime } = this.config?.generateTests?.responseChecks as ResponseChecks
+      if (responseTests.includes('responseTime')) {
+        const { responseTime } = this.config?.tests?.responseTests?.find(
+          testConfig => !!testConfig['responseTime']
+        ) as ResponseTestConfig
         pmOperation = checkForResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
       }
 
@@ -121,16 +132,16 @@ export class TestSuiteService {
           if (!contentType) continue
 
           // Add contentType check
-          if (responseChecks.includes('contentType')) {
+          if (responseTests.includes('contentType')) {
             pmOperation = checkForResponseContentType(contentType, pmOperation, oaOperation)
           }
 
           // // Add json body check
-          if (responseChecks.includes('jsonBody') && contentType === 'application/json') {
+          if (responseTests.includes('jsonBody') && contentType === 'application/json') {
             pmOperation = checkForResponseJsonBody(pmOperation, oaOperation)
           }
           // // Add json schema check
-          if (responseChecks.includes('schemaValidation') && content?.schema) {
+          if (responseTests.includes('schemaValidation') && content?.schema) {
             pmOperation = checkForResponseJsonSchema(content?.schema, pmOperation, oaOperation)
           }
         }
@@ -142,7 +153,7 @@ export class TestSuiteService {
           // Early skip if no schema defined
           if (!headerName) continue
           // Add response header checks
-          if (responseChecks.includes('headersPresent')) {
+          if (responseTests.includes('headersPresent')) {
             pmOperation = checkForResponseHeader(headerName, pmOperation, oaOperation)
           }
         }
@@ -152,9 +163,9 @@ export class TestSuiteService {
   }
 
   public injectOverwriteRequest = (): PostmanMappedOperation[] => {
-    if (!this.config?.overwriteRequests) return this.postmanParser.mappedOperations
+    if (!this.config?.overwrites) return this.postmanParser.mappedOperations
 
-    const overwriteRequestSettings = this.config.overwriteRequests
+    const overwriteRequestSettings = this.config.overwrites
 
     overwriteRequestSettings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
@@ -171,7 +182,7 @@ export class TestSuiteService {
 
         // overwrite request path variables
         overwriteSetting?.overwriteRequestPathVariables &&
-          overwriteRequestPath(overwriteSetting.overwriteRequestPathVariables, pmOperation)
+          overwriteRequestPathVariables(overwriteSetting.overwriteRequestPathVariables, pmOperation)
 
         // overwrite request headers
         overwriteSetting?.overwriteRequestHeaders &&

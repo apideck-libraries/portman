@@ -1,20 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OpenApiParser, PostmanParser } from 'application'
 
-type ResponseCheck = {
+type ResponseTest = {
   enabled: boolean
 }
 
-type StatusSuccess = ResponseCheck
-type ContentType = ResponseCheck
-type JsonBody = ResponseCheck
-type SchemaValidation = ResponseCheck
-type HeadersPresent = ResponseCheck
+type StatusSuccess = ResponseTest
+type ContentType = ResponseTest
+type JsonBody = ResponseTest
+type SchemaValidation = ResponseTest
+type HeadersPresent = ResponseTest
 
-export type ResponseTime = ResponseCheck & {
+export type ResponseTime = ResponseTest & {
   maxMs: number
 }
 
-export type ResponseChecks = {
+export type ResponseTestConfig = {
+  openApiOperationId?: string
+  openApiOperation?: string
   statusSuccess?: StatusSuccess
   contentType?: ContentType
   jsonBody?: JsonBody
@@ -23,20 +26,27 @@ export type ResponseChecks = {
   responseTime?: ResponseTime
 }
 
-export type ResponseBodyCheck = {
-  key: string
-  value: string
-}
-
-export type GeneratedTestConfig = {
-  responseChecks?: ResponseChecks
-  limitOperations?: string[]
-}
-
-export type ContentCheckConfig = {
+export type ContentTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
-  checkResponseBody: ResponseBodyCheck[]
+  responseBodyTest: ResponseBodyTest[]
+}
+
+export type VariationTestConfig = {
+  openApiOperationId?: string
+  openApiOperation?: string
+  variations: VariationConfig[]
+}
+
+export type VariationConfig = {
+  name: string
+  options?: any
+  success: any
+}
+
+export type ResponseBodyTest = {
+  key: string
+  value: string
 }
 
 type OverwriteConfig = {
@@ -49,12 +59,9 @@ type OverwriteConfig = {
 export type OverwriteQueryParamConfig = OverwriteConfig & {
   disable?: boolean
 }
-export type OverwriteRequestBodyConfig = {
-  key: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+export type OverwriteRequestBodyConfig = Omit<OverwriteConfig, 'value'> & {
   value?: any
-  overwrite?: boolean
-  remove?: boolean
 }
 
 export type OverwritePathVariableConfig = Omit<OverwriteConfig, 'remove'>
@@ -85,11 +92,17 @@ export type AssignPmVariablesConfig = {
   environmentVariables: EnvironmentVariableConfig[]
 }
 
+export type TestConfig = {
+  responseTests?: ResponseTestConfig[]
+  contentTests?: ContentTestConfig[]
+  variationTests?: VariationTestConfig[]
+  limitOperations?: string[]
+}
+
 export interface TestSuiteConfig {
   version: number
-  generateTests?: GeneratedTestConfig
-  contentChecks?: ContentCheckConfig[]
-  overwriteRequests?: OverwriteRequestConfig[]
+  tests?: TestConfig
+  overwrites?: OverwriteRequestConfig[]
   assignPmVariables?: AssignPmVariablesConfig[]
 }
 

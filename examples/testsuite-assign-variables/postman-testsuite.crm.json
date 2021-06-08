@@ -1,27 +1,45 @@
 {
   "version": 1.0,
-  "generateTests": {
-    "responseChecks": {
-      "statusSuccess": {
-        "enabled": true
+  "tests": {
+    "responseTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
       },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
       },
-      "contentType": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
       },
-      "jsonBody": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
       },
-      "schemaValidation": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
       },
-      "headersPresent": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
       }
-    }
+    ]
   },
   "assignPmVariables": [
     {
@@ -46,7 +64,7 @@
       ]
     }
   ],
-  "contentChecks": [
+  "responseTests": [
     {
       "openApiOperationId": "leadsOne",
       "checkRequestBody": [
@@ -57,7 +75,7 @@
       ]
     }
   ],
-  "overwriteRequests": [
+  "overwrites": [
     {
       "openApiOperationId": "leadsAdd",
       "overwriteRequestBody": [

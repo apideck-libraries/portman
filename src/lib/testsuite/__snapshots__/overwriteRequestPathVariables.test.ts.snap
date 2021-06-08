@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`overwriteRequestPath should append the request path variable when overwrite is false 1`] = `
+exports[`overwriteRequestPathVariables should append the request path variable when overwrite is false 1`] = `
 Array [
   Object {
     "description": Object {
@@ -14,7 +14,7 @@ Array [
 ]
 `;
 
-exports[`overwriteRequestPath should overwrite the request path variable 1`] = `
+exports[`overwriteRequestPathVariables should overwrite the request path variable 1`] = `
 Array [
   Object {
     "description": Object {

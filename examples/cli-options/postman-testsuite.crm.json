@@ -1,26 +1,44 @@
 {
   "version": 1.0,
-  "generateTests": {
-    "responseChecks": {
-      "StatusSuccess": {
-        "enabled": true
+  "tests": {
+    "responseTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
       },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
       },
-      "headersPresent": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
       },
-      "contentType": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
       },
-      "jsonBody": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
       },
-      "schemaValidation": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
       }
-    }
+    ]
   }
 }

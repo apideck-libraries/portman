@@ -1,8 +1,8 @@
 {
   "version": 1.0,
-  "generateTests": {
+  "tests": {
     "limitOperations": ["get-lists"],
-    "responseChecks": {
+    "responseTests": {
       "StatusSuccess": {
         "enabled": true
       },

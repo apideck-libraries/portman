@@ -1,6 +1,6 @@
 # OpenApi Postman test suite generation - Content checks
 
-In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
+In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
 
 This example focusses on the extension of the contract test suite with specific content checks. While the contract tests focusses on the validation of the request/response properties, the "content checks" focusses on validating the actual values of the API.
 
@@ -18,26 +18,26 @@ This is an example where we take the OpenAPi defined in `crm.yml`, with only 1 e
 
 ## Testsuite settings
 
-The test suite settings (in JSON format) consists out of multiple parts:  
+The test suite settings (in JSON format) consists out of multiple parts:
 
-- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).  
-- **generateTests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request)  ( see examples folder)
-  - **responseChecks** : All response automatic generated checks.  
-  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** operations).  
-- **extendTests**:  which refers the custom additions of manual created postman tests. (see examples folder)
-- **contentChecks**:  which refers the additional Postman tests that check the content. 
-- **assignPmVariables**:  which refers to specific Postman environment variables for easier automation.  (see examples folder)
-- **overwriteRequests**:  which refers the custom additions/modifications of the OpenAPI request body. (see examples folder)
+- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
+- **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
+  - **responseTests** : All response automatic generated checks.
+  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** operations).
+- **extendTests**: which refers the custom additions of manual created postman tests. (see examples folder)
+- **contentTests**: which refers the additional Postman tests that check the content.
+- **assignPmVariables**: which refers to specific Postman environment variables for easier automation. (see examples folder)
+- **overwrites**: which refers the custom additions/modifications of the OpenAPI request body. (see examples folder)
 
-In this example we focus on the **contentChecks** section and settings.
+In this example we focus on the **contentTests** section and settings.
 
 file: examples/testsuite-content-checks/postman-testsuite.crm.json
 
 ```json
 {
   "version": 1.0,
-  "generateTests": {
-    "responseChecks": {
+  "tests": {
+    "responseTests": {
       "StatusSuccess": {
         "enabled": true
       },
@@ -59,7 +59,7 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json
       }
     }
   },
-  "contentChecks": [
+  "contentTests": [
     {
       "openApiOperationId": "leadsAll",
       "checkResponseBody": [
@@ -81,13 +81,13 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json
 }
 ```
 
-## Postman test suite - "contentChecks" properties
+## Postman test suite - "contentTests" properties
 
-Version 1.0  
+Version 1.0
 
 Next to the generated tests, it is possible to define "content" checks where a property and the value of the response body should exist and match a specific value or variable.
 
-The contentChecks are mapped based on the OpenApi operationId or the OpenApi Operation reference (method + path).
+The contentTests are mapped based on the OpenApi operationId or the OpenApi Operation reference (method + path).
 Anything added in `checkResponseBody` array, will be added as content check to the Postman tests.
 
 ##### Target options:
@@ -110,7 +110,7 @@ In this example, we are zooming in on only the contenChecks usage. For the basic
 file: examples/testsuite-content-checks/postman-testsuite.crm.json >>
 
 ```json
-"contentChecks": [
+"contentTests": [
     {
       "openApiOperationId": "leadsAll",
       "checkResponseBody": [
@@ -133,7 +133,7 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json >>
 
 After the conversion, in the "leadsAll" request (GET::/crm/leads) in the Postman app, you can find the specific tests in the "Tests" tab.
 
-file: examples/testsuite-content-checks/crm.postman.json >> 
+file: examples/testsuite-content-checks/crm.postman.json >>
 
 Postman request "Leads"" >> List leads"API Response:
 
@@ -185,59 +185,78 @@ Part of Postman Testsuite checks:
 
 ```javascript
 // Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = pm.response.json()
 
 // Response body should have property "data[0].company_name"
-pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function() {
-   pm.expect((typeof jsonData.data[0].company_name !== "undefined")).to.be.true;
-});
+pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function () {
+  pm.expect(typeof jsonData.data[0].company_name !== 'undefined').to.be.true
+})
 
 // Response body should have value "Spacex" for "data[0].company_name"
-if (typeof jsonData.data[0].company_name !== "undefined") {
-pm.test("[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql("Spacex");
-})};
+if (typeof jsonData.data[0].company_name !== 'undefined') {
+  pm.test(
+    "[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'",
+    function () {
+      pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
+    }
+  )
+}
 
 // Response body should have property "data[0].monetary_amount"
-pm.test("[GET] /crm/leads - Content check if property 'data[0].monetary_amount' exists", function() {
-   pm.expect((typeof jsonData.data[0].monetary_amount !== "undefined")).to.be.true;
-});
+pm.test(
+  "[GET] /crm/leads - Content check if property 'data[0].monetary_amount' exists",
+  function () {
+    pm.expect(typeof jsonData.data[0].monetary_amount !== 'undefined').to.be.true
+  }
+)
 
 // Response body should have value "75000" for "data[0].monetary_amount"
-if (typeof jsonData.data[0].monetary_amount !== "undefined") {
-pm.test("[GET] /crm/leads - Content check if value for 'data[0].monetary_amount' matches '75000'", function() {
-  pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);
-})};
+if (typeof jsonData.data[0].monetary_amount !== 'undefined') {
+  pm.test(
+    "[GET] /crm/leads - Content check if value for 'data[0].monetary_amount' matches '75000'",
+    function () {
+      pm.expect(jsonData.data[0].monetary_amount).to.eql(75000)
+    }
+  )
+}
 
 // Response body should have property "resource"
-pm.test("[GET] /crm/leads - Content check if property 'resource' exists", function() {
-   pm.expect((typeof jsonData.resource !== "undefined")).to.be.true;
-});
+pm.test("[GET] /crm/leads - Content check if property 'resource' exists", function () {
+  pm.expect(typeof jsonData.resource !== 'undefined').to.be.true
+})
 
 // Response body should have value "companies" for "resource"
-if (typeof jsonData.resource !== "undefined") {
-pm.test("[GET] /crm/leads - Content check if value for 'resource' matches 'companies'", function() {
-  pm.expect(jsonData.resource).to.eql("companies");
-})};
+if (typeof jsonData.resource !== 'undefined') {
+  pm.test(
+    "[GET] /crm/leads - Content check if value for 'resource' matches 'companies'",
+    function () {
+      pm.expect(jsonData.resource).to.eql('companies')
+    }
+  )
+}
 ```
 
-Per defined "contenCheck" item, Portman will generated 2 checks:
+Per defined "contentTest" item, Portman will generated 2 checks:
 
 ```js
 // Response body should have property "data[0].company_name"
-pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function() {
-   pm.expect((typeof jsonData.data[0].company_name !== "undefined")).to.be.true;
-});
+pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function () {
+  pm.expect(typeof jsonData.data[0].company_name !== 'undefined').to.be.true
+})
 ```
 
 The first check validates if the response has the property "company_name" in the first item ("[0]") of the "data" array.
 
 ```js
 // Response body should have value "Spacex" for "data[0].company_name"
-if (typeof jsonData.data[0].company_name !== "undefined") {
-pm.test("[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql("Spacex");
-})};
+if (typeof jsonData.data[0].company_name !== 'undefined') {
+  pm.test(
+    "[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'",
+    function () {
+      pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
+    }
+  )
+}
 ```
 
 The 2nd check validates if the response has value "Spacex" for the property "company_name".
@@ -253,7 +272,7 @@ As alternative, you can also define the target as `openApiOperation`, which is t
 In the example below, we target the `GET` method for the path `/crm/leads`.
 
 ```json
-"contentChecks": [
+"contentTests": [
     {
       "openApiOperation": "GET::/crm/leads",
       "checkResponseBody": [

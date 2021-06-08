@@ -6,7 +6,7 @@ import { OverwritePathVariableConfig } from 'types/TestSuiteConfig'
  * @param overwriteValues
  * @param pmOperation
  */
-export const overwriteRequestPath = (
+export const overwriteRequestPathVariables = (
   overwriteValues: OverwritePathVariableConfig[],
   pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
