@@ -6,7 +6,6 @@ export interface IPostmanMappedOperation {
   path: string
   method: string
   pathRef: string
-  pathRefVariable: string
   requestHeaders: Record<string, unknown>
   queryParams: Record<string, unknown>
   pathParams: Record<string, unknown>
@@ -18,7 +17,6 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
   public path: string
   public method: string
   public pathRef: string
-  public pathRefVariable: string
   public requestHeaders: Record<string, unknown>
   public queryParams: Record<string, unknown>
   public pathParams: Record<string, unknown>
@@ -31,7 +29,6 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
     this.method = request.method.toUpperCase()
     this.path = request.url.path ? `/${request.url.path.join('/')}` : '/'
     this.pathRef = this.normalizedPathRef(this.method)
-    this.pathRefVariable = `${this.method}::${request.url.getPath()}`
 
     this.requestHeaders = request.headers.toJSON().map(({ key, value, description }) => {
       return { name: key, value, description: description?.content }

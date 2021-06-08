@@ -103,10 +103,7 @@ exports[`overwriteRequestBody should append to the body param when overwrite is 
         },
         {
             \\"id\\": \\"custom_technologies\\",
-            \\"value\\": [
-                \\"Ut occaecat\\",
-                \\"et eu commodo\\"
-            ]
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
         }
     ],
     \\"tags\\": [
@@ -206,10 +203,7 @@ exports[`overwriteRequestBody should append to the body param when remove is tru
         },
         {
             \\"id\\": \\"custom_technologies\\",
-            \\"value\\": [
-                \\"Ut occaecat\\",
-                \\"et eu commodo\\"
-            ]
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
         }
     ],
     \\"tags\\": [
@@ -321,10 +315,7 @@ exports[`overwriteRequestBody should overwrite the request body with dot notatio
         },
         {
             \\"id\\": \\"custom_technologies\\",
-            \\"value\\": [
-                \\"Ut occaecat\\",
-                \\"et eu commodo\\"
-            ]
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
         }
     ],
     \\"tags\\": [
@@ -431,10 +422,7 @@ exports[`overwriteRequestBody should overwrite the request body with replacement
         },
         {
             \\"id\\": \\"custom_technologies\\",
-            \\"value\\": [
-                \\"Ut occaecat\\",
-                \\"et eu commodo\\"
-            ]
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
         }
     ],
     \\"tags\\": [
@@ -546,10 +534,7 @@ exports[`overwriteRequestBody should overwrite the request body with simple key 
         },
         {
             \\"id\\": \\"custom_technologies\\",
-            \\"value\\": [
-                \\"Ut occaecat\\",
-                \\"et eu commodo\\"
-            ]
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
         }
     ],
     \\"tags\\": [
