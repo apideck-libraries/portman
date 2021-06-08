@@ -69,11 +69,16 @@ export type OverwriteRequestHeadersConfig = OverwriteConfig & {
   disable?: boolean
 }
 
+export type OverwritePathIdVariableConfig = {
+  enabled: boolean
+}
+
 export type OverwriteRequestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   overwriteRequestQueryParams?: OverwriteQueryParamConfig[]
   overwriteRequestPathVariables?: OverwritePathVariableConfig[]
+  overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
   overwriteRequestBody?: OverwriteRequestBodyConfig[]
   overwriteRequestHeaders?: OverwriteRequestHeadersConfig[]
 }

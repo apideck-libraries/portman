@@ -9,7 +9,7 @@ const upsertEnvVariable = (
   value: unknown,
   type: string
 ) => {
-  const toInject = { id: key, value, type }
+  const toInject = { key, value, type }
   const updateIndex = variables.findIndex(variable => variable['id'] === key)
 
   if (updateIndex > -1) {

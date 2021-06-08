@@ -22,7 +22,6 @@ import {
   injectEnvVariables,
   injectPreRequest,
   orderCollectionRequests,
-  overridePathParams,
   replaceValues,
   replaceVariables,
   runNewmanWith,
@@ -217,7 +216,7 @@ export class Portman {
       testSuite.injectContentTests()
 
       // Inject overwrites
-      testSuite.injectOverwriteRequest()
+      testSuite.injectOverwrites()
 
       this.portmanCollection = testSuite.collection.toJSON()
     }
@@ -236,7 +235,6 @@ export class Portman {
     })
     collection = replaceValues(['Bearer <token>', '<Bearer Token>'], '{{bearerToken}}', collection)
     collection = injectEnvVariables(collection, envFile, baseUrl)
-    collection = overridePathParams(collection)
     collection = orderCollectionRequests(collection, orderOfOperations)
 
     // --- Portman - Set Postman pre-requests
