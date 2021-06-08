@@ -8,8 +8,6 @@ export const checkForContentInResponseBody = (
   pmOperation: PostmanMappedOperation,
   context: TestSuiteService
 ): PostmanMappedOperation => {
-  // const pmTest: string[] = []
-
   contentTests.map(check => {
     let pmJsonData = ''
     let pmTestKey = ''
