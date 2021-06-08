@@ -14,6 +14,7 @@ import {
   TestSuiteServiceOptions
 } from 'types/TestSuiteConfig'
 import {
+  checkForContentInResponseBody,
   checkForResponseContentType,
   checkForResponseHeader,
   checkForResponseJsonBody,
@@ -36,8 +37,12 @@ export class TestSuiteService {
   postmanParser: PostmanParser
   config: TestSuiteConfig
 
+  pmResponseJsonVarInjected: boolean
+
   constructor(options: TestSuiteServiceOptions) {
     const { oasParser, postmanParser, testSuiteConfigFile } = options
+
+    this.pmResponseJsonVarInjected = false
 
     this.oasParser = oasParser
     this.postmanParser = postmanParser
@@ -55,6 +60,7 @@ export class TestSuiteService {
 
       // Generate response checks
       if (oaOperation) {
+        // Inject response tests
         pmOperation = this.injectResponseTests(pmOperation, oaOperation)
       }
 
@@ -76,6 +82,22 @@ export class TestSuiteService {
     }, [] as string[])
 
     return responseTestKeys
+  }
+
+  contentTestSettings = (): string[] => {
+    if (!this.config?.contentTests) return []
+    const contentTests = this.config.contentTests
+
+    const contentTestKeys = contentTests.reduce((acc, contentTest) => {
+      const contentTestKey = Object.keys(contentTest).find(key => {
+        return !['openApiOperation', 'openApiOperationId'].includes(key)
+      })
+      if (contentTestKey) acc.push(contentTestKey)
+
+      return acc
+    }, [] as string[])
+
+    return contentTestKeys
   }
 
   getOperationsFromSetting(
@@ -136,11 +158,12 @@ export class TestSuiteService {
             pmOperation = checkForResponseContentType(contentType, pmOperation, oaOperation)
           }
 
-          // // Add json body check
+          // Add json body check
           if (responseTests.includes('jsonBody') && contentType === 'application/json') {
             pmOperation = checkForResponseJsonBody(pmOperation, oaOperation)
           }
-          // // Add json schema check
+
+          // Add json schema check
           if (responseTests.includes('schemaValidation') && content?.schema) {
             pmOperation = checkForResponseJsonSchema(content?.schema, pmOperation, oaOperation)
           }
@@ -160,6 +183,26 @@ export class TestSuiteService {
       }
     }
     return pmOperation
+  }
+
+  public injectContentTests = (): PostmanMappedOperation[] => {
+    if (!this.config?.contentTests) return this.postmanParser.mappedOperations
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this
+    const contentTests = this.config.contentTests
+
+    contentTests.map(contentTest => {
+      //Get Postman operations to inject content test for
+      const pmOperations = this.getOperationsFromSetting(contentTest)
+
+      pmOperations.map(pmOperation => {
+        // check content of response body
+        contentTest?.responseBodyTest &&
+          checkForContentInResponseBody(contentTest.responseBodyTest, pmOperation, context)
+      })
+    })
+
+    return this.postmanParser.mappedOperations
   }
 
   public injectOverwriteRequest = (): PostmanMappedOperation[] => {

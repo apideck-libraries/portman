@@ -213,6 +213,9 @@ export class Portman {
       // Inject automated tests
       testSuite.generateAutomatedTests()
 
+      // Inject content tests
+      testSuite.injectContentTests()
+
       // Inject overwrites
       testSuite.injectOverwriteRequest()
 

@@ -46,7 +46,7 @@ export type VariationConfig = {
 
 export type ResponseBodyTest = {
   key: string
-  value: string
+  value: any
 }
 
 type OverwriteConfig = {
@@ -103,6 +103,7 @@ export interface TestSuiteConfig {
   version: number
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
+  contentTests?: ContentTestConfig[]
   assignPmVariables?: AssignPmVariablesConfig[]
 }
 

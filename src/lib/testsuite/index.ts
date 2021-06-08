@@ -1,3 +1,4 @@
+export * from './checkForContentInResponseBody'
 export * from './checkForResponseContentType'
 export * from './checkForResponseHeader'
 export * from './checkForResponseJsonBody'
