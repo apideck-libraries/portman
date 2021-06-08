@@ -21,7 +21,7 @@ The test suite settings (in JSON format) consists out of multiple parts:
 - **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
 - **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request)
   - **responseTests** : All response automatic generated checks.
-  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** operations).
+  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** configured operations).
 - **extendTests**: which refers the custom additions of manual created postman tests. (see examples folder)
 - **contentTests**: which refers the additional Postman tests that check the content. ( see examples folder)
 - **assignPmVariables**: which refers to specific Postman environment variables for easier automation. (see examples folder)

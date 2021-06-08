@@ -23,6 +23,7 @@ import {
   OasMappedOperation,
   overwriteRequestBody,
   overwriteRequestHeaders,
+  overwriteRequestPathIdVariables,
   overwriteRequestPathVariables,
   overwriteRequestQueryParams,
   PostmanMappedOperation
@@ -162,12 +163,12 @@ export class TestSuiteService {
     return pmOperation
   }
 
-  public injectOverwriteRequest = (): PostmanMappedOperation[] => {
+  public injectOverwrites = (): PostmanMappedOperation[] => {
     if (!this.config?.overwrites) return this.postmanParser.mappedOperations
 
-    const overwriteRequestSettings = this.config.overwrites
+    const overwriteSettings = this.config.overwrites
 
-    overwriteRequestSettings.map(overwriteSetting => {
+    overwriteSettings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
       const pmOperations = this.getOperationsFromSetting(overwriteSetting)
 
@@ -179,6 +180,13 @@ export class TestSuiteService {
         // overwrite request query params
         overwriteSetting?.overwriteRequestQueryParams &&
           overwriteRequestQueryParams(overwriteSetting.overwriteRequestQueryParams, pmOperation)
+
+        // overwrite request path id variables
+        overwriteSetting?.overwriteRequestPathIdVariables &&
+          overwriteRequestPathIdVariables(
+            overwriteSetting.overwriteRequestPathIdVariables,
+            pmOperation
+          )
 
         // overwrite request path variables
         overwriteSetting?.overwriteRequestPathVariables &&
