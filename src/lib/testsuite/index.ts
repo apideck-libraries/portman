@@ -1,3 +1,7 @@
+export * from './assignVarFromRequestBody'
+export * from './assignVarFromResponseBody'
+export * from './assignVarFromResponseHeader'
+export * from './assignVarFromValue'
 export * from './checkForContentInResponseBody'
 export * from './checkForResponseContentType'
 export * from './checkForResponseHeader'

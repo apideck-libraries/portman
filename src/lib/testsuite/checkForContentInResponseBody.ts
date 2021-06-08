@@ -1,25 +1,23 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { append } from './append'
 import { ResponseBodyTest } from 'types/TestSuiteConfig'
-import { TestSuiteService } from 'application'
 
 export const checkForContentInResponseBody = (
   contentTests: ResponseBodyTest[],
-  pmOperation: PostmanMappedOperation,
-  context: TestSuiteService
+  pmOperation: PostmanMappedOperation
 ): PostmanMappedOperation => {
   contentTests.map(check => {
     let pmJsonData = ''
     let pmTestKey = ''
     let pmTestValue = ''
     // Only set the jsonData once
-    if (!context.pmResponseJsonVarInjected) {
+    if (!pmOperation.testJsonDataInjected) {
       pmJsonData = [
         `// Set response object as internal variable\n`,
         `let jsonData = pm.response.json();\n`
       ].join('')
       // sets pmResponseJsonVarInjected on TestSuite
-      context.pmResponseJsonVarInjected = true
+      pmOperation.testJsonDataInjected = true
     }
 
     if (check.key) {

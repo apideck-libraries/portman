@@ -14,6 +14,10 @@ import {
   TestSuiteServiceOptions
 } from 'types/TestSuiteConfig'
 import {
+  assignVarFromRequestBody,
+  assignVarFromResponseBody,
+  assignVarFromResponseHeader,
+  assignVarFromValue,
   checkForContentInResponseBody,
   checkForResponseContentType,
   checkForResponseHeader,
@@ -130,7 +134,7 @@ export class TestSuiteService {
     for (const [code, response] of Object.entries(oaOperation.schema.responses)) {
       const responseObject = response as OpenAPIV3.ResponseObject
 
-      // // Only support 2xx response checks - Happy path
+      // Only support 2xx response checks - Happy path
       if (!inRange(parseInt(code), 200, 299)) {
         continue // skip this response
       }
@@ -188,8 +192,6 @@ export class TestSuiteService {
 
   public injectContentTests = (): PostmanMappedOperation[] => {
     if (!this.config?.contentTests) return this.postmanParser.mappedOperations
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const context = this
     const contentTests = this.config.contentTests
 
     contentTests.map(contentTest => {
@@ -199,7 +201,39 @@ export class TestSuiteService {
       pmOperations.map(pmOperation => {
         // check content of response body
         contentTest?.responseBodyTest &&
-          checkForContentInResponseBody(contentTest.responseBodyTest, pmOperation, context)
+          checkForContentInResponseBody(contentTest.responseBodyTest, pmOperation)
+      })
+    })
+
+    return this.postmanParser.mappedOperations
+  }
+
+  public injectAssignVariables = (): PostmanMappedOperation[] => {
+    if (!this.config?.assignPmVariables) return this.postmanParser.mappedOperations
+    const assignVarSettings = this.config.assignPmVariables
+
+    assignVarSettings.map(assignVar => {
+      //Get Postman operations to apply assign variables for
+      const pmOperations = this.getOperationsFromSetting(assignVar)
+      pmOperations.map(pmOperation => {
+        let fixedValueCounter = 0
+        // Loop over all defined variable value sources
+        assignVar.collectionVariables.map(varSetting => {
+          // Assign Postman collection variable with a request body value
+          varSetting?.requestBodyProp && assignVarFromRequestBody(varSetting, pmOperation)
+
+          // Assign Postman collection variable with a response body value
+          varSetting?.responseBodyProp && assignVarFromResponseBody(varSetting, pmOperation)
+
+          // Assign Postman collection variable with a response header value
+          varSetting?.responseHeaderProp && assignVarFromResponseHeader(varSetting, pmOperation)
+
+          // Assign Postman collection variable with a fixed value
+          if (varSetting.value) {
+            fixedValueCounter++
+            assignVarFromValue(varSetting, pmOperation, fixedValueCounter)
+          }
+        })
       })
     })
 

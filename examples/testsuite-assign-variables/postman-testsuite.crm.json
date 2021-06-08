@@ -43,8 +43,8 @@
   },
   "assignPmVariables": [
     {
-      "openApiOperationId": "GET::/crm/leads/{id}",
-      "environmentVariables": [
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "collectionVariables": [
         {
           "responseBodyProp": "data.company_name"
         }
@@ -52,7 +52,7 @@
     },
     {
       "openApiOperationId": "leadsAdd",
-      "environmentVariables": [
+      "collectionVariables": [
         {
           "requestBodyProp": "company_name",
           "name": "leadsAdd.company_name"

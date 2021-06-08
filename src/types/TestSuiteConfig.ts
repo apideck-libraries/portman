@@ -83,18 +83,18 @@ export type OverwriteRequestConfig = {
   overwriteRequestHeaders?: OverwriteRequestHeadersConfig[]
 }
 
-export type EnvironmentVariableConfig = {
+export type CollectionVariableConfig = {
   requestBodyProp?: string
   responseBodyProp?: string
   responseHeaderProp?: string
   name?: string
-  value: string
+  value?: any
 }
 
 export type AssignPmVariablesConfig = {
   openApiOperationId?: string
   openApiOperation?: string
-  environmentVariables: EnvironmentVariableConfig[]
+  collectionVariables: CollectionVariableConfig[]
 }
 
 export type TestConfig = {

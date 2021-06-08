@@ -17,10 +17,12 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
   public path: string
   public method: string
   public pathRef: string
+  public pathVar: string
   public requestHeaders: Record<string, unknown>
   public queryParams: Record<string, unknown>
   public pathParams: Record<string, unknown>
   public item: Item
+  public testJsonDataInjected: boolean
 
   constructor(item: Item, operationIdMap: Record<string, OasMappedOperation>) {
     this.item = item
@@ -29,6 +31,7 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
     this.method = request.method.toUpperCase()
     this.path = request.url.path ? `/${request.url.path.join('/')}` : '/'
     this.pathRef = this.normalizedPathRef(this.method)
+    this.pathVar = this.normalizedPathVar(this.method)
 
     this.requestHeaders = request.headers.toJSON().map(({ key, value, description }) => {
       return { name: key, value, description: description?.content }
@@ -43,6 +46,7 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
     })
 
     this.id = operationIdMap[this.pathRef]?.id
+    this.testJsonDataInjected = false
   }
 
   public getTests(): Event {
@@ -62,5 +66,21 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
       })
       .join('/')
     return `${method}::/${path}`
+  }
+
+  private normalizedPathVar(method: string): string {
+    const {
+      item: {
+        request: { url }
+      }
+    } = this
+
+    const path = url?.path
+      ?.map(segment => {
+        return segment.includes(':') ? `{${segment}}`.replace(':', '') : segment
+      })
+      .join('/')
+      .replace(/#|\//g, '-')
+    return `${method.toLowerCase()}::${path}`
   }
 }

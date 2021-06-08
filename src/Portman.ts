@@ -215,6 +215,9 @@ export class Portman {
       // Inject content tests
       testSuite.injectContentTests()
 
+      // Inject variable assignment
+      testSuite.injectAssignVariables()
+
       // Inject overwrites
       testSuite.injectOverwrites()
 
