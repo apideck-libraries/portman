@@ -9,10 +9,10 @@ export const checkForResponseHeader = (
 ): PostmanMappedOperation => {
   // Check - Response header check
   const pmTest: string = [
-    `// Validate header \n`,
+    `// Validate if response header is present \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
     ` - Response header ${headerName} is present", function () {\n`,
-    `   pm.response.to.have.header("${headerName}");\\n`,
+    `   pm.response.to.have.header("${headerName}");\n`,
     `});\n`
   ].join('')
 
