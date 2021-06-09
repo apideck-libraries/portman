@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { writeOperationTestScript } from './writeOperationTestScript'
 import { ExtendTestsConfig } from 'types/TestSuiteConfig'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 /**
  * Extend the Portman tests with additional Postman tests

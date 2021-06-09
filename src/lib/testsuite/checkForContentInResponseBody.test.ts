@@ -1,6 +1,6 @@
 import { getPostmanMappedOperation } from '../../../__tests__/getPostmanMappedOperation'
-import { checkForContentInResponseBody } from './checkForContentInResponseBody'
 import { PostmanMappedOperation } from '../postman/PostmanMappedOperation'
+import { checkForContentInResponseBody } from './checkForContentInResponseBody'
 
 describe('checkForContentInResponseBody', () => {
   let pmOperation: PostmanMappedOperation

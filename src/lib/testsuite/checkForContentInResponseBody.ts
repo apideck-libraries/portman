@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { writeOperationTestScript } from './writeOperationTestScript'
 import { ResponseBodyTest } from 'types/TestSuiteConfig'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const checkForContentInResponseBody = (
   contentTests: ResponseBodyTest[],

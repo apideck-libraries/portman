@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { writeOperationTestScript } from './writeOperationTestScript'
 import { CollectionVariableConfig } from 'types/TestSuiteConfig'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config

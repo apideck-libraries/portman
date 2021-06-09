@@ -1,8 +1,8 @@
 import { OasMappedOperation, PostmanMappedOperation } from '..'
-import { getPostmanMappedCreateOperation } from '../../../__tests__/getPostmanMappedOperation'
 import { getOasMappedOperation } from '../../../__tests__/getOasMappedOperation'
-import { extendTest } from './extendTest'
+import { getPostmanMappedCreateOperation } from '../../../__tests__/getPostmanMappedOperation'
 import { checkForResponseStatusSuccess } from './checkForResponseStatusSuccess'
+import { extendTest } from './extendTest'
 
 describe('extendTest', () => {
   let oasOperation: OasMappedOperation

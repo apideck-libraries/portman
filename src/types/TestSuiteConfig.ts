@@ -105,6 +105,19 @@ export type ExtendTestsConfig = {
   append?: boolean
 }
 
+export type GlobalReplacement = {
+  searchFor: string
+  replaceWith: string
+}
+
+export type GlobalConfig = {
+  collectionPreRequestScripts?: string[]
+  variableOverwrites?: Record<string, unknown>
+  valueOverwrites?: Record<string, unknown>
+  rawReplacements?: GlobalReplacement[]
+  orderOfOperations?: string[]
+}
+
 export type TestConfig = {
   responseTests?: ResponseTestConfig[]
   contentTests?: ContentTestConfig[]
@@ -114,6 +127,7 @@ export type TestConfig = {
 
 export interface TestSuiteConfig {
   version: number
+  globals?: GlobalConfig[]
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
   contentTests?: ContentTestConfig[]
