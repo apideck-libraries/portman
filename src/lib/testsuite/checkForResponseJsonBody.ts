@@ -1,6 +1,6 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { append } from './append'
+import { setTestScript } from './setTestScript'
 
 export const checkForResponseJsonBody = (
   pmOperation: PostmanMappedOperation,
@@ -15,7 +15,7 @@ export const checkForResponseJsonBody = (
     `});\n`
   ].join('')
 
-  append(pmOperation, pmTest)
+  setTestScript(pmOperation, pmTest)
 
   return pmOperation
 }

@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { append } from './append'
+import { setTestScript } from './setTestScript'
 import { CollectionVariableConfig } from 'types/TestSuiteConfig'
 
 /**
@@ -46,8 +46,8 @@ export const assignVarFromResponseBody = (
     `- Set variable for "${opsRef}" - use {{${varName}} as variable for "response.${varProp}"`
   )
 
-  append(pmOperation, pmJsonData)
-  append(pmOperation, pmVarAssign)
+  setTestScript(pmOperation, pmJsonData)
+  setTestScript(pmOperation, pmVarAssign)
 
   return pmOperation
 }

@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { append } from './append'
+import { setTestScript } from './setTestScript'
 import { CollectionVariableConfig } from 'types/TestSuiteConfig'
 import { getByPath } from '../../utils/getByPath'
 
@@ -44,7 +44,7 @@ export const assignVarFromRequestBody = (
     )
   }
 
-  append(pmOperation, pmVarAssign)
+  setTestScript(pmOperation, pmVarAssign)
 
   return pmOperation
 }

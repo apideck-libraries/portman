@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { append } from './append'
+import { setTestScript } from './setTestScript'
 import { CollectionVariableConfig } from 'types/TestSuiteConfig'
 
 /**
@@ -34,7 +34,7 @@ export const assignVarFromValue = (
   // Expose the variable in Portman
   console.log(`- Set variable for "${opsRef}" - use {{${varName}} as variable for ${varValue}`)
 
-  append(pmOperation, pmVarAssign)
+  setTestScript(pmOperation, pmVarAssign)
 
   return pmOperation
 }

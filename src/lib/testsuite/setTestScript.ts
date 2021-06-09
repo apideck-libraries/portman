@@ -1,22 +1,21 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { Event } from 'postman-collection'
 
-export const append = (
+export const setTestScript = (
   pmOperation: PostmanMappedOperation,
-  pmTest: string,
+  testScript: string,
   overwrite = false,
   append = true
 ): PostmanMappedOperation => {
-  // PropertyList has a find method that takes a context, but not sure that that is yet
-  const pmTests = pmOperation.item.events.find(e => e?.listen === 'test', null)
+  const pmTestEvent = pmOperation.item.events.find(e => e?.listen === 'test', null)
 
-  if (pmTests === undefined) {
+  if (pmTestEvent === undefined) {
     // Create new tests in events
     pmOperation.item.events.add(
       new Event({
         listen: 'test',
         script: {
-          exec: [pmTest],
+          exec: [testScript],
           type: 'text/javascript'
         }
       })
@@ -24,16 +23,16 @@ export const append = (
     return pmOperation
   }
   // Reset test scripts
-  if (!pmTests?.script?.exec || overwrite) {
-    pmTests.script.exec = []
+  if (!pmTestEvent?.script?.exec || overwrite) {
+    pmTestEvent.script.exec = []
   }
 
   if (append) {
-    // Append new tests in existing events
-    pmTests.script.exec.push(pmTest)
+    // Append new test in existing test script
+    pmTestEvent.script.exec.push(testScript)
   } else {
-    // Prepend new tests in existing events
-    pmTests.script.exec.unshift(pmTest)
+    // Prepend new test in existing test script
+    pmTestEvent.script.exec.unshift(testScript)
   }
   return pmOperation
 }
