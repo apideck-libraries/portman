@@ -105,6 +105,12 @@ export type ExtendTestsConfig = {
   append?: boolean
 }
 
+export type OperationPreRequestScriptConfig = {
+  openApiOperationId?: string
+  openApiOperation?: string
+  scripts: string[]
+}
+
 export type GlobalReplacement = {
   searchFor: string
   replaceWith: string
@@ -132,6 +138,7 @@ export interface TestSuiteConfig {
   overwrites?: OverwriteRequestConfig[]
   contentTests?: ContentTestConfig[]
   assignPmVariables?: AssignPmVariablesConfig[]
+  operationPreRequestScripts?: OperationPreRequestScriptConfig[]
   extendTests?: ExtendTestsConfig[]
 }
 
