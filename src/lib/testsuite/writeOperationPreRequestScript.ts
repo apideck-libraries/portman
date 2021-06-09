@@ -1,11 +1,7 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { Event } from 'postman-collection'
 
-<<<<<<< HEAD:src/lib/testsuite/writeOperationPreRequestScript.ts
 export const writeOperationPreRequestScript = (
-=======
-export const setPreRequestScript = (
->>>>>>> 4a289ac (add writeCollectionPreRequestScripts):src/lib/testsuite/setPreRequestScript.ts
   pmOperation: PostmanMappedOperation,
   preRequestScript: string,
   overwrite = false,
