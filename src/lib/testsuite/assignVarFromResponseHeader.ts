@@ -42,14 +42,16 @@ export const assignVarFromResponseHeader = (
   pmVarAssign = [
     `// pm.collectionVariables - Set ${varName} as variable for header \n`,
     `let ${safeVarName} = pm.response.headers.get("${varProp}");\n`,
-    `if (${safeVarName} !== "undefined") {\n`,
+    `if (${safeVarName} !== undefined) {\n`,
     `   pm.collectionVariables.set("${varName}", ${safeVarName});\n`,
     `   console.log("- use {{${varName}}} as collection variable for value", ${safeVarName});\n`,
     `};\n`
   ].join('')
 
   // Expose the variable in Portman
-  console.log(`- "${opsRef}" - use {{${varName}} as variable for "header.${varProp}"`)
+  console.log(
+    `- Set variable for "${opsRef}" - use {{${varName}} as variable for "header.${varProp}"`
+  )
 
   append(pmOperation, pmJsonData)
   append(pmOperation, pmVarAssign)

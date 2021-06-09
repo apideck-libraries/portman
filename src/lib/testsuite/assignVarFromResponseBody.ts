@@ -42,7 +42,9 @@ export const assignVarFromResponseBody = (
   ].join('')
 
   // Expose the variable in Portman
-  console.log(`- "${opsRef}" - use {{${varName}} as variable for "reponse.${varProp}"`)
+  console.log(
+    `- Set variable for "${opsRef}" - use {{${varName}} as variable for "response.${varProp}"`
+  )
 
   append(pmOperation, pmJsonData)
   append(pmOperation, pmVarAssign)

@@ -39,7 +39,9 @@ export const assignVarFromRequestBody = (
     ].join('')
 
     // Expose the variable in Portman
-    console.log(`- "${opsRef}" - use {{${varName}} as variable for "request.${varProp}"`)
+    console.log(
+      `- Set variable for "${opsRef}" - use {{${varName}} as variable for "request.${varProp}"`
+    )
   }
 
   append(pmOperation, pmVarAssign)
