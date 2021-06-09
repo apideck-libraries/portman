@@ -1,6 +1,9 @@
 /* eslint-disable no-useless-escape */
 export const pathToRegExp = (path: string): RegExp => {
   const pattern = path
+    // Transform OpenApi format to Postman format (/crm/leads/{id} => /crm/leads/:id)
+    .replace('{', ':')
+    .replace('}', '')
     // Escape literal dots
     .replace(/\./g, '\\.')
     // Escape literal slashes
