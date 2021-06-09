@@ -218,6 +218,9 @@ export class Portman {
       // Inject variable assignment
       testSuite.injectAssignVariables()
 
+      // Inject postman extended tests
+      testSuite.injectExtendedTests()
+
       // Inject overwrites
       testSuite.injectOverwrites()
 

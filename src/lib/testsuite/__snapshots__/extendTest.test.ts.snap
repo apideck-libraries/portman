@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`extendTest should add append test by appended, no overwrite 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "pm.test('200 ok', function(){pm.response.to.have.status(200);});
+pm.test('check userId after create', function(){Number.isInteger(responseBody);}); ",
+]
+`;
+
+exports[`extendTest should add append test by prepended, no overwrite 1`] = `
+Array [
+  "pm.test('200 ok', function(){pm.response.to.have.status(200);});
+pm.test('check userId after create', function(){Number.isInteger(responseBody);}); ",
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+]
+`;
+
+exports[`extendTest should add append test by prepended, overwrite 1`] = `
+Array [
+  "pm.test('200 ok', function(){pm.response.to.have.status(200);});
+pm.test('check userId after create', function(){Number.isInteger(responseBody);}); ",
+]
+`;

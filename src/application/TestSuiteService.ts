@@ -25,6 +25,7 @@ import {
   checkForResponseJsonSchema,
   checkForResponseStatusSuccess,
   checkForResponseTime,
+  extendTest,
   OasMappedOperation,
   overwriteRequestBody,
   overwriteRequestHeaders,
@@ -234,6 +235,22 @@ export class TestSuiteService {
             assignVarFromValue(varSetting, pmOperation, fixedValueCounter)
           }
         })
+      })
+    })
+
+    return this.postmanParser.mappedOperations
+  }
+
+  public injectExtendedTests = (): PostmanMappedOperation[] => {
+    if (!this.config?.extendTests) return this.postmanParser.mappedOperations
+    const extendedTestsSettings = this.config.extendTests
+
+    extendedTestsSettings.map(extSetting => {
+      //Get Postman operations to apply assign variables for
+      const pmOperations = this.getOperationsFromSetting(extSetting)
+      pmOperations.map(pmOperation => {
+        // Assign Postman collection variable with a request body value
+        extSetting?.tests && extendTest(extSetting, pmOperation)
       })
     })
 

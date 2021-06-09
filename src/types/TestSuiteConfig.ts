@@ -97,6 +97,14 @@ export type AssignPmVariablesConfig = {
   collectionVariables: CollectionVariableConfig[]
 }
 
+export type ExtendTestsConfig = {
+  openApiOperationId?: string
+  openApiOperation?: string
+  tests: string[]
+  overwrite?: boolean
+  append?: boolean
+}
+
 export type TestConfig = {
   responseTests?: ResponseTestConfig[]
   contentTests?: ContentTestConfig[]
@@ -110,6 +118,7 @@ export interface TestSuiteConfig {
   overwrites?: OverwriteRequestConfig[]
   contentTests?: ContentTestConfig[]
   assignPmVariables?: AssignPmVariablesConfig[]
+  extendTests?: ExtendTestsConfig[]
 }
 
 export interface TestSuiteServiceOptions {
