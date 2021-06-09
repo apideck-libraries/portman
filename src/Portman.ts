@@ -25,7 +25,6 @@ import {
   replaceValues,
   replaceVariables,
   runNewmanWith,
-  skip501s,
   writeNewmanEnv
 } from './lib'
 
@@ -245,7 +244,6 @@ export class Portman {
 
     // --- Portman - Set Postman pre-requests
     if (includeTests) {
-      collection = skip501s(collection)
       collection = injectPreRequest(collection, preRequestScripts)
     }
 
