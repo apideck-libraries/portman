@@ -1,7 +1,7 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import { ResponseTime } from 'types/TestSuiteConfig'
-import { setTestScript } from './setTestScript'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const checkForResponseTime = (
   responseTime: ResponseTime,
@@ -23,7 +23,7 @@ export const checkForResponseTime = (
     `});\n`
   ].join('')
 
-  setTestScript(pmOperation, pmTest)
+  writeOperationTestScript(pmOperation, pmTest)
 
   return pmOperation
 }

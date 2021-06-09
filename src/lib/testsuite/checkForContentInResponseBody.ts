@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { setTestScript } from './setTestScript'
+import { writeOperationTestScript } from './writeOperationTestScript'
 import { ResponseBodyTest } from 'types/TestSuiteConfig'
 
 export const checkForContentInResponseBody = (
@@ -50,9 +50,9 @@ export const checkForContentInResponseBody = (
         `})};`
       ].join('')
     }
-    setTestScript(pmOperation, pmJsonData)
-    setTestScript(pmOperation, pmTestKey)
-    setTestScript(pmOperation, pmTestValue)
+    writeOperationTestScript(pmOperation, pmJsonData)
+    writeOperationTestScript(pmOperation, pmTestKey)
+    writeOperationTestScript(pmOperation, pmTestValue)
   })
 
   return pmOperation

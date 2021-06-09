@@ -1,6 +1,6 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { setTestScript } from './setTestScript'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const checkForResponseStatusSuccess = (
   pmOperation: PostmanMappedOperation,
@@ -15,7 +15,7 @@ export const checkForResponseStatusSuccess = (
     '});\n'
   ].join('')
 
-  setTestScript(pmOperation, pmTest)
+  writeOperationTestScript(pmOperation, pmTest)
 
   return pmOperation
 }

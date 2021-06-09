@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { setTestScript } from './setTestScript'
+import { writeOperationTestScript } from './writeOperationTestScript'
 import { ExtendTestsConfig } from 'types/TestSuiteConfig'
 
 /**
@@ -17,7 +17,7 @@ export const extendTest = (
 
   const pmTests = extSetting.tests.join('\n')
 
-  setTestScript(pmOperation, pmTests, extSetting.overwrite, extSetting.append)
+  writeOperationTestScript(pmOperation, pmTests, extSetting.overwrite, extSetting.append)
 
   return pmOperation
 }

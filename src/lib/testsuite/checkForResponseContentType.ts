@@ -1,6 +1,6 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { setTestScript } from './setTestScript'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const checkForResponseContentType = (
   contentType: string,
@@ -16,7 +16,7 @@ export const checkForResponseContentType = (
     `});\n`
   ].join('')
 
-  setTestScript(pmOperation, pmTest)
+  writeOperationTestScript(pmOperation, pmTest)
 
   return pmOperation
 }

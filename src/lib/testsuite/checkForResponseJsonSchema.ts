@@ -1,6 +1,6 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { setTestScript } from './setTestScript'
+import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const checkForResponseJsonSchema = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -22,7 +22,7 @@ export const checkForResponseJsonSchema = (
     `});\n`
   ].join('')
 
-  setTestScript(pmOperation, pmTest)
+  writeOperationTestScript(pmOperation, pmTest)
   return pmOperation
 }
 
