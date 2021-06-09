@@ -51,6 +51,11 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
           obj[k].type = jsonTypes
           delete obj[k].nullable
         }
+        if (obj[k].maxItems && obj[k].maxItems === 2 && obj[k].type === 'array') {
+          // deletes maxItems, which is added unwanted by oaToPostman.convert
+          // TODO find another way to respect the maxItems that might be passed by OpenAPI
+          delete obj[k].maxItems
+        }
         traverse(obj[k])
       }
     }

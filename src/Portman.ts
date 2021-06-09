@@ -181,8 +181,11 @@ export class Portman {
     const { postmanConfigFile } = this.options
 
     const oaToPostman = new OpenApiToPostmanService()
+    // TODO investigate better way to keep oasParser untouched
+    // Clone oasParser to prevent altering with added minItems maxItems
+    const { oas } = this.oasParser
     const oaToPostmanConfig: IOpenApiToPostmanConfig = {
-      openApiObj: this.oasParser.oas,
+      openApiObj: { ...oas },
       outputFile: `${process.cwd()}/tmp/working/tmpCollection.json`,
       configFile: postmanConfigFile as string
     }
