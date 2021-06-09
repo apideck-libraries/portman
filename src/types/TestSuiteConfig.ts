@@ -118,8 +118,8 @@ export type GlobalReplacement = {
 
 export type GlobalConfig = {
   collectionPreRequestScripts?: string[]
-  variableOverwrites?: Record<string, unknown>
-  valueOverwrites?: Record<string, unknown>
+  overwriteKeyValues?: Record<string, unknown>
+  overwriteValues?: Record<string, unknown>
   rawReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
 }
