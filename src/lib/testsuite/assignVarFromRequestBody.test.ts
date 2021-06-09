@@ -1,4 +1,4 @@
-import { getPostmanMappedOperation } from '../../../__tests__/getPostmanMappedOperation'
+import { getPostmanMappedCreateOperation } from '../../../__tests__/getPostmanMappedOperation'
 import { PostmanMappedOperation } from '../postman/PostmanMappedOperation'
 import { assignVarFromRequestBody } from './assignVarFromRequestBody'
 
@@ -6,7 +6,7 @@ describe('assignVarFromRequestBody', () => {
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
-    pmOperation = await getPostmanMappedOperation()
+    pmOperation = await getPostmanMappedCreateOperation()
   })
 
   afterEach(() => {

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assignVarFromRequestBody should add postman collection var with name and request body value 1`] = `
+Array [
+  "// pm.collectionVariables - Set leadsAdd.company_name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.company_name\\", undefined);
+console.log(\\"- use {{leadsAdd.company_name}} as collection variable for value\\", undefined);
+",
+]
+`;
