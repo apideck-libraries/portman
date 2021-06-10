@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
 import pluralize from 'pluralize'
-import { OverwritePathIdVariableConfig } from 'types/TestSuiteConfig'
+import { OverwritePathIdVariableConfig } from 'types/PortmanConfig'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite

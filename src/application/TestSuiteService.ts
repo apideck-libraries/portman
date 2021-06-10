@@ -5,12 +5,12 @@ import {
   AssignPmVariablesConfig,
   ContentTestConfig,
   OverwriteRequestConfig,
+  PortmanConfig,
   ResponseTestConfig,
   ResponseTime,
   TestConfig,
-  TestSuiteConfig,
   TestSuiteServiceOptions
-} from 'types/TestSuiteConfig'
+} from 'types/PortmanConfig'
 import {
   assignVarFromRequestBody,
   assignVarFromResponseBody,
@@ -39,7 +39,7 @@ export class TestSuiteService {
 
   oasParser: OpenApiParser
   postmanParser: PostmanParser
-  config: TestSuiteConfig
+  config: PortmanConfig
 
   pmResponseJsonVarInjected: boolean
 

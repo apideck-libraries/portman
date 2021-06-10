@@ -1,9 +1,9 @@
 import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
-import { TestSuiteConfig } from 'types/TestSuiteConfig'
+import { PortmanConfig } from 'types/PortmanConfig'
 
-export const getConfig = async (configPath: string | undefined): Promise<TestSuiteConfig> => {
+export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {
   let config = {}
 
   if (configPath && (await fs.pathExists(path.resolve(configPath)))) {

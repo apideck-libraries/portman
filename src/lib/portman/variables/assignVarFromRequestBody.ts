@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { CollectionVariableConfig } from 'types/TestSuiteConfig'
+import { CollectionVariableConfig } from 'types/PortmanConfig'
 import { getByPath } from '../../../utils/getByPath'
 import { writeOperationTestScript } from '../tests/writeOperationTestScript'
 

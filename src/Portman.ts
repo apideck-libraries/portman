@@ -4,8 +4,8 @@ import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
 import { Collection, CollectionDefinition } from 'postman-collection'
+import { PortmanConfig } from 'types/PortmanConfig'
 import { PortmanOptions } from 'types/PortmanOptions'
-import { TestSuiteConfig } from 'types/TestSuiteConfig'
 import {
   DownloadService,
   IOpenApiToPostmanConfig,
@@ -30,7 +30,7 @@ import {
 } from './lib'
 
 export class Portman {
-  config: TestSuiteConfig
+  config: PortmanConfig
   options: PortmanOptions
   oasParser: OpenApiParser
   postmanParser: PostmanParser

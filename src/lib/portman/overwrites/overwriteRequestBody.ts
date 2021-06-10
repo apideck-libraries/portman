@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { OverwriteRequestBodyConfig } from 'types/TestSuiteConfig'
+import { OverwriteRequestBodyConfig } from 'types/PortmanConfig'
 import { getByPath } from '../../../utils/getByPath'
 import { omitByPath } from '../../../utils/omitByPath'
 import { setByPath } from '../../../utils/setByPath'

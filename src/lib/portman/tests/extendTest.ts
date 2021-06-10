@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { ExtendTestsConfig } from 'types/TestSuiteConfig'
+import { ExtendTestsConfig } from 'types/PortmanConfig'
 import { writeOperationTestScript } from './writeOperationTestScript'
 
 /**

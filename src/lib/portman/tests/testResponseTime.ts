@@ -1,6 +1,6 @@
 import { OasMappedOperation } from 'lib/oas/OasMappedOperation'
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { ResponseTime } from 'types/TestSuiteConfig'
+import { ResponseTime } from 'types/PortmanConfig'
 import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const testResponseTime = (

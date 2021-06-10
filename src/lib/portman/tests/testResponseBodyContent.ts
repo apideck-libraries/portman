@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from 'lib/postman/PostmanMappedOperation'
-import { ResponseBodyTest } from 'types/TestSuiteConfig'
+import { ResponseBodyTest } from 'types/PortmanConfig'
 import { writeOperationTestScript } from './writeOperationTestScript'
 
 export const testResponseBodyContent = (
