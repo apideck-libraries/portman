@@ -1,4 +1,3 @@
-import { OpenApiParser, PostmanParser } from 'application'
 import { OpenAPIV3 } from 'openapi-types'
 import { Collection } from 'postman-collection'
 import {
@@ -18,12 +17,14 @@ import {
   assignVarFromValue,
   extendTest,
   OasMappedOperation,
+  OpenApiParser,
   overwriteRequestBody,
   overwriteRequestHeaders,
   overwriteRequestPathIdVariables,
   overwriteRequestPathVariables,
   overwriteRequestQueryParams,
   PostmanMappedOperation,
+  PostmanParser,
   testResponseBodyContent,
   testResponseContentType,
   testResponseHeader,

@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
-import { getConfig } from '../..'
-import { OpenApiParser, PostmanParser, TestSuiteService } from '../../../application'
+import { TestSuiteService } from '../../../application'
+import { getConfig, OpenApiParser, PostmanParser } from '../../../lib'
 import { injectEnvVariables } from './injectEnvVariables'
 
 describe('injectEnvVariables', () => {

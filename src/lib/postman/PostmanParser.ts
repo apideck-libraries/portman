@@ -1,10 +1,10 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { Collection, Item, ItemGroup, Request } from 'postman-collection'
-import { IOpenApiParser } from '../application'
-import { PostmanMappedOperation } from '../lib/postman/PostmanMappedOperation'
-import { matchPath } from '../utils/matchPath'
-import { METHODS } from '../utils/methods'
+import { matchPath } from '../../utils/matchPath'
+import { METHODS } from '../../utils/methods'
+import { IOpenApiParser } from '../oas/OpenApiParser'
+import { PostmanMappedOperation } from './PostmanMappedOperation'
 
 export interface PostmanParserConfig {
   inputFile?: string

@@ -1,6 +1,7 @@
 import fs from 'fs-extra'
-import { OpenApiParser, PostmanParser } from '../../application'
+import { OpenApiParser } from '../oas/OpenApiParser'
 import { IPostmanMappedOperation } from './PostmanMappedOperation'
+import { PostmanParser } from './PostmanParser'
 
 describe('PostmanMappedOperation', () => {
   let postmanParser: PostmanParser

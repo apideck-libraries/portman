@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import { OpenApiParser } from './OpenApiParser'
+import { OpenApiParser } from '../oas/OpenApiParser'
 import { PostmanParser } from './PostmanParser'
 
 describe('PostmanParser', () => {

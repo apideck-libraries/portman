@@ -1,9 +1,9 @@
 import SwaggerParser from '@apidevtools/swagger-parser'
 import { OpenAPIV3 } from 'openapi-types'
 import path from 'path'
-import { OasMappedOperation } from '../lib/oas/OasMappedOperation'
-import { matchPath } from '../utils/matchPath'
-import { METHODS } from '../utils/methods'
+import { matchPath } from '../../utils/matchPath'
+import { METHODS } from '../../utils/methods'
+import { OasMappedOperation } from './OasMappedOperation'
 
 export interface OpenApiParserConfig {
   inputFile: string

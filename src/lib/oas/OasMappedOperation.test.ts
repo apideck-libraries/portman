@@ -1,6 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types'
-import { OpenApiParser } from '../../application/OpenApiParser'
 import { OasMappedOperation } from './OasMappedOperation'
+import { OpenApiParser } from './OpenApiParser'
 
 describe('OasMappedOperation', () => {
   let specOperation: OpenAPIV3.OperationObject

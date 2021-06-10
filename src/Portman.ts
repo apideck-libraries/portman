@@ -9,9 +9,7 @@ import { PortmanOptions } from 'types/PortmanOptions'
 import {
   DownloadService,
   IOpenApiToPostmanConfig,
-  OpenApiParser,
   OpenApiToPostmanService,
-  PostmanParser,
   PostmanService,
   TestSuiteService
 } from './application'
@@ -20,9 +18,11 @@ import {
   execShellCommand,
   getConfig,
   injectEnvVariables,
+  OpenApiParser,
   orderCollectionRequests,
   overwriteCollectionKeyValues,
   overwriteCollectionValues,
+  PostmanParser,
   runNewmanWith,
   writeCollectionPreRequestScripts,
   writeNewmanEnv,

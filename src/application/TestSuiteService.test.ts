@@ -1,7 +1,5 @@
 import fs from 'fs-extra'
-import { getConfig } from '../lib'
-import { OpenApiParser } from './OpenApiParser'
-import { PostmanParser } from './PostmanParser'
+import { getConfig, OpenApiParser, PostmanParser } from '../lib'
 import { TestSuiteService } from './TestSuiteService'
 
 describe('TestSuiteService', () => {
