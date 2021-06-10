@@ -11,13 +11,13 @@ describe('TestSuiteService', () => {
 
   const postmanJson = '__tests__/fixtures/crm.postman.json'
   const oasYml = '__tests__/fixtures/crm.yml'
-  const testSuiteConfigFile = '__tests__/fixtures/postman-testsuite.crm.json'
+  const postmanConfigFile = '__tests__/fixtures/portman.crm.json'
 
   beforeEach(async () => {
     oasParser = new OpenApiParser()
     await oasParser.convert({ inputFile: oasYml })
     const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
-    const config = await getConfig(testSuiteConfigFile)
+    const config = await getConfig(postmanConfigFile)
     postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
 
     testSuiteService = new TestSuiteService({ oasParser, postmanParser, config })

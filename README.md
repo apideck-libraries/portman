@@ -44,7 +44,6 @@ Options:
   -t, --includeTests         Inject test suite (default: true)                            [boolean]
   -c, --portmanConfigFile    Path to portman-config.json                                  [string]
   -s, --postmanConfigFile    Path to postman-config.json                                  [string]
-  -g, --testSuiteConfigFile  Path to postman-testsuite.json                               [string]
   --envFile                  Path to the .env file to inject environment variables        [string]
   --cliConfigFile            Path to the file with the Portman CLI options                [string]
 

@@ -1,20 +1,20 @@
-# OpenApi Postman test suite generation - Content checks
+# OpenApi Postman test suite generation - Content Tests
 
-In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
+In the "[examples/testsuite-default-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-tests)" example, we explained the default generated Postman contract tests.
 
-This example focusses on the extension of the contract test suite with specific content checks. While the contract tests focusses on the validation of the request/response properties, the "content checks" focusses on validating the actual values of the API.
+This example focusses on the extension of the contract test suite with specific content tests. While the contract tests focusses on the validation of the request/response properties, the "content tests" focusses on validating the actual values of the API.
 
-_use-case_: convert OpenApi to Postman with a range of Postman tests automatically generated, extended by content checks, where we validate the response values.
+_use-case_: convert OpenApi to Postman with a range of Postman tests automatically generated, extended by content tests, where we validate the response values.
 
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/testsuite-content-checks/portman-cli-options.json
+yarn portman --cliOptionsFile ./examples/testsuite-content-tests/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenAPi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default testuite tests generated out-of-the-box + a number of content checks.
+This is an example where we take the OpenAPi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default testuite tests generated out-of-the-box + a number of content tests.
 
 ## Testsuite settings
 
@@ -22,7 +22,7 @@ The test suite settings (in JSON format) consists out of multiple parts:
 
 - **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
 - **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
-  - **responseTests** : All response automatic generated checks.
+  - **responseTests** : All response automatic generated tests.
   - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** configured operations).
 - **extendTests**: which refers the custom additions of manual created postman tests. (see examples folder)
 - **contentTests**: which refers the additional Postman tests that check the content.
@@ -31,7 +31,7 @@ The test suite settings (in JSON format) consists out of multiple parts:
 
 In this example we focus on the **contentTests** section and settings.
 
-file: examples/testsuite-content-checks/postman-testsuite.crm.json
+file: examples/testsuite-content-tests/postman-testsuite.crm.json
 
 ```json
 {
@@ -85,7 +85,7 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json
 
 Version 1.0
 
-Next to the generated tests, it is possible to define "content" checks where a property and the value of the response body should exist and match a specific value or variable.
+Next to the generated tests, it is possible to define "content" tests where a property and the value of the response body should exist and match a specific value or variable.
 
 The contentTests are mapped based on the OpenApi operationId or the OpenApi Operation reference (method + path).
 Anything added in `checkResponseBody` array, will be added as content check to the Postman tests.
@@ -95,7 +95,7 @@ Anything added in `checkResponseBody` array, will be added as content check to t
 - **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman Response body will be tested. (example: `leadsAll`)
 - **openApiOperation (String)** : Reference to the combination of the OpenApi method & path, for which the Postman Response body will be test (example: `GET::/leads`)
 
-These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for content checks.
+These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for content tests.
 
 ##### Content check options:
 
@@ -105,9 +105,9 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the contenChecks usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
+In this example, we are zooming in on only the contenChecks usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-tests")
 
-file: examples/testsuite-content-checks/postman-testsuite.crm.json >>
+file: examples/testsuite-content-tests/postman-testsuite.crm.json >>
 
 ```json
 "contentTests": [
@@ -133,7 +133,7 @@ file: examples/testsuite-content-checks/postman-testsuite.crm.json >>
 
 After the conversion, in the "leadsAll" request (GET::/crm/leads) in the Postman app, you can find the specific tests in the "Tests" tab.
 
-file: examples/testsuite-content-checks/crm.postman.json >>
+file: examples/testsuite-content-tests/crm.postman.json >>
 
 Postman request "Leads"" >> List leads"API Response:
 
@@ -181,7 +181,7 @@ Postman request "Leads"" >> List leads"API Response:
 }
 ```
 
-Part of Postman Testsuite checks:
+Part of Postman Testsuite tests:
 
 ```javascript
 // Set response object as internal variable
@@ -236,7 +236,7 @@ if (typeof jsonData.resource !== 'undefined') {
 }
 ```
 
-Per defined "contentTest" item, Portman will generated 2 checks:
+Per defined "contentTest" item, Portman will generated 2 tests:
 
 ```js
 // Response body should have property "data[0].company_name"
@@ -261,7 +261,7 @@ if (typeof jsonData.data[0].company_name !== 'undefined') {
 
 The 2nd check validates if the response has value "Spacex" for the property "company_name".
 
-These 2 checks are added for each "contentCheck" item that is defined.
+These 2 tests are added for each "contentTests" item that is defined.
 
 ## Alternative targetting option
 

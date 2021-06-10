@@ -10,7 +10,6 @@ export interface PortmanOptions {
   includeTests?: boolean
   portmanConfigFile?: string
   postmanConfigFile?: string
-  testSuiteConfigFile?: string
   filterFile?: string
   envFile?: string
   cliOptionsFile?: string

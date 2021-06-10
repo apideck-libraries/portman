@@ -7,7 +7,7 @@ _use-case_: convert OpenApi to Postman with a range of Postman contract tests, a
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/testsuite-default-checks/portman-cli-options.json
+yarn portman --cliOptionsFile ./examples/testsuite-response-tests/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.
@@ -29,33 +29,51 @@ The test suite settings (in JSON format) consists out of multiple parts:
 
 In this example we focus on the **tests** section and settings.
 
-file: examples/testsuite-default-checks/postman-testsuite.crm.json
+file: examples/testsuite-response-tests/postman-testsuite.crm.json
 
 ```json
 {
   "version": 1.0,
   "tests": {
-    "responseTests": {
-      "StatusSuccess": {
-        "enabled": true
+    "responseTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
       },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
       },
-      "contentType": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
       },
-      "jsonBody": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
       },
-      "schemaValidation": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
       },
-      "headersPresent": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
       }
-    }
+    ]
   }
 }
 ```
@@ -75,15 +93,13 @@ Version 1.0
 
 ## Example explained
 
-By using the Portman parameters:
+By using the Portman:
 
 - **"includeTests"**: true
 
-- **"testSuiteConfigFile"**: "./examples/testsuite-default-checks/postman-testsuite.crm.json",
+We instruct Portman to generate tests by setting **includeTests** to **true**, for which Portman will use the testsuite configuration defined in the **portmanConfigFile** json file.
 
-We instruct Portman to generate tests by setting **includeTests** to **true**, for which Portman will use the testsuite configuration defined in the **testSuiteConfigFile** json file.
-
-file: examples/testsuite-default-checks/postman-testsuite.crm.json >>
+file: examples/testsuite-response-tests/postman-testsuite.crm.json >>
 
 ```json
 {
@@ -116,7 +132,7 @@ file: examples/testsuite-default-checks/postman-testsuite.crm.json >>
 
 The result will be that initial OpenApi file, with all request and response details will be used to generate the specific tests. Per Postman request, you can find the specific tests in the "Tests" tab in the Postman application.
 
-file: examples/testsuite-default-checks/crm.postman.json >>
+file: examples/testsuite-response-tests/crm.postman.json >>
 
 Postman request "Leads"" >> Get lead"
 

@@ -66,11 +66,6 @@ require('dotenv').config()
       describe: 'Path to postman-config.json',
       type: 'string'
     })
-    .option('g', {
-      alias: 'testSuiteConfigFile',
-      describe: 'Path to postman-testsuite.json',
-      type: 'string'
-    })
     .option('filterFile', {
       describe: 'Path to openapi-format-filter.json',
       type: 'string'
@@ -112,9 +107,6 @@ require('dotenv').config()
   const syncToPostman = options?.syncPostman || false
   const portmanConfigFile = options?.portmanConfigFile || 'portman-config.json'
   const postmanConfigFile = options?.postmanConfigFile || 'postman-config.json'
-  const testSuiteConfigFile = !includeTests
-    ? undefined
-    : options?.testSuiteConfigFile || 'postman-testsuite.json'
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
 
@@ -129,7 +121,6 @@ require('dotenv').config()
     syncPostman: syncToPostman,
     portmanConfigFile,
     postmanConfigFile,
-    testSuiteConfigFile,
     envFile,
     filterFile
   })

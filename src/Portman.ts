@@ -68,7 +68,6 @@ export class Portman {
         cliOptionsFile,
         portmanConfigFile,
         postmanConfigFile,
-        testSuiteConfigFile,
         envFile,
         includeTests,
         runNewman,
@@ -93,11 +92,6 @@ export class Portman {
         postmanConfigFile ? postmanConfigFile : 'unspecified'
       }}`
     )
-    console.log(
-      chalk`{cyan  Testsuite Config: } \t{green ${
-        testSuiteConfigFile ? testSuiteConfigFile : 'unspecified'
-      }}`
-    )
 
     console.log(chalk`{cyan  Environment: } \t\t{green ${envFile}}`)
     console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
@@ -114,7 +108,7 @@ export class Portman {
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
 
-    this.config = await getConfig(testSuiteConfigFile)
+    this.config = await getConfig(postmanConfigFile)
   }
 
   async after(): Promise<void> {
