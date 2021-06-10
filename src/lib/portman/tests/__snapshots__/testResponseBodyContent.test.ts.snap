@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseBodyContent should add content test for property check & number value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// Response body should have property \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"75000\\" for \\"data[0].monetary_amount\\"
+if (typeof jsonData.data[0].monetary_amount !== \\"undefined\\") {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '75000'\\", function() {
+  pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);
+})};",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & pm variable value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// Response body should have property \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
+if (typeof jsonData.data[0].monetary_amount !== \\"undefined\\") {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '{{postman_env_variable}}'\\", function() {
+  pm.expect(jsonData.data[0].monetary_amount).to.eql(pm.environment.get(\\"postman_env_variable\\"));
+})};",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check without value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// Response body should have property \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for string for property check & boolean value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// Response body should have property \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].company_name' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"true\\" for \\"data[0].company_name\\"
+if (typeof jsonData.data[0].company_name !== \\"undefined\\") {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'true'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.eql(true);
+})};",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for string for property check & string value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// Response body should have property \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].company_name' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
+if (typeof jsonData.data[0].company_name !== \\"undefined\\") {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+})};",
+]
+`;

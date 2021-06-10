@@ -1,7 +1,5 @@
 import { OpenApiParser, PostmanParser } from 'application'
-import fs from 'fs-extra'
 import { OpenAPIV3 } from 'openapi-types'
-import path from 'path'
 import { Collection } from 'postman-collection'
 import {
   AssignPmVariablesConfig,
@@ -18,13 +16,6 @@ import {
   assignVarFromResponseBody,
   assignVarFromResponseHeader,
   assignVarFromValue,
-  checkForContentInResponseBody,
-  checkForResponseContentType,
-  checkForResponseHeader,
-  checkForResponseJsonBody,
-  checkForResponseJsonSchema,
-  checkForResponseStatusSuccess,
-  checkForResponseTime,
   extendTest,
   OasMappedOperation,
   overwriteRequestBody,
@@ -32,7 +23,14 @@ import {
   overwriteRequestPathIdVariables,
   overwriteRequestPathVariables,
   overwriteRequestQueryParams,
-  PostmanMappedOperation
+  PostmanMappedOperation,
+  testResponseBodyContent,
+  testResponseContentType,
+  testResponseHeader,
+  testResponseJsonBody,
+  testResponseJsonSchema,
+  testResponseStatusSuccess,
+  testResponseTime
 } from '../lib'
 import { inRange } from '../utils/inRange'
 
@@ -46,15 +44,13 @@ export class TestSuiteService {
   pmResponseJsonVarInjected: boolean
 
   constructor(options: TestSuiteServiceOptions) {
-    const { oasParser, postmanParser, testSuiteConfigFile } = options
+    const { oasParser, postmanParser, config } = options
 
     this.pmResponseJsonVarInjected = false
 
     this.oasParser = oasParser
     this.postmanParser = postmanParser
-    this.config = JSON.parse(
-      fs.readFileSync(path.resolve(testSuiteConfigFile)).toString()
-    ) as TestSuiteConfig
+    this.config = config
 
     this.collection = postmanParser.collection
   }
@@ -142,14 +138,14 @@ export class TestSuiteService {
 
       // Add status success check
       if (responseTests.includes('statusSuccess')) {
-        pmOperation = checkForResponseStatusSuccess(pmOperation, oaOperation)
+        pmOperation = testResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
       if (responseTests.includes('responseTime')) {
         const { responseTime } = this.config?.tests?.responseTests?.find(
           testConfig => !!testConfig['responseTime']
         ) as ResponseTestConfig
-        pmOperation = checkForResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
+        pmOperation = testResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
       }
 
       // Add response content checks
@@ -161,17 +157,17 @@ export class TestSuiteService {
 
           // Add contentType check
           if (responseTests.includes('contentType')) {
-            pmOperation = checkForResponseContentType(contentType, pmOperation, oaOperation)
+            pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
           }
 
           // Add json body check
           if (responseTests.includes('jsonBody') && contentType === 'application/json') {
-            pmOperation = checkForResponseJsonBody(pmOperation, oaOperation)
+            pmOperation = testResponseJsonBody(pmOperation, oaOperation)
           }
 
           // Add json schema check
           if (responseTests.includes('schemaValidation') && content?.schema) {
-            pmOperation = checkForResponseJsonSchema(content?.schema, pmOperation, oaOperation)
+            pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
           }
         }
       }
@@ -183,7 +179,7 @@ export class TestSuiteService {
           if (!headerName) continue
           // Add response header checks
           if (responseTests.includes('headersPresent')) {
-            pmOperation = checkForResponseHeader(headerName, pmOperation, oaOperation)
+            pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
           }
         }
       }
@@ -202,7 +198,7 @@ export class TestSuiteService {
       pmOperations.map(pmOperation => {
         // check content of response body
         contentTest?.responseBodyTest &&
-          checkForContentInResponseBody(contentTest.responseBodyTest, pmOperation)
+          testResponseBodyContent(contentTest.responseBodyTest, pmOperation)
       })
     })
 

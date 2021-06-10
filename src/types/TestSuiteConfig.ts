@@ -118,8 +118,8 @@ export type GlobalReplacement = {
 
 export type GlobalConfig = {
   collectionPreRequestScripts?: string[]
-  overwriteKeyValues?: Record<string, unknown>
-  overwriteValues?: Record<string, unknown>
+  keyValueReplacements?: Record<string, unknown>
+  valueReplacements?: Record<string, unknown>
   rawReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
 }
@@ -132,8 +132,8 @@ export type TestConfig = {
 }
 
 export interface TestSuiteConfig {
-  version: number
-  globals?: GlobalConfig[]
+  version?: number
+  globals?: GlobalConfig
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
   contentTests?: ContentTestConfig[]
@@ -143,7 +143,7 @@ export interface TestSuiteConfig {
 }
 
 export interface TestSuiteServiceOptions {
+  config: TestSuiteConfig
   oasParser: OpenApiParser
   postmanParser: PostmanParser
-  testSuiteConfigFile: string
 }

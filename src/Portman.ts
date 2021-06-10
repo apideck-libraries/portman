@@ -5,6 +5,7 @@ import emoji from 'node-emoji'
 import path from 'path'
 import { Collection, CollectionDefinition } from 'postman-collection'
 import { PortmanOptions } from 'types/PortmanOptions'
+import { TestSuiteConfig } from 'types/TestSuiteConfig'
 import {
   DownloadService,
   IOpenApiToPostmanConfig,
@@ -15,20 +16,21 @@ import {
   TestSuiteService
 } from './application'
 import {
-  cleanupTestSchemaDefs,
   clearTmpDirectory,
   execShellCommand,
   getConfig,
   injectEnvVariables,
-  injectPreRequest,
   orderCollectionRequests,
-  replaceValues,
-  replaceVariables,
+  overwriteCollectionKeyValues,
+  overwriteCollectionValues,
   runNewmanWith,
-  writeNewmanEnv
+  writeCollectionPreRequestScripts,
+  writeNewmanEnv,
+  writeRawReplacements
 } from './lib'
 
 export class Portman {
+  config: TestSuiteConfig
   options: PortmanOptions
   oasParser: OpenApiParser
   postmanParser: PostmanParser
@@ -111,6 +113,8 @@ export class Portman {
     await fs.ensureDir('./tmp/working/')
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
+
+    this.config = await getConfig(testSuiteConfigFile)
   }
 
   async after(): Promise<void> {
@@ -204,13 +208,14 @@ export class Portman {
 
   async injectTestSuite(): Promise<void> {
     const {
-      options: { includeTests, testSuiteConfigFile },
+      config,
+      options: { includeTests },
       oasParser,
       postmanParser
     } = this
 
-    if (includeTests && testSuiteConfigFile) {
-      const testSuite = new TestSuiteService({ oasParser, postmanParser, testSuiteConfigFile })
+    if (includeTests) {
+      const testSuite = new TestSuiteService({ oasParser, postmanParser, config })
       // Inject automated tests
       testSuite.generateAutomatedTests()
 
@@ -232,31 +237,52 @@ export class Portman {
 
   async runPortmanOverrides(): Promise<void> {
     // --- Portman - Overwrite Postman variables & values
-    const { portmanConfigFile, includeTests, envFile, baseUrl } = this.options
+    if (!this.config?.globals) return
+    const { includeTests, envFile, baseUrl } = this.options
 
-    const { variableOverwrites, preRequestScripts, globalReplacements, orderOfOperations } =
-      await getConfig(portmanConfigFile)
+    const {
+      globals: {
+        collectionPreRequestScripts,
+        keyValueReplacements,
+        valueReplacements,
+        rawReplacements,
+        orderOfOperations
+      }
+    } = this.config
 
-    let collection = replaceVariables(this.portmanCollection, {
-      ...variableOverwrites,
+    // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
+    let collection = overwriteCollectionKeyValues(this.portmanCollection, {
+      ...keyValueReplacements,
       limit: includeTests ? '3' : '20'
     })
-    collection = replaceValues(['Bearer <token>', '<Bearer Token>'], '{{bearerToken}}', collection)
+
+    // --- Portman - Search for keys in dictionary to set the values if value is found anywhere in collection
+    if (valueReplacements) {
+      collection = overwriteCollectionValues(valueReplacements, collection)
+    }
+
     collection = injectEnvVariables(collection, envFile, baseUrl)
-    collection = orderCollectionRequests(collection, orderOfOperations)
+
+    // --- Portman - Set manually order Postman requests
+    if (orderOfOperations) {
+      collection = orderCollectionRequests(collection, orderOfOperations)
+    }
 
     // --- Portman - Set Postman pre-requests
-    if (includeTests) {
-      collection = injectPreRequest(collection, preRequestScripts)
+    if (includeTests && collectionPreRequestScripts) {
+      collection = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
     }
 
     // --- Portman - Replace & clean-up Postman
-    const collectionString = cleanupTestSchemaDefs(
-      JSON.stringify(collection, null, 2),
-      globalReplacements
-    )
-
-    this.portmanCollection = JSON.parse(collectionString)
+    if (rawReplacements) {
+      const collectionString = writeRawReplacements(
+        JSON.stringify(collection, null, 2),
+        rawReplacements
+      )
+      this.portmanCollection = JSON.parse(collectionString)
+    } else {
+      this.portmanCollection = collection
+    }
   }
 
   async writePortmanCollectionToFile(): Promise<void> {
