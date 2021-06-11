@@ -1,33 +1,31 @@
+import {
+  injectEnvVariables,
+  orderCollectionRequests,
+  overwriteCollectionKeyValues,
+  overwriteCollectionValues,
+  runNewmanWith,
+  writeCollectionPreRequestScripts,
+  writeNewmanEnv,
+  writeRawReplacements
+} from 'application'
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
+import { clearTmpDirectory, execShellCommand, getConfig } from 'lib'
 import emoji from 'node-emoji'
+import { OpenApiParser } from 'oas'
 import path from 'path'
+import { PostmanParser } from 'postman'
 import { Collection, CollectionDefinition } from 'postman-collection'
-import { PortmanConfig } from 'types/PortmanConfig'
-import { PortmanOptions } from 'types/PortmanOptions'
 import {
   DownloadService,
   IOpenApiToPostmanConfig,
   OpenApiToPostmanService,
   PostmanService,
   TestSuiteService
-} from './application'
-import {
-  clearTmpDirectory,
-  execShellCommand,
-  getConfig,
-  injectEnvVariables,
-  OpenApiParser,
-  orderCollectionRequests,
-  overwriteCollectionKeyValues,
-  overwriteCollectionValues,
-  PostmanParser,
-  runNewmanWith,
-  writeCollectionPreRequestScripts,
-  writeNewmanEnv,
-  writeRawReplacements
-} from './lib'
+} from 'src/services'
+import { PortmanConfig } from './types'
+import { PortmanOptions } from './types/PortmanOptions'
 
 export class Portman {
   config: PortmanConfig

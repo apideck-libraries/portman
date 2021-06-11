@@ -3,7 +3,7 @@
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
 import fs from 'fs-extra'
 import path from 'path'
-import { PortmanOptions } from 'types/PortmanOptions'
+import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
 
