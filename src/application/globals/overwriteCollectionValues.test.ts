@@ -1,6 +1,5 @@
 import { overwriteCollectionValues } from 'application'
 import { CollectionDefinition } from 'postman-collection'
-import { getPostmanCollection } from 'testUtils/getPostmanCollection'
 
 const dictionary = {
   bar: 'buzz',
@@ -21,9 +20,14 @@ describe('overwriteCollectionValues()', () => {
   })
 
   it('should replace value when key is top level', () => {
-    const collection = getPostmanCollection().toJSON()
-    const result = overwriteCollectionValues(collection, dictionary)
-    expect(result).toMatchSnapshot()
+    const collection = {
+      bar: 1234
+    } as CollectionDefinition
+
+    const replaced = overwriteCollectionValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      bar: 1234
+    })
   })
 
   it(`replaces value when nested`, () => {
