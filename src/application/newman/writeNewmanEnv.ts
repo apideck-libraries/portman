@@ -10,7 +10,7 @@ export const writeNewmanEnv = (obj: CollectionDefinition, newmanEnvFilePath: str
   const envVariables = obj.variable.map(item => {
     return {
       enabled: true,
-      key: item.id,
+      key: item.key,
       value: item.value
     }
   })
