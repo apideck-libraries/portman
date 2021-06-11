@@ -29,11 +29,11 @@ import {
   ResponseTestConfig,
   ResponseTime,
   TestConfig,
-  TestSuiteServiceOptions
+  TestSuiteOptions
 } from 'types'
 import { inRange } from 'utils'
 
-export class TestSuiteService {
+export class TestSuite {
   public collection: Collection
 
   oasParser: OpenApiParser
@@ -42,7 +42,7 @@ export class TestSuiteService {
 
   pmResponseJsonVarInjected: boolean
 
-  constructor(options: TestSuiteServiceOptions) {
+  constructor(options: TestSuiteOptions) {
     const { oasParser, postmanParser, config } = options
 
     this.pmResponseJsonVarInjected = false

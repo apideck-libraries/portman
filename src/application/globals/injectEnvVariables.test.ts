@@ -1,14 +1,13 @@
-import { injectEnvVariables } from 'application'
+import { injectEnvVariables, TestSuite } from 'application'
 import fs from 'fs-extra'
 import { getConfig } from 'lib'
 import { OpenApiParser } from 'oas'
 import { PostmanParser } from 'postman'
-import { TestSuiteService } from 'src/services'
 
 describe('injectEnvVariables', () => {
   let postmanParser: PostmanParser
   let oasParser: OpenApiParser
-  let testSuiteService: TestSuiteService
+  let testSuiteService: TestSuite
 
   const postmanJson = '__tests__/fixtures/crm.postman.json'
   const oasYml = '__tests__/fixtures/crm.yml'
@@ -21,7 +20,7 @@ describe('injectEnvVariables', () => {
     const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
     postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
     const config = await getConfig(postmanConfigFile)
-    testSuiteService = new TestSuiteService({ oasParser, postmanParser, config })
+    testSuiteService = new TestSuite({ oasParser, postmanParser, config })
     testSuiteService.generateAutomatedTests()
   })
 

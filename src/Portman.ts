@@ -4,6 +4,7 @@ import {
   overwriteCollectionKeyValues,
   overwriteCollectionValues,
   runNewmanWith,
+  TestSuite,
   writeCollectionPreRequestScripts,
   writeNewmanEnv,
   writeRawReplacements
@@ -21,8 +22,7 @@ import {
   DownloadService,
   IOpenApiToPostmanConfig,
   OpenApiToPostmanService,
-  PostmanService,
-  TestSuiteService
+  PostmanService
 } from 'src/services'
 import { PortmanConfig } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
@@ -207,7 +207,7 @@ export class Portman {
     } = this
 
     if (includeTests) {
-      const testSuite = new TestSuiteService({ oasParser, postmanParser, config })
+      const testSuite = new TestSuite({ oasParser, postmanParser, config })
       // Inject automated tests
       testSuite.generateAutomatedTests()
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TestSuiteService should generateAutomatedTests 1`] = `
+exports[`TestSuite should generateAutomatedTests 1`] = `
 Array [
   "// Validate status 2xx 
 pm.test(\\"[GET]::/crm/companies - Status code is 2xx\\", function () {

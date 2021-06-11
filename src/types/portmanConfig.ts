@@ -132,7 +132,7 @@ export type TestConfig = {
   limitOperations?: string[]
 }
 
-export interface TestSuiteServiceOptions {
+export interface TestSuiteOptions {
   config: PortmanConfig
   oasParser: OpenApiParser
   postmanParser: PostmanParser

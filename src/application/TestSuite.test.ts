@@ -1,13 +1,13 @@
+import { TestSuite } from 'application'
 import fs from 'fs-extra'
 import { getConfig } from 'lib'
 import { OpenApiParser } from 'oas'
 import { PostmanParser } from 'postman'
-import { TestSuiteService } from './TestSuiteService'
 
-describe('TestSuiteService', () => {
+describe('TestSuite', () => {
   let postmanParser: PostmanParser
   let oasParser: OpenApiParser
-  let testSuiteService: TestSuiteService
+  let testSuiteService: TestSuite
 
   const postmanJson = '__tests__/fixtures/crm.postman.json'
   const oasYml = '__tests__/fixtures/crm.yml'
@@ -20,7 +20,7 @@ describe('TestSuiteService', () => {
     const config = await getConfig(postmanConfigFile)
     postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
 
-    testSuiteService = new TestSuiteService({ oasParser, postmanParser, config })
+    testSuiteService = new TestSuite({ oasParser, postmanParser, config })
   })
 
   afterEach(() => {
