@@ -1,3 +1,4 @@
+export * from './CollectionWriter'
 export * from './globals'
 export * from './newman'
 export * from './overwrites'

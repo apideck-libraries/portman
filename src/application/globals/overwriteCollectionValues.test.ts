@@ -10,52 +10,50 @@ const dictionary = {
 
 describe('overwriteCollectionValues()', () => {
   it('should return unaltered when not found', () => {
-    const obj = {
+    const collection = {
       foo: 1234
     } as CollectionDefinition
 
-    const replaced = overwriteCollectionValues(obj, dictionary)
+    const replaced = overwriteCollectionValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       foo: 1234
     })
   })
 
   it('should replace value when key is top level', () => {
-    const collection = getPostmanCollection()
-    const postmanJson = collection.toJSON()
-
-    const result = overwriteCollectionValues(postmanJson, dictionary)
+    const collection = getPostmanCollection().toJSON()
+    const result = overwriteCollectionValues(collection, dictionary)
     expect(result).toMatchSnapshot()
   })
 
   it(`replaces value when nested`, () => {
-    const obj = {
+    const collection = {
       foo: { bar: 'bizz' }
     } as CollectionDefinition
 
-    const replaced = overwriteCollectionValues(obj, dictionary)
+    const replaced = overwriteCollectionValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       foo: { bar: 'buzz' }
     })
   })
 
   it(`replaces value when deeply nested`, () => {
-    const obj = {
+    const collection = {
       foo: { deep: [{ bar: 'bizz' }] }
     } as CollectionDefinition
 
-    const replaced = overwriteCollectionValues(obj, dictionary)
+    const replaced = overwriteCollectionValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       foo: { deep: [{ bar: 'buzz' }] }
     })
   })
 
   it(`replaces value when found in array`, () => {
-    const obj = {
+    const collection = {
       foo: [{ id: 'bar' }]
     } as CollectionDefinition
 
-    const replaced = overwriteCollectionValues(obj, dictionary)
+    const replaced = overwriteCollectionValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       foo: [{ id: 'buzz' }]
     })

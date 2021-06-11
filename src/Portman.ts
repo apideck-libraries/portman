@@ -1,14 +1,4 @@
-import {
-  injectEnvVariables,
-  orderCollectionRequests,
-  overwriteCollectionKeyValues,
-  overwriteCollectionValues,
-  runNewmanWith,
-  TestSuite,
-  writeCollectionPreRequestScripts,
-  writeNewmanEnv,
-  writeRawReplacements
-} from 'application'
+import { runNewmanWith, TestSuite, writeNewmanEnv } from 'application'
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
@@ -24,6 +14,7 @@ import {
   OpenApiToPostmanService,
   PostmanService
 } from 'src/services'
+import { CollectionWriter } from './application/CollectionWriter'
 import { PortmanConfig } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 
@@ -229,52 +220,11 @@ export class Portman {
 
   async runPortmanOverrides(): Promise<void> {
     // --- Portman - Overwrite Postman variables & values
-    if (!this.config?.globals) return
-    const { includeTests, envFile, baseUrl } = this.options
+    const { config, options, portmanCollection } = this
+    const collectionWriter = new CollectionWriter(config, options, portmanCollection)
+    collectionWriter.execute()
 
-    const {
-      globals: {
-        collectionPreRequestScripts,
-        keyValueReplacements,
-        valueReplacements,
-        rawReplacements,
-        orderOfOperations
-      }
-    } = this.config
-
-    // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
-    let collection = overwriteCollectionKeyValues(this.portmanCollection, {
-      ...keyValueReplacements,
-      limit: includeTests ? '3' : '20'
-    })
-
-    // --- Portman - Search for keys in dictionary to set the values if value is found anywhere in collection
-    if (valueReplacements) {
-      collection = overwriteCollectionValues(valueReplacements, collection)
-    }
-
-    collection = injectEnvVariables(collection, envFile, baseUrl)
-
-    // --- Portman - Set manually order Postman requests
-    if (orderOfOperations) {
-      collection = orderCollectionRequests(collection, orderOfOperations)
-    }
-
-    // --- Portman - Set Postman pre-requests
-    if (includeTests && collectionPreRequestScripts) {
-      collection = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
-    }
-
-    // --- Portman - Replace & clean-up Postman
-    if (rawReplacements) {
-      const collectionString = writeRawReplacements(
-        JSON.stringify(collection, null, 2),
-        rawReplacements
-      )
-      this.portmanCollection = JSON.parse(collectionString)
-    } else {
-      this.portmanCollection = collection
-    }
+    this.portmanCollection = collectionWriter.collection
   }
 
   async writePortmanCollectionToFile(): Promise<void> {
