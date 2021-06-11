@@ -27,13 +27,16 @@ export const runNewmanWith = (
   }
 
   return new Promise((resolve, reject) => {
-    newman.run(newmanOptions).on('done', (err: Error, summary) => {
-      if (err || summary.error) {
-        reject(err || summary.error)
-      } else {
-        console.log(chalk.green('Collection run completed.'))
-        resolve()
-      }
-    })
+    try {
+      newman.run(newmanOptions).on('done', (err: Error, summary) => {
+        if (err || summary.error) {
+          reject(err || summary.error)
+        } else {
+          console.log(chalk.green('Collection run completed.'))
+          resolve()
+        }
+      })
+      // eslint-disable-next-line no-empty
+    } catch (_error) {}
   })
 }
