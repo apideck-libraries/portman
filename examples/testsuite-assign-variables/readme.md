@@ -255,7 +255,6 @@ Postman request "Leads" >> "Post lead" Test tab:
 // pm.collectionVariables - Set leadsAdd.company_name as variable from request body 
 pm.collectionVariables.set("leadsAdd.company_name", "Spacex");
 console.log("- use {{leadsAdd.company_name}} as collection variable for value", "Spacex");
-
 ```
 
 The value will be taken from the original OpenApi request body.
@@ -324,7 +323,7 @@ Assign the variable from the request body through our "assignPmVariables" defini
 assignPmVariables": [
     {
       "openApiOperationId": "leadsAdd",
-      "environmentVariables": [
+      "collectionVariables": [
         {
           "requestBodyProp": "company_name",
           "name": "lead.company_name"

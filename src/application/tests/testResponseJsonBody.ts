@@ -11,7 +11,7 @@ export const testResponseJsonBody = (
     `// Validate if response has JSON Body \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
     ` - Response has JSON Body", function () {\n`,
-    `    pm.response.to.have.jsonBody();`,
+    `    pm.response.to.have.jsonBody();\n`,
     `});\n`
   ].join('')
 
