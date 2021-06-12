@@ -1,1 +1,2 @@
-export * from './portmanConfig'
+export * from './PortmanConfig'
+export * from './PortmanOptions'

@@ -1,0 +1,278 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TestSuite injectOverwrites should overwriteRequestBody 1`] = `
+Object {
+  "mode": "raw",
+  "raw": "{
+    \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
+    \\"owner_id\\": \\"12345\\",
+    \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+    \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+    \\"vat_number\\": \\"BE0689615164\\",
+    \\"currency\\": \\"USD\\",
+    \\"status\\": \\"Open\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"bank_accounts\\": [
+        {
+            \\"iban\\": \\"CH2989144532982975332\\",
+            \\"bic\\": \\"AUDSCHGGXXX\\"
+        },
+        {
+            \\"iban\\": \\"CH2989144532982975332\\",
+            \\"bic\\": \\"AUDSCHGGXXX\\"
+        }
+    ],
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+}
+`;
+
+exports[`TestSuite injectOverwrites should overwriteRequestHeaders 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "portman-id-{{$randomInt}}",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+  Object {
+    "key": "Content-Type",
+    "value": "application/json",
+  },
+]
+`;
+
+exports[`TestSuite injectOverwrites should overwriteRequestPathVariables 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "id",
+    "type": "string",
+    "value": "123456789",
+  },
+]
+`;
+
+exports[`TestSuite injectOverwrites should overwriteRequestQueryParams 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "4",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[name]",
+    "value": "SpaceX",
+  },
+]
+`;
+
+exports[`TestSuite should generateAutomatedTests 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[GET]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[GET]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[GET]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[GET]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();});
+",
+  "// Response Validation
+const schema = {\\"x-graphql-type-name\\":\\"CompanyList\\",\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"name\\"],\\"additionalProperties\\":false,\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"},\\"interaction_count\\":{\\"type\\":[\\"integer\\",\\"null\\"],\\"example\\":1,\\"readOnly\\":true},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"Copper\\"},\\"owner_id\\":{\\"type\\":\\"string\\",\\"example\\":\\"12345\\"},\\"image_url\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"https://www.spacex.com/static/images/share.jpg\\"},\\"description\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"A crm that works for you, so you can spend time on relationships instead of data.\\"},\\"vat_number\\":{\\"description\\":\\"VAT number\\",\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"BE0689615164\\"},\\"currency\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"USD\\"},\\"status\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"minLength\\":1,\\"example\\":\\"Open\\"},\\"fax\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"+12129876543\\"},\\"bank_accounts\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"iban\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"CH2989144532982975332\\"},\\"bic\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"AUDSCHGGXXX\\"}}}},\\"websites\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"url\\"],\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"url\\":{\\"type\\":\\"string\\",\\"example\\":\\"http://example.com\\"},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"WebsiteType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"work\\",\\"personal\\",\\"other\\"],\\"example\\":\\"primary\\"}}}},\\"addresses\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"123\\"},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"AddressType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"home\\",\\"office\\",\\"shipping\\",\\"billing\\",\\"other\\"],\\"example\\":\\"primary\\"},\\"name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"HQ US\\"},\\"line1\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Main street\\",\\"description\\":\\"Line 1 of the address e.g. number, street, suite, apt #, etc.\\"},\\"line2\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"apt #\\",\\"description\\":\\"Line 2 of the address\\"},\\"city\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"San Francisco\\",\\"description\\":\\"Name of city.\\"},\\"state\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"CA\\",\\"description\\":\\"Name of state\\"},\\"postal_code\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"94104\\",\\"description\\":\\"Zip code or equivalent.\\"},\\"country\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"US\\",\\"description\\":\\"country code according to ISO 3166-1 alpha-2.\\"},\\"latitude\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"40.759211\\"},\\"longitude\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"-73.984638\\"}}}},\\"social_links\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"url\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"url\\":{\\"type\\":\\"string\\",\\"example\\":\\"https://www.twitter.com/apideck-io\\"},\\"type\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"twitter\\"}}}},\\"phone_numbers\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"number\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"number\\":{\\"type\\":\\"string\\",\\"example\\":\\"111-111-1111\\"},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"PhoneType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"home\\",\\"office\\",\\"mobile\\",\\"assistant\\",\\"fax\\",\\"other\\"],\\"example\\":\\"primary\\"}}}},\\"emails\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"email\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"123\\"},\\"email\\":{\\"type\\":\\"string\\",\\"format\\":\\"email\\",\\"example\\":\\"elon@musk.com\\"},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"EmailType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"work\\",\\"personal\\",\\"billing\\",\\"other\\"],\\"example\\":\\"primary\\"}}}},\\"custom_fields\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"id\\"],\\"additionalProperties\\":false,\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"custom_technologies\\"},\\"value\\":{\\"anyOf\\":[{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Uses Salesforce and Marketo\\"},{\\"type\\":[\\"number\\",\\"null\\"],\\"example\\":10},{\\"type\\":[\\"boolean\\",\\"null\\"],\\"example\\":true},{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"string\\"}}]}}}},\\"tags\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"string\\"},\\"example\\":[\\"New\\"]},\\"updated_by\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\",\\"readOnly\\":true},\\"created_by\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\",\\"readOnly\\":true},\\"updated_at\\":{\\"type\\":\\"string\\",\\"example\\":\\"2020-09-30T07:43:32.000Z\\",\\"readOnly\\":true},\\"created_at\\":{\\"type\\":\\"string\\",\\"example\\":\\"2020-09-30T07:43:32.000Z\\",\\"readOnly\\":true}}}},\\"meta\\":{\\"type\\":\\"object\\",\\"description\\":\\"Reponse metadata\\",\\"properties\\":{\\"items_on_page\\":{\\"type\\":\\"integer\\",\\"description\\":\\"Number of items returned in the data property of the response\\",\\"example\\":50},\\"cursors\\":{\\"type\\":\\"object\\",\\"description\\":\\"Cursors to navigate to previous or next pages through the API\\",\\"properties\\":{\\"previous\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the previous page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjE=\\"},\\"current\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the current page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjI=\\"},\\"next\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the next page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjM=\\"}}}}},\\"links\\":{\\"type\\":\\"object\\",\\"description\\":\\"Links to navigate to previous or next pages through the API\\",\\"properties\\":{\\"previous\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Link to navigate to the previous page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D\\"},\\"current\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to navigate to the current page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies\\"},\\"next\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Link to navigate to the previous page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM\\"}}}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`TestSuite should injectAssignVariables 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// pm.collectionVariables - Set companiesAll.data[0].id as variable for jsonData.data[0].id  
+if (typeof jsonData.data[0].id !== \\"undefined\\") {
+   pm.collectionVariables.set(\\"companiesAll.data[0].id\\", jsonData.data[0].id);
+   console.log(\\"- use {{companiesAll.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
+};
+",
+]
+`;
+
+exports[`TestSuite should injectContentTests 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// Response body should have property \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies - Content check if property 'data[0].company_name' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
+if (typeof jsonData.data[0].company_name !== \\"undefined\\") {
+pm.test(\\"[GET]::/crm/companies - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+})};",
+]
+`;
+
+exports[`TestSuite should injectExtendedTests 1`] = `
+Array [
+  "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});",
+]
+`;

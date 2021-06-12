@@ -1,29 +1,47 @@
 {
   "version": 1.0,
-  "generateTests": {
-    "responseChecks": {
-      "StatusSuccess": {
-        "enabled": true
+  "tests": {
+    "responseTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
       },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
       },
-      "contentType": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
       },
-      "jsonBody": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
       },
-      "schemaValidation": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
       },
-      "headersPresent": {
-        "enabled": true
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
       }
-    }
+    ]
   },
-  "overwriteRequests": [
+  "overwrites": [
     {
       "openApiOperationId": "leadsAdd",
       "overwriteRequestBody": [
@@ -36,6 +54,15 @@
           "key": "company_name",
           "value": "{{$randomCompanyName}} {{$randomColor}}",
           "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{$randomInt}}",
+          "overwrite": true
+        },
+        {
+          "key": "websites[0].url",
+          "remove": true
         }
       ]
     },
@@ -72,6 +99,10 @@
         {
           "key": "limit",
           "disable": true
+        },
+        {
+          "key": "cursor",
+          "remove": true
         }
       ]
     }

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assignVarFromValue should add postman collection var with name for boolean value 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for portman_boolean variable 
+pm.collectionVariables.set(\\"portman_boolean\\", true);
+console.log(\\"- use {{portman_boolean}} as collection variable for value\\", true);
+",
+]
+`;
+
+exports[`assignVarFromValue should add postman collection var with name for number value 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for portman_number variable 
+pm.collectionVariables.set(\\"portman_number\\", 12345);
+console.log(\\"- use {{portman_number}} as collection variable for value\\", 12345);
+",
+]
+`;
+
+exports[`assignVarFromValue should add postman collection var with name for string value 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for portman_string variable 
+pm.collectionVariables.set(\\"portman_string\\", \\"portman\\");
+console.log(\\"- use {{portman_string}} as collection variable for value\\", \\"portman\\");
+",
+]
+`;
+
+exports[`assignVarFromValue should add postman collection var without name for string value 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for companiesOne.-var-1 variable 
+pm.collectionVariables.set(\\"companiesOne.-var-1\\", \\"portman\\");
+console.log(\\"- use {{companiesOne.-var-1}} as collection variable for value\\", \\"portman\\");
+",
+]
+`;

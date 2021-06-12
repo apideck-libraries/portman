@@ -1987,7 +1987,6 @@ paths:
         - apiKey: [ ]
       responses:
         '200':
-          headers:
           $ref: '#/components/responses/GetLead'
         '400':
           $ref: '#/components/responses/BadRequest'

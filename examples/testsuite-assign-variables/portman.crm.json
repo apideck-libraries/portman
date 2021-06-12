@@ -1,0 +1,119 @@
+{
+  "version": 1.0,
+  "tests": {
+    "responseTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
+      }
+    ]
+  },
+  "assignPmVariables": [
+    {
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.company_name"
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAdd",
+      "collectionVariables": [
+        {
+          "requestBodyProp": "company_name",
+          "name": "leadsAdd.company_name"
+        },
+        {
+          "responseBodyProp": "data.id",
+          "name": "leadsAdd.id"
+        }
+      ]
+    }
+  ],
+  "responseTests": [
+    {
+      "openApiOperationId": "leadsOne",
+      "checkRequestBody": [
+        {
+          "key": "data.company_name",
+          "value": "{{leadsAdd.company_name}}"
+        }
+      ]
+    }
+  ],
+  "overwrites": [
+    {
+      "openApiOperationId": "leadsAdd",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "{{leadsAdd.name}}"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "{{leadsAdd.id}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "PATCH::/crm/leads/{id}",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "{{leadsAdd.id}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "DELETE::/crm/leads/{id}",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "{{leadsAdd.id}}",
+          "overwrite": true
+        }
+      ]
+    }
+  ]
+}
