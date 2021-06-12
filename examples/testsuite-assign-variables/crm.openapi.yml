@@ -1778,6 +1778,11 @@ components:
           schema:
             type: string
             example: 'application/json'
+        Operation-Location:
+          description: 'URL to query for status of the operation. The operation ID will expire in 48 hours. '
+          schema:
+            type: string
+            example: '{baseUrl}/operations/bbadbeef-b3ab-40af-b05c-c0ffee6544cd'
       content:
         application/json:
           schema:
