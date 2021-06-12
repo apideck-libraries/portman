@@ -85,9 +85,7 @@ export class TestSuite {
       })
     })
 
-    if (variationWriter.mappedOperations.length) {
-      this.collection = variationWriter.mergeToCollection(this.collection)
-    }
+    this.collection = variationWriter.mergeToCollection(this.collection)
   }
 
   responseTestSettings = (): string[] => {

@@ -40,6 +40,7 @@ export class Portman {
     await this.parseOpenApiSpec()
     await this.convertToPostmanCollection()
     await this.injectTestSuite()
+    await this.injectVariationTests()
     await this.runPortmanOverrides()
     await this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
@@ -97,7 +98,7 @@ export class Portman {
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
 
-    this.config = await getConfig(postmanConfigFile)
+    this.config = await getConfig(portmanConfigFile)
   }
 
   async after(): Promise<void> {

@@ -1,4 +1,4 @@
-import { Event, Item } from 'postman-collection'
+import { Event, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from '../oas'
 
 export type PostmanMappedOperationOptions = {
@@ -47,6 +47,22 @@ export class PostmanMappedOperation {
 
   public getTests(): Event {
     return this.item.events.find(e => e?.listen === 'test', null)
+  }
+
+  getParent(): ItemGroup<Item> | null {
+    const parent = this.item.parent()
+    const isParent = ItemGroup.isItemGroup(parent)
+    return isParent ? (parent as ItemGroup<Item>) : null
+  }
+
+  public getParentFolderId(): string | null {
+    const parent = this.getParent()
+    return parent ? parent.id : null
+  }
+
+  public getParentFolderName(): string | null {
+    const parent = this.getParent()
+    return parent ? parent.name : null
   }
 
   public clone(name?: string): PostmanMappedOperation {

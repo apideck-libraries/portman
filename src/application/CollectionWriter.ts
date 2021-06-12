@@ -1,7 +1,6 @@
 import { CollectionDefinition } from 'postman-collection'
 import {
   injectEnvVariables,
-  orderCollectionRequests,
   overwriteCollectionKeyValues,
   overwriteCollectionValues,
   writeCollectionPreRequestScripts,
@@ -30,8 +29,8 @@ export class CollectionWriter {
         collectionPreRequestScripts,
         keyValueReplacements,
         valueReplacements,
-        rawReplacements,
-        orderOfOperations
+        rawReplacements
+        // orderOfOperations
       }
     } = this.config
 
@@ -52,9 +51,9 @@ export class CollectionWriter {
     }
 
     // --- Portman - Set manually order Postman requests
-    if (orderOfOperations) {
-      collection = orderCollectionRequests(collection, orderOfOperations)
-    }
+    // if (orderOfOperations) {
+    //   collection = orderCollectionRequests(collection, orderOfOperations)
+    // }
 
     // --- Portman - Set Postman pre-requests
     if (collectionPreRequestScripts) {

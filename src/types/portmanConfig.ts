@@ -41,7 +41,7 @@ export type VariationTestConfig = {
 
 export type VariationConfig = {
   name: string
-  options?: any
+  overwrites?: any
   success: any
 }
 
