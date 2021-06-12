@@ -1,6 +1,6 @@
-import * as globals from 'application'
-import { CollectionWriter } from 'application'
-import { PortmanConfig, PortmanOptions } from 'types'
+import * as globals from '../application'
+import { CollectionWriter } from '../application'
+import { PortmanConfig, PortmanOptions } from '../types'
 
 jest.mock('./globals/overwriteCollectionValues')
 jest.mock('./globals/orderCollectionRequests')

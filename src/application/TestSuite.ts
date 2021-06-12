@@ -1,3 +1,5 @@
+import { OpenAPIV3 } from 'openapi-types'
+import { Collection } from 'postman-collection'
 import {
   assignVarFromRequestBody,
   assignVarFromResponseBody,
@@ -15,12 +17,11 @@ import {
   testResponseJsonBody,
   testResponseJsonSchema,
   testResponseStatusSuccess,
-  testResponseTime
-} from 'application'
-import { OasMappedOperation, OpenApiParser } from 'oas'
-import { OpenAPIV3 } from 'openapi-types'
-import { PostmanMappedOperation, PostmanParser } from 'postman'
-import { Collection } from 'postman-collection'
+  testResponseTime,
+  VariationWriter
+} from '.'
+import { OasMappedOperation, OpenApiParser } from '../oas'
+import { PostmanMappedOperation, PostmanParser } from '../postman'
 import {
   AssignPmVariablesConfig,
   ContentTestConfig,
@@ -29,9 +30,10 @@ import {
   ResponseTestConfig,
   ResponseTime,
   TestConfig,
-  TestSuiteOptions
-} from 'types'
-import { inRange } from 'utils'
+  TestSuiteOptions,
+  VariationTestConfig
+} from '../types'
+import { inRange } from '../utils'
 
 export class TestSuite {
   public collection: Collection
@@ -59,7 +61,6 @@ export class TestSuite {
       // Get OpenApi responses
       const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
 
-      // Generate response checks
       if (oaOperation) {
         // Inject response tests
         pmOperation = this.injectResponseTests(pmOperation, oaOperation)
@@ -67,6 +68,26 @@ export class TestSuite {
 
       return pmOperation
     })
+  }
+
+  public generateVariationTests = (): void => {
+    if (!this.config?.tests?.variationTests) return
+
+    const variationTests = this.config.tests.variationTests
+    const variationWriter = new VariationWriter()
+
+    variationTests.map(variationTest => {
+      //Get Postman operations to inject variation test for
+      const pmOperations = this.getOperationsFromSetting(variationTest)
+
+      pmOperations.map(pmOperation => {
+        variationWriter.add(pmOperation, variationTest.variations)
+      })
+    })
+
+    if (variationWriter.mappedOperations.length) {
+      this.collection = variationWriter.mergeToCollection(this.collection)
+    }
   }
 
   responseTestSettings = (): string[] => {
@@ -102,7 +123,11 @@ export class TestSuite {
   }
 
   getOperationsFromSetting(
-    settings: OverwriteRequestConfig | AssignPmVariablesConfig | ContentTestConfig
+    settings:
+      | OverwriteRequestConfig
+      | AssignPmVariablesConfig
+      | ContentTestConfig
+      | VariationTestConfig
   ): PostmanMappedOperation[] {
     const { openApiOperation, openApiOperationId } = settings
 

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostmanMappedOperation clone() should create a clean copy of itself 1`] = `
+Object {
+  "auth": Object {
+    "bearer": Array [
+      Object {
+        "key": "token",
+        "type": "any",
+        "value": "<Bearer Token>",
+      },
+    ],
+    "type": "bearer",
+  },
+  "description": Object {
+    "content": "Get company",
+    "type": "text/plain",
+  },
+  "header": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the consumer which you want to get or push data from",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "x-apideck-consumer-id",
+      "value": "test_consumer",
+    },
+    Object {
+      "description": Object {
+        "content": "(Required) The ID of your Unify application",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "x-apideck-app-id",
+      "value": "2222",
+    },
+    Object {
+      "description": Object {
+        "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "x-apideck-service-id",
+      "value": "salesforce",
+    },
+  ],
+  "method": "GET",
+  "name": "Get Company - Variation",
+  "url": Object {
+    "host": Array [
+      "{{baseUrl}}",
+    ],
+    "path": Array [
+      "crm",
+      "companies",
+      ":id",
+    ],
+    "query": Array [
+      Object {
+        "description": Object {
+          "content": "Include raw response. Mostly used for debugging purposes",
+          "type": "text/plain",
+        },
+        "disabled": false,
+        "key": "raw",
+        "value": "true",
+      },
+    ],
+    "variable": Array [
+      Object {
+        "description": Object {
+          "content": "(Required) ID of the record you are acting upon.",
+          "type": "text/plain",
+        },
+        "disabled": false,
+        "key": "id",
+        "type": "any",
+        "value": "123456",
+      },
+    ],
+  },
+}
+`;

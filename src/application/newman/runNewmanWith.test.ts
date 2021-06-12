@@ -1,5 +1,5 @@
-import { runNewmanWith } from 'application'
 import newman from 'newman'
+import { runNewmanWith } from '../../application'
 
 jest.mock('newman')
 

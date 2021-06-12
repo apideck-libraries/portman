@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import { GlobalReplacement } from 'types'
+import { GlobalReplacement } from '../../types'
 
 export const writeRawReplacements = (
   collectionAsString: string,

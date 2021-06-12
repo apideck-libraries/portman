@@ -1,6 +1,6 @@
-import { assignVarFromRequestBody } from 'application'
-import { PostmanMappedOperation } from 'postman'
-import { getPostmanMappedCreateOperation } from 'testUtils/getPostmanMappedOperation'
+import { getPostmanMappedCreateOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { assignVarFromRequestBody } from '../../application'
+import { PostmanMappedOperation } from '../../postman'
 
 describe('assignVarFromRequestBody', () => {
   let pmOperation: PostmanMappedOperation

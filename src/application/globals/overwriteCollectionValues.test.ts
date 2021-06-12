@@ -1,5 +1,5 @@
-import { overwriteCollectionValues } from 'application'
 import { CollectionDefinition } from 'postman-collection'
+import { overwriteCollectionValues } from '../../application'
 
 const dictionary = {
   bar: 'buzz',

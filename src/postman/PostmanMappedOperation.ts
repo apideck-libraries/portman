@@ -1,18 +1,13 @@
-import { OasMappedOperation } from 'oas'
 import { Event, Item } from 'postman-collection'
+import { OasMappedOperation } from '../oas'
 
-export interface IPostmanMappedOperation {
-  id?: string
-  path: string
-  method: string
-  pathRef: string
-  requestHeaders: Record<string, unknown>
-  queryParams: Record<string, unknown>
-  pathParams: Record<string, unknown>
+export type PostmanMappedOperationOptions = {
   item: Item
+  operationIdMap?: Record<string, OasMappedOperation>
+  id?: string
 }
 
-export class PostmanMappedOperation implements IPostmanMappedOperation {
+export class PostmanMappedOperation {
   public id?: string
   public path: string
   public method: string
@@ -21,10 +16,11 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
   public requestHeaders: Record<string, unknown>
   public queryParams: Record<string, unknown>
   public pathParams: Record<string, unknown>
-  public item: Item
   public testJsonDataInjected: boolean
+  public item: Item
 
-  constructor(item: Item, operationIdMap: Record<string, OasMappedOperation>) {
+  constructor(options: PostmanMappedOperationOptions) {
+    const { item, operationIdMap, id } = options
     this.item = item
     const { request } = item
 
@@ -45,12 +41,23 @@ export class PostmanMappedOperation implements IPostmanMappedOperation {
       return { name: key, value, description: description?.content }
     })
 
-    this.id = operationIdMap[this.pathRef]?.id
+    this.id = operationIdMap ? operationIdMap[this.pathRef]?.id : (id as string)
     this.testJsonDataInjected = false
   }
 
   public getTests(): Event {
     return this.item.events.find(e => e?.listen === 'test', null)
+  }
+
+  public clone(name?: string): PostmanMappedOperation {
+    const clonedJsonItem = { ...this.item.toJSON() }
+    const { id, ...clone } = clonedJsonItem
+    if (name) {
+      clone.name = name
+      clone?.request ? (clone.request.name = name) : null
+    }
+    const clonedPmItem = new Item(clone)
+    return new PostmanMappedOperation({ item: clonedPmItem, id: `${this.id}-clone` })
   }
 
   private normalizedPathRef(method: string): string {

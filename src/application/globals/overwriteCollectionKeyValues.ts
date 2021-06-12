@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CollectionDefinition } from 'postman-collection'
-import { isObject } from 'utils'
+import { isObject } from '../../utils'
 
 export const overwriteCollectionKeyValues = (
   collectionJson: CollectionDefinition | Partial<CollectionDefinition>,

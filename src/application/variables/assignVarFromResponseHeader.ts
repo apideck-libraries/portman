@@ -1,6 +1,6 @@
-import { writeOperationTestScript } from 'application'
-import { PostmanMappedOperation } from 'postman'
-import { CollectionVariableConfig } from 'types'
+import { writeOperationTestScript } from '../../application'
+import { PostmanMappedOperation } from '../../postman'
+import { CollectionVariableConfig } from '../../types'
 
 /**
  * Assign PM variables with values defined by the request body

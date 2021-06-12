@@ -1,5 +1,5 @@
-import { PostmanMappedOperation } from 'postman'
-import { OverwritePathVariableConfig } from 'types'
+import { PostmanMappedOperation } from '../../postman'
+import { OverwritePathVariableConfig } from '../../types'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite

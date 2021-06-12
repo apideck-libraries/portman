@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
-import { OpenApiParser } from '../../src/oas'
-import { PostmanMappedOperation, PostmanParser } from '../../src/postman'
+import { OpenApiParser } from 'oas'
+import { PostmanMappedOperation, PostmanParser } from 'postman'
 
 const postmanJson = '__tests__/fixtures/crm.postman.json'
 const oasYml = '__tests__/fixtures/crm.yml'

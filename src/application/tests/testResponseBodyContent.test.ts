@@ -1,6 +1,6 @@
-import { testResponseBodyContent } from 'application'
-import { PostmanMappedOperation } from 'postman'
-import { getPostmanMappedOperation } from 'testUtils/getPostmanMappedOperation'
+import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { testResponseBodyContent } from '../../application'
+import { PostmanMappedOperation } from '../../postman'
 
 describe('testResponseBodyContent', () => {
   let pmOperation: PostmanMappedOperation

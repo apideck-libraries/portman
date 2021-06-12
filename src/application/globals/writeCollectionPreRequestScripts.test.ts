@@ -1,5 +1,5 @@
-import { writeCollectionPreRequestScripts } from 'application'
-import { getPostmanCollection } from 'testUtils/getPostmanCollection'
+import { getPostmanCollection } from '../../../__tests__/testUtils/getPostmanCollection'
+import { writeCollectionPreRequestScripts } from '../../application'
 
 describe('writeCollectionPreRequestScripts', () => {
   it('should inject the configured PreRequestScripts on collection', () => {

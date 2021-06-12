@@ -2,5 +2,8 @@
 'use strict'
 ;(() => {
   // Portman CLI
-  return () => require('../dist/index')
+  return () => {
+    require('tsconfig-paths/register')
+    require('../dist/index')
+  }
 })()()

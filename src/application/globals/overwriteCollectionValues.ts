@@ -1,5 +1,5 @@
 import { CollectionDefinition } from 'postman-collection'
-import { isObject } from 'utils'
+import { isObject } from '../../utils'
 
 export const overwriteCollectionValues = (
   collectionJson: CollectionDefinition | Partial<CollectionDefinition>,

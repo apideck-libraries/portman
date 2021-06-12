@@ -1,5 +1,5 @@
-import { PostmanMappedOperation } from 'postman'
-import { OverwriteQueryParamConfig } from 'types'
+import { PostmanMappedOperation } from '../../postman'
+import { OverwriteQueryParamConfig } from '../../types'
 
 /**
  * Overwrite Postman request query params with values defined by the portman testsuite

@@ -1,6 +1,6 @@
-import { writeOperationTestScript } from 'application'
-import { PostmanMappedOperation } from 'postman'
-import { ResponseBodyTest } from 'types'
+import { writeOperationTestScript } from '../../application'
+import { PostmanMappedOperation } from '../../postman'
+import { ResponseBodyTest } from '../../types'
 
 export const testResponseBodyContent = (
   contentTests: ResponseBodyTest[],

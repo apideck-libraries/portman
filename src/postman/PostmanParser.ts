@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import path from 'path'
 import { Collection, Item, ItemGroup, Request } from 'postman-collection'
-import { matchPath, METHODS } from 'utils'
 import { IOpenApiParser } from '../oas/OpenApiParser'
+import { matchPath, METHODS } from '../utils'
 import { PostmanMappedOperation } from './PostmanMappedOperation'
 
 export interface PostmanParserConfig {
@@ -79,7 +79,7 @@ export class PostmanParser implements IPostmanParser {
 
     const operationIdMap = this.oasParser?.operationIdMap || {}
     this.mappedOperations = this.pmItems.map(item => {
-      return new PostmanMappedOperation(item, operationIdMap)
+      return new PostmanMappedOperation({ item, operationIdMap })
     })
   }
 

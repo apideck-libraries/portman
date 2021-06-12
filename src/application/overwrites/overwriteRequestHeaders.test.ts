@@ -1,5 +1,5 @@
-import { overwriteRequestHeaders } from 'application'
-import { getPostmanMappedOperation } from 'testUtils/getPostmanMappedOperation'
+import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { overwriteRequestHeaders } from '../../application'
 
 describe('overwriteRequestHeaders', () => {
   it('should overwrite the request path variable', async () => {

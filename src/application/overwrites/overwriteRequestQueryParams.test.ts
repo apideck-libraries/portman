@@ -1,5 +1,5 @@
-import { overwriteRequestQueryParams } from 'application'
-import { getPostmanMappedOperation } from 'testUtils/getPostmanMappedOperation'
+import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { overwriteRequestQueryParams } from '../../application'
 
 describe('overwriteRequestQueryParams', () => {
   it('should overwrite the request query param', async () => {

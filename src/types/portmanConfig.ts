@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { OpenApiParser } from 'oas'
-import { PostmanParser } from 'postman'
+import { OpenApiParser } from '../oas'
+import { PostmanParser } from '../postman'
 
 type ResponseTest = {
   enabled: boolean

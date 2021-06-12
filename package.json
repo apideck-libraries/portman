@@ -21,7 +21,8 @@
     "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
     "test": "jest --detectOpenHandles --colors --verbose --reporters=default --collectCoverage --no-cache",
     "test:watch": "jest  --verbose --bail --watch",
-    "build": "tsc",
+    "build": "tsc --project ./tsconfig.json",
+    "ts-script": "TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register --project ./tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "release": "np --branch main"
   },

@@ -1,5 +1,5 @@
-import { overwriteRequestBody } from 'application'
-import { getPostmanMappedCreateOperation } from 'testUtils/getPostmanMappedOperation'
+import { getPostmanMappedCreateOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { overwriteRequestBody } from '../../application'
 
 describe('overwriteRequestBody', () => {
   it('should overwrite the request body with simple key value', async () => {

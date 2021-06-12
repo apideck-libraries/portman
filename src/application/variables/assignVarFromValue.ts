@@ -1,6 +1,6 @@
-import { writeOperationTestScript } from 'application'
-import { PostmanMappedOperation } from 'postman'
-import { CollectionVariableConfig } from 'types'
+import { writeOperationTestScript } from '../../application'
+import { PostmanMappedOperation } from '../../postman'
+import { CollectionVariableConfig } from '../../types'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config

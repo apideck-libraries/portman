@@ -1,5 +1,5 @@
-import { PostmanMappedOperation } from 'postman'
 import { Event } from 'postman-collection'
+import { PostmanMappedOperation } from '../../postman'
 
 export const writeOperationTestScript = (
   pmOperation: PostmanMappedOperation,

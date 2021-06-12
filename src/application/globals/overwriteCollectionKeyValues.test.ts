@@ -1,6 +1,6 @@
-import { overwriteCollectionKeyValues } from 'application'
 import { CollectionDefinition } from 'postman-collection'
-import { getPostmanCollection } from 'testUtils/getPostmanCollection'
+import { getPostmanCollection } from '../../../__tests__/testUtils/getPostmanCollection'
+import { overwriteCollectionKeyValues } from '../../application'
 
 const dictionary = {
   'x-apideck-consumer-id': '{{consumerId}}',

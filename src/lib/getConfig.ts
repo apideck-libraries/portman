@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
-import { PortmanConfig } from 'types'
+import { PortmanConfig } from '../types'
 
 export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {
   let config = {}

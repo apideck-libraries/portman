@@ -1,5 +1,5 @@
-import { PostmanMappedOperation } from 'postman'
-import { OverwriteRequestHeadersConfig } from 'types'
+import { PostmanMappedOperation } from '../../postman'
+import { OverwriteRequestHeadersConfig } from '../../types'
 
 /**
  * Overwrite Postman request headers with values defined by the portman testsuite

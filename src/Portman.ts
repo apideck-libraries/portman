@@ -1,20 +1,19 @@
-import { runNewmanWith, TestSuite, writeNewmanEnv } from 'application'
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import fs from 'fs-extra'
-import { clearTmpDirectory, execShellCommand, getConfig } from 'lib'
 import emoji from 'node-emoji'
-import { OpenApiParser } from 'oas'
 import path from 'path'
-import { PostmanParser } from 'postman'
 import { Collection, CollectionDefinition } from 'postman-collection'
+import { CollectionWriter, runNewmanWith, TestSuite, writeNewmanEnv } from './application'
+import { clearTmpDirectory, execShellCommand, getConfig } from './lib'
+import { OpenApiParser } from './oas'
+import { PostmanParser } from './postman'
 import {
   DownloadService,
   IOpenApiToPostmanConfig,
   OpenApiToPostmanService,
   PostmanService
-} from 'src/services'
-import { CollectionWriter } from './application/CollectionWriter'
+} from './services'
 import { PortmanConfig } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 
@@ -25,6 +24,7 @@ export class Portman {
   postmanParser: PostmanParser
   postmanCollection: Collection
   portmanCollection: CollectionDefinition
+  testSuite: TestSuite
   consoleLine: string
 
   public collectionFile: string
@@ -213,6 +213,21 @@ export class Portman {
 
       // Inject overwrites
       testSuite.injectOverwrites()
+
+      this.testSuite = testSuite
+      this.portmanCollection = testSuite.collection.toJSON()
+    }
+  }
+
+  async injectVariationTests(): Promise<void> {
+    const {
+      options: { includeTests },
+      testSuite
+    } = this
+
+    if (includeTests && testSuite) {
+      // Inject variation tests
+      testSuite.generateVariationTests()
 
       this.portmanCollection = testSuite.collection.toJSON()
     }

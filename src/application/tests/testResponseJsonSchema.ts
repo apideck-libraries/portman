@@ -1,6 +1,6 @@
-import { writeOperationTestScript } from 'application'
-import { OasMappedOperation } from 'oas'
-import { PostmanMappedOperation } from 'postman'
+import { writeOperationTestScript } from '../../application'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
 
 export const testResponseJsonSchema = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any

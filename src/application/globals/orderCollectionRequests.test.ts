@@ -1,4 +1,4 @@
-import { orderCollectionRequests } from 'application'
+import { orderCollectionRequests } from '../../application'
 
 describe('orderCollectionRequests()', () => {
   it('should order the postman request items in the order like defined', () => {

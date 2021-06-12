@@ -1,7 +1,7 @@
 import {
   getPostmanMappedCreateOperation,
   getPostmanMappedOperation
-} from 'testUtils/getPostmanMappedOperation'
+} from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { overwriteRequestPathIdVariables } from './overwriteRequestPathIdVariables'
 
 describe('overwriteRequestPathIdVariables', () => {

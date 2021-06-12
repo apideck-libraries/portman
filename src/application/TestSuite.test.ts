@@ -1,8 +1,8 @@
-import { TestSuite } from 'application'
 import fs from 'fs-extra'
-import { getConfig } from 'lib'
-import { OpenApiParser } from 'oas'
-import { PostmanParser } from 'postman'
+import { TestSuite } from '../application'
+import { getConfig } from '../lib'
+import { OpenApiParser } from '../oas'
+import { PostmanParser } from '../postman'
 
 describe('TestSuite', () => {
   let postmanParser: PostmanParser

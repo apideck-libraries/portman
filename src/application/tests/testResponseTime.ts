@@ -1,7 +1,7 @@
-import { writeOperationTestScript } from 'application'
-import { OasMappedOperation } from 'oas'
-import { PostmanMappedOperation } from 'postman'
-import { ResponseTime } from 'types'
+import { writeOperationTestScript } from '../../application'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
+import { ResponseTime } from '../../types'
 
 export const testResponseTime = (
   responseTime: ResponseTime,

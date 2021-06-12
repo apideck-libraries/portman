@@ -1,6 +1,6 @@
-import { writeOperationTestScript } from 'application'
-import { OasMappedOperation } from 'oas'
-import { PostmanMappedOperation } from 'postman'
+import { writeOperationTestScript } from '../../application'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
 
 export const testResponseContentType = (
   contentType: string,

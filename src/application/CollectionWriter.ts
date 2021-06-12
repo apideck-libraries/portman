@@ -1,3 +1,4 @@
+import { CollectionDefinition } from 'postman-collection'
 import {
   injectEnvVariables,
   orderCollectionRequests,
@@ -5,9 +6,8 @@ import {
   overwriteCollectionValues,
   writeCollectionPreRequestScripts,
   writeRawReplacements
-} from 'application'
-import { CollectionDefinition } from 'postman-collection'
-import { PortmanConfig, PortmanOptions } from 'types'
+} from '.'
+import { PortmanConfig, PortmanOptions } from '../types'
 
 export class CollectionWriter {
   public collection: CollectionDefinition

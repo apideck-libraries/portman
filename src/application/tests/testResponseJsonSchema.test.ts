@@ -1,9 +1,9 @@
-import { testResponseJsonSchema } from 'application'
-import { OasMappedOperation } from 'oas'
 import { OpenAPIV3 } from 'openapi-types'
-import { PostmanMappedOperation } from 'postman'
-import { getOasMappedOperation } from 'testUtils/getOasMappedOperation'
-import { getPostmanMappedOperation } from 'testUtils/getPostmanMappedOperation'
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
+import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { testResponseJsonSchema } from '../../application'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
 
 describe('testResponseJsonSchema', () => {
   let oasOperation: OasMappedOperation

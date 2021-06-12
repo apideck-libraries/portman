@@ -1,4 +1,4 @@
-import { writeRawReplacements } from 'application'
+import { writeRawReplacements } from '../../application'
 
 describe('writeRawReplacements', () => {
   it('should use config to replace all found values in string', () => {

@@ -1,6 +1,6 @@
-import { PostmanMappedOperation } from 'postman'
-import { OverwriteRequestBodyConfig } from 'types'
-import { getByPath, omitByPath, setByPath } from 'utils'
+import { PostmanMappedOperation } from '../../postman'
+import { OverwriteRequestBodyConfig } from '../../types'
+import { getByPath, omitByPath, setByPath } from '../../utils'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite

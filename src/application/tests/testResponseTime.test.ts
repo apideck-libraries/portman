@@ -1,8 +1,8 @@
-import { testResponseTime } from 'application'
-import { OasMappedOperation } from 'oas'
-import { PostmanMappedOperation } from 'postman'
-import { getOasMappedOperation } from 'testUtils/getOasMappedOperation'
-import { getPostmanMappedOperation } from 'testUtils/getPostmanMappedOperation'
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
+import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { testResponseTime } from '../../application'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
 
 describe('testResponseTime', () => {
   let oasOperation: OasMappedOperation

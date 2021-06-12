@@ -1,6 +1,6 @@
-import { writeNewmanEnv } from 'application'
 import fs from 'fs-extra'
-import { getPostmanCollection } from 'testUtils/getPostmanCollection'
+import { getPostmanCollection } from '../../../__tests__/testUtils/getPostmanCollection'
+import { writeNewmanEnv } from '../../application'
 
 describe('writeNewmanEnv', () => {
   afterEach(() => {

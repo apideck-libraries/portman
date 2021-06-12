@@ -1,6 +1,6 @@
-import { writeOperationTestScript } from 'application'
-import { PostmanMappedOperation } from 'postman'
-import { ExtendTestsConfig } from 'types'
+import { writeOperationTestScript } from '../../application'
+import { PostmanMappedOperation } from '../../postman'
+import { ExtendTestsConfig } from '../../types'
 
 /**
  * Extend the Portman tests with additional Postman tests
