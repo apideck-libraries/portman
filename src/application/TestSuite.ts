@@ -232,6 +232,7 @@ export class TestSuite {
     const assignVarSettings = this.config.assignPmVariables
 
     assignVarSettings.map(assignVar => {
+      if (!assignVar?.collectionVariables) return
       //Get Postman operations to apply assign variables for
       const pmOperations = this.getOperationsFromSetting(assignVar)
       pmOperations.map(pmOperation => {
