@@ -4,28 +4,58 @@ Port OpenAPI Spec to Postman Collection!
 
 Portman sits on top of [@thim81](https://github.com/thim81)'s [open PR](https://github.com/thim81/openapi-to-postman). Tim has made awesome progress in converting an OAS to a Postman Collection with automated test injection. At [Apideck](https://apideck.com), we wanted to include this as part of an automated process that could be injecting directly into our CI/CD pipeline.
 
-With Portman, we can:
+## Features
 
-- Set Environment variables
-- Inject Collection variables
-- Inject Pre-Execution Scripts on a collection or request level
-- Adjust Request Bodies from spec generated to randomized
-- As well as inject tests for each requests that validate:
-  - status
-  - contenttype
-  - jsonbody
-  - schema
+With Portman, we can:
+- [x] Convert an OpenApi document to Postman collection
+  - [x] Support for OpenAPI 3.0
+  - [ ] Support for OpenAPI 3.1 
+- Extend the Postman collection with capabilities
+  - [x] Assign collection variables
+    - [x] from ENV file
+    - [x] from response body properties
+    - [x] from response header properties
+    - [x] from request body properties
+  - [x] Inject Postman contract tests with
+    - [x] HTTP response code validation
+    - [x] Response time validation
+    - [x] Response content-type validation
+    - [x] Response JSON body validation
+    - [x] Response JSON schema validation
+    - [x] Response content validation
+    - [x] Custom Postman tests
+  - [x] Inject Postman variation tests for
+    - [x] HTTP response code validation
+    - [x] Response time validation
+    - [x] Response content-type validation
+    - [x] Response JSON body validation
+    - [x] Response JSON schema validation
+    - [x] Response content validation
+    - [x] Custom Postman tests
+  - [x] Inject Postman with
+    - [x] Pre-Execution Scripts on a collection level
+    - [x] Pre-Execution Scripts on a request level
+  - [x] Modify Postman requests by
+    - [x] Overwriting request path variables
+    - [x] Overwriting request query params
+    - [x] Overwriting request headers
+    - [x] Overwriting request body
+    - [x] Replace keywords with custom defined keys
+    - [x] Replace values with custom defined values
+    - [x] Order the collections requests
+- [x] Upload the Postman collection to your Postman app
+- [x] Run the Postman collection though Newman
+- [x] Manage everything in config file for easy local or CI/CD usage
 
 ## Install
 
 1. yarn add -D portman
 2. copy `.env.example` to `.env` and add environment variables you need available to your collection.
 3. copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
-
 - Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/OPTIONS.md)
 - Configuring test generation can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/TESTGENERATION.md)
 
-## Usage
+## CLI Usage
 
 ```
 Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>
@@ -46,7 +76,6 @@ Options:
   -s, --postmanConfigFile    Path to postman-config.json                                  [string]
   --envFile                  Path to the .env file to inject environment variables        [string]
   --cliConfigFile            Path to the file with the Portman CLI options                [string]
-
 ```
 
 ### Environment:
@@ -82,7 +111,6 @@ To generate the collection with tests, define a JSON file like the example (port
     "x-apideck-app-id": "{{applicationId}}"
   }
 }
-
 ```
 
 - **preRequestScripts**: Array of scripts that will be injected as Postman Pre-request Scripts that will execute before every request in this collection.
@@ -153,6 +181,29 @@ By passing the CLI options as parameter, you can overwrite the defined CLI optio
 ### Output:
 
 Your generated Postman Collection is written to `./tmp/converted/${specName}.json` if you are manually importing to Postman or need to inspect for debugging.
+
+
+## Portman settings -- WIP
+
+The Portman settings consists out of x parts:
+
+=== WIP === 
+
+- **version** : which refers the JSON test suite version
+  (not relevant but might handy for future backward compatibility options).
+- **generateTests** : which refers the default available generated postman tests. The default tests are grouped per
+  type (response, request)
+  - **responseChecks** : All response basic checks. (For now we have only included response checks).
+  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so test
+    will be generated for **all** operations).
+- **extendTests**:  which refers the custom additions of manual created postman tests. (
+  see [Postman test suite extendTests](#postman-test-suite-extendtests))
+- **contentChecks**:  which refers the additional Postman tests that check the content. (
+  see [Postman test suite contentChecks](#postman-test-suite-contentchecks))
+- **assignPmVariables**:  which refers to specific Postman environment variables for easier automation. (
+  see [Postman test suite assignPmVariables](#postman-test-suite-assignpmvariables))
+- **overwriteRequests**:  which refers the custom additions/modifications of the OpenAPI request body. (
+  see [Postman test suite overwriteRequests](#postman-test-suite-overwriterequests))
 
 ### To Note:
 
