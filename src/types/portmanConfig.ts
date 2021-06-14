@@ -44,6 +44,7 @@ export type VariationConfig = {
   overwrites?: any
   tests: any
   assignVariables?: AssignVariablesConfig[]
+  extendTests?: ExtendTestsConfig[]
 }
 
 export type ResponseBodyTest = {

@@ -2,7 +2,13 @@ import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import { VariationConfig } from '../types'
-import { applyOverwrites, assignCollectionVariables, testResponseBodyContent, TestSuite } from './'
+import {
+  applyOverwrites,
+  assignCollectionVariables,
+  extendTest,
+  testResponseBodyContent,
+  TestSuite
+} from './'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -86,7 +92,7 @@ export class VariationWriter {
     oaOperation: OasMappedOperation | null,
     variation: VariationConfig
   ): void {
-    const { overwrites: overwriteSettings, tests, assignVariables } = variation
+    const { overwrites: overwriteSettings, tests, assignVariables, extendTests } = variation
 
     overwriteSettings.map(overwriteSetting => {
       overwriteSetting && applyOverwrites([pmOperation], overwriteSetting)
@@ -103,6 +109,12 @@ export class VariationWriter {
     if (assignVariables) {
       assignVariables.map(setting => {
         assignCollectionVariables(pmOperation, setting, pmOperation.item.id)
+      })
+    }
+
+    if (extendTests) {
+      extendTests.map(setting => {
+        setting?.tests && extendTest(setting, pmOperation)
       })
     }
   }
