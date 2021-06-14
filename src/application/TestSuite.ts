@@ -23,7 +23,7 @@ import {
 import { OasMappedOperation, OpenApiParser } from '../oas'
 import { PostmanMappedOperation, PostmanParser } from '../postman'
 import {
-  AssignPmVariablesConfig,
+  assignVariablesConfig,
   ContentTestConfig,
   OverwriteRequestConfig,
   PortmanConfig,
@@ -123,7 +123,7 @@ export class TestSuite {
   getOperationsFromSetting(
     settings:
       | OverwriteRequestConfig
-      | AssignPmVariablesConfig
+      | assignVariablesConfig
       | ContentTestConfig
       | VariationTestConfig
   ): PostmanMappedOperation[] {
@@ -228,8 +228,8 @@ export class TestSuite {
   }
 
   public injectAssignVariables = (): PostmanMappedOperation[] => {
-    if (!this.config?.assignPmVariables) return this.postmanParser.mappedOperations
-    const assignVarSettings = this.config.assignPmVariables
+    if (!this.config?.assignVariables) return this.postmanParser.mappedOperations
+    const assignVarSettings = this.config.assignVariables
 
     assignVarSettings.map(assignVar => {
       if (!assignVar?.collectionVariables) return
