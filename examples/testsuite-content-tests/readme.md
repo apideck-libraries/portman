@@ -60,7 +60,7 @@ file: examples/testsuite-content-tests/postman-testsuite.crm.json
   "contentTests": [
     {
       "openApiOperationId": "leadsAll",
-      "responseBodyTest": [
+      "responseBodyTests": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"
@@ -86,7 +86,7 @@ Version 1.0
 Next to the generated tests, it is possible to define "content" tests where a property and the value of the response body should exist and match a specific value or variable.
 
 The contentTests are mapped based on the OpenApi operationId or the OpenApi Operation reference (method + path).
-Anything added in `responseBodyTest` array, will be added as content check to the Postman tests.
+Anything added in `responseBodyTests` array, will be added as content check to the Postman tests.
 
 ##### Target options:
 
@@ -97,7 +97,7 @@ These target options are both supported for defining a target. In case both are 
 
 ##### Content check options:
 
-- **responseBodyTest (Array)** : Array of key/value pairs of properties & values in the Postman response body.
+- **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
   - **key (string)** : The key that will be targeted in the response body to check if it exists.
   - **value (string)** : The value that will be used to check if the value in the response body matches.
 
@@ -111,7 +111,7 @@ file: examples/testsuite-content-tests/postman-testsuite.crm.json >>
 "contentTests": [
     {
       "openApiOperationId": "leadsAll",
-      "responseBodyTest": [
+      "responseBodyTests": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"
@@ -273,7 +273,7 @@ In the example below, we target the `GET` method for the path `/crm/leads`.
 "contentTests": [
     {
       "openApiOperation": "GET::/crm/leads",
-      "responseBodyTest": [
+      "responseBodyTests": [
         {
           "key": "data[0].company_name",
           "value": "Spacex"

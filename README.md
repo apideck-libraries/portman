@@ -284,10 +284,10 @@ For more details, review the [response-tests example](https://github.com/apideck
 Content tests will validate, if the response property values will match the expected defined values.
 While the Portman `tests` verify the "contract" of the API, the `contentTests` will verify the content of the API.
 
-#### responseBodyTest options:
+#### responseBodyTests options:
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** :  References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
-- **responseBodyTest (Array)** : Array of key/value pairs of properties & values in the Postman response body.
+- **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
   - **key (string)** : The key that will be targeted in the response body to check if it exists.
   - **value (string)** : The value that will be used to check if the value in the response body matches.
   
