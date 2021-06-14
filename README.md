@@ -6,7 +6,7 @@ Portman leverages OpenAPI documents, with all it's defined API request/response 
 Let Portman do the all work and inject contract & variation tests with a minimal of configuration.
 Customise the Postman requests & variables with a wide range of options to assign & overwrite variables.
 
-Use Portman, to convert your OpenAPI spec to Postman, generate contract & variation tests, upload the Postman collection & run the tests through Newman
+Use Portman, to convert your OpenAPI spec to Postman, generate contract & variation tests, upload the Postman collection & run the tests through Newman.
 Include the Portman CLI as part of an automated process for injecting the power of Portman directly into your CI/CD pipeline.
 
 ## Features
