@@ -381,7 +381,7 @@ For more details, review the [overwrites example](https://github.com/apideck-lib
 
 ### Portman - `globals` property
 
-The configuration defined in the `globals` will be executed on the full Postman collection. This is handy if you need to do mass replacements of variables or specific word/keys/values in the full collection.
+The configuration defined in the `globals` will be executed on the full Postman collection. This is handy if you need to do mass replacements of variables or specific word/keys/values in the full collection, that cannot be overwritten per request. 
 
 #### globals options:
 
@@ -390,6 +390,9 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **valueReplacements**: A map of values that will have their values replaced with the provided values.
 - **rawReplacements**: Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
   This is very useful to replace data from the OpenAPI specification to be used in the Postman test automation.
+
+For more details, review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals).
+
 
 ## Configure automatic upload to Postman App
 

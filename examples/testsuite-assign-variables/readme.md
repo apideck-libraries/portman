@@ -313,7 +313,7 @@ Create Lead request body
     "name": "{{leadsAdd.name}}",
     "company_name": "Spacex",
     "owner_id": "54321"
-    ...
+   ...
 }
 ```
 

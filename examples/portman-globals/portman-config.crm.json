@@ -1,0 +1,17 @@
+{
+  "version": 1.0,
+  "globals": {
+    "keyValueReplacements": {
+      "x-apideck-app-id": "{{applicationId}}"
+    },
+    "valueReplacements": {
+      "<Bearer Token>": "{{bearerToken}}"
+    },
+    "rawReplacements": [
+      {
+        "searchFor": "Unify",
+        "replaceWith": "Unify ApiDeck"
+      }
+    ]
+  }
+}
