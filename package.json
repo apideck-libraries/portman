@@ -5,7 +5,8 @@
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
   "contributors": [
-    "Nick Lloyd <nick@apideck.com>"
+    "Nick Lloyd <nick@apideck.com>",
+    "Tim Haselaars"
   ],
   "license": "Apache-2.0",
   "repository": {
