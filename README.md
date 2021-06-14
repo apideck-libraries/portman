@@ -11,7 +11,7 @@ Include the Portman CLI as part of an automated process for injecting the power 
 
 ## Features
 
-With Portman, we can:
+With Portman, you can:
 - [x] Convert an OpenAPI document to Postman collection
   - [x] Support for OpenAPI 3.0
   - [ ] Support for OpenAPI 3.1 
@@ -38,8 +38,8 @@ With Portman, we can:
     - [x] Response content validation
     - [x] Custom Postman tests
   - [x] Inject Postman with
-    - [x] Pre-Execution Scripts on a collection level
-    - [x] Pre-Execution Scripts on a request level
+    - [x] Pre-request scripts on a collection level
+    - [ ] Pre-request scripts on a request level
   - [x] Modify Postman requests by
     - [x] Overwriting request path variables
     - [x] Overwriting request query params
@@ -47,6 +47,7 @@ With Portman, we can:
     - [x] Overwriting request body
     - [x] Replace keywords with custom defined keys
     - [x] Replace values with custom defined values
+    - [x] Search & replace any key/value with a specific value
     - [x] Order the collections requests
 - [x] Upload the Postman collection to your Postman app
 - [x] Test the Postman collection through Newman
