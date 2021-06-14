@@ -218,10 +218,10 @@ Postman > Preferences > Automatically follow redirects > OFF
 
 ## Portman settings
 
-The Portman settings consists out of x parts:
+The Portman settings consists out of multiple parts:
 
-- **version** : which refers the JSON Portman configuration version (not relevant but might handy for future backward compatibility options).
-- **tests** : which refers the default available generated contract tests. The default tests are grouped per type (response, request)
+- **version** : which refers the JSON Portman configuration version.
+- **tests** : which refers the default available generated contract tests.
 - **contentTests**:  which refers the additional Postman tests that check the content.
 - **extendTests**:  which refers the custom additions of manual created Postman tests.
 - **assignVariables**:  which refers to setting Postman collection variables for easier automation.
