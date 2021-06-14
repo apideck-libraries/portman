@@ -296,7 +296,7 @@ For more details, review the [content-tests example](https://github.com/apideck-
 ### Portman - `extendTests` properties
 
 When you need to add additional tests or overwrite the Portman generated test, you can use the `extendTests` to define the raw Postman tests.
-Anything added in `tests` array, will be added to the Postman test scripts.
+Anything added in the `tests` array, will be added to the Postman test scripts.
 
 #### extendTests options:
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
@@ -320,9 +320,9 @@ For all the details and an example, see [](TODO)
 - **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman
   pm.collectionVariables will be set. (example: `GET::/crm/leads`)
 - **collectionVariables (Array)** : Array of key/value pairs to set the Postman collection variables.
-  - **responseBodyProp (string)** : The property for which the value will be taken in the response body and set the value as the pm.collectionVariables value.
-  - **responseHeaderProp (string)** : The property for which the value will be taken in the response header and set the value as the pm.collectionVariables value.
-  - **requestBodyProp (string)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
+  - **responseBodyProp (string)** : The property for which the value will be taken from the response body and set the value as the pm.collectionVariables value.
+  - **responseHeaderProp (string)** : The property for which the value will be taken from the response header and set the value as the pm.collectionVariables value.
+  - **requestBodyProp (string)** : The property for which the value will be taken from the request body and set the value as the pm.collectionVariables value.
   - **value (string)** : The defined value that will be set as the pm.collectionVariables value.
   - **name (string OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name
 
@@ -332,15 +332,14 @@ For more details, review the [assign-variables example](https://github.com/apide
 
 ### Portman - `overwrites` properties
 
-To facilitate automation, you might want to modify property values with "randomized" or specific values. The overwrites are mapped based on the OpenAPI operationId or OpenAPI Operation reference.
-For all the details and an example, see [](TODO)
+To facilitate automation, you might want to modify properties with "randomized" or specific values. The overwrites are mapped based on the OpenAPI operationId or OpenAPI Operation reference.
 
 #### overwrites options:
-- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman request body will be extended. (example: `leadsAll`)
-- **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request body will be extended (example: `GET::/crm/leads`)
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman request will be overwritten or extended. (example: `leadsAll`)
+- **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request will be overwritten or extended (example: `GET::/crm/leads`)
 
 - **overwriteRequestQueryParams (Array)** :
-
+  
   Array of key/value pairs to overwrite in the Postman Request Query params.
 
   - **key (string)** : The key that will be targeted in the request Query Param to overwrite/extend.
@@ -349,7 +348,8 @@ For all the details and an example, see [](TODO)
   - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman
   - **remove (Boolean true/false | Default: false)** : Removes the request query param
 
-- **overwriteRequestPathVariables (Array)** :
+- **overwriteRequestPathVariables (Array)** : 
+  
   Array of key/value pairs to overwrite in the Postman Request Path Variables.
 
   - **key (string)** : The key that will be targeted in the request Path variables to overwrite/extend.
