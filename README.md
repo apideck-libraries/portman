@@ -2,7 +2,7 @@
 
 Port OpenAPI Spec to Postman Collection!
 
-Portman sits on top of [@thim81](https://github.com/thim81)'s [open PR](https://github.com/thim81/openapi-to-postman). Tim has made awesome progress in converting an OAS to a Postman Collection with automated test injection. At [Apideck](https://apideck.com), we wanted to include this as part of an automated process that could be injecting directly into our CI/CD pipeline.
+Portman sits on top of [@thim81](https://github.com/thim81)'s [open PR](https://github.com/thim81/openapi-to-Postman). Tim has made awesome progress in converting an OAS to a Postman Collection with automated test injection. At [Apideck](https://apideck.com), we wanted to include this as part of an automated process that could be injecting directly into our CI/CD pipeline.
 
 ## Features
 
@@ -53,14 +53,14 @@ With Portman, we can:
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection.
 3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
 4. Start converting your OpenApi document to Postman
-- Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/OPTIONS.md)
-- Configuring test generation can be found [here](https://github.com/thim81/openapi-to-postman/blob/develop/TESTGENERATION.md)
+- Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-Postman/blob/develop/OPTIONS.md)
+- Configuring test generation can be found [here](https://github.com/thim81/openapi-to-Postman/blob/develop/TESTGENERATION.md)
 
 ## Installation
 
 ### Local Installation (recommended)
 
-You can add the portman CLI to the `node_modules` by using:
+You can add the Portman CLI to the `node_modules` by using:
 
 ```shell
 $ npm install --save-dev @apideck/portman
@@ -97,25 +97,25 @@ Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>
 Options:
       --help                 Show help                                                    [boolean]
       --version              Show version number                                          [boolean]
-  -u, --url                  URL of OAS to port to postman collection                     [string]
-  -l, --local                Use local OAS to port to postman collection                  [string]
+  -u, --url                  URL of OAS to port to Postman collection                     [string]
+  -l, --local                Use local OAS to port to Postman collection                  [string]
   -b, --baseUrl              Override spec baseUrl to use in test suite                   [string]
   -o, --output               Write the Postman collection to an output file               [string]
   -n, --runNewman            Run newman on newly created collection                       [boolean]
   -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
-  --syncPostman              Upload generated collection to postman (default: false)      [boolean]
-  -p, --postmanUid           Collection UID to upload&overwrite with generated collection [string]
+  --syncPostman              Upload generated collection to Postman (default: false)      [boolean]
+  -p, --PostmanUid           Collection UID to upload&overwrite with generated collection [string]
   -t, --includeTests         Inject test suite (default: true)                            [boolean]
   -c, --portmanConfigFile    Path to portman-config.json                                  [string]
-  -s, --postmanConfigFile    Path to postman-config.json                                  [string]
+  -s, --PostmanConfigFile    Path to Postman-config.json                                  [string]
   --envFile                  Path to the .env file to inject environment variables        [string]
   --cliConfigFile            Path to the file with the Portman CLI options                [string]
 ```
 
 ### Environment variables
 
-Portman uses `dotenv` to not only access variables for functionality, but you can easily add environment variables that you'd like declared within your postman environment.
-Simply prefix any variable name with `PORTMAN_`, and it will be available for use in your postman collection as the camelcased equivalent. For example:
+Portman uses `dotenv` to not only access variables for functionality, but you can easily add environment variables that you'd like declared within your Postman environment.
+Simply prefix any variable name with `PORTMAN_`, and it will be available for use in your Postman collection as the camelcased equivalent. For example:
 
 ```
 PORTMAN_CONSUMER_ID=test_user_id
@@ -129,7 +129,7 @@ will be available in your collection or tests by referencing:
 
 #### Recommended
 
-A separate `.env` file lives in the root of your project to hold your `POSTMAN_API_KEY`, but a spec specific `.env` file can live next to your config files, and the path passed in via `envFile` cli option.
+A separate `.env` file lives in the root of your project to hold your `Postman_API_KEY`, but a spec specific `.env` file can live next to your config files, and the path passed in via `envFile` cli option.
 This is useful if you have Portman managing multiple specs that have unique environment requirements.
 
 ### CLI Configuration
@@ -173,7 +173,7 @@ yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n tr
 - Pass path to a local spec (useful when updating your specs) and output Postman collection locally
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
+yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 
 - Skip tests and just generate collection.
@@ -197,7 +197,7 @@ yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a
 - Pass custom paths for config files
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/postman-testsuite.json  -s ./common/postman-config.json
+yarn portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/Postman-testsuite.json  -s ./common/Postman-config.json
 ```
 
 - Pass all CLI options as JSON file
@@ -219,7 +219,7 @@ Without specifying the output location, your generated Postman Collection is wri
 By using `-o` or `--output` parameter, you can define the location where the Postman collection will be written.
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
+yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 
 ### To Note:
@@ -233,11 +233,9 @@ Postman > Preferences > Automatically follow redirects > OFF
 The Portman settings consists out of x parts:
 
 - **version** : which refers the JSON Portman configuration version (not relevant but might handy for future backward compatibility options).
-- **tests** : which refers the default available generated postman tests. The default tests are grouped per
-  type (response, request)
-  - **responseTests** : All response basic checks.
-- **extendTests**:  which refers the custom additions of manual created postman tests. 
+- **tests** : which refers the default available generated contract tests. The default tests are grouped per type (response, request)
 - **contentTests**:  which refers the additional Postman tests that check the content.
+- **extendTests**:  which refers the custom additions of manual created Postman tests.
 - **assignVariables**:  which refers to setting Postman collection variables for easier automation.
 - **overwrites**:  which refers to the custom additions/modifications of the OpenApi/Postman request data. 
 
@@ -277,9 +275,45 @@ A combination of wildcards for the method and path parts are even possible.
 
 ### Portman - `tests` properties
 
-### Portman - `extendTests` properties
+The Portman `tests` is where you would define the "contract" tests that would be applicable and automatically generated by Portman, based on the OpenApi document.
+The contract tests are grouped in an array of `responseTests`.
+
+#### responseTests options:
+- **openApiOperationId (String)** : References to the OpenApi operationId. (example: `leadsAll`)
+- **openApiOperation (String)** :  References to a combination of the OpenApi method & path (example: `GET::/crm/leads`)
+- **statusSuccess (boolean)**: Adds the test if the response of the Postman request return a 2xx
+- **responseTime (boolean)**: Adds the test if the response of the Postman request is within a number of ms.
+- **contentType (boolean)**: Adds the test if the response header is matching the expected content-type defined in the OpenApi spec.
+- **jsonBody (boolean)**: Adds the test if the response body is matching the expected content-type defined in the OpenApi spec.
+- **schemaValidation (boolean)**: Adds the test if the response body is matching the JSON schema defined in the OpenApi spec. The JSON schema is inserted inline in the Postman test.
+- **headersPresent (boolean)**: Adds the check if the Postman response header has the header names present, like defined in the OpenApi spec.
 
 ### Portman - `contentTests` properties
+
+Content tests will validate, if the response property values will match the expected defined values.
+While the Portman `tests` verify the "contract" of the API, the `contentTests` will verify the content of the API.
+
+#### responseBodyTest options:
+- **openApiOperationId (String)** : References to the OpenApi operationId. (example: `leadsAll`)
+- **openApiOperation (String)** :  References to a combination of the OpenApi method & path (example: `GET::/crm/leads`)
+- **responseBodyTest (Array)** : Array of key/value pairs of properties & values in the Postman response body.
+  - **key (string)** : The key that will be targeted in the response body to check if it exists.
+  - **value (string)** : The value that will be used to check if the value in the response body matches.
+  
+### Portman - `extendTests` properties
+
+When you need to add additional tests or overwrite the Portman generated test, you can use the `extendTests` to define the raw Postman tests.
+Anything added in `tests` array, will be added to the Postman test scripts.
+
+#### extendTests options:
+- **openApiOperationId (String)** : References to the OpenApi operationId. (example: `leadsAll`)
+- **openApiOperation (String)** :  References to a combination of the OpenApi method & path (example: `GET::/crm/leads`)
+- **tests (Array)** : Array of additional Postman test scripts.
+- **overwrite (Boolean true/false)** : Resets all generateTests and overwrites them with the defined tests from
+  the `tests` array. Default: false
+- **append (Boolean true/false)** : Place the tests after (append) or before (prepend) all generated tests. Default: true
+
+<hr>
 
 ### Portman - `assignVariables` properties
 
@@ -291,17 +325,15 @@ For all the details and an example, see [](TODO)
 - **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman pm.collectionVariables
   will be set. (example: `leadsAll`)
 - **openApiOperation (String)** : Reference to the combination of the OpenApi method & path, for which the Postman
-  pm.collectionVariables will be set. (example: `GET::/crm/leas`)
-- **collectionVariables (Array)** : A list of variables that will can be defined based on range of options. See the "collectionVariables options" section for all the details  
-  
-#### collectionVariables options:
-
+  pm.collectionVariables will be set. (example: `GET::/crm/leads`)
 - **collectionVariables (Array)** : Array of key/value pairs to set the Postman collection variables.
   - **responseBodyProp (string)** : The property for which the value will be taken in the response body and set the value as the pm.collectionVariables value.
   - **responseHeaderProp (string)** : The property for which the value will be taken in the response header and set the value as the pm.collectionVariables value.
   - **requestBodyProp (string)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
   - **value (string)** : The defined value that will be set as the pm.collectionVariables value.
   - **name (string OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name
+
+<hr>
 
 ### Portman - `overwrites` properties
 
@@ -317,7 +349,7 @@ For all the details and an example, see [](TODO)
   Array of key/value pairs to overwrite in the Postman Request Query params.
 
   - **key (string)** : The key that will be targeted in the request Query Param to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (string)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
   - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman
   - **remove (Boolean true/false | Default: false)** : Removes the request query param
@@ -326,7 +358,7 @@ For all the details and an example, see [](TODO)
   Array of key/value pairs to overwrite in the Postman Request Path Variables.
 
   - **key (string)** : The key that will be targeted in the request Path variables to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (string)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request path variable value OR attach the value to the original request Path variable value.
   - **remove (Boolean true/false | Default: false)** : Removes the request path variable
 
@@ -335,7 +367,7 @@ For all the details and an example, see [](TODO)
   Array of key/value pairs to overwrite in the Postman Request Headers.
 
   - **key (string)** : The key that will be targeted in the request Headers to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (string)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attach the value to the original request header value.
   - **remove (Boolean true/false | Default: false)** : Removes the request headers
 
@@ -344,7 +376,7 @@ For all the details and an example, see [](TODO)
   Array of key/value pairs to overwrite in the Postman Request Body.
 
   - **key (string)** : The key that will be targeted in the request body to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (string)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attach the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
   
@@ -352,21 +384,21 @@ For all the details and an example, see [](TODO)
 
 1. Get your Postman API key
 
-![Documentation Pipeline](docs/img/postman-automation-0.png)
+![Documentation Pipeline](docs/img/Postman-automation-0.png)
 
-![Documentation Pipeline](docs/img/postman-automation-1.png)
+![Documentation Pipeline](docs/img/Postman-automation-1.png)
 
-![Documentation Pipeline](docs/img/postman-automation-2.png)
+![Documentation Pipeline](docs/img/Postman-automation-2.png)
 
 2. Goto the root folder `TODO`
 
-3. Copy `./env-postman-example` as `.env-postman` TODO
+3. Copy `./env-Postman-example` as `.env-Postman` TODO
 
-3. Enter you Postman API key in your local `.env-postman`
+3. Enter you Postman API key in your local `.env-Postman`
 
 ### TODO:
 
 - [ ] add task to initalize config files
 - [ ] add interactive cli prompts
-- [ ] render better error on postman upload fail
+- [ ] render better error on Postman upload fail
 - [ ] cache the Postman collection lookup during Postman upload 
