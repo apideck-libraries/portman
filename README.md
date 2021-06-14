@@ -238,7 +238,7 @@ The Portman settings consists out of x parts:
   - **responseTests** : All response basic checks.
 - **extendTests**:  which refers the custom additions of manual created postman tests. 
 - **contentTests**:  which refers the additional Postman tests that check the content.
-- **assignPmVariables**:  which refers to setting Postman collection variables for easier automation.
+- **assignVariables**:  which refers to setting Postman collection variables for easier automation.
 - **overwrites**:  which refers to the custom additions/modifications of the OpenApi/Postman request data. 
 
 ### Portman targeting
@@ -275,16 +275,18 @@ This will target only the "GET" method and any path matching any folder behind t
 - **Method & Path wildcard matching** example: `"openApiOperation": "*::/crm/*",`
 A combination of wildcards for the method and path parts are even possible.
 
-### Portman `tests` configuration
-### Portman `extendTests` configuration
-### Portman `contentTests` configuration
+### Portman - `tests` properties
 
-### Portman - "assignPmVariables" properties
+### Portman - `extendTests` properties
 
-The "assignPmVariables" allows you to set Postman collection variables for easier automation.
+### Portman - `contentTests` properties
+
+### Portman - `assignVariables` properties
+
+The "assignVariables" allows you to set Postman collection variables for easier automation.
 For all the details and an example, see [](TODO) 
 
-####  assignPmVariables options:
+#### assignVariables options:
 
 - **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman pm.collectionVariables
   will be set. (example: `leadsAll`)
@@ -301,9 +303,10 @@ For all the details and an example, see [](TODO)
   - **value (string)** : The defined value that will be set as the pm.collectionVariables value.
   - **name (string OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name
 
-### Portman - "overwrites" properties
+### Portman - `overwrites` properties
 
 To facilitate automation, you might want to modify property values with "randomized" or specific values. The overwrites are mapped based on the OpenApi operationId or OpenApi Operation reference.
+For all the details and an example, see [](TODO)
 
 #### overwrites options:
 - **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman request body will be extended. (example: `leadsAll`)

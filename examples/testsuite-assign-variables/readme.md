@@ -1,4 +1,4 @@
-# OpenApi Postman test suite generation - assignPmVariables
+# OpenApi Postman test suite generation - assignVariables
 
 In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
 
@@ -28,14 +28,14 @@ The portman settings (in JSON format) consists out of multiple parts:
 - **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
 - **extendTests**: which refers to custom additions of manual created postman tests. (see examples folder)
 - **contentTests**: which refers to additional Postman tests that check the content. (see examples folder)
-- **assignPmVariables**: which refers to assigning specific Postman collection variables for easier automation.
+- **assignVariables**: which refers to assigning specific Postman collection variables for easier automation.
 - **overwrites**: which refers to the custom additions/modifications of the request/response properties. (see examples folder)
 
-In this example we focus on the **assignPmVariables** section and settings.
+In this example we focus on the **assignVariables** section and settings.
 
 file: examples/testsuite-assign-variables/portman.crm.json
 
-## Portman - "assignPmVariables" properties
+## Portman - "assignVariables" properties
 
 Version 1.0
 
@@ -61,12 +61,12 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the assignPmVariables usage. For the basics on the portman configuration and usage, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
+In this example, we are zooming in on only the assignVariables usage. For the basics on the portman configuration and usage, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
 
 file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
 
 ```json
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperation": "POST::*",
       "collectionVariables": [
@@ -98,10 +98,10 @@ file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
   ]
 ```
 
-### assignPmVariables from responseBodyProp
+### assignVariables from responseBodyProp
 
 ```json
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
       "collectionVariables": [
@@ -154,12 +154,12 @@ This allows you to capture the ID of the newly created entity.
 
 For easier usage, the Postman variable name is shown in the console log of Portman & Postman.
 
-## assignPmVariables from all responseBodyProp
+## assignVariables from all responseBodyProp
 
 It is very common that he test suite will create a Postman variable for the ID property in the response object of the create/POST operation (if `ID` is present in the response).
 
 ```json
-assignPmVariables": [
+assignVariables": [
     {
       "openApiOperation": "POST::*",
       "collectionVariables": [
@@ -181,10 +181,10 @@ if (typeof jsonData.data.id !== "undefined") {
 };
 ```
 
-## assignPmVariables from responseHeaderProp
+## assignVariables from responseHeaderProp
 
 ```json
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperation": "GET::/crm/leads/{id}",
       "collectionVariables": [
@@ -219,10 +219,10 @@ if (leadsOneOperationLocation !== undefined) {
 };
 ```
 
-## assignPmVariables from requestBodyProp
+## assignVariables from requestBodyProp
 
 ```json
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
       "collectionVariables": [
@@ -259,7 +259,7 @@ console.log("- use {{leadsAdd.company_name}} as collection variable for value", 
 
 The value will be taken from the original OpenApi request body.
 
-## assignPmVariables with usage in overwriteRequestQueryParams
+## assignVariables with usage in overwriteRequestQueryParams
 
 In combination with the `overwrites` option, you can then chain the Creation operation with the Read/Update/Delete operations. You can use the `{{$leadsAdd.id}}` to set the request path variables.
 
@@ -302,9 +302,9 @@ Which will result in the Path variables for GET/PATCH/DELETE for the path `/crm/
 
 ![](./images/assignPmVariables_id.png)
 
-### assignPmVariables + contentTests
+### assignVariables + contentTests
 
-Another option is to combine "assignPmVariables" with "contentTests".
+Another option is to combine "assignVariables" with "contentTests".
 
 Create Lead request body
 
@@ -317,10 +317,10 @@ Create Lead request body
 }
 ```
 
-Assign the variable from the request body through our "assignPmVariables" definition.
+Assign the variable from the request body through our "assignVariables" definition.
 
 ```json
-assignPmVariables": [
+assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
       "collectionVariables": [

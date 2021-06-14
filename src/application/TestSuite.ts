@@ -22,7 +22,7 @@ import { OpenAPIV3 } from 'openapi-types'
 import { PostmanMappedOperation, PostmanParser } from 'postman'
 import { Collection } from 'postman-collection'
 import {
-  AssignPmVariablesConfig,
+  assignVariablesConfig,
   ContentTestConfig,
   OverwriteRequestConfig,
   PortmanConfig,
@@ -102,7 +102,7 @@ export class TestSuite {
   }
 
   getOperationsFromSetting(
-    settings: OverwriteRequestConfig | AssignPmVariablesConfig | ContentTestConfig
+    settings: OverwriteRequestConfig | assignVariablesConfig | ContentTestConfig
   ): PostmanMappedOperation[] {
     const { openApiOperation, openApiOperationId } = settings
 
@@ -205,8 +205,8 @@ export class TestSuite {
   }
 
   public injectAssignVariables = (): PostmanMappedOperation[] => {
-    if (!this.config?.assignPmVariables) return this.postmanParser.mappedOperations
-    const assignVarSettings = this.config.assignPmVariables
+    if (!this.config?.assignVariables) return this.postmanParser.mappedOperations
+    const assignVarSettings = this.config.assignVariables
 
     assignVarSettings.map(assignVar => {
       //Get Postman operations to apply assign variables for

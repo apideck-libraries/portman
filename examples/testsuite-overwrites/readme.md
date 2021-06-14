@@ -38,7 +38,7 @@ The test suite settings (in JSON format) consists out of multiple parts:
   - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** configured operations).
 - **extendTests**: which refers the custom additions of manual created postman tests. (see examples folder)
 - **contentTests**: which refers the additional Postman tests that check the content. (see examples folder)
-- **assignPmVariables**: which refers to specific Postman environment variables for easier automation. (see examples folder)
+- **assignVariables**: which refers to specific Postman environment variables for easier automation. (see examples folder)
 - **overwrites**: which refers the custom additions/modifications of the OpenAPI request body.
 
 In this example we focus on the **overwrites** section and settings.

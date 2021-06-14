@@ -92,7 +92,7 @@ export type CollectionVariableConfig = {
   value?: any
 }
 
-export type AssignPmVariablesConfig = {
+export type assignVariablesConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   collectionVariables: CollectionVariableConfig[]
@@ -144,7 +144,7 @@ export interface PortmanConfig {
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
   contentTests?: ContentTestConfig[]
-  assignPmVariables?: AssignPmVariablesConfig[]
+  assignVariables?: assignVariablesConfig[]
   operationPreRequestScripts?: OperationPreRequestScriptConfig[]
   extendTests?: ExtendTestsConfig[]
 }

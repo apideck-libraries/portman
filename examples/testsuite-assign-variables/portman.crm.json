@@ -41,7 +41,7 @@
       }
     ]
   },
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperation": "POST::*",
       "collectionVariables": [
