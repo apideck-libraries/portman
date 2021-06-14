@@ -39,19 +39,19 @@
           "enabled": true
         }
       }
+    ],
+    "contentTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "responseBodyTest": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          }
+        ]
+      }
     ]
   },
-  "contentTests": [
-    {
-      "openApiOperationId": "companiesAll",
-      "responseBodyTest": [
-        {
-          "key": "data[0].company_name",
-          "value": "Spacex"
-        }
-      ]
-    }
-  ],
   "assignVariables": [
     {
       "openApiOperationId": "companiesAll",
