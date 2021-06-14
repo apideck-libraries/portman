@@ -41,6 +41,78 @@
       }
     ]
   },
+  "contentTests": [
+    {
+      "openApiOperationId": "leadsAll",
+      "responseBodyTest": [
+        {
+          "key": "data[0].company_name",
+          "value": "Spacex"
+        },
+        {
+          "key": "data[0].monetary_amount",
+          "value": 75000
+        },
+        {
+          "key": "resource",
+          "value": "companies"
+        }
+      ]
+    }
+  ],
+  "extendTests": [
+    {
+      "openApiOperationId": "leadsAdd",
+      "overwrite": false,
+      "append": true,
+      "tests": [
+        "pm.test('200 ok', function(){pm.response.to.have.status(200);});",
+        "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
+      ]
+    }
+  ],
+  "assignVariables": [
+    {
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.company_name"
+        },
+        {
+          "responseHeaderProp": "Operation-Location"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.id"
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAdd",
+      "collectionVariables": [
+        {
+          "requestBodyProp": "company_name",
+          "name": "leadsAdd.company_name"
+        },
+        {
+          "responseBodyProp": "data.id",
+          "name": "leadsAdd.id"
+        },
+        {
+          "value": 12345,
+          "name": "leadsAdd.fixed.number"
+        },
+        {
+          "value": "portman",
+          "name": "leadsAdd.fixed.string"
+        }
+      ]
+    }
+  ],
   "overwrites": [
     {
       "openApiOperationId": "leadsAdd",
@@ -107,88 +179,19 @@
       ]
     }
   ],
-  "contentTests": [
-    {
-      "openApiOperationId": "leadsAll",
-      "responseBodyTest": [
-        {
-          "key": "data[0].company_name",
-          "value": "Spacex"
-        },
-        {
-          "key": "data[0].monetary_amount",
-          "value": 75000
-        },
-        {
-          "key": "resource",
-          "value": "companies"
-        }
-      ]
-    }
-  ],
-  "assignVariables": [
-    {
-      "openApiOperation": "GET::/crm/leads/{id}",
-      "collectionVariables": [
-        {
-          "responseBodyProp": "data.company_name"
-        },
-        {
-          "responseHeaderProp": "Operation-Location"
-        }
-      ]
+  "globals": {
+    "preRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "variableOverwrites": {
+      "application_id": "{{applicationId}}"
+
     },
-    {
-      "openApiOperation": "POST::*",
-      "collectionVariables": [
-        {
-          "responseBodyProp": "data.id"
-        }
-      ]
-    },
-    {
-      "openApiOperationId": "leadsAdd",
-      "collectionVariables": [
-        {
-          "requestBodyProp": "company_name",
-          "name": "leadsAdd.company_name"
-        },
-        {
-          "responseBodyProp": "data.id",
-          "name": "leadsAdd.id"
-        },
-        {
-          "value": 12345,
-          "name": "leadsAdd.fixed.number"
-        },
-        {
-          "value": "portman",
-          "name": "leadsAdd.fixed.string"
-        }
-      ]
-    }
-  ],
-  "extendTests": [
-    {
-      "openApiOperationId": "leadsAdd",
-      "overwrite": false,
-      "append": true,
-      "tests": [
-        "pm.test('200 ok', function(){pm.response.to.have.status(200);});",
-        "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
-      ]
-    }
-  ],
-  "preRequestScripts": [
-    "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
-  ],
-  "variableOverwrites": {
-    "application_id": "{{applicationId}}"
-  },
-  "globalReplacements": [
-    {
-      "searchFor": "\"maxItems\":2,",
-      "replaceWith": ""
-    }
-  ]
+    "globalReplacements": [
+      {
+        "searchFor": "\"value\":{\"type\":\\[\"string\",\"null\"\\],\"example\":\"Uses Salesforce and Marketo\"}",
+        "replaceWith": "\"value\":{\"anyOf\": [{\"type\": \"string\",\"example\":\"Uses Salesforce and Marketo\"},{\"type\":\"number\",\"example\":10},{\"type\":\"boolean\",\"example\":true},{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}"
+      }
+    ]
+  }
 }
