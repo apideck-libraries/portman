@@ -238,6 +238,7 @@ The Portman settings consists out of x parts:
 - **extendTests**:  which refers the custom additions of manual created Postman tests.
 - **assignVariables**:  which refers to setting Postman collection variables for easier automation.
 - **overwrites**:  which refers to the custom additions/modifications of the OpenApi/Postman request data. 
+- **globals**:  which refers to the customisation that apply for the whole Postman collection. 
 
 ### Portman targeting
 
@@ -379,7 +380,24 @@ For all the details and an example, see [](TODO)
   - **value (string)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attach the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
-  
+
+### Portman - `globals` property
+
+The configuration defined in the `globals` will be executed on the full Postman collection. This is handy if you need to do mass replacements of variables or specific word/keys/values in the full collection.
+
+#### preRequestScripts options:
+
+This contains the "pre-request script" that will be added on the Postman collection level.
+
+#### variableOverwrites options:
+
+The "variableOverwrites" allow you to overwrite all matching keys with a variable definition.
+
+#### globalReplacements options:
+
+Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
+This is very useful to replace data from the OpenApi specification to be used in the Postman test automation. 
+
 ## Configure automatic upload to Postman App
 
 1. Get your Postman API key
