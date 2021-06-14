@@ -79,8 +79,11 @@
   "keywords": [
     "apideck",
     "openapi",
+    "openapi3",
     "newman",
-    "postman"
+    "postman",
+    "contract testing",
+    "variation testing"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",

@@ -178,7 +178,6 @@ These target options are both supported for defining a target. In case both are 
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attach the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
 
-###
 
 ## Example explained
 
