@@ -183,10 +183,13 @@
     "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
-    "variableOverwrites": {
+    "keyValueReplacements": {
       "application_id": "{{applicationId}}"
     },
-    "globalReplacements": [
+    "valueReplacements": {
+      "Bearer <token>": "{{bearerToken}}"
+    },
+    "rawReplacements": [
       {
         "searchFor": "\"maxItems\":2,",
         "replaceWith": ""

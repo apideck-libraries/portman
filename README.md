@@ -112,7 +112,7 @@ Options:
   --cliConfigFile            Path to the file with the Portman CLI options                [string]
 ```
 
-### Environment variables
+### Environment variables as Postman variables
 
 Portman uses `dotenv` to not only access variables for functionality, but you can easily add environment variables that you'd like declared within your Postman environment.
 Simply prefix any variable name with `PORTMAN_`, and it will be available for use in your Postman collection as the camelcased equivalent. For example:
@@ -127,28 +127,10 @@ will be available in your collection or tests by referencing:
 {{consumerId}}
 ```
 
-#### Recommended
-
-A separate `.env` file lives in the root of your project to hold your `Postman_API_KEY`, but a spec specific `.env` file can live next to your config files, and the path passed in via `envFile` cli option.
+It is possible to set a spec specific `.env` file, that lives next to your config files. The path can be passed in via `envFile` cli option.
 This is useful if you have Portman managing multiple specs that have unique environment requirements.
 
-### CLI Configuration
-
-To generate the collection with tests, define a JSON file like the example (portman-config.json) below and run the CLI with the --generate option.
-
-```
-{
-  "preRequestScripts": [
-    "pm.collectionVariables.set('statusId', '12345')"
-  ],
-  "variableOverwrites": {
-    "x-apideck-app-id": "{{applicationId}}"
-  }
-}
-```
-
-- **preRequestScripts**: Array of scripts that will be injected as Postman Pre-request Scripts that will execute before every request in this collection.
-- **variableOverwrites**: A map of parameter key names that will have their values replaced with the provided Postman variables.
+By default, Portman will leverage any ENVIRONMENT variable that is defined that starts with `PORTMAN_`.
 
 ### CLI Options
 
@@ -385,20 +367,17 @@ For all the details and an example, see [](TODO)
 
 The configuration defined in the `globals` will be executed on the full Postman collection. This is handy if you need to do mass replacements of variables or specific word/keys/values in the full collection.
 
-#### collectionPreRequestScripts options:
+#### globals options:
 
-This contains the "pre-request script" that will be added to Postman on collection level and executed before each request.
-
-#### variableOverwrites options:
-
-The "variableOverwrites" allow you to overwrite all matching keys with a variable definition.
-
-#### globalReplacements options:
-
-Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
-This is very useful to replace data from the OpenApi specification to be used in the Postman test automation. 
+- **collectionPreRequestScripts**: Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection.
+- **keyValueReplacements**: A map of parameter key names that will have their values replaced with the provided Postman variables.
+- **valueReplacements**: A map of values that will have their values replaced with the provided values.
+- **rawReplacements**: Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
+  This is very useful to replace data from the OpenApi specification to be used in the Postman test automation.
 
 ## Configure automatic upload to Postman App
+
+To enable automatic uploads of the generated Postman collection through Portman, follow these simple steps:
 
 1. Get your Postman API key
 
@@ -408,11 +387,14 @@ This is very useful to replace data from the OpenApi specification to be used in
 
 ![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-2.png)
 
-2. Goto the root folder `TODO`
+2. Goto the root folder of your project
 
-3. Copy `./env-Postman-example` as `.env-Postman` TODO
+3. Copy `./env-postman-app-example` as `.env` in the root folder of
 
-3. Enter you Postman API key in your local `.env-Postman`
+3. Enter you Postman API key in your local `.env`
+
+It is recommended to put a separate `.env` file lives in the root of your project to hold your `Postman_API_KEY`.
+Do not commit this `.env` in any version systems like GIT, since it contains credentials.
 
 ### TODO:
 
