@@ -180,17 +180,16 @@
     }
   ],
   "globals": {
-    "preRequestScripts": [
+    "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
     "variableOverwrites": {
       "application_id": "{{applicationId}}"
-
     },
     "globalReplacements": [
       {
-        "searchFor": "\"value\":{\"type\":\\[\"string\",\"null\"\\],\"example\":\"Uses Salesforce and Marketo\"}",
-        "replaceWith": "\"value\":{\"anyOf\": [{\"type\": \"string\",\"example\":\"Uses Salesforce and Marketo\"},{\"type\":\"number\",\"example\":10},{\"type\":\"boolean\",\"example\":true},{\"type\":\"array\",\"items\":{\"type\":\"string\"}},{\"type\":\"null\"}]}"
+        "searchFor": "\"maxItems\":2,",
+        "replaceWith": ""
       }
     ]
   }

@@ -385,9 +385,9 @@ For all the details and an example, see [](TODO)
 
 The configuration defined in the `globals` will be executed on the full Postman collection. This is handy if you need to do mass replacements of variables or specific word/keys/values in the full collection.
 
-#### preRequestScripts options:
+#### collectionPreRequestScripts options:
 
-This contains the "pre-request script" that will be added on the Postman collection level.
+This contains the "pre-request script" that will be added to Postman on collection level and executed before each request.
 
 #### variableOverwrites options:
 
@@ -402,11 +402,11 @@ This is very useful to replace data from the OpenApi specification to be used in
 
 1. Get your Postman API key
 
-![Documentation Pipeline](docs/img/Postman-automation-0.png)
+![Documentation Pipeline](../docs/img/Postman-automation-0.png)
 
-![Documentation Pipeline](docs/img/Postman-automation-1.png)
+![Documentation Pipeline](../docs/img/Postman-automation-1.png)
 
-![Documentation Pipeline](docs/img/Postman-automation-2.png)
+![Documentation Pipeline](../docs/img/Postman-automation-2.png)
 
 2. Goto the root folder `TODO`
 
