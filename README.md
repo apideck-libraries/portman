@@ -271,6 +271,8 @@ The contract tests are grouped in an array of `responseTests`.
 - **schemaValidation (boolean)**: Adds the test if the response body is matching the JSON schema defined in the OpenApi spec. The JSON schema is inserted inline in the Postman test.
 - **headersPresent (boolean)**: Adds the check if the Postman response header has the header names present, like defined in the OpenApi spec.
 
+For more details, review the [response-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-response-tests).
+
 ### Portman - `contentTests` properties
 
 Content tests will validate, if the response property values will match the expected defined values.
@@ -283,6 +285,8 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
   - **key (string)** : The key that will be targeted in the response body to check if it exists.
   - **value (string)** : The value that will be used to check if the value in the response body matches.
   
+For more details, review the [content-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-content-tests).
+
 ### Portman - `extendTests` properties
 
 When you need to add additional tests or overwrite the Portman generated test, you can use the `extendTests` to define the raw Postman tests.
@@ -315,6 +319,8 @@ For all the details and an example, see [](TODO)
   - **requestBodyProp (string)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
   - **value (string)** : The defined value that will be set as the pm.collectionVariables value.
   - **name (string OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name
+
+For more details, review the [assign-variables example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-variables).
 
 <hr>
 
@@ -362,6 +368,8 @@ For all the details and an example, see [](TODO)
   - **value (string)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attach the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
+
+For more details, review the [overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites).
 
 <hr>
 
