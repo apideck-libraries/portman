@@ -73,6 +73,8 @@ export class PostmanMappedOperation {
       clone?.request ? (clone.request.name = name) : null
     }
     const clonedPmItem = new Item(clone)
+    clonedPmItem.events.clear()
+
     return new PostmanMappedOperation({ item: clonedPmItem, id: `${this.id}-clone` })
   }
 

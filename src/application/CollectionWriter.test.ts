@@ -41,7 +41,7 @@ describe('CollectionWriter.execute()', () => {
     })
   })
 
-  describe.skip('orderCollectionRequests', () => {
+  describe('orderCollectionRequests', () => {
     const spy = jest.spyOn(globals, 'orderCollectionRequests')
 
     it('should call with orderOfOperations', () => {
