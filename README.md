@@ -53,8 +53,8 @@ With Portman, we can:
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection.
 3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
 4. Start converting your OpenApi document to Postman
+
 - Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-Postman/blob/develop/OPTIONS.md)
-- Configuring test generation can be found [here](https://github.com/thim81/openapi-to-Postman/blob/develop/TESTGENERATION.md)
 
 ## Installation
 
@@ -63,17 +63,17 @@ With Portman, we can:
 You can add the Portman CLI to the `node_modules` by using:
 
 ```shell
-$ npm install --save-dev @apideck/portman
+$ npm install --save @apideck/portman
 ```
 
 or using yarn...
 
 ```shell
-$ yarn add -D @apideck/portman
+$ yarn add @apideck/portman
 ```
 
-Note that this will require you to run the openapi-format CLI with `npx openapi-format your-openapi-file.yaml` or, if
-you are using an older versions of npm, `./node_modules/.bin/openapi-format your-openapi-file.yaml`.
+Note that this will require you to run the Portman CLI with `npx @apideck/portman -l your-openapi-file.yaml` or, if
+you are using an older versions of npm, `./node_modules/.bin/portman -l your-openapi-file.yaml`.
 
 ### Global Installation
 
@@ -137,37 +137,37 @@ By default, Portman will leverage any ENVIRONMENT variable that is defined that 
 - Pass in the remote hosted spec:
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml
+portman -u https://specs.apideck.com/crm.yml
 ```
 
 - Overwrite the baseUrl in spec and run newman.
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true
+portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true
 ```
 
 - Path pass to local data file for newman to use for iterations.
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d ./tmp/newman/data/crm.json
+portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d ./tmp/newman/data/crm.json
 ```
 
 - Pass path to a local spec (useful when updating your specs) and output Postman collection locally
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
+portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 
 - Skip tests and just generate collection.
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -t false
+portman -l ./tmp/specs/crm.yml -t false
 ```
 
 - Upload newly generated collection to Postman which will upsert the collection, based on the collection name
 
 ```
-yarn portman -l ./tmp/specs/crm.yml --syncPostman true
+portman -l ./tmp/specs/crm.yml --syncPostman true
 ```
 
 Upload newly generated collection to Postman using the collection ID to overwrite the existing.
@@ -179,7 +179,7 @@ yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a
 - Pass custom paths for config files
 
 ```
-yarn portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/Postman-testsuite.json  -s ./common/Postman-config.json
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/Postman-testsuite.json  -s ./common/Postman-config.json
 ```
 
 - Pass all CLI options as JSON file
@@ -188,7 +188,7 @@ All the CLI options can be managed in a separate configuration file and passed a
 make configuration easier, especially in CI/CD implementations.
 
 ```
-yarn portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
+portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 ```
 
 All the available Portman CLI options can be used in the config file.
@@ -201,7 +201,7 @@ Without specifying the output location, your generated Postman Collection is wri
 By using `-o` or `--output` parameter, you can define the location where the Postman collection will be written.
 
 ```
-yarn portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
+portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 
 ### To Note:
