@@ -23,7 +23,7 @@ export class CollectionWriter {
   public execute(): void {
     if (!this.config?.globals) return
 
-    const { includeTests, envFile, baseUrl } = this.options
+    const { envFile, baseUrl } = this.options
 
     const {
       globals: {
@@ -37,8 +37,7 @@ export class CollectionWriter {
 
     // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
     let collection = overwriteCollectionKeyValues(this.collection, {
-      ...keyValueReplacements,
-      limit: includeTests ? '3' : '20'
+      ...keyValueReplacements
     })
 
     // --- Portman - Search for keys in dictionary to set the values if value is found anywhere in collection
@@ -46,7 +45,7 @@ export class CollectionWriter {
       collection = overwriteCollectionValues(collection, valueReplacements)
     }
 
-    // --- Portman - Use .env to inject variabes on Collection
+    // --- Portman - Use .env to inject variables on Collection
     if (envFile) {
       collection = injectEnvVariables(collection, envFile, baseUrl)
     }
