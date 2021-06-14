@@ -402,11 +402,11 @@ This is very useful to replace data from the OpenApi specification to be used in
 
 1. Get your Postman API key
 
-![Documentation Pipeline](../docs/img/Postman-automation-0.png)
+![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-0.png)
 
-![Documentation Pipeline](../docs/img/Postman-automation-1.png)
+![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-1.png)
 
-![Documentation Pipeline](../docs/img/Postman-automation-2.png)
+![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-2.png)
 
 2. Goto the root folder `TODO`
 
