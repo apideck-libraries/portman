@@ -44,7 +44,7 @@ With Portman, we can:
     - [x] Replace values with custom defined values
     - [x] Order the collections requests
 - [x] Upload the Postman collection to your Postman app
-- [x] Run the Postman collection though Newman
+- [x] Test the Postman collection through Newman
 - [x] Manage everything in config file for easy local or CI/CD usage
 
 ## Getting started
