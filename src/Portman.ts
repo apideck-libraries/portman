@@ -227,7 +227,7 @@ export class Portman {
     } = this
 
     if (includeTests && testSuite) {
-      // Inject variation tests
+      // Inject variations
       testSuite.generateVariationTests()
 
       this.portmanCollection = testSuite.collection.toJSON()

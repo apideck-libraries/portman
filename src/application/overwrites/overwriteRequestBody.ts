@@ -22,12 +22,12 @@ export const overwriteRequestBody = (
   // Overwrite values for Keys
   let bodyData = JSON.parse(requestBody)
   overwriteValues.map(overwriteValue => {
-    if (overwriteValue.key && overwriteValue.value) {
-      const orgiginalValue = getByPath(bodyData, overwriteValue.key)
+    if (overwriteValue.key && typeof overwriteValue.value !== 'undefined') {
+      const originalValue = getByPath(bodyData, overwriteValue.key)
       let newValue = overwriteValue.value
 
       if (overwriteValue.overwrite === false) {
-        newValue = orgiginalValue + newValue
+        newValue = originalValue + newValue
       }
       bodyData = setByPath(bodyData, overwriteValue.key, newValue)
     }

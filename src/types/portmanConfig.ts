@@ -42,7 +42,7 @@ export type VariationTestConfig = {
 export type VariationConfig = {
   name: string
   overwrites?: any
-  success: any
+  tests: TestConfig
 }
 
 export type ResponseBodyTest = {
@@ -92,7 +92,7 @@ export type CollectionVariableConfig = {
   value?: any
 }
 
-export type assignVariablesConfig = {
+export type AssignVariablesConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   collectionVariables: CollectionVariableConfig[]
@@ -125,17 +125,16 @@ export type GlobalConfig = {
   orderOfOperations?: string[]
 }
 
-export type TestConfig = {
-  responseTests?: ResponseTestConfig[]
-  contentTests?: ContentTestConfig[]
-  variationTests?: VariationTestConfig[]
-  limitOperations?: string[]
-}
-
 export interface TestSuiteOptions {
   config: PortmanConfig
   oasParser: OpenApiParser
   postmanParser: PostmanParser
+}
+
+export type TestConfig = {
+  responseTests?: ResponseTestConfig[]
+  contentTests?: ContentTestConfig[]
+  variationTests?: VariationTestConfig[]
 }
 
 export interface PortmanConfig {
@@ -143,8 +142,7 @@ export interface PortmanConfig {
   globals?: GlobalConfig
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
-  contentTests?: ContentTestConfig[]
-  assignVariables?: assignVariablesConfig[]
+  assignVariables?: AssignVariablesConfig[]
   operationPreRequestScripts?: OperationPreRequestScriptConfig[]
   extendTests?: ExtendTestsConfig[]
 }

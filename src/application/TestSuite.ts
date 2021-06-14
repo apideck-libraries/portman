@@ -1,16 +1,12 @@
 import { OpenAPIV3 } from 'openapi-types'
 import { Collection } from 'postman-collection'
 import {
+  applyOverwrites,
   assignVarFromRequestBody,
   assignVarFromResponseBody,
   assignVarFromResponseHeader,
   assignVarFromValue,
   extendTest,
-  overwriteRequestBody,
-  overwriteRequestHeaders,
-  overwriteRequestPathIdVariables,
-  overwriteRequestPathVariables,
-  overwriteRequestQueryParams,
   testResponseBodyContent,
   testResponseContentType,
   testResponseHeader,
@@ -23,7 +19,7 @@ import {
 import { OasMappedOperation, OpenApiParser } from '../oas'
 import { PostmanMappedOperation, PostmanParser } from '../postman'
 import {
-  assignVariablesConfig,
+  AssignVariablesConfig,
   ContentTestConfig,
   OverwriteRequestConfig,
   PortmanConfig,
@@ -105,8 +101,8 @@ export class TestSuite {
   }
 
   contentTestSettings = (): string[] => {
-    if (!this.config?.contentTests) return []
-    const contentTests = this.config.contentTests
+    if (!this.config?.tests || !this.config?.tests?.contentTests) return []
+    const contentTests = this.config.tests.contentTests
 
     const contentTestKeys = contentTests.reduce((acc, contentTest) => {
       const contentTestKey = Object.keys(contentTest).find(key => {
@@ -123,7 +119,7 @@ export class TestSuite {
   getOperationsFromSetting(
     settings:
       | OverwriteRequestConfig
-      | assignVariablesConfig
+      | AssignVariablesConfig
       | ContentTestConfig
       | VariationTestConfig
   ): PostmanMappedOperation[] {
@@ -210,8 +206,9 @@ export class TestSuite {
   }
 
   public injectContentTests = (): PostmanMappedOperation[] => {
-    if (!this.config?.contentTests) return this.postmanParser.mappedOperations
-    const contentTests = this.config.contentTests
+    if (!this.config?.tests || !this.config?.tests?.contentTests)
+      return this.postmanParser.mappedOperations
+    const contentTests = this.config.tests.contentTests
 
     contentTests.map(contentTest => {
       //Get Postman operations to inject content test for
@@ -284,31 +281,7 @@ export class TestSuite {
     overwriteSettings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
       const pmOperations = this.getOperationsFromSetting(overwriteSetting)
-
-      pmOperations.map(pmOperation => {
-        // overwrite request body
-        overwriteSetting?.overwriteRequestBody &&
-          overwriteRequestBody(overwriteSetting.overwriteRequestBody, pmOperation)
-
-        // overwrite request query params
-        overwriteSetting?.overwriteRequestQueryParams &&
-          overwriteRequestQueryParams(overwriteSetting.overwriteRequestQueryParams, pmOperation)
-
-        // overwrite request path id variables
-        overwriteSetting?.overwriteRequestPathIdVariables &&
-          overwriteRequestPathIdVariables(
-            overwriteSetting.overwriteRequestPathIdVariables,
-            pmOperation
-          )
-
-        // overwrite request path variables
-        overwriteSetting?.overwriteRequestPathVariables &&
-          overwriteRequestPathVariables(overwriteSetting.overwriteRequestPathVariables, pmOperation)
-
-        // overwrite request headers
-        overwriteSetting?.overwriteRequestHeaders &&
-          overwriteRequestHeaders(overwriteSetting.overwriteRequestHeaders, pmOperation)
-      })
+      applyOverwrites(pmOperations, overwriteSetting)
     })
 
     return this.postmanParser.mappedOperations

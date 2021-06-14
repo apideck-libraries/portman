@@ -1,7 +1,6 @@
 {
   "version": 1.0,
   "tests": {
-    "limitOperations": ["get-lists"],
     "responseTests": {
       "StatusSuccess": {
         "enabled": true

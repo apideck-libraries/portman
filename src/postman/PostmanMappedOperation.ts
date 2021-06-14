@@ -66,11 +66,21 @@ export class PostmanMappedOperation {
   }
 
   public clone(name?: string): PostmanMappedOperation {
+    // clone item for variation testing purposes
+    // remove ids from item and response so we get a unique reference
     const clonedJsonItem = { ...this.item.toJSON() }
     const { id, ...clone } = clonedJsonItem
+
     if (name) {
       clone.name = name
       clone?.request ? (clone.request.name = name) : null
+    }
+
+    if (clone?.response?.length) {
+      clone.response = clone.response.map(response => {
+        const { id, ...clonedResponse } = response
+        return clonedResponse
+      })
     }
     const clonedPmItem = new Item(clone)
     clonedPmItem.events.clear()

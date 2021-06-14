@@ -1,6 +1,7 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { PostmanMappedOperation } from '../postman'
 import { VariationConfig } from '../types'
+import { applyOverwrites } from './'
 
 export class VariationWriter {
   public variationCollection: Collection
@@ -21,7 +22,21 @@ export class VariationWriter {
     })
   }
 
-  addToLocalCollection(
+  public mergeToCollection(collection: Collection): Collection {
+    const variationFolder = new ItemGroup<Item>({
+      name: 'Variation Testing'
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.variationCollection.items.map((item: any) => {
+      variationFolder.items.add(item)
+    })
+
+    collection.items.add(variationFolder)
+    return collection
+  }
+
+  private addToLocalCollection(
     operationVariation: PostmanMappedOperation,
     folderId: string | null,
     folderName: string | null
@@ -51,18 +66,12 @@ export class VariationWriter {
     target.items.add(operationVariation.item)
   }
 
-  public mergeToCollection(collection: Collection): Collection {
-    const variationFolder = new ItemGroup<Item>({
-      name: 'Variation Testing'
-    })
+  injectVariations(pmOperation: PostmanMappedOperation, variation: VariationConfig): void {
+    const { overwrites: overwriteSettings } = variation
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.variationCollection.items.map((item: any) => {
-      variationFolder.items.add(item)
+    overwriteSettings.map(overwriteSetting => {
+      overwriteSetting && applyOverwrites([pmOperation], overwriteSetting)
     })
-
-    collection.items.add(variationFolder)
-    return collection
   }
 
   private build(
@@ -72,6 +81,7 @@ export class VariationWriter {
     const variationName = `${pmOperation.item.name}-${variation.name}`
     const operationVariation = pmOperation.clone(variationName)
 
+    this.injectVariations(operationVariation, variation)
     return operationVariation
   }
 }
