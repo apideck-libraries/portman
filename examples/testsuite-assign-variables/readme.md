@@ -1,4 +1,4 @@
-# OpenApi Postman test suite generation - assignPmVariables
+# OpenApi Postman test suite generation - assignVariables
 
 In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
 
@@ -30,10 +30,10 @@ The test suite settings (in JSON format) consists out of multiple parts:
   - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** configured operations).
 - **extendTests**: which refers the custom additions of manual created postman tests. (see examples folder)
 - **contentTests**: which refers the additional Postman tests that check the content. (see examples folder)
-- **assignPmVariables**: which refers to specific Postman environment variables for easier automation.
+- **assignVariables**: which refers to specific Postman environment variables for easier automation.
 - **overwrites**: which refers the custom additions/modifications of the OpenAPI request body. (see examples folder)
 
-In this example we focus on the **assignPmVariables** section and settings.
+In this example we focus on the **assignVariables** section and settings.
 
 file: examples/testsuite-assign-variables/postman-testsuite.crm.json
 
@@ -63,7 +63,7 @@ file: examples/testsuite-assign-variables/postman-testsuite.crm.json
       }
     }
   },
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperationId": "GET::/crm/leads/{id}",
       "environmentVariables": [
@@ -141,7 +141,7 @@ file: examples/testsuite-assign-variables/postman-testsuite.crm.json
 }
 ```
 
-## Postman test suite - "assignPmVariables" properties
+## Postman test suite - "assignVariables" properties
 
 Version 1.0
 
@@ -149,7 +149,7 @@ To facilitate automation, we provide the option to set "pm.environment" variable
 
 _REMARK_: By default the test suite will create a pm.environment variable for the ID property in the response object for POST operation, if `ID` is present in the reponse.
 
-Anything added in `assignPmVariables` array, will be used to generate specific pm.environment variables based on the postman response body.
+Anything added in `assignVariables` array, will be used to generate specific pm.environment variables based on the postman response body.
 
 ### Target options:
 
@@ -176,7 +176,7 @@ In this example, we are zooming in on only the overwrites usage. For the basics 
 file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
 
 ```json
-"assignPmVariables": [
+"assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
       "environmentVariables": [
@@ -201,10 +201,10 @@ file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
   ]
 ```
 
-### assignPmVariables + overwriteRequestQueryParams
+### assignVariables + overwriteRequestQueryParams
 
 ```json
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
       "environmentVariables": [
@@ -294,11 +294,11 @@ In combination with the `overwrites` option, you can then chain the Creation ope
 
 Which will result in the Path variables for GET/PATCH/DELETE for the path `/crm/leads/{id}` will be set with the `{{leadsAdd.id}}` Postman environment variable.
 
-![](./images/assignPmVariables_id.png)
+![](./images/assignVariables_id.png)
 
-### assignPmVariables + contentTests
+### assignVariables + contentTests
 
-Another option is to combine "assignPmVariables" with "contentTests".
+Another option is to combine "assignVariables" with "contentTests".
 
 Create Lead request body
 
@@ -311,10 +311,10 @@ Create Lead request body
 }
 ```
 
-Assign the variable from the request body through our "assignPmVariables" definition.
+Assign the variable from the request body through our "assignVariables" definition.
 
 ```json
-assignPmVariables": [
+assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
       "environmentVariables": [

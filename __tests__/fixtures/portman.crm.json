@@ -52,7 +52,7 @@
       ]
     }
   ],
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperationId": "companiesAll",
       "collectionVariables": [
