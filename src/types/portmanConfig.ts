@@ -30,7 +30,7 @@ export type ResponseTestConfig = {
 export type ContentTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
-  responseBodyTest: ResponseBodyTest[]
+  responseBodyTests: ResponseBodyTest[]
 }
 
 export type VariationTestConfig = {
@@ -42,7 +42,8 @@ export type VariationTestConfig = {
 export type VariationConfig = {
   name: string
   overwrites?: any
-  tests: TestConfig
+  tests: any
+  assignVariables?: AssignVariablesConfig[]
 }
 
 export type ResponseBodyTest = {

@@ -2,10 +2,7 @@ import { OpenAPIV3 } from 'openapi-types'
 import { Collection } from 'postman-collection'
 import {
   applyOverwrites,
-  assignVarFromRequestBody,
-  assignVarFromResponseBody,
-  assignVarFromResponseHeader,
-  assignVarFromValue,
+  assignCollectionVariables,
   extendTest,
   testResponseBodyContent,
   testResponseContentType,
@@ -25,7 +22,6 @@ import {
   PortmanConfig,
   ResponseTestConfig,
   ResponseTime,
-  TestConfig,
   TestSuiteOptions,
   VariationTestConfig
 } from '../types'
@@ -53,13 +49,18 @@ export class TestSuite {
   }
 
   public generateAutomatedTests = (): PostmanMappedOperation[] => {
+    if (!this.config?.tests || !this.config?.tests?.responseTests)
+      return this.postmanParser.mappedOperations
+
+    const responseTests = this.config.tests.responseTests
+
     return this.postmanParser.mappedOperations.map(pmOperation => {
       // Get OpenApi responses
       const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
 
       if (oaOperation) {
         // Inject response tests
-        pmOperation = this.injectResponseTests(pmOperation, oaOperation)
+        pmOperation = this.injectResponseTests(pmOperation, oaOperation, responseTests)
       }
 
       return pmOperation
@@ -70,50 +71,20 @@ export class TestSuite {
     if (!this.config?.tests?.variationTests) return
 
     const variationTests = this.config.tests.variationTests
-    const variationWriter = new VariationWriter()
+    const variationWriter = new VariationWriter({ testSuite: this })
 
     variationTests.map(variationTest => {
       //Get Postman operations to inject variation test for
       const pmOperations = this.getOperationsFromSetting(variationTest)
 
       pmOperations.map(pmOperation => {
-        variationWriter.add(pmOperation, variationTest.variations)
+        // Get OpenApi responses
+        const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
+        variationWriter.add(pmOperation, oaOperation, variationTest.variations)
       })
     })
 
     this.collection = variationWriter.mergeToCollection(this.collection)
-  }
-
-  responseTestSettings = (): string[] => {
-    if (!this.config?.tests?.responseTests) return []
-    const { responseTests }: TestConfig = this.config.tests
-
-    const responseTestKeys = responseTests.reduce((acc, responseTest) => {
-      const responseTestKey = Object.keys(responseTest).find(key => {
-        return !['openApiOperation', 'openApiOperationId'].includes(key)
-      })
-      if (responseTestKey) acc.push(responseTestKey)
-
-      return acc
-    }, [] as string[])
-
-    return responseTestKeys
-  }
-
-  contentTestSettings = (): string[] => {
-    if (!this.config?.tests || !this.config?.tests?.contentTests) return []
-    const contentTests = this.config.tests.contentTests
-
-    const contentTestKeys = contentTests.reduce((acc, contentTest) => {
-      const contentTestKey = Object.keys(contentTest).find(key => {
-        return !['openApiOperation', 'openApiOperationId'].includes(key)
-      })
-      if (contentTestKey) acc.push(contentTestKey)
-
-      return acc
-    }, [] as string[])
-
-    return contentTestKeys
   }
 
   getOperationsFromSetting(
@@ -135,13 +106,11 @@ export class TestSuite {
 
     return pmOperations
   }
-
-  injectResponseTests = (
+  public injectResponseTests = (
     pmOperation: PostmanMappedOperation,
-    oaOperation: OasMappedOperation
+    oaOperation: OasMappedOperation,
+    config: ResponseTestConfig[]
   ): PostmanMappedOperation => {
-    const responseTests = this.responseTestSettings()
-
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
 
@@ -155,11 +124,11 @@ export class TestSuite {
       }
 
       // Add status success check
-      if (responseTests.includes('statusSuccess')) {
+      if (config.find(({ statusSuccess }) => !!statusSuccess)) {
         pmOperation = testResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
-      if (responseTests.includes('responseTime')) {
+      if (config.find(({ responseTime }) => !!responseTime)) {
         const { responseTime } = this.config?.tests?.responseTests?.find(
           testConfig => !!testConfig['responseTime']
         ) as ResponseTestConfig
@@ -174,17 +143,17 @@ export class TestSuite {
           if (!contentType) continue
 
           // Add contentType check
-          if (responseTests.includes('contentType')) {
+          if (config.find(({ contentType }) => !!contentType)) {
             pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
           }
 
           // Add json body check
-          if (responseTests.includes('jsonBody') && contentType === 'application/json') {
+          if (config.find(({ jsonBody }) => !!jsonBody) && contentType === 'application/json') {
             pmOperation = testResponseJsonBody(pmOperation, oaOperation)
           }
 
           // Add json schema check
-          if (responseTests.includes('schemaValidation') && content?.schema) {
+          if (config.find(({ schemaValidation }) => !!schemaValidation) && content?.schema) {
             pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
           }
         }
@@ -195,8 +164,8 @@ export class TestSuite {
         for (const [headerName] of Object.entries(responseObject.headers)) {
           // Early skip if no schema defined
           if (!headerName) continue
-          // Add response header checks
-          if (responseTests.includes('headersPresent')) {
+          // Add response header checks headersPresent
+          if (config.find(({ headersPresent }) => !!headersPresent)) {
             pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
           }
         }
@@ -216,8 +185,8 @@ export class TestSuite {
 
       pmOperations.map(pmOperation => {
         // check content of response body
-        contentTest?.responseBodyTest &&
-          testResponseBodyContent(contentTest.responseBodyTest, pmOperation)
+        contentTest?.responseBodyTests &&
+          testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
       })
     })
 
@@ -232,25 +201,15 @@ export class TestSuite {
       if (!assignVar?.collectionVariables) return
       //Get Postman operations to apply assign variables for
       const pmOperations = this.getOperationsFromSetting(assignVar)
+      let fixedValueCounter = 0
+
       pmOperations.map(pmOperation => {
-        let fixedValueCounter = 0
         // Loop over all defined variable value sources
-        assignVar.collectionVariables.map(varSetting => {
-          // Assign Postman collection variable with a request body value
-          varSetting?.requestBodyProp && assignVarFromRequestBody(varSetting, pmOperation)
-
-          // Assign Postman collection variable with a response body value
-          varSetting?.responseBodyProp && assignVarFromResponseBody(varSetting, pmOperation)
-
-          // Assign Postman collection variable with a response header value
-          varSetting?.responseHeaderProp && assignVarFromResponseHeader(varSetting, pmOperation)
-
-          // Assign Postman collection variable with a fixed value
-          if (varSetting.value) {
-            fixedValueCounter++
-            assignVarFromValue(varSetting, pmOperation, fixedValueCounter)
-          }
-        })
+        fixedValueCounter = assignCollectionVariables(
+          pmOperation,
+          assignVar,
+          fixedValueCounter
+        ) as number
       })
     })
 

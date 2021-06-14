@@ -11,7 +11,7 @@ import { CollectionVariableConfig } from '../../types'
 export const assignVarFromValue = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
-  fixedValueCounter: number
+  fixedValueCounter: number | string
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if request body is not defined
@@ -21,7 +21,7 @@ export const assignVarFromValue = (
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varProp = '-var-' + fixedValueCounter
+  const varProp = `-var-` + fixedValueCounter
   const varName = varSetting.name ? varSetting.name : opsRef + '.' + varProp
   const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
 

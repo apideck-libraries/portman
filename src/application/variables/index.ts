@@ -1,3 +1,4 @@
+export * from './assignCollectionVariables'
 export * from './assignVarFromRequestBody'
 export * from './assignVarFromResponseBody'
 export * from './assignVarFromResponseHeader'

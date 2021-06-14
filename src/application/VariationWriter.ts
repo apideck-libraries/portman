@@ -1,22 +1,37 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
+import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import { VariationConfig } from '../types'
-import { applyOverwrites } from './'
+import { applyOverwrites, assignCollectionVariables, testResponseBodyContent, TestSuite } from './'
+
+export type VariationWriterOptions = {
+  testSuite: TestSuite
+}
 
 export class VariationWriter {
+  testSuite: TestSuite
   public variationCollection: Collection
   public operationFolders: Record<string, string>
 
-  constructor() {
+  constructor(options: VariationWriterOptions) {
+    const { testSuite } = options
+    this.testSuite = testSuite
     this.operationFolders = {}
     this.variationCollection = new Collection()
   }
 
-  public add(pmOperation: PostmanMappedOperation, variations: VariationConfig[]): void {
+  public add(
+    pmOperation: PostmanMappedOperation,
+    oaOperation: OasMappedOperation | null,
+    variations: VariationConfig[]
+  ): void {
     variations.map(variation => {
-      const operationVariation = this.build(pmOperation, variation)
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
+      const variationName = `${pmOperation.item.name}-${variation.name}`
+      const operationVariation = pmOperation.clone(variationName)
+
+      this.injectVariations(operationVariation, oaOperation, variation)
 
       this.addToLocalCollection(operationVariation, folderId, folderName)
     })
@@ -66,22 +81,29 @@ export class VariationWriter {
     target.items.add(operationVariation.item)
   }
 
-  injectVariations(pmOperation: PostmanMappedOperation, variation: VariationConfig): void {
-    const { overwrites: overwriteSettings } = variation
+  injectVariations(
+    pmOperation: PostmanMappedOperation,
+    oaOperation: OasMappedOperation | null,
+    variation: VariationConfig
+  ): void {
+    const { overwrites: overwriteSettings, tests, assignVariables } = variation
 
     overwriteSettings.map(overwriteSetting => {
       overwriteSetting && applyOverwrites([pmOperation], overwriteSetting)
     })
-  }
 
-  private build(
-    pmOperation: PostmanMappedOperation,
-    variation: VariationConfig
-  ): PostmanMappedOperation {
-    const variationName = `${pmOperation.item.name}-${variation.name}`
-    const operationVariation = pmOperation.clone(variationName)
+    if (oaOperation && tests?.responseTests) {
+      this.testSuite.injectResponseTests(pmOperation, oaOperation, tests.responseTests)
+    }
 
-    this.injectVariations(operationVariation, variation)
-    return operationVariation
+    if (tests?.responseBodyTests) {
+      testResponseBodyContent(tests.responseBodyTests, pmOperation)
+    }
+
+    if (assignVariables) {
+      assignVariables.map(setting => {
+        assignCollectionVariables(pmOperation, setting, pmOperation.item.id)
+      })
+    }
   }
 }
