@@ -7,6 +7,7 @@ type ResponseTest = {
 }
 
 type StatusSuccess = ResponseTest
+
 type ContentType = ResponseTest
 type JsonBody = ResponseTest
 type SchemaValidation = ResponseTest
@@ -16,10 +17,15 @@ export type ResponseTime = ResponseTest & {
   maxMs: number
 }
 
+export type StatusCode = ResponseTest & {
+  code: number
+}
+
 export type ResponseTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   statusSuccess?: StatusSuccess
+  statusCode?: StatusCode
   contentType?: ContentType
   jsonBody?: JsonBody
   schemaValidation?: SchemaValidation
