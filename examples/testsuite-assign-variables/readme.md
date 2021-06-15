@@ -1,6 +1,6 @@
 # OpenAPI Postman test suite generation - assignVariables
 
-In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
+In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests)" example, we explained the default generated Postman contract tests.
 
 This example focuses on assigning Postman variables based on the response of an API request, with the goal to be able to reuse them in other requests.
 
@@ -22,18 +22,10 @@ This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 e
 
 ## Portman settings
 
-The portman settings (in JSON format) consists out of multiple parts:
-
-- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
-- **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
-- **extendTests**: which refers to custom additions of manual created postman tests. (see examples folder)
-- **contentTests**: which refers to additional Postman tests that check the content. (see examples folder)
-- **assignVariables**: which refers to assigning specific Postman collection variables for easier automation.
-- **overwrites**: which refers to the custom additions/modifications of the request/response properties. (see examples folder)
-
+The portman settings (in JSON format) consists out of multiple parts.
 In this example we focus on the **assignVariables** section and settings.
 
-file: examples/testsuite-assign-variables/portman.crm.json
+file: examples/testsuite-assign-variables/portman-config.crm.json
 
 ## Portman - "assignVariables" properties
 
@@ -61,7 +53,7 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the assignVariables usage. For the basics on the portman configuration and usage, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
+In this example, we are zooming in on only the assignVariables usage. For the basics on the portman configuration and usage, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
 file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
 

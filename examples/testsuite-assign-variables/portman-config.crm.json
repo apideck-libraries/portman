@@ -79,17 +79,6 @@
       ]
     }
   ],
-  "contractTests": [
-    {
-      "openApiOperationId": "leadsOne",
-      "checkRequestBody": [
-        {
-          "key": "data.company_name",
-          "value": "{{leadsAdd.company_name}}"
-        }
-      ]
-    }
-  ],
   "overwrites": [
     {
       "openApiOperationId": "leadsAdd",

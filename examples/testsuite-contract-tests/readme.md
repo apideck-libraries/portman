@@ -93,7 +93,7 @@ Version 1.0
 
 We instruct Portman to generate tests, for which the 'tests' section as defined in the **portmanConfigFile** json file, will be used.
 
-file: examples/testsuite-contract-tests/portman.crm.json >>
+file: examples/testsuite-contract-tests/portman-config.crm.json >>
 
 ```json
   "tests": {
