@@ -5,9 +5,7 @@ In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries
 This example focusses on the manipulation of the Postman collection to make it possible to setup automation, by manipulating
 
 - Request bodies
-
 - Request headers
-
 - Request query params
 
 _use-cases_:
@@ -21,7 +19,7 @@ _use-cases_:
 ## CLI usage
 
 ```ssh
- portman --cliOptionsFile ./examples/testsuite-overwrites/portman-cli-options.json
+portman --cliOptionsFile ./examples/testsuite-overwrites/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.
@@ -37,29 +35,6 @@ file: examples/testsuite-overwrites/portman-config.crm.json
 ```json
 {
   "version": 1.0,
-  "tests": {
-    "contractTests": {
-      "statusSuccess": {
-        "enabled": true
-      },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
-      },
-      "contentType": {
-        "enabled": true
-      },
-      "jsonBody": {
-        "enabled": true
-      },
-      "schemaValidation": {
-        "enabled": true
-      },
-      "headersPresent": {
-        "enabled": true
-      }
-    }
-  },
   "overwrites": [
     {
       "openApiOperationId": "leadsAdd",
@@ -73,6 +48,19 @@ file: examples/testsuite-overwrites/portman-config.crm.json
           "key": "company_name",
           "value": "{{$randomCompanyName}} {{$randomColor}}",
           "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{$randomInt}}",
+          "overwrite": true
+        },
+        {
+          "key": "websites[0]",
+          "remove": true
+        },
+        {
+          "key": "social_links[1].url",
+          "remove": true
         }
       ]
     },
@@ -109,10 +97,15 @@ file: examples/testsuite-overwrites/portman-config.crm.json
         {
           "key": "limit",
           "disable": true
+        },
+        {
+          "key": "cursor",
+          "remove": true
         }
       ]
     }
   ]
+
 }
 ```
 
@@ -132,20 +125,21 @@ These target options are both supported for defining a target. In case both are 
 ### Overwrite options:
 
 - **overwriteRequestQueryParams (Array)** :
-
+  
   Array of key/value pairs to overwrite in the Postman Request Query params.
 
-  - **key (string)** : The key that will be targeted in the request Query Param to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend.
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
   - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman
   - **remove (Boolean true/false | Default: false)** : Removes the request query param
 
-- **overwriteRequestPathVariables (Array)** :
+- **overwriteRequestPathVariables (Array)** : 
+  
   Array of key/value pairs to overwrite in the Postman Request Path Variables.
 
-  - **key (string)** : The key that will be targeted in the request Path variables to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **key (String)** : The key that will be targeted in the request Path variables to overwrite/extend.
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request path variable value OR attach the value to the original request Path variable value.
   - **remove (Boolean true/false | Default: false)** : Removes the request path variable
 
@@ -153,8 +147,8 @@ These target options are both supported for defining a target. In case both are 
 
   Array of key/value pairs to overwrite in the Postman Request Headers.
 
-  - **key (string)** : The key that will be targeted in the request Headers to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **key (String)** : The key that will be targeted in the request Headers to overwrite/extend.
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attach the value to the original request header value.
   - **remove (Boolean true/false | Default: false)** : Removes the request headers
 
@@ -162,8 +156,8 @@ These target options are both supported for defining a target. In case both are 
 
   Array of key/value pairs to overwrite in the Postman Request Body.
 
-  - **key (string)** : The key that will be targeted in the request body to overwrite/extend.
-  - **value (string)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **key (String)** : The key that will be targeted in the request body to overwrite/extend.
+  - **value (String)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attach the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
 
