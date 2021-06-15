@@ -68,6 +68,9 @@ file: examples/portman-globals/postman.crm.json >>
 
 ```json
 "globals": {
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
     },
@@ -82,6 +85,14 @@ file: examples/portman-globals/postman.crm.json >>
     ]
   }
 ```
+
+### collectionPreRequestScripts
+
+By setting the `collectionPreRequestScripts`, all the script items in the array will be injected to the Postman "Pre-request script" on Postman collection level.
+
+After
+
+![](./images/globals-prerequest-after.png)
 
 ### keyValueReplacements
 

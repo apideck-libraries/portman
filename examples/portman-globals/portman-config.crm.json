@@ -1,6 +1,9 @@
 {
   "version": 1.0,
   "globals": {
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
     },
