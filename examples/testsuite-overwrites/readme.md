@@ -26,20 +26,18 @@ yarn portman --cliOptionsFile ./examples/testsuite-overwrites/portman-cli-option
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenAPi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default testuite tests generated out-of-the-box + overwrite specific values in the generated Postman collection.
+This is an example where we take the OpenApi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + overwrite specific values in the generated Postman collection.
 
-## Testsuite settings
+## Portman settings
 
-The test suite settings (in JSON format) consists out of multiple parts:
+The portman settings (in JSON format) consists out of multiple parts:
 
 - **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
 - **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
-  - **responseTests** : All response automatic generated checks.
-  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** configured operations).
-- **extendTests**: which refers the custom additions of manual created postman tests. (see examples folder)
-- **contentTests**: which refers the additional Postman tests that check the content. (see examples folder)
-- **assignPmVariables**: which refers to specific Postman environment variables for easier automation. (see examples folder)
-- **overwrites**: which refers the custom additions/modifications of the OpenAPI request body.
+- **extendTests**: which refers to custom additions of manual created postman tests. (see examples folder)
+- **contentTests**: which refers to additional Postman tests that check the content. (see examples folder)
+- **assignVariables**: which refers to assigning specific Postman collection variables for easier automation.
+- **overwrites**: which refers to the custom additions/modifications of the request/response properties. (see examples folder)
 
 In this example we focus on the **overwrites** section and settings.
 
@@ -127,7 +125,7 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json
 }
 ```
 
-## Postman test suite - "overwrites" properties
+## Portman - "overwrites" properties
 
 Version 1.0
 
@@ -178,7 +176,6 @@ These target options are both supported for defining a target. In case both are 
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attach the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
 
-###
 
 ## Example explained
 

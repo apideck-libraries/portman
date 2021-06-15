@@ -41,7 +41,15 @@
       }
     ]
   },
-  "assignPmVariables": [
+  "assignVariables": [
+    {
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.id"
+        }
+      ]
+    },
     {
       "openApiOperation": "POST::*",
       "collectionVariables": [

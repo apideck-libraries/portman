@@ -46,7 +46,7 @@ export class CollectionWriter {
       collection = overwriteCollectionValues(collection, valueReplacements)
     }
 
-    // --- Portman - Use .env to inject variabes on Collection
+    // --- Portman - Use .env to inject variables on Collection
     if (envFile) {
       collection = injectEnvVariables(collection, envFile, baseUrl)
     }
