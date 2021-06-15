@@ -1,45 +1,29 @@
-import { Collection, Event } from 'postman-collection'
+import { CollectionDefinition, EventDefinition, Script, ScriptDefinition } from 'postman-collection'
 
 export const writeCollectionPreRequestScripts = (
-  collection: Collection,
+  collection: CollectionDefinition,
   scripts: string[]
-): Collection => {
-  const preRequest = findCollectionPrequestScript(collection)
+): CollectionDefinition => {
+  const collectionEvents = collection?.event || []
 
-  if (!preRequest?.script) {
-    preRequest.update({
+  let preRequestEvent =
+    collectionEvents && collectionEvents.find(e => e?.listen === 'prerequest', null)
+
+  if (!preRequestEvent) {
+    preRequestEvent = {
       listen: 'prerequest',
-      script: { exec: [], type: 'text/javascript' }
-    })
+      script: {
+        exec: [],
+        type: 'text/javascript'
+      }
+    } as EventDefinition
   }
 
-  preRequest.script.exec = [...scripts]
+  const script = new Script(preRequestEvent.script as ScriptDefinition)
+  const exec = Array.isArray(script.exec) ? [...script.exec, ...scripts] : [script.exec, ...scripts]
+  script.update({ exec: exec.filter(i => Boolean(i)) as string[] })
+  preRequestEvent.script = script.toJSON()
+  collection.event = collection?.event ? [...collection.event, preRequestEvent] : [preRequestEvent]
 
   return collection
-}
-
-export const findCollectionPrequestScript = (collection: Collection): Event => {
-  let collectionPreRequestEvent = collection.events.find(e => e?.listen === 'prerequest', null)
-
-  if (!collectionPreRequestEvent) {
-    collection.events.add(
-      new Event({
-        listen: 'prerequest',
-        script: {
-          exec: [],
-          type: 'text/javascript'
-        }
-      })
-    )
-    collectionPreRequestEvent = findCollectionPrequestScript(collection)
-  }
-
-  if (!collectionPreRequestEvent?.script) {
-    collectionPreRequestEvent.update({
-      listen: 'prerequest',
-      script: { exec: [], type: 'text/javascript' }
-    })
-  }
-
-  return collectionPreRequestEvent
 }

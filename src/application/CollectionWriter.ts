@@ -23,7 +23,7 @@ export class CollectionWriter {
   public execute(): void {
     if (!this.config?.globals) return
 
-    const { includeTests, envFile, baseUrl } = this.options
+    const { envFile, baseUrl } = this.options
 
     const {
       globals: {
@@ -36,10 +36,10 @@ export class CollectionWriter {
     } = this.config
 
     // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
-    let collection = overwriteCollectionKeyValues(this.collection, {
-      ...keyValueReplacements,
-      limit: includeTests ? '3' : '20'
-    })
+    let collection = this.collection
+    if (keyValueReplacements) {
+      overwriteCollectionKeyValues(this.collection, keyValueReplacements)
+    }
 
     // --- Portman - Search for keys in dictionary to set the values if value is found anywhere in collection
     if (valueReplacements) {
