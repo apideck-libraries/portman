@@ -19,8 +19,11 @@ export const overwriteRequestBody = (
   if (!pmOperation.item?.request?.body?.raw) return pmOperation
   const requestBody = pmOperation.item.request.body.raw
 
+  // Make postman body safe
+  const requestBodySafe = makeJsonSafeDynamicPmVars(requestBody)
+
   // Overwrite values for Keys
-  let bodyData = JSON.parse(requestBody)
+  let bodyData = JSON.parse(requestBodySafe)
   overwriteValues.map(overwriteValue => {
     if (overwriteValue.key && typeof overwriteValue.value !== 'undefined') {
       const originalValue = getByPath(bodyData, overwriteValue.key)
@@ -35,18 +38,40 @@ export const overwriteRequestBody = (
       bodyData = omitByPath(bodyData, overwriteValue.key)
     }
   })
-  let bodyString = JSON.stringify(bodyData, null, 4)
+  const bodyString = JSON.stringify(bodyData, null, 4)
 
+  // Make postman body safe
+  const bodyStringSafe = decodeDynamicPmVars(bodyString)
+
+  // Set responseCheckSettings with stringified body
+  pmOperation.item.request.body.raw = bodyStringSafe
+
+  return pmOperation
+}
+export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
+  // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to number
+  const find = [': {{$randomInt}},', ': {{$randomCreditCardMask}},', ': {{$randomBankAccount}},']
+  const replace = [
+    ': "{{$randomInt}}",',
+    ': "{{$randomCreditCardMask}}",',
+    ': "{{$randomBankAccount}}",'
+  ]
+  find.forEach(function (item, index) {
+    // eslint-disable-next-line no-useless-escape
+    const escapedFind = item.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1')
+    jsonString = jsonString.replace(new RegExp(escapedFind, 'g'), replace[index])
+  })
+  return jsonString
+}
+
+export const decodeDynamicPmVars = (jsonString: string): string => {
   // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to number
   const find = ['"{{$randomInt}}"', '"{{$randomCreditCardMask}}"', '"{{$randomBankAccount}}"']
   const replace = ['{{$randomInt}}', '{{$randomCreditCardMask}}', '{{$randomBankAccount}}']
   find.forEach(function (item, index) {
-    const escapedFind = item.replace(/([.*+?^=!:${}()|\\[\]\\/\\])/g, '\\$1')
-    bodyString = bodyString.replace(new RegExp(escapedFind, 'g'), replace[index])
+    // eslint-disable-next-line no-useless-escape
+    const escapedFind = item.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1')
+    jsonString = jsonString.replace(new RegExp(escapedFind, 'g'), replace[index])
   })
-
-  // Set responseCheckSettings with stringified body
-  pmOperation.item.request.body.raw = bodyString
-
-  return pmOperation
+  return jsonString
 }
