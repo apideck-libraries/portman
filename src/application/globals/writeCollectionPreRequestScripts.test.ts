@@ -10,6 +10,6 @@ describe('writeCollectionPreRequestScripts', () => {
       'pm.collectionVariables.set("applicationId", pm.iterationData.get("applicationId") || "1111");\n'
     ]
     const result = writeCollectionPreRequestScripts(collection, collectionPrequestScripts)
-    expect(result.event.map(({ script }) => script['exec'])).toMatchSnapshot()
+    expect(result?.event && result.event.map(({ script }) => script['exec'])).toMatchSnapshot()
   })
 })
