@@ -48,8 +48,9 @@
   "overwrites": [],
   "globals": {
     "collectionPreRequestScripts": [],
-    "preRequestScripts": [],
-    "variableOverwrites": {},
-    "rawReplacements": []
+    "keyValueReplacements": {},
+    "valueReplacements": {},
+    "rawReplacements": [],
+    "orderOfOperations": []
   }
 }
