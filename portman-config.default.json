@@ -40,9 +40,9 @@
         }
       }
     ],
+    "contentTests": [],
     "variationTests": []
   },
-  "contentTests": [],
   "extendTests": [],
   "assignVariables": [],
   "overwrites": [],

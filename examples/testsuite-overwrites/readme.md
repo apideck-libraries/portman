@@ -30,16 +30,7 @@ This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 e
 
 ## Portman settings
 
-The portman settings (in JSON format) consists out of multiple parts:
-
-- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
-- **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
-- **extendTests**: which refers to custom additions of manual created postman tests. (see examples folder)
-- **contentTests**: which refers to additional Postman tests that check the content. (see examples folder)
-- **assignVariables**: which refers to assigning specific Postman collection variables for easier automation.
-- **overwrites**: which refers to the custom additions/modifications of the request/response properties. (see examples folder)
-
-In this example we focus on the **overwrites** section and settings.
+The portman settings (in JSON format) consists out of multiple parts, in this example we focus on the **overwrites** section and settings.
 
 file: examples/testsuite-overwrites/portman-config.crm.json
 
