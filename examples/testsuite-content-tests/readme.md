@@ -18,45 +18,13 @@ This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 e
 
 ## Portman settings
 
-The portman settings (in JSON format) consists out of multiple parts:
-
-- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
-- **tests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request) ( see examples folder)
-- **extendTests**: which refers to custom additions of manual created postman tests. (see examples folder)
-- **contentTests**: which refers to additional Postman tests that check the content. (see examples folder)
-- **assignVariables**: which refers to assigning specific Postman collection variables for easier automation.
-- **overwrites**: which refers to the custom additions/modifications of the request/response properties. (see examples folder)
-
-In this example we focus on the **contentTests** section and settings.
+The portman settings (in JSON format) consists out of multiple parts, in this example we focus on the **contentTests** section and settings.
 
 file: examples/testsuite-content-tests/postman-testsuite.crm.json
 
 ```json
 {
   "version": 1.0,
-  "tests": {
-    "contractTests": {
-      "StatusSuccess": {
-        "enabled": true
-      },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
-      },
-      "contentType": {
-        "enabled": true
-      },
-      "jsonBody": {
-        "enabled": true
-      },
-      "schemaValidation": {
-        "enabled": true
-      },
-      "headersPresent": {
-        "enabled": true
-      }
-    }
-  },
   "contentTests": [
     {
       "openApiOperationId": "leadsAll",
@@ -98,8 +66,8 @@ These target options are both supported for defining a target. In case both are 
 ##### Content check options:
 
 - **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
-  - **key (string)** : The key that will be targeted in the response body to check if it exists.
-  - **value (string)** : The value that will be used to check if the value in the response body matches.
+  - **key (String)** : The key that will be targeted in the response body to check if it exists.
+  - **value (String)** : The value that will be used to check if the value in the response body matches.
 
 ## Example explained
 
