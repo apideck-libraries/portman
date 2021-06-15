@@ -185,7 +185,7 @@ yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a
 - Pass custom paths for config files
 
 ```
-portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -g ./tmp/crm/Postman-testsuite.json  -s ./common/Postman-config.json
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./common/postman-config.json
 ```
 
 - Pass all CLI options as JSON file
