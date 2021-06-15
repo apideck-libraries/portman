@@ -29,7 +29,9 @@
   },
   "files": [
     "dist/**/*",
-    "bin/portman"
+    "bin/portman",
+    "portman-config.default.json",
+    "postman-config.default.json"
   ],
   "bin": {
     "portman": "bin/portman"

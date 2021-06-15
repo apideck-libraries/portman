@@ -57,6 +57,7 @@ export class Portman {
         oaLocal,
         cliOptionsFile,
         portmanConfigFile,
+        portmanConfigPath,
         postmanConfigFile,
         envFile,
         includeTests,
@@ -74,12 +75,12 @@ export class Portman {
     cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${cliOptionsFile}}`)
     console.log(
       chalk`{cyan  Portman Config: } \t{green ${
-        portmanConfigFile ? portmanConfigFile : 'unspecified'
+        portmanConfigFile ? portmanConfigFile : 'portman-config.default.json'
       }}`
     )
     console.log(
       chalk`{cyan  Postman Config: } \t{green ${
-        postmanConfigFile ? postmanConfigFile : 'unspecified'
+        postmanConfigFile ? postmanConfigFile : 'postman-config.default.json'
       }}`
     )
 
@@ -98,7 +99,7 @@ export class Portman {
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
 
-    this.config = await getConfig(portmanConfigFile)
+    this.config = await getConfig(portmanConfigPath)
   }
 
   async after(): Promise<void> {
@@ -166,7 +167,7 @@ export class Portman {
 
   async convertToPostmanCollection(): Promise<void> {
     // --- openapi-to-postman - Transform OpenApi to Postman collection
-    const { postmanConfigFile } = this.options
+    const { postmanConfigPath } = this.options
 
     const oaToPostman = new OpenApiToPostmanService()
     // TODO investigate better way to keep oasParser untouched
@@ -175,7 +176,7 @@ export class Portman {
     const oaToPostmanConfig: IOpenApiToPostmanConfig = {
       openApiObj: { ...oas },
       outputFile: `${process.cwd()}/tmp/working/tmpCollection.json`,
-      configFile: postmanConfigFile as string
+      configFile: postmanConfigPath as string
     }
 
     this.postmanCollection = await oaToPostman.convert(oaToPostmanConfig).catch(err => {

@@ -105,8 +105,12 @@ require('dotenv').config()
   const runNewman = options?.runNewman
   const newmanData = options?.newmanIterationData || ''
   const syncToPostman = options?.syncPostman || false
-  const portmanConfigFile = options?.portmanConfigFile || 'portman-config.json'
-  const postmanConfigFile = options?.postmanConfigFile || 'postman-config.json'
+  const portmanConfigFile = options?.portmanConfigFile
+  const portmanConfigPath =
+    options?.portmanConfigFile || __dirname + '/../portman-config.default.json'
+  const postmanConfigFile = options?.postmanConfigFile
+  const postmanConfigPath =
+    options?.postmanConfigFile || __dirname + '/../postman-config.default.json'
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
 
@@ -120,7 +124,9 @@ require('dotenv').config()
     newmanIterationData: newmanData,
     syncPostman: syncToPostman,
     portmanConfigFile,
+    portmanConfigPath,
     postmanConfigFile,
+    postmanConfigPath,
     envFile,
     filterFile
   })
