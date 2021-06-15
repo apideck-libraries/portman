@@ -1,7 +1,7 @@
 {
   "version": 1.0,
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/*",
         "statusSuccess": {
@@ -39,16 +39,17 @@
           "enabled": true
         }
       }
-    ]
+    ],
+    "variationTests": []
   },
   "contentTests": [],
   "extendTests": [],
-  "variationTests": [],
   "assignVariables": [],
   "overwrites": [],
   "globals": {
+    "collectionPreRequestScripts": [],
     "preRequestScripts": [],
     "variableOverwrites": {},
-    "globalReplacements": []
+    "rawReplacements": []
   }
 }

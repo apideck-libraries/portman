@@ -39,6 +39,62 @@
           "enabled": true
         }
       }
+    ],
+    "variationTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "variations": [
+          {
+            "name": "missingParams",
+            "overwrites": [
+              {
+                "overwriteRequestBody": [
+                  {
+                    "key": "first_name",
+                    "value": "",
+                    "overwrite": true
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true,
+                    "code": 400
+                  },
+                  "jsonBody": {
+                    "enabled": true
+                  }
+                }
+              ],
+              "responseBodyTests": [
+                {
+                  "key": "resource",
+                  "value": "leads"
+                }
+              ]
+            },
+            "assignVariables": [
+              {
+                "collectionVariables": [
+                  {
+                    "responseBodyProp": "data[0].id"
+                  }
+                ]
+              }
+            ],
+            "extendTests": [
+              {
+                "tests": [
+                  "\npm.test('say hello Portman', function(){ \n  console.log('Hello Portman')\n});"
+                ]
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   "contentTests": [
@@ -184,15 +240,15 @@
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
     "keyValueReplacements": {
-      "application_id": "{{applicationId}}"
+      "x-apideck-app-id": "{{applicationId}}"
     },
     "valueReplacements": {
-      "Bearer <token>": "{{bearerToken}}"
+      "<Bearer Token>": "{{bearerToken}}"
     },
     "rawReplacements": [
       {
-        "searchFor": "\"maxItems\":2,",
-        "replaceWith": ""
+        "searchFor": "Unify",
+        "replaceWith": "Unify ApiDeck"
       }
     ]
   }
