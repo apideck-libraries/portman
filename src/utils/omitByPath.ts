@@ -9,6 +9,6 @@ import { isObject } from './isObject'
 export const omitByPath = (obj: Record<string, unknown>, path: string): Record<string, unknown> => {
   if (!isObject(obj)) return obj
 
-  dot.remove(path, obj)
+  dot.delete(path, obj)
   return obj
 }
