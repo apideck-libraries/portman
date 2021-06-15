@@ -43,10 +43,21 @@
   },
   "assignVariables": [
     {
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.id"
+        }
+      ]
+    },
+    {
       "openApiOperation": "GET::/crm/leads/{id}",
       "collectionVariables": [
         {
           "responseBodyProp": "data.company_name"
+        },
+        {
+          "responseHeaderProp": "Operation-Location"
         }
       ]
     },
@@ -56,10 +67,6 @@
         {
           "requestBodyProp": "company_name",
           "name": "leadsAdd.company_name"
-        },
-        {
-          "responseBodyProp": "data.id",
-          "name": "leadsAdd.id"
         }
       ]
     }

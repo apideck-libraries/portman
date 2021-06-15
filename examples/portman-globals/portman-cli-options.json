@@ -1,0 +1,10 @@
+{
+  "local": "./examples/portman-globals/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/portman-globals/crm.postman.json",
+  "postmanConfigFile": "./examples/portman-globals/postman-config.crm.json",
+  "portmanConfigFile": "./examples/portman-globals/portman-config.crm.json",
+  "includeTests": true,
+  "syncPostman": true,
+  "runNewman": false
+}

@@ -5,7 +5,8 @@
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
   "contributors": [
-    "Nick Lloyd <nick@apideck.com>"
+    "Nick Lloyd <nick@apideck.com>",
+    "Tim Haselaars"
   ],
   "license": "Apache-2.0",
   "repository": {
@@ -79,8 +80,11 @@
   "keywords": [
     "apideck",
     "openapi",
+    "openapi3",
     "newman",
-    "postman"
+    "postman",
+    "contract testing",
+    "variation testing"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
