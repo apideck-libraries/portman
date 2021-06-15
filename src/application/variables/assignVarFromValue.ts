@@ -32,7 +32,7 @@ export const assignVarFromValue = (
   ].join('')
 
   // Expose the variable in Portman
-  console.log(`- Set variable for "${opsRef}" - use {{${varName}} as variable for ${varValue}`)
+  console.log(`- Set variable for "${opsRef}" - use {{${varName}}} as variable for ${varValue}`)
 
   writeOperationTestScript(pmOperation, pmVarAssign)
 

@@ -40,7 +40,7 @@ export const assignVarFromRequestBody = (
 
     // Expose the variable in Portman
     console.log(
-      `- Set variable for "${opsRef}" - use {{${varName}} as variable for "request.${varProp}"`
+      `- Set variable for "${opsRef}" - use {{${varName}}} as variable for "request.${varProp}"`
     )
   }
 
