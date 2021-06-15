@@ -106,4 +106,28 @@ describe('overwriteRequestBody', () => {
     const result = overwriteRequestBody(overwriteValues, pmOperation)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
+
+  it('should remove the body prop from a nested element', async () => {
+    const overwriteValues = [
+      {
+        key: 'social_links[1].url',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should remove a item from an array, and not return null', async () => {
+    const overwriteValues = [
+      {
+        key: 'websites[0]',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 })
