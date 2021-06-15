@@ -51,14 +51,6 @@
       ]
     },
     {
-      "openApiOperation": "POST::*",
-      "collectionVariables": [
-        {
-          "responseBodyProp": "data.id"
-        }
-      ]
-    },
-    {
       "openApiOperation": "GET::/crm/leads/{id}",
       "collectionVariables": [
         {
