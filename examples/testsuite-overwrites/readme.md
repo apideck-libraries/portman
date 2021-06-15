@@ -41,7 +41,7 @@ The portman settings (in JSON format) consists out of multiple parts:
 
 In this example we focus on the **overwrites** section and settings.
 
-file: examples/testsuite-overwrites/postman-testsuite.crm.json
+file: examples/testsuite-overwrites/portman-config.crm.json
 
 ```json
 {
@@ -181,7 +181,7 @@ These target options are both supported for defining a target. In case both are 
 
 In this example, we are zooming in on only the overwrites usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
-file: examples/testsuite-overwrites/postman-testsuite.crm.json >>
+file: examples/testsuite-overwrites/portman-config.crm.json >>
 
 ```json
   "overwrites": [

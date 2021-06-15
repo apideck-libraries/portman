@@ -27,7 +27,7 @@ The portman settings (in JSON format) consists out of multiple parts:
 
 In this example we focus on the **tests** section and settings.
 
-file: examples/testsuite-contract-tests/postman-testsuite.crm.json
+file: examples/testsuite-contract-tests/portman-config.crm.json
 
 ```json
 {

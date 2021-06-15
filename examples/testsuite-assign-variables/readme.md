@@ -58,7 +58,7 @@ These target options are both supported for defining a target. In case both are 
 
 In this example, we are zooming in on only the assignVariables usage. For the basics on the portman configuration and usage, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
-file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
+file: examples/testsuite-assign-variables/portman-config.crm.json >>
 
 ```json
   "assignVariables": [

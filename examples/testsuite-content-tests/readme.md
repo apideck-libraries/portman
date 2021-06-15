@@ -20,7 +20,7 @@ This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 e
 
 The portman settings (in JSON format) consists out of multiple parts, in this example we focus on the **contentTests** section and settings.
 
-file: examples/testsuite-content-tests/postman-testsuite.crm.json
+file: examples/testsuite-content-tests/portman-config.crm.json
 
 ```json
 {
@@ -73,7 +73,7 @@ These target options are both supported for defining a target. In case both are 
 
 In this example, we are zooming in on only the contenChecks usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
-file: examples/testsuite-content-tests/postman-testsuite.crm.json >>
+file: examples/testsuite-content-tests/portman-config.crm.json >>
 
 ```json
 "contentTests": [
