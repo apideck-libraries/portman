@@ -90,7 +90,7 @@ file: examples/portman-globals/postman.crm.json >>
 
 By setting the `collectionPreRequestScripts`, all the script items in the array will be injected to the Postman "Pre-request script" on Postman collection level.
 
-After
+AFTER
 
 ![](./images/globals-prerequest-after.png)
 
@@ -98,11 +98,11 @@ After
 
 The result will be that any key that matches `x-apideck-app-id` will be replaced by `{{applicationId}}` in the full collection.
 
-Before
+BEFORE
 
 ![](./images/globals-key-before.png)
 
-After
+AFTER
 
 ![](./images/globals-key-after.png)
 
@@ -110,11 +110,11 @@ After
 
 The result will be that any value that matches `<Bearer Token>` will be replaced by the value `{{bearerToken}}` in the full collection.
 
-Before
+BEFORE
 
 ![](./images/globals-value-before.png)
 
-After
+AFTER
 
 ![](./images/globals-value-after.png)
 
@@ -122,10 +122,10 @@ After
 
 The result will be that any string/object that matches `Unify` will be replaced by the value `Unify ApiDeck` in the full collection. This also covers non-request/response data, like the description in the example
 
-Before
+BEFORE
 
 ![](./images/globals-key-before.png)
 
-After
+AFTER
 
 ![](./images/globals-raw-after.png)
