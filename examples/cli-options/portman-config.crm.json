@@ -1,7 +1,21 @@
 {
   "version": 1.0,
+  "globals": {
+    "preRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "variableOverwrites": {
+      "application_id": "{{applicationId}}"
+    },
+    "globalReplacements": [
+      {
+        "searchFor": "\"maxItems\":2,",
+        "replaceWith": ""
+      }
+    ]
+  },
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {

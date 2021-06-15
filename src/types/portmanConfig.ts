@@ -2,26 +2,26 @@
 import { OpenApiParser } from '../oas'
 import { PostmanParser } from '../postman'
 
-type ResponseTest = {
+type ContractTest = {
   enabled: boolean
 }
 
-type StatusSuccess = ResponseTest
+type StatusSuccess = ContractTest
 
-type ContentType = ResponseTest
-type JsonBody = ResponseTest
-type SchemaValidation = ResponseTest
-type HeadersPresent = ResponseTest
+type ContentType = ContractTest
+type JsonBody = ContractTest
+type SchemaValidation = ContractTest
+type HeadersPresent = ContractTest
 
-export type ResponseTime = ResponseTest & {
+export type ResponseTime = ContractTest & {
   maxMs: number
 }
 
-export type StatusCode = ResponseTest & {
+export type StatusCode = ContractTest & {
   code: number
 }
 
-export type ResponseTestConfig = {
+export type ContractTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   statusSuccess?: StatusSuccess
@@ -140,7 +140,7 @@ export interface TestSuiteOptions {
 }
 
 export type TestConfig = {
-  responseTests?: ResponseTestConfig[]
+  contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
   variationTests?: VariationTestConfig[]
 }

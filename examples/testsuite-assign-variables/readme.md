@@ -13,7 +13,7 @@ _use-cases_:
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/testsuite-assign-variables/portman-cli-options.json
+portman --cliOptionsFile ./examples/testsuite-assign-variables/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.

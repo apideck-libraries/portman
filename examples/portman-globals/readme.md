@@ -62,7 +62,7 @@ Version 1.0
 
 ## Example explained
 
-In this example, we are zooming in on "globals" usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-response-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-response-tests")
+In this example, we are zooming in on "globals" usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
 file: examples/portman-globals/postman.crm.json >>
 

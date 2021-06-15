@@ -98,8 +98,8 @@ export class VariationWriter {
       overwriteSetting && applyOverwrites([pmOperation], overwriteSetting)
     })
 
-    if (oaOperation && tests?.responseTests) {
-      this.testSuite.injectResponseTests(pmOperation, oaOperation, tests.responseTests)
+    if (oaOperation && tests?.contractTests) {
+      this.testSuite.injectContractTests(pmOperation, oaOperation, tests.contractTests)
     }
 
     if (tests?.responseBodyTests) {

@@ -47,7 +47,7 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json
 {
   "version": 1.0,
   "tests": {
-    "responseTests": {
+    "contractTests": {
       "StatusSuccess": {
         "enabled": true
       },

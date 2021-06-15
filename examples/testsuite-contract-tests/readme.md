@@ -7,7 +7,7 @@ _use-case_: convert OpenApi to Postman with a range of Postman contract tests, a
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/testsuite-response-tests/portman-cli-options.json
+yarn portman --cliOptionsFile ./examples/testsuite-contract-tests/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.
@@ -27,13 +27,13 @@ The portman settings (in JSON format) consists out of multiple parts:
 
 In this example we focus on the **tests** section and settings.
 
-file: examples/testsuite-response-tests/postman-testsuite.crm.json
+file: examples/testsuite-contract-tests/postman-testsuite.crm.json
 
 ```json
 {
   "version": 1.0,
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
@@ -76,7 +76,7 @@ file: examples/testsuite-response-tests/postman-testsuite.crm.json
 }
 ```
 
-## Portman - "responseTests" properties
+## Portman - "contractTests" properties
 
 Version 1.0
 
@@ -93,11 +93,11 @@ Version 1.0
 
 We instruct Portman to generate tests, for which the 'tests' section as defined in the **portmanConfigFile** json file, will be used.
 
-file: examples/testsuite-response-tests/portman.crm.json >>
+file: examples/testsuite-contract-tests/portman.crm.json >>
 
 ```json
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
@@ -142,7 +142,7 @@ file: examples/testsuite-response-tests/portman.crm.json >>
 
 The result will be that initial OpenApi file, with all request and response details will be used to generate the specific tests. Per Postman request, you can find the specific tests in the "Tests" tab in the Postman application.
 
-file: examples/testsuite-response-tests/crm.postman.json >>
+file: examples/testsuite-contract-tests/crm.postman.json >>
 
 Postman request "Leads"" >> Get lead"
 
@@ -354,7 +354,7 @@ pm.test('[GET]::/crm/leads/:id - Response header Operation-Location is present',
 ### StatusSuccess
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
@@ -376,7 +376,7 @@ pm.test('[GET]::/crm/leads/:id - Status code is 2xx', function () {
 ### responseTime
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "responseTime": {
@@ -399,7 +399,7 @@ pm.test('[GET]::/crm/leads/:id - Response time is less than 300ms', function () 
 ### contentType
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "contentType": {
@@ -421,7 +421,7 @@ pm.test('[GET]::/crm/leads/:id - Content-Type is application/json', function () 
 ### jsonBody
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "jsonBody": {
@@ -443,7 +443,7 @@ pm.test('[GET] /crm/leads/{id} - Response has JSON Body', function () {
 ### headersPresent
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "headersPresent": {
@@ -465,7 +465,7 @@ pm.test('[GET]::/crm/leads/:id - Response header Operation-Location is present',
 ### schemaValidation
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "schemaValidation": {
