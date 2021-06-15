@@ -3,6 +3,7 @@ import { TestSuite } from '../application'
 import { getConfig } from '../lib'
 import { OpenApiParser } from '../oas'
 import { PostmanParser } from '../postman'
+import { omitKeys } from '../utils'
 
 describe('TestSuite', () => {
   let postmanParser: PostmanParser
@@ -23,46 +24,50 @@ describe('TestSuite', () => {
     testSuiteService = new TestSuite({ oasParser, postmanParser, config })
   })
 
-  it('should generateAutomatedTests', async () => {
+  it('should generateAutomatedTests', () => {
     testSuiteService.generateAutomatedTests()
-    // dig down to specific test as postman injects unique ids making snapshots  meh
-    expect(postmanParser.mappedOperations[0].getTests().script.exec).toMatchSnapshot()
+    expect(omitKeys(testSuiteService.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
 
-  it('should injectContentTests', async () => {
+  it('should injectContentTests', () => {
     testSuiteService.injectContentTests()
-    expect(postmanParser.mappedOperations[0].getTests().script.exec).toMatchSnapshot()
+    expect(omitKeys(testSuiteService.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
 
-  it('should injectAssignVariables', async () => {
+  it('should injectAssignVariables', () => {
     testSuiteService.injectAssignVariables()
-    expect(postmanParser.mappedOperations[0].getTests().script.exec).toMatchSnapshot()
+    expect(omitKeys(testSuiteService.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
 
-  it('should injectExtendedTests', async () => {
+  it('should injectExtendedTests', () => {
     testSuiteService.injectExtendedTests()
-    expect(postmanParser.mappedOperations[0].getTests().script.exec).toMatchSnapshot()
+    expect(omitKeys(testSuiteService.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
+  })
+
+  it('should generateVariationTests', () => {
+    testSuiteService.generateVariationTests()
+    expect(omitKeys(testSuiteService.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
 
   describe('injectOverwrites', () => {
-    it('should overwriteRequestBody', async () => {
+    it('should overwriteRequestBody', () => {
       testSuiteService.injectOverwrites()
       expect(postmanParser.mappedOperations[1].item.request.body).toMatchSnapshot()
     })
 
-    it('should overwriteRequestQueryParams', async () => {
+    it('should overwriteRequestQueryParams', () => {
       testSuiteService.injectOverwrites()
 
       expect(postmanParser.mappedOperations[0].item.request.url.query).toMatchSnapshot()
     })
 
-    it('should overwriteRequestPathVariables', async () => {
+    it('should overwriteRequestPathVariables', () => {
       testSuiteService.injectOverwrites()
 
       expect(postmanParser.mappedOperations[3].item.request.url.variables).toMatchSnapshot()
     })
 
-    it('should overwriteRequestHeaders', async () => {
+    it('should overwriteRequestHeaders', () => {
       testSuiteService.injectOverwrites()
 
       expect(postmanParser.mappedOperations[3].item.request.headers).toMatchSnapshot()
