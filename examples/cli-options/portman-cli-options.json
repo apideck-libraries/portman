@@ -6,5 +6,6 @@
   "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
   "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
+  "syncPostman": false,
   "runNewman": false
 }

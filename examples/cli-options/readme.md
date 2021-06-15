@@ -19,11 +19,11 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
   "local": "./examples/cli-options/crm.openapi.yml",
   "baseUrl": "http://localhost:3050",
   "output": "./examples/cli-options/crm.postman.json",
+  "portmanConfigFile": "./examples/cli-options/portman-config.crm.json",
   "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
+  "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
-  "portmanConfigFile": "./examples/cli-options/portman.crm.json",
-  "envFile": "./examples/cli-options/.env",
-  "postmanUid": "b43ee029-7e3f-4e20-9b81-f4a47dfb9c48",
+  "syncPostman": false,
   "runNewman": false
 }
 ```
@@ -37,10 +37,11 @@ pipeline
 - **baseUrl**: overrides spec baseUrl with the defined value to use in test suite
 - **output**: refers to the location where the generated Postman collection file be stored (examples/cli-options/crm.postman.json)
 - **portmanConfigFile**: refers to the portman configuration file with Portman settings, like Postman values to be replaced,
-  overwriten, ... (examples/cli-options/portman-config.crm.json)
-- **postmanConfigFile**: refers to the openapi-to-postman configuration file location with settings on how to transform and
+  overwritten, ... (examples/cli-options/portman-config.crm.json)
+- **postmanConfigFile**: refers to the [openapi-to-postman configuration file](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) location with settings on how to transform and
   organise the Postman collection (examples/cli-options/postman-config.crm.json)
-- **includeTests**: a toggle to generate Postman tests based on the OpenAPI specification
 - **envFile**: refers to the .env file you want to use for environment variable injection (/examples/cli-options/.env)
+- **includeTests**: a toggle to generate Postman tests based on the OpenAPI specification
 - **postmanUid**: refers to the collection ID to upload the generated collection to your postman app
+- **syncPostman**: a toggle to upload the newly created collection to the Postman app
 - **runNewman**: a toggle to run newman on newly created collection
