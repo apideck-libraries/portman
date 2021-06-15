@@ -9,7 +9,7 @@ _use-case_: convert OpenApi to Postman with a range of Postman tests automatical
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/testsuite-content-tests/portman-cli-options.json
+portman --cliOptionsFile ./examples/testsuite-content-tests/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.
@@ -35,7 +35,7 @@ file: examples/testsuite-content-tests/postman-testsuite.crm.json
 {
   "version": 1.0,
   "tests": {
-    "responseTests": {
+    "contractTests": {
       "StatusSuccess": {
         "enabled": true
       },

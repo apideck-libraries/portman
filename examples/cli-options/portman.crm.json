@@ -15,7 +15,7 @@
     ]
   },
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {

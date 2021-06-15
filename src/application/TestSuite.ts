@@ -20,7 +20,7 @@ import {
   ContentTestConfig,
   OverwriteRequestConfig,
   PortmanConfig,
-  ResponseTestConfig,
+  ContractTestConfig,
   ResponseTime,
   TestSuiteOptions,
   VariationTestConfig
@@ -49,10 +49,10 @@ export class TestSuite {
   }
 
   public generateAutomatedTests = (): PostmanMappedOperation[] => {
-    if (!this.config?.tests || !this.config?.tests?.responseTests)
+    if (!this.config?.tests || !this.config?.tests?.contractTests)
       return this.postmanParser.mappedOperations
 
-    const responseTests = this.config.tests.responseTests
+    const contractTests = this.config.tests.contractTests
 
     return this.postmanParser.mappedOperations.map(pmOperation => {
       // Get OpenApi responses
@@ -60,7 +60,7 @@ export class TestSuite {
 
       if (oaOperation) {
         // Inject response tests
-        pmOperation = this.injectResponseTests(pmOperation, oaOperation, responseTests)
+        pmOperation = this.injectContractTests(pmOperation, oaOperation, contractTests)
       }
 
       return pmOperation
@@ -106,10 +106,10 @@ export class TestSuite {
 
     return pmOperations
   }
-  public injectResponseTests = (
+  public injectContractTests = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
-    config: ResponseTestConfig[]
+    config: ContractTestConfig[]
   ): PostmanMappedOperation => {
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -129,9 +129,9 @@ export class TestSuite {
       }
       // Add responseTime check
       if (config.find(({ responseTime }) => !!responseTime)) {
-        const { responseTime } = this.config?.tests?.responseTests?.find(
+        const { responseTime } = this.config?.tests?.contractTests?.find(
           testConfig => !!testConfig['responseTime']
-        ) as ResponseTestConfig
+        ) as ContractTestConfig
         pmOperation = testResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
       }
 

@@ -7,7 +7,7 @@ _use-case_: Run portman in CI/CD pipeline and pass the CLI options as part of ve
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
+portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 ```
 
 ## Portman CLI options settings

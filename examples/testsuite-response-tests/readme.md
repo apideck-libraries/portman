@@ -33,7 +33,7 @@ file: examples/testsuite-response-tests/postman-testsuite.crm.json
 {
   "version": 1.0,
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
@@ -76,7 +76,7 @@ file: examples/testsuite-response-tests/postman-testsuite.crm.json
 }
 ```
 
-## Portman - "responseTests" properties
+## Portman - "contractTests" properties
 
 Version 1.0
 
@@ -97,7 +97,7 @@ file: examples/testsuite-response-tests/portman.crm.json >>
 
 ```json
   "tests": {
-    "responseTests": [
+    "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
@@ -354,7 +354,7 @@ pm.test('[GET]::/crm/leads/:id - Response header Operation-Location is present',
 ### StatusSuccess
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
@@ -376,7 +376,7 @@ pm.test('[GET]::/crm/leads/:id - Status code is 2xx', function () {
 ### responseTime
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "responseTime": {
@@ -399,7 +399,7 @@ pm.test('[GET]::/crm/leads/:id - Response time is less than 300ms', function () 
 ### contentType
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "contentType": {
@@ -421,7 +421,7 @@ pm.test('[GET]::/crm/leads/:id - Content-Type is application/json', function () 
 ### jsonBody
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "jsonBody": {
@@ -443,7 +443,7 @@ pm.test('[GET] /crm/leads/{id} - Response has JSON Body', function () {
 ### headersPresent
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "headersPresent": {
@@ -465,7 +465,7 @@ pm.test('[GET]::/crm/leads/:id - Response header Operation-Location is present',
 ### schemaValidation
 
 ```json
-"responseTests": [
+"contractTests": [
       {
         "openApiOperation": "*::/crm/*",
         "schemaValidation": {
