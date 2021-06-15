@@ -2,7 +2,7 @@
 
 In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests)" example, we explained the default generated Postman contract tests.
 
-This example focusses on the manipulation of the Postman collection to make it possible to setup automation, by manipulating
+This example focuses on the manipulation of the Postman collection to make it possible to automate, by manipulating:
 
 - Request bodies
 - Request headers
@@ -11,9 +11,7 @@ This example focusses on the manipulation of the Postman collection to make it p
 _use-cases_:
 
 - Generate Postman flows that require unique values
-
 - Reference a created entity to be used in Read/Update/Delete flows by setting the ID reference as query parameter
-
 - Overwrite an example value with an actual value that exists in the API
 
 ## CLI usage
@@ -24,90 +22,13 @@ portman --cliOptionsFile ./examples/testsuite-overwrites/portman-cli-options.jso
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + overwrite specific values in the generated Postman collection.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and overwrite specific values in the generated Postman collection.
 
 ## Portman settings
 
 The portman settings (in JSON format) consists out of multiple parts, in this example we focus on the **overwrites** section and settings.
 
 file: examples/testsuite-overwrites/portman-config.crm.json
-
-```json
-{
-  "version": 1.0,
-  "overwrites": [
-    {
-      "openApiOperationId": "leadsAdd",
-      "overwriteRequestBody": [
-        {
-          "key": "name",
-          "value": "--{{$randomInt}}",
-          "overwrite": false
-        },
-        {
-          "key": "company_name",
-          "value": "{{$randomCompanyName}} {{$randomColor}}",
-          "overwrite": true
-        },
-        {
-          "key": "monetary_amount",
-          "value": "{{$randomInt}}",
-          "overwrite": true
-        },
-        {
-          "key": "websites[0]",
-          "remove": true
-        },
-        {
-          "key": "social_links[1].url",
-          "remove": true
-        }
-      ]
-    },
-    {
-      "openApiOperation": "DELETE::/crm/leads/{id}",
-      "overwriteRequestQueryParams": [
-        {
-          "key": "raw",
-          "value": false,
-          "overwrite": true
-        }
-      ],
-      "overwriteRequestPathVariables": [
-        {
-          "key": "id",
-          "value": "123456789",
-          "overwrite": true
-        }
-      ]
-    },
-    {
-      "openApiOperationId": "leadsUpdate",
-      "overwriteRequestHeaders": [
-        {
-          "key": "x-apideck-consumer-id",
-          "value": "portman-id-{{$randomInt}}",
-          "overwrite": true
-        }
-      ]
-    },
-    {
-      "openApiOperationId": "leadsAll",
-      "overwriteRequestQueryParams": [
-        {
-          "key": "limit",
-          "disable": true
-        },
-        {
-          "key": "cursor",
-          "remove": true
-        }
-      ]
-    }
-  ]
-
-}
-```
 
 ## Portman - "overwrites" properties
 
@@ -182,6 +103,19 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
           "key": "company_name",
           "value": "{{$randomCompanyName}} {{$randomColor}}",
           "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{$randomInt}}",
+          "overwrite": true
+        },
+        {
+          "key": "websites[0]",
+          "remove": true
+        },
+        {
+          "key": "social_links[1].url",
+          "remove": true
         }
       ]
     },
@@ -218,6 +152,10 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
         {
           "key": "limit",
           "disable": true
+        },
+        {
+          "key": "cursor",
+          "remove": true
         }
       ]
     }
@@ -239,6 +177,18 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
       "key": "company_name",
       "value": "{{$randomCompanyName}} {{$randomColor}}",
       "overwrite": true
+    },{
+      "key": "monetary_amount",
+      "value": "{{$randomInt}}",
+      "overwrite": true
+    },
+    {
+      "key": "websites[0]",
+      "remove": true
+    },
+    {
+      "key": "social_links[1].url",
+      "remove": true
     }
   ]
 }
@@ -247,8 +197,10 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
 This will target the OpenAPI `"openApiOperationId": "leadsAdd"` and will overwrite the request body.
 
 1. the `name` property will be **extended** (because overwrite:false) with `--{{$randomInt}}`
-
 2. the `company_name`property will be **overwritten** (because overwrite:true) with `{{randomCompanyName}} {{randomColor}}`
+3. the `monetary_amount` property will be **overwritten** (because overwrite:true) with `{{$randomInt}}` which will be a number (not a string).
+4. the `"websites[0]` item will be **removed** (because remove:true), which will results in the 1st item in the `websites` array to be removed. The index of the array will be reset.
+5. the `social_links[1].url` property will be **removed** (because remove:true) with the nested `url` property from the 2nd item of the `social_links` array removed.
 
 After the conversion, in the "leadsAdd" request (POST::/crm/leads) in the Postman app, you can find the following result in the request body.
 
@@ -258,15 +210,34 @@ Postman request "Leads" >> "Create lead" Request body:
 
 ```json
 {
-    "name": "Elon Musk--{{$randomInt}}",
-    "company_name": "{{$randomCompanyName}} {{$randomColor}}",
-    "owner_id": "54321",
-    "company_id": "2",
-    "contact_id": "2",
-    "first_name": "Elon",
-    "last_name": "Musk",
-    "description": "A thinker",
-...
+  "name": "Elon Musk--{{$randomInt}}",
+  "company_name": "{{$randomCompanyName}} {{$randomColor}}",
+  "owner_id": "54321",
+  "company_id": "2",
+  "contact_id": "2",
+  "first_name": "Elon",
+  "last_name": "Musk",
+  "description": "A thinker",
+  "monetary_amount": {{$randomInt}},
+  "websites": [
+    {
+      "url": "http://example.com",
+      "id": "12345",
+      "type": "primary"
+    }
+  ],
+  "social_links": [
+    {
+      "url": "https://www.twitter.com/apideck-io",
+      "id": "12345",
+      "type": "twitter"
+    },
+    {
+      "id": "12345",
+      "type": "twitter"
+    }
+  ]
+}
 ```
 
 Each time the request is executed in Postman, the `{{$random}}` variables will be generated with random values like defined on the [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/) page.
@@ -287,8 +258,7 @@ Each time the request is executed in Postman, the `{{$random}}` variables will b
 ```
 
 This will target the OpenAPI `"openApiOperation": "DELETE::/crm/leads/{id}"` and will overwrite the request query params.
-
-1. the `raw`property will be **overwritten** (because overwrite:true) with `false`
+1. The `raw` property will be **overwritten** (because overwrite:true) with `false`
 
 After the conversion, in the "leadsDelete" request (DELETE::/crm/leads/{id}) in the Postman app, you can find the following result in the request query params.
 
@@ -307,12 +277,18 @@ The example below will showcase the "disable" setting.
     {
       "key": "limit",
       "disable": true
+    },{
+      "key": "cursor",
+      "remove": true
     }
   ]
 }
 ```
 
-This will target the OpenAPI `"openApiOperationId": "leadsAll"` and will modify the request query params to set the `limit`property as **disabled** (because disable:true) in Postman.
+This will target the OpenAPI `"openApiOperationId": "leadsAll"` . 
+
+1. The request query params will set the `limit` property as **disabled** (because disable:true) in Postman.
+1. **Remove** the request `cursor` query param (because remove:true) from Postman.
 
 file: examples/testsuite-overwrites/crm.postman.json >>
 
@@ -373,29 +349,3 @@ file: examples/testsuite-overwrites/crm.postman.json >>
 Postman request "Leads" >> "Update lead" Request headers:
 
 ![](./images/overwriteRequestHeaders.png)
-
-## Postman test suite targeting for variables & overwrites
-
-It is possible to assign variables and overwrite query params, headers, request body data with values specifically for the tests.
-
-To be able to do this very specifically, there are options to define the targets:
-
-- **openApiOperationId (String)** : References to the OpenAPI operationId, example: `leadsAll`
-- **openApiOperation (String)** : References to a combination of the OpenAPI method & path, example: `GET::/crm/leads`
-
-An `openApiOperationId` is an optional property. To offer support for OpenAPI documents that don't have operationIds, we have added the `openApiOperation` definition which is the unique combination of the OpenAPI method & path, with a `::` separator symbol. This will allow targeting for very specific OpenAPI items.
-
-To facilitate managing the filtering, we have included wildcard options for the `openApiOperation` option, supporting the methods & path definitions.
-
-_REMARK_: Be sure to put quotes around the target definition.
-
-- Strict matching example: `"openApiOperation": "GET::/crm/leads"`
-  This will target only the "GET" method and the specific path "/crm/leads"
-
-- Method wildcard matching example: `"openApiOperation": "*::/crm/leads"`
-  This will target all methods ('get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace') and the specific path "/crm/leads"
-
-- Path wildcard matching example: `"openApiOperation": "GET::/crm/leads/*"`
-  This will target only the "GET" method and any path matching any folder behind the "/crm", like "/crm/leads" and "/crm/123/buy".
-
-- Method & Path wildcard matching example: `"openApiOperation": "*::/crm/*"` A combination of wildcards for the method and path parts are even possible.

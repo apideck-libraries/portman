@@ -412,11 +412,11 @@ To enable automatic uploads of the generated Postman collection through Portman,
 
 1. Get your Postman API key
 
-![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-0.png)
+![Documentation Pipeline](./docs/img/postman-automation-0.png)
 
-![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-1.png)
+![Documentation Pipeline](./docs/img/postman-automation-1.png)
 
-![Documentation Pipeline](https://github.com/apideck-libraries/portman/blob/main/docs/img/Postman-automation-2.png)
+![Documentation Pipeline](./docs/img/postman-automation-2.png)
 
 2. Goto the root folder of your project
 
