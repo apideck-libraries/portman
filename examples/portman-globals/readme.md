@@ -15,7 +15,7 @@ portman --cliOptionsFile ./examples/portman-globals/portman-cli-options.json
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenApi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple.
 
 ## Portman settings
 

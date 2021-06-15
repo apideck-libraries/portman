@@ -1,8 +1,8 @@
-# OpenApi Postman test suite generation
+# OpenAPI Postman test suite generation
 
-This example contains the setup of Portman test suite generation, which will convert the OpenApi document to a Postman collection, while adding Postman tests. The generated tests are focussed on the API contracts (the definition of the request/response with all properties), hence the reference to "API contract testing".
+This example contains the setup of Portman test suite generation, which will convert the OpenAPI document to a Postman collection, while adding Postman tests. The generated tests are focussed on the API contracts (the definition of the request/response with all properties), hence the reference to "API contract testing".
 
-_use-case_: convert OpenApi to Postman with a range of Postman contract tests, automatically generated, without any complex configuration or manual writing of tests.
+_use-case_: convert OpenAPI to Postman with a range of Postman contract tests, automatically generated, without any complex configuration or manual writing of tests.
 
 ## CLI usage
 
@@ -12,7 +12,7 @@ yarn portman --cliOptionsFile ./examples/testsuite-contract-tests/portman-cli-op
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenApi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box.
 
 ## Portman settings
 
@@ -84,10 +84,10 @@ Version 1.0
 | ----------------------------------- | ---------------- | ------- | --------- | ------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- | --------------- |
 | Response status success (2xx) check | StatusSuccess    | boolean | false     | enabled            |                    | Adds the check if the response of the postman request return a 2xx                                                                                           | true     | TEST GENERATION |
 | Response time check                 | responseTime     | boolean | false     | enabled            | maxMs 300          | Adds the check if the response of the postman request is within a number of ms.                                                                              | true     | TEST GENERATION |
-| Response content-type check         | contentType      | boolean | false     | enabled            |                    | Adds the check if the postman response header is matching the expected content-type defined in the OpenApi spec.                                             | true     | TEST GENERATION |
-| Response JSON body format check     | jsonBody         | boolean | false     | enabled            |                    | Adds the check if the postman response body is matching the expected content-type defined in the OpenApi spec.                                               | true     | TEST GENERATION |
-| Response Schema validation check    | schemaValidation | boolean | false     | enabled            |                    | Adds the check if the postman response body is matching the JSON schema defined in the OpenApi spec. The JSON schema is inserted inline in the postman test. | true     | TEST GENERATION |
-| Response Header presence check      | headersPresent   | boolean | false     | enabled            |                    | Adds the check if the postman response header has the header names present, like defined in the OpenApi spec.                                                | true     | TEST GENERATION |
+| Response content-type check         | contentType      | boolean | false     | enabled            |                    | Adds the check if the postman response header is matching the expected content-type defined in the OpenAPI spec.                                             | true     | TEST GENERATION |
+| Response JSON body format check     | jsonBody         | boolean | false     | enabled            |                    | Adds the check if the postman response body is matching the expected content-type defined in the OpenAPI spec.                                               | true     | TEST GENERATION |
+| Response Schema validation check    | schemaValidation | boolean | false     | enabled            |                    | Adds the check if the postman response body is matching the JSON schema defined in the OpenAPI spec. The JSON schema is inserted inline in the postman test. | true     | TEST GENERATION |
+| Response Header presence check      | headersPresent   | boolean | false     | enabled            |                    | Adds the check if the postman response header has the header names present, like defined in the OpenAPI spec.                                                | true     | TEST GENERATION |
 
 ## Example explained
 
@@ -140,7 +140,7 @@ file: examples/testsuite-contract-tests/portman.crm.json >>
 
 ```
 
-The result will be that initial OpenApi file, with all request and response details will be used to generate the specific tests. Per Postman request, you can find the specific tests in the "Tests" tab in the Postman application.
+The result will be that initial OpenAPI file, with all request and response details will be used to generate the specific tests. Per Postman request, you can find the specific tests in the "Tests" tab in the Postman application.
 
 file: examples/testsuite-contract-tests/crm.postman.json >>
 
@@ -409,7 +409,7 @@ pm.test('[GET]::/crm/leads/:id - Response time is less than 300ms', function () 
 ]
 ```
 
-Generates a check to validate the content-type headers, based on the content-type defined in the OpenApi response.
+Generates a check to validate the content-type headers, based on the content-type defined in the OpenAPI response.
 
 ```js
 // Validate if response header has matching content-type
@@ -431,7 +431,7 @@ pm.test('[GET]::/crm/leads/:id - Content-Type is application/json', function () 
 ]
 ```
 
-Generates a check to validate if the response body is a JSON object, based on the content-type defined in the OpenApi response..
+Generates a check to validate if the response body is a JSON object, based on the content-type defined in the OpenAPI response..
 
 ```js
 // Response should have JSON Body
@@ -453,7 +453,7 @@ pm.test('[GET] /crm/leads/{id} - Response has JSON Body', function () {
 ]
 ```
 
-Generates a check to validate if the response has a certain HTTP header present, based on the header properties defined in the OpenApi response.
+Generates a check to validate if the response has a certain HTTP header present, based on the header properties defined in the OpenAPI response.
 
 ```js
 // Validate if response header is present
@@ -475,7 +475,7 @@ pm.test('[GET]::/crm/leads/:id - Response header Operation-Location is present',
 ]
 ```
 
-Generates a check to validate if the response respects all the defined response properties, allowed property types, required fields, allowed enums, .... It does a full JSON schema verification, based on the OpenApi response properties.
+Generates a check to validate if the response respects all the defined response properties, allowed property types, required fields, allowed enums, .... It does a full JSON schema verification, based on the OpenAPI response properties.
 
 ```js
 // Response Validation

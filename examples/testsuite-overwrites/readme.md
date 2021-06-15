@@ -1,4 +1,4 @@
-# OpenApi Postman test suite generation - overwrites
+# OpenAPI Postman test suite generation - overwrites
 
 In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
 
@@ -26,7 +26,7 @@ yarn portman --cliOptionsFile ./examples/testsuite-overwrites/portman-cli-option
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenApi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + overwrite specific values in the generated Postman collection.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + overwrite specific values in the generated Postman collection.
 
 ## Portman settings
 
@@ -129,12 +129,12 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json
 
 Version 1.0
 
-To facilitate automation, you might want to modify property values with "randomized" or specific values. The overwrites are mapped based on the OpenApi operationId or OpenApi Operation reference.
+To facilitate automation, you might want to modify property values with "randomized" or specific values. The overwrites are mapped based on the OpenAPI operationId or OpenAPI Operation reference.
 
 ### Target options:
 
-- **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman request body will be extended. (example: `leadsAll`)
-- **openApiOperation (String)** : Reference to combination of the OpenApi method & path, for which the Postman request body will be extended (example: `GET::/crm/leads`)
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman request body will be extended. (example: `leadsAll`)
+- **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request body will be extended (example: `GET::/crm/leads`)
 
 These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for overwrites. See below for more options on targetting.
 
@@ -259,7 +259,7 @@ file: examples/testsuite-overwrites/postman-testsuite.crm.json >>
 }
 ```
 
-This will target the OpenApi `"openApiOperationId": "leadsAdd"` and will overwrite the request body.
+This will target the OpenAPI `"openApiOperationId": "leadsAdd"` and will overwrite the request body.
 
 1. the `name` property will be **extended** (because overwrite:false) with `--{{$randomInt}}`
 
@@ -301,7 +301,7 @@ Each time the request is executed in Postman, the `{{$random}}` variables will b
 }
 ```
 
-This will target the OpenApi `"openApiOperation": "DELETE::/crm/leads/{id}"` and will overwrite the request query params.
+This will target the OpenAPI `"openApiOperation": "DELETE::/crm/leads/{id}"` and will overwrite the request query params.
 
 1. the `raw`property will be **overwritten** (because overwrite:true) with `false`
 
@@ -327,7 +327,7 @@ The example below will showcase the "disable" setting.
 }
 ```
 
-This will target the OpenApi `"openApiOperationId": "leadsAll"` and will modify the request query params to set the `limit`property as **disabled** (because disable:true) in Postman.
+This will target the OpenAPI `"openApiOperationId": "leadsAll"` and will modify the request query params to set the `limit`property as **disabled** (because disable:true) in Postman.
 
 file: examples/testsuite-overwrites/crm.postman.json >>
 
@@ -350,7 +350,7 @@ Postman request "Leads" >> "Get leads" Request query params:
 }
 ```
 
-This will target the OpenApi `"openApiOperation": "DELETE::/crm/leads/{id}"` and will overwrite the request query params.
+This will target the OpenAPI `"openApiOperation": "DELETE::/crm/leads/{id}"` and will overwrite the request query params.
 
 1. the `id`property will be **overwritten** (because overwrite:true) with `123456789`
 
@@ -377,7 +377,7 @@ Postman request "Leads" >> "Delete lead" Request query params:
 }
 ```
 
-This will target the OpenApi `"openApiOperationId": "leadsUpdate"` and will overwrite the request query params.
+This will target the OpenAPI `"openApiOperationId": "leadsUpdate"` and will overwrite the request query params.
 
 1. the `x-apideck-consumer-id` header property will be **overwritten** (because overwrite:true) with `portman-id-{{$randomInt}}`
 
@@ -395,10 +395,10 @@ It is possible to assign variables and overwrite query params, headers, request 
 
 To be able to do this very specifically, there are options to define the targets:
 
-- **openApiOperationId (String)** : References to the OpenApi operationId, example: `leadsAll`
-- **openApiOperation (String)** : References to a combination of the OpenApi method & path, example: `GET::/crm/leads`
+- **openApiOperationId (String)** : References to the OpenAPI operationId, example: `leadsAll`
+- **openApiOperation (String)** : References to a combination of the OpenAPI method & path, example: `GET::/crm/leads`
 
-An `openApiOperationId` is an optional property. To offer support for OpenApi documents that don't have operationIds, we have added the `openApiOperation` definition which is the unique combination of the OpenApi method & path, with a `::` separator symbol. This will allow targeting for very specific OpenApi items.
+An `openApiOperationId` is an optional property. To offer support for OpenAPI documents that don't have operationIds, we have added the `openApiOperation` definition which is the unique combination of the OpenAPI method & path, with a `::` separator symbol. This will allow targeting for very specific OpenAPI items.
 
 To facilitate managing the filtering, we have included wildcard options for the `openApiOperation` option, supporting the methods & path definitions.
 

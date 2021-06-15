@@ -1,4 +1,4 @@
-# OpenApi Postman test suite generation - assignVariables
+# OpenAPI Postman test suite generation - assignVariables
 
 In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests.
 
@@ -18,7 +18,7 @@ portman --cliOptionsFile ./examples/testsuite-assign-variables/portman-cli-optio
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenApi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + set Postman variables from executed Postman requests.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + set Postman variables from executed Postman requests.
 
 ## Portman settings
 
@@ -39,13 +39,13 @@ file: examples/testsuite-assign-variables/portman.crm.json
 
 Version 1.0
 
-To facilitate automation, we provide the option to set Postman collection variables with values from the response. The assigning of the "pm.collectionVariables" are mapped based on the OpenApi operationId or OpenApi Operation reference.
+To facilitate automation, we provide the option to set Postman collection variables with values from the response. The assigning of the "pm.collectionVariables" are mapped based on the OpenAPI operationId or OpenAPI Operation reference.
 
 ### Target options:
 
-- **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman pm.collectionVariables variable
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables variable
   will be set. (example: `listPets`)
-- **openApiOperation (String)** : Reference to the combination of the OpenApi method & path, for which the Postman
+- **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman
   pm.collectionVariables will be set. (example: `GET::/pets`)
 
 These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for overwrites.
@@ -114,7 +114,7 @@ file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
   ],
 ```
 
-This will target the OpenApi `"openApiOperationId": "leadsAdd"` and will assign the `data.id` from the request body to a Postman collection variable with the name `leadsAdd.id`
+This will target the OpenAPI `"openApiOperationId": "leadsAdd"` and will assign the `data.id` from the request body to a Postman collection variable with the name `leadsAdd.id`
 
 The API response for the create operation will contain:
 
@@ -196,7 +196,7 @@ if (typeof jsonData.data.id !== 'undefined') {
   ],
 ```
 
-This will target the OpenApi GET method for the `/crm/leads/{id}` and will assign the value of the specific`header` from the response header to a Postman collection.
+This will target the OpenAPI GET method for the `/crm/leads/{id}` and will assign the value of the specific`header` from the response header to a Postman collection.
 
 The API response for the create operation will contain:
 
@@ -238,7 +238,7 @@ if (leadsOneOperationLocation !== undefined) {
   ],
 ```
 
-This will target the OpenApi with OperationId `leadsAdd` and will assign the value of the request body to a Postman collection.
+This will target the OpenAPI with OperationId `leadsAdd` and will assign the value of the request body to a Postman collection.
 
 The request body for the create operation will contain:
 
@@ -260,7 +260,7 @@ pm.collectionVariables.set('leadsAdd.company_name', 'Spacex')
 console.log('- use {{leadsAdd.company_name}} as collection variable for value', 'Spacex')
 ```
 
-The value will be taken from the original OpenApi request body.
+The value will be taken from the original OpenAPI request body.
 
 ## assignVariables with usage in overwriteRequestQueryParams
 
@@ -336,7 +336,7 @@ assignVariables": [
   ]
 ```
 
-This will target the OpenApi `"openApiOperation": "leadsAdd"` and will get the `company_name` from the request body (which is defined in OpenApi)(before the Postman request is send).
+This will target the OpenAPI `"openApiOperation": "leadsAdd"` and will get the `company_name` from the request body (which is defined in OpenAPI)(before the Postman request is send).
 
 Postman request "Leads" >> "Create lead" test:
 

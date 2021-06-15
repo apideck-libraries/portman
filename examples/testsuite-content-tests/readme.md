@@ -1,10 +1,10 @@
-# OpenApi Postman test suite generation - Content Tests
+# OpenAPI Postman test suite generation - Content Tests
 
 In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests)" example, we explained the default generated Postman contract tests.
 
 This example focuses on the extension of the contract test suite with specific content tests. While the contract tests focusses on the validation of the request/response properties, the "content tests" focusses on validating the actual values of the API.
 
-_use-case_: convert OpenApi to Postman with a range of Postman tests automatically generated, extended by content tests, where we validate the response values.
+_use-case_: convert OpenAPI to Postman with a range of Postman tests automatically generated, extended by content tests, where we validate the response values.
 
 ## CLI usage
 
@@ -14,7 +14,7 @@ portman --cliOptionsFile ./examples/testsuite-content-tests/portman-cli-options.
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenApi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + a number of content tests.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + a number of content tests.
 
 ## Portman settings
 
@@ -85,13 +85,13 @@ Version 1.0
 
 Next to the generated tests, it is possible to define "content" tests where a property and the value of the response body should exist and match a specific value or variable.
 
-The contentTests are mapped based on the OpenApi operationId or the OpenApi Operation reference (method + path).
+The contentTests are mapped based on the OpenAPI operationId or the OpenAPI Operation reference (method + path).
 Anything added in `responseBodyTests` array, will be added as content check to the Postman tests.
 
 ##### Target options:
 
-- **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman Response body will be tested. (example: `leadsAll`)
-- **openApiOperation (String)** : Reference to the combination of the OpenApi method & path, for which the Postman Response body will be test (example: `GET::/leads`)
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman Response body will be tested. (example: `leadsAll`)
+- **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman Response body will be test (example: `GET::/leads`)
 
 These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for content tests.
 
@@ -263,9 +263,9 @@ These 2 tests are added for each "contentTests" item that is defined.
 
 ## Alternative targeting option
 
-In the above example we are using the OpenApi `operationId: leadsOne`to target the content check for that specific operation.
+In the above example we are using the OpenAPI `operationId: leadsOne`to target the content check for that specific operation.
 
-As alternative, you can also define the target as `openApiOperation`, which is the combination of the OpenApi method & path
+As alternative, you can also define the target as `openApiOperation`, which is the combination of the OpenAPI method & path
 
 In the example below, we target the `GET` method for the path `/crm/leads`.
 
