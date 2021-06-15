@@ -39,7 +39,7 @@ file: examples/testsuite-overwrites/portman-config.crm.json
   "version": 1.0,
   "tests": {
     "contractTests": {
-      "StatusSuccess": {
+      "statusSuccess": {
         "enabled": true
       },
       "responseTime": {

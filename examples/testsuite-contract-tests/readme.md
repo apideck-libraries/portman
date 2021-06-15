@@ -25,7 +25,7 @@ The portman settings (in JSON format) consists out of multiple parts:
     - **variationTests** : refers to the options to define variation tests.
 - **extendTests**:  which refers the custom additions of manual created Postman tests.
 
-In this example we focus on the **tests** section and settings.
+In this example we focus on the **contractTests** section and settings.
 
 file: examples/testsuite-contract-tests/portman-config.crm.json
 
@@ -349,7 +349,7 @@ pm.test('[GET]::/crm/leads/:id - Response header Operation-Location is present',
 })
 ```
 
-### StatusSuccess
+### statusSuccess
 
 ```json
 "contractTests": [
