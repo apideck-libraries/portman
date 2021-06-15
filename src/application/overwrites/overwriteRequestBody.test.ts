@@ -68,4 +68,42 @@ describe('overwriteRequestBody', () => {
     const result = overwriteRequestBody(overwriteValues, pmOperation)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
+
+  it('should overwrite the body param with boolean instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should append to the body param with string {{$randomInt}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '--{{$randomInt}}',
+        overwrite: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with raw {{$randomInt}} instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '{{$randomInt}}',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 })
