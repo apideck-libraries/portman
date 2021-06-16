@@ -39,10 +39,7 @@ export class TestSuite {
   contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
   variationTests?: VariationTestConfig[]
-<<<<<<< HEAD
   extendTests?: ExtendTestsConfig[]
-=======
->>>>>>> 4c9ddc0 (1.0.0 exclude for operations (#48))
 
   pmResponseJsonVarInjected: boolean
 
