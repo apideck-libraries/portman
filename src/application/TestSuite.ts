@@ -26,6 +26,7 @@ import {
   VariationTestConfig
 } from '../types'
 import { inRange } from '../utils'
+import { inOperations } from '../utils/inOperations'
 
 export class TestSuite {
   public collection: Collection
@@ -106,6 +107,13 @@ export class TestSuite {
 
     return pmOperations
   }
+
+  public getTestTypeFromContractTests = (type: string): ContractTestConfig => {
+    return this.config?.tests?.contractTests?.find(
+      testConfig => !!testConfig[type]
+    ) as ContractTestConfig
+  }
+
   public injectContractTests = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
@@ -123,12 +131,26 @@ export class TestSuite {
         continue // skip this response
       }
 
+      // List excludeForOperations
+      const optStatusSuccess = this.getTestTypeFromContractTests('statusSuccess')
+      const optResponseTime = this.getTestTypeFromContractTests('responseTime')
+      const optContentType = this.getTestTypeFromContractTests('contentType')
+      const optJsonBody = this.getTestTypeFromContractTests('jsonBody')
+      const optSchemaValidation = this.getTestTypeFromContractTests('schemaValidation')
+      const optHeadersPresent = this.getTestTypeFromContractTests('headersPresent')
+
       // Add status success check
-      if (config.find(({ statusSuccess }) => !!statusSuccess)) {
+      if (
+        config.find(({ statusSuccess }) => !!statusSuccess) &&
+        !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)
+      ) {
         pmOperation = testResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
-      if (config.find(({ responseTime }) => !!responseTime)) {
+      if (
+        config.find(({ responseTime }) => !!responseTime) &&
+        !inOperations(pmOperation, optResponseTime?.excludeForOperations)
+      ) {
         const { responseTime } = this.config?.tests?.contractTests?.find(
           testConfig => !!testConfig['responseTime']
         ) as ContractTestConfig
@@ -143,17 +165,28 @@ export class TestSuite {
           if (!contentType) continue
 
           // Add contentType check
-          if (config.find(({ contentType }) => !!contentType)) {
+          if (
+            config.find(({ contentType }) => !!contentType) &&
+            !inOperations(pmOperation, optContentType?.excludeForOperations)
+          ) {
             pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
           }
 
           // Add json body check
-          if (config.find(({ jsonBody }) => !!jsonBody) && contentType === 'application/json') {
+          if (
+            config.find(({ jsonBody }) => !!jsonBody) &&
+            contentType === 'application/json' &&
+            !inOperations(pmOperation, optJsonBody?.excludeForOperations)
+          ) {
             pmOperation = testResponseJsonBody(pmOperation, oaOperation)
           }
 
           // Add json schema check
-          if (config.find(({ schemaValidation }) => !!schemaValidation) && content?.schema) {
+          if (
+            config.find(({ schemaValidation }) => !!schemaValidation) &&
+            content?.schema &&
+            !inOperations(pmOperation, optSchemaValidation?.excludeForOperations)
+          ) {
             pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
           }
         }
@@ -165,7 +198,10 @@ export class TestSuite {
           // Early skip if no schema defined
           if (!headerName) continue
           // Add response header checks headersPresent
-          if (config.find(({ headersPresent }) => !!headersPresent)) {
+          if (
+            config.find(({ headersPresent }) => !!headersPresent) &&
+            !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
+          ) {
             pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
           }
         }
@@ -199,7 +235,7 @@ export class TestSuite {
 
     assignVarSettings.map(assignVar => {
       if (!assignVar?.collectionVariables) return
-      //Get Postman operations to apply assign variables for
+      // Get Postman operations to apply assign variables for
       const pmOperations = this.getOperationsFromSetting(assignVar)
       let fixedValueCounter = 0
 

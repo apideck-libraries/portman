@@ -24,6 +24,7 @@ export type StatusCode = ContractTest & {
 export type ContractTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   statusSuccess?: StatusSuccess
   statusCode?: StatusCode
   contentType?: ContentType
