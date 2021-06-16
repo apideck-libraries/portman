@@ -37,6 +37,7 @@ export type ContractTestConfig = {
 export type ContentTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   responseBodyTests: ResponseBodyTest[]
 }
 

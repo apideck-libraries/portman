@@ -221,8 +221,12 @@ export class TestSuite {
 
       pmOperations.map(pmOperation => {
         // check content of response body
-        contentTest?.responseBodyTests &&
+        if (
+          contentTest?.responseBodyTests &&
+          !inOperations(pmOperation, contentTest?.excludeForOperations)
+        ) {
           testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
+        }
       })
     })
 
