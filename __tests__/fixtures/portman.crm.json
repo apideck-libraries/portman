@@ -106,6 +106,14 @@
           }
         ]
       }
+    ],
+    "extendTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "tests": [
+          "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
+        ]
+      }
     ]
   },
   "assignVariables": [
@@ -115,14 +123,6 @@
         {
           "responseBodyProp": "data[0].id"
         }
-      ]
-    }
-  ],
-  "extendTests": [
-    {
-      "openApiOperationId": "companiesAll",
-      "tests": [
-        "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
       ]
     }
   ],

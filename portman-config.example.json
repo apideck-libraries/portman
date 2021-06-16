@@ -40,6 +40,36 @@
         }
       }
     ],
+    "contentTests": [
+      {
+        "openApiOperationId": "leadsAll",
+        "responseBodyTest": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          },
+          {
+            "key": "data[0].monetary_amount",
+            "value": 75000
+          },
+          {
+            "key": "resource",
+            "value": "companies"
+          }
+        ]
+      }
+    ],
+    "extendTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "overwrite": false,
+        "append": true,
+        "tests": [
+          "pm.test('200 ok', function(){pm.response.to.have.status(200);});",
+          "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
+        ]
+      }
+    ],
     "variationTests": [
       {
         "openApiOperationId": "leadsAdd",
@@ -97,36 +127,6 @@
       }
     ]
   },
-  "contentTests": [
-    {
-      "openApiOperationId": "leadsAll",
-      "responseBodyTest": [
-        {
-          "key": "data[0].company_name",
-          "value": "Spacex"
-        },
-        {
-          "key": "data[0].monetary_amount",
-          "value": 75000
-        },
-        {
-          "key": "resource",
-          "value": "companies"
-        }
-      ]
-    }
-  ],
-  "extendTests": [
-    {
-      "openApiOperationId": "leadsAdd",
-      "overwrite": false,
-      "append": true,
-      "tests": [
-        "pm.test('200 ok', function(){pm.response.to.have.status(200);});",
-        "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
-      ]
-    }
-  ],
   "assignVariables": [
     {
       "openApiOperation": "GET::/crm/leads/{id}",

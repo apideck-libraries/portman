@@ -41,9 +41,9 @@
       }
     ],
     "contentTests": [],
+    "extendTests": [],
     "variationTests": []
   },
-  "extendTests": [],
   "assignVariables": [],
   "overwrites": [],
   "globals": {

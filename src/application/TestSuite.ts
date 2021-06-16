@@ -217,8 +217,8 @@ export class TestSuite {
   }
 
   public injectExtendedTests = (): PostmanMappedOperation[] => {
-    if (!this.config?.extendTests) return this.postmanParser.mappedOperations
-    const extendedTestsSettings = this.config.extendTests
+    if (!this.config?.tests?.extendTests) return this.postmanParser.mappedOperations
+    const extendedTestsSettings = this.config.tests.extendTests
 
     extendedTestsSettings.map(extSetting => {
       //Get Postman operations to apply assign variables for
