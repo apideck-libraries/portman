@@ -111,6 +111,7 @@ export type AssignVariablesConfig = {
 export type ExtendTestsConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   tests: string[]
   overwrite?: boolean
   append?: boolean

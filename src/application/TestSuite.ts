@@ -265,7 +265,9 @@ export class TestSuite {
       const pmOperations = this.getOperationsFromSetting(extSetting)
       pmOperations.map(pmOperation => {
         // Assign Postman collection variable with a request body value
-        extSetting?.tests && extendTest(extSetting, pmOperation)
+        if (extSetting?.tests && !inOperations(pmOperation, extSetting?.excludeForOperations)) {
+          extendTest(extSetting, pmOperation)
+        }
       })
     })
 
