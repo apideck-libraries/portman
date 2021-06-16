@@ -39,11 +39,11 @@
           "enabled": true
         }
       }
-    ]
+    ],
+    "contentTests": [],
+    "extendTests": [],
+    "variationTests": []
   },
-  "contentTests": [],
-  "extendTests": [],
-  "variationTests": [],
   "assignVariables": [],
   "overwrites": [],
   "globals": {
