@@ -34,7 +34,7 @@
       "overwriteRequestQueryParams": [
         {
           "key": "raw",
-          "value": false,
+          "value": "false",
           "overwrite": true
         }
       ],

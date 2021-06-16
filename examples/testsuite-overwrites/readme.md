@@ -124,7 +124,7 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
       "overwriteRequestQueryParams": [
         {
           "key": "raw",
-          "value": false,
+          "value": "false",
           "overwrite": true
         }
       ],
@@ -250,7 +250,7 @@ Each time the request is executed in Postman, the `{{$random}}` variables will b
   "overwriteRequestQueryParams": [
     {
       "key": "raw",
-      "value": false,
+      "value": "false",
       "overwrite": true
     }
   ]
@@ -258,7 +258,7 @@ Each time the request is executed in Postman, the `{{$random}}` variables will b
 ```
 
 This will target the OpenAPI `"openApiOperation": "DELETE::/crm/leads/{id}"` and will overwrite the request query params.
-1. The `raw` property will be **overwritten** (because overwrite:true) with `false`
+1. The `raw` property will be **overwritten** (because overwrite:true) with `"false"`
 
 After the conversion, in the "leadsDelete" request (DELETE::/crm/leads/{id}) in the Postman app, you can find the following result in the request query params.
 
