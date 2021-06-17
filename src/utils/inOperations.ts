@@ -7,5 +7,5 @@ export const inOperations = (
   // Early exit
   if (!operations) return false
 
-  return operations.includes(target?.id) || operations.includes(target?.pathRef)
+  return (target?.id && operations.includes(target?.id)) || operations.includes(target?.pathRef)
 }

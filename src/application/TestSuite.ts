@@ -18,9 +18,9 @@ import { PostmanMappedOperation, PostmanParser } from '../postman'
 import {
   AssignVariablesConfig,
   ContentTestConfig,
+  ContractTestConfig,
   OverwriteRequestConfig,
   PortmanConfig,
-  ContractTestConfig,
   ResponseTime,
   TestSuiteOptions,
   VariationTestConfig
@@ -35,6 +35,10 @@ export class TestSuite {
   postmanParser: PostmanParser
   config: PortmanConfig
 
+  contractTests?: ContractTestConfig[]
+  contentTests?: ContentTestConfig[]
+  variationTests?: VariationTestConfig[]
+
   pmResponseJsonVarInjected: boolean
 
   constructor(options: TestSuiteOptions) {
@@ -47,13 +51,21 @@ export class TestSuite {
     this.config = config
 
     this.collection = postmanParser.collection
+    this.setupTests()
+  }
+
+  setupTests = (): void => {
+    if (!this.config?.tests) return
+
+    this.contractTests = this.config?.tests?.contractTests
+    this.contentTests = this.config?.tests?.contentTests
+    this.variationTests = this.config?.tests?.variationTests
   }
 
   public generateAutomatedTests = (): PostmanMappedOperation[] => {
-    if (!this.config?.tests || !this.config?.tests?.contractTests)
-      return this.postmanParser.mappedOperations
+    if (!this.contractTests) return this.postmanParser.mappedOperations
 
-    const contractTests = this.config.tests.contractTests
+    const contractTests = this.contractTests
 
     return this.postmanParser.mappedOperations.map(pmOperation => {
       // Get OpenApi responses
@@ -69,9 +81,9 @@ export class TestSuite {
   }
 
   public generateVariationTests = (): void => {
-    if (!this.config?.tests?.variationTests) return
+    if (!this.variationTests) return
 
-    const variationTests = this.config.tests.variationTests
+    const variationTests = this.variationTests
     const variationWriter = new VariationWriter({ testSuite: this })
 
     variationTests.map(variationTest => {
@@ -88,8 +100,9 @@ export class TestSuite {
     this.collection = variationWriter.mergeToCollection(this.collection)
   }
 
-  getOperationsFromSetting(
+  public getOperationsFromSetting(
     settings:
+      | ContractTestConfig
       | OverwriteRequestConfig
       | AssignVariablesConfig
       | ContentTestConfig
@@ -105,19 +118,30 @@ export class TestSuite {
       pmOperations = this.postmanParser.getOperationsByIds([openApiOperationId])
     }
 
+    if (settings?.excludeForOperations) {
+      const excludedOperations = settings.excludeForOperations
+
+      pmOperations = pmOperations.filter((pmOperation: PostmanMappedOperation) => {
+        return (
+          (pmOperation?.id && !excludedOperations.includes(pmOperation?.id)) ||
+          !excludedOperations.includes(pmOperation?.pathRef)
+        )
+      })
+    }
     return pmOperations
   }
 
-  public getTestTypeFromContractTests = (type: string): ContractTestConfig => {
-    return this.config?.tests?.contractTests?.find(
-      testConfig => !!testConfig[type]
-    ) as ContractTestConfig
+  public getTestTypeFromContractTests = (
+    contractTests: ContractTestConfig[],
+    type: string
+  ): ContractTestConfig | undefined => {
+    return contractTests?.find(testConfig => !!testConfig[type])
   }
 
   public injectContractTests = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
-    config: ContractTestConfig[]
+    contractTests: ContractTestConfig[]
   ): PostmanMappedOperation => {
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -132,28 +156,23 @@ export class TestSuite {
       }
 
       // List excludeForOperations
-      const optStatusSuccess = this.getTestTypeFromContractTests('statusSuccess')
-      const optResponseTime = this.getTestTypeFromContractTests('responseTime')
-      const optContentType = this.getTestTypeFromContractTests('contentType')
-      const optJsonBody = this.getTestTypeFromContractTests('jsonBody')
-      const optSchemaValidation = this.getTestTypeFromContractTests('schemaValidation')
-      const optHeadersPresent = this.getTestTypeFromContractTests('headersPresent')
+      const optStatusSuccess = this.getTestTypeFromContractTests(contractTests, 'statusSuccess')
+      const optResponseTime = this.getTestTypeFromContractTests(contractTests, 'responseTime')
+      const optContentType = this.getTestTypeFromContractTests(contractTests, 'contentType')
+      const optJsonBody = this.getTestTypeFromContractTests(contractTests, 'jsonBody')
+      const optSchemaValidation = this.getTestTypeFromContractTests(
+        contractTests,
+        'schemaValidation'
+      )
+      const optHeadersPresent = this.getTestTypeFromContractTests(contractTests, 'headersPresent')
 
       // Add status success check
-      if (
-        config.find(({ statusSuccess }) => !!statusSuccess) &&
-        !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)
-      ) {
+      if (optStatusSuccess && !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)) {
         pmOperation = testResponseStatusSuccess(pmOperation, oaOperation)
       }
       // Add responseTime check
-      if (
-        config.find(({ responseTime }) => !!responseTime) &&
-        !inOperations(pmOperation, optResponseTime?.excludeForOperations)
-      ) {
-        const { responseTime } = this.config?.tests?.contractTests?.find(
-          testConfig => !!testConfig['responseTime']
-        ) as ContractTestConfig
+      if (optResponseTime && !inOperations(pmOperation, optResponseTime?.excludeForOperations)) {
+        const { responseTime } = optResponseTime
         pmOperation = testResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
       }
 
@@ -165,16 +184,13 @@ export class TestSuite {
           if (!contentType) continue
 
           // Add contentType check
-          if (
-            config.find(({ contentType }) => !!contentType) &&
-            !inOperations(pmOperation, optContentType?.excludeForOperations)
-          ) {
+          if (optContentType && !inOperations(pmOperation, optContentType?.excludeForOperations)) {
             pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
           }
 
           // Add json body check
           if (
-            config.find(({ jsonBody }) => !!jsonBody) &&
+            optJsonBody &&
             contentType === 'application/json' &&
             !inOperations(pmOperation, optJsonBody?.excludeForOperations)
           ) {
@@ -183,7 +199,7 @@ export class TestSuite {
 
           // Add json schema check
           if (
-            config.find(({ schemaValidation }) => !!schemaValidation) &&
+            optSchemaValidation &&
             content?.schema &&
             !inOperations(pmOperation, optSchemaValidation?.excludeForOperations)
           ) {
@@ -199,7 +215,7 @@ export class TestSuite {
           if (!headerName) continue
           // Add response header checks headersPresent
           if (
-            config.find(({ headersPresent }) => !!headersPresent) &&
+            optHeadersPresent &&
             !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
           ) {
             pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
@@ -211,9 +227,8 @@ export class TestSuite {
   }
 
   public injectContentTests = (): PostmanMappedOperation[] => {
-    if (!this.config?.tests || !this.config?.tests?.contentTests)
-      return this.postmanParser.mappedOperations
-    const contentTests = this.config.tests.contentTests
+    if (!this.contentTests) return this.postmanParser.mappedOperations
+    const contentTests = this.contentTests
 
     contentTests.map(contentTest => {
       //Get Postman operations to inject content test for
@@ -221,10 +236,7 @@ export class TestSuite {
 
       pmOperations.map(pmOperation => {
         // check content of response body
-        if (
-          contentTest?.responseBodyTests &&
-          !inOperations(pmOperation, contentTest?.excludeForOperations)
-        ) {
+        if (contentTest?.responseBodyTests) {
           testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
         }
       })
@@ -237,17 +249,17 @@ export class TestSuite {
     if (!this.config?.assignVariables) return this.postmanParser.mappedOperations
     const assignVarSettings = this.config.assignVariables
 
-    assignVarSettings.map(assignVar => {
-      if (!assignVar?.collectionVariables) return
+    assignVarSettings.map(assignVarSetting => {
+      if (!assignVarSetting?.collectionVariables) return
       // Get Postman operations to apply assign variables for
-      const pmOperations = this.getOperationsFromSetting(assignVar)
+      const pmOperations = this.getOperationsFromSetting(assignVarSetting)
       let fixedValueCounter = 0
 
       pmOperations.map(pmOperation => {
         // Loop over all defined variable value sources
         fixedValueCounter = assignCollectionVariables(
           pmOperation,
-          assignVar,
+          assignVarSetting,
           fixedValueCounter
         ) as number
       })
@@ -260,13 +272,13 @@ export class TestSuite {
     if (!this.config?.extendTests) return this.postmanParser.mappedOperations
     const extendedTestsSettings = this.config.extendTests
 
-    extendedTestsSettings.map(extSetting => {
+    extendedTestsSettings.map(extendedTestsSetting => {
       //Get Postman operations to apply assign variables for
-      const pmOperations = this.getOperationsFromSetting(extSetting)
+      const pmOperations = this.getOperationsFromSetting(extendedTestsSetting)
       pmOperations.map(pmOperation => {
         // Assign Postman collection variable with a request body value
-        if (extSetting?.tests && !inOperations(pmOperation, extSetting?.excludeForOperations)) {
-          extendTest(extSetting, pmOperation)
+        if (extendedTestsSetting?.tests) {
+          extendTest(extendedTestsSetting, pmOperation)
         }
       })
     })

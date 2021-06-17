@@ -44,6 +44,7 @@ export type ContentTestConfig = {
 export type VariationTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   variations: VariationConfig[]
 }
 
@@ -87,6 +88,7 @@ export type OverwritePathIdVariableConfig = {
 export type OverwriteRequestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   overwriteRequestQueryParams?: OverwriteQueryParamConfig[]
   overwriteRequestPathVariables?: OverwritePathVariableConfig[]
   overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
@@ -105,6 +107,7 @@ export type CollectionVariableConfig = {
 export type AssignVariablesConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   collectionVariables: CollectionVariableConfig[]
 }
 
