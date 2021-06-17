@@ -23,7 +23,7 @@ export const promptInit = async (): Promise<void> => {
   const { choiceExec } = await prompts({
     type: 'select',
     name: 'choiceExec',
-    message: 'Welcome to Portman, how can we help you?',
+    message: 'Welcome to Portman, how can we help?',
     choices: [
       {
         title: 'Configure my CLI options',
@@ -51,7 +51,7 @@ export const promptInit = async (): Promise<void> => {
       type: 'text',
       name: 'location',
       message:
-        `Let's define the location where you want to save the Portman CLI settings, relative to ${localPath}\n` +
+        `Where you want to save the Portman CLI settings, relative to ${localPath}\n` +
         `Enter the local folder path:`,
       initial: `portman`
     })
@@ -95,7 +95,7 @@ export const promptInit = async (): Promise<void> => {
       type: 'text',
       name: 'output',
       message:
-        `Let's define the file path to store the generated the Postman collection, relative to ${localPath}\n` +
+        `Define the path to store the generated the Postman collection, relative to ${localPath}\n` +
         `Enter the output file path:`,
       initial: `collection.postman.json`
     })
@@ -104,7 +104,7 @@ export const promptInit = async (): Promise<void> => {
     const { choiceEnv } = await prompts({
       type: 'confirm',
       name: 'choiceEnv',
-      message: 'Do you want to use a .ENV file to pass variable to Postman?',
+      message: 'Do you want to use a .ENV file to pass variables to Postman?',
       initial: true
     })
 
@@ -113,7 +113,7 @@ export const promptInit = async (): Promise<void> => {
         type: 'text',
         name: 'envFile',
         message:
-          `Let's define the file path for the .env file, which contains Postman variables, relative to ${localPath}\n` +
+          `Define the file path for your .env file, relative to ${localPath}\n` +
           `Enter the .env file path:`,
         initial: config.localFolder + '/.env-portman'
       })
@@ -124,7 +124,7 @@ export const promptInit = async (): Promise<void> => {
       type: 'toggle',
       name: 'choicePortmanConfigFile',
       message:
-        'Do you want to use a custom Portman configuration file or the default "portman-config.default.json"?',
+        'Use a custom Portman configuration file or the default "portman-config.default.json"?',
       initial: true,
       active: 'custom',
       inactive: 'default'
@@ -146,7 +146,7 @@ export const promptInit = async (): Promise<void> => {
       type: 'toggle',
       name: 'choicePostmanConfigFile',
       message:
-        'Do you want to use a custom openapi-to-postman configuration file or the default "postman-config.default.json"?',
+        'Use a custom openapi-to-postman configuration file or the default "postman-config.default.json"?',
       initial: true,
       active: 'default',
       inactive: 'custom'
@@ -157,8 +157,8 @@ export const promptInit = async (): Promise<void> => {
         type: 'text',
         name: 'postmanConfigFile',
         message:
-          `Let's define the file path to the custom openapi-to-postman configuration file, relative to ${localPath}\n` +
-          `Enter the openapi-to-postma configuration file path:`,
+          `Define the file path to your custom openapi-to-postman configuration file, relative to ${localPath}\n` +
+          `Enter the openapi-to-postman configuration file path:`,
         initial: config.localFolder + '/openapi-to-postman-config.json'
       })
       config.portmanConfigFile = portmanConfigFile
@@ -198,7 +198,7 @@ export const promptInit = async (): Promise<void> => {
     const { runNewman } = await prompts({
       type: 'toggle',
       name: 'runNewman',
-      message: 'Run newman after the Portman conversion, for the newly created collection?',
+      message: 'Run Newman after the Portman conversion?',
       initial: false,
       active: 'yes',
       inactive: 'no'
@@ -223,7 +223,7 @@ export const promptInit = async (): Promise<void> => {
     }
 
     console.log(
-      `Your Portman configuration is created in "${portmanCliFilePath}".\n` +
+      `Your Portman configuration has been created in "${portmanCliFilePath}".\n` +
         `You can execute Portman by running the following command: ` +
         `\n\nportman --cliOptionsFile ${portmanCliFilePath}\n`
     )
