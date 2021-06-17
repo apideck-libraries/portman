@@ -1,8 +1,0 @@
-{
-  "url": "https://raw.githubusercontent.com/apideck-libraries/openapi-specs/master/crm.yml",
-  "output": "collection.postman.json",
-  "envFile": "specs/.env-portman",
-  "includeTests": true,
-  "syncPostman": false,
-  "runNewman": false
-}
