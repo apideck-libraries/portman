@@ -203,7 +203,6 @@ export const promptInit = async (): Promise<void> => {
     })
     config.runNewman = runNewman
   }
-  console.log(config)
 
   // Write portman-cli.json file
   if (config.localFolder && (config.url || config.local)) {
