@@ -57,6 +57,15 @@ With Portman, you can:
 
 ## Getting started
 
+1. Install Portman
+2. Initialize Portman CLI configuration through the command:
+
+```shell
+`$ portman --init
+```
+
+OR
+
 1. Install Portman 
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection.
 3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
@@ -70,13 +79,13 @@ With Portman, you can:
 
 You can add the Portman CLI to the `node_modules` by using:
 
-"`shell
+```shell
 $ npm install --save @apideck/portman
 ```
 
 or using yarn...
 
-"`shell
+```shell
 $ yarn add @apideck/portman
 ```
 
@@ -118,6 +127,7 @@ Options:
   -s, --PostmanConfigFile    Path to Postman-config.json                                  [string]
   --envFile                  Path to the .env file to inject environment variables        [string]
   --cliConfigFile            Path to the file with the Portman CLI options                [string]
+  --init                     Configure Portman CLI options in a interactive manner        [string]
 ```
 
 ### Environment variables as Postman variables
@@ -141,6 +151,13 @@ This is useful if you have Portman managing multiple specs that have unique envi
 By default, Portman will leverage any ENVIRONMENT variable that is defined that starts with `PORTMAN_`.
 
 ### CLI Options
+
+- Initialize Portman CLI configuration:
+
+```
+portman --init
+```
+The `init` option will help you to configure the cliConfig options and put the default config, env file in place to kick-start the usage of Portman.
 
 - Pass in the remotely hosted spec:
 
