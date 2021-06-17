@@ -6,6 +6,7 @@ import path from 'path'
 import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
+import { promptInit } from './utils/promptInit'
 
 require('dotenv').config()
 ;(async () => {
@@ -78,9 +79,20 @@ require('dotenv').config()
       // alias: 'cliOptionsFile',
       describe: 'Path to the file with the Portman CLI options',
       type: 'string'
+    })
+    .option('init', {
+      // alias: 'cliOptionsFile',
+      describe: 'Initialize Portman and generate a Portman CLI configuration file',
+      type: 'boolean'
     }).argv as PortmanOptions
 
   let cliOptions = {}
+
+  if (options.init) {
+    await promptInit()
+    process.exit()
+  }
+
   if (options.cliOptionsFile) {
     try {
       const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
