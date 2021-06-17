@@ -458,8 +458,10 @@ Do not commit this `.env` in any version systems like GIT since it contains cred
 
 Portman started as a PR on the handy [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman) package to generate basic Postman tests from the OpenAPI specification.
 Thanks to the contribution from [apideck](https://www.apideck.com/), we ported the PR with much more options & tools to create "Portman".
+
 The goal of Portman is to drive API automation by transforming the static OpenAPI document in a dynamic Postman collection with testing, assigning variables & parameters, ... all included, easy to configure & ready to use.
 Making Portman a valuable tool in any OpenAPI workflow, for local development or as part of any CI/CD automation pipeline.
+
 Credits for this package for the hard work of [Nick Lloyd](https://github.com/nicklloyd) and [Tim Haselaars](https://github.com/thim81).
 
 # Future ideas
