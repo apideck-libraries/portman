@@ -19,6 +19,7 @@ import {
   AssignVariablesConfig,
   ContentTestConfig,
   ContractTestConfig,
+  ExtendTestsConfig,
   OverwriteRequestConfig,
   PortmanConfig,
   ResponseTime,
@@ -38,6 +39,7 @@ export class TestSuite {
   contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
   variationTests?: VariationTestConfig[]
+  extendTests?: ExtendTestsConfig[]
 
   pmResponseJsonVarInjected: boolean
 
@@ -60,6 +62,7 @@ export class TestSuite {
     this.contractTests = this.config?.tests?.contractTests
     this.contentTests = this.config?.tests?.contentTests
     this.variationTests = this.config?.tests?.variationTests
+    this.extendTests = this.config?.tests?.extendTests
   }
 
   public generateAutomatedTests = (): PostmanMappedOperation[] => {
@@ -269,8 +272,8 @@ export class TestSuite {
   }
 
   public injectExtendedTests = (): PostmanMappedOperation[] => {
-    if (!this.config?.tests?.extendTests) return this.postmanParser.mappedOperations
-    const extendedTestsSettings = this.config.tests.extendTests
+    if (!this.extendTests) return this.postmanParser.mappedOperations
+    const extendedTestsSettings = this.extendTests
 
     extendedTestsSettings.map(extendedTestsSetting => {
       //Get Postman operations to apply assign variables for
