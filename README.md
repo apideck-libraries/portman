@@ -290,8 +290,6 @@ The contract tests are grouped in an array of `contractTests`.
 
 =======
 
-> > > > > > > 67c8167 (tweak credits in readme)
-
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
 - **statusSuccess (Boolean)**: Adds the test if the response of the Postman request return a 2xx
