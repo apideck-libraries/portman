@@ -1,20 +1,22 @@
 import fs from 'fs-extra'
 import prompts from 'prompts'
 
+type initConfigOptions = {
+  localFolder?: string
+  url?: string
+  local?: string
+  output?: string
+  envFile?: string
+  portmanConfigFile?: string
+  postmanConfigFile?: string
+  includeTests?: boolean
+  syncPostman?: boolean
+  runNewman?: string
+  postmanApiKey?: string
+}
+
 export const promptInit = async (): Promise<void> => {
-  const config = {
-    localFolder: undefined,
-    url: undefined,
-    local: undefined,
-    output: undefined,
-    envFile: undefined,
-    portmanConfigFile: undefined,
-    postmanConfigFile: undefined,
-    includeTests: undefined,
-    syncPostman: undefined,
-    runNewman: undefined,
-    postmanApiKey: undefined
-  }
+  const config: initConfigOptions = {}
 
   const localPath = JSON.stringify(process.cwd())
 
