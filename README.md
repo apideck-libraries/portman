@@ -58,11 +58,7 @@ With Portman, you can:
 ## Getting started
 
 1. Install Portman
-2. Initialize Portman CLI configuration through the command:
-
-```shell
-`$ portman --init
-```
+2. Initialize Portman CLI configuration through the command: `$ portman --init`
 
 OR
 
