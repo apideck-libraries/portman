@@ -221,7 +221,7 @@ By passing the CLI options as parameter, you can overwrite the defined CLI optio
 
 Without specifying the output location, your generated Postman Collection is written to `./tmp/converted/${specName}.json` if you are manually importing to Postman or need to inspect for debugging.
 
-By using `-o' or `--output` parameter, you can define the location where the Postman collection will be written.
+By using `-o` or `--output` parameter, you can define the location where the Postman collection will be written.
 
 ```
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
@@ -288,6 +288,8 @@ The contract tests are grouped in an array of `contractTests`.
 
 #### contractTests options:
 
+=======
+
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
 - **statusSuccess (Boolean)**: Adds the test if the response of the Postman request return a 2xx
@@ -300,6 +302,8 @@ The contract tests are grouped in an array of `contractTests`.
 For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests).
 
 #### variationTests options:
+
+=======
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId for which a variation will be created. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path for which a variation will be created. (example: `GET::/crm/leads`)
@@ -316,6 +320,8 @@ Content tests will validate if the response property values will match the expec
 While the Portman `tests` verify the "contract" of the API, the `contentTests` will verify the content of the API.
 
 #### responseBodyTests options:
+
+=======
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
@@ -345,7 +351,7 @@ Anything added in the `tests` array will be added to the Postman test scripts.
 
 The "assignVariables" allows you to set Postman collection variables for easier automation.
 
-#### assignVariables options:
+#### assignVariables options
 
 - **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables
   will be set. (example: `leadsAll`)
@@ -416,7 +422,7 @@ For more details, review the [overwrites example](https://github.com/apideck-lib
 
 The configuration defined in the `globals` will be executed on the full Postman collection. This is handy if you need to do mass replacements of variables or specific words/keys/values in the full collection that cannot be overwritten per request.
 
-#### globals options:
+#### globals options
 
 - **collectionPreRequestScripts**: Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection.
 - **keyValueReplacements**: A map of parameter key names that will have their values replaced with the provided Postman variables.
@@ -451,12 +457,12 @@ Do not commit this `.env` in any version systems like GIT since it contains cred
 # Credits
 
 Portman started as a PR on the handy [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman) package to generate basic Postman tests from the OpenAPI specification.
-Thanks to the contribution from [apideck](https://www.apideck.com/), we ported the PR with much more options & tools to create "Portman". 
+Thanks to the contribution from [apideck](https://www.apideck.com/), we ported the PR with much more options & tools to create "Portman".
 The goal of Portman is to drive API automation by transforming the static OpenAPI document in a dynamic Postman collection with testing, assigning variables & parameters, ... all included, easy to configure & ready to use.
 Making Portman a valuable tool in any OpenAPI workflow, for local development or as part of any CI/CD automation pipeline.
-Credits for this package for the hard work of [Nick Lloyd](https://github.com/nicklloyd) and [Tim Haselaars](https://github.com/thim81). 
+Credits for this package for the hard work of [Nick Lloyd](https://github.com/nicklloyd) and [Tim Haselaars](https://github.com/thim81).
 
-# Future ideas:
+# Future ideas
 
 - [ ] add task to initalize config files
 - [ ] add interactive cli prompts
