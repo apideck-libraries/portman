@@ -1,13 +1,13 @@
 {
   "version": 1.0,
   "globals": {
-    "preRequestScripts": [
+    "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
-    "variableOverwrites": {
+    "keyValueReplacements": {
       "application_id": "{{applicationId}}"
     },
-    "globalReplacements": [
+    "rawReplacements": [
       {
         "searchFor": "\"maxItems\":2,",
         "replaceWith": ""
@@ -25,7 +25,7 @@
       {
         "openApiOperation": "*::/crm/*",
         "responseTime": {
-          "enabled": true,
+          "enabled": false,
           "maxMs": 300
         }
       },

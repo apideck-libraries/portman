@@ -51,14 +51,6 @@
       ]
     },
     {
-      "openApiOperation": "POST::*",
-      "collectionVariables": [
-        {
-          "responseBodyProp": "data.id"
-        }
-      ]
-    },
-    {
       "openApiOperation": "GET::/crm/leads/{id}",
       "collectionVariables": [
         {
@@ -75,17 +67,6 @@
         {
           "requestBodyProp": "company_name",
           "name": "leadsAdd.company_name"
-        }
-      ]
-    }
-  ],
-  "contractTests": [
-    {
-      "openApiOperationId": "leadsOne",
-      "checkRequestBody": [
-        {
-          "key": "data.company_name",
-          "value": "{{leadsAdd.company_name}}"
         }
       ]
     }

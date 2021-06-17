@@ -1773,6 +1773,11 @@ components:
     GetLead:
       description: Lead
       headers:
+        Content-type:
+          description: 'URL to query for status of the operation. The operation ID will expire in 48 hours. '
+          schema:
+            type: string
+            example: 'application/json'
         Operation-Location:
           description: 'URL to query for status of the operation. The operation ID will expire in 48 hours. '
           schema:

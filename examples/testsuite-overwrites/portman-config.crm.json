@@ -1,12 +1,74 @@
 {
-  "preRequestScripts": [],
-  "variableOverwrites": {
-    "application_id": "{{applicationId}}"
-  },
-  "globalReplacements": [
+  "version": 1.0,
+  "overwrites": [
     {
-      "searchFor": "\"maxItems\":2,",
-      "replaceWith": ""
+      "openApiOperationId": "leadsAdd",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "--{{$randomInt}}",
+          "overwrite": false
+        },
+        {
+          "key": "company_name",
+          "value": "{{$randomCompanyName}} {{$randomColor}}",
+          "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{$randomInt}}",
+          "overwrite": true
+        },
+        {
+          "key": "websites[0]",
+          "remove": true
+        },
+        {
+          "key": "social_links[1].url",
+          "remove": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "DELETE::/crm/leads/{id}",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "raw",
+          "value": "false",
+          "overwrite": true
+        }
+      ],
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsUpdate",
+      "overwriteRequestHeaders": [
+        {
+          "key": "x-apideck-consumer-id",
+          "value": "portman-id-{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "disable": true
+        },
+        {
+          "key": "cursor",
+          "remove": true
+        }
+      ]
     }
   ]
+
 }
