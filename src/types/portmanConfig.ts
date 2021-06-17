@@ -24,6 +24,7 @@ export type StatusCode = ContractTest & {
 export type ContractTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   statusSuccess?: StatusSuccess
   statusCode?: StatusCode
   contentType?: ContentType
@@ -36,12 +37,14 @@ export type ContractTestConfig = {
 export type ContentTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   responseBodyTests: ResponseBodyTest[]
 }
 
 export type VariationTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   variations: VariationConfig[]
 }
 
@@ -85,6 +88,7 @@ export type OverwritePathIdVariableConfig = {
 export type OverwriteRequestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   overwriteRequestQueryParams?: OverwriteQueryParamConfig[]
   overwriteRequestPathVariables?: OverwritePathVariableConfig[]
   overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
@@ -103,12 +107,14 @@ export type CollectionVariableConfig = {
 export type AssignVariablesConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   collectionVariables: CollectionVariableConfig[]
 }
 
 export type ExtendTestsConfig = {
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   tests: string[]
   overwrite?: boolean
   append?: boolean
