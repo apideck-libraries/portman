@@ -92,7 +92,7 @@ export class VariationWriter {
     oaOperation: OasMappedOperation | null,
     variation: VariationConfig
   ): void {
-    const { overwrites: overwriteSettings, tests, assignVariables, extendTests } = variation
+    const { overwrites: overwriteSettings, tests, assignVariables } = variation
 
     overwriteSettings.map(overwriteSetting => {
       overwriteSetting && applyOverwrites([pmOperation], overwriteSetting)
@@ -106,15 +106,15 @@ export class VariationWriter {
       testResponseBodyContent(tests.responseBodyTests, pmOperation)
     }
 
-    if (assignVariables) {
-      assignVariables.map(setting => {
-        assignCollectionVariables(pmOperation, setting, pmOperation.item.id)
+    if (tests?.extendTests) {
+      tests.extendTests.map(setting => {
+        setting?.tests && extendTest(setting, pmOperation)
       })
     }
 
-    if (extendTests) {
-      extendTests.map(setting => {
-        setting?.tests && extendTest(setting, pmOperation)
+    if (assignVariables) {
+      assignVariables.map(setting => {
+        assignCollectionVariables(pmOperation, setting, pmOperation.item.id)
       })
     }
   }

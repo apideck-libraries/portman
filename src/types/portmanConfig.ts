@@ -148,6 +148,7 @@ export interface TestSuiteOptions {
 export type TestConfig = {
   contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
+  extendTests?: ExtendTestsConfig[]
   variationTests?: VariationTestConfig[]
 }
 
@@ -158,5 +159,4 @@ export interface PortmanConfig {
   overwrites?: OverwriteRequestConfig[]
   assignVariables?: AssignVariablesConfig[]
   operationPreRequestScripts?: OperationPreRequestScriptConfig[]
-  extendTests?: ExtendTestsConfig[]
 }
