@@ -1,0 +1,9 @@
+{
+  "url": "https://",
+  "output": "collection.postman.json",
+  "envFile": "portman/.env-portman",
+  "portmanConfigFile": "portman/portman-config.json",
+  "includeTests": true,
+  "syncPostman": true,
+  "runNewman": false
+}

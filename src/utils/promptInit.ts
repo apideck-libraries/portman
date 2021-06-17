@@ -18,6 +18,11 @@ type InitConfigOptions = {
 export const promptInit = async (): Promise<void> => {
   const config: InitConfigOptions = {}
   const localPath = JSON.stringify(process.cwd())
+  const consoleLine = '='.repeat(process.stdout.columns - 80)
+
+  console.log('\x1b[32m', consoleLine)
+  console.log(`  Portman Configuration Utility`)
+  console.log('\x1b[32m', consoleLine)
 
   const { choiceExec } = await prompts({
     type: 'select',
@@ -44,18 +49,9 @@ export const promptInit = async (): Promise<void> => {
     config.postmanApiKey = postmanApiKey
   }
 
-  // Configure CLI options
-  if (choiceExec === 'portmanConfig') {
-    const { location } = await prompts({
-      type: 'text',
-      name: 'location',
-      message:
-        `Where you want to save the Portman CLI settings, relative to ${localPath}\n` +
-        `Enter the local folder path:`,
-      initial: `portman`
-    })
-    config.localFolder = location
+  // Configure CLI Options
 
+  if (choiceExec === 'portmanConfig') {
     const { choiceLocation } = await prompts({
       type: 'select',
       name: 'choiceLocation',
@@ -89,6 +85,16 @@ export const promptInit = async (): Promise<void> => {
       })
       config.url = url
     }
+
+    const { location } = await prompts({
+      type: 'text',
+      name: 'location',
+      message:
+        `Where you want to save the Portman CLI settings, relative to ${localPath}\n` +
+        `Enter the local folder path:`,
+      initial: `portman`
+    })
+    config.localFolder = location
 
     const { output } = await prompts({
       type: 'text',
@@ -221,11 +227,17 @@ export const promptInit = async (): Promise<void> => {
       process.exit(0)
     }
 
+    console.log('\x1b[32m', consoleLine)
+    console.log(`  Configuration Complete`)
+    console.log('\x1b[32m', consoleLine)
+
     console.log(
-      `Your Portman configuration has been created in "${portmanCliFilePath}".\n` +
-        `You can execute Portman by running the following command: ` +
-        `\n\nportman --cliOptionsFile ${portmanCliFilePath}\n`
+      `\nYour Portman configuration has been created in "${portmanCliFilePath}".\n` +
+        `You can execute Portman by running the following command: `
     )
+
+    console.log('\x1b[34m', `\n    portman --cliOptionsFile ${portmanCliFilePath}\n`)
+    console.log('\x1b[32m', consoleLine)
   }
 
   if (config.envFile || config.postmanApiKey) {
