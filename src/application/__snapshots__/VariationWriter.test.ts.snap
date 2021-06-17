@@ -36,6 +36,10 @@ if (typeof jsonData.resource !== \\"undefined\\") {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
   pm.expect(jsonData.resource).to.eql(\\"leads\\");
 })};",
+                  "
+pm.test('say hello Portman', function(){ 
+  console.log('Hello Portman')
+});",
                   "",
                   "// pm.collectionVariables - Set leadsAdd-clone.data[0].id as variable for jsonData.data[0].id  
 if (typeof jsonData.data[0].id !== \\"undefined\\") {
@@ -43,10 +47,6 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
    console.log(\\"- use {{leadsAdd-clone.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 };
 ",
-                  "
-pm.test('say hello Portman', function(){ 
-  console.log('Hello Portman')
-});",
                 ],
                 "type": "text/javascript",
               },
@@ -38698,6 +38698,10 @@ if (typeof jsonData.resource !== \\"undefined\\") {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
   pm.expect(jsonData.resource).to.eql(\\"leads\\");
 })};",
+                      "
+pm.test('say hello Portman', function(){ 
+  console.log('Hello Portman')
+});",
                       "",
                       "// pm.collectionVariables - Set leadsAdd-clone.data[0].id as variable for jsonData.data[0].id  
 if (typeof jsonData.data[0].id !== \\"undefined\\") {
@@ -38705,10 +38709,6 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
    console.log(\\"- use {{leadsAdd-clone.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 };
 ",
-                      "
-pm.test('say hello Portman', function(){ 
-  console.log('Hello Portman')
-});",
                     ],
                     "type": "text/javascript",
                   },

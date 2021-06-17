@@ -93,6 +93,13 @@
                   "key": "resource",
                   "value": "leads"
                 }
+              ],
+              "extendTests": [
+                {
+                  "tests": [
+                    "\npm.test('say hello Portman', function(){ \n  console.log('Hello Portman')\n});"
+                  ]
+                }
               ]
             },
             "assignVariables": [
@@ -101,13 +108,6 @@
                   {
                     "responseBodyProp": "data[0].id"
                   }
-                ]
-              }
-            ],
-            "extendTests": [
-              {
-                "tests": [
-                  "\npm.test('say hello Portman', function(){ \n  console.log('Hello Portman')\n});"
                 ]
               }
             ]
