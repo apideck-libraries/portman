@@ -1,7 +1,7 @@
 import fs from 'fs-extra'
 import prompts from 'prompts'
 
-type initConfigOptions = {
+type InitConfigOptions = {
   localFolder?: string
   url?: string
   local?: string
@@ -16,7 +16,7 @@ type initConfigOptions = {
 }
 
 export const promptInit = async (): Promise<void> => {
-  const config: initConfigOptions = {}
+  const config: InitConfigOptions = {}
 
   const localPath = JSON.stringify(process.cwd())
 
