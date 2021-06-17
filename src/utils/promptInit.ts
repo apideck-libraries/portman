@@ -237,7 +237,7 @@ export const promptInit = async (): Promise<void> => {
       envContent += `\n### POSTMAN APP\nPOSTMAN_API_KEY=${config.postmanApiKey}`
 
     try {
-      fs.writeFileSync(envFilePath, envContent, 'utf8')
+      await fs.appendFile(envFilePath, envContent, { encoding: 'utf8' })
     } catch (err) {
       console.error('\x1b[31m', `Output file error - no such file directory "./${envFilePath}"`)
       process.exit(0)
