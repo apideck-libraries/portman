@@ -1,5 +1,5 @@
-import prompts from 'prompts'
 import fs from 'fs-extra'
+import prompts from 'prompts'
 
 export const promptInit = async (): Promise<void> => {
   const config = {
