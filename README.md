@@ -456,7 +456,7 @@ The goal of Portman is to drive API automation by transforming the static OpenAP
 Making Portman a valuable tool in any OpenAPI workflow, for local development or as part of any CI/CD automation pipeline.
 Credits for this package for the hard work of [Nick Lloyd](https://github.com/nicklloyd) and [Tim Haselaars](https://github.com/thim81). 
 
-### TODO:
+# Future ideas:
 
 - [ ] add task to initalize config files
 - [ ] add interactive cli prompts
