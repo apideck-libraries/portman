@@ -17,7 +17,6 @@ type InitConfigOptions = {
 
 export const promptInit = async (): Promise<void> => {
   const config: InitConfigOptions = {}
-
   const localPath = JSON.stringify(process.cwd())
 
   const { choiceExec } = await prompts({
