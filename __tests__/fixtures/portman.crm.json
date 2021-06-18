@@ -88,10 +88,14 @@
                   }
                 }
               ],
-              "responseBodyTests": [
+              "contentTests": [
                 {
-                  "key": "resource",
-                  "value": "leads"
+                  "responseBodyTests": [
+                    {
+                      "key": "resource",
+                      "value": "leads"
+                    }
+                  ]
                 }
               ],
               "extendTests": [

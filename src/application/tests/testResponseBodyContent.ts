@@ -3,10 +3,10 @@ import { PostmanMappedOperation } from '../../postman'
 import { ResponseBodyTest } from '../../types'
 
 export const testResponseBodyContent = (
-  contentTests: ResponseBodyTest[],
+  responseBodyTests: ResponseBodyTest[],
   pmOperation: PostmanMappedOperation
 ): PostmanMappedOperation => {
-  contentTests.map(check => {
+  responseBodyTests.map(check => {
     let pmJsonData = ''
     let pmTestKey = ''
     let pmTestValue = ''

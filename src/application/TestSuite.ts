@@ -9,6 +9,7 @@ import {
   testResponseHeader,
   testResponseJsonBody,
   testResponseJsonSchema,
+  testResponseStatusCode,
   testResponseStatusSuccess,
   testResponseTime,
   VariationWriter
@@ -23,6 +24,7 @@ import {
   OverwriteRequestConfig,
   PortmanConfig,
   ResponseTime,
+  StatusCode,
   TestSuiteOptions,
   VariationTestConfig
 } from '../types'
@@ -160,6 +162,7 @@ export class TestSuite {
 
       // List excludeForOperations
       const optStatusSuccess = this.getTestTypeFromContractTests(contractTests, 'statusSuccess')
+      const optStatusCode = this.getTestTypeFromContractTests(contractTests, 'statusCode')
       const optResponseTime = this.getTestTypeFromContractTests(contractTests, 'responseTime')
       const optContentType = this.getTestTypeFromContractTests(contractTests, 'contentType')
       const optJsonBody = this.getTestTypeFromContractTests(contractTests, 'jsonBody')
@@ -173,6 +176,12 @@ export class TestSuite {
       if (optStatusSuccess && !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)) {
         pmOperation = testResponseStatusSuccess(pmOperation, oaOperation)
       }
+      // Add status code check
+      if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
+        const { statusCode } = optStatusCode
+        pmOperation = testResponseStatusCode(statusCode as StatusCode, pmOperation)
+      }
+
       // Add responseTime check
       if (optResponseTime && !inOperations(pmOperation, optResponseTime?.excludeForOperations)) {
         const { responseTime } = optResponseTime
@@ -229,15 +238,19 @@ export class TestSuite {
     return pmOperation
   }
 
-  public injectContentTests = (): PostmanMappedOperation[] => {
+  public injectContentTests = (
+    pmOperations?: PostmanMappedOperation[],
+    contentTests?: ContentTestConfig[]
+  ): PostmanMappedOperation[] => {
     if (!this.contentTests) return this.postmanParser.mappedOperations
-    const contentTests = this.contentTests
 
-    contentTests.map(contentTest => {
+    const tests = contentTests || this.contentTests
+
+    tests.map(contentTest => {
       //Get Postman operations to inject content test for
-      const pmOperations = this.getOperationsFromSetting(contentTest)
+      const operations = pmOperations || this.getOperationsFromSetting(contentTest)
 
-      pmOperations.map(pmOperation => {
+      operations.map(pmOperation => {
         // check content of response body
         if (contentTest?.responseBodyTests) {
           testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
@@ -248,17 +261,20 @@ export class TestSuite {
     return this.postmanParser.mappedOperations
   }
 
-  public injectAssignVariables = (): PostmanMappedOperation[] => {
+  public injectAssignVariables = (
+    pmOperations?: PostmanMappedOperation[],
+    assignVariables?: AssignVariablesConfig[]
+  ): PostmanMappedOperation[] => {
     if (!this.config?.assignVariables) return this.postmanParser.mappedOperations
-    const assignVarSettings = this.config.assignVariables
+    const settings = assignVariables || this.config.assignVariables
 
-    assignVarSettings.map(assignVarSetting => {
+    settings.map(assignVarSetting => {
       if (!assignVarSetting?.collectionVariables) return
       // Get Postman operations to apply assign variables for
-      const pmOperations = this.getOperationsFromSetting(assignVarSetting)
+      const operations = pmOperations || this.getOperationsFromSetting(assignVarSetting)
       let fixedValueCounter = 0
 
-      pmOperations.map(pmOperation => {
+      operations.map(pmOperation => {
         // Loop over all defined variable value sources
         fixedValueCounter = assignCollectionVariables(
           pmOperation,
@@ -271,14 +287,17 @@ export class TestSuite {
     return this.postmanParser.mappedOperations
   }
 
-  public injectExtendedTests = (): PostmanMappedOperation[] => {
+  public injectExtendedTests = (
+    pmOperations?: PostmanMappedOperation[],
+    extendedTestsSettings?: ExtendTestsConfig[]
+  ): PostmanMappedOperation[] => {
     if (!this.extendTests) return this.postmanParser.mappedOperations
-    const extendedTestsSettings = this.extendTests
+    const settings = extendedTestsSettings || this.extendTests
 
-    extendedTestsSettings.map(extendedTestsSetting => {
+    settings.map(extendedTestsSetting => {
       //Get Postman operations to apply assign variables for
-      const pmOperations = this.getOperationsFromSetting(extendedTestsSetting)
-      pmOperations.map(pmOperation => {
+      const operations = pmOperations || this.getOperationsFromSetting(extendedTestsSetting)
+      operations.map(pmOperation => {
         // Assign Postman collection variable with a request body value
         if (extendedTestsSetting?.tests) {
           extendTest(extendedTestsSetting, pmOperation)
@@ -289,15 +308,18 @@ export class TestSuite {
     return this.postmanParser.mappedOperations
   }
 
-  public injectOverwrites = (): PostmanMappedOperation[] => {
+  public injectOverwrites = (
+    pmOperations?: PostmanMappedOperation[],
+    overwriteSettings?: OverwriteRequestConfig[]
+  ): PostmanMappedOperation[] => {
     if (!this.config?.overwrites) return this.postmanParser.mappedOperations
 
-    const overwriteSettings = this.config.overwrites
+    const settings = overwriteSettings || this.config.overwrites
 
-    overwriteSettings.map(overwriteSetting => {
+    settings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
-      const pmOperations = this.getOperationsFromSetting(overwriteSetting)
-      applyOverwrites(pmOperations, overwriteSetting)
+      const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
+      applyOverwrites(operations, overwriteSetting)
     })
 
     return this.postmanParser.mappedOperations

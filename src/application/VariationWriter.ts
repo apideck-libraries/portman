@@ -2,13 +2,7 @@ import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import { VariationConfig } from '../types'
-import {
-  applyOverwrites,
-  assignCollectionVariables,
-  extendTest,
-  testResponseBodyContent,
-  TestSuite
-} from './'
+import { TestSuite } from './'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -94,28 +88,24 @@ export class VariationWriter {
   ): void {
     const { overwrites: overwriteSettings, tests, assignVariables } = variation
 
-    overwriteSettings.map(overwriteSetting => {
-      overwriteSetting && applyOverwrites([pmOperation], overwriteSetting)
-    })
+    if (overwriteSettings) {
+      this.testSuite.injectOverwrites([pmOperation], overwriteSettings)
+    }
 
     if (oaOperation && tests?.contractTests) {
       this.testSuite.injectContractTests(pmOperation, oaOperation, tests.contractTests)
     }
 
-    if (tests?.responseBodyTests) {
-      testResponseBodyContent(tests.responseBodyTests, pmOperation)
+    if (tests?.contentTests) {
+      this.testSuite.injectContentTests([pmOperation], tests.contentTests)
     }
 
     if (tests?.extendTests) {
-      tests.extendTests.map(setting => {
-        setting?.tests && extendTest(setting, pmOperation)
-      })
+      this.testSuite.injectExtendedTests([pmOperation], tests.extendTests)
     }
 
     if (assignVariables) {
-      assignVariables.map(setting => {
-        assignCollectionVariables(pmOperation, setting, pmOperation.item.id)
-      })
+      this.testSuite.injectAssignVariables([pmOperation], assignVariables)
     }
   }
 }
