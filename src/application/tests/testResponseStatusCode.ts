@@ -16,7 +16,7 @@ export const testResponseStatusCode = (
   const pmTest: string = [
     `// Validate response status code \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
-    ` - Response status code time is ${code}", function () {\n`,
+    ` - Response status code is ${code}", function () {\n`,
     `    pm.expect(pm.response.code).to.equal(${code});\n`,
     `});\n`
   ].join('')

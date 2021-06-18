@@ -141,6 +141,7 @@ export class TestSuite {
         )
       })
     }
+
     return pmOperations
   }
 
@@ -164,7 +165,7 @@ export class TestSuite {
       const responseObject = response as OpenAPIV3.ResponseObject
 
       // Only support 2xx response checks - Happy path
-      if (!inRange(parseInt(code), 200, 299)) {
+      if (!inRange(parseInt(code), 200, 302)) {
         continue // skip this response
       }
 

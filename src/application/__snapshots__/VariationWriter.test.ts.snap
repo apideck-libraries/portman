@@ -19,7 +19,7 @@ Object {
               "script": Object {
                 "exec": Array [
                   "// Validate response status code 
-pm.test(\\"[POST]::/crm/leads - Response status code time is 400\\", function () {
+pm.test(\\"[POST]::/crm/leads - Response status code is 400\\", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",
@@ -38686,7 +38686,7 @@ Contact Support:
                   "script": Object {
                     "exec": Array [
                       "// Validate response status code 
-pm.test(\\"[POST]::/crm/leads - Response status code time is 400\\", function () {
+pm.test(\\"[POST]::/crm/leads - Response status code is 400\\", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",
