@@ -10,6 +10,7 @@
       },
       {
         "openApiOperation": "*::/crm/*",
+        "excludeForOperations": ["leadsAdd", "GET::/crm/leads/{id}"],
         "responseTime": {
           "enabled": true,
           "maxMs": 300
@@ -189,7 +190,11 @@
           "overwrite": true
         },
         {
-          "key": "websites[0].url",
+          "key": "websites[0]",
+          "remove": true
+        },
+        {
+          "key": "social_links[1].url",
           "remove": true
         }
       ]

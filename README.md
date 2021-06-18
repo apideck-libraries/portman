@@ -65,10 +65,10 @@ OR
 
 1. Install Portman
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection.
-3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
+3. Copy/rename and customize each of the \_\_\_\_.default.json config files in the root directory to suit your needs.
 4. Start converting your OpenAPI document to Postman
 
-- Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-Postman/blob/develop/OPTIONS.md)
+All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 
 ## Installation
 
@@ -113,17 +113,18 @@ Options:
       --version              Show version number                                          [boolean]
   -u, --url                  URL of OAS to port to Postman collection                     [string]
   -l, --local                Use local OAS to port to Postman collection                  [string]
-  -b, --baseUrl              Override spec baseUrl to use in test suite                   [string]
+  -b, --baseUrl              Override spec baseUrl to use in Postman                      [string]
   -o, --output               Write the Postman collection to an output file               [string]
-  -n, --runNewman            Run newman on newly created collection                       [boolean]
-  -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
+  -n, --runNewman            Run Newman on newly created collection                       [boolean]
+  -d, --newmanIterationData  Iteration data to run Newman with newly created collection   [string]
   --syncPostman              Upload generated collection to Postman (default: false)      [boolean]
-  -p, --PostmanUid           Collection UID to upload&overwrite with generated collection [string]
-  -t, --includeTests         Inject test suite (default: true)                            [boolean]
-  -c, --portmanConfigFile    Path to portman-config.json                                  [string]
-  -s, --PostmanConfigFile    Path to Postman-config.json                                  [string]
+  -p, --postmanUid           Collection UID to upload with generated Postman collection   [string]
+  -t, --includeTests         Inject Portman test suite (default: true)                    [boolean]
+  -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)   [string]
+  -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json) [string]
+  -s, --filterFile           Path to openapi-format config file (oas-format-filter.json)  [string]
   --envFile                  Path to the .env file to inject environment variables        [string]
-  --cliConfigFile            Path to the file with the Portman CLI options                [string]
+  --cliConfigFile            Path to Portman CLI options file                             [string]
   --init                     Configure Portman CLI options in an interactive manner       [string]
 ```
 
@@ -157,7 +158,7 @@ portman --init
 
 The `init` option will help you to configure the cliConfig options and put the default config, env file in place to kick-start the usage of Portman.
 
-- # Pass in the remotely hosted spec:
+- Pass in the remotely hosted spec:
 
 ```
 portman -u https://specs.apideck.com/crm.yml
@@ -196,10 +197,13 @@ portman -l ./tmp/specs/crm.yml --syncPostman true
 Upload newly generated collection to Postman using the collection ID to overwrite the existing.
 
 ```
-yarn portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
+portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
 ```
 
 - Pass custom paths for config files
+
+All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
+Portman provides a default openapi-to-postman configuration [postman-config.default.json](postman-config.default.json), which will be used if no custom config `--postmanConfigFile` is passed.
 
 ```
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./common/postman-config.json
@@ -216,6 +220,8 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 
 All the available Portman CLI options can be used in the config file.
 By passing the CLI options as parameter, you can overwrite the defined CLI options defined in the file.
+
+For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
 
 ### Output
 
@@ -237,12 +243,12 @@ Postman > Preferences > Automatically follow redirects > OFF
 
 The Portman settings consist out of multiple parts:
 
-- **version** : which refers the JSON Portman configuration version.
-- **tests** : which refers the definitions for the generated contract & variance tests.
+- **version** : which refers to the JSON Portman configuration version.
+- **tests** : which refers to the definitions for the generated contract & variance tests.
   - **contractTests** : refers to the options to enabled autogenerated contract tests.
-  - **contentTests** : which refers to the additional Postman tests that check the content.
+  - **contentTests** : refers to the additional Postman tests that check the content.
   - **variationTests** : refers to the options to define variation tests.
-  - **extendTests** : which refers to the custom additions of manually created Postman tests.
+  - **extendTests** : refers to the custom additions of manually created Postman tests.
 - **assignVariables** : which refers to setting Postman collection variables for easier automation.
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data.
 - **globals** : which refers to the customization that applies for the whole Postman collection.
@@ -255,10 +261,12 @@ To be able to do this very specifically, there are options to define the targets
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId, example: `leadsAll`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path, example: `GET::/crm/leads`
+  
+- **excludeForOperations (Array)** : References to OpenAPI operations that will be skipped for targeting. It supports both the `openApiOperationId` and `openApiOperation` format, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
 An `openApiOperationId` is an optional property. To offer support for OpenAPI documents that don't have operationIds, we
 have added the `openApiOperation` definition, which is the unique combination of the OpenAPI method & path, with a `::`
-separator symbol.
+separator symbol. The targeting option `excludeForOperations` is really useful when using wildcards, to allow exclusions from the wildcard.
 
 This will allow targeting for very specific OpenAPI items.
 
@@ -280,20 +288,20 @@ REMARK: Be sure to put quotes around the target definition.
 
 - **Method & Path wildcard matching** example: `"openApiOperation": "*::/crm/*",`
   A combination of wildcards for the method and path parts is even possible.
-
+  
 ### Portman - `tests` properties
 
 The Portman `tests` is where you would define the tests that would be applicable and automatically generated by Portman, based on the OpenAPI document.
 The contract tests are grouped in an array of `contractTests`.
 
-#### contractTests options:
-
-=======
+#### contractTests options
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
-- **statusCode (Boolean)** : Adds the test if the response of the Postman request return a specific status code.
+- **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)** : Adds the test to verify if the response of the Postman request is returned within a number of ms.
 - **contentType (Boolean)** : Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)** : Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
@@ -302,18 +310,20 @@ The contract tests are grouped in an array of `contractTests`.
 
 For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests).
 
-#### variationTests options:
-
-=======
+#### variationTests options
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId for which a variation will be created. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path for which a variation will be created. (example: `GET::/crm/leads`)
-- **tests** : which refers the definitions for the generated contract & variance tests for the variation.
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+
+- **tests** : which refers to the definitions for the generated contract & variance tests for the variation.
   - **contractTests** : refers to the options to enabled autogenerated contract tests for the variation.
-  - **contentTests** : which refers to the additional Postman tests that check the content for the variation.
-  - **extendTests** : which refers to the custom additions of manual created Postman tests to be included in the variation.
+  - **contentTests** : refers to the additional Postman tests that check the content for the variation.
+  - **extendTests** : refers to the custom additions of manual created Postman tests to be included in the variation.
 - **assignVariables** : This refers to setting Postman collection variables that are assigned based on variation.
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
+
+For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests).
 
 ### Portman - `contentTests` properties
 
@@ -322,10 +332,10 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
 
 #### contentTests options
 
-=======
-
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+
 - **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response body matches.
@@ -341,6 +351,8 @@ Anything added in the `tests` array will be added to the Postman test scripts.
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+
 - **tests (Array)** : Array of additional Postman test scripts.
 - **overwrite (Boolean true/false | Default: false)** : Resets all generateTests and overwrites them with the defined tests from
   the `tests` array.
@@ -354,10 +366,10 @@ The "assignVariables" allows you to set Postman collection variables for easier 
 
 #### assignVariables options
 
-- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables
-  will be set. (example: `leadsAll`)
-- **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman
-  pm.collectionVariables will be set. (example: `GET::/crm/leads`)
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables will be set. (example: `leadsAll`)
+- **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman pm.collectionVariables will be set. (example: `GET::/crm/leads`)
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+
 - **collectionVariables (Array)** : Array of key/value pairs to set the Postman collection variables.
   - **responseBodyProp (String)** : The property for which the value will be taken from the response body and set the value as the pm.collectionVariables value.
   - **responseHeaderProp (String)** : The property for which the value will be taken from the response header and set the value as the pm.collectionVariables value.
@@ -375,10 +387,9 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
 #### overwrites options
 
-=======
-
 - **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman request will be overwritten or extended. (example: `leadsAll`)
 - **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request will be overwritten or extended (example: `GET::/crm/leads`)
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
 - **overwriteRequestQueryParams (Array)** :
 
@@ -442,11 +453,11 @@ To enable automatic uploads of the generated Postman collection through Portman,
 
 1. Get your Postman API key
 
-![Documentation Pipeline](./docs/img/postman-automation-0.png)
+![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-automation-0.png)
 
-![Documentation Pipeline](./docs/img/postman-automation-1.png)
+![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-automation-1.png)
 
-![Documentation Pipeline](./docs/img/postman-automation-2.png)
+![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-automation-2.png)
 
 2. Goto the root folder of your project
 
@@ -454,7 +465,7 @@ To enable automatic uploads of the generated Postman collection through Portman,
 
 4. Enter your Postman API key in your local `.env`
 
-It is recommended to put a separate `.env` file lives in the root of your project to hold your `Postman_API_KEY`.
+It is recommended to put a separate `.env` file lives in the root of your project to hold your `POSTMAN_API_KEY`.
 Do not commit this `.env` in any version systems like GIT since it contains credentials.
 
 # Credits

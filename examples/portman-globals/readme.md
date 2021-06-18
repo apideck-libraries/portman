@@ -21,7 +21,7 @@ This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 e
 
 The portman settings (in JSON format) consists out of multiple parts:
 
-- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).
+- **version** : which refers the Portman configuration version
 - **globals**: which refers to the customization that apply for the whole Postman collection.
 
 In this example we focus on the **globals** section and settings.
