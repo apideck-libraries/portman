@@ -211,8 +211,6 @@ export const promptInit = async (): Promise<void> => {
     config.runNewman = runNewman
   }
 
-  console.log('config', config)
-
   // Write portman-cli.json file
   if (config.localFolder && (config.url || config.local)) {
     const portmanCliFilePath = `${config?.localFolder}/portman-cli.json`
