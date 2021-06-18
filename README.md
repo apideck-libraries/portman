@@ -65,7 +65,7 @@ OR
 
 1. Install Portman
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection.
-3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
+3. Copy/rename and customize each of the \_\_\_\_.default.json config files in the root directory to suit your needs.
 4. Start converting your OpenAPI document to Postman
 
 All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
@@ -220,6 +220,8 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 
 All the available Portman CLI options can be used in the config file.
 By passing the CLI options as parameter, you can overwrite the defined CLI options defined in the file.
+
+For more details, review the [cli-options example](./examples/cli-options).
 
 ### Output
 
