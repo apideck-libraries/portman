@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overwriteRequestHeaders should append to the header when overwrite is false 1`] = `
+Object {
+  "x-apideck-app-id": "2222foo-bar-baz",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request path variable 1`] = `
+Object {
+  "x-apideck-app-id": "foo-bar-baz",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should remove to the header when remove is true 1`] = `
+Object {
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;

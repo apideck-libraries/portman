@@ -9,9 +9,13 @@ export interface PortmanOptions {
   syncPostman?: boolean
   includeTests?: boolean
   portmanConfigFile?: string
+  portmanConfigPath?: string
   postmanConfigFile?: string
-  testSuiteConfigFile?: string
+  postmanConfigPath?: string
   filterFile?: string
   envFile?: string
   cliOptionsFile?: string
+  oaLocal?: string
+  oaUrl?: string
+  init?: boolean
 }

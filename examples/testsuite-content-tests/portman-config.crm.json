@@ -1,0 +1,24 @@
+{
+  "version": 1.0,
+  "tests": {
+    "contentTests": [
+      {
+        "openApiOperationId": "leadsAll",
+        "responseBodyTests": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          },
+          {
+            "key": "data[0].monetary_amount",
+            "value": 75000
+          },
+          {
+            "key": "resource",
+            "value": "companies"
+          }
+        ]
+      }
+    ]
+  }
+}

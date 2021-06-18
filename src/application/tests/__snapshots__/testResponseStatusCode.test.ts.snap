@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseStatusCode should add test for status code 1`] = `
+Array [
+  "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies/:id - Response status code is 400\\", function () {
+    pm.expect(pm.response.code).to.equal(400);
+});
+",
+]
+`;

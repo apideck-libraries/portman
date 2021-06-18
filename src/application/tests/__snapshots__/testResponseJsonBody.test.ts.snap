@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseJsonBody should add test for json body 1`] = `
+Array [
+  "// Validate if response has JSON Body 
+pm.test(\\"[GET]::/crm/companies/:id - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+]
+`;

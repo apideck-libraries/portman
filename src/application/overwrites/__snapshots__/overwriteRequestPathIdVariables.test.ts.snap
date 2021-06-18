@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overwriteRequestPathIdVariables should overwrite the request path id variable with resource name 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "id",
+    "type": "any",
+    "value": "{{companyId}}",
+  },
+]
+`;

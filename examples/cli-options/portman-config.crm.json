@@ -1,14 +1,58 @@
 {
-  "preRequestScripts": [
-    "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
-  ],
-  "variableOverwrites": {
-    "application_id": "{{applicationId}}"
+  "version": 1.0,
+  "globals": {
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "keyValueReplacements": {
+      "application_id": "{{applicationId}}"
+    },
+    "rawReplacements": [
+      {
+        "searchFor": "\"maxItems\":2,",
+        "replaceWith": ""
+      }
+    ]
   },
-  "globalReplacements": [
-    {
-      "searchFor": "\"maxItems\":2,",
-      "replaceWith": ""
-    }
-  ]
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": false,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
+      }
+    ]
+  }
 }

@@ -1,23 +1,23 @@
 # Postman collection request ordering
 
-This example contains the setup of Portman to convert & sort an OpenApi, with sorting of the Postman requests.
+This example contains the setup of Portman to convert & sort an OpenAPI, with sorting of the Postman requests.
 
 _use-case_: execute Postman requests in a certain order typically linked to test scenario's, like CRUD.
 
 ## CLI usage
 
 ```ssh
-yarn portman -l ./examples/postman-ordering/crm.yml -t false -c ./examples/postman-ordering/portman-config.ordering.json
+portman -l ./examples/postman-ordering/crm.yml -t false -c ./examples/postman-ordering/portman-config.ordering.json
 ```
 
-This is a very simple example where we just take the the `crm.yml` OpenApi and convert it with ordering in place.
+This is a very simple example where we just take the the `crm.yml` OpenAPI and convert it with ordering in place.
 
 ## Portman settings
 
-The `orderOfOperations` is a list of OpenApi operations, which is used by Portman to sort the Postman requests in the
+The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the
 desired order.
 
-The OpenApi operation is the unique combination of the OpenApi method & path, with a `::` separator symbol.
+The OpenAPI operation is the unique combination of the OpenAPI method & path, with a `::` separator symbol.
 The example: `"GET::/crm/leads"` will target only the "GET" method and the specific path "/crm/leads".
 
 ## Example explained
@@ -41,7 +41,7 @@ endpoints. REMARK: Items that are **not** defined in the `orderOfOperations` lis
 }
 ````
 
-The result will be that initial OpenApi file, with the operations orders like:
+The result will be that initial OpenAPI file, with the operations orders like:
 
 ./examples/postman-ordering/crm.yml >>
 
@@ -106,7 +106,7 @@ will be converted in a Postman Collection that is order like this:
 
 **End result**
 
-Original order for items as defined in OpenApi:
+Original order for items as defined in OpenAPI:
 1) List leads - GET
 2) Create lead - POST
 3) Get lead - GET

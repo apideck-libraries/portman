@@ -1,0 +1,1152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OasMappedOperation requestBodySchema should have access to the requestBody for mediaType 1`] = `
+Object {
+  "additionalProperties": false,
+  "properties": Object {
+    "addresses": Object {
+      "items": Object {
+        "properties": Object {
+          "city": Object {
+            "description": "Name of city.",
+            "example": "San Francisco",
+            "nullable": true,
+            "type": "string",
+          },
+          "country": Object {
+            "description": "country code according to ISO 3166-1 alpha-2.",
+            "example": "US",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "123",
+            "nullable": true,
+            "type": "string",
+          },
+          "latitude": Object {
+            "example": "40.759211",
+            "nullable": true,
+            "type": "string",
+          },
+          "line1": Object {
+            "description": "Line 1 of the address e.g. number, street, suite, apt #, etc.",
+            "example": "Main street",
+            "nullable": true,
+            "type": "string",
+          },
+          "line2": Object {
+            "description": "Line 2 of the address",
+            "example": "apt #",
+            "nullable": true,
+            "type": "string",
+          },
+          "longitude": Object {
+            "example": "-73.984638",
+            "nullable": true,
+            "type": "string",
+          },
+          "name": Object {
+            "example": "HQ US",
+            "nullable": true,
+            "type": "string",
+          },
+          "postal_code": Object {
+            "description": "Zip code or equivalent.",
+            "example": "94104",
+            "nullable": true,
+            "type": "string",
+          },
+          "state": Object {
+            "description": "Name of state",
+            "example": "CA",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "home",
+              "office",
+              "shipping",
+              "billing",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "AddressType",
+          },
+        },
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "bank_accounts": Object {
+      "items": Object {
+        "properties": Object {
+          "bic": Object {
+            "example": "AUDSCHGGXXX",
+            "nullable": true,
+            "type": "string",
+          },
+          "iban": Object {
+            "example": "CH2989144532982975332",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "created_at": Object {
+      "example": "2020-09-30T07:43:32.000Z",
+      "readOnly": true,
+      "type": "string",
+    },
+    "created_by": Object {
+      "example": "12345",
+      "nullable": true,
+      "readOnly": true,
+      "type": "string",
+    },
+    "currency": Object {
+      "example": "USD",
+      "nullable": true,
+      "type": "string",
+    },
+    "custom_fields": Object {
+      "items": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "id": Object {
+            "example": "custom_technologies",
+            "type": "string",
+          },
+          "value": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Uses Salesforce and Marketo",
+                "nullable": true,
+                "type": "string",
+              },
+              Object {
+                "example": 10,
+                "nullable": true,
+                "type": "number",
+              },
+              Object {
+                "example": true,
+                "nullable": true,
+                "type": "boolean",
+              },
+              Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "type": "array",
+              },
+            ],
+          },
+        },
+        "required": Array [
+          "id",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "description": Object {
+      "example": "A crm that works for you, so you can spend time on relationships instead of data.",
+      "nullable": true,
+      "type": "string",
+    },
+    "emails": Object {
+      "items": Object {
+        "properties": Object {
+          "email": Object {
+            "example": "elon@musk.com",
+            "format": "email",
+            "type": "string",
+          },
+          "id": Object {
+            "example": "123",
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "work",
+              "personal",
+              "billing",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "EmailType",
+          },
+        },
+        "required": Array [
+          "email",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "fax": Object {
+      "example": "+12129876543",
+      "nullable": true,
+      "type": "string",
+    },
+    "id": Object {
+      "example": "12345",
+      "readOnly": true,
+      "type": "string",
+    },
+    "image_url": Object {
+      "example": "https://www.spacex.com/static/images/share.jpg",
+      "nullable": true,
+      "type": "string",
+    },
+    "interaction_count": Object {
+      "example": 1,
+      "nullable": true,
+      "readOnly": true,
+      "type": "integer",
+    },
+    "name": Object {
+      "example": "Copper",
+      "type": "string",
+    },
+    "owner_id": Object {
+      "example": "12345",
+      "type": "string",
+    },
+    "phone_numbers": Object {
+      "items": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "number": Object {
+            "example": "111-111-1111",
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "home",
+              "office",
+              "mobile",
+              "assistant",
+              "fax",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "PhoneType",
+          },
+        },
+        "required": Array [
+          "number",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "social_links": Object {
+      "items": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "example": "twitter",
+            "nullable": true,
+            "type": "string",
+          },
+          "url": Object {
+            "example": "https://www.twitter.com/apideck-io",
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "url",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+    "status": Object {
+      "example": "Open",
+      "minLength": 1,
+      "nullable": true,
+      "type": "string",
+    },
+    "tags": Object {
+      "example": Array [
+        "New",
+      ],
+      "items": Object {
+        "type": "string",
+      },
+      "type": "array",
+    },
+    "updated_at": Object {
+      "example": "2020-09-30T07:43:32.000Z",
+      "readOnly": true,
+      "type": "string",
+    },
+    "updated_by": Object {
+      "example": "12345",
+      "nullable": true,
+      "readOnly": true,
+      "type": "string",
+    },
+    "vat_number": Object {
+      "description": "VAT number",
+      "example": "BE0689615164",
+      "nullable": true,
+      "type": "string",
+    },
+    "websites": Object {
+      "items": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "work",
+              "personal",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "WebsiteType",
+          },
+          "url": Object {
+            "example": "http://example.com",
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "url",
+        ],
+        "type": "object",
+      },
+      "type": "array",
+    },
+  },
+  "required": Array [
+    "name",
+  ],
+  "type": "object",
+}
+`;
+
+exports[`OasMappedOperation should set itself up using operation and params 1`] = `
+OasMappedOperation {
+  "cookieParams": Array [],
+  "id": "companiesAdd",
+  "method": "POST",
+  "path": "/crm/companies",
+  "pathParams": Array [],
+  "pathRef": "POST::/crm/companies",
+  "queryParams": Array [
+    Object {
+      "description": "Include raw response. Mostly used for debugging purposes",
+      "in": "query",
+      "name": "raw",
+      "schema": Object {
+        "default": true,
+        "type": "boolean",
+      },
+    },
+  ],
+  "requestHeaders": Array [
+    Object {
+      "description": "ID of the consumer which you want to get or push data from",
+      "in": "header",
+      "name": "x-apideck-consumer-id",
+      "required": true,
+      "schema": Object {
+        "type": "string",
+      },
+    },
+    Object {
+      "description": "The ID of your Unify application",
+      "in": "header",
+      "name": "x-apideck-app-id",
+      "required": true,
+      "schema": Object {
+        "type": "string",
+      },
+    },
+    Object {
+      "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "in": "header",
+      "name": "x-apideck-service-id",
+      "schema": Object {
+        "type": "string",
+      },
+    },
+  ],
+  "schema": Object {
+    "description": "Create company",
+    "operationId": "companiesAdd",
+    "parameters": Array [
+      Object {
+        "description": "Include raw response. Mostly used for debugging purposes",
+        "in": "query",
+        "name": "raw",
+        "schema": Object {
+          "default": true,
+          "type": "boolean",
+        },
+      },
+      Object {
+        "description": "ID of the consumer which you want to get or push data from",
+        "in": "header",
+        "name": "x-apideck-consumer-id",
+        "required": true,
+        "schema": Object {
+          "type": "string",
+        },
+      },
+      Object {
+        "description": "The ID of your Unify application",
+        "in": "header",
+        "name": "x-apideck-app-id",
+        "required": true,
+        "schema": Object {
+          "type": "string",
+        },
+      },
+      Object {
+        "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+        "in": "header",
+        "name": "x-apideck-service-id",
+        "schema": Object {
+          "type": "string",
+        },
+      },
+    ],
+    "requestBody": Object {
+      "content": Object {
+        "application/json": Object {
+          "schema": Object {
+            "additionalProperties": false,
+            "properties": Object {
+              "addresses": Object {
+                "items": Object {
+                  "properties": Object {
+                    "city": Object {
+                      "description": "Name of city.",
+                      "example": "San Francisco",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "country": Object {
+                      "description": "country code according to ISO 3166-1 alpha-2.",
+                      "example": "US",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "id": Object {
+                      "example": "123",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "latitude": Object {
+                      "example": "40.759211",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "line1": Object {
+                      "description": "Line 1 of the address e.g. number, street, suite, apt #, etc.",
+                      "example": "Main street",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "line2": Object {
+                      "description": "Line 2 of the address",
+                      "example": "apt #",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "longitude": Object {
+                      "example": "-73.984638",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "name": Object {
+                      "example": "HQ US",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "postal_code": Object {
+                      "description": "Zip code or equivalent.",
+                      "example": "94104",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "state": Object {
+                      "description": "Name of state",
+                      "example": "CA",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "enum": Array [
+                        "primary",
+                        "secondary",
+                        "home",
+                        "office",
+                        "shipping",
+                        "billing",
+                        "other",
+                      ],
+                      "example": "primary",
+                      "type": "string",
+                      "x-graphql-type-name": "AddressType",
+                    },
+                  },
+                  "type": "object",
+                },
+                "type": "array",
+              },
+              "bank_accounts": Object {
+                "items": Object {
+                  "properties": Object {
+                    "bic": Object {
+                      "example": "AUDSCHGGXXX",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "iban": Object {
+                      "example": "CH2989144532982975332",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                  },
+                  "type": "object",
+                },
+                "type": "array",
+              },
+              "created_at": Object {
+                "example": "2020-09-30T07:43:32.000Z",
+                "readOnly": true,
+                "type": "string",
+              },
+              "created_by": Object {
+                "example": "12345",
+                "nullable": true,
+                "readOnly": true,
+                "type": "string",
+              },
+              "currency": Object {
+                "example": "USD",
+                "nullable": true,
+                "type": "string",
+              },
+              "custom_fields": Object {
+                "items": Object {
+                  "additionalProperties": false,
+                  "properties": Object {
+                    "id": Object {
+                      "example": "custom_technologies",
+                      "type": "string",
+                    },
+                    "value": Object {
+                      "anyOf": Array [
+                        Object {
+                          "example": "Uses Salesforce and Marketo",
+                          "nullable": true,
+                          "type": "string",
+                        },
+                        Object {
+                          "example": 10,
+                          "nullable": true,
+                          "type": "number",
+                        },
+                        Object {
+                          "example": true,
+                          "nullable": true,
+                          "type": "boolean",
+                        },
+                        Object {
+                          "items": Object {
+                            "type": "string",
+                          },
+                          "type": "array",
+                        },
+                      ],
+                    },
+                  },
+                  "required": Array [
+                    "id",
+                  ],
+                  "type": "object",
+                },
+                "type": "array",
+              },
+              "description": Object {
+                "example": "A crm that works for you, so you can spend time on relationships instead of data.",
+                "nullable": true,
+                "type": "string",
+              },
+              "emails": Object {
+                "items": Object {
+                  "properties": Object {
+                    "email": Object {
+                      "example": "elon@musk.com",
+                      "format": "email",
+                      "type": "string",
+                    },
+                    "id": Object {
+                      "example": "123",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "enum": Array [
+                        "primary",
+                        "secondary",
+                        "work",
+                        "personal",
+                        "billing",
+                        "other",
+                      ],
+                      "example": "primary",
+                      "type": "string",
+                      "x-graphql-type-name": "EmailType",
+                    },
+                  },
+                  "required": Array [
+                    "email",
+                  ],
+                  "type": "object",
+                },
+                "type": "array",
+              },
+              "fax": Object {
+                "example": "+12129876543",
+                "nullable": true,
+                "type": "string",
+              },
+              "id": Object {
+                "example": "12345",
+                "readOnly": true,
+                "type": "string",
+              },
+              "image_url": Object {
+                "example": "https://www.spacex.com/static/images/share.jpg",
+                "nullable": true,
+                "type": "string",
+              },
+              "interaction_count": Object {
+                "example": 1,
+                "nullable": true,
+                "readOnly": true,
+                "type": "integer",
+              },
+              "name": Object {
+                "example": "Copper",
+                "type": "string",
+              },
+              "owner_id": Object {
+                "example": "12345",
+                "type": "string",
+              },
+              "phone_numbers": Object {
+                "items": Object {
+                  "properties": Object {
+                    "id": Object {
+                      "example": "12345",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "number": Object {
+                      "example": "111-111-1111",
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "enum": Array [
+                        "primary",
+                        "secondary",
+                        "home",
+                        "office",
+                        "mobile",
+                        "assistant",
+                        "fax",
+                        "other",
+                      ],
+                      "example": "primary",
+                      "type": "string",
+                      "x-graphql-type-name": "PhoneType",
+                    },
+                  },
+                  "required": Array [
+                    "number",
+                  ],
+                  "type": "object",
+                },
+                "type": "array",
+              },
+              "social_links": Object {
+                "items": Object {
+                  "properties": Object {
+                    "id": Object {
+                      "example": "12345",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "example": "twitter",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "url": Object {
+                      "example": "https://www.twitter.com/apideck-io",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "url",
+                  ],
+                  "type": "object",
+                },
+                "type": "array",
+              },
+              "status": Object {
+                "example": "Open",
+                "minLength": 1,
+                "nullable": true,
+                "type": "string",
+              },
+              "tags": Object {
+                "example": Array [
+                  "New",
+                ],
+                "items": Object {
+                  "type": "string",
+                },
+                "type": "array",
+              },
+              "updated_at": Object {
+                "example": "2020-09-30T07:43:32.000Z",
+                "readOnly": true,
+                "type": "string",
+              },
+              "updated_by": Object {
+                "example": "12345",
+                "nullable": true,
+                "readOnly": true,
+                "type": "string",
+              },
+              "vat_number": Object {
+                "description": "VAT number",
+                "example": "BE0689615164",
+                "nullable": true,
+                "type": "string",
+              },
+              "websites": Object {
+                "items": Object {
+                  "properties": Object {
+                    "id": Object {
+                      "example": "12345",
+                      "nullable": true,
+                      "type": "string",
+                    },
+                    "type": Object {
+                      "enum": Array [
+                        "primary",
+                        "secondary",
+                        "work",
+                        "personal",
+                        "other",
+                      ],
+                      "example": "primary",
+                      "type": "string",
+                      "x-graphql-type-name": "WebsiteType",
+                    },
+                    "url": Object {
+                      "example": "http://example.com",
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "url",
+                  ],
+                  "type": "object",
+                },
+                "type": "array",
+              },
+            },
+            "required": Array [
+              "name",
+            ],
+            "type": "object",
+          },
+        },
+      },
+      "required": true,
+    },
+    "responses": Object {
+      "201": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "data": Object {
+                  "properties": Object {
+                    "id": Object {
+                      "example": "12345",
+                      "readOnly": true,
+                      "type": "string",
+                    },
+                  },
+                  "required": Array [
+                    "id",
+                  ],
+                  "title": "UnifiedId",
+                },
+                "operation": Object {
+                  "description": "Operation performed",
+                  "example": "one",
+                  "type": "string",
+                },
+                "resource": Object {
+                  "description": "Unified API resource name",
+                  "example": "companies",
+                  "type": "string",
+                },
+                "service": Object {
+                  "description": "Apideck ID of service provider",
+                  "example": "zoho-crm",
+                  "type": "string",
+                },
+                "status": Object {
+                  "description": "HTTP Response Status",
+                  "example": "OK",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP Response Status Code",
+                  "example": 200,
+                  "type": "integer",
+                },
+              },
+              "required": Array [
+                "status_code",
+                "status",
+                "service",
+                "resource",
+                "operation",
+                "data",
+              ],
+              "type": "object",
+            },
+          },
+        },
+        "description": "Company created",
+      },
+      "400": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "detail": Object {
+                  "anyOf": Array [
+                    Object {
+                      "type": "string",
+                    },
+                    Object {
+                      "type": "object",
+                    },
+                  ],
+                  "description": "Contains parameter or domain specific information related to the error and why it occured.",
+                  "example": Object {
+                    "missing": Array [
+                      Array [
+                        Object {
+                          "foobar": "required",
+                        },
+                      ],
+                    ],
+                  },
+                },
+                "error": Object {
+                  "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                  "example": "Bad Request",
+                  "type": "string",
+                },
+                "message": Object {
+                  "description": "A human-readable message providing more details about the error.",
+                  "example": "Invalid Params",
+                  "type": "string",
+                },
+                "ref": Object {
+                  "description": "Link to documentation of error type",
+                  "example": "https://developers.apideck.com/errors#missingheaderserror",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP status code",
+                  "example": 400,
+                  "type": "number",
+                },
+                "typeName": Object {
+                  "description": "The type of error returned",
+                  "example": "MissingHeadersError",
+                  "type": "string",
+                },
+              },
+            },
+          },
+        },
+        "description": "Bad Request",
+      },
+      "401": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "detail": Object {
+                  "anyOf": Array [
+                    Object {
+                      "type": "string",
+                    },
+                    Object {
+                      "type": "object",
+                    },
+                  ],
+                  "description": "Contains parameter or domain specific information related to the error and why it occured.",
+                  "example": "Failed to generate valid JWT Session. Verify applicationId is correct",
+                },
+                "error": Object {
+                  "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                  "example": "Unauthorized",
+                  "type": "string",
+                },
+                "message": Object {
+                  "description": "A human-readable message providing more details about the error.",
+                  "example": "Unauthorized Request",
+                  "type": "string",
+                },
+                "ref": Object {
+                  "description": "Link to documentation of error type",
+                  "example": "https://developers.apideck.com/errors#unauthorizederror",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP status code",
+                  "example": 401,
+                  "type": "number",
+                },
+                "typeName": Object {
+                  "description": "The type of error returned",
+                  "example": "UnauthorizedError",
+                  "type": "string",
+                },
+              },
+            },
+          },
+        },
+        "description": "Unauthorized",
+      },
+      "402": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "detail": Object {
+                  "description": "Contains parameter or domain specific information related to the error and why it occured.",
+                  "example": "You have reached your limit of 2000",
+                  "type": "string",
+                },
+                "error": Object {
+                  "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                  "example": "Payment Required",
+                  "type": "string",
+                },
+                "message": Object {
+                  "description": "A human-readable message providing more details about the error.",
+                  "example": "Request Limit Reached",
+                  "type": "string",
+                },
+                "ref": Object {
+                  "description": "Link to documentation of error type",
+                  "example": "https://developers.apideck.com/errors#requestlimiterror",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP status code",
+                  "example": 402,
+                  "type": "number",
+                },
+                "typeName": Object {
+                  "description": "The type of error returned",
+                  "example": "RequestLimitError",
+                  "type": "string",
+                },
+              },
+            },
+          },
+        },
+        "description": "Payment Required",
+      },
+      "404": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "detail": Object {
+                  "description": "Contains parameter or domain specific information related to the error and why it occured.",
+                  "example": "Could not find widget with id: '123'",
+                  "type": "string",
+                },
+                "error": Object {
+                  "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                  "example": "Not Found",
+                  "type": "string",
+                },
+                "message": Object {
+                  "description": "A human-readable message providing more details about the error.",
+                  "example": "Unknown Widget",
+                  "type": "string",
+                },
+                "ref": Object {
+                  "description": "Link to documentation of error type",
+                  "example": "https://developers.apideck.com/errors#entitynotfounderror",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP status code",
+                  "example": 404,
+                  "type": "number",
+                },
+                "typeName": Object {
+                  "description": "The type of error returned",
+                  "example": "EntityNotFoundError",
+                  "type": "string",
+                },
+              },
+            },
+          },
+        },
+        "description": "The specified resource was not found",
+      },
+      "422": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "detail": Object {
+                  "description": "Contains parameter or domain specific information related to the error and why it occured.",
+                  "example": "State did not include unified_api",
+                  "type": "string",
+                },
+                "error": Object {
+                  "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                  "example": "Unprocessable Entity",
+                  "type": "string",
+                },
+                "message": Object {
+                  "description": "A human-readable message providing more details about the error.",
+                  "example": "Invalid State",
+                  "type": "string",
+                },
+                "ref": Object {
+                  "description": "Link to documentation of error type",
+                  "example": "https://developers.apideck.com/errors#invalidstateerror",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP status code",
+                  "example": 422,
+                  "type": "number",
+                },
+                "typeName": Object {
+                  "description": "The type of error returned",
+                  "example": "InvalidStateError",
+                  "type": "string",
+                },
+              },
+            },
+          },
+        },
+        "description": "Unprocessable",
+      },
+      "default": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "properties": Object {
+                "detail": Object {
+                  "anyOf": Array [
+                    Object {
+                      "type": "string",
+                    },
+                    Object {
+                      "type": "object",
+                    },
+                  ],
+                  "description": "Contains parameter or domain specific information related to the error and why it occured.",
+                  "example": "Missing Header: x-apideck-consumer-id",
+                },
+                "error": Object {
+                  "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                  "example": "Bad Request",
+                  "type": "string",
+                },
+                "message": Object {
+                  "description": "A human-readable message providing more details about the error.",
+                  "example": "Invalid Params",
+                  "type": "string",
+                },
+                "ref": Object {
+                  "description": "Link to documentation of error type",
+                  "example": "https://developers.apideck.com/errors#unauthorizederror",
+                  "type": "string",
+                },
+                "status_code": Object {
+                  "description": "HTTP status code",
+                  "example": 400,
+                  "type": "number",
+                },
+                "typeName": Object {
+                  "description": "The type of error returned",
+                  "example": "MissingHeadersError",
+                  "type": "string",
+                },
+              },
+            },
+          },
+        },
+        "description": "Unexpected error",
+      },
+    },
+    "security": Array [
+      Object {
+        "apiKey": Array [],
+      },
+    ],
+    "summary": "Create company",
+    "tags": Array [
+      "Companies",
+    ],
+  },
+}
+`;

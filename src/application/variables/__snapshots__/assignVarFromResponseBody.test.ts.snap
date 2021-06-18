@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assignVarFromResponseBody should add postman collection var with name and response body value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id  
+if (typeof jsonData.data.id !== \\"undefined\\") {
+   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
+   console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
+};
+",
+]
+`;

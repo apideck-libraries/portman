@@ -2,5 +2,7 @@
 'use strict'
 ;(() => {
   // Portman CLI
-  return () => require('../dist/index')
+  return () => {
+    require('../dist/index')
+  }
 })()()

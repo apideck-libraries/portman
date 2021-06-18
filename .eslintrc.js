@@ -23,7 +23,11 @@ module.exports = {
     'no-extra-semi': OFF,
     'no-console': OFF,
     'no-unused-vars': OFF,
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
+    'no-prototype-builtins': OFF,
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_', ignoreRestSiblings: true }
+    ]
   },
   overrides: [
     {

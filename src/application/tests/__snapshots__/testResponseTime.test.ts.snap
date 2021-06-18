@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseTime should add test for response time 1`] = `
+Array [
+  "// Validate response time 
+pm.test(\\"[GET]::/crm/companies/:id - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+]
+`;

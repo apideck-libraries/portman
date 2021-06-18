@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseHeader should add test for response header 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header x-unify-request-id is present\\", function () {
+   pm.response.to.have.header(\\"x-unify-request-id\\");
+});
+",
+]
+`;

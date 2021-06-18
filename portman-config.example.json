@@ -1,14 +1,260 @@
 {
-  "preRequestScripts": [
-    "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
-  ],
-  "variableOverwrites": {
-    "application_id": "{{applicationId}}"
+  "version": 1.0,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "excludeForOperations": ["leadsAdd", "GET::/crm/leads/{id}"],
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
+      }
+    ],
+    "contentTests": [
+      {
+        "openApiOperationId": "leadsAll",
+        "responseBodyTest": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          },
+          {
+            "key": "data[0].monetary_amount",
+            "value": 75000
+          },
+          {
+            "key": "resource",
+            "value": "companies"
+          }
+        ]
+      }
+    ],
+    "extendTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "overwrite": false,
+        "append": true,
+        "tests": [
+          "pm.test('200 ok', function(){pm.response.to.have.status(200);});",
+          "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
+        ]
+      }
+    ],
+    "variationTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "variations": [
+          {
+            "name": "missingParams",
+            "overwrites": [
+              {
+                "overwriteRequestBody": [
+                  {
+                    "key": "first_name",
+                    "value": "",
+                    "overwrite": true
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true,
+                    "code": 400
+                  },
+                  "jsonBody": {
+                    "enabled": true
+                  }
+                }
+              ],
+              "responseBodyTests": [
+                {
+                  "key": "resource",
+                  "value": "leads"
+                }
+              ],
+              "extendTests": [
+                {
+                  "tests": [
+                    "\npm.test('say hello Portman', function(){ \n  console.log('Hello Portman')\n});"
+                  ]
+                }
+              ]
+            },
+            "assignVariables": [
+              {
+                "collectionVariables": [
+                  {
+                    "responseBodyProp": "data[0].id"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
-  "globalReplacements": [
+  "assignVariables": [
     {
-      "searchFor": "\"maxItems\":2,",
-      "replaceWith": ""
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.company_name"
+        },
+        {
+          "responseHeaderProp": "Operation-Location"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.id"
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAdd",
+      "collectionVariables": [
+        {
+          "requestBodyProp": "company_name",
+          "name": "leadsAdd.company_name"
+        },
+        {
+          "responseBodyProp": "data.id",
+          "name": "leadsAdd.id"
+        },
+        {
+          "value": 12345,
+          "name": "leadsAdd.fixed.number"
+        },
+        {
+          "value": "portman",
+          "name": "leadsAdd.fixed.string"
+        }
+      ]
     }
-  ]
+  ],
+  "overwrites": [
+    {
+      "openApiOperationId": "leadsAdd",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "--{{$randomInt}}",
+          "overwrite": false
+        },
+        {
+          "key": "company_name",
+          "value": "{{$randomCompanyName}} {{$randomColor}}",
+          "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{$randomInt}}",
+          "overwrite": true
+        },
+        {
+          "key": "websites[0]",
+          "remove": true
+        },
+        {
+          "key": "social_links[1].url",
+          "remove": true
+        }
+      ]
+    },
+    {
+      "openApiOperation": "DELETE::/crm/leads/{id}",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "raw",
+          "value": false,
+          "overwrite": true
+        }
+      ],
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsUpdate",
+      "overwriteRequestHeaders": [
+        {
+          "key": "x-apideck-consumer-id",
+          "value": "portman-id-{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "disable": true
+        },
+        {
+          "key": "cursor",
+          "remove": true
+        }
+      ]
+    }
+  ],
+  "globals": {
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "keyValueReplacements": {
+      "x-apideck-app-id": "{{applicationId}}"
+    },
+    "valueReplacements": {
+      "<Bearer Token>": "{{bearerToken}}"
+    },
+    "rawReplacements": [
+      {
+        "searchFor": "Unify",
+        "replaceWith": "Unify ApiDeck"
+      }
+    ]
+  }
 }

@@ -4,7 +4,8 @@
   "output": "./examples/cli-options/crm.postman.json",
   "portmanConfigFile": "./examples/cli-options/portman-config.crm.json",
   "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
+  "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
-  "testSuiteConfigFile": "./examples/cli-options/postman-testsuite.crm.json",
+  "syncPostman": false,
   "runNewman": false
 }

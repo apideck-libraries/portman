@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseStatusSuccess should add test for status success 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+]
+`;

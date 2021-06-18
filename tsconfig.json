@@ -25,6 +25,7 @@
     "noFallthroughCasesInSwitch": true,
     /* Module Resolution Options */
     "baseUrl": ".",
+    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     /* Experimental Options */
@@ -32,9 +33,16 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "paths": {
-      "*": ["./src/*", "./*"]
-    }
+      "application": ["./src/application"],
+      "utils": ["./src/utils"],
+      "lib": ["./src/lib/"],
+      "oas": ["./src/oas/"],
+      "postman": ["./src/postman/"],
+      "services": ["./src/services"],
+      "types": ["./src/types/"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules/**/*", ".vscode/**/*", "src/**/*.test.ts"]
+  "include": ["src", "src/**/*.ts"],
+  "exclude": ["node_modules/**/*", ".vscode/**/*", "__tests__", "src/**/*.test.ts"]
 }

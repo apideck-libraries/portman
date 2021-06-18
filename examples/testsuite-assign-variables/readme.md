@@ -1,10 +1,10 @@
-# OpenApi Postman test suite generation - assignPmVariables
+# OpenAPI Postman test suite generation - assignVariables
 
-In the "[examples/testsuite-default-checks](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks)" example, we explained the default generated Postman contract tests. 
+In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests)" example, we explained the default generated Postman contract tests.
 
-This example focusses on assigning Postman variables based on the response of an API request, with the goal to be able to reuse them in other requests.
+This example focuses on assigning Postman variables based on the response of an API request, with the goal to be able to reuse them in other requests.
 
-_use-cases_: 
+_use-cases_:
 
 - Generate Postman flows that require values from previous operations
 
@@ -13,202 +13,93 @@ _use-cases_:
 ## CLI usage
 
 ```ssh
-yarn portman --cliOptionsFile ./examples/testsuite-assign-variables/portman-cli-options.json
+portman --cliOptionsFile ./examples/testsuite-assign-variables/portman-cli-options.json
 ```
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenAPi defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default testuite tests generated out-of-the-box + set Postman variabbles from executed Postman requests.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box + set Postman variables from executed Postman requests.
 
-## Testsuite settings
+## Portman settings
 
-The test suite settings (in JSON format) consists out of multiple parts:  
+The portman settings (in JSON format) consists out of multiple parts.
+In this example we focus on the **assignVariables** section and settings.
 
-- **version** : which refers the JSON test suite version (not relevant but might handy for future backward compatibility options).  
-- **generateTests** : which refers the default available generated postman tests. The default tests are grouped per type (response, request)  ( see examples folder)
-  - **responseChecks** : All response automatic generated checks.  
-  - **limitOperations**: refers to a list of operation IDs for which tests will be generated. (Default not set, so tests will be generated for **all** operations).  
-- **extendTests**:  which refers the custom additions of manual created postman tests. (see examples folder)
-- **contentChecks**:  which refers the additional Postman tests that check the content. (see examples folder)
-- **assignPmVariables**:  which refers to specific Postman environment variables for easier automation.  
-- **overwriteRequests**:  which refers the custom additions/modifications of the OpenAPI request body. (see examples folder)
+file: examples/testsuite-assign-variables/portman-config.crm.json
 
-In this example we focus on the **assignPmVariables** section and settings.
+## Portman - "assignVariables" properties
 
-file: examples/testsuite-assign-variables/postman-testsuite.crm.json
+Version 1.0
+
+To facilitate automation, we provide the option to set Postman collection variables with values from the response. The assigning of the "pm.collectionVariables" are mapped based on the OpenAPI operationId or OpenAPI Operation reference.
+
+### Target options:
+
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables variable
+  will be set. (example: `listPets`)
+- **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman
+  pm.collectionVariables will be set. (example: `GET::/pets`)
+
+These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for overwrites.
+
+### collectionVariables options:
+
+- **collectionVariables (Array)** : 
+  
+  Array of key/value pairs to set the Postman collection variables.
+  
+  - **responseBodyProp (String)** : The property for which the value will be taken in the response body and set the value as the pm.collectionVariables value.
+  - **responseHeaderProp (String)** : The property for which the value will be taken in the response header and set the value as the pm.collectionVariables value.
+  - **requestBodyProp (String)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
+  - **value (String)** : The defined value that will be set as the pm.collectionVariables value.
+  - **name (String OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name.
+
+## Example explained
+
+In this example, we are zooming in on only the assignVariables usage. For the basics on the portman configuration and usage, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
+
+file: examples/testsuite-assign-variables/portman-config.crm.json >>
 
 ```json
-{
-  "version": 1.0,
-  "generateTests": {
-    "responseChecks": {
-      "StatusSuccess": {
-        "enabled": true
-      },
-      "responseTime": {
-        "enabled": true,
-        "maxMs": 300
-      },
-      "contentType": {
-        "enabled": true
-      },
-      "jsonBody": {
-        "enabled": true
-      },
-      "schemaValidation": {
-        "enabled": true
-      },
-      "headersPresent": {
-        "enabled": true
-      }
-    }
-  },
-  "assignPmVariables": [
+  "assignVariables": [
     {
-      "openApiOperationId": "GET::/crm/leads/{id}",
-      "environmentVariables": [
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
         {
-          "responseBodyProp": "data.company_name"
-        }
-      ]
-    },
-    {
-      "openApiOperationId": "leadsAdd",
-      "environmentVariables": [
-        {
-          "requestBodyProp": "company_name",
-          "name": "leadsAdd.company_name"
-        },
-        {
-          "responseBodyProp": "data.id",
-          "name": "leadsAdd.id"
-        }
-      ]
-    }
-  ],
-  "contentChecks": [
-    {
-      "openApiOperationId": "leadsOne",
-      "checkRequestBody": [
-        {
-          "key": "data.company_name",
-          "value": "{{leadsAdd.company_name}}"
-        }
-      ]
-    }
-  ],
-  "overwriteRequests": [
-    {
-      "openApiOperationId": "leadsAdd",
-      "overwriteRequestBody": [
-        {
-          "key": "name",
-          "value": "{{leadsAdd.name}}"
+          "responseBodyProp": "data.id"
         }
       ]
     },
     {
       "openApiOperation": "GET::/crm/leads/{id}",
-      "overwriteRequestPathVariables": [
+      "collectionVariables": [
         {
-          "key": "id",
-          "value": "{{leadsAdd.id}}",
-          "overwrite": true
+          "responseBodyProp": "data.company_name"
+        },
+        {
+          "responseHeaderProp": "Operation-Location"
         }
       ]
     },
-    {
-      "openApiOperation": "PATCH::/crm/leads/{id}",
-      "overwriteRequestPathVariables": [
-        {
-          "key": "id",
-          "value": "{{leadsAdd.id}}",
-          "overwrite": true
-        }
-      ]
-    },
-    {
-      "openApiOperation": "DELETE::/crm/leads/{id}",
-      "overwriteRequestPathVariables": [
-        {
-          "key": "id",
-          "value": "{{leadsAdd.id}}",
-          "overwrite": true
-        }
-      ]
-    }
-  ]
-}
-
-```
-
-## Postman test suite - "assignPmVariables" properties
-
-Version 1.0  
-
-To facilitate automation, we provide the option to set "pm.environment" variables with values from the response. The assigning of the "pm.environment" variables" are mapped based on the OpenApi operationId or OpenApi Operation reference.  
-
-*REMARK*: By default the test suite will create a pm.environment variable for the ID property in the response object for POST operation, if `ID` is present in the reponse.  
-
-Anything added in `assignPmVariables` array, will be used to generate specific pm.environment variables based on the  postman response body.  
-
-### Target options:
-
-- **openApiOperationId (String)** : Reference to the OpenApi operationId for which the Postman pm.environment variable  
-  will be set. (example: `listPets`)  
-- **openApiOperation (String)** : Reference to combination of the OpenApi method & path, for which the Postman  
-  pm.environment variable will be set. (example: `GET::/pets`)  
-
-These target options are both supported for defining a target. In case both are set for the same target, only  the `openApiOperationId` will be used for overwrites.  
-
-### EnvironmentVariables options:
-
-- **environmentVariables (Array)** : Array of key/value pairs to set the Postman variables.  
-  - **responseBodyProp (string)** : The property for which the value will be taken in the response body and set the value as the  pm.environment value.  
-  - **responseHeaderProp (string)** : The property for which the value will be taken in the response header and set the value as the pm.environment value.
-  - **requestBodyProp (string)** : The property for which the value will be taken in the request body and set the value as the pm.environment value.  
-  - **value (string)** : The defined value that will be set as the pm.environment value.  
-  - **name (string OPTIONAL | Default: openApiOperationId.responseProp)** : The name that will be used to overwrite the default generated variable name
-
-## Example explained
-
-In this example, we are zooming in on only the overwriteRequests usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-default-checks"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-default-checks")
-
-file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
-
-```json
-"assignPmVariables": [
     {
       "openApiOperationId": "leadsAdd",
-      "environmentVariables": [
+      "collectionVariables": [
         {
           "requestBodyProp": "company_name",
           "name": "leadsAdd.company_name"
-        },
-        {
-          "responseBodyProp": "data.id",
-          "name": "leadsAdd.id"
-        }
-      ]
-    },
-    {
-      "openApiOperationId": "GET::/crm/leads/{id}",
-      "environmentVariables": [
-        {
-          "responseBodyProp": "data.company_name"
         }
       ]
     }
   ]
 ```
 
-### assignPmVariables + overwriteRequestQueryParams
+### assignVariables from responseBodyProp
 
 ```json
-  "assignPmVariables": [
+  "assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
-      "environmentVariables": [
+      "collectionVariables": [
         {
           "responseBodyProp": "data.id",
           "name": "leadsAdd.id"
@@ -218,7 +109,7 @@ file: examples/testsuite-assign-variables/postman-testsuite.crm.json >>
   ],
 ```
 
-This will target the OpenApi `"openApiOperationId": "leadsAdd"` and will assign the `data.id` from the request body to a Postman environment variable with the name `leadsAdd.id`
+This will target the OpenAPI `"openApiOperationId": "leadsAdd"` and will assign the `data.id` from the request body to a Postman collection variable with the name `leadsAdd.id`
 
 The API response for the create operation will contain:
 
@@ -237,29 +128,141 @@ The API response for the create operation will contain:
 
 After the conversion, in the "leadsAdd" request (POST::/crm/leads) in the Postman app, you can find the following result in the test tab.
 
-file: examples/testsuite-assign-variables/crm.postman.json >> 
+file: examples/testsuite-assign-variables/crm.postman.json >>
 
 Postman request "Leads" >> "Create lead" Test tab:
 
 ```js
-// Set respone object as internal variable
-let jsonData = pm.response.json();
+// Set response object as internal variable
+let jsonData = pm.response.json()
 
-// pm.environment - Set leadsAdd.id as environment variable 
-if (jsonData.data.id) {
-   pm.environment.set("leadsAdd.id",jsonData.data.id);
-   console.log("pm.environment - use {{leadsAdd.id}} as variable for value", jsonData.data.id);
-};
+// pm.collectionVariables - Set leadsAdd.data.id as variable for jsonData.data.id
+if (typeof jsonData.data.id !== 'undefined') {
+  pm.collectionVariables.set('leadsAdd.data.id', jsonData.data.id)
+  console.log('- use {{leadsAdd.data.id}} as collection variable for value', jsonData.data.id)
+}
 ```
 
-Each time the request is executed in Postman, the `{{$leadsAdd.id}}` variables will be updated with the `data.id` from the API response. 
+Each time the request is executed in Postman, the `{{$leadsAdd.id}}` variables will be updated with the `data.id` from the API response.
 
-This allows you to capture the ID of the newly created entity. 
+This allows you to capture the ID of the newly created entity.
 
-In combination with the `overwriteRequests` option, you can then chain the Creation operation with the Read/Update/Delete operations. You can use the `{{$leadsAdd.id}}` to set the request path variables.
+For easier usage, the Postman variable name is shown in the console log of Portman & Postman.
+
+## assignVariables from all responseBodyProp
+
+It is very common that he test suite will create a Postman variable for the ID property in the response object of the create/POST operation (if `ID` is present in the response).
 
 ```json
-"overwriteRequests": [
+assignVariables": [
+    {
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.id"
+        }
+      ]
+    }
+  ]
+```
+
+The snippet above targets all POST operations, for any path.
+
+```javascript
+// pm.collectionVariables - Set leadsAdd.data.id as variable for jsonData.data.id
+if (typeof jsonData.data.id !== 'undefined') {
+  pm.collectionVariables.set('leadsAdd.data.id', jsonData.data.id)
+  console.log('- use {{leadsAdd.data.id}} as collection variable for value', jsonData.data.id)
+}
+```
+
+## assignVariables from responseHeaderProp
+
+```json
+  "assignVariables": [
+    {
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "collectionVariables": [
+        {
+          "responseHeaderProp": "Operation-Location"
+        }
+      ]
+    }
+  ],
+```
+
+This will target the OpenAPI GET method for the `/crm/leads/{id}` and will assign the value of the specific`header` from the response header to a Postman collection.
+
+The API response for the create operation will contain:
+
+```json
+Operation-Location: {baseUrl}/operations/bbadbeef-b3ab-40af-b05c-c0ffee6544cd
+```
+
+After the conversion, in the "leadsOne" request (GET::/crm/leads/{id}) in the Postman app, you can find the following result in the test tab.
+
+file: examples/testsuite-assign-variables/crm.postman.json >>
+
+Postman request "Leads" >> "Get lead" Test tab:
+
+```js
+// pm.collectionVariables - Set leadsOne.Operation-Location as variable for header
+let leadsOneOperationLocation = pm.response.headers.get('Operation-Location')
+if (leadsOneOperationLocation !== undefined) {
+  pm.collectionVariables.set('leadsOne.Operation-Location', leadsOneOperationLocation)
+  console.log(
+    '- use {{leadsOne.Operation-Location}} as collection variable for value',
+    leadsOneOperationLocation
+  )
+}
+```
+
+## assignVariables from requestBodyProp
+
+```json
+  "assignVariables": [
+    {
+      "openApiOperationId": "leadsAdd",
+      "collectionVariables": [
+        {
+          "requestBodyProp": "company_name",
+          "name": "leadsAdd.company_name"
+        }
+      ]
+    }
+  ],
+```
+
+This will target the OpenAPI with OperationId `leadsAdd` and will assign the value of the request body to a Postman collection.
+
+The request body for the create operation will contain:
+
+```json
+{
+    "company_name": "Spacex",
+    "owner_id": "54321",
+```
+
+After the conversion, in the "leadsAdd" request (Post::/crm/leads) in the Postman app, you can find the following result in the test tab.
+
+file: examples/testsuite-assign-variables/crm.postman.json >>
+
+Postman request "Leads" >> "Post lead" Test tab:
+
+```js
+// pm.collectionVariables - Set leadsAdd.company_name as variable from request body
+pm.collectionVariables.set('leadsAdd.company_name', 'Spacex')
+console.log('- use {{leadsAdd.company_name}} as collection variable for value', 'Spacex')
+```
+
+The value will be taken from the original OpenAPI request body.
+
+## assignVariables with usage in overwriteRequestQueryParams
+
+In combination with the `overwrites` option, you can then chain the Creation operation with the Read/Update/Delete operations. You can use the `{{$leadsAdd.id}}` to set the request path variables.
+
+```json
+"overwrites": [
     {
       "openApiOperation": "GET::/crm/leads/{id}",
       "overwriteRequestPathVariables": [
@@ -293,13 +296,13 @@ In combination with the `overwriteRequests` option, you can then chain the Creat
   ]
 ```
 
-Which will result in the Path variables for GET/PATCH/DELETE for the path `/crm/leads/{id}` will be set with the `{{leadsAdd.id}}` Postman environment variable.
+Which will result in the Path variables for GET/PATCH/DELETE for the path `/crm/leads/{id}` will be set with the `{{leadsAdd.id}}` Postman collection variable.
 
 ![](./images/assignPmVariables_id.png)
 
-### assignPmVariables + contentChecks
+### assignVariables + contentTests
 
-Another option is to combine "assignPmVariables" with "contentChecks".
+Another option is to combine "assignVariables" with "contentTests".
 
 Create Lead request body
 
@@ -308,17 +311,17 @@ Create Lead request body
     "name": "{{leadsAdd.name}}",
     "company_name": "Spacex",
     "owner_id": "54321"
-    ...
+   ...
 }
 ```
 
-Assign the variable from the request body through our "assignPmVariables" definition.
+Assign the variable from the request body through our "assignVariables" definition.
 
 ```json
-assignPmVariables": [
+assignVariables": [
     {
       "openApiOperationId": "leadsAdd",
-      "environmentVariables": [
+      "collectionVariables": [
         {
           "requestBodyProp": "company_name",
           "name": "lead.company_name"
@@ -328,17 +331,17 @@ assignPmVariables": [
   ]
 ```
 
-This will target the OpenApi `"openApiOperation": "leadsAdd"` and will get the  `company_name` from the request body (which is defined in OpenApi)(before the Postman request is send).
+This will target the OpenAPI `"openApiOperation": "leadsAdd"` and will get the `company_name` from the request body (which is defined in OpenAPI)(before the Postman request is send).
 
 Postman request "Leads" >> "Create lead" test:
 
 ```js
-// pm.environment - Set leadsAdd.company_name as environment variable from request body 
-pm.environment.set("leadsAdd.company_name","Spacex");
-console.log("pm.environment - use {{leadsAdd.company_name}} as variable for value", "Spacex");
+// pm.collectionVariables - Set leadsAdd.company_name as variable from request body
+pm.collectionVariables.set('leadsAdd.company_name', 'Spacex')
+console.log('- use {{leadsAdd.company_name}} as collection variable for value', 'Spacex')
 ```
 
-Next we want to validate in the `company_name` which we used to create the entity, is matching with the `company_name` when requesting the lead details of our newly created entity. 
+Next we want to validate in the `company_name` which we used to create the entity, is matching with the `company_name` when requesting the lead details of our newly created entity.
 
 Get Lead response
 
@@ -361,7 +364,7 @@ Get Lead response
 For this we use a "contenCheck":
 
 ```json
-"contentChecks": [
+"contentTests": [
     {
       "openApiOperationId": "GET::/crm/leads/{id}",
       "checkRequestBody": [
@@ -374,22 +377,29 @@ For this we use a "contenCheck":
   ]
 ```
 
-which will generate a Postman test for the `"openApiOperation":"GET::/crm/leads/{id}"` operation that check if the value from the "company_name" which is created through the create lead API, matches with the get lead API data. 
+which will generate a Postman test for the `"openApiOperation":"GET::/crm/leads/{id}"` operation that check if the value from the "company_name" which is created through the create lead API, matches with the get lead API data.
 
 Postman request "Leads" >> "Get lead" test:
 
 ```js
 // Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = pm.response.json()
 
 // Response body should have property "data.company_name"
-pm.test("[GET] /crm/leads/{id} - Content check if property 'data.company_name' exists", function() {
-   pm.expect((typeof jsonData.data.company_name !== "undefined")).to.be.true;
-});
+pm.test(
+  "[GET] /crm/leads/{id} - Content check if property 'data.company_name' exists",
+  function () {
+    pm.expect(typeof jsonData.data.company_name !== 'undefined').to.be.true
+  }
+)
 
 // Response body should have value "{{leadsAdd.company_name}}" for "data.company_name"
-if (typeof jsonData.data.company_name !== "undefined") {
-pm.test("[GET] /crm/leads/{id} - Content check if value for 'data.company_name' matches '{{leadsAdd.company_name}}'", function() {
-  pm.expect(jsonData.data.company_name).to.eql(pm.environment.get("leadsAdd.company_name"));
-})};
+if (typeof jsonData.data.company_name !== 'undefined') {
+  pm.test(
+    "[GET] /crm/leads/{id} - Content check if value for 'data.company_name' matches '{{leadsAdd.company_name}}'",
+    function () {
+      pm.expect(jsonData.data.company_name).to.eql(pm.environment.get('leadsAdd.company_name'))
+    }
+  )
+}
 ```

@@ -1,0 +1,32 @@
+{
+  "id": "fed4e16e-2f7f-4a16-8fda-9929c41296dd",
+  "name": "Newman Run",
+  "_postman_variable_scope": "environment",
+  "values": [
+    {
+      "enabled": true,
+      "key": "baseUrl",
+      "value": "http://localhost:3050"
+    },
+    {
+      "enabled": true,
+      "key": "bearerToken",
+      "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48"
+    },
+    {
+      "enabled": true,
+      "key": "applicationId",
+      "value": "1111"
+    },
+    {
+      "enabled": true,
+      "key": "serviceId",
+      "value": "teamleader"
+    },
+    {
+      "enabled": true,
+      "key": "consumerId",
+      "value": "test_user_id"
+    }
+  ]
+}
