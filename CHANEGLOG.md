@@ -1,3 +1,51 @@
+## v1.0.0 - (2021-06-18)
+
+## First Release
+
+- Major overhaul from base release
+- All feayures listed below
+
+Added:
+
+- [x] Convert an OpenAPI document to a Postman collection
+  - [x] Support for OpenAPI 3.0
+- Extend the Postman collection with capabilities
+  - [x] Assign collection variables
+    - [x] from ENV file
+    - [x] from response body properties
+    - [x] from response header properties
+    - [x] from request body properties
+  - [x] Inject Postman contract tests with
+    - [x] HTTP response code validation
+    - [x] Response time validation
+    - [x] Response content-type validation
+    - [x] Response JSON body validation
+    - [x] Response JSON schema validation
+    - [x] Response content validation
+    - [x] Custom Postman tests
+  - [x] Inject Postman variation tests for
+    - [x] HTTP response code validation
+    - [x] Response time validation
+    - [x] Response content-type validation
+    - [x] Response JSON body validation
+    - [x] Response JSON schema validation
+    - [x] Response content validation
+    - [x] Custom Postman tests
+  - [x] Inject Postman with
+    - [x] Pre-request scripts on a collection level
+  - [x] Modify Postman requests by
+    - [x] Overwriting request path variables
+    - [x] Overwriting request query params
+    - [x] Overwriting request headers
+    - [x] Overwriting request body
+    - [x] Replace keywords with custom defined keys
+    - [x] Replace values with custom defined values
+    - [x] Search & replace any key/value with a specific value
+    - [x] Order the collections requests
+- [x] Upload the Postman collection to your Postman app
+- [x] Test the Postman collection through Newman
+- [x] Manage everything in config file for easy local or CI/CD usage
+
 ## v0.1.0 - (2021-05-31)
 
 ### OpenApi-Format / CLI options
