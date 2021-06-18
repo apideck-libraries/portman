@@ -83,6 +83,7 @@ Version 1.0
 The following contract tests can be enabled by using the following properties:
 
 - **statusSuccess (Boolean)**: Adds the test if the response of the Postman request return a 2xx
+- **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)**: Adds the test to verify if the response of the Postman request is returned within a number of ms.
 - **contentType (Boolean)**: Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)**: Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
@@ -368,6 +369,29 @@ Generates a check to verify if the HTTP status code is within the 2xx range
 // Validate status 2xx
 pm.test('[GET]::/crm/leads/:id - Status code is 2xx', function () {
   pm.response.to.be.success
+})
+```
+
+### statusCode
+
+```json
+"contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+      "statusCode": {
+        "enabled": true,
+        "code": 400
+        }
+      }
+]
+```
+
+Generates a check to verify if the HTTP status code matches the `code`
+
+```js
+// Validate status 2xx
+pm.test('[GET]::/crm/leads/:id - Response status code time is 400', function () {
+  pm.expect(pm.response.code).to.equal(400);
 })
 ```
 

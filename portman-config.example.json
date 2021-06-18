@@ -10,6 +10,7 @@
       },
       {
         "openApiOperation": "*::/crm/*",
+        "excludeForOperations": ["leadsAdd", "GET::/crm/leads/{id}"],
         "responseTime": {
           "enabled": true,
           "maxMs": 300
