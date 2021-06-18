@@ -292,7 +292,8 @@ The contract tests are grouped in an array of `contractTests`.
 
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
-- **statusSuccess (Boolean)** : Adds the test if the response of the Postman request return a 2xx
+- **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
+- **statusCode (Boolean)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)** : Adds the test to verify if the response of the Postman request is returned within a number of ms.
 - **contentType (Boolean)** : Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)** : Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
@@ -319,7 +320,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
 Content tests will validate if the response property values will match the expected defined values.
 While the Portman `tests` verify the "contract" of the API, the `contentTests` will verify the content of the API.
 
-#### responseBodyTests options
+#### contentTests options
 
 =======
 
