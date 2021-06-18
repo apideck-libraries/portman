@@ -14,17 +14,17 @@ require('dotenv').config()
     .usage('Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>')
     .option('u', {
       alias: 'url',
-      describe: 'URL of OAS to port to postman collection',
+      describe: 'URL of OAS to port to Postman collection',
       type: 'string'
     })
     .option('l', {
       alias: 'local',
-      describe: 'Use local OAS to port to postman collection',
+      describe: 'Use local OAS to port to Postman collection',
       type: 'string'
     })
     .option('b', {
       alias: 'baseUrl',
-      describe: 'Override spec baseUrl to use in test suite',
+      describe: 'Override spec baseUrl to use in Postman',
       type: 'string'
     })
     .option('o', {
@@ -34,50 +34,50 @@ require('dotenv').config()
     })
     .option('n', {
       alias: 'runNewman',
-      describe: 'Run newman on newly created collection',
+      describe: 'Run Newman on newly created collection',
       type: 'boolean'
     })
     .option('d', {
       alias: 'newmanIterationData',
-      describe: 'Iteration data to run newman with newly created collection',
+      describe: 'Iteration data to run Newman with newly created collection',
       type: 'string'
     })
     .option('p', {
       alias: 'postmanUid',
-      describe: 'Collection ID to upload generated collection to postman',
+      describe: 'Collection UID to upload with generated Postman collection',
       type: 'string'
     })
     .option('syncPostman', {
       alias: 'syncPostman',
-      describe: 'Upload generated collection to postman',
+      describe: 'Upload generated collection to Postman',
       type: 'boolean'
     })
     .option('t', {
       alias: 'includeTests',
-      describe: 'Inject test suite (default: true)',
+      describe: 'Inject Portman test suite (default: true)',
       type: 'boolean'
     })
     .option('c', {
       alias: 'portmanConfigFile',
-      describe: 'Path to portman-config.json',
+      describe: 'Path to Portman settings config file (portman-config.json)n',
       type: 'string'
     })
     .option('s', {
       alias: 'postmanConfigFile',
-      describe: 'Path to postman-config.json',
+      describe: 'Path to openapi-to-postman config file (postman-config.json)',
       type: 'string'
     })
     .option('filterFile', {
-      describe: 'Path to openapi-format-filter.json',
+      describe: 'Path to openapi-format config file (oas-format-filter.json)',
       type: 'string'
     })
     .option('envFile', {
-      describe: 'Path to .env file to use for variable injection',
+      describe: 'Path to the .env file to inject environment variables',
       type: 'string'
     })
     .option('cliOptionsFile', {
       // alias: 'cliOptionsFile',
-      describe: 'Path to the file with the Portman CLI options',
+      describe: 'Path to Portman CLI options file',
       type: 'string'
     })
     .option('init', {

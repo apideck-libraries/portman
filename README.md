@@ -68,7 +68,7 @@ OR
 3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
 4. Start converting your OpenAPI document to Postman
 
-- Postman Configuration options can be found [here](https://github.com/thim81/openapi-to-Postman/blob/develop/OPTIONS.md)
+- All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 
 ## Installation
 
@@ -113,17 +113,18 @@ Options:
       --version              Show version number                                          [boolean]
   -u, --url                  URL of OAS to port to Postman collection                     [string]
   -l, --local                Use local OAS to port to Postman collection                  [string]
-  -b, --baseUrl              Override spec baseUrl to use in test suite                   [string]
+  -b, --baseUrl              Override spec baseUrl to use in Postman                      [string]
   -o, --output               Write the Postman collection to an output file               [string]
-  -n, --runNewman            Run newman on newly created collection                       [boolean]
-  -d, --newmanIterationData  Iteration data to run newman with newly created collection   [string]
+  -n, --runNewman            Run Newman on newly created collection                       [boolean]
+  -d, --newmanIterationData  Iteration data to run Newman with newly created collection   [string]
   --syncPostman              Upload generated collection to Postman (default: false)      [boolean]
-  -p, --PostmanUid           Collection UID to upload&overwrite with generated collection [string]
-  -t, --includeTests         Inject test suite (default: true)                            [boolean]
-  -c, --portmanConfigFile    Path to portman-config.json                                  [string]
-  -s, --PostmanConfigFile    Path to Postman-config.json                                  [string]
+  -p, --postmanUid           Collection UID to upload with generated Postman collection   [string]
+  -t, --includeTests         Inject Portman test suite (default: true)                    [boolean]
+  -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)   [string]
+  -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json) [string]
+  -s, --filterFile           Path to openapi-format config file (oas-format-filter.json)  [string]
   --envFile                  Path to the .env file to inject environment variables        [string]
-  --cliConfigFile            Path to the file with the Portman CLI options                [string]
+  --cliConfigFile            Path to Portman CLI options file                             [string]
   --init                     Configure Portman CLI options in an interactive manner       [string]
 ```
 
@@ -200,6 +201,9 @@ portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e7
 ```
 
 - Pass custom paths for config files
+
+All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
+Portman provides a default openapi-to-postman configuration [postman-config.default.json](postman-config.default.json), which will be used if no custom config `--postmanConfigFile` is passed.
 
 ```
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./common/postman-config.json
@@ -291,7 +295,7 @@ The contract tests are grouped in an array of `contractTests`.
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
-- **statusCode (Boolean)** : Adds the test if the response of the Postman request return a specific status code.
+- **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)** : Adds the test to verify if the response of the Postman request is returned within a number of ms.
 - **contentType (Boolean)** : Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)** : Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
