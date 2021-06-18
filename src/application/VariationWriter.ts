@@ -86,10 +86,10 @@ export class VariationWriter {
     oaOperation: OasMappedOperation | null,
     variation: VariationConfig
   ): void {
-    const { overwrites: overwriteSettings, tests, assignVariables } = variation
+    const { overwrites, tests, assignVariables } = variation
 
-    if (overwriteSettings) {
-      this.testSuite.injectOverwrites([pmOperation], overwriteSettings)
+    if (overwrites) {
+      this.testSuite.injectOverwrites([pmOperation], overwrites)
     }
 
     if (oaOperation && tests?.contractTests) {

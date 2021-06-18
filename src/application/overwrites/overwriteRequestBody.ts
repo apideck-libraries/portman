@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from '../../postman'
 import { OverwriteRequestBodyConfig } from '../../types'
-import { getByPath, omitByPath, setByPath } from '../../utils'
+import { getByPath, isObject, omitByPath, setByPath } from '../../utils'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite
@@ -30,9 +30,12 @@ export const overwriteRequestBody = (
       let newValue = overwriteValue.value
 
       if (overwriteValue.overwrite === false) {
-        newValue = originalValue + newValue
+        newValue = isObject(originalValue)
+          ? { ...(originalValue as Record<string, unknown>), newValue }
+          : originalValue + newValue
       }
-      bodyData = setByPath(bodyData, overwriteValue.key, newValue)
+
+      bodyData = setByPath(bodyData, overwriteValue.key, newValue, true)
     }
     if (overwriteValue.key && overwriteValue.remove === true) {
       bodyData = omitByPath(bodyData, overwriteValue.key)

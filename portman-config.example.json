@@ -44,7 +44,7 @@
     "contentTests": [
       {
         "openApiOperationId": "leadsAll",
-        "responseBodyTest": [
+        "responseBodyTests": [
           {
             "key": "data[0].company_name",
             "value": "Spacex"

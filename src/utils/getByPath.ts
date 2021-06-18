@@ -12,7 +12,7 @@ export const getByPath = (
   path: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue: any | undefined = undefined
-): string | undefined => {
+): string | Record<string, unknown> | undefined => {
   if (!isObject(obj)) return
 
   const flatInput = dot.dot(obj)
