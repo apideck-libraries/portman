@@ -68,7 +68,7 @@ OR
 3. Copy/rename and customize each of the \_\_\_\_.example.json config files in the root directory to suit your needs.
 4. Start converting your OpenAPI document to Postman
 
-- All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
+All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 
 ## Installation
 

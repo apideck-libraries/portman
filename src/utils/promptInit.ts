@@ -86,16 +86,6 @@ export const promptInit = async (): Promise<void> => {
       config.url = url
     }
 
-    const { location } = await prompts({
-      type: 'text',
-      name: 'location',
-      message:
-        `Where you want to save the Portman CLI settings, relative to ${localPath}\n` +
-        `Enter the local folder path:`,
-      initial: `portman`
-    })
-    config.localFolder = location
-
     const { output } = await prompts({
       type: 'text',
       name: 'output',
@@ -105,6 +95,16 @@ export const promptInit = async (): Promise<void> => {
       initial: `collection.postman.json`
     })
     config.output = output
+
+    const { location } = await prompts({
+      type: 'text',
+      name: 'location',
+      message:
+        `Where you want to save the Portman CLI settings, relative to ${localPath}\n` +
+        `Enter the local folder path:`,
+      initial: `portman`
+    })
+    config.localFolder = location
 
     const { choiceEnv } = await prompts({
       type: 'confirm',
@@ -158,7 +158,7 @@ export const promptInit = async (): Promise<void> => {
     })
 
     if (!choicePostmanConfigFile) {
-      const { portmanConfigFile } = await prompts({
+      const { postmanConfigFile } = await prompts({
         type: 'text',
         name: 'postmanConfigFile',
         message:
@@ -166,7 +166,7 @@ export const promptInit = async (): Promise<void> => {
           `Enter the openapi-to-postman configuration file path:`,
         initial: config.localFolder + '/openapi-to-postman-config.json'
       })
-      config.portmanConfigFile = portmanConfigFile
+      config.postmanConfigFile = postmanConfigFile
     }
 
     const { includeTests } = await prompts({
@@ -210,6 +210,8 @@ export const promptInit = async (): Promise<void> => {
     })
     config.runNewman = runNewman
   }
+
+  console.log('config', config)
 
   // Write portman-cli.json file
   if (config.localFolder && (config.url || config.local)) {
