@@ -241,7 +241,6 @@ export class Portman {
     const collectionWriter = new CollectionWriter(config, options, portmanCollection)
     collectionWriter.execute()
 
-    console.log('runPortmanOverrides', config.globals)
     this.portmanCollection = collectionWriter.collection
   }
 
