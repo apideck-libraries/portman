@@ -17,10 +17,7 @@
       },
       {
         "openApiOperation": "*::/crm/*",
-        "excludeForOperations": [
-          "leadsAdd",
-          "GET::/crm/leads/{id}"
-        ],
+        "excludeForOperations": ["leadsAdd", "GET::/crm/leads/{id}"],
         "responseTime": {
           "enabled": true,
           "maxMs": 300
@@ -74,7 +71,9 @@
                   "statusCode": {
                     "enabled": true,
                     "code": 400
-                  },
+                  }
+                },
+                {
                   "jsonBody": {
                     "enabled": true
                   }
