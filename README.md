@@ -221,7 +221,7 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 All the available Portman CLI options can be used in the config file.
 By passing the CLI options as parameter, you can overwrite the defined CLI options defined in the file.
 
-For more details, review the [cli-options example](./examples/cli-options).
+For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
 
 ### Output
 
@@ -451,11 +451,11 @@ To enable automatic uploads of the generated Postman collection through Portman,
 
 1. Get your Postman API key
 
-![Documentation Pipeline](./docs/img/postman-automation-0.png)
+![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-automation-0.png)
 
-![Documentation Pipeline](./docs/img/postman-automation-1.png)
+![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-automation-1.png)
 
-![Documentation Pipeline](./docs/img/postman-automation-2.png)
+![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-automation-2.png)
 
 2. Goto the root folder of your project
 
