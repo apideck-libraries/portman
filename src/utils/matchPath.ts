@@ -2,7 +2,6 @@ import { pathToRegExp } from './pathToRegex'
 
 export const matchPath = (targetPath: string | RegExp, operationPath: string): boolean => {
   const expression = targetPath instanceof RegExp ? targetPath : pathToRegExp(targetPath)
-
   const match = expression.exec(operationPath) || false
   // Matches in strict mode: match string should equal to input (url)
   // Otherwise loose matches will be considered truthy:

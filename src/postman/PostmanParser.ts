@@ -102,7 +102,8 @@ export class PostmanParser implements IPostmanParser {
 
     return this.mappedOperations.filter(mappedOperation => {
       return (
-        targetMethod.includes(mappedOperation.method) && matchPath(targetPath, mappedOperation.path)
+        targetMethod.includes(mappedOperation.method) &&
+        matchPath(targetPath, mappedOperation.pathRef.split('::')[1])
       )
     })
   }

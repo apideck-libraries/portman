@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
-import { OpenApiParser } from 'oas'
-import { PostmanParser } from 'postman'
+import { OpenApiParser } from '../oas'
+import { PostmanParser } from '../postman'
 
 describe('PostmanParser', () => {
   let postmanParser: PostmanParser
@@ -67,6 +67,16 @@ describe('PostmanParser', () => {
     it('should be able to retrieve PostmanMappedOperations by pathRef', async () => {
       const operations = postmanParser.getOperationsByPath('GET::/crm/companies')
       expect(operations.map(({ id }) => id)).toEqual(['companiesAll'])
+    })
+
+    it('should be able to retrieve PostmanMappedOperations by pathRef with a variable in oas format', async () => {
+      const operations = postmanParser.getOperationsByPath('GET::/crm/companies/{id}')
+      expect(operations.map(({ id }) => id)).toEqual(['companiesOne'])
+    })
+
+    it('should be able to retrieve PostmanMappedOperations by pathRef with a variable in postman format', async () => {
+      const operations = postmanParser.getOperationsByPath('GET::/crm/companies/:id')
+      expect(operations.map(({ id }) => id)).toEqual(['companiesOne'])
     })
 
     it('should be able to retrieve PostmanMappedOperations via wildcarded pathRef', async () => {

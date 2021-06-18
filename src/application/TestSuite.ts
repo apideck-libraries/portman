@@ -85,10 +85,8 @@ export class TestSuite {
 
         if (operation) {
           // Inject response tests
-          pmOperation = this.injectContractTests(pmOperation, operation, contractTest)
+          this.injectContractTests(pmOperation, operation, contractTest)
         }
-
-        return pmOperation
       })
     })
   }
