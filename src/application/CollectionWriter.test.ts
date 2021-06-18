@@ -2,6 +2,7 @@ import * as globals from '../application'
 import { CollectionWriter } from '../application'
 import { PortmanConfig, PortmanOptions } from '../types'
 
+jest.mock('./globals/overwriteCollectionKeyValues')
 jest.mock('./globals/overwriteCollectionValues')
 jest.mock('./globals/orderCollectionRequests')
 jest.mock('./globals/writeCollectionPreRequestScripts')
@@ -11,6 +12,34 @@ jest.mock('./globals/writeRawReplacements')
 describe('CollectionWriter.execute()', () => {
   afterEach(() => {
     jest.clearAllMocks()
+  })
+
+  describe('overwriteCollectionKeyValues', () => {
+    const spy = jest.spyOn(globals, 'overwriteCollectionKeyValues')
+
+    it('should call with keyValueReplacements', () => {
+      const config = {
+        globals: {
+          keyValueReplacements: { foo: 'bar' }
+        }
+      } as PortmanConfig
+
+      const collectionWriter = new CollectionWriter(config, {}, {})
+      collectionWriter.execute()
+
+      expect(spy).toHaveBeenCalled()
+    })
+
+    it('should not call without keyValueReplacements', () => {
+      const config = {
+        globals: {}
+      } as PortmanConfig
+
+      const collectionWriter = new CollectionWriter(config, {}, {})
+      collectionWriter.execute()
+
+      expect(spy).not.toHaveBeenCalled()
+    })
   })
 
   describe('overwriteCollectionValues', () => {

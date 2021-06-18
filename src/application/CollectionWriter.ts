@@ -38,7 +38,7 @@ export class CollectionWriter {
     // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
     let collection = this.collection
     if (keyValueReplacements) {
-      overwriteCollectionKeyValues(this.collection, keyValueReplacements)
+      collection = overwriteCollectionKeyValues(collection, keyValueReplacements)
     }
 
     // --- Portman - Search for keys in dictionary to set the values if value is found anywhere in collection
