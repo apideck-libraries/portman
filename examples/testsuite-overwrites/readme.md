@@ -7,6 +7,7 @@ This example focuses on the manipulation of the Postman collection to make it po
 - Request bodies
 - Request headers
 - Request query params
+- Request path variables
 
 _use-cases_:
 
