@@ -73,7 +73,6 @@ export class TestSuite {
     contractTests?: ContractTestConfig[]
   ): void => {
     const tests = contractTests || this.contractTests
-
     if (!tests) return
 
     tests.map(contractTest => {
@@ -92,9 +91,9 @@ export class TestSuite {
   }
 
   public generateVariationTests = (): void => {
-    if (!this.variationTests) return
-
     const variationTests = this.variationTests
+    if (!variationTests) return
+
     const variationWriter = new VariationWriter({ testSuite: this })
 
     variationTests.map(variationTest => {
@@ -248,9 +247,9 @@ export class TestSuite {
     pmOperations?: PostmanMappedOperation[],
     contentTests?: ContentTestConfig[]
   ): PostmanMappedOperation[] => {
-    if (!this.contentTests) return this.postmanParser.mappedOperations
-
     const tests = contentTests || this.contentTests
+
+    if (!tests) return this.postmanParser.mappedOperations
 
     tests.map(contentTest => {
       //Get Postman operations to inject content test for
@@ -271,8 +270,8 @@ export class TestSuite {
     pmOperations?: PostmanMappedOperation[],
     assignVariables?: AssignVariablesConfig[]
   ): PostmanMappedOperation[] => {
-    if (!this.config?.assignVariables) return this.postmanParser.mappedOperations
     const settings = assignVariables || this.config.assignVariables
+    if (!settings) return this.postmanParser.mappedOperations
 
     settings.map(assignVarSetting => {
       if (!assignVarSetting?.collectionVariables) return
@@ -297,8 +296,9 @@ export class TestSuite {
     pmOperations?: PostmanMappedOperation[],
     extendedTestsSettings?: ExtendTestsConfig[]
   ): PostmanMappedOperation[] => {
-    if (!this.extendTests) return this.postmanParser.mappedOperations
     const settings = extendedTestsSettings || this.extendTests
+
+    if (!settings) return this.postmanParser.mappedOperations
 
     settings.map(extendedTestsSetting => {
       //Get Postman operations to apply assign variables for
@@ -318,9 +318,9 @@ export class TestSuite {
     pmOperations?: PostmanMappedOperation[],
     overwriteSettings?: OverwriteRequestConfig[]
   ): PostmanMappedOperation[] => {
-    if (!this.config?.overwrites) return this.postmanParser.mappedOperations
-
     const settings = overwriteSettings || this.config.overwrites
+
+    if (!settings) return this.postmanParser.mappedOperations
 
     settings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
