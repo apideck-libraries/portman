@@ -17,4 +17,5 @@ export interface PortmanOptions {
   cliOptionsFile?: string
   oaLocal?: string
   oaUrl?: string
+  init?: boolean
 }
