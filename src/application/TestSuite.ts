@@ -174,7 +174,7 @@ export class TestSuite {
 
       // Add status success check
       if (optStatusSuccess && !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)) {
-        pmOperation = testResponseStatusSuccess(pmOperation, oaOperation)
+        pmOperation = testResponseStatusSuccess(pmOperation)
       }
       // Add status code check
       if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
@@ -185,7 +185,7 @@ export class TestSuite {
       // Add responseTime check
       if (optResponseTime && !inOperations(pmOperation, optResponseTime?.excludeForOperations)) {
         const { responseTime } = optResponseTime
-        pmOperation = testResponseTime(responseTime as ResponseTime, pmOperation, oaOperation)
+        pmOperation = testResponseTime(responseTime as ResponseTime, pmOperation)
       }
 
       // Add response content checks

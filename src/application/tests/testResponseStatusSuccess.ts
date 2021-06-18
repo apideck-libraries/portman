@@ -1,10 +1,8 @@
 import { writeOperationTestScript } from '../../application'
-import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 
 export const testResponseStatusSuccess = (
-  pmOperation: PostmanMappedOperation,
-  _oaOperation: OasMappedOperation
+  pmOperation: PostmanMappedOperation
 ): PostmanMappedOperation => {
   // Check - Success 2xx response checks
   const pmTest: string = [

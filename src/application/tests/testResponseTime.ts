@@ -1,12 +1,10 @@
 import { writeOperationTestScript } from '../../application'
-import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { ResponseTime } from '../../types'
 
 export const testResponseTime = (
   responseTime: ResponseTime,
-  pmOperation: PostmanMappedOperation,
-  _oaOperation: OasMappedOperation
+  pmOperation: PostmanMappedOperation
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if no maxMs defined
