@@ -1,15 +1,11 @@
-import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedCreateOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { extendTest, testResponseStatusSuccess } from '../../application'
-import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 
 describe('extendTest', () => {
-  let oasOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
-    oasOperation = await getOasMappedOperation()
     pmOperation = await getPostmanMappedCreateOperation()
   })
 
@@ -23,7 +19,7 @@ describe('extendTest', () => {
         "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
       ]
     }
-    pmOperation = testResponseStatusSuccess(pmOperation, oasOperation)
+    pmOperation = testResponseStatusSuccess(pmOperation)
     pmOperation = extendTest(extTestSetting, pmOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
@@ -38,7 +34,7 @@ describe('extendTest', () => {
         "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
       ]
     }
-    pmOperation = testResponseStatusSuccess(pmOperation, oasOperation)
+    pmOperation = testResponseStatusSuccess(pmOperation)
     pmOperation = extendTest(extTestSetting, pmOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
@@ -52,7 +48,7 @@ describe('extendTest', () => {
         "pm.test('check userId after create', function(){Number.isInteger(responseBody);}); "
       ]
     }
-    pmOperation = testResponseStatusSuccess(pmOperation, oasOperation)
+    pmOperation = testResponseStatusSuccess(pmOperation)
     pmOperation = extendTest(extTestSetting, pmOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
