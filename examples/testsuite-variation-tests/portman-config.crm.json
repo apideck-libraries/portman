@@ -1,0 +1,116 @@
+{
+  "version": 1.0,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusCode": {
+          "enabled": true,
+          "code": 400
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "excludeForOperations": [
+          "leadsAdd",
+          "GET::/crm/leads/{id}"
+        ],
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
+      }
+    ],
+    "variationTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "variations": [
+          {
+            "name": "missingParams",
+            "overwrites": [
+              {
+                "overwriteRequestBody": [
+                  {
+                    "key": "first_name",
+                    "value": "",
+                    "overwrite": true
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true,
+                    "code": 400
+                  },
+                  "jsonBody": {
+                    "enabled": true
+                  }
+                }
+              ],
+              "contentTests": [
+                {
+                  "responseBodyTests": [
+                    {
+                      "key": "resource",
+                      "value": "leads"
+                    }
+                  ]
+                }
+              ],
+              "extendTests": [
+                {
+                  "tests": [
+                    "\npm.test('say hello Portman', function(){ \n  console.log('Hello Portman')\n});"
+                  ]
+                }
+              ]
+            },
+            "assignVariables": [
+              {
+                "collectionVariables": [
+                  {
+                    "responseBodyProp": "data[0].id",
+                    "name": "missingParams.id"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

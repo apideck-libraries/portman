@@ -323,6 +323,8 @@ For more details, review the [contract-tests example](https://github.com/apideck
 - **assignVariables** : This refers to setting Postman collection variables that are assigned based on variation.
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
 
+For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests).
+
 ### Portman - `contentTests` properties
 
 Content tests will validate if the response property values will match the expected defined values.
