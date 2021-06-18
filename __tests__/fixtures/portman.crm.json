@@ -4,6 +4,7 @@
     "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
+        "excludeForOperations": ["GET::/crm/companies"],
         "statusSuccess": {
           "enabled": true
         }
