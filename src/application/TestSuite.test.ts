@@ -24,8 +24,8 @@ describe('TestSuite', () => {
     testSuiteService = new TestSuite({ oasParser, postmanParser, config })
   })
 
-  it('should generateAutomatedTests', () => {
-    testSuiteService.generateAutomatedTests()
+  it('should generateContractTests', () => {
+    testSuiteService.generateContractTests()
     expect(omitKeys(testSuiteService.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
 

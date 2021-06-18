@@ -202,7 +202,7 @@ export class Portman {
     if (includeTests) {
       const testSuite = new TestSuite({ oasParser, postmanParser, config })
       // Inject automated tests
-      testSuite.generateAutomatedTests()
+      testSuite.generateContractTests()
 
       // Inject content tests
       testSuite.injectContentTests()

@@ -3,7 +3,6 @@
 ;(() => {
   // Portman CLI
   return () => {
-    require('tsconfig-paths/register')
     require('../dist/index')
   }
 })()()

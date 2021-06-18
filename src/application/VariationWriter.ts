@@ -93,7 +93,7 @@ export class VariationWriter {
     }
 
     if (oaOperation && tests?.contractTests) {
-      this.testSuite.injectContractTests(pmOperation, oaOperation, tests.contractTests)
+      this.testSuite.generateContractTests([pmOperation], oaOperation, tests.contractTests)
     }
 
     if (tests?.contentTests) {

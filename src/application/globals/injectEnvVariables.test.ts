@@ -21,7 +21,7 @@ describe('injectEnvVariables', () => {
     postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
     const config = await getConfig(postmanConfigFile)
     testSuiteService = new TestSuite({ oasParser, postmanParser, config })
-    testSuiteService.generateAutomatedTests()
+    testSuiteService.generateContractTests()
   })
 
   it('should add script to skip tests if status returned is Not Implemented', async () => {

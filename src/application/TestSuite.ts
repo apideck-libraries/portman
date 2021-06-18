@@ -67,21 +67,29 @@ export class TestSuite {
     this.extendTests = this.config?.tests?.extendTests
   }
 
-  public generateAutomatedTests = (): PostmanMappedOperation[] => {
-    if (!this.contractTests) return this.postmanParser.mappedOperations
+  public generateContractTests = (
+    pmOperations?: PostmanMappedOperation[],
+    oaOperation?: OasMappedOperation,
+    contractTests?: ContractTestConfig[]
+  ): void => {
+    const tests = contractTests || this.contractTests
 
-    const contractTests = this.contractTests
+    if (!tests) return
 
-    return this.postmanParser.mappedOperations.map(pmOperation => {
-      // Get OpenApi responses
-      const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
+    tests.map(contractTest => {
+      const operations = pmOperations || this.getOperationsFromSetting(contractTest)
 
-      if (oaOperation) {
-        // Inject response tests
-        pmOperation = this.injectContractTests(pmOperation, oaOperation, contractTests)
-      }
+      operations.map(pmOperation => {
+        // Get OpenApi responses
+        const operation = oaOperation || this.oasParser.getOperationByPath(pmOperation.pathRef)
 
-      return pmOperation
+        if (operation) {
+          // Inject response tests
+          pmOperation = this.injectContractTests(pmOperation, operation, contractTest)
+        }
+
+        return pmOperation
+      })
     })
   }
 
@@ -137,16 +145,16 @@ export class TestSuite {
   }
 
   public getTestTypeFromContractTests = (
-    contractTests: ContractTestConfig[],
+    contractTest: ContractTestConfig,
     type: string
   ): ContractTestConfig | undefined => {
-    return contractTests?.find(testConfig => !!testConfig[type])
+    return contractTest[type]
   }
 
   public injectContractTests = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
-    contractTests: ContractTestConfig[]
+    contractTest: ContractTestConfig
   ): PostmanMappedOperation => {
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -161,31 +169,30 @@ export class TestSuite {
       }
 
       // List excludeForOperations
-      const optStatusSuccess = this.getTestTypeFromContractTests(contractTests, 'statusSuccess')
-      const optStatusCode = this.getTestTypeFromContractTests(contractTests, 'statusCode')
-      const optResponseTime = this.getTestTypeFromContractTests(contractTests, 'responseTime')
-      const optContentType = this.getTestTypeFromContractTests(contractTests, 'contentType')
-      const optJsonBody = this.getTestTypeFromContractTests(contractTests, 'jsonBody')
+      const optStatusSuccess = this.getTestTypeFromContractTests(contractTest, 'statusSuccess')
+      const optStatusCode = this.getTestTypeFromContractTests(contractTest, 'statusCode')
+      const optResponseTime = this.getTestTypeFromContractTests(contractTest, 'responseTime')
+      const optContentType = this.getTestTypeFromContractTests(contractTest, 'contentType')
+      const optJsonBody = this.getTestTypeFromContractTests(contractTest, 'jsonBody')
       const optSchemaValidation = this.getTestTypeFromContractTests(
-        contractTests,
+        contractTest,
         'schemaValidation'
       )
-      const optHeadersPresent = this.getTestTypeFromContractTests(contractTests, 'headersPresent')
+      const optHeadersPresent = this.getTestTypeFromContractTests(contractTest, 'headersPresent')
 
       // Add status success check
       if (optStatusSuccess && !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)) {
         pmOperation = testResponseStatusSuccess(pmOperation)
       }
+
       // Add status code check
       if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
-        const { statusCode } = optStatusCode
-        pmOperation = testResponseStatusCode(statusCode as StatusCode, pmOperation)
+        pmOperation = testResponseStatusCode(optStatusCode as StatusCode, pmOperation)
       }
 
       // Add responseTime check
       if (optResponseTime && !inOperations(pmOperation, optResponseTime?.excludeForOperations)) {
-        const { responseTime } = optResponseTime
-        pmOperation = testResponseTime(responseTime as ResponseTime, pmOperation)
+        pmOperation = testResponseTime(optResponseTime as ResponseTime, pmOperation)
       }
 
       // Add response content checks
