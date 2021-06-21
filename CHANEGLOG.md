@@ -6,7 +6,6 @@
 
 ### Variation Tests
 
-- run global overides _before_ injection variation tests to allow variations final say
 - nested folders (including variation tests) will be ignored when performing orderOfOperations
 
 ## v1.0.1 - (2021-06-18)
