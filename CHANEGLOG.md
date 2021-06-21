@@ -1,5 +1,9 @@
 ## v1.0.2 - (2021-06-21)
 
+### Bug Fixes
+
+- contentTests that check against variables should use collectionVariables instead of environment variables
+
 ### Variation Tests
 
 - run global overides _before_ injection variation tests to allow variations final say

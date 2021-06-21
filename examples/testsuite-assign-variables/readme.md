@@ -44,10 +44,10 @@ These target options are both supported for defining a target. In case both are 
 
 ### collectionVariables options:
 
-- **collectionVariables (Array)** : 
-  
+- **collectionVariables (Array)** :
+
   Array of key/value pairs to set the Postman collection variables.
-  
+
   - **responseBodyProp (String)** : The property for which the value will be taken in the response body and set the value as the pm.collectionVariables value.
   - **responseHeaderProp (String)** : The property for which the value will be taken in the response header and set the value as the pm.collectionVariables value.
   - **requestBodyProp (String)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
@@ -398,7 +398,9 @@ if (typeof jsonData.data.company_name !== 'undefined') {
   pm.test(
     "[GET] /crm/leads/{id} - Content check if value for 'data.company_name' matches '{{leadsAdd.company_name}}'",
     function () {
-      pm.expect(jsonData.data.company_name).to.eql(pm.environment.get('leadsAdd.company_name'))
+      pm.expect(jsonData.data.company_name).to.eql(
+        pm.collectionVariables.get('leadsAdd.company_name')
+      )
     }
   )
 }
