@@ -16,5 +16,10 @@ export const getByPath = (
   if (!isObject(obj)) return
 
   const flatInput = dot.dot(obj)
+  if (flatInput[path]) return flatInput[path]
+
+  const byPath = dot.pick(path, obj)
+  if (byPath) return byPath
+
   return flatInput[path] || defaultValue
 }

@@ -11,8 +11,7 @@ export const setByPath = (
   obj: Record<string, unknown>,
   path: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-  newValue: any,
-  force = false
+  newValue: any
 ): Record<string, unknown> => {
   if (!isObject(obj)) return obj
 
@@ -20,11 +19,5 @@ export const setByPath = (
     dot.keepArray = true
   }
 
-  const flatInput = dot.dot(obj)
-
-  if (flatInput[path] || force) {
-    flatInput[path] = newValue
-  }
-
-  return dot.object(flatInput)
+  return dot.str(path, newValue, obj)
 }
