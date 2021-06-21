@@ -1,6 +1,6 @@
 # OpenAPI Postman variation test suite generation
 
-This example contains the configuraiton for the Portman variation test generation, which will convert the OpenAPI document to a Postman collection, while adding Postman tests and additional variations. The generated tests are focussed on the variations of API contracts.
+This example contains the configuration for the Portman variation test generation, which will convert the OpenAPI document to a Postman collection, while adding Postman tests and additional variations. The generated tests are focussed on the variations of API contracts.
 
 The [contract tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests) cover the "happy" test path for success.
 The happy path is used to verify the API response, with the assumption that all required request input is properly defined. For this we use the "example" values as defined in the OpenAPI document.
@@ -26,7 +26,7 @@ portman --cliOptionsFile ./examples/testsuite-variation-tests/portman-cli-option
 
 Configured by using the portman-cli config.
 
-This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box and include a varation.
+This is an example where we take the OpenAPI defined in `crm.yml`, with only 1 entity (leads) to keep the example simple and convert to Postman with all the default contract tests generated out-of-the-box and include a variation.
 
 ## Portman settings
 
@@ -55,6 +55,7 @@ file: examples/testsuite-variation-tests/portman-config.crm.json
     "variationTests": [
       {
         "openApiOperationId": "leadsAdd",
+        "openApiResponse": "400",
         "variations": [
           {
             "name": "missingParams",
@@ -75,8 +76,15 @@ file: examples/testsuite-variation-tests/portman-config.crm.json
                   "statusCode": {
                     "enabled": true,
                     "code": 400
-                  },
+                  }
+                },
+                {
                   "jsonBody": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "schemaValidation": {
                     "enabled": true
                   }
                 }
@@ -132,6 +140,7 @@ Variation tests can be injected by using the following properties:
 - **variations (Array )** : References to list of a variations that will be injected
   
   - **name** : allows you to define the name for the variation, which will be referenced in the Postman collection.
+  - **openApiResponse (OPTIONAL)** : allows you to define the expected openAPI response information, on which the contract tests will base their automatic generated test injection, like schema validation, jsonBody, contentType, headersPresent. If not defined, the contract tests for the specific variation will fallback on the 2xx/302 defined response in the OpenAPI specification. 
   
   - **tests** : refers to the definitions for the specific tests for the variation.
     
@@ -154,6 +163,7 @@ file: examples/testsuite-variation-tests/portman-config.crm.json >>
         "variations": [
           {
             "name": "missingParams",
+            "openApiResponse": "400",
             "overwrites": [
               {
                 "verwriteRequestBody": [
@@ -171,9 +181,16 @@ file: examples/testsuite-variation-tests/portman-config.crm.json >>
                   "statusCode": {
                     "enabled": true,
                     "code": 400
-                  },
+                  }
+                },
+                {
                   "jsonBody": {
-                    "enabled": true
+                  "enabled": true
+                  }
+                },
+                {
+                  "schemaValidation": {
+                  "enabled": true
                   }
                 }
               ],
@@ -271,6 +288,9 @@ A variance support all test types:
                   },
                   "jsonBody": {
                     "enabled": true
+                  },
+                  "schemaValidation": {
+                    "enabled": true
                   }
                 }
               ],
@@ -278,7 +298,7 @@ A variance support all test types:
 
 The contract tests will be injected for this specific `leadsApp`variation.
 
-In our example we added a statusCode check to verify that the HTTP response code is a 400 and check if the response body is in JSON format.
+In our example we added a statusCode check to verify that the HTTP response code is a 400, check if the response body is in JSON format and do a JSON schema validation based on the OpenAPI 400 response.
 
 Any of the available ["contract test" options](https://github.com/apideck-libraries/portman/tree/main#portman---contracttests-options) can be used for the variance.
 
@@ -315,7 +335,7 @@ Any of the available ["content test" options](https://github.com/apideck-librari
               ]
 ```
 
-The extend tests section, allows you to define additional tests that can used for the targeted `leadsApp`variation.
+The "extendTests" section allows you to define additional tests that can used for the targeted `leadsApp`variation.
 
 In our example, we added a "say hello portman" Postman test, that will be added after all the other tests.
 
