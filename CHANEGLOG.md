@@ -1,3 +1,15 @@
+## v1.0.2 - (2021-06-21)
+
+### Variation Tests
+
+- run global overides _before_ injection variation tests to allow variations final say
+
+## v1.0.1 - (2021-06-18)
+
+### Overwrites
+
+- extend overwites to allow injection of objects and not just primitive values
+
 ## v1.0.0 - (2021-06-18)
 
 ## First Release
