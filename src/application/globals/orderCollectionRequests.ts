@@ -7,6 +7,7 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
 
   obj.item.map(pmFolder => {
     if (pmFolder.item && pmFolder.item.length > 0) {
+      if (pmFolder.item[0]?.item) return //skip nested folders for now
       // Go into Postman folder
       pmFolder.item.map(request => {
         //Normalize Postman request url paths for sorting
