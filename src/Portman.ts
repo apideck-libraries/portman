@@ -40,8 +40,8 @@ export class Portman {
     await this.parseOpenApiSpec()
     await this.convertToPostmanCollection()
     await this.injectTestSuite()
-    await this.injectVariationTests()
     await this.runPortmanOverrides()
+    await this.injectVariationTests()
     await this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
@@ -228,6 +228,7 @@ export class Portman {
     } = this
 
     if (includeTests && testSuite) {
+      testSuite.collection = new Collection(this.portmanCollection)
       // Inject variations
       testSuite.generateVariationTests()
 
