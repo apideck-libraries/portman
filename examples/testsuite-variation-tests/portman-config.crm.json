@@ -54,6 +54,7 @@
         "variations": [
           {
             "name": "missingParams",
+            "openApiResponse": "400",
             "overwrites": [
               {
                 "overwriteRequestBody": [
@@ -75,6 +76,11 @@
                 },
                 {
                   "jsonBody": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "schemaValidation": {
                     "enabled": true
                   }
                 }
