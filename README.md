@@ -375,7 +375,7 @@ The "assignVariables" allows you to set Postman collection variables for easier 
   - **responseHeaderProp (String)** : The property for which the value will be taken from the response header and set the value as the pm.collectionVariables value.
   - **requestBodyProp (String)** : The property for which the value will be taken from the request body and set the value as the pm.collectionVariables value.
   - **value (String)** : The defined value that will be set as the pm.collectionVariables value.
-  - **name (string OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name
+  - **name (string OPTIONAL | Default: openApiOperationId.responseProp)** : The name that will be used to overwrite the default generated variable name
 
 For more details, review the [assign-variables example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-variables).
 
@@ -482,7 +482,7 @@ Credits for this package for the hard work of [Nick Lloyd](https://github.com/ni
 
 # Future ideas
 
-- [ ] add task to initalize config files
+- [ ] add task to initialize config files
 - [ ] add interactive cli prompts
 - [ ] render better error on Postman upload fail
 - [ ] cache the Postman collection lookup during Postman upload

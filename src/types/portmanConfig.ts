@@ -18,7 +18,7 @@ export type ResponseTime = ContractTest & {
 }
 
 export type StatusCode = ContractTest & {
-  code: number
+  code?: number
 }
 
 export type ContractTestConfig = {
@@ -50,6 +50,7 @@ export type VariationTestConfig = {
 
 export type VariationConfig = {
   name: string
+  openApiResponse?: string
   overwrites?: any
   tests: any
   assignVariables?: AssignVariablesConfig[]

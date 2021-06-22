@@ -2,6 +2,18 @@ import { getPostmanMappedCreateOperation } from '../../../__tests__/testUtils/ge
 import { overwriteRequestBody } from '../../application'
 
 describe('overwriteRequestBody', () => {
+  it('should extend the root request body', async () => {
+    const overwriteValues = [
+      {
+        key: '.',
+        value: { foo: 'foo-bar-baz' }
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should overwrite the request body with simple key value', async () => {
     const overwriteValues = [
       {
@@ -32,11 +44,31 @@ describe('overwriteRequestBody', () => {
         key: 'websites',
         value: [
           {
+            url: 'http://widget.biz',
             id: '5678',
-            type: 'tertiary',
-            url: 'http://widget.biz'
+            type: 'tertiary'
           }
-        ]
+        ],
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should append a request body array with overwriteValue', async () => {
+    const overwriteValues = [
+      {
+        key: 'websites',
+        value: [
+          {
+            url: 'http://widget.biz',
+            id: '5678',
+            type: 'tertiary'
+          }
+        ],
+        overwrite: false
       }
     ]
     const pmOperation = await getPostmanMappedCreateOperation()

@@ -1,9 +1,26 @@
+## v1.0.2 - (2021-06-21)
+
+### Bug Fixes
+
+- contentTests that check against variables should use collectionVariables instead of environment variables
+
+### Variation Tests
+
+- nested folders (including variation tests) will be ignored when performing orderOfOperations
+- Added statusCode tests for variations based on the openApiResponse property
+
+## v1.0.1 - (2021-06-18)
+
+### Overwrites
+
+- extend overwrites to allow injection of objects and not just primitive values
+
 ## v1.0.0 - (2021-06-18)
 
 ## First Release
 
 - Major overhaul from base release
-- All feayures listed below
+- All features listed below
 
 Added:
 
@@ -75,7 +92,7 @@ Added:
 
 ### CLI options
 
-- Resolve issue with overriding paths to defauls when not provided
+- Resolve issue with overriding paths to defaults when not provided
 - Extended hardcoded list of params to disable until they are passed in as config
 
 ## v0.0.5 - (2021-05-25)

@@ -26,21 +26,31 @@ export const overwriteRequestBody = (
   let bodyData = JSON.parse(requestBodySafe)
   overwriteValues.map(overwriteValue => {
     if (overwriteValue.key && typeof overwriteValue.value !== 'undefined') {
-      const originalValue = getByPath(bodyData, overwriteValue.key)
+      const root = overwriteValue.key === '.'
+      const originalValue = root ? bodyData : getByPath(bodyData, overwriteValue.key)
+
       let newValue = overwriteValue.value
 
       if (overwriteValue.overwrite === false) {
-        newValue = isObject(originalValue)
-          ? { ...(originalValue as Record<string, unknown>), newValue }
-          : originalValue + newValue
+        if (Array.isArray(originalValue) && Array.isArray(newValue)) {
+          newValue = originalValue.concat(newValue)
+        } else if (isObject(originalValue)) {
+          newValue = { ...(originalValue as Record<string, unknown>), newValue }
+        } else {
+          newValue = originalValue + newValue
+        }
       }
 
-      bodyData = setByPath(bodyData, overwriteValue.key, newValue, true)
+      bodyData = root
+        ? { ...bodyData, ...newValue }
+        : setByPath(bodyData, overwriteValue.key, newValue)
     }
+
     if (overwriteValue.key && overwriteValue.remove === true) {
       bodyData = omitByPath(bodyData, overwriteValue.key)
     }
   })
+
   const bodyString = JSON.stringify(bodyData, null, 4)
 
   // Make postman body safe

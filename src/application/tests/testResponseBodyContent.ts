@@ -35,9 +35,9 @@ export const testResponseBodyContent = (
       if (typeof check.value === 'string') {
         // Quote string value
         checkValue = `"${check.value}"`
-        // Get environment variables
+        // Get collection variables
         if (check.value.includes('{{') && check.value.includes('}}')) {
-          checkValue = `pm.environment.get("${check.value.replace(/{{|}}/g, '')}")`
+          checkValue = `pm.collectionVariables.get("${check.value.replace(/{{|}}/g, '')}")`
         }
       }
 

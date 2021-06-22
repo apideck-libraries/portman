@@ -1,16 +1,16 @@
 import { setByPath } from './setByPath'
 
 describe('setByPath', () => {
-  const objUnderTest = {
-    foo: 'bar',
-    email: 'foo@example.com',
-    websites: [
-      { url: 'http://example.com', type: 'primary' },
-      { url: 'http://other-example.com', type: 'secondary' }
-    ]
-  }
-
   it('should set a flat value using dot notation', () => {
+    const objUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://example.com', type: 'primary' },
+        { url: 'http://other-example.com', type: 'secondary' }
+      ]
+    }
+
     const result = setByPath(objUnderTest, 'websites[1].url', 'http://new-example.com')
     expect(result).toEqual({
       foo: 'bar',
@@ -23,6 +23,15 @@ describe('setByPath', () => {
   })
 
   it('should set an object/array value using dot notation', () => {
+    const objUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://example.com', type: 'primary' },
+        { url: 'http://other-example.com', type: 'secondary' }
+      ]
+    }
+
     const result = setByPath(objUnderTest, 'websites', [
       { url: 'http://one-example.com', type: 'work' }
     ])
@@ -35,12 +44,30 @@ describe('setByPath', () => {
   })
 
   it('should return unaltered object if path does not exist', () => {
+    const objUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://example.com', type: 'primary' },
+        { url: 'http://other-example.com', type: 'secondary' }
+      ]
+    }
+
     const result = setByPath(objUnderTest, 'websites[10].url', 'http://new-example.com')
     expect(result).toEqual(objUnderTest)
   })
 
-  it('should return append to object if path does not exist and force set to true', () => {
-    let result = setByPath(objUnderTest, 'fizz', 'buzz', true)
+  it('should return append to object if path does not exist', () => {
+    const objUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://example.com', type: 'primary' },
+        { url: 'http://other-example.com', type: 'secondary' }
+      ]
+    }
+
+    let result = setByPath(objUnderTest, 'fizz', 'buzz')
     expect(result).toEqual({
       foo: 'bar',
       email: 'foo@example.com',
@@ -51,10 +78,11 @@ describe('setByPath', () => {
       ]
     })
 
-    result = setByPath(objUnderTest, 'phone', { type: 'primary', number: '+32484836434' }, true)
+    result = setByPath(objUnderTest, 'phone', { type: 'primary', number: '+32484836434' })
     expect(result).toEqual({
       foo: 'bar',
       email: 'foo@example.com',
+      fizz: 'buzz',
       phone: { type: 'primary', number: '+32484836434' },
       websites: [
         { url: 'http://example.com', type: 'primary' },
@@ -62,9 +90,11 @@ describe('setByPath', () => {
       ]
     })
 
-    result = setByPath(objUnderTest, 'websites[2].url', 'http://new-example.com', true)
+    result = setByPath(objUnderTest, 'websites[2].url', 'http://new-example.com')
     expect(result).toEqual({
       foo: 'bar',
+      fizz: 'buzz',
+      phone: { type: 'primary', number: '+32484836434' },
       email: 'foo@example.com',
       websites: [
         { url: 'http://example.com', type: 'primary' },

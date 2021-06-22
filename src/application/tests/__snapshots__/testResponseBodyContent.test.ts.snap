@@ -31,7 +31,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].moneta
   "// Response body should have value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
 if (typeof jsonData.data[0].monetary_amount !== \\"undefined\\") {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '{{postman_env_variable}}'\\", function() {
-  pm.expect(jsonData.data[0].monetary_amount).to.eql(pm.environment.get(\\"postman_env_variable\\"));
+  pm.expect(jsonData.data[0].monetary_amount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};",
 ]
 `;

@@ -70,7 +70,8 @@ export class TestSuite {
   public generateContractTests = (
     pmOperations?: PostmanMappedOperation[],
     oaOperation?: OasMappedOperation,
-    contractTests?: ContractTestConfig[]
+    contractTests?: ContractTestConfig[],
+    openApiResponseCode?: string
   ): void => {
     const tests = contractTests || this.contractTests
     if (!tests) return
@@ -84,7 +85,7 @@ export class TestSuite {
 
         if (operation) {
           // Inject response tests
-          this.injectContractTests(pmOperation, operation, contractTest)
+          this.injectContractTests(pmOperation, operation, contractTest, openApiResponseCode)
         }
       })
     })
@@ -152,91 +153,100 @@ export class TestSuite {
   public injectContractTests = (
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
-    contractTest: ContractTestConfig
+    contractTest: ContractTestConfig,
+    openApiResponseCode: string | undefined
   ): PostmanMappedOperation => {
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
 
-    // Process all responses
-    for (const [code, response] of Object.entries(oaOperation.schema.responses)) {
-      const responseObject = response as OpenAPIV3.ResponseObject
+    // Only support 2xx response checks - Happy path
+    let response = Object.entries(oaOperation.schema.responses).filter(res =>
+      inRange(parseInt(res[0]), 200, 302)
+    )
 
-      // Only support 2xx response checks - Happy path
-      if (!inRange(parseInt(code), 200, 302)) {
-        continue // skip this response
-      }
-
-      // List excludeForOperations
-      const optStatusSuccess = this.getTestTypeFromContractTests(contractTest, 'statusSuccess')
-      const optStatusCode = this.getTestTypeFromContractTests(contractTest, 'statusCode')
-      const optResponseTime = this.getTestTypeFromContractTests(contractTest, 'responseTime')
-      const optContentType = this.getTestTypeFromContractTests(contractTest, 'contentType')
-      const optJsonBody = this.getTestTypeFromContractTests(contractTest, 'jsonBody')
-      const optSchemaValidation = this.getTestTypeFromContractTests(
-        contractTest,
-        'schemaValidation'
+    if (openApiResponseCode && typeof openApiResponseCode === 'string') {
+      response = Object.entries(oaOperation.schema.responses).filter(
+        res => parseInt(res[0]) === parseInt(openApiResponseCode)
       )
-      const optHeadersPresent = this.getTestTypeFromContractTests(contractTest, 'headersPresent')
+    }
 
-      // Add status success check
-      if (optStatusSuccess && !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)) {
-        pmOperation = testResponseStatusSuccess(pmOperation)
+    // No response object matching
+    if (!response[0]?.[1]) return pmOperation
+
+    const responseCode = parseInt(response[0][0]) as number
+    const responseObject = response[0][1] as OpenAPIV3.ResponseObject
+
+    // List excludeForOperations
+    const optStatusSuccess = this.getTestTypeFromContractTests(contractTest, 'statusSuccess')
+    const optStatusCode = this.getTestTypeFromContractTests(contractTest, 'statusCode')
+    const optResponseTime = this.getTestTypeFromContractTests(contractTest, 'responseTime')
+    const optContentType = this.getTestTypeFromContractTests(contractTest, 'contentType')
+    const optJsonBody = this.getTestTypeFromContractTests(contractTest, 'jsonBody')
+    const optSchemaValidation = this.getTestTypeFromContractTests(contractTest, 'schemaValidation')
+    const optHeadersPresent = this.getTestTypeFromContractTests(contractTest, 'headersPresent')
+
+    // Add status success check
+    if (optStatusSuccess && !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)) {
+      pmOperation = testResponseStatusSuccess(pmOperation)
+    }
+
+    // Add status code check
+    if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
+      const statusCodeSetting = optStatusCode as StatusCode
+      if (!statusCodeSetting.code && responseCode) {
+        statusCodeSetting.code = responseCode
       }
+      pmOperation = testResponseStatusCode(statusCodeSetting, pmOperation)
+    }
 
-      // Add status code check
-      if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
-        pmOperation = testResponseStatusCode(optStatusCode as StatusCode, pmOperation)
-      }
+    // Add responseTime check
+    if (optResponseTime && !inOperations(pmOperation, optResponseTime?.excludeForOperations)) {
+      pmOperation = testResponseTime(optResponseTime as ResponseTime, pmOperation)
+    }
 
-      // Add responseTime check
-      if (optResponseTime && !inOperations(pmOperation, optResponseTime?.excludeForOperations)) {
-        pmOperation = testResponseTime(optResponseTime as ResponseTime, pmOperation)
-      }
+    // Add response content checks
+    if (responseObject.content) {
+      // Process all content-types
+      for (const [contentType, content] of Object.entries(responseObject.content)) {
+        // Early skip if no content-types defined
+        if (!contentType) continue
 
-      // Add response content checks
-      if (responseObject.content) {
-        // Process all content-types
-        for (const [contentType, content] of Object.entries(responseObject.content)) {
-          // Early skip if no content-types defined
-          if (!contentType) continue
+        // Add contentType check
+        if (optContentType && !inOperations(pmOperation, optContentType?.excludeForOperations)) {
+          pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
+        }
 
-          // Add contentType check
-          if (optContentType && !inOperations(pmOperation, optContentType?.excludeForOperations)) {
-            pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
-          }
+        // Add json body check
+        if (
+          optJsonBody &&
+          contentType === 'application/json' &&
+          !inOperations(pmOperation, optJsonBody?.excludeForOperations)
+        ) {
+          pmOperation = testResponseJsonBody(pmOperation, oaOperation)
+        }
 
-          // Add json body check
-          if (
-            optJsonBody &&
-            contentType === 'application/json' &&
-            !inOperations(pmOperation, optJsonBody?.excludeForOperations)
-          ) {
-            pmOperation = testResponseJsonBody(pmOperation, oaOperation)
-          }
-
-          // Add json schema check
-          if (
-            optSchemaValidation &&
-            content?.schema &&
-            !inOperations(pmOperation, optSchemaValidation?.excludeForOperations)
-          ) {
-            pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
-          }
+        // Add json schema check
+        if (
+          optSchemaValidation &&
+          content?.schema &&
+          !inOperations(pmOperation, optSchemaValidation?.excludeForOperations)
+        ) {
+          pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
         }
       }
+    }
 
-      if (responseObject.headers) {
-        // Process all response headers
-        for (const [headerName] of Object.entries(responseObject.headers)) {
-          // Early skip if no schema defined
-          if (!headerName) continue
-          // Add response header checks headersPresent
-          if (
-            optHeadersPresent &&
-            !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
-          ) {
-            pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
-          }
+    if (responseObject.headers) {
+      // Process all response headers
+      for (const [headerName] of Object.entries(responseObject.headers)) {
+        // Early skip if no schema defined
+        if (!headerName) continue
+        // Add response header checks headersPresent
+        if (
+          optHeadersPresent &&
+          !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
+        ) {
+          pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
         }
       }
     }

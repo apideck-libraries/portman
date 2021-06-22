@@ -4,20 +4,15 @@
     "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
+        "excludeForOperations": [
+          "GET::/crm/companies"
+        ],
         "statusSuccess": {
           "enabled": true
         }
       },
       {
         "openApiOperation": "*::/crm/*",
-        "statusCode": {
-          "enabled": true,
-          "code": 400
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
-        "excludeForOperations": ["leadsAdd", "GET::/crm/leads/{id}"],
         "responseTime": {
           "enabled": true,
           "maxMs": 300
@@ -48,18 +43,37 @@
         }
       }
     ],
+    "contentTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "responseBodyTests": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          }
+        ]
+      }
+    ],
+    "extendTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "tests": [
+          "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
+        ]
+      }
+    ],
     "variationTests": [
       {
         "openApiOperationId": "leadsAdd",
         "variations": [
           {
             "name": "missingParams",
-            "openApiResponse": "400",
+            "openApiResponse": "402",
             "overwrites": [
               {
                 "overwriteRequestBody": [
                   {
-                    "key": "first_name",
+                    "key": "name",
                     "value": "",
                     "overwrite": true
                   }
@@ -107,15 +121,90 @@
               {
                 "collectionVariables": [
                   {
-                    "responseBodyProp": "data[0].id",
-                    "name": "missingParams.id"
+                    "responseBodyProp": "data[0].id"
                   }
                 ]
               }
             ]
+          },
+          {
+            "name": "400",
+            "openApiResponse": "400",
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true,
+                    "code": 333
+                  }
+                },
+                {
+                  "jsonBody": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "schemaValidation": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
           }
         ]
       }
     ]
-  }
+  },
+  "assignVariables": [
+    {
+      "openApiOperationId": "companiesAll",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data[0].id"
+        }
+      ]
+    }
+  ],
+  "overwrites": [
+    {
+      "openApiOperationId": "companiesAdd",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "Foo Inc. --{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "value": "4",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesUpdate",
+      "overwriteRequestHeaders": [
+        {
+          "key": "x-apideck-consumer-id",
+          "value": "portman-id-{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesUpdate",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true
+        }
+      ]
+    }
+  ]
 }
