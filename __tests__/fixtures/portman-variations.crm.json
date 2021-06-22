@@ -126,6 +126,30 @@
                 ]
               }
             ]
+          },
+          {
+            "name": "400",
+            "openApiResponse": "400",
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true,
+                    "code": 333
+                  }
+                },
+                {
+                  "jsonBody": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "schemaValidation": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
           }
         ]
       }

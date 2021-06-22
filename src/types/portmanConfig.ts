@@ -18,7 +18,7 @@ export type ResponseTime = ContractTest & {
 }
 
 export type StatusCode = ContractTest & {
-  code: number
+  code?: number
 }
 
 export type ContractTestConfig = {

@@ -173,7 +173,7 @@ export class TestSuite {
     // No response object matching
     if (!response[0]?.[1]) return pmOperation
 
-    // const code = response[0][0] as string
+    const responseCode = parseInt(response[0][0]) as number
     const responseObject = response[0][1] as OpenAPIV3.ResponseObject
 
     // List excludeForOperations
@@ -192,7 +192,11 @@ export class TestSuite {
 
     // Add status code check
     if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
-      pmOperation = testResponseStatusCode(optStatusCode as StatusCode, pmOperation)
+      const statusCodeSetting = optStatusCode as StatusCode
+      if (!statusCodeSetting.code && responseCode) {
+        statusCodeSetting.code = responseCode
+      }
+      pmOperation = testResponseStatusCode(statusCodeSetting, pmOperation)
     }
 
     // Add responseTime check
