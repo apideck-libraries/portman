@@ -2,7 +2,7 @@
 
 In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests)" example, we explained the default generated Postman contract tests.
 
-This example focuses on the extension of the contract test suite with specific content tests. While the contract tests focusses on the validation of the request/response properties, the "content tests" focusses on validating the actual values of the API.
+This example focuses on the extension of the contract test suite with specific content tests. While the contract tests focuses on the validation of the request/response properties, the "content tests" targets on validating the actual values of the API.
 
 _use-case_: convert OpenAPI to Postman with a range of Postman tests automatically generated, extended by content tests, where we validate the response values.
 
@@ -71,7 +71,7 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the contenChecks usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
+In this example, we are zooming in on only the content tests usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
 file: examples/testsuite-content-tests/portman-config.crm.json >>
 

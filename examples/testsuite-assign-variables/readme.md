@@ -52,7 +52,7 @@ These target options are both supported for defining a target. In case both are 
   - **responseHeaderProp (String)** : The property for which the value will be taken in the response header and set the value as the pm.collectionVariables value.
   - **requestBodyProp (String)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
   - **value (String)** : The defined value that will be set as the pm.collectionVariables value.
-  - **name (String OPTIONAL | Default: openApiOperationId.responseProp** : The name that will be used to overwrite the default generated variable name.
+  - **name (String OPTIONAL | Default: openApiOperationId.responseProp)** : The name that will be used to overwrite the default generated variable name.
 
 ## Example explained
 
@@ -361,7 +361,7 @@ Get Lead response
 }
 ```
 
-For this we use a "contenCheck":
+For this we use a "content test":
 
 ```json
 "contentTests": [

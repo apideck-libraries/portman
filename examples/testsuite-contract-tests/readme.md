@@ -453,7 +453,7 @@ pm.test('[GET]::/crm/leads/:id - Content-Type is application/json', function () 
 ]
 ```
 
-Generates a check to validate if the response body is a JSON object, based on the content-type defined in the OpenAPI response..
+Generates a check to validate if the response body is a JSON object, based on the content-type defined in the OpenAPI response.
 
 ```js
 // Response should have JSON Body
