@@ -7,7 +7,7 @@
 ### Variation Tests
 
 - nested folders (including variation tests) will be ignored when performing orderOfOperations
-- nested folders (including variation tests) will be ignored when performing orderOfOperations
+- Added statusCode tests for variations based on the openApiResponse property
 
 ## v1.0.1 - (2021-06-18)
 
