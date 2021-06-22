@@ -192,10 +192,11 @@ export class TestSuite {
 
     // Add status code check
     if (optStatusCode && !inOperations(pmOperation, optStatusCode?.excludeForOperations)) {
-      if (!optStatusCode.code && responseCode) {
-        optStatusCode.code = responseCode
+      const statusCodeSetting = optStatusCode as StatusCode
+      if (!statusCodeSetting.code && responseCode) {
+        statusCodeSetting.code = responseCode
       }
-      pmOperation = testResponseStatusCode(optStatusCode as StatusCode, pmOperation)
+      pmOperation = testResponseStatusCode(statusCodeSetting, pmOperation)
     }
 
     // Add responseTime check
