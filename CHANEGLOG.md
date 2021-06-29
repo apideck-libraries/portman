@@ -1,4 +1,10 @@
-## v1.0.3 - (2021-06-21)
+## v1.0.4 - (2021-06-29)
+
+### Dependencies
+
+- move dev dependencies in package.json
+
+## v1.0.3 - (2021-06-29)
 
 ### Dependencies
 
