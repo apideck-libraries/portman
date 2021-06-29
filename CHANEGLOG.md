@@ -1,3 +1,9 @@
+## v1.0.5 - (2021-06-29)
+
+### Dependencies
+
+- Added prompts package
+
 ## v1.0.4 - (2021-06-29)
 
 ### Dependencies

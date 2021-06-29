@@ -1,6 +1,6 @@
 {
   "name": "@apideck/portman",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Port OpenAPI Spec to Postman Collection, with contract & variation tests included",
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
@@ -78,6 +78,7 @@
     "ora": "^5.4.1",
     "pluralize": "^8.0.0",
     "postman-collection": "^4.0.0",
+    "prompts": "^2.4.1",
     "replace-in-file": "^6.2.0",
     "yargs": "^17.0.1"
   },
