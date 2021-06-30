@@ -49,6 +49,26 @@ export class Portman {
     await this.after()
   }
 
+  async uploadOnly(): Promise<void> {
+    const localPostman = this.options.output || ''
+    if (localPostman === '') {
+      throw new Error(`Loading ${localPostman} failed.`)
+    }
+    this.options.syncPostman = true
+
+    await this.before()
+
+    try {
+      const postmanJson = path.resolve(localPostman)
+      this.portmanCollection = new Collection(
+        JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
+      )
+      await this.syncCollectionToPostman()
+    } catch (err) {
+      throw new Error(`Loading ${localPostman} failed.`)
+    }
+  }
+
   async before(): Promise<void> {
     const {
       consoleLine,

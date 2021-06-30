@@ -22,6 +22,7 @@ export type StatusCode = ContractTest & {
 }
 
 export type ContractTestConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
@@ -35,6 +36,7 @@ export type ContractTestConfig = {
 }
 
 export type ContentTestConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
@@ -42,6 +44,7 @@ export type ContentTestConfig = {
 }
 
 export type VariationTestConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
@@ -87,6 +90,7 @@ export type OverwritePathIdVariableConfig = {
 }
 
 export type OverwriteRequestConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
@@ -106,6 +110,7 @@ export type CollectionVariableConfig = {
 }
 
 export type AssignVariablesConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
@@ -113,6 +118,7 @@ export type AssignVariablesConfig = {
 }
 
 export type ExtendTestsConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
@@ -122,6 +128,7 @@ export type ExtendTestsConfig = {
 }
 
 export type OperationPreRequestScriptConfig = {
+  openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
   scripts: string[]

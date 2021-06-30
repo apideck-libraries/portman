@@ -54,9 +54,9 @@
     ],
     "extendTests": [
       {
-        "openApiOperationId": "companiesAll",
+        "openApiOperationIds": ["companiesAll", "contactsAll", "leadsAll"],
         "tests": [
-          "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
+          "pm.test('Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
         ]
       }
     ],

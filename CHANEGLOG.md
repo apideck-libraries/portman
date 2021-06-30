@@ -1,6 +1,16 @@
+## v1.1.0 - (2021-06-30)
+
+### Operation Selectors
+
+- new `openApiOperationsIds` setting can be passed as an array to selector operations for Portman to act on.
+
+### CLI
+
+- Added the option to upload a generated local postman collection and skip the Portman conversion
+
 ## v1.0.6 - (2021-06-30)
 
-### CLI 
+### CLI
 
 - Added the option to load an existing postman collection and skip the openAPI to postman conversion
 
