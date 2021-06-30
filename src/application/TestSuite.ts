@@ -119,7 +119,7 @@ export class TestSuite {
       | ContentTestConfig
       | VariationTestConfig
   ): PostmanMappedOperation[] {
-    const { openApiOperation, openApiOperationId } = settings
+    const { openApiOperation, openApiOperationId, openApiOperationIds } = settings
 
     let pmOperations: PostmanMappedOperation[] = []
 
@@ -127,6 +127,8 @@ export class TestSuite {
       pmOperations = this.postmanParser.getOperationsByPath(openApiOperation)
     } else if (openApiOperationId) {
       pmOperations = this.postmanParser.getOperationsByIds([openApiOperationId])
+    } else if (openApiOperationIds) {
+      pmOperations = this.postmanParser.getOperationsByIds(openApiOperationIds)
     }
 
     if (settings?.excludeForOperations) {
