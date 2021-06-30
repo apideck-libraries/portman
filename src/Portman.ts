@@ -202,9 +202,7 @@ export class Portman {
     if (localPostman) {
       try {
         const postmanJson = path.resolve(localPostman)
-        this.postmanCollection = new Collection(
-          JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
-        )
+        this.postmanCollection = JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
       } catch (err) {
         throw new Error(`Loading ${localPostman} failed.`)
       }
@@ -216,7 +214,7 @@ export class Portman {
     }
 
     this.postmanParser = new PostmanParser({
-      postmanObj: this.postmanCollection,
+      postmanObj: this.postmanCollection, // Postman Collection as JSON
       oasParser: this.oasParser
     })
     this.portmanCollection = this.postmanParser.collection.toJSON()
