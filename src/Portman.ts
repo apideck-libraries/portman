@@ -55,12 +55,14 @@ export class Portman {
       throw new Error(`Loading ${localPostman} failed.`)
     }
     this.options.syncPostman = true
+
+    await this.before()
+
     try {
       const postmanJson = path.resolve(localPostman)
       this.portmanCollection = new Collection(
         JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
       )
-      await this.before()
       await this.syncCollectionToPostman()
     } catch (err) {
       throw new Error(`Loading ${localPostman} failed.`)
