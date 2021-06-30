@@ -167,7 +167,7 @@ export class Portman {
 
   async convertToPostmanCollection(): Promise<void> {
     // --- openapi-to-postman - Transform OpenApi to Postman collection
-    const { postmanConfigPath } = this.options
+    const { postmanConfigPath, localPostman } = this.options
 
     const oaToPostman = new OpenApiToPostmanService()
     // TODO investigate better way to keep oasParser untouched
@@ -179,10 +179,21 @@ export class Portman {
       configFile: postmanConfigPath as string
     }
 
-    this.postmanCollection = await oaToPostman.convert(oaToPostmanConfig).catch(err => {
-      console.log('error: ', err)
-      throw new Error(`Postman Collection generation failed.`)
-    })
+    if (localPostman) {
+      try {
+        const postmanJson = path.resolve(localPostman)
+        this.postmanCollection = new Collection(
+          JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
+        )
+      } catch (err) {
+        throw new Error(`Loading ${localPostman} failed.`)
+      }
+    } else {
+      this.postmanCollection = await oaToPostman.convert(oaToPostmanConfig).catch(err => {
+        console.log('error: ', err)
+        throw new Error(`Postman Collection generation failed.`)
+      })
+    }
 
     this.postmanParser = new PostmanParser({
       postmanObj: this.postmanCollection,

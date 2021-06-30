@@ -47,6 +47,11 @@ require('dotenv').config()
       describe: 'Collection UID to upload with generated Postman collection',
       type: 'string'
     })
+    .option('localPostman', {
+      alias: 'local',
+      describe: 'Use local Postman collection, skips OpenAPI conversion',
+      type: 'string'
+    })
     .option('syncPostman', {
       alias: 'syncPostman',
       describe: 'Upload generated collection to Postman',
