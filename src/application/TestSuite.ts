@@ -37,6 +37,7 @@ export class TestSuite {
   oasParser: OpenApiParser
   postmanParser: PostmanParser
   config: PortmanConfig
+  variationWriter: VariationWriter
 
   contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
@@ -92,10 +93,8 @@ export class TestSuite {
   }
 
   public generateVariationTests = (): void => {
-    const variationTests = this.variationTests
+    const { variationTests } = this
     if (!variationTests) return
-
-    const variationWriter = new VariationWriter({ testSuite: this })
 
     variationTests.map(variationTest => {
       //Get Postman operations to inject variation test for
@@ -104,11 +103,11 @@ export class TestSuite {
       pmOperations.map(pmOperation => {
         // Get OpenApi responses
         const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
-        variationWriter.add(pmOperation, oaOperation, variationTest.variations)
+        this.variationWriter.add(pmOperation, oaOperation, variationTest.variations)
       })
     })
 
-    this.collection = variationWriter.mergeToCollection(this.collection)
+    this.collection = this.variationWriter.mergeToCollection(this.collection)
   }
 
   public getOperationsFromSetting(

@@ -44,4 +44,9 @@ describe('VariationWriter', () => {
     variationWriter.mergeToCollection(testSuite.collection)
     expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
+
+  it(`should keep a reference to it's variations`, () => {
+    variationWriter.mergeToCollection(testSuite.collection)
+    expect(variationWriter.overwriteMap).toMatchSnapshot()
+  })
 })

@@ -72,7 +72,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
             "body": Object {
               "mode": "raw",
               "raw": "{
-    \\"name\\": \\"\\",
+    \\"name\\": \\"Elon Musk\\",
     \\"company_name\\": \\"Spacex\\",
     \\"owner_id\\": \\"54321\\",
     \\"company_id\\": \\"2\\",
@@ -1536,6 +1536,22 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
     },
   ],
   "variable": Array [],
+}
+`;
+
+exports[`VariationWriter should keep a reference to it's variations 1`] = `
+Object {
+  "leadsAdd-clone": Array [
+    Object {
+      "overwriteRequestBody": Array [
+        Object {
+          "key": "name",
+          "overwrite": true,
+          "value": "",
+        },
+      ],
+    },
+  ],
 }
 `;
 
@@ -38739,7 +38755,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                 "body": Object {
                   "mode": "raw",
                   "raw": "{
-    \\"name\\": \\"\\",
+    \\"name\\": \\"Elon Musk\\",
     \\"company_name\\": \\"Spacex\\",
     \\"owner_id\\": \\"54321\\",
     \\"company_id\\": \\"2\\",

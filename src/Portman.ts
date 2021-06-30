@@ -4,7 +4,13 @@ import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
 import { Collection, CollectionDefinition } from 'postman-collection'
-import { CollectionWriter, runNewmanWith, TestSuite, writeNewmanEnv } from './application'
+import {
+  CollectionWriter,
+  runNewmanWith,
+  TestSuite,
+  VariationWriter,
+  writeNewmanEnv
+} from './application'
 import { clearTmpDirectory, execShellCommand, getConfig } from './lib'
 import { OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
@@ -25,6 +31,7 @@ export class Portman {
   postmanCollection: Collection
   portmanCollection: CollectionDefinition
   testSuite: TestSuite
+  variationWriter: VariationWriter
   consoleLine: string
 
   public collectionFile: string
@@ -42,6 +49,7 @@ export class Portman {
     await this.injectTestSuite()
     await this.injectVariationTests()
     await this.runPortmanOverrides()
+    await this.injectVariationOverwrites()
     await this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
@@ -258,6 +266,8 @@ export class Portman {
 
     if (includeTests && testSuite) {
       // Inject variations
+      this.variationWriter = new VariationWriter({ testSuite: testSuite })
+      testSuite.variationWriter = this.variationWriter
       testSuite.generateVariationTests()
 
       this.portmanCollection = testSuite.collection.toJSON()
@@ -271,6 +281,18 @@ export class Portman {
     collectionWriter.execute()
 
     this.portmanCollection = collectionWriter.collection
+  }
+
+  async injectVariationOverwrites(): Promise<void> {
+    const { testSuite, variationWriter } = this
+    if (!variationWriter || !testSuite || !testSuite.variationTests) return
+
+    Object.entries(variationWriter.overwriteMap).map(([id, overwrites]) => {
+      const pmOperation = this.postmanParser.getOperationById(id)
+      pmOperation && testSuite.injectOverwrites([pmOperation], overwrites)
+    })
+
+    this.portmanCollection = testSuite.collection.toJSON()
   }
 
   async writePortmanCollectionToFile(): Promise<void> {
