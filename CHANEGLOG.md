@@ -1,10 +1,8 @@
-## v1.1.2 - (2021-06-30)
+## v1.1.1 - (2021-06-30)
 
 ### Variation Tests
 
 - Fix to ensure overwrites for variations are not overwritten when running globals
-
-## v1.1.1 - (2021-06-30)
 
 ### CLI
 
