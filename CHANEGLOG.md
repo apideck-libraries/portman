@@ -1,3 +1,9 @@
+## v1.0.6 - (2021-06-30)
+
+### CLI 
+
+- Added the option to load an existing postman collection and skip the openAPI to postman conversion
+
 ## v1.0.5 - (2021-06-29)
 
 ### Dependencies

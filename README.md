@@ -117,6 +117,7 @@ Options:
   -o, --output               Write the Postman collection to an output file               [string]
   -n, --runNewman            Run Newman on newly created collection                       [boolean]
   -d, --newmanIterationData  Iteration data to run Newman with newly created collection   [string]
+  --localPostman             Use local Postman collection, skips OpenAPI conversion       [string]
   --syncPostman              Upload generated collection to Postman (default: false)      [boolean]
   -p, --postmanUid           Collection UID to upload with generated Postman collection   [string]
   -t, --includeTests         Inject Portman test suite (default: true)                    [boolean]
