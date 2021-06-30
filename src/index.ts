@@ -52,9 +52,14 @@ require('dotenv').config()
       describe: 'Use local Postman collection, skips OpenAPI conversion',
       type: 'string'
     })
+    .option('uploadOnly', {
+      alias: 'uploadOnly',
+      describe: 'Upload generated collection to Postman',
+      type: 'boolean'
+    })
     .option('syncPostman', {
       alias: 'syncPostman',
-      describe: 'Upload generated collection to Postman',
+      describe: 'Upload generated collection to Postman, after conversion',
       type: 'boolean'
     })
     .option('t', {
@@ -160,5 +165,11 @@ require('dotenv').config()
     filterFile
   })
 
-  portman.run()
+  if (options.uploadOnly) {
+    // Upload only, skip all the rest
+    portman.uploadOnly()
+  } else {
+    // Run full portman conversion
+    portman.run()
+  }
 })()

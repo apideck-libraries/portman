@@ -7,6 +7,7 @@ export interface PortmanOptions {
   newmanIterationData?: string
   postmanUid?: string
   localPostman?: string
+  uploadOnly?: boolean
   syncPostman?: boolean
   includeTests?: boolean
   portmanConfigFile?: string
