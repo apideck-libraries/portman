@@ -37193,7 +37193,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                   },
                 },
               ],
-              "name": "Create lead-missingParams",
+              "name": "Create lead[missingParams]",
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -37351,7 +37351,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                   },
                 ],
                 "method": "POST",
-                "name": "Create lead-missingParams",
+                "name": "Create lead[missingParams]",
                 "url": Object {
                   "host": Array [
                     "{{baseUrl}}",
@@ -38696,7 +38696,7 @@ pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
                   },
                 },
               ],
-              "name": "Create lead-400",
+              "name": "Create lead[400]",
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -38854,7 +38854,7 @@ pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
                   },
                 ],
                 "method": "POST",
-                "name": "Create lead-400",
+                "name": "Create lead[400]",
                 "url": Object {
                   "host": Array [
                     "{{baseUrl}}",

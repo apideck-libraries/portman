@@ -57,7 +57,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
               },
             },
           ],
-          "name": "Create lead-missingParams",
+          "name": "Create lead[missingParams]",
           "request": Object {
             "auth": Object {
               "bearer": Array [
@@ -215,7 +215,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
               },
             ],
             "method": "POST",
-            "name": "Create lead-missingParams",
+            "name": "Create lead[missingParams]",
             "url": Object {
               "host": Array [
                 "{{baseUrl}}",
@@ -1536,6 +1536,22 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
     },
   ],
   "variable": Array [],
+}
+`;
+
+exports[`VariationWriter should keep a reference to it's variations 1`] = `
+Object {
+  "leadsAdd-clone": Array [
+    Object {
+      "overwriteRequestBody": Array [
+        Object {
+          "key": "name",
+          "overwrite": true,
+          "value": "",
+        },
+      ],
+    },
+  ],
 }
 `;
 
@@ -38724,7 +38740,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                   },
                 },
               ],
-              "name": "Create lead-missingParams",
+              "name": "Create lead[missingParams]",
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -38882,7 +38898,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                   },
                 ],
                 "method": "POST",
-                "name": "Create lead-missingParams",
+                "name": "Create lead[missingParams]",
                 "url": Object {
                   "host": Array [
                     "{{baseUrl}}",

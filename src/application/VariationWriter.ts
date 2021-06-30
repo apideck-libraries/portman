@@ -1,7 +1,7 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
-import { VariationConfig } from '../types'
+import { OverwriteRequestConfig, VariationConfig } from '../types'
 import { TestSuite } from './'
 
 export type VariationWriterOptions = {
@@ -10,14 +10,20 @@ export type VariationWriterOptions = {
 
 export class VariationWriter {
   testSuite: TestSuite
+  public variationFolder: ItemGroup<Item>
   public variationCollection: Collection
   public operationFolders: Record<string, string>
+  public overwriteMap: Record<string, OverwriteRequestConfig[]>
 
   constructor(options: VariationWriterOptions) {
     const { testSuite } = options
     this.testSuite = testSuite
     this.operationFolders = {}
+    this.overwriteMap = {}
     this.variationCollection = new Collection()
+    this.variationFolder = new ItemGroup<Item>({
+      name: 'Variation Testing'
+    })
   }
 
   public add(
@@ -28,7 +34,7 @@ export class VariationWriter {
     variations.map(variation => {
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
-      const variationName = `${pmOperation.item.name}-${variation.name}`
+      const variationName = `${pmOperation.item.name}[${variation.name}]`
       const operationVariation = pmOperation.clone(variationName)
 
       this.injectVariations(operationVariation, oaOperation, variation)
@@ -38,16 +44,12 @@ export class VariationWriter {
   }
 
   public mergeToCollection(collection: Collection): Collection {
-    const variationFolder = new ItemGroup<Item>({
-      name: 'Variation Testing'
-    })
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.variationCollection.items.map((item: any) => {
-      variationFolder.items.add(item)
+      this.variationFolder.items.add(item)
     })
 
-    collection.items.add(variationFolder)
+    collection.items.add(this.variationFolder)
     return collection
   }
 
@@ -89,6 +91,7 @@ export class VariationWriter {
     const { overwrites, tests, assignVariables } = variation
 
     if (overwrites) {
+      this.overwriteMap[pmOperation.id as string] = overwrites
       this.testSuite.injectOverwrites([pmOperation], overwrites)
     }
 
