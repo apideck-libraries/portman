@@ -46,11 +46,11 @@ export class Portman {
 
     await this.parseOpenApiSpec()
     await this.convertToPostmanCollection()
-    await this.injectTestSuite()
-    await this.injectVariationTests()
-    await this.runPortmanOverrides()
-    await this.injectVariationOverwrites()
-    await this.writePortmanCollectionToFile()
+    this.injectTestSuite()
+    this.injectVariationTests()
+    this.runPortmanOverrides()
+    this.injectVariationOverwrites()
+    this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
 
@@ -228,7 +228,7 @@ export class Portman {
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
-  async injectTestSuite(): Promise<void> {
+  injectTestSuite(): void {
     const {
       config,
       options: { includeTests },
@@ -258,7 +258,7 @@ export class Portman {
     }
   }
 
-  async injectVariationTests(): Promise<void> {
+  injectVariationTests(): void {
     const {
       options: { includeTests },
       testSuite
@@ -274,7 +274,7 @@ export class Portman {
     }
   }
 
-  async runPortmanOverrides(): Promise<void> {
+  runPortmanOverrides(): void {
     // --- Portman - Overwrite Postman variables & values
     const { config, options, portmanCollection } = this
     const collectionWriter = new CollectionWriter(config, options, portmanCollection)
@@ -283,19 +283,20 @@ export class Portman {
     this.portmanCollection = collectionWriter.collection
   }
 
-  async injectVariationOverwrites(): Promise<void> {
+  injectVariationOverwrites(): void {
     const { testSuite, variationWriter } = this
     if (!variationWriter || !testSuite || !testSuite.variationTests) return
 
+    this.postmanParser.map(this.portmanCollection)
     Object.entries(variationWriter.overwriteMap).map(([id, overwrites]) => {
-      const pmOperation = this.postmanParser.getOperationById(id)
+      const pmOperation = this.postmanParser.getOperationByItemId(id)
       pmOperation && testSuite.injectOverwrites([pmOperation], overwrites)
     })
 
-    this.portmanCollection = testSuite.collection.toJSON()
+    this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
-  async writePortmanCollectionToFile(): Promise<void> {
+  writePortmanCollectionToFile(): void {
     // --- Portman - Write Postman collection to file
     const { output } = this.options
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'

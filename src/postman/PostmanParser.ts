@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import { Collection, Item, ItemGroup, Request } from 'postman-collection'
+import { Collection, CollectionDefinition, Item, ItemGroup, Request } from 'postman-collection'
 import { IOpenApiParser } from '../oas/OpenApiParser'
 import { matchPath, METHODS } from '../utils'
 import { PostmanMappedOperation } from './PostmanMappedOperation'
@@ -35,6 +35,15 @@ export class PostmanParser implements IPostmanParser {
     } else if (inputFile) {
       const postmanJson = path.resolve(inputFile)
       this.collection = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))
+    }
+
+    this.map()
+  }
+
+  // collection is optional so we can call from constructor, but also pass in collection to be remapped
+  public map(collection?: CollectionDefinition): void {
+    if (collection) {
+      this.collection = new Collection(collection)
     }
 
     this.pmItems = []
@@ -93,6 +102,10 @@ export class PostmanParser implements IPostmanParser {
 
   public getOperationsByIds(operationIds: string[]): PostmanMappedOperation[] {
     return this.mappedOperations.filter(({ id }) => id && operationIds.includes(id))
+  }
+
+  public getOperationByItemId(itemId: string): PostmanMappedOperation | null {
+    return this.mappedOperations.find(mappedOperation => mappedOperation.item.id === itemId) || null
   }
 
   public getOperationsByPath(path: string): PostmanMappedOperation[] {
