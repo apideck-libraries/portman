@@ -29,8 +29,11 @@ describe('PostmanMappedOperation', () => {
 
   describe('clone()', () => {
     it('should create a clean copy of itself', () => {
-      const clone = mappedOperation.clone('Get Company - Variation')
-      expect(clone.id).toEqual('companiesOne-clone')
+      const clone = mappedOperation.clone({
+        newId: 'getCompanyVariation',
+        name: 'Get Company - Variation'
+      })
+      expect(clone.id).toEqual('getCompanyVariation')
       expect(clone.item.request).toMatchSnapshot()
     })
   })

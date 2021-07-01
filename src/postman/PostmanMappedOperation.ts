@@ -41,7 +41,11 @@ export class PostmanMappedOperation {
       return { name: key, value, description: description?.content }
     })
 
-    this.id = operationIdMap ? operationIdMap[this.pathRef]?.id : (id as string)
+    this.id =
+      !id && operationIdMap && operationIdMap[this.pathRef]?.id
+        ? operationIdMap[this.pathRef]?.id
+        : (id as string)
+
     this.testJsonDataInjected = false
   }
 
@@ -65,7 +69,7 @@ export class PostmanMappedOperation {
     return parent ? parent.name : null
   }
 
-  public clone(name?: string): PostmanMappedOperation {
+  public clone({ newId, name }: { newId: string; name: string }): PostmanMappedOperation {
     // clone item for variation testing purposes
     // remove ids from item and response so we get a unique reference
     const clonedJsonItem = { ...this.item.toJSON() }
@@ -85,7 +89,10 @@ export class PostmanMappedOperation {
     const clonedPmItem = new Item(clone)
     clonedPmItem.events.clear()
 
-    return new PostmanMappedOperation({ item: clonedPmItem, id: `${this.id}-clone` })
+    return new PostmanMappedOperation({
+      item: clonedPmItem,
+      id: newId
+    })
   }
 
   private normalizedPathRef(method: string): string {

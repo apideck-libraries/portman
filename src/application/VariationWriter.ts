@@ -1,3 +1,4 @@
+import { camelCase } from 'camel-case'
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
@@ -35,7 +36,11 @@ export class VariationWriter {
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
       const variationName = `${pmOperation.item.name}[${variation.name}]`
-      const operationVariation = pmOperation.clone(variationName)
+
+      const operationVariation = pmOperation.clone({
+        newId: camelCase(variationName),
+        name: variationName
+      })
 
       this.injectVariations(operationVariation, oaOperation, variation)
 
@@ -91,8 +96,7 @@ export class VariationWriter {
     const { overwrites, tests, assignVariables } = variation
 
     if (overwrites) {
-      this.overwriteMap[pmOperation.id as string] = overwrites
-      this.testSuite.injectOverwrites([pmOperation], overwrites)
+      this.overwriteMap[pmOperation.item.id as string] = overwrites
     }
 
     if (oaOperation && tests?.contractTests) {

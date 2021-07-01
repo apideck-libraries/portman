@@ -37182,10 +37182,10 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                       "",
-                      "// pm.collectionVariables - Set leadsAdd-clone.data[0].id as variable for jsonData.data[0].id  
+                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id  
 if (typeof jsonData.data[0].id !== \\"undefined\\") {
-   pm.collectionVariables.set(\\"leadsAdd-clone.data[0].id\\", jsonData.data[0].id);
-   console.log(\\"- use {{leadsAdd-clone.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
+   pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
+   console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 };
 ",
                     ],
@@ -37208,7 +37208,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                 "body": Object {
                   "mode": "raw",
                   "raw": "{
-    \\"name\\": \\"\\",
+    \\"name\\": \\"Elon Musk\\",
     \\"company_name\\": \\"Spacex\\",
     \\"owner_id\\": \\"54321\\",
     \\"company_id\\": \\"2\\",

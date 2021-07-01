@@ -1,3 +1,9 @@
+## v1.1.2 - (2021-07-01)
+
+### Variation Tests
+
+- Optimize overwrites for variations
+
 ## v1.1.1 - (2021-06-30)
 
 ### Variation Tests
