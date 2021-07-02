@@ -3,7 +3,6 @@ import oaConverter from 'openapi-to-postmanv2'
 import { OpenAPIV3 } from 'openapi-types'
 import ora from 'ora'
 import path from 'path'
-import { Collection } from 'postman-collection'
 
 export interface IOpenApiToPostmanConfig {
   inputFile?: string
@@ -15,7 +14,7 @@ export interface IOpenApiToPostmanConfig {
 export class OpenApiToPostmanService {
   openApiObj: OpenAPIV3.Document
 
-  async convert(options: IOpenApiToPostmanConfig): Promise<Collection> {
+  async convert(options: IOpenApiToPostmanConfig): Promise<Record<string, unknown>> {
     return await new Promise((resolve, reject) => {
       let converterOptions = {}
       const { inputFile, openApiObj, configFile, outputFile } = options

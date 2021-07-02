@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { Collection } from 'postman-collection'
 import { injectEnvVariables, TestSuite } from '../../application'
 import { getConfig } from '../../lib'
 import { OpenApiParser } from '../../oas'
@@ -18,7 +19,10 @@ describe('injectEnvVariables', () => {
     oasParser = new OpenApiParser()
     await oasParser.convert({ inputFile: oasYml })
     const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
-    postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
     const config = await getConfig(postmanConfigFile)
     testSuiteService = new TestSuite({ oasParser, postmanParser, config })
     testSuiteService.generateContractTests()

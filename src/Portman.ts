@@ -48,7 +48,6 @@ export class Portman {
     await this.convertToPostmanCollection()
     this.injectTestSuite()
     this.injectVariationTests()
-    this.runPortmanOverrides()
     this.injectVariationOverwrites()
     this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
@@ -207,24 +206,29 @@ export class Portman {
       configFile: postmanConfigPath as string
     }
 
+    let postmanObj: Record<string, unknown>
+
     if (localPostman) {
       try {
         const postmanJson = path.resolve(localPostman)
-        this.postmanCollection = JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
+        postmanObj = JSON.parse(fs.readFileSync(postmanJson, 'utf8').toString())
       } catch (err) {
         throw new Error(`Loading ${localPostman} failed.`)
       }
     } else {
-      this.postmanCollection = await oaToPostman.convert(oaToPostmanConfig).catch(err => {
+      postmanObj = await oaToPostman.convert(oaToPostmanConfig).catch(err => {
         console.log('error: ', err)
         throw new Error(`Postman Collection generation failed.`)
       })
     }
 
+    await this.runPortmanOverrides(postmanObj)
+
     this.postmanParser = new PostmanParser({
-      postmanObj: this.postmanCollection, // Postman Collection as JSON
+      collection: this.postmanCollection,
       oasParser: this.oasParser
     })
+
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
@@ -274,13 +278,14 @@ export class Portman {
     }
   }
 
-  runPortmanOverrides(): void {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  async runPortmanOverrides(postmanCollection: CollectionDefinition): Promise<void> {
     // --- Portman - Overwrite Postman variables & values
-    const { config, options, portmanCollection } = this
-    const collectionWriter = new CollectionWriter(config, options, portmanCollection)
+    const { config, options } = this
+    const collectionWriter = new CollectionWriter(config, options, postmanCollection)
     collectionWriter.execute()
 
-    this.portmanCollection = collectionWriter.collection
+    this.postmanCollection = new Collection(collectionWriter.collection)
   }
 
   injectVariationOverwrites(): void {

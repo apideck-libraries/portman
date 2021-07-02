@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { Collection } from 'postman-collection'
 import { OpenApiParser } from '../oas'
 import { PostmanParser } from '../postman'
 
@@ -13,7 +14,10 @@ describe('PostmanParser', () => {
     oasParser = new OpenApiParser()
     await oasParser.convert({ inputFile: oasYml })
     const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
-    postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
   })
 
   describe('constructor', () => {
