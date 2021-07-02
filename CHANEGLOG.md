@@ -1,3 +1,9 @@
+## v1.1.3 - (2021-07-02)
+
+### Bug Fix
+
+- global overrides now happen as soon as spec is converted to Postman collection to avoid infighting amount overwrites and injections
+
 ## v1.1.2 - (2021-07-01)
 
 ### Variation Tests
