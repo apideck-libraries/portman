@@ -7,7 +7,7 @@ import { PostmanMappedOperation } from './PostmanMappedOperation'
 
 export interface PostmanParserConfig {
   inputFile?: string
-  postmanObj?: Collection
+  collection?: Collection
   oasParser?: IOpenApiParser
 }
 
@@ -27,11 +27,11 @@ export class PostmanParser implements IPostmanParser {
   private oasParser?: IOpenApiParser
 
   constructor(options: PostmanParserConfig) {
-    const { inputFile, postmanObj, oasParser } = options
+    const { inputFile, collection, oasParser } = options
     this.oasParser = oasParser
 
-    if (postmanObj) {
-      this.collection = new Collection(postmanObj)
+    if (collection) {
+      this.collection = collection
     } else if (inputFile) {
       const postmanJson = path.resolve(inputFile)
       this.collection = new Collection(JSON.parse(fs.readFileSync(postmanJson).toString()))

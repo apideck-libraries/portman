@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { Collection } from 'postman-collection'
 import { TestSuite, VariationWriter } from '../application'
 import { getConfig } from '../lib'
 import { OpenApiParser } from '../oas'
@@ -21,7 +22,10 @@ describe('VariationWriter', () => {
     await oasParser.convert({ inputFile: oasYml })
     const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
     const config = await getConfig(postmanConfigFile)
-    postmanParser = new PostmanParser({ postmanObj: postmanObj, oasParser: oasParser })
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
     testSuite = new TestSuite({ oasParser, postmanParser, config })
     variationWriter = new VariationWriter({ testSuite: testSuite })
     variationTests = config?.tests?.variationTests
