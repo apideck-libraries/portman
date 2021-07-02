@@ -26,7 +26,10 @@ describe('TestSuite Variations', () => {
     })
 
     testSuite = new TestSuite({ oasParser, postmanParser, config })
-    testSuite.variationWriter = new VariationWriter({ testSuite: testSuite })
+    testSuite.variationWriter = new VariationWriter({
+      testSuite: testSuite,
+      variationFolderName: 'Variation Tests'
+    })
   })
 
   it('should generateVariationTests for variations', () => {

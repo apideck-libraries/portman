@@ -1,5 +1,6 @@
 export * from './CollectionWriter'
 export * from './globals'
+export * from './IntegrationTestWriter'
 export * from './newman'
 export * from './overwrites'
 export * from './tests'

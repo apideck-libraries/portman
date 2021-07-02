@@ -43,6 +43,16 @@ export type ContentTestConfig = {
   responseBodyTests: ResponseBodyTest[]
 }
 
+export type IntegrationTestConfig = {
+  name: string
+  operations: IntegrationTest[]
+}
+
+export type IntegrationTest = {
+  openApiOperationId: string
+  variations: VariationConfig[]
+}
+
 export type VariationTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
@@ -158,6 +168,7 @@ export type TestConfig = {
   contentTests?: ContentTestConfig[]
   extendTests?: ExtendTestsConfig[]
   variationTests?: VariationTestConfig[]
+  integrationTests?: IntegrationTestConfig[]
 }
 
 export interface PortmanConfig {

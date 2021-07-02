@@ -4,6 +4,7 @@ import {
   applyOverwrites,
   assignCollectionVariables,
   extendTest,
+  IntegrationTestWriter,
   testResponseBodyContent,
   testResponseContentType,
   testResponseHeader,
@@ -21,6 +22,7 @@ import {
   ContentTestConfig,
   ContractTestConfig,
   ExtendTestsConfig,
+  IntegrationTestConfig,
   OverwriteRequestConfig,
   PortmanConfig,
   ResponseTime,
@@ -38,10 +40,12 @@ export class TestSuite {
   postmanParser: PostmanParser
   config: PortmanConfig
   variationWriter: VariationWriter
+  integrationTestWriter: IntegrationTestWriter
 
   contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
   variationTests?: VariationTestConfig[]
+  integrationTests?: IntegrationTestConfig[]
   extendTests?: ExtendTestsConfig[]
 
   pmResponseJsonVarInjected: boolean
@@ -65,6 +69,7 @@ export class TestSuite {
     this.contractTests = this.config?.tests?.contractTests
     this.contentTests = this.config?.tests?.contentTests
     this.variationTests = this.config?.tests?.variationTests
+    this.integrationTests = this.config?.tests?.integrationTests
     this.extendTests = this.config?.tests?.extendTests
   }
 
@@ -108,6 +113,19 @@ export class TestSuite {
     })
 
     this.collection = this.variationWriter.mergeToCollection(this.collection)
+  }
+
+  public generateIntegrationTests = (): void => {
+    const { integrationTests } = this
+
+    if (!integrationTests) return
+    console.log('integrationTests count', integrationTests.length)
+
+    integrationTests.map(integrationTest => {
+      this.integrationTestWriter.add(integrationTest)
+    })
+
+    this.collection = this.integrationTestWriter.mergeToCollection(this.collection)
   }
 
   public getOperationsFromSetting(
