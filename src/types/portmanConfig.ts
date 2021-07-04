@@ -68,6 +68,7 @@ export type VariationConfig = {
   tests: any
   assignVariables?: AssignVariablesConfig[]
   extendTests?: ExtendTestsConfig[]
+  operationPreRequestScripts?: OperationPreRequestScriptConfig[]
 }
 
 export type ResponseBodyTest = {
@@ -141,6 +142,7 @@ export type OperationPreRequestScriptConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   scripts: string[]
 }
 

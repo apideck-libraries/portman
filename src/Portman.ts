@@ -260,6 +260,9 @@ export class Portman {
       // Inject overwrites
       testSuite.injectOverwrites()
 
+      // Inject PreRequestScripts
+      testSuite.injectPreRequestScripts()
+
       this.testSuite = testSuite
       this.portmanCollection = testSuite.collection.toJSON()
     }

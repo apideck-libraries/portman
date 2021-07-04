@@ -13,7 +13,8 @@ import {
   testResponseStatusCode,
   testResponseStatusSuccess,
   testResponseTime,
-  VariationWriter
+  VariationWriter,
+  writeOperationPreRequestScripts
 } from '.'
 import { OasMappedOperation, OpenApiParser } from '../oas'
 import { PostmanMappedOperation, PostmanParser } from '../postman'
@@ -23,6 +24,7 @@ import {
   ContractTestConfig,
   ExtendTestsConfig,
   IntegrationTestConfig,
+  OperationPreRequestScriptConfig,
   OverwriteRequestConfig,
   PortmanConfig,
   ResponseTime,
@@ -134,6 +136,7 @@ export class TestSuite {
       | AssignVariablesConfig
       | ContentTestConfig
       | VariationTestConfig
+      | OperationPreRequestScriptConfig
   ): PostmanMappedOperation[] {
     const { openApiOperation, openApiOperationId, openApiOperationIds } = settings
 
@@ -354,6 +357,24 @@ export class TestSuite {
       //Get Postman operations to apply overwrites to
       const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
       applyOverwrites(operations, overwriteSetting)
+    })
+
+    return this.postmanParser.mappedOperations
+  }
+
+  public injectPreRequestScripts = (
+    pmOperations?: PostmanMappedOperation[],
+    preRequestSettings?: OperationPreRequestScriptConfig[]
+  ): PostmanMappedOperation[] => {
+    const settings = preRequestSettings || this.config.operationPreRequestScripts
+
+    if (!settings) return this.postmanParser.mappedOperations
+
+    settings.map(preRequestSetting => {
+      //Get Postman operations to apply PreRequestScripts to
+      const operations = pmOperations || this.getOperationsFromSetting(preRequestSetting)
+      preRequestSetting?.scripts &&
+        writeOperationPreRequestScripts(operations, preRequestSetting.scripts)
     })
 
     return this.postmanParser.mappedOperations

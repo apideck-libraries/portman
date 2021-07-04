@@ -99,7 +99,7 @@ export class VariationWriter {
     oaOperation: OasMappedOperation | null,
     variation: VariationConfig
   ): void {
-    const { overwrites, tests, assignVariables } = variation
+    const { overwrites, tests, assignVariables, operationPreRequestScripts } = variation
 
     if (overwrites) {
       this.overwriteMap[pmOperation.item.id as string] = overwrites
@@ -125,6 +125,10 @@ export class VariationWriter {
 
     if (assignVariables) {
       this.testSuite.injectAssignVariables([pmOperation], assignVariables)
+    }
+
+    if (operationPreRequestScripts) {
+      this.testSuite.injectPreRequestScripts([pmOperation], operationPreRequestScripts)
     }
   }
 }
