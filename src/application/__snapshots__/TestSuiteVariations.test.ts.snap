@@ -37208,7 +37208,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                 "body": Object {
                   "mode": "raw",
                   "raw": "{
-    \\"name\\": \\"Elon Musk\\",
+    \\"name\\": \\"\\",
     \\"company_name\\": \\"Spacex\\",
     \\"owner_id\\": \\"54321\\",
     \\"company_id\\": \\"2\\",
@@ -40174,7 +40174,7 @@ pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
           "name": "Leads Variations",
         },
       ],
-      "name": "Variation Testing",
+      "name": "Variation Tests",
     },
   ],
   "variable": Array [
