@@ -90,6 +90,10 @@ export class VariationWriter {
     target.items.add(operationVariation.item)
   }
 
+  public addToFolder(operationVariation: PostmanMappedOperation, folder: ItemGroup<Item>): void {
+    folder.items.add(operationVariation.item)
+  }
+
   injectVariations(
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation | null,
@@ -99,6 +103,7 @@ export class VariationWriter {
 
     if (overwrites) {
       this.overwriteMap[pmOperation.item.id as string] = overwrites
+      this.testSuite.injectOverwrites([pmOperation], overwrites)
     }
 
     if (oaOperation && tests?.contractTests) {

@@ -316,7 +316,7 @@ export class Portman {
 
   injectVariationOverwrites(): void {
     const { testSuite, variationWriter } = this
-    if (!variationWriter || !testSuite || !testSuite.variationTests) return
+    if (!variationWriter || !testSuite) return
 
     this.postmanParser.map(this.portmanCollection)
     Object.entries(variationWriter.overwriteMap).map(([id, overwrites]) => {

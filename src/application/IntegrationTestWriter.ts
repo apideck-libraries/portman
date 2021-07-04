@@ -30,11 +30,8 @@ export class IntegrationTestWriter {
       variationFolderName: name
     })
 
-    const folderId = variationWriter.variationFolder.id
-
     operations.map(({ openApiOperationId, variations }) => {
       const pmOperations = testSuite.postmanParser.getOperationsByIds([openApiOperationId])
-
       const pmOperation = pmOperations[0]
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
@@ -47,7 +44,7 @@ export class IntegrationTestWriter {
         })
 
         variationWriter.injectVariations(operationVariation, oaOperation, variation)
-        variationWriter.addToLocalCollection(operationVariation, folderId, name)
+        variationWriter.addToFolder(operationVariation, variationWriter.variationFolder)
       })
     })
 

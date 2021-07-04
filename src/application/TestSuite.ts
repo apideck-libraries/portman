@@ -119,7 +119,6 @@ export class TestSuite {
     const { integrationTests } = this
 
     if (!integrationTests) return
-    console.log('integrationTests count', integrationTests.length)
 
     integrationTests.map(integrationTest => {
       this.integrationTestWriter.add(integrationTest)
