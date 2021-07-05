@@ -1,3 +1,9 @@
+## v1.2.1 - (2021-06-30)
+
+### Housekeeping
+
+- remove console log that snuck in where it shouldn't be
+
 ## v1.2.0 - (2021-06-30)
 
 ### Feature Release
