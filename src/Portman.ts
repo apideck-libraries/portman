@@ -56,7 +56,7 @@ export class Portman {
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
 
-    await this.after()
+    return await this.after()
   }
 
   async uploadOnly(): Promise<void> {
@@ -336,7 +336,7 @@ export class Portman {
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
     let postmanCollectionFile = `./tmp/converted/${camelCase(fileName)}.json`
-
+    console.log('postmanCollectionFile', postmanCollectionFile)
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {
