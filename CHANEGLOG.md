@@ -1,3 +1,15 @@
+## v1.2.0 - (2021-06-30)
+
+### Feature Release
+
+#### Integration Tests
+
+- Added ability to create Integration Tests within postman collection by ordering operations and tests specific to api implementation
+
+#### PreRequest Scripts
+
+- Added ability to configure PreRequest Scripts on an operation level
+
 ## v1.1.3 - (2021-07-02)
 
 ### Bug Fix
