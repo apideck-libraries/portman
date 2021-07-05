@@ -5,7 +5,7 @@ import { TestSuite, VariationWriter } from './'
 export class IntegrationTestWriter {
   public testSuite: TestSuite
   integrationTestFolder: ItemGroup<Item>
-  integationTestCollection: Collection
+  integrationTestCollection: Collection
 
   constructor({
     testSuite,
@@ -18,7 +18,7 @@ export class IntegrationTestWriter {
     this.integrationTestFolder = new ItemGroup<Item>({
       name: integrationTestFolderName
     })
-    this.integationTestCollection = new Collection()
+    this.integrationTestCollection = new Collection()
   }
 
   public add(integrationTest: IntegrationTestConfig): void {
@@ -31,8 +31,10 @@ export class IntegrationTestWriter {
     })
 
     operations.map(({ openApiOperationId, variations }) => {
-      const pmOperations = testSuite.postmanParser.getOperationsByIds([openApiOperationId])
-      const pmOperation = pmOperations[0]
+      const pmOperation = testSuite.postmanParser.getOperationById(openApiOperationId)
+
+      if (!pmOperation) return
+
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
       variations.map(variation => {
@@ -48,12 +50,14 @@ export class IntegrationTestWriter {
       })
     })
 
-    this.integationTestCollection = variationWriter.mergeToCollection(this.integationTestCollection)
+    this.integrationTestCollection = variationWriter.mergeToCollection(
+      this.integrationTestCollection
+    )
   }
 
   public mergeToCollection(collection: Collection): Collection {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.integationTestCollection.items.map((item: any) => {
+    this.integrationTestCollection.items.map((item: any) => {
       this.integrationTestFolder.items.add(item)
     })
 

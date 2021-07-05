@@ -1,0 +1,178 @@
+{
+  "version": 1.0,
+  "tests": {
+    "integrationTests": [
+      {
+        "name": "companies",
+        "operations": [
+          {
+            "openApiOperationId": "companiesAdd",
+            "variations": [
+              {
+                "name": "Create Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusCode": {
+                        "enabled": true,
+                        "code": 201
+                      }
+                    }
+                  ]
+                },
+                "overwrites": [
+                  {
+                    "overwriteRequestBody": [
+                      {
+                        "key": "name",
+                        "value": "Integration Test: Create Company",
+                        "overwrite": true
+                      }
+                    ]
+                  }
+                ],
+                "operationPreRequestScripts": [
+                  {
+                    "scripts": [
+                      "pm.collectionVariables.set('integrationCompanyBody', request.data);"
+                    ]
+                  }
+                ],
+                "assignVariables": [
+                  {
+                    "collectionVariables": [
+                      {
+                        "responseBodyProp": "data.id",
+                        "name": "companyId"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesOne",
+            "variations": [
+              {
+                "name": "Fetch Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    }
+                  ],
+                  "contentTests": [
+                    {
+                      "responseBodyTests": [
+                        {
+                          "key": "data.name",
+                          "value": "Integration Test: Create Company"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "assignVariables": [
+                  {
+                    "collectionVariables": [
+                      {
+                        "responseBodyProp": "data.name",
+                        "name": "companyName"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesUpdate",
+            "variations": [
+              {
+                "name": "Update Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    }
+                  ]
+                },
+                "overwrites": [
+                  {
+                    "overwriteRequestBody": [
+                      {
+                        "key": "name",
+                        "value": "Integration Test: Update Company",
+                        "overwrite": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesOne",
+            "variations": [
+              {
+                "name": "Verify Company Updated",
+                "tests": {
+                  "contentTests": [
+                    {
+                      "responseBodyTests": [
+                        {
+                          "key": "data.name",
+                          "value": "Integration Test: Update Company"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesDelete",
+            "variations": [
+              {
+                "name": "Delete Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesOne",
+            "variations": [
+              {
+                "name": "Verify Company Deleted",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusCode": {
+                        "enabled": true,
+                        "code": 404
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
