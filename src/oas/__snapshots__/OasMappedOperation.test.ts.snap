@@ -168,6 +168,7 @@ Object {
           "email": Object {
             "example": "elon@musk.com",
             "format": "email",
+            "minLength": 1,
             "type": "string",
           },
           "id": Object {
@@ -218,6 +219,7 @@ Object {
     },
     "name": Object {
       "example": "Copper",
+      "minLength": 1,
       "type": "string",
     },
     "owner_id": Object {
@@ -234,6 +236,7 @@ Object {
           },
           "number": Object {
             "example": "111-111-1111",
+            "minLength": 1,
             "type": "string",
           },
           "type": Object {
@@ -274,6 +277,7 @@ Object {
           },
           "url": Object {
             "example": "https://www.twitter.com/apideck-io",
+            "minLength": 1,
             "type": "string",
           },
         },
@@ -338,6 +342,7 @@ Object {
           },
           "url": Object {
             "example": "http://example.com",
+            "minLength": 1,
             "type": "string",
           },
         },
@@ -613,6 +618,7 @@ OasMappedOperation {
                     "email": Object {
                       "example": "elon@musk.com",
                       "format": "email",
+                      "minLength": 1,
                       "type": "string",
                     },
                     "id": Object {
@@ -663,6 +669,7 @@ OasMappedOperation {
               },
               "name": Object {
                 "example": "Copper",
+                "minLength": 1,
                 "type": "string",
               },
               "owner_id": Object {
@@ -679,6 +686,7 @@ OasMappedOperation {
                     },
                     "number": Object {
                       "example": "111-111-1111",
+                      "minLength": 1,
                       "type": "string",
                     },
                     "type": Object {
@@ -719,6 +727,7 @@ OasMappedOperation {
                     },
                     "url": Object {
                       "example": "https://www.twitter.com/apideck-io",
+                      "minLength": 1,
                       "type": "string",
                     },
                   },
@@ -783,6 +792,7 @@ OasMappedOperation {
                     },
                     "url": Object {
                       "example": "http://example.com",
+                      "minLength": 1,
                       "type": "string",
                     },
                   },
@@ -870,22 +880,23 @@ OasMappedOperation {
                 "detail": Object {
                   "anyOf": Array [
                     Object {
+                      "example": "Missing property foobar",
                       "type": "string",
                     },
                     Object {
+                      "example": Object {
+                        "missing": Array [
+                          Array [
+                            Object {
+                              "foobar": "required",
+                            },
+                          ],
+                        ],
+                      },
                       "type": "object",
                     },
                   ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
-                  "example": Object {
-                    "missing": Array [
-                      Array [
-                        Object {
-                          "foobar": "required",
-                        },
-                      ],
-                    ],
-                  },
                 },
                 "error": Object {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
@@ -899,7 +910,7 @@ OasMappedOperation {
                 },
                 "ref": Object {
                   "description": "Link to documentation of error type",
-                  "example": "https://developers.apideck.com/errors#missingheaderserror",
+                  "example": "https://developers.apideck.com/errors#requestbodyvalidationerror",
                   "type": "string",
                 },
                 "status_code": Object {
@@ -909,7 +920,7 @@ OasMappedOperation {
                 },
                 "typeName": Object {
                   "description": "The type of error returned",
-                  "example": "MissingHeadersError",
+                  "example": "RequestHeadersValidationError",
                   "type": "string",
                 },
               },
@@ -924,16 +935,9 @@ OasMappedOperation {
             "schema": Object {
               "properties": Object {
                 "detail": Object {
-                  "anyOf": Array [
-                    Object {
-                      "type": "string",
-                    },
-                    Object {
-                      "type": "object",
-                    },
-                  ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                   "example": "Failed to generate valid JWT Session. Verify applicationId is correct",
+                  "type": "string",
                 },
                 "error": Object {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
@@ -1013,9 +1017,22 @@ OasMappedOperation {
             "schema": Object {
               "properties": Object {
                 "detail": Object {
+                  "anyOf": Array [
+                    Object {
+                      "example": "Could not find widget with id: '123'",
+                      "type": "string",
+                    },
+                    Object {
+                      "example": Object {
+                        "not_found": Object {
+                          "entity": "widget",
+                          "id": "123",
+                        },
+                      },
+                      "type": "object",
+                    },
+                  ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
-                  "example": "Could not find widget with id: '123'",
-                  "type": "string",
                 },
                 "error": Object {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
@@ -1097,14 +1114,23 @@ OasMappedOperation {
                 "detail": Object {
                   "anyOf": Array [
                     Object {
+                      "example": "Missing Header: x-apideck-consumer-id",
                       "type": "string",
                     },
                     Object {
+                      "example": Object {
+                        "missing": Array [
+                          Array [
+                            Object {
+                              "x-apideck-consumer-id": "required",
+                            },
+                          ],
+                        ],
+                      },
                       "type": "object",
                     },
                   ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
-                  "example": "Missing Header: x-apideck-consumer-id",
                 },
                 "error": Object {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
@@ -1128,7 +1154,7 @@ OasMappedOperation {
                 },
                 "typeName": Object {
                   "description": "The type of error returned",
-                  "example": "MissingHeadersError",
+                  "example": "RequestHeadersValidationError",
                   "type": "string",
                 },
               },

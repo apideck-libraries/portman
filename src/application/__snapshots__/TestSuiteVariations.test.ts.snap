@@ -37208,7 +37208,7 @@ if (typeof jsonData.data[0].id !== \\"undefined\\") {
                 "body": Object {
                   "mode": "raw",
                   "raw": "{
-    \\"name\\": \\"Elon Musk\\",
+    \\"name\\": \\"\\",
     \\"company_name\\": \\"Spacex\\",
     \\"owner_id\\": \\"54321\\",
     \\"company_id\\": \\"2\\",
@@ -38684,7 +38684,7 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
 });
 ",
                       "// Response Validation
-const schema = {\\"properties\\":{\\"status_code\\":{\\"type\\":\\"number\\",\\"description\\":\\"HTTP status code\\",\\"example\\":400},\\"error\\":{\\"type\\":\\"string\\",\\"description\\":\\"Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)\\",\\"example\\":\\"Bad Request\\"},\\"typeName\\":{\\"type\\":\\"string\\",\\"description\\":\\"The type of error returned\\",\\"example\\":\\"MissingHeadersError\\"},\\"message\\":{\\"type\\":\\"string\\",\\"description\\":\\"A human-readable message providing more details about the error.\\",\\"example\\":\\"Invalid Params\\"},\\"detail\\":{\\"anyOf\\":[{\\"type\\":\\"string\\"},{\\"type\\":\\"object\\"}],\\"description\\":\\"Contains parameter or domain specific information related to the error and why it occured.\\",\\"example\\":{\\"missing\\":[[{\\"foobar\\":\\"required\\"}]]}},\\"ref\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to documentation of error type\\",\\"example\\":\\"https://developers.apideck.com/errors#missingheaderserror\\"}}}
+const schema = {\\"properties\\":{\\"status_code\\":{\\"type\\":\\"number\\",\\"description\\":\\"HTTP status code\\",\\"example\\":400},\\"error\\":{\\"type\\":\\"string\\",\\"description\\":\\"Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)\\",\\"example\\":\\"Bad Request\\"},\\"typeName\\":{\\"type\\":\\"string\\",\\"description\\":\\"The type of error returned\\",\\"example\\":\\"RequestHeadersValidationError\\"},\\"message\\":{\\"type\\":\\"string\\",\\"description\\":\\"A human-readable message providing more details about the error.\\",\\"example\\":\\"Invalid Params\\"},\\"detail\\":{\\"anyOf\\":[{\\"type\\":\\"string\\",\\"example\\":\\"Missing property foobar\\"},{\\"type\\":\\"object\\",\\"example\\":{\\"missing\\":[[{\\"foobar\\":\\"required\\"}]]}}],\\"description\\":\\"Contains parameter or domain specific information related to the error and why it occured.\\"},\\"ref\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to documentation of error type\\",\\"example\\":\\"https://developers.apideck.com/errors#requestbodyvalidationerror\\"}}}
 
 // Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
@@ -40174,7 +40174,7 @@ pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
           "name": "Leads Variations",
         },
       ],
-      "name": "Variation Testing",
+      "name": "Variation Tests",
     },
   ],
   "variable": Array [

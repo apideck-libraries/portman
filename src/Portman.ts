@@ -6,6 +6,7 @@ import path from 'path'
 import { Collection, CollectionDefinition } from 'postman-collection'
 import {
   CollectionWriter,
+  IntegrationTestWriter,
   runNewmanWith,
   TestSuite,
   VariationWriter,
@@ -32,6 +33,7 @@ export class Portman {
   portmanCollection: CollectionDefinition
   testSuite: TestSuite
   variationWriter: VariationWriter
+  integrationTestWriter: IntegrationTestWriter
   consoleLine: string
 
   public collectionFile: string
@@ -49,11 +51,12 @@ export class Portman {
     this.injectTestSuite()
     this.injectVariationTests()
     this.injectVariationOverwrites()
+    this.injectIntegrationTests()
     this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
 
-    await this.after()
+    return await this.after()
   }
 
   async uploadOnly(): Promise<void> {
@@ -257,6 +260,9 @@ export class Portman {
       // Inject overwrites
       testSuite.injectOverwrites()
 
+      // Inject PreRequestScripts
+      testSuite.injectPreRequestScripts()
+
       this.testSuite = testSuite
       this.portmanCollection = testSuite.collection.toJSON()
     }
@@ -270,7 +276,10 @@ export class Portman {
 
     if (includeTests && testSuite) {
       // Inject variations
-      this.variationWriter = new VariationWriter({ testSuite: testSuite })
+      this.variationWriter = new VariationWriter({
+        testSuite: testSuite,
+        variationFolderName: 'Variation Tests'
+      })
       testSuite.variationWriter = this.variationWriter
       testSuite.generateVariationTests()
 
@@ -288,9 +297,29 @@ export class Portman {
     this.postmanCollection = new Collection(collectionWriter.collection)
   }
 
+  injectIntegrationTests(): void {
+    const {
+      options: { includeTests },
+      testSuite
+    } = this
+
+    if (includeTests && testSuite) {
+      // Inject variations
+      this.integrationTestWriter = new IntegrationTestWriter({
+        testSuite: testSuite,
+        integrationTestFolderName: 'Integration Tests'
+      })
+
+      testSuite.integrationTestWriter = this.integrationTestWriter
+      testSuite.generateIntegrationTests()
+
+      this.portmanCollection = testSuite.collection.toJSON()
+    }
+  }
+
   injectVariationOverwrites(): void {
     const { testSuite, variationWriter } = this
-    if (!variationWriter || !testSuite || !testSuite.variationTests) return
+    if (!variationWriter || !testSuite) return
 
     this.postmanParser.map(this.portmanCollection)
     Object.entries(variationWriter.overwriteMap).map(([id, overwrites]) => {
@@ -307,7 +336,7 @@ export class Portman {
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
     let postmanCollectionFile = `./tmp/converted/${camelCase(fileName)}.json`
-
+    console.log('postmanCollectionFile', postmanCollectionFile)
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {

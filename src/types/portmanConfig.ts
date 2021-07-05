@@ -43,6 +43,16 @@ export type ContentTestConfig = {
   responseBodyTests: ResponseBodyTest[]
 }
 
+export type IntegrationTestConfig = {
+  name: string
+  operations: IntegrationTest[]
+}
+
+export type IntegrationTest = {
+  openApiOperationId: string
+  variations: VariationConfig[]
+}
+
 export type VariationTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
@@ -58,6 +68,7 @@ export type VariationConfig = {
   tests: any
   assignVariables?: AssignVariablesConfig[]
   extendTests?: ExtendTestsConfig[]
+  operationPreRequestScripts?: OperationPreRequestScriptConfig[]
 }
 
 export type ResponseBodyTest = {
@@ -131,6 +142,7 @@ export type OperationPreRequestScriptConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  excludeForOperations?: string[]
   scripts: string[]
 }
 
@@ -158,6 +170,7 @@ export type TestConfig = {
   contentTests?: ContentTestConfig[]
   extendTests?: ExtendTestsConfig[]
   variationTests?: VariationTestConfig[]
+  integrationTests?: IntegrationTestConfig[]
 }
 
 export interface PortmanConfig {

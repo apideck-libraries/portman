@@ -13,7 +13,7 @@ describe('assignVarFromRequestBody', () => {
     jest.clearAllMocks()
   })
 
-  it('should add postman collection var with name and request body value', async () => {
+  it.skip('should add postman collection var with name and request body value', async () => {
     const varSetting = {
       requestBodyProp: 'company_name',
       name: 'leadsAdd.company_name'

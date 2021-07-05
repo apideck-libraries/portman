@@ -4,6 +4,7 @@ import {
   applyOverwrites,
   assignCollectionVariables,
   extendTest,
+  IntegrationTestWriter,
   testResponseBodyContent,
   testResponseContentType,
   testResponseHeader,
@@ -12,7 +13,8 @@ import {
   testResponseStatusCode,
   testResponseStatusSuccess,
   testResponseTime,
-  VariationWriter
+  VariationWriter,
+  writeOperationPreRequestScripts
 } from '.'
 import { OasMappedOperation, OpenApiParser } from '../oas'
 import { PostmanMappedOperation, PostmanParser } from '../postman'
@@ -21,6 +23,8 @@ import {
   ContentTestConfig,
   ContractTestConfig,
   ExtendTestsConfig,
+  IntegrationTestConfig,
+  OperationPreRequestScriptConfig,
   OverwriteRequestConfig,
   PortmanConfig,
   ResponseTime,
@@ -38,10 +42,12 @@ export class TestSuite {
   postmanParser: PostmanParser
   config: PortmanConfig
   variationWriter: VariationWriter
+  integrationTestWriter: IntegrationTestWriter
 
   contractTests?: ContractTestConfig[]
   contentTests?: ContentTestConfig[]
   variationTests?: VariationTestConfig[]
+  integrationTests?: IntegrationTestConfig[]
   extendTests?: ExtendTestsConfig[]
 
   pmResponseJsonVarInjected: boolean
@@ -65,6 +71,7 @@ export class TestSuite {
     this.contractTests = this.config?.tests?.contractTests
     this.contentTests = this.config?.tests?.contentTests
     this.variationTests = this.config?.tests?.variationTests
+    this.integrationTests = this.config?.tests?.integrationTests
     this.extendTests = this.config?.tests?.extendTests
   }
 
@@ -110,6 +117,18 @@ export class TestSuite {
     this.collection = this.variationWriter.mergeToCollection(this.collection)
   }
 
+  public generateIntegrationTests = (): void => {
+    const { integrationTests } = this
+
+    if (!integrationTests) return
+
+    integrationTests.map(integrationTest => {
+      this.integrationTestWriter.add(integrationTest)
+    })
+
+    this.collection = this.integrationTestWriter.mergeToCollection(this.collection)
+  }
+
   public getOperationsFromSetting(
     settings:
       | ContractTestConfig
@@ -117,6 +136,7 @@ export class TestSuite {
       | AssignVariablesConfig
       | ContentTestConfig
       | VariationTestConfig
+      | OperationPreRequestScriptConfig
   ): PostmanMappedOperation[] {
     const { openApiOperation, openApiOperationId, openApiOperationIds } = settings
 
@@ -337,6 +357,24 @@ export class TestSuite {
       //Get Postman operations to apply overwrites to
       const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
       applyOverwrites(operations, overwriteSetting)
+    })
+
+    return this.postmanParser.mappedOperations
+  }
+
+  public injectPreRequestScripts = (
+    pmOperations?: PostmanMappedOperation[],
+    preRequestSettings?: OperationPreRequestScriptConfig[]
+  ): PostmanMappedOperation[] => {
+    const settings = preRequestSettings || this.config.operationPreRequestScripts
+
+    if (!settings) return this.postmanParser.mappedOperations
+
+    settings.map(preRequestSetting => {
+      //Get Postman operations to apply PreRequestScripts to
+      const operations = pmOperations || this.getOperationsFromSetting(preRequestSetting)
+      preRequestSetting?.scripts &&
+        writeOperationPreRequestScripts(operations, preRequestSetting.scripts)
     })
 
     return this.postmanParser.mappedOperations
