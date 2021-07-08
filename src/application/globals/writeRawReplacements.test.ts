@@ -37,9 +37,36 @@ describe('writeRawReplacements', () => {
       }
     ]
 
-    const string = '{"exec": ["// Validate status 2xx \npm.test("[GET]::/portal/"]}'
+    const obj = {
+      event: [
+        {
+          listen: 'test',
+          script: {
+            id: 'b7904efa-d19f-424e-88aa-09829bec8643',
+            type: 'text/javascript',
+            exec: [
+              '// Validate status 2xx \npm.test("[GET]::/portal/v1/tenants/:tenantId/maildomains - Status code is 2xx", function () {\n   pm.response.to.be.success;\n});\n'
+            ]
+          }
+        }
+      ]
+    }
+    const string = JSON.stringify(obj, null, 4)
     const result = writeRawReplacements(string, config)
-    console.log('result', result)
-    expect(result).toStrictEqual('{"exec": ["// Validate status 2xx \npm.test("[GET]:-:/portal/"]}')
+    const resultObj = JSON.parse(result)
+    expect(resultObj).toStrictEqual({
+      event: [
+        {
+          listen: 'test',
+          script: {
+            id: 'b7904efa-d19f-424e-88aa-09829bec8643',
+            type: 'text/javascript',
+            exec: [
+              '// Validate status 2xx \npm.test("[GET]:-:/portal/v1/tenants/:tenantId/maildomains - Status code is 2xx", function () {\n   pm.response.to.be.success;\n});\n'
+            ]
+          }
+        }
+      ]
+    })
   })
 })
