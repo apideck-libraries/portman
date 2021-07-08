@@ -264,5 +264,13 @@
         }
       ]
     }
-  ]
+  ],
+  "globals": {
+    "rawReplacements": [
+      {
+        "searchFor": "::",
+        "replaceWith": ":-:"
+      }
+    ]
+  }
 }

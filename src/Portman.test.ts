@@ -54,5 +54,5 @@ describe('Portman', () => {
     const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
     const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id'])).toMatchSnapshot()
-  })
+  }, 30000)
 })
