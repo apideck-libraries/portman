@@ -1,5 +1,6 @@
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
+import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
@@ -23,6 +24,7 @@ import {
 } from './services'
 import { PortmanConfig } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
+import { validate } from './utils/PortmanConfig.validator'
 
 export class Portman {
   config: PortmanConfig
@@ -45,6 +47,7 @@ export class Portman {
 
   async run(): Promise<void> {
     await this.before()
+    if (!this.config) return
 
     await this.parseOpenApiSpec()
     await this.convertToPostmanCollection()
@@ -129,7 +132,16 @@ export class Portman {
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
 
-    this.config = await getConfig(portmanConfigPath)
+    const configJson = await getConfig(portmanConfigPath)
+    const config = validate(configJson)
+
+    if (Either.isLeft(config)) {
+      console.log(chalk`{red  Invalid Portman Config: } \t\t{green ${portmanConfigPath}}`)
+      console.log(config.left)
+      console.log(chalk.red(consoleLine))
+    } else {
+      this.config = config.right
+    }
   }
 
   async after(): Promise<void> {

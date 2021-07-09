@@ -1,4 +1,10 @@
-## v1.2.2 - (2021-06-30)
+## v1.3.0 - (2021-07-09)
+
+### Portman Config
+
+- Use AJV and [@apideck-libraries/better-ajv-errors](https://github.com/apideck-libraries/better-ajv-errors) to validate your Portman Config file on run
+
+## v1.2.2 - (2021-07-09)
 
 ### Bug Fix
 
