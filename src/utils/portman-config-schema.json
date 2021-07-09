@@ -1,0 +1,793 @@
+{
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number"
+    },
+    "assignVariables": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "collectionVariables": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "requestBodyProp": {
+                  "type": "string"
+                },
+                "responseBodyProp": {
+                  "type": "string"
+                },
+                "responseHeaderProp": {
+                  "type": "string"
+                },
+                "value": {}
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "excludeForOperations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "openApiOperation": {
+            "type": "string"
+          },
+          "openApiOperationId": {
+            "type": "string"
+          },
+          "openApiOperationIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["collectionVariables"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "globals": {
+      "additionalProperties": false,
+      "properties": {
+        "collectionPreRequestScripts": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "keyValueReplacements": {
+          "description": "Construct a type with a set of properties K of type T",
+          "type": "object"
+        },
+        "orderOfOperations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rawReplacements": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "replaceWith": {
+                "type": "string"
+              },
+              "searchFor": {
+                "type": "string"
+              }
+            },
+            "required": ["replaceWith", "searchFor"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "valueReplacements": {
+          "description": "Construct a type with a set of properties K of type T",
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "operationPreRequestScripts": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "excludeForOperations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "openApiOperation": {
+            "type": "string"
+          },
+          "openApiOperationId": {
+            "type": "string"
+          },
+          "openApiOperationIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "scripts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["scripts"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "overwrites": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "excludeForOperations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "openApiOperation": {
+            "type": "string"
+          },
+          "openApiOperationId": {
+            "type": "string"
+          },
+          "openApiOperationIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "overwriteRequestBody": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "overwrite": {
+                  "type": "boolean"
+                },
+                "remove": {
+                  "type": "boolean"
+                },
+                "value": {}
+              },
+              "required": ["key"],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "overwriteRequestHeaders": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "disable": {
+                  "type": "boolean"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "overwrite": {
+                  "type": "boolean"
+                },
+                "remove": {
+                  "type": "boolean"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": ["key"],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "overwriteRequestPathIdVariables": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              },
+              "required": ["enabled"],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "overwriteRequestPathVariables": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "overwrite": {
+                  "type": "boolean"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": ["key"],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "overwriteRequestQueryParams": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "disable": {
+                  "type": "boolean"
+                },
+                "key": {
+                  "type": "string"
+                },
+                "overwrite": {
+                  "type": "boolean"
+                },
+                "remove": {
+                  "type": "boolean"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": ["key"],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "tests": {
+      "additionalProperties": false,
+      "properties": {
+        "contentTests": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "excludeForOperations": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "openApiOperation": {
+                "type": "string"
+              },
+              "openApiOperationId": {
+                "type": "string"
+              },
+              "openApiOperationIds": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "responseBodyTests": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "value": {}
+                  },
+                  "required": ["key"],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["responseBodyTests"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "contractTests": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "contentType": {
+                "additionalProperties": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["enabled"],
+                "type": "object"
+              },
+              "excludeForOperations": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "headersPresent": {
+                "additionalProperties": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["enabled"],
+                "type": "object"
+              },
+              "jsonBody": {
+                "additionalProperties": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["enabled"],
+                "type": "object"
+              },
+              "openApiOperation": {
+                "type": "string"
+              },
+              "openApiOperationId": {
+                "type": "string"
+              },
+              "openApiOperationIds": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "responseTime": {
+                "additionalProperties": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "maxMs": {
+                    "type": "number"
+                  }
+                },
+                "required": ["enabled", "maxMs"],
+                "type": "object"
+              },
+              "schemaValidation": {
+                "additionalProperties": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["enabled"],
+                "type": "object"
+              },
+              "statusCode": {
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "number"
+                  },
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["enabled"],
+                "type": "object"
+              },
+              "statusSuccess": {
+                "additionalProperties": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "required": ["enabled"],
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "extendTests": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "append": {
+                "type": "boolean"
+              },
+              "excludeForOperations": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "openApiOperation": {
+                "type": "string"
+              },
+              "openApiOperationId": {
+                "type": "string"
+              },
+              "openApiOperationIds": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "overwrite": {
+                "type": "boolean"
+              },
+              "tests": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["tests"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "integrationTests": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "operations": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "openApiOperationId": {
+                      "type": "string"
+                    },
+                    "variations": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "assignVariables": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "collectionVariables": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "requestBodyProp": {
+                                        "type": "string"
+                                      },
+                                      "responseBodyProp": {
+                                        "type": "string"
+                                      },
+                                      "responseHeaderProp": {
+                                        "type": "string"
+                                      },
+                                      "value": {}
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "excludeForOperations": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "openApiOperation": {
+                                  "type": "string"
+                                },
+                                "openApiOperationId": {
+                                  "type": "string"
+                                },
+                                "openApiOperationIds": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": ["collectionVariables"],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "extendTests": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "append": {
+                                  "type": "boolean"
+                                },
+                                "excludeForOperations": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "openApiOperation": {
+                                  "type": "string"
+                                },
+                                "openApiOperationId": {
+                                  "type": "string"
+                                },
+                                "openApiOperationIds": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "overwrite": {
+                                  "type": "boolean"
+                                },
+                                "tests": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": ["tests"],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "openApiResponse": {
+                            "type": "string"
+                          },
+                          "operationPreRequestScripts": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "excludeForOperations": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "openApiOperation": {
+                                  "type": "string"
+                                },
+                                "openApiOperationId": {
+                                  "type": "string"
+                                },
+                                "openApiOperationIds": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                },
+                                "scripts": {
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "type": "array"
+                                }
+                              },
+                              "required": ["scripts"],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "overwrites": {},
+                          "tests": {}
+                        },
+                        "required": ["name", "tests"],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": ["openApiOperationId", "variations"],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["name", "operations"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "variationTests": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "excludeForOperations": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "openApiOperation": {
+                "type": "string"
+              },
+              "openApiOperationId": {
+                "type": "string"
+              },
+              "openApiOperationIds": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "variations": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "assignVariables": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "collectionVariables": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "requestBodyProp": {
+                                  "type": "string"
+                                },
+                                "responseBodyProp": {
+                                  "type": "string"
+                                },
+                                "responseHeaderProp": {
+                                  "type": "string"
+                                },
+                                "value": {}
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "excludeForOperations": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "openApiOperation": {
+                            "type": "string"
+                          },
+                          "openApiOperationId": {
+                            "type": "string"
+                          },
+                          "openApiOperationIds": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": ["collectionVariables"],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "extendTests": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "append": {
+                            "type": "boolean"
+                          },
+                          "excludeForOperations": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "openApiOperation": {
+                            "type": "string"
+                          },
+                          "openApiOperationId": {
+                            "type": "string"
+                          },
+                          "openApiOperationIds": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "overwrite": {
+                            "type": "boolean"
+                          },
+                          "tests": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": ["tests"],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "openApiResponse": {
+                      "type": "string"
+                    },
+                    "operationPreRequestScripts": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "excludeForOperations": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "openApiOperation": {
+                            "type": "string"
+                          },
+                          "openApiOperationId": {
+                            "type": "string"
+                          },
+                          "openApiOperationIds": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "scripts": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "required": ["scripts"],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "overwrites": {},
+                    "tests": {}
+                  },
+                  "required": ["name", "tests"],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["variations"],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  }
+}
