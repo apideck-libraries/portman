@@ -1,3 +1,9 @@
+## v1.3.1 - (2021-07-09)
+
+### Config Validation
+
+- use draft06 for shcema validation
+
 ## v1.3.0 - (2021-07-09)
 
 ### Portman Config
