@@ -1,3 +1,10 @@
+## v1.2.2 - (2021-06-30)
+
+### Bug Fix
+
+- Typo correction in readme
+- Remove empty orderOfOperations from default config
+
 ## v1.2.1 - (2021-06-30)
 
 ### Housekeeping
