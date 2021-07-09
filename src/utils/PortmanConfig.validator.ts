@@ -1,10 +1,11 @@
 import { betterAjvErrors, ValidationError } from '@apideck/better-ajv-errors'
 import Ajv from 'ajv'
+import * as Either from 'fp-ts/lib/Either'
 import type { JSONSchema6 } from 'json-schema'
 import { PortmanConfig } from '../types/PortmanConfig'
 import PortmanConfigSchema from './portman-config-schema.json'
 
-export const validate = (data: unknown): PortmanConfig | ValidationError[] => {
+export const validate = (data: unknown): Either.Either<ValidationError[], PortmanConfig> => {
   const ajv = new Ajv({
     allErrors: true
   })
@@ -17,8 +18,8 @@ export const validate = (data: unknown): PortmanConfig | ValidationError[] => {
       data,
       errors: ajv.errors
     })
-    return betterErrors
+    return Either.left(betterErrors)
   } else {
-    return data as PortmanConfig
+    return Either.right(data as PortmanConfig)
   }
 }

@@ -1,5 +1,6 @@
 import { camelCase } from 'camel-case'
 import chalk from 'chalk'
+import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import emoji from 'node-emoji'
 import path from 'path'
@@ -134,12 +135,12 @@ export class Portman {
     const configJson = await getConfig(portmanConfigPath)
     const config = validate(configJson)
 
-    if (Array.isArray(config)) {
+    if (Either.isLeft(config)) {
       console.log(chalk`{red  Invalid Portman Config: } \t\t{green ${portmanConfigPath}}`)
-      console.log(config)
+      console.log(config.left)
       console.log(chalk.red(consoleLine))
     } else {
-      this.config = config
+      this.config = config.right
     }
   }
 
