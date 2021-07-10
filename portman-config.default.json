@@ -50,7 +50,6 @@
     "collectionPreRequestScripts": [],
     "keyValueReplacements": {},
     "valueReplacements": {},
-    "rawReplacements": [],
-    "orderOfOperations": []
+    "rawReplacements": []
   }
 }

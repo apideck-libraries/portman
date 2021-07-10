@@ -1,3 +1,22 @@
+## v1.3.1 - (2021-07-09)
+
+### Config Validation
+
+- use draft06 for shcema validation
+
+## v1.3.0 - (2021-07-09)
+
+### Portman Config
+
+- Use AJV and [@apideck-libraries/better-ajv-errors](https://github.com/apideck-libraries/better-ajv-errors) to validate your Portman Config file on run
+
+## v1.2.2 - (2021-07-09)
+
+### Bug Fix
+
+- Typo correction in readme
+- Remove empty orderOfOperations from default config
+
 ## v1.2.1 - (2021-06-30)
 
 ### Housekeeping

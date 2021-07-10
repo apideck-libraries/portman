@@ -7,7 +7,7 @@ export const getConfig = async (configPath: string | undefined): Promise<Portman
   let config = {}
 
   if (configPath && (await fs.pathExists(path.resolve(configPath)))) {
-    config = await import(path.resolve(configPath))
+    config = await import(path.resolve(configPath)).then(module => module.default)
   } else {
     console.log(chalk.red(`Portman config file not provided.`))
   }
