@@ -142,10 +142,13 @@ AFTER
 ### portmanReplacements
 
 `portmanReplacements` is not part of this example, since the example does not include any test injection.
-While `rawReplacements` allows you to do a search & replace of any data from the OpenAPI document, before it is being used for the Portman test generation and injection. This can be useful, since the changed data from `rawReplacements` will be used during the test generation.
-The `portmanReplacements` offers the option to modify final generated Portman collection, before it is written as the Postman JSON file. It allows you to alter the final data before it will be used by Postman/Newman for execution.
+
+The `rawReplacements` setting allows you to do a search & replace of any data from the OpenAPI document, before it is being used for the Portman test generation and injection. This can be useful, since the changed data from `rawReplacements` will be used during the test generation.
+
+The `portmanReplacements` setting offers the option to modify the final generated Portman collection, before it is written as the Postman JSON file. It makes it possible to alter any of the final data before it will be used by Postman/Newman for execution.
 The main use-case would be to search & replace any of the generated Portman test code.
 
+Example:
 ```json
 {
   "version": 1.0,
