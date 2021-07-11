@@ -268,8 +268,8 @@
   "globals": {
     "rawReplacements": [
       {
-        "searchFor": "::",
-        "replaceWith": ":-:"
+        "searchFor": "Unify ",
+        "replaceWith": "Unify Apideck "
       }
     ]
   }
