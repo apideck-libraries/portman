@@ -93,6 +93,22 @@
           },
           "type": "array"
         },
+        "portmanReplacements": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "replaceWith": {
+                "type": "string"
+              },
+              "searchFor": {
+                "type": "string"
+              }
+            },
+            "required": ["replaceWith", "searchFor"],
+            "type": "object"
+          },
+          "type": "array"
+        },
         "valueReplacements": {
           "description": "Construct a type with a set of properties K of type T",
           "type": "object"

@@ -156,6 +156,7 @@ export type GlobalConfig = {
   keyValueReplacements?: Record<string, unknown>
   valueReplacements?: Record<string, unknown>
   rawReplacements?: GlobalReplacement[]
+  portmanReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
 }
 

@@ -429,7 +429,9 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **keyValueReplacements** : A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements** : A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
-  This is very useful to replace data from the OpenAPI specification to be used in the Postman test automation.
+  This is very useful to replace data from the OpenAPI specification, before it is used in the Portman test automation generation.
+- **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/... 
+  This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
 
 For more details, review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)

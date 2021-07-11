@@ -11,7 +11,8 @@ import {
   runNewmanWith,
   TestSuite,
   VariationWriter,
-  writeNewmanEnv
+  writeNewmanEnv,
+  writeRawReplacements
 } from './application'
 import { clearTmpDirectory, execShellCommand, getConfig } from './lib'
 import { OpenApiParser } from './oas'
@@ -88,6 +89,7 @@ export class Portman {
       options: {
         oaUrl,
         oaLocal,
+        output,
         cliOptionsFile,
         portmanConfigFile,
         portmanConfigPath,
@@ -104,6 +106,7 @@ export class Portman {
 
     oaUrl && console.log(chalk`{cyan  Remote Url: } \t\t{green ${oaUrl}}`)
     oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
+    output && console.log(chalk`{cyan  Output Path: } \t\t{green ${output}}`)
 
     cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${cliOptionsFile}}`)
     console.log(
@@ -345,6 +348,7 @@ export class Portman {
   writePortmanCollectionToFile(): void {
     // --- Portman - Write Postman collection to file
     const { output } = this.options
+    const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
     let postmanCollectionFile = `./tmp/converted/${camelCase(fileName)}.json`
@@ -360,7 +364,13 @@ export class Portman {
     }
 
     try {
-      const collectionString = JSON.stringify(this.portmanCollection, null, 2)
+      let collectionString = JSON.stringify(this.portmanCollection, null, 2)
+
+      // --- Portman - Replace & clean-up Portman
+      if (globals?.portmanReplacements) {
+        collectionString = writeRawReplacements(collectionString, globals.portmanReplacements)
+      }
+
       fs.writeFileSync(postmanCollectionFile, collectionString, 'utf8')
       this.collectionFile = postmanCollectionFile
     } catch (err) {
