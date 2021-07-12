@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 export class DownloadService {
   async get(url: string): Promise<string> {
     const res = await fetch(url)
-    const fileName = url.split('/').pop()
+    const fileName = url.replace(/\/$/, '').split('/').pop()
     const filePath = `./tmp/${fileName}`
 
     return await new Promise((resolve, reject) => {
