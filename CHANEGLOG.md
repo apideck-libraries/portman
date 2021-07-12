@@ -1,8 +1,18 @@
+## v1.3.2 - (2021-07-09)
+
+### Globals
+
+- Added option to define `portmanReplacements` for handling search & replace values after the Portman injection.
+
+### Bug Fix
+
+- Fix to handle remote sources ending with a trailing /
+
 ## v1.3.1 - (2021-07-09)
 
 ### Config Validation
 
-- use draft06 for shcema validation
+- use draft06 for schema validation
 
 ## v1.3.0 - (2021-07-09)
 

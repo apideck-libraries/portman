@@ -91,7 +91,6 @@ require('dotenv').config()
       type: 'string'
     })
     .option('init', {
-      // alias: 'cliOptionsFile',
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'
     }).argv as PortmanOptions
