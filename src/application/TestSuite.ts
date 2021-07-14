@@ -227,10 +227,16 @@ export class TestSuite {
 
     // Add response content checks
     if (responseObject.content) {
+      // TEMPORARY HANDLING of multiple content-types
+      let contentTypesCounter = 0
+
       // Process all content-types
       for (const [contentType, content] of Object.entries(responseObject.content)) {
         // Early skip if no content-types defined
         if (!contentType) continue
+
+        // TEMPORARY HANDLING of multiple content-types
+        if (contentTypesCounter > 0) continue
 
         // Add contentType check
         if (optContentType && !inOperations(pmOperation, optContentType?.excludeForOperations)) {
@@ -254,6 +260,8 @@ export class TestSuite {
         ) {
           pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
         }
+
+        contentTypesCounter++
       }
     }
 
