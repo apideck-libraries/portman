@@ -1,3 +1,9 @@
+## v1.3.3 - (2021-07-14)
+
+### Temporary fix
+
+- Temporary fix for handling multiple content-types, where the contract will be based on the 1st content-type that is defined in the OpenAPI response.
+
 ## v1.3.2 - (2021-07-09)
 
 ### Globals
