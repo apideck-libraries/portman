@@ -420,9 +420,14 @@ export class Portman {
     } = this
 
     if (syncPostman) {
-      const collectionIdentification = postmanUid || (portmanCollection?.info?.name as string)
       const postman = new PostmanService()
-      if (postman.isGuid(collectionIdentification)) {
+
+      let collectionIdentification = portmanCollection?.info?.name as string
+      if (postmanUid) {
+        collectionIdentification = postmanUid
+      }
+
+      if (postmanUid) {
         await postman.updateCollection(portmanCollection, collectionIdentification)
       } else {
         const remoteCollection = (await postman.findCollectionByName(
