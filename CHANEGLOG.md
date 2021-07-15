@@ -3,6 +3,11 @@
 ### Enhancement
 
 - Phased out "node-fetch" in favour of "Axios" + improved error handling for remote OAS files
+- Optimized the upload to postman process (#41)
+
+### Bugfix 
+
+- Fix to handle invalid postmanUid impacting the upload to Postman (#88)
 
 ## v1.3.3 - (2021-07-14)
 
