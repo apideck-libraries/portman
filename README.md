@@ -13,6 +13,8 @@ Customize the Postman requests & variables with a wide range of options to assig
 Convert your OpenAPI spec to Postman, generate contract & variation tests, upload the Postman collection & run the tests through Newman.
 Include the Portman CLI as part of an automated process for injecting the power of Portman directly into your CI/CD pipeline.
 
+[Read the full blog post](https://blog.apideck.com/announcing-portman)
+
 ## Features
 
 With Portman, you can:
