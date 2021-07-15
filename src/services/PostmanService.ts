@@ -29,7 +29,7 @@ export class PostmanService {
 
     const spinner = ora({
       prefixText: ' ',
-      text: 'Uploading to Postman ...\n'
+      text: 'Uploading & creating collection in Postman ...\n'
     })
 
     try {
@@ -66,7 +66,7 @@ export class PostmanService {
 
     const spinner = ora({
       prefixText: ' ',
-      text: 'Uploading to Postman ...\n'
+      text: 'Uploading & updating collection in Postman ...\n'
     })
 
     try {

@@ -424,14 +424,13 @@ export class Portman {
     let respData = ''
 
     if (syncPostman) {
-      const postman = new PostmanService()
-
       const collName = portmanCollection?.info?.name as string
       let collUid = collName // fallback
 
       // Handle postmanUid from options
       if (postmanUid) {
         collUid = postmanUid
+        const postman = new PostmanService()
         respData = await postman.updateCollection(portmanCollection, collUid)
       }
 
@@ -446,6 +445,7 @@ export class Portman {
 
         let remoteCollection = portmanCache[collName] as Record<string, unknown>
         if (!portmanCache[collName]) {
+          const postman = new PostmanService()
           remoteCollection = (await postman.findCollectionByName(collName)) as Record<
             string,
             unknown
@@ -454,6 +454,7 @@ export class Portman {
 
         if (remoteCollection?.uid) {
           // Update collection by Uid
+          const postman = new PostmanService()
           respData = await postman.updateCollection(
             portmanCollection,
             remoteCollection.uid as string
@@ -487,9 +488,9 @@ export class Portman {
           }
         } else {
           // Create collection
+          const postman = new PostmanService()
           respData = await postman.createCollection(portmanCollection)
           const { status, data } = JSON.parse(respData)
-          console.log('createCollection', data)
 
           // Update cache
           if (status === 'success') {
@@ -512,25 +513,29 @@ export class Portman {
         }
       }
 
-      // Process Postman API response as console output
-      const { status, data } = JSON.parse(respData)
+      if (respData) {
+        // Process Postman API response as console output
+        const { status, data } = JSON.parse(respData)
 
-      if (status === 'success') {
-        console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
-        console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
-      } else {
-        console.log(
-          chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${collUid} does not exist.`
-        )
-        console.log(
-          chalk`{red    -> Solution: } \tReview the collection ID defined for the 'postmanUid' setting.`
-        )
-        console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
-        console.log(chalk`{red    -> Postman UID: } \t${collUid}`)
+        if (status === 'success') {
+          console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
+          console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
+        }
 
-        console.log(data?.error)
-        console.log(`\n`)
-        console.log(chalk.red(consoleLine))
+        if (status === 'fail') {
+          console.log(
+            chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${collUid} does not exist.`
+          )
+          console.log(
+            chalk`{red    -> Solution: } \tReview the collection ID defined for the 'postmanUid' setting.`
+          )
+          console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
+          console.log(chalk`{red    -> Postman UID: } \t${collUid}`)
+
+          console.log(data?.error)
+          console.log(`\n`)
+          console.log(chalk.red(consoleLine))
+        }
       }
     }
   }
