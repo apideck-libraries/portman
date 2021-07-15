@@ -1,16 +1,20 @@
 import { createWriteStream } from 'fs'
-import fetch from 'node-fetch'
+import axios from 'axios'
 
 export class DownloadService {
   async get(url: string): Promise<string> {
-    const res = await fetch(url)
+    const res = await axios({
+      method: 'get',
+      url: url,
+      responseType: 'stream'
+    })
     const fileName = url.replace(/\/$/, '').split('/').pop()
     const filePath = `./tmp/${fileName}`
 
     return await new Promise((resolve, reject) => {
       const fileStream = createWriteStream(filePath)
-      res.body.pipe(fileStream)
-      res.body.on('error', err => {
+      res.data.pipe(fileStream)
+      res.data.on('error', err => {
         reject(err.toString())
       })
       fileStream.on('finish', () => {
