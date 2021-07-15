@@ -419,32 +419,96 @@ export class Portman {
       options: { syncPostman, postmanUid }
     } = this
     const consoleLine = '='.repeat(process.stdout.columns - 80)
+    const portmanCacheFile = '.portman.cache'
+    let portmanCache = {}
     let respData = ''
 
     if (syncPostman) {
       const postman = new PostmanService()
 
-      let collectionIdentification = portmanCollection?.info?.name as string
+      const collName = portmanCollection?.info?.name as string
+      let collUid = collName // fallback
+
+      // Handle postmanUid from options
       if (postmanUid) {
-        collectionIdentification = postmanUid
+        collUid = postmanUid
+        respData = await postman.updateCollection(portmanCollection, collUid)
       }
 
-      if (postmanUid) {
-        respData = await postman.updateCollection(portmanCollection, collectionIdentification)
-      }
-
+      // Handle non-fixed postmanUid from cache or by collection name
       if (!postmanUid) {
-        const remoteCollection = (await postman.findCollectionByName(
-          collectionIdentification
-        )) as Record<string, unknown>
+        try {
+          const portmanCachePath = path.resolve(portmanCacheFile)
+          portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
+        } catch (err) {
+          // throw new Error(`Loading ${localPostman} failed.`)
+        }
+
+        let remoteCollection = portmanCache[collName] as Record<string, unknown>
+        if (!portmanCache[collName]) {
+          remoteCollection = (await postman.findCollectionByName(collName)) as Record<
+            string,
+            unknown
+          >
+        }
 
         if (remoteCollection?.uid) {
+          // Update collection by Uid
           respData = await postman.updateCollection(
             portmanCollection,
             remoteCollection.uid as string
           )
+          const { status, data } = JSON.parse(respData)
+
+          // Update cache
+          if (status === 'fail') {
+            // Remove invalid cache item
+            delete portmanCache[collName]
+          } else {
+            // Merge item data with cache
+            portmanCache = Object.assign({}, portmanCache, {
+              [collName]: {
+                name: collName,
+                uid: data?.collection?.uid
+              }
+            })
+          }
+          // Write portman cache
+          try {
+            const portmanCacheStr = JSON.stringify(portmanCache, null, 2)
+            fs.writeFileSync(portmanCacheFile, portmanCacheStr, 'utf8')
+          } catch (err) {
+            // skip writing file, continue
+          }
+
+          // Restart on invalid Postman Uid and use Postman name as sync identifier
+          if (status === 'fail') {
+            await this.syncCollectionToPostman()
+          }
         } else {
+          // Create collection
           respData = await postman.createCollection(portmanCollection)
+          const { status, data } = JSON.parse(respData)
+          console.log('createCollection', data)
+
+          // Update cache
+          if (status === 'success') {
+            // Merge item data with cache
+            portmanCache = Object.assign({}, portmanCache, {
+              [collName]: {
+                name: collName,
+                uid: data?.collection?.uid
+              }
+            })
+
+            // Write portman cache
+            try {
+              const portmanCacheStr = JSON.stringify(portmanCache, null, 2)
+              fs.writeFileSync(portmanCacheFile, portmanCacheStr, 'utf8')
+            } catch (err) {
+              // skip writing file, continue
+            }
+          }
         }
       }
 
@@ -456,13 +520,13 @@ export class Portman {
         console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
       } else {
         console.log(
-          chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${collectionIdentification} does not exist.`
+          chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${collUid} does not exist.`
         )
         console.log(
           chalk`{red    -> Solution: } \tReview the collection ID defined for the 'postmanUid' setting.`
         )
         console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
-        console.log(chalk`{red    -> Postman UID: } \t${collectionIdentification}`)
+        console.log(chalk`{red    -> Postman UID: } \t${collUid}`)
 
         console.log(data?.error)
         console.log(`\n`)
