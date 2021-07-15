@@ -386,7 +386,7 @@ export class Portman {
     // --- Portman - Execute Newman tests
     const {
       consoleLine,
-      options: { runNewman, baseUrl, newmanIterationData }
+      options: { runNewman, baseUrl, newmanIterationData, newmanRunOptions = {} }
     } = this
 
     if (runNewman) {
@@ -399,7 +399,12 @@ export class Portman {
         console.log(chalk`{cyan  Run Newman against: } {green ${baseUrl}}`)
         console.log(chalk.green(consoleLine))
 
-        await runNewmanWith(this.collectionFile, newmanEnvFile, newmanIterationData)
+        await runNewmanWith(
+          this.collectionFile,
+          newmanEnvFile,
+          newmanIterationData,
+          newmanRunOptions
+        )
       } catch (error) {
         console.log(chalk.red(consoleLine))
         console.log(chalk.red(`Newman failed to run`))
