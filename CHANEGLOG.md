@@ -1,3 +1,9 @@
+## v1.3.WIP - (2021-07-WIP)
+
+### Enhancement
+
+- Phased out "node-fetch" in favour of "Axios" + improved error handling for remote OAS files
+
 ## v1.3.3 - (2021-07-14)
 
 ### Temporary fix
