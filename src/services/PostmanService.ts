@@ -13,7 +13,6 @@ export class PostmanService {
   }
 
   async createCollection(collection: CollectionDefinition): Promise<string> {
-    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -43,23 +42,14 @@ export class PostmanService {
       const respData = res.data
 
       spinner.succeed('Upload to Postman Success')
-
-      console.log(chalk`{cyan    -> Postman Name: } \t\t{green ${respData?.collection?.name}}`)
-      console.log(chalk`{cyan    -> Postman UID: } \t\t{green ${respData?.collection?.uid}}`)
-      return JSON.stringify(data, null, 2)
+      return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
-      console.log(chalk.red(consoleLine))
-      spinner.fail(chalk.red(`Upload skipped, because upload to Postman Failed`))
-
-      console.log(error?.response?.data)
-      console.log(`\n`)
-      console.log(chalk.red(consoleLine))
-      return error.toString()
+      spinner.fail(chalk.red(`Upload to Postman Failed`))
+      return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
     }
   }
 
   async updateCollection(collection: CollectionDefinition, uuid: string): Promise<string> {
-    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -89,26 +79,10 @@ export class PostmanService {
       const respData = res.data
 
       spinner.succeed('Upload to Postman Success')
-
-      console.log(chalk`{cyan    -> Postman Name: } \t{green ${respData?.collection?.name}}`)
-      console.log(chalk`{cyan    -> Postman UID: } \t{green ${respData?.collection?.uid}}`)
-      return JSON.stringify(data, null, 2)
+      return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
-      console.log(chalk.red(consoleLine))
       spinner.fail(chalk.red(`Upload to Postman Failed`))
-      console.log(
-        chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${uuid} does not exist.`
-      )
-      console.log(
-        chalk`{red    -> Solution: } \tReview the collection ID defined for the 'postmanUid' setting.`
-      )
-      console.log(chalk`{red    -> Postman Name: } \t${collection?.info?.name}`)
-      console.log(chalk`{red    -> Postman UID: } \t${uuid}`)
-
-      console.log(error?.response?.data)
-      console.log(`\n`)
-      console.log(chalk.red(consoleLine))
-      return error.toString()
+      return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
     }
   }
 

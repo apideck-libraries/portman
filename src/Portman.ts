@@ -418,6 +418,8 @@ export class Portman {
       portmanCollection,
       options: { syncPostman, postmanUid }
     } = this
+    const consoleLine = '='.repeat(process.stdout.columns - 80)
+    let respData = ''
 
     if (syncPostman) {
       const postman = new PostmanService()
@@ -428,17 +430,43 @@ export class Portman {
       }
 
       if (postmanUid) {
-        await postman.updateCollection(portmanCollection, collectionIdentification)
-      } else {
+        respData = await postman.updateCollection(portmanCollection, collectionIdentification)
+      }
+
+      if (!postmanUid) {
         const remoteCollection = (await postman.findCollectionByName(
           collectionIdentification
         )) as Record<string, unknown>
 
         if (remoteCollection?.uid) {
-          await postman.updateCollection(portmanCollection, remoteCollection.uid as string)
+          respData = await postman.updateCollection(
+            portmanCollection,
+            remoteCollection.uid as string
+          )
         } else {
-          await postman.createCollection(portmanCollection)
+          respData = await postman.createCollection(portmanCollection)
         }
+      }
+
+      // Process Postman API response as console output
+      const { status, data } = JSON.parse(respData)
+
+      if (status === 'success') {
+        console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
+        console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
+      } else {
+        console.log(
+          chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${collectionIdentification} does not exist.`
+        )
+        console.log(
+          chalk`{red    -> Solution: } \tReview the collection ID defined for the 'postmanUid' setting.`
+        )
+        console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
+        console.log(chalk`{red    -> Postman UID: } \t${collectionIdentification}`)
+
+        console.log(data?.error)
+        console.log(`\n`)
+        console.log(chalk.red(consoleLine))
       }
     }
   }
