@@ -2,6 +2,7 @@ import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
+import { NewmanRunOptions } from 'newman'
 import emoji from 'node-emoji'
 import path from 'path'
 import { Collection, CollectionDefinition } from 'postman-collection'
@@ -403,7 +404,7 @@ export class Portman {
           this.collectionFile,
           newmanEnvFile,
           newmanIterationData,
-          newmanRunOptions
+          newmanRunOptions as Partial<NewmanRunOptions>
         )
       } catch (error) {
         console.log(chalk.red(consoleLine))
