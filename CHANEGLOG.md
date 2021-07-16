@@ -3,7 +3,7 @@
 ### Enhancement
 
 - Phased out "node-fetch" in favour of "Axios" + improved error handling for remote OAS files
-- `newmanRunOptions` can now be passed as an object via cliOptionsFile. This will be used to extend/overwrite Portmans default Newman options. 🎉
+- `newmanRunOptions` can now be passed as an object via cli argument `--newmanRunOptions`, or cliOptionsFile. This will be used to extend/overwrite Portmans default Newman options. 🎉
 
 ## v1.3.3 - (2021-07-14)
 

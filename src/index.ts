@@ -37,6 +37,10 @@ require('dotenv').config()
       describe: 'Run Newman on newly created collection',
       type: 'boolean'
     })
+    .option('newmanRunOptions', {
+      describe: 'JSON stringified object to pass options for configuring Newman',
+      type: 'string'
+    })
     .option('d', {
       alias: 'newmanIterationData',
       describe: 'Iteration data to run Newman with newly created collection',
@@ -127,6 +131,14 @@ require('dotenv').config()
     }
   }
 
+  if (options.newmanRunOptions) {
+    try {
+      options.newmanRunOptions = JSON.parse(options.newmanRunOptions as string)
+    } catch (error) {
+      console.error('\x1b[31m', 'Portman CLI Config error - newmanRunOptions: ' + error + '"')
+      process.exit(0)
+    }
+  }
   // Merge CLI configuration file with CLI parameters
   options = { ...cliOptions, ...options }
 
