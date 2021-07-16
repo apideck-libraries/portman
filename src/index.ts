@@ -2,6 +2,7 @@
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
 import fs from 'fs-extra'
+import { NewmanRunOptions } from 'newman'
 import path from 'path'
 import { PortmanOptions } from 'types'
 import yargs from 'yargs'
@@ -36,6 +37,10 @@ require('dotenv').config()
       alias: 'runNewman',
       describe: 'Run Newman on newly created collection',
       type: 'boolean'
+    })
+    .option('newmanRunOptions', {
+      describe: 'JSON stringified object to pass options for configuring Newman',
+      type: 'string'
     })
     .option('d', {
       alias: 'newmanIterationData',
@@ -95,7 +100,7 @@ require('dotenv').config()
       type: 'boolean'
     }).argv as PortmanOptions
 
-  let cliOptions = {}
+  let cliOptions: Partial<PortmanOptions> = {}
 
   if (options.init) {
     console.log(
@@ -127,6 +132,17 @@ require('dotenv').config()
     }
   }
 
+  if (options.newmanRunOptions) {
+    try {
+      const newmanRunOptionsArg = JSON.parse(options.newmanRunOptions as string)
+      options.newmanRunOptions = cliOptions?.newmanRunOptions
+        ? { ...(cliOptions.newmanRunOptions as NewmanRunOptions), ...newmanRunOptionsArg }
+        : newmanRunOptionsArg
+    } catch (error) {
+      console.error('\x1b[31m', 'Portman CLI Config error - newmanRunOptions: ' + error + '"')
+      process.exit(0)
+    }
+  }
   // Merge CLI configuration file with CLI parameters
   options = { ...cliOptions, ...options }
 

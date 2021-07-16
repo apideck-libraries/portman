@@ -86,24 +86,25 @@ $ npx @apideck/portman -l your-openapi-file.yaml
 Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>
 
 Options:
-      --help                 Show help                                                    [boolean]
-      --version              Show version number                                          [boolean]
-  -u, --url                  URL of OAS to port to Postman collection                     [string]
-  -l, --local                Use local OAS to port to Postman collection                  [string]
-  -b, --baseUrl              Override spec baseUrl to use in Postman                      [string]
-  -o, --output               Write the Postman collection to an output file               [string]
-  -n, --runNewman            Run Newman on newly created collection                       [boolean]
-  -d, --newmanIterationData  Iteration data to run Newman with newly created collection   [string]
-  --localPostman             Use local Postman collection, skips OpenAPI conversion       [string]
-  --syncPostman              Upload generated collection to Postman (default: false)      [boolean]
-  -p, --postmanUid           Collection UID to upload with generated Postman collection   [string]
-  -t, --includeTests         Inject Portman test suite (default: true)                    [boolean]
-  -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)   [string]
-  -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json) [string]
-  -s, --filterFile           Path to openapi-format config file (oas-format-filter.json)  [string]
-  --envFile                  Path to the .env file to inject environment variables        [string]
-  --cliOptionsFile           Path to Portman CLI options file                             [string]
-  --init                     Configure Portman CLI options in an interactive manner       [string]
+      --help                 Show help                                                        [boolean]
+      --version              Show version number                                              [boolean]
+  -u, --url                  URL of OAS to port to Postman collection                         [string]
+  -l, --local                Use local OAS to port to Postman collection                      [string]
+  -b, --baseUrl              Override spec baseUrl to use in Postman                          [string]
+  -o, --output               Write the Postman collection to an output file                   [string]
+  -n, --runNewman            Run Newman on newly created collection                           [boolean]
+  --newmanRunOptions         JSON stringified object to pass options for configuring Newman   [string]
+  -d, --newmanIterationData  Iteration data to run Newman with newly created collection       [string]
+  --localPostman             Use local Postman collection, skips OpenAPI conversion           [string]
+  --syncPostman              Upload generated collection to Postman (default: false)          [boolean]
+  -p, --postmanUid           Collection UID to upload with generated Postman collection       [string]
+  -t, --includeTests         Inject Portman test suite (default: true)                        [boolean]
+  -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)       [string]
+  -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)     [string]
+  -s, --filterFile           Path to openapi-format config file (oas-format-filter.json)      [string]
+  --envFile                  Path to the .env file to inject environment variables            [string]
+  --cliOptionsFile           Path to Portman CLI options file                                 [string]
+  --init                     Configure Portman CLI options in an interactive manner           [string]
 ```
 
 ### Environment variables as Postman variables
@@ -434,7 +435,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **valueReplacements** : A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
   This is very useful to replace data from the OpenAPI specification, before it is used in the Portman test automation generation.
-- **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/... 
+- **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/...
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
 

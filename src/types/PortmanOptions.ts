@@ -1,3 +1,5 @@
+import { NewmanRunOptions } from 'newman'
+
 export interface PortmanOptions {
   url?: string
   local?: string
@@ -5,6 +7,7 @@ export interface PortmanOptions {
   output?: string
   runNewman?: boolean
   newmanIterationData?: string
+  newmanRunOptions?: string | Partial<NewmanRunOptions>
   postmanUid?: string
   localPostman?: string
   uploadOnly?: boolean

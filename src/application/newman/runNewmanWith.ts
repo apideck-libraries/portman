@@ -1,13 +1,14 @@
 import chalk from 'chalk'
-import newman from 'newman'
+import newman, { NewmanRunOptions } from 'newman'
 import path from 'path'
 
 export const runNewmanWith = (
   postmanCollectionFile: string,
   newmanEnvFile: string,
-  newmanDataFile: string | undefined
+  newmanDataFile: string | undefined,
+  newmanRunOptions: Partial<NewmanRunOptions>
 ): Promise<void> => {
-  const newmanOptions = {
+  const defaultNewmanOptions = {
     collection: require(path.resolve(postmanCollectionFile)),
     environment: require(path.resolve(newmanEnvFile)),
     reporters: ['cli'],
@@ -23,8 +24,10 @@ export const runNewmanWith = (
   if (newmanDataFile) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const iterationData = require(path.resolve(newmanDataFile))
-    newmanOptions['iterationData'] = iterationData
+    defaultNewmanOptions['iterationData'] = iterationData
   }
+
+  const newmanOptions = { ...defaultNewmanOptions, ...newmanRunOptions }
 
   return new Promise((resolve, reject) => {
     try {
