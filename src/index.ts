@@ -2,6 +2,7 @@
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
 import fs from 'fs-extra'
+import { NewmanRunOptions } from 'newman'
 import path from 'path'
 import { PortmanOptions } from 'types'
 import yargs from 'yargs'
@@ -99,7 +100,7 @@ require('dotenv').config()
       type: 'boolean'
     }).argv as PortmanOptions
 
-  let cliOptions = {}
+  let cliOptions: Partial<PortmanOptions> = {}
 
   if (options.init) {
     console.log(
@@ -133,7 +134,10 @@ require('dotenv').config()
 
   if (options.newmanRunOptions) {
     try {
-      options.newmanRunOptions = JSON.parse(options.newmanRunOptions as string)
+      const newmanRunOptionsArg = JSON.parse(options.newmanRunOptions as string)
+      options.newmanRunOptions = cliOptions?.newmanRunOptions
+        ? { ...(cliOptions.newmanRunOptions as NewmanRunOptions), ...newmanRunOptionsArg }
+        : newmanRunOptionsArg
     } catch (error) {
       console.error('\x1b[31m', 'Portman CLI Config error - newmanRunOptions: ' + error + '"')
       process.exit(0)
