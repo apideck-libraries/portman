@@ -1,13 +1,25 @@
-## v1.3.WIP - (2021-07-WIP)
+## v1.4.2 - (2021-07-20)
+
+### Enhancement
+
+- Optimised the upload to postman process (#41)
+
+### Bugfix
+
+- Fix to handle invalid postmanUid impacting the upload to Postman (#88)
+
+## v1.4.1 - (2021-07-19)
+
+### Enhancement
+
+- Portman exist codes have been changed `exit(1)` to make it easier for external processes reunning Portman to catch determine fail vs complete.
+
+## v1.4.0 - (2021-07-16)
 
 ### Enhancement
 
 - Phased out "node-fetch" in favour of "Axios" + improved error handling for remote OAS files
-- Optimized the upload to postman process (#41)
-
-### Bugfix 
-
-- Fix to handle invalid postmanUid impacting the upload to Postman (#88)
+- `newmanRunOptions` can now be passed as an object via cli argument `--newmanRunOptions`, or cliOptionsFile. This will be used to extend/overwrite Portmans default Newman options. 🎉
 
 ## v1.3.3 - (2021-07-14)
 

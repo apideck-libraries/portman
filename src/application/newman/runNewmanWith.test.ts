@@ -14,7 +14,7 @@ describe('runNewmanWith', () => {
   it('should call newman with options', () => {
     const runSpy = jest.spyOn(newman, 'run')
 
-    runNewmanWith(postmanFile, newmanEnvFile, undefined)
+    runNewmanWith(postmanFile, newmanEnvFile, undefined, {})
 
     expect(runSpy).toHaveBeenCalled()
   })

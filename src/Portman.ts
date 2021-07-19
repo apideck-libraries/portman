@@ -2,6 +2,7 @@ import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
+import { NewmanRunOptions } from 'newman'
 import emoji from 'node-emoji'
 import path from 'path'
 import { Collection, CollectionDefinition } from 'postman-collection'
@@ -174,7 +175,7 @@ export class Portman {
         openApiSpec = './tmp/converted/spec.yml'
       } catch (err) {
         console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
-        process.exit(0)
+        process.exit(1)
       }
     }
 
@@ -359,7 +360,7 @@ export class Portman {
           '\x1b[31m',
           'Output file error - Only .json filenames are allowed for "' + postmanCollectionFile + '"'
         )
-        process.exit(0)
+        process.exit(1)
       }
     }
 
@@ -378,7 +379,7 @@ export class Portman {
         '\x1b[31m',
         'Output file error - no such file or directory "' + postmanCollectionFile + '"'
       )
-      process.exit(0)
+      process.exit(1)
     }
   }
 
@@ -386,7 +387,7 @@ export class Portman {
     // --- Portman - Execute Newman tests
     const {
       consoleLine,
-      options: { runNewman, baseUrl, newmanIterationData }
+      options: { runNewman, baseUrl, newmanIterationData, newmanRunOptions = {} }
     } = this
 
     if (runNewman) {
@@ -399,15 +400,18 @@ export class Portman {
         console.log(chalk`{cyan  Run Newman against: } {green ${baseUrl}}`)
         console.log(chalk.green(consoleLine))
 
-        await runNewmanWith(this.collectionFile, newmanEnvFile, newmanIterationData)
+        await runNewmanWith(
+          this.collectionFile,
+          newmanEnvFile,
+          newmanIterationData,
+          newmanRunOptions as Partial<NewmanRunOptions>
+        )
       } catch (error) {
-        console.log(chalk.red(consoleLine))
-        console.log(chalk.red(`Newman failed to run`))
         console.log(`\n`)
+        console.log(chalk.red(consoleLine))
+        console.log(chalk.red(`Newman run failed with: `))
         console.log(error?.message)
-        console.log(`\n`)
-        console.log(chalk.red(consoleLine))
-        process.exit(0)
+        process.exit(1)
       }
     }
   }
