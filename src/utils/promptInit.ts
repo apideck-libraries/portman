@@ -224,7 +224,7 @@ export const promptInit = async (): Promise<void> => {
       fs.writeFileSync(portmanCliFilePath, portmanCliSettings, 'utf8')
     } catch (err) {
       console.error('\x1b[31m', `Output file error - no such directory "./${config?.localFolder}"`)
-      process.exit(0)
+      process.exit(1)
     }
 
     console.log('\x1b[32m', consoleLine)
@@ -253,7 +253,7 @@ export const promptInit = async (): Promise<void> => {
       await fs.appendFile(envFilePath, envContent, { encoding: 'utf8' })
     } catch (err) {
       console.error('\x1b[31m', `Output file error - no such file directory "./${envFilePath}"`)
-      process.exit(0)
+      process.exit(1)
     }
   }
 }

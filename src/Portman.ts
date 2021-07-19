@@ -175,7 +175,7 @@ export class Portman {
         openApiSpec = './tmp/converted/spec.yml'
       } catch (err) {
         console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
-        process.exit(0)
+        process.exit(1)
       }
     }
 
@@ -360,7 +360,7 @@ export class Portman {
           '\x1b[31m',
           'Output file error - Only .json filenames are allowed for "' + postmanCollectionFile + '"'
         )
-        process.exit(0)
+        process.exit(1)
       }
     }
 
@@ -379,7 +379,7 @@ export class Portman {
         '\x1b[31m',
         'Output file error - no such file or directory "' + postmanCollectionFile + '"'
       )
-      process.exit(0)
+      process.exit(1)
     }
   }
 
@@ -407,13 +407,11 @@ export class Portman {
           newmanRunOptions as Partial<NewmanRunOptions>
         )
       } catch (error) {
-        console.log(chalk.red(consoleLine))
-        console.log(chalk.red(`Newman failed to run`))
         console.log(`\n`)
+        console.log(chalk.red(consoleLine))
+        console.log(chalk.red(`Newman run failed with: `))
         console.log(error?.message)
-        console.log(`\n`)
-        console.log(chalk.red(consoleLine))
-        process.exit(0)
+        process.exit(1)
       }
     }
   }

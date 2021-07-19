@@ -128,7 +128,7 @@ require('dotenv').config()
         '\x1b[31m',
         'Portman CLI Config error - no such file or directory "' + options.cliOptionsFile + '"'
       )
-      process.exit(0)
+      process.exit(1)
     }
   }
 
@@ -140,7 +140,7 @@ require('dotenv').config()
         : newmanRunOptionsArg
     } catch (error) {
       console.error('\x1b[31m', 'Portman CLI Config error - newmanRunOptions: ' + error + '"')
-      process.exit(0)
+      process.exit(1)
     }
   }
   // Merge CLI configuration file with CLI parameters

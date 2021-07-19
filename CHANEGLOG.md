@@ -1,3 +1,9 @@
+## v1.4.1 - (2021-07-19)
+
+### Enhancement
+
+- Portman exist codes have been changed `exit(1)` to make it easier for external processes reunning Portman to catch determine fail vs complete.
+
 ## v1.4.0 - (2021-07-16)
 
 ### Enhancement
