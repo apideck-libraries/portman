@@ -1,3 +1,13 @@
+## v1.4.2 - (2021-07-20)
+
+### Enhancement
+
+- Optimised the upload to postman process (#41)
+
+### Bugfix
+
+- Fix to handle invalid postmanUid impacting the upload to Postman (#88)
+
 ## v1.4.1 - (2021-07-19)
 
 ### Enhancement

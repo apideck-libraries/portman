@@ -422,21 +422,128 @@ export class Portman {
       portmanCollection,
       options: { syncPostman, postmanUid }
     } = this
+    const consoleLine = '='.repeat(process.stdout.columns - 80)
+    const portmanCacheFile = './tmp/.portman.cache'
+    let portmanCache = {}
+    let respData = ''
+    let msgReason
+    let msgSolution
+    let reTry = false
 
     if (syncPostman) {
-      const collectionIdentification = postmanUid || (portmanCollection?.info?.name as string)
-      const postman = new PostmanService()
-      if (postman.isGuid(collectionIdentification)) {
-        await postman.updateCollection(portmanCollection, collectionIdentification)
-      } else {
-        const remoteCollection = (await postman.findCollectionByName(
-          collectionIdentification
-        )) as Record<string, unknown>
+      const collName = portmanCollection?.info?.name as string
+      let collUid = collName // fallback
+
+      // Handle postmanUid from options
+      if (postmanUid) {
+        collUid = postmanUid
+        const postman = new PostmanService()
+        respData = await postman.updateCollection(portmanCollection, collUid)
+
+        msgReason = `Targeted Postman collection ID ${collUid} does not exist.`
+        msgSolution = `Review the collection ID defined for the 'postmanUid' setting.`
+      }
+
+      // Handle non-fixed postmanUid from cache or by collection name
+      if (!postmanUid) {
+        try {
+          const portmanCachePath = path.resolve(portmanCacheFile)
+          portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
+        } catch (err) {
+          // throw new Error(`Loading Portman cache failed.`)
+        }
+
+        let remoteCollection = portmanCache[collName] as Record<string, unknown>
+        if (!portmanCache[collName]) {
+          const postman = new PostmanService()
+          remoteCollection = (await postman.findCollectionByName(collName)) as Record<
+            string,
+            unknown
+          >
+        }
 
         if (remoteCollection?.uid) {
-          await postman.updateCollection(portmanCollection, remoteCollection.uid as string)
+          // Update collection by Uid
+          const postman = new PostmanService()
+          respData = await postman.updateCollection(
+            portmanCollection,
+            remoteCollection.uid as string
+          )
+          const { status, data } = JSON.parse(respData)
+
+          // Update cache
+          if (status === 'fail') {
+            // Remove invalid cache item
+            delete portmanCache[collName]
+          } else {
+            // Merge item data with cache
+            portmanCache = Object.assign({}, portmanCache, {
+              [collName]: {
+                name: collName,
+                uid: data?.collection?.uid
+              }
+            })
+          }
+          // Write portman cache
+          try {
+            const portmanCacheStr = JSON.stringify(portmanCache, null, 2)
+            fs.writeFileSync(portmanCacheFile, portmanCacheStr, 'utf8')
+          } catch (err) {
+            // skip writing file, continue
+          }
+
+          // Restart on invalid Postman Uid and use Postman name as sync identifier
+          if (status === 'fail') {
+            reTry = true
+            await this.syncCollectionToPostman()
+          }
         } else {
-          await postman.createCollection(portmanCollection)
+          // Create collection
+          const postman = new PostmanService()
+          respData = await postman.createCollection(portmanCollection)
+          const { status, data } = JSON.parse(respData)
+
+          // Update cache
+          if (status === 'success') {
+            // Merge item data with cache
+            portmanCache = Object.assign({}, portmanCache, {
+              [collName]: {
+                name: collName,
+                uid: data?.collection?.uid
+              }
+            })
+
+            // Write portman cache
+            try {
+              const portmanCacheStr = JSON.stringify(portmanCache, null, 2)
+              fs.writeFileSync(portmanCacheFile, portmanCacheStr, 'utf8')
+            } catch (err) {
+              // skip writing file, continue
+            }
+          }
+        }
+      }
+
+      if (respData && !reTry) {
+        // Process Postman API response as console output
+        const { status, data } = JSON.parse(respData)
+
+        if (status === 'success') {
+          console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
+          console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
+        }
+
+        if (status === 'fail') {
+          if (msgReason) console.log(chalk`{red    -> Reason: } \t\t${msgReason}`)
+          if (msgSolution) console.log(chalk`{red    -> Solution: } \t${msgSolution}`)
+
+          console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
+          console.log(chalk`{red    -> Postman UID: } \t${collUid}`)
+
+          console.log(data?.error)
+          console.log(`\n`)
+          console.log(chalk.red(consoleLine))
+          process.exit(1)
         }
       }
     }
