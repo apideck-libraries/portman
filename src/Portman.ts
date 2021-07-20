@@ -426,7 +426,9 @@ export class Portman {
     const portmanCacheFile = '.portman.cache'
     let portmanCache = {}
     let respData = ''
-    let noError = true
+    let msgReason
+    let msgSolution
+    let reTry = false
 
     if (syncPostman) {
       const collName = portmanCollection?.info?.name as string
@@ -437,6 +439,9 @@ export class Portman {
         collUid = postmanUid
         const postman = new PostmanService()
         respData = await postman.updateCollection(portmanCollection, collUid)
+
+        msgReason = `Targeted Postman collection ID ${collUid} does not exist.`
+        msgSolution = `Review the collection ID defined for the 'postmanUid' setting.`
       }
 
       // Handle non-fixed postmanUid from cache or by collection name
@@ -445,7 +450,7 @@ export class Portman {
           const portmanCachePath = path.resolve(portmanCacheFile)
           portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
         } catch (err) {
-          // throw new Error(`Loading ${localPostman} failed.`)
+          // throw new Error(`Loading Portman cache failed.`)
         }
 
         let remoteCollection = portmanCache[collName] as Record<string, unknown>
@@ -489,7 +494,7 @@ export class Portman {
 
           // Restart on invalid Postman Uid and use Postman name as sync identifier
           if (status === 'fail') {
-            noError = false
+            reTry = true
             await this.syncCollectionToPostman()
           }
         } else {
@@ -519,7 +524,7 @@ export class Portman {
         }
       }
 
-      if (respData && noError) {
+      if (respData && !reTry) {
         // Process Postman API response as console output
         const { status, data } = JSON.parse(respData)
 
@@ -529,18 +534,16 @@ export class Portman {
         }
 
         if (status === 'fail') {
-          console.log(
-            chalk`{red    -> Reason: } \t\tTargeted Postman collection ID ${collUid} does not exist.`
-          )
-          console.log(
-            chalk`{red    -> Solution: } \tReview the collection ID defined for the 'postmanUid' setting.`
-          )
+          if (msgReason) console.log(chalk`{red    -> Reason: } \t\t${msgReason}`)
+          if (msgSolution) console.log(chalk`{red    -> Solution: } \t${msgSolution}`)
+
           console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
           console.log(chalk`{red    -> Postman UID: } \t${collUid}`)
 
           console.log(data?.error)
           console.log(`\n`)
           console.log(chalk.red(consoleLine))
+          process.exit(1)
         }
       }
     }
