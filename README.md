@@ -443,7 +443,15 @@ For more details, review the [globals example](https://github.com/apideck-librar
 
 ## Configure automatic upload to Postman App
 
-To enable automatic uploads of the generated Postman collection through Portman, follow these simple steps:
+> REMARK: Portman does **not** require you to have a Postman account.
+
+In case you want to sync the generated Postman collection with the Postman app ( `portman --syncPostman`), you would need a Postman account since Portman leverages the Postman API to sync the collection.
+
+This can be a "free" Postman account or any of the paying [Postman plans](https://www.postman.com/pricing/). 
+
+The generated Postman collection can always be[ imported manually](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman), without a Postman account.
+
+To enable automatic uploads of the generated Postman collection through Portman, follow the simple steps below.
 
 1. Get your Postman API key
 
