@@ -32,9 +32,11 @@ export class PostmanService {
       text: 'Uploading & creating collection in Postman ...\n'
     })
 
+    // Start Spinner
+    spinner.start()
+
     try {
       axios.interceptors.request.use(req => {
-        spinner.start()
         return req
       })
 
@@ -45,6 +47,7 @@ export class PostmanService {
       return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
       spinner.fail(chalk.red(`Upload to Postman Failed`))
+      spinner.clear()
       return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
     }
   }
@@ -69,9 +72,11 @@ export class PostmanService {
       text: 'Uploading & updating collection in Postman ...\n'
     })
 
+    // Start Spinner
+    spinner.start()
+
     try {
       axios.interceptors.request.use(req => {
-        spinner.start()
         return req
       })
 
@@ -82,6 +87,7 @@ export class PostmanService {
       return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
       spinner.fail(chalk.red(`Upload to Postman Failed`))
+      spinner.clear()
       return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
     }
   }
