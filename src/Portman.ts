@@ -426,6 +426,7 @@ export class Portman {
     const portmanCacheFile = '.portman.cache'
     let portmanCache = {}
     let respData = ''
+    let noError = true
 
     if (syncPostman) {
       const collName = portmanCollection?.info?.name as string
@@ -488,6 +489,7 @@ export class Portman {
 
           // Restart on invalid Postman Uid and use Postman name as sync identifier
           if (status === 'fail') {
+            noError = false
             await this.syncCollectionToPostman()
           }
         } else {
@@ -517,7 +519,7 @@ export class Portman {
         }
       }
 
-      if (respData) {
+      if (respData && noError) {
         // Process Postman API response as console output
         const { status, data } = JSON.parse(respData)
 
