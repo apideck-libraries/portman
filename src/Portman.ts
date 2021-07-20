@@ -423,7 +423,7 @@ export class Portman {
       options: { syncPostman, postmanUid }
     } = this
     const consoleLine = '='.repeat(process.stdout.columns - 80)
-    const portmanCacheFile = '.portman.cache'
+    const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
     let respData = ''
     let msgReason
