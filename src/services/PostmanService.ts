@@ -13,7 +13,6 @@ export class PostmanService {
   }
 
   async createCollection(collection: CollectionDefinition): Promise<string> {
-    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -28,26 +27,32 @@ export class PostmanService {
       data: data
     } as AxiosRequestConfig
 
+    const spinner = ora({
+      prefixText: ' ',
+      text: 'Uploading & creating collection in Postman ...\n'
+    })
+
+    // Start Spinner
+    spinner.start()
+
     try {
+      axios.interceptors.request.use(req => {
+        return req
+      })
+
       const res = await axios(config)
-      const data = res.data
-      console.log('Upload to Postman Success:', data)
-      return JSON.stringify(data, null, 2)
+      const respData = res.data
+
+      spinner.succeed('Upload to Postman Success')
+      return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
-      console.log(chalk.red(consoleLine))
-      console.log(
-        chalk.red(`Upload to Postman Failed'
-      `)
-      )
-      console.log(error?.response?.data)
-      console.log(`\n`)
-      console.log(chalk.red(consoleLine))
-      return error.toString()
+      spinner.fail(chalk.red(`Upload to Postman Failed`))
+      spinner.clear()
+      return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
     }
   }
 
   async updateCollection(collection: CollectionDefinition, uuid: string): Promise<string> {
-    const consoleLine = '='.repeat(process.stdout.columns - 80)
     const data = JSON.stringify({
       collection: collection
     })
@@ -64,30 +69,26 @@ export class PostmanService {
 
     const spinner = ora({
       prefixText: ' ',
-      text: 'Uploading to Postman ...'
+      text: 'Uploading & updating collection in Postman ...\n'
     })
+
+    // Start Spinner
+    spinner.start()
 
     try {
       axios.interceptors.request.use(req => {
-        spinner.start()
         return req
       })
 
       const res = await axios(config)
-      const data = res.data
+      const respData = res.data
 
       spinner.succeed('Upload to Postman Success')
-
-      console.log(chalk`{cyan    -> Name: } \t\t{green ${data?.collection?.name}}`)
-      console.log(chalk`{cyan    -> UID: } \t\t{green ${data?.collection?.uid}}`)
-      return JSON.stringify(data, null, 2)
+      return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
-      console.log(chalk.red(consoleLine))
       spinner.fail(chalk.red(`Upload to Postman Failed`))
-      console.log(error?.response?.data)
-      console.log(`\n`)
-      console.log(chalk.red(consoleLine))
-      return error.toString()
+      spinner.clear()
+      return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
     }
   }
 

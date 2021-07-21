@@ -1,8 +1,18 @@
+## v1.4.2 - (2021-07-20)
+
+### Enhancement
+
+- Optimised the upload to postman process (#41)
+
+### Bugfix
+
+- Fix to handle invalid postmanUid impacting the upload to Postman (#88)
+
 ## v1.4.1 - (2021-07-19)
 
 ### Enhancement
 
-- Portman exist codes have been changed `exit(1)` to make it easier for external processes reunning Portman to catch determine fail vs complete.
+- Portman exit codes have been changed to `exit(1)` to make it easier for external processes running Portman to distinguish fail vs. done.
 
 ## v1.4.0 - (2021-07-16)
 
