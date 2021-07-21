@@ -445,7 +445,7 @@ For more details, review the [globals example](https://github.com/apideck-librar
 
 > REMARK: Portman does **not** require you to have a Postman account.
 
-In case you want to sync the generated Postman collection with the Postman app ( `portman --syncPostman`), you would need a Postman account since Portman leverages the Postman API to sync the collection.
+In case you want to sync the generated Postman collection with the Postman app (`portman --syncPostman`), you would need a Postman account since Portman leverages the Postman API to sync the collection.
 
 This can be a "free" Postman account or any of the paying [Postman plans](https://www.postman.com/pricing/). 
 
