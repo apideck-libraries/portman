@@ -1,0 +1,10 @@
+{
+  "url": "https://raw.githubusercontent.com/apideck-libraries/openapi-specs/master/crm.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/cli-filtering/crm.postman.json",
+  "oaOutput": "./examples/cli-filtering/filtered-crm.leads.yml",
+  "filterFile": "./examples/cli-filtering/openapi-filter.json",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": false
+}
