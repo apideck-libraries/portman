@@ -30,22 +30,22 @@ With Portman, you can:
   - [x] Inject Postman with Pre-request scripts on a collection or operation level
   - [x] Modify Postman requests
 - [x] Upload the Postman collection to your Postman app
-- [x] Test the Postman collection through Newman
+- [x] Test the Postman collection with Newman
 - [x] Manage everything in config file for easy local or CI/CD usage
 
 ## Getting started
 
 1. Install Portman
-2. Initialize Portman CLI configuration through the command: `$ portman --init`
+2. Initialize Portman CLI configuration by running: `$ portman --init`
 
 OR
 
 1. Install Portman
-2. Copy `.env.example` to `.env` and add environment variables you need available to your collection.
-3. Copy/rename and customize each of the \_\_\_\_.default.json config files in the root directory to suit your needs.
+2. Copy `.env.example` to `.env` and add environment variables you need available to your collection
+3. Copy/rename and customize each of the \_\_\_\_.default.json config files in the root directory to suit your needs
 4. Start converting your OpenAPI document to Postman
 
-All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
+All configuration options to convert from OpenAPI to Postman can be found in the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 
 ## Installation
 
@@ -57,7 +57,7 @@ You can add the Portman CLI to the `node_modules` by using:
 $ npm install --save @apideck/portman
 ```
 
-or using yarn...
+or using yarn:
 
 ```shell
 $ yarn add @apideck/portman
@@ -109,7 +109,7 @@ Options:
 
 ### Environment variables as Postman variables
 
-Portman uses `dotenv` to not only access variables for functionality, but you can easily add environment variables that you'd like declared within your Postman environment.
+Portman uses `dotenv` to not only access variables for functionality, but you can also add environment variables that you'd like declared within your Postman environment.
 Simply prefix any variable name with `PORTMAN_`, and it will be available for use in your Postman collection as the camel-cased equivalent. For example:
 
 ```
@@ -212,7 +212,7 @@ By using `-o` or `--output` parameter, you can define the location where the Pos
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 
-### To Note:
+### NOTE:
 
 Newman is set to ignore redirects to allow for testing redirect response codes. If you are running collections within Postman UI, you'll need to ensure Postman is set to the same, or your redirect tests will fail.
 
