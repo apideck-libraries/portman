@@ -18,6 +18,7 @@ export interface PortmanOptions {
   postmanConfigFile?: string
   postmanConfigPath?: string
   filterFile?: string
+  oaOutput?: string
   envFile?: string
   cliOptionsFile?: string
   oaLocal?: string
