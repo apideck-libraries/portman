@@ -451,7 +451,7 @@ This can be a "free" Postman account or any of the paid [Postman plans](https://
 
 The generated Postman collection can always be [imported manually](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman), without a Postman account.
 
-To enable automatic uploads of the generated Postman collection through Portman, follow the simple steps below.
+To enable automatic uploads of the generated Postman collection through Portman, follow these simple steps:
 
 1. Get your Postman API key
 
