@@ -53,7 +53,6 @@ require('dotenv').config()
       type: 'string'
     })
     .option('localPostman', {
-      alias: 'local',
       describe: 'Use local Postman collection, skips OpenAPI conversion',
       type: 'string'
     })
