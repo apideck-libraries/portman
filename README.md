@@ -494,7 +494,6 @@ Credits for this package for the hard work of [Nick Lloyd](https://github.com/ni
 
 # Future ideas
 
+- [ ] Make Postman security dynamic
 - [ ] add task to initialize config files
 - [ ] add interactive cli prompts
-- [ ] render better error on Postman upload fail
-- [ ] cache the Postman collection lookup during Postman upload
