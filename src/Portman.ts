@@ -296,7 +296,12 @@ export class Portman {
       testSuite
     } = this
 
-    if (includeTests && testSuite) {
+    if (
+      includeTests &&
+      testSuite &&
+      testSuite?.variationTests?.length &&
+      testSuite?.variationTests?.length > 0
+    ) {
       // Inject variations
       this.variationWriter = new VariationWriter({
         testSuite: testSuite,
