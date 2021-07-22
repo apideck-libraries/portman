@@ -4,6 +4,7 @@ import {
   orderCollectionRequests,
   overwriteCollectionKeyValues,
   overwriteCollectionValues,
+  overwriteSecurityValues,
   writeCollectionPreRequestScripts,
   writeRawReplacements
 } from '.'
@@ -28,6 +29,7 @@ export class CollectionWriter {
     const {
       globals: {
         collectionPreRequestScripts,
+        securityOverwrites,
         keyValueReplacements,
         valueReplacements,
         rawReplacements,
@@ -59,6 +61,11 @@ export class CollectionWriter {
     // --- Portman - Set Postman pre-requests
     if (collectionPreRequestScripts) {
       collection = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
+    }
+
+    // --- Portman - Set Security
+    if (securityOverwrites) {
+      collection = overwriteSecurityValues(collection, securityOverwrites)
     }
 
     // --- Portman - Replace & clean-up Postman

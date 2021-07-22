@@ -146,6 +146,20 @@ export type OperationPreRequestScriptConfig = {
   scripts: string[]
 }
 
+export type SecurityOverwrite = {
+  apiKey?: SecurityApiKey
+  basic?: SecurityBasicAuth
+}
+
+export type SecurityApiKey = {
+  value: string
+}
+
+export type SecurityBasicAuth = {
+  username: string
+  password: string
+}
+
 export type GlobalReplacement = {
   searchFor: string
   replaceWith: string
@@ -153,6 +167,7 @@ export type GlobalReplacement = {
 
 export type GlobalConfig = {
   collectionPreRequestScripts?: string[]
+  securityOverwrites?: SecurityOverwrite
   keyValueReplacements?: Record<string, unknown>
   valueReplacements?: Record<string, unknown>
   rawReplacements?: GlobalReplacement[]

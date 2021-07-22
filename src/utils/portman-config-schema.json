@@ -67,6 +67,10 @@
           },
           "type": "array"
         },
+        "securityOverwrites": {
+          "description": "Construct a type with a set of properties K of type T",
+          "type": "object"
+        },
         "keyValueReplacements": {
           "description": "Construct a type with a set of properties K of type T",
           "type": "object"
@@ -209,7 +213,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": "string"
+                  "type": ["integer", "string", "boolean"]
                 }
               },
               "required": ["key"],
@@ -241,7 +245,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": "string"
+                  "type": ["integer", "string", "boolean"]
                 }
               },
               "required": ["key"],
@@ -266,7 +270,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": "string"
+                  "type": ["integer", "string", "boolean"]
                 }
               },
               "required": ["key"],
