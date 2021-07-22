@@ -97,4 +97,37 @@ describe('overwriteSecurityValues()', () => {
       }
     })
   })
+
+  it('bearer method should return {{bearerToken}}', () => {
+    const dictionary = {
+      bearer: { token: '{{bearerToken}}' }
+    } as Record<string, unknown>
+
+    const collection = {
+      auth: {
+        type: 'bearer',
+        bearer: [
+          {
+            key: 'token',
+            value: '',
+            type: 'string'
+          }
+        ]
+      }
+    } as CollectionDefinition
+
+    const replaced = overwriteSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'bearer',
+        bearer: [
+          {
+            key: 'token',
+            value: 'bearerToken',
+            type: 'string'
+          }
+        ]
+      }
+    })
+  })
 })

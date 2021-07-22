@@ -148,11 +148,16 @@ export type OperationPreRequestScriptConfig = {
 
 export type SecurityOverwrite = {
   apiKey?: SecurityApiKey
+  bearer?: SecurityBearer
   basic?: SecurityBasicAuth
 }
 
 export type SecurityApiKey = {
   value: string
+}
+
+export type SecurityBearer = {
+  token: string
 }
 
 export type SecurityBasicAuth = {
