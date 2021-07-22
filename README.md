@@ -46,6 +46,7 @@ OR
 4. Start converting your OpenAPI document to Postman
 
 All configuration options to convert from OpenAPI to Postman can be found in the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
+All configuration options to filter flags/tags/methods/operations/... from OpenAPI can be found in the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package documentation.
 
 ## Installation
 
@@ -92,6 +93,7 @@ Options:
   -l, --local                Use local OAS to port to Postman collection                      [string]
   -b, --baseUrl              Override spec baseUrl to use in Postman                          [string]
   -o, --output               Write the Postman collection to an output file                   [string]
+  --oaOutput                 Write the (filtered) OpenAPI file to an output file              [string]
   -n, --runNewman            Run Newman on newly created collection                           [boolean]
   --newmanRunOptions         JSON stringified object to pass options for configuring Newman   [string]
   -d, --newmanIterationData  Iteration data to run Newman with newly created collection       [string]
@@ -101,7 +103,7 @@ Options:
   -t, --includeTests         Inject Portman test suite (default: true)                        [boolean]
   -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)       [string]
   -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)     [string]
-  -s, --filterFile           Path to openapi-format config file (oas-format-filter.json)      [string]
+  --filterFile               Path to openapi-format config file (oas-format-filter.json)      [string]
   --envFile                  Path to the .env file to inject environment variables            [string]
   --cliOptionsFile           Path to Portman CLI options file                                 [string]
   --init                     Configure Portman CLI options in an interactive manner           [string]
@@ -166,6 +168,14 @@ portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 portman -l ./tmp/specs/crm.yml -t false
 ```
+
+- Filter OpenAPI and generate collection.
+
+```
+portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering/oas-format-filter.json
+```
+
+For more details, review the [cli-filtering example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-filtering).
 
 - Upload newly generated collection to Postman, which will upsert the collection, based on the collection name
 

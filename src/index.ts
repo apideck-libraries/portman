@@ -85,6 +85,10 @@ require('dotenv').config()
       describe: 'Path to openapi-format config file (oas-format-filter.json)',
       type: 'string'
     })
+    .option('oaOutput', {
+      describe: 'Write the (filtered) OpenAPI file to an output file',
+      type: 'string'
+    })
     .option('envFile', {
       describe: 'Path to the .env file to inject environment variables',
       type: 'string'
@@ -161,6 +165,7 @@ require('dotenv').config()
     options?.postmanConfigFile || __dirname + '/../postman-config.default.json'
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
+  const oaOutput = options.oaOutput || ''
 
   const portman = new Portman({
     ...options,
@@ -176,14 +181,15 @@ require('dotenv').config()
     postmanConfigFile,
     postmanConfigPath,
     envFile,
-    filterFile
+    filterFile,
+    oaOutput
   })
 
   if (options.uploadOnly) {
     // Upload only, skip all the rest
-    portman.uploadOnly()
+    await portman.uploadOnly()
   } else {
     // Run full portman conversion
-    portman.run()
+    await portman.run()
   }
 })()

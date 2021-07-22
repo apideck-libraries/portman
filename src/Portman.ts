@@ -95,6 +95,8 @@ export class Portman {
         portmanConfigFile,
         portmanConfigPath,
         postmanConfigFile,
+        filterFile,
+        oaOutput,
         envFile,
         includeTests,
         runNewman,
@@ -102,12 +104,14 @@ export class Portman {
         syncPostman
       }
     } = this
+
     // --- Portman - Show processing output
     console.log(chalk.red(consoleLine))
 
     oaUrl && console.log(chalk`{cyan  Remote Url: } \t\t{green ${oaUrl}}`)
     oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
     output && console.log(chalk`{cyan  Output Path: } \t\t{green ${output}}`)
+    oaOutput && console.log(chalk`{cyan  OpenAPI Output Path: } \t{green ${oaOutput}}`)
 
     cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${cliOptionsFile}}`)
     console.log(
@@ -120,6 +124,8 @@ export class Portman {
         postmanConfigFile ? postmanConfigFile : 'postman-config.default.json'
       }}`
     )
+
+    filterFile && console.log(chalk`{cyan  Filter Config: } \t{green ${filterFile}}`)
 
     console.log(chalk`{cyan  Environment: } \t\t{green ${envFile}}`)
     console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
@@ -164,7 +170,7 @@ export class Portman {
 
   async parseOpenApiSpec(): Promise<void> {
     // --- OpenApi - Get OpenApi file locally or remote
-    const { oaLocal, oaUrl, filterFile } = this.options
+    const { oaLocal, oaUrl, filterFile, oaOutput } = this.options
 
     let openApiSpec = oaUrl && (await new DownloadService().get(oaUrl))
 
@@ -190,7 +196,7 @@ export class Portman {
     }
 
     if (filterFile && (await fs.pathExists(filterFile))) {
-      const openApiSpecPath = './tmp/converted/filtered.yml'
+      const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
 
       await execShellCommand(
         `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
@@ -290,7 +296,12 @@ export class Portman {
       testSuite
     } = this
 
-    if (includeTests && testSuite) {
+    if (
+      includeTests &&
+      testSuite &&
+      testSuite?.variationTests?.length &&
+      testSuite?.variationTests?.length > 0
+    ) {
       // Inject variations
       this.variationWriter = new VariationWriter({
         testSuite: testSuite,
