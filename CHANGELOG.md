@@ -1,3 +1,9 @@
+## v1.4.3 - (2021-07-22)
+
+### Bugfix
+
+- Fix conflicting prompt alias that would not allow `--local` to be passed in as cli argument
+
 ## v1.4.2 - (2021-07-20)
 
 ### Enhancement
