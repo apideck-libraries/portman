@@ -188,9 +188,9 @@ require('dotenv').config()
 
   if (options.uploadOnly) {
     // Upload only, skip all the rest
-    portman.uploadOnly()
+    await portman.uploadOnly()
   } else {
     // Run full portman conversion
-    portman.run()
+    await portman.run()
   }
 })()
