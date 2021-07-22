@@ -78,13 +78,13 @@ List of tags that used in the OpenAPI spec:
 The filtering mechanism build in Portman, leverages the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package.
 The "openapi-format" package offers a wide range of configuration options to filter flags/tags/methods/operations/... from the OpenAPI document.
 
-| Type         | Description                   | Type  | Examples                         |
-|--------------|-------------------------------|-------|----------------------------------|
-| methods      | a list OpenAPI methods.       | array | ['get','post','put']             |
-| tags         | a list OpenAPI tags.          | array | ['pet','user']                   |
-| operationIds | a list OpenAPI operation ID's.| array | ['findPetsByStatus','updatePet'] |
-| operations   | a list OpenAPI operations.    | array | ['GET::/pets','PUT::/pets']      |
-| flags        | a list of custom flags        | array | ['x-exclude','x-internal']       |
+| Type         | Description                   | Type  | Examples                             |
+|--------------|-------------------------------|-------|--------------------------------------|
+| methods      | a list OpenAPI methods.       | array | ['get','post','put']                 |
+| tags         | a list OpenAPI tags.          | array | ['Activities','Users']               |
+| operationIds | a list OpenAPI operation ID's.| array | ['leadsAll','leadsAdd']              |
+| operations   | a list OpenAPI operations.    | array | ['GET::/crm/leads','PUT::/crm/leads']|
+| flags        | a list of custom flags        | array | ['x-exclude','x-internal']           |
 
 By specifying the desired filter values for the available filter types, Portman will use the openapi-format CLI to strip out any
 matching item from the OpenAPI document. You can combine multiple types to filter out a range of OpenAPI items.
@@ -105,8 +105,16 @@ In our example case, we can just use the "tags" option to filter out the unwante
 ```
 
 Resulting in 2 outputs:
-- [OpenAPI output](filtered-crm.leads.yml): Since we defined the `oaOutput` parameter, the filtered OpenAPI output will be saved in the defined file path "filtered-crm.leads.yml". 
+
+1. [Postman collection output](crm.postman.json): The generated Postman collection, based on the filtered OpenAPI document
+2. [OpenAPI output](filtered-crm.leads.yml): Since we defined the `oaOutput` parameter, the filtered OpenAPI output will be saved in the defined file path "filtered-crm.leads.yml". 
   
-This is completely optional but it can be handy if you want to review/download/share the filtered OpenAPI document.
-  
-- [Postman collection output](crm.postman.json): The generated Postman collection, based on the filtered OpenAPI document
+The `oaOutput` parameter is completely optional. It can be handy if you want to review/download/share the filtered OpenAPI document.
+
+Results without filtering:
+
+![](./images/postman-unfiltered.png)
+
+Filtered results:
+
+![](./images/postman-filtered.png)
