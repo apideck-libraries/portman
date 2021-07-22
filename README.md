@@ -172,7 +172,7 @@ portman -l ./tmp/specs/crm.yml -t false
 - Filter OpenAPI and generate collection.
 
 ```
-portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering/openapi-filter.json
+portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering/oas-format-filter.json
 ```
 
 For more details, review the [cli-filtering example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-filtering).

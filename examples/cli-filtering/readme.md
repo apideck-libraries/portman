@@ -20,7 +20,7 @@ portman --cliOptionsFile ./examples/cli-filtering/portman-cli-options.json
   "baseUrl": "http://localhost:3050",
   "output": "./examples/cli-filtering/crm.postman.json",
   "oaOutput": "./examples/cli-filtering/filtered-crm.leads.yml",
-  "filterFile": "./examples/cli-filtering/openapi-filter.json",
+  "filterFile": "./examples/cli-filtering/oas-format-filter.json",
   "includeTests": true,
   "syncPostman": false,
   "runNewman": false
@@ -33,7 +33,7 @@ The used [remote spec](https://raw.githubusercontent.com/apideck-libraries/opena
 
 To do this, we can use the `filterFile` option from Portman to filter out all the unwanted API operations based on the tags used in the OpenAPI spec, to only keep the "Leads" `tags`.
 
-In the Portman CLI config above, we have defined the parameter `"filterFile":  "./examples/cli-filtering/openapi-filter.json"`, which contains the items to filter out.
+In the Portman CLI config above, we have defined the parameter `"filterFile":  "./examples/cli-filtering/oas-format-filter.json"`, which contains the items to filter out.
 
 The OpenAPI spec has tagged its operations with the appropriate tags, so it is very straightforward to use the "tags" as target for filtering.
 
@@ -91,7 +91,7 @@ matching item from the OpenAPI document. You can combine multiple types to filte
 
 In our example case, we can just use the "tags" option to filter out the unwanted API operations.
 
-./examples/cli-filtering/openapi-filtering.json >>
+./examples/cli-filtering/oas-format-filter.json >>
 
 ```json
 {
