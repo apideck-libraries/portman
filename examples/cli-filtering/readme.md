@@ -106,7 +106,7 @@ In our example case, we can just use the "tags" option to filter out the unwante
 
 Resulting in 2 outputs:
 
-1. [Postman collection output](crm.postman.json): The generated Postman collection, based on the filtered OpenAPI document
+1. [Postman collection output](crm.postman.json): The generated Postman collection with only the "Leads" API requests, based on the filtered OpenAPI document
 2. [OpenAPI output](filtered-crm.leads.yml): Since we defined the `oaOutput` parameter, the filtered OpenAPI output will be saved in the defined file path "filtered-crm.leads.yml". 
   
 The `oaOutput` parameter is completely optional. It can be handy if you want to review/download/share the filtered OpenAPI document.

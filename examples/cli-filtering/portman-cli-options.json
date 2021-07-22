@@ -1,5 +1,5 @@
 {
-  "url": "https://raw.githubusercontent.com/apideck-libraries/openapi-specs/master/crm.yml",
+  "url": "https://specs.apideck.com/crm.yml",
   "baseUrl": "http://localhost:3050",
   "output": "./examples/cli-filtering/crm.postman.json",
   "oaOutput": "./examples/cli-filtering/filtered-crm.leads.yml",
