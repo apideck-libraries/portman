@@ -55,7 +55,7 @@ describe('overwriteSecurityValues()', () => {
     })
   })
 
-  it('basic auth method should return {{apiKey}}', () => {
+  it('basic auth method should return {{username}} {{password}}', () => {
     const dictionary = {
       basic: { username: '{{username}}', password: '{{password}}' }
     } as Record<string, unknown>
