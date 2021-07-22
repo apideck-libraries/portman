@@ -1,3 +1,11 @@
+## v1.4.4 - (2021-07-22)
+
+### Enhancement
+
+- Updated docs with an example for filtering
+- Bumped openapi-format to 1.2.5
+- Fix to prevent the unwanted addition 'Variation Tests'
+
 ## v1.4.3 - (2021-07-22)
 
 ### Bugfix
