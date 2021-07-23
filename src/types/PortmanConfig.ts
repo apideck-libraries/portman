@@ -76,13 +76,6 @@ export type ResponseBodyTest = {
   value?: any
 }
 
-type OverwriteConfigBody = {
-  key: string
-  value?: string
-  overwrite?: boolean
-  remove?: boolean
-}
-
 type OverwriteConfig = {
   key: string
   value?: string
@@ -94,7 +87,7 @@ export type OverwriteQueryParamConfig = OverwriteConfig & {
   disable?: boolean
 }
 
-export type OverwriteRequestBodyConfig = Omit<OverwriteConfigBody, 'value'> & {
+export type OverwriteRequestBodyConfig = Omit<OverwriteConfig, 'value'> & {
   value?: any
 }
 
