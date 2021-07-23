@@ -43,6 +43,6 @@ export const injectEnvVariables = (
   }
 
   variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
-  obj.variable = [...new Set(variables)]
+  obj.variable = Array.from(new Set(variables))
   return obj
 }
