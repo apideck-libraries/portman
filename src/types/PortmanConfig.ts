@@ -146,6 +146,27 @@ export type OperationPreRequestScriptConfig = {
   scripts: string[]
 }
 
+export type SecurityOverwrite = {
+  apiKey?: SecurityApiKey
+  bearer?: SecurityBearer
+  basic?: SecurityBasicAuth
+}
+
+export type SecurityApiKey = {
+  key?: string
+  value: string
+  in?: string
+}
+
+export type SecurityBearer = {
+  token: string
+}
+
+export type SecurityBasicAuth = {
+  username: string
+  password: string
+}
+
 export type GlobalReplacement = {
   searchFor: string
   replaceWith: string
@@ -153,6 +174,7 @@ export type GlobalReplacement = {
 
 export type GlobalConfig = {
   collectionPreRequestScripts?: string[]
+  securityOverwrites?: SecurityOverwrite
   keyValueReplacements?: Record<string, unknown>
   valueReplacements?: Record<string, unknown>
   rawReplacements?: GlobalReplacement[]
@@ -174,6 +196,10 @@ export type TestConfig = {
   integrationTests?: IntegrationTestConfig[]
 }
 
+/**
+ * @summary Portman Configuration
+ * @description Portman by Apideck allows you to port your OpenApi Spec to a Postman Collection, inject a powerful test suite, and run your tests with Newman. Details about all configuration options can be found at http://getportman.com.
+ */
 export interface PortmanConfig {
   version?: number
   globals?: GlobalConfig

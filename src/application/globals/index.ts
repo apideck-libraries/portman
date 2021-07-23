@@ -1,6 +1,7 @@
 export * from './injectEnvVariables'
 export * from './orderCollectionRequests'
 export * from './overwriteCollectionKeyValues'
+export * from './overwriteCollectionSecurityValues'
 export * from './overwriteCollectionValues'
 export * from './writeCollectionPreRequestScripts'
 export * from './writeRawReplacements'

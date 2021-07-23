@@ -34,7 +34,6 @@ export const injectEnvVariables = (
   })?.value
 
   const { parsed = {} } = config({ path: path.resolve(envFile) })
-
   for (const [key, val] of Object.entries(parsed)) {
     if (key.startsWith('PORTMAN_')) {
       const id = key.replace('PORTMAN_', '')
@@ -43,6 +42,6 @@ export const injectEnvVariables = (
   }
 
   variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
-  obj.variable = [...new Set(variables)]
+  obj.variable = Array.from(new Set(variables))
   return obj
 }
