@@ -24,7 +24,8 @@
                 "responseHeaderProp": {
                   "type": "string"
                 },
-                "value": {}
+                "value": {
+                }
               },
               "type": "object"
             },
@@ -49,7 +50,9 @@
             "type": "array"
           }
         },
-        "required": ["collectionVariables"],
+        "required": [
+          "collectionVariables"
+        ],
         "type": "object"
       },
       "type": "array"
@@ -64,7 +67,8 @@
           "type": "array"
         },
         "keyValueReplacements": {
-          "additionalProperties": {},
+          "additionalProperties": {
+          },
           "type": "object"
         },
         "orderOfOperations": {
@@ -84,7 +88,10 @@
                 "type": "string"
               }
             },
-            "required": ["searchFor", "replaceWith"],
+            "required": [
+              "searchFor",
+              "replaceWith"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -100,7 +107,10 @@
                 "type": "string"
               }
             },
-            "required": ["searchFor", "replaceWith"],
+            "required": [
+              "searchFor",
+              "replaceWith"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -121,7 +131,9 @@
                   "type": "string"
                 }
               },
-              "required": ["value"],
+              "required": [
+                "value"
+              ],
               "type": "object"
             },
             "basic": {
@@ -134,7 +146,10 @@
                   "type": "string"
                 }
               },
-              "required": ["username", "password"],
+              "required": [
+                "username",
+                "password"
+              ],
               "type": "object"
             },
             "bearer": {
@@ -144,14 +159,17 @@
                   "type": "string"
                 }
               },
-              "required": ["token"],
+              "required": [
+                "token"
+              ],
               "type": "object"
             }
           },
           "type": "object"
         },
         "valueReplacements": {
-          "additionalProperties": {},
+          "additionalProperties": {
+          },
           "type": "object"
         }
       },
@@ -186,7 +204,9 @@
             "type": "array"
           }
         },
-        "required": ["scripts"],
+        "required": [
+          "scripts"
+        ],
         "type": "object"
       },
       "type": "array"
@@ -226,9 +246,12 @@
                 "remove": {
                   "type": "boolean"
                 },
-                "value": {}
+                "value": {
+                }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -250,10 +273,16 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": "string"
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
                 }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -266,7 +295,9 @@
                   "type": "boolean"
                 }
               },
-              "required": ["enabled"],
+              "required": [
+                "enabled"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -282,10 +313,16 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": "string"
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
                 }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -307,10 +344,16 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": "string"
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
                 }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -352,15 +395,20 @@
                     "key": {
                       "type": "string"
                     },
-                    "value": {}
+                    "value": {
+                    }
                   },
-                  "required": ["key"],
+                  "required": [
+                    "key"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
               }
             },
-            "required": ["responseBodyTests"],
+            "required": [
+              "responseBodyTests"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -376,7 +424,9 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "excludeForOperations": {
@@ -392,7 +442,9 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "jsonBody": {
@@ -402,7 +454,9 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "openApiOperation": {
@@ -427,7 +481,10 @@
                     "type": "number"
                   }
                 },
-                "required": ["enabled", "maxMs"],
+                "required": [
+                  "enabled",
+                  "maxMs"
+                ],
                 "type": "object"
               },
               "schemaValidation": {
@@ -437,7 +494,9 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "statusCode": {
@@ -450,7 +509,9 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "statusSuccess": {
@@ -460,7 +521,9 @@
                     "type": "boolean"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               }
             },
@@ -503,7 +566,9 @@
                 "type": "array"
               }
             },
-            "required": ["tests"],
+            "required": [
+              "tests"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -546,7 +611,8 @@
                                       "responseHeaderProp": {
                                         "type": "string"
                                       },
-                                      "value": {}
+                                      "value": {
+                                      }
                                     },
                                     "type": "object"
                                   },
@@ -571,7 +637,9 @@
                                   "type": "array"
                                 }
                               },
-                              "required": ["collectionVariables"],
+                              "required": [
+                                "collectionVariables"
+                              ],
                               "type": "object"
                             },
                             "type": "array"
@@ -611,7 +679,9 @@
                                   "type": "array"
                                 }
                               },
-                              "required": ["tests"],
+                              "required": [
+                                "tests"
+                              ],
                               "type": "object"
                             },
                             "type": "array"
@@ -651,27 +721,40 @@
                                   "type": "array"
                                 }
                               },
-                              "required": ["scripts"],
+                              "required": [
+                                "scripts"
+                              ],
                               "type": "object"
                             },
                             "type": "array"
                           },
-                          "overwrites": {},
-                          "tests": {}
+                          "overwrites": {
+                          },
+                          "tests": {
+                          }
                         },
-                        "required": ["name", "tests"],
+                        "required": [
+                          "name",
+                          "tests"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
                     }
                   },
-                  "required": ["openApiOperationId", "variations"],
+                  "required": [
+                    "openApiOperationId",
+                    "variations"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
               }
             },
-            "required": ["name", "operations"],
+            "required": [
+              "name",
+              "operations"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -722,7 +805,8 @@
                                 "responseHeaderProp": {
                                   "type": "string"
                                 },
-                                "value": {}
+                                "value": {
+                                }
                               },
                               "type": "object"
                             },
@@ -747,7 +831,9 @@
                             "type": "array"
                           }
                         },
-                        "required": ["collectionVariables"],
+                        "required": [
+                          "collectionVariables"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
@@ -787,7 +873,9 @@
                             "type": "array"
                           }
                         },
-                        "required": ["tests"],
+                        "required": [
+                          "tests"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
@@ -827,21 +915,30 @@
                             "type": "array"
                           }
                         },
-                        "required": ["scripts"],
+                        "required": [
+                          "scripts"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
                     },
-                    "overwrites": {},
-                    "tests": {}
+                    "overwrites": {
+                    },
+                    "tests": {
+                    }
                   },
-                  "required": ["name", "tests"],
+                  "required": [
+                    "name",
+                    "tests"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
               }
             },
-            "required": ["variations"],
+            "required": [
+              "variations"
+            ],
             "type": "object"
           },
           "type": "array"
