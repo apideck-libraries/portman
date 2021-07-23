@@ -10,7 +10,6 @@ export const overwriteSecurityValues = (
 
   // Handle OAS securitySchemes type apiKey
   if (collectionJson?.auth?.apikey && Array.isArray(collectionJson.auth.apikey) && apiKey?.value) {
-    // collectionJson.auth.apikey.map(el => el.key === 'value' ? {...el, value: 'time'} : el)
     collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
       el.key === 'value' ? { ...el, value: apiKey.value } : el
     )

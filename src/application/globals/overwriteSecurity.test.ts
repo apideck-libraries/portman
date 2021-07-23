@@ -123,7 +123,7 @@ describe('overwriteSecurityValues()', () => {
         bearer: [
           {
             key: 'token',
-            value: 'bearerToken',
+            value: '{{bearerToken}}',
             type: 'string'
           }
         ]
