@@ -37,8 +37,14 @@ export class CollectionWriter {
       }
     } = this.config
 
-    // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
     let collection = this.collection
+
+    // --- Portman - Set Security values for Postman
+    if (securityOverwrites) {
+      collection = overwriteSecurityValues(collection, securityOverwrites)
+    }
+
+    // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
     if (keyValueReplacements) {
       collection = overwriteCollectionKeyValues(collection, keyValueReplacements)
     }
@@ -61,11 +67,6 @@ export class CollectionWriter {
     // --- Portman - Set Postman pre-requests
     if (collectionPreRequestScripts) {
       collection = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
-    }
-
-    // --- Portman - Set Security
-    if (securityOverwrites) {
-      collection = overwriteSecurityValues(collection, securityOverwrites)
     }
 
     // --- Portman - Replace & clean-up Postman
