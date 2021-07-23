@@ -55,6 +55,59 @@ describe('overwriteSecurityValues()', () => {
     })
   })
 
+  it('apiKey method should return {{apiKey}}, {{key}}, header', () => {
+    const dictionary = {
+      apiKey: { key: '{{key}}', value: '{{apiKey}}', in: 'query' }
+    } as Record<string, unknown>
+
+    const collection = {
+      auth: {
+        type: 'apikey',
+        apikey: [
+          {
+            key: 'value',
+            value: true,
+            type: 'string'
+          },
+          {
+            key: 'key',
+            value: 'x-api-key',
+            type: 'string'
+          },
+          {
+            key: 'in',
+            value: 'header',
+            type: 'string'
+          }
+        ]
+      }
+    } as CollectionDefinition
+
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'apikey',
+        apikey: [
+          {
+            key: 'value',
+            value: '{{apiKey}}',
+            type: 'string'
+          },
+          {
+            key: 'key',
+            value: '{{key}}',
+            type: 'string'
+          },
+          {
+            key: 'in',
+            value: 'query',
+            type: 'string'
+          }
+        ]
+      }
+    })
+  })
+
   it('basic auth method should return {{username}} {{password}}', () => {
     const dictionary = {
       basic: { username: '{{username}}', password: '{{password}}' }

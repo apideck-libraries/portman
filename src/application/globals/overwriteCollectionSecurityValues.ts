@@ -13,6 +13,18 @@ export const overwriteCollectionSecurityValues = (
     collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
       el.key === 'value' ? { ...el, value: apiKey.value } : el
     )
+
+    if (apiKey?.key) {
+      collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
+        el.key === 'key' ? { ...el, value: apiKey.key } : el
+      )
+    }
+    const apikeyInOptions = ['header', 'query']
+    if (apiKey?.in && apikeyInOptions.includes(apiKey?.in)) {
+      collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
+        el.key === 'in' ? { ...el, value: apiKey.in } : el
+      )
+    }
   }
 
   // Handle OAS securitySchemes type:http, schema: basic

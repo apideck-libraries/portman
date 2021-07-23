@@ -153,7 +153,9 @@ export type SecurityOverwrite = {
 }
 
 export type SecurityApiKey = {
+  key?: string
   value: string
+  in?: string
 }
 
 export type SecurityBearer = {
