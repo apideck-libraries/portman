@@ -454,6 +454,9 @@ The security overwrites provides a number of security types:
 
 - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
   - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+  - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+  - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+
 ```json
 "securityOverwrites": {
       "apiKey": {
@@ -463,7 +466,7 @@ The security overwrites provides a number of security types:
 ```
 
 - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
-  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+  - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
 ```json
 "securityOverwrites": {
       "bearer": {
@@ -473,8 +476,8 @@ The security overwrites provides a number of security types:
 ```
 
 - **basic**: Basic authentication involves sending a verified username and password with your request.
-  - **username (String)** : The value that will be inserted as the basic authentication username value
-  - **password (String)** : The value that will be inserted as the basic authentication password value
+  - **username (String)** : The username that will be inserted as the basic authentication username value
+  - **password (String)** : The password that will be inserted as the basic authentication password value
 ```json
 "securityOverwrites": {
       "basic": {
