@@ -1,13 +1,10 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Portman Configuration",
   "description": "Portman by Apideck allows you to port your OpenApi Spec to a Postman Collection, inject a powerful test suite, and run your tests with Newman. Details about all configuration options can be found at http://getportman.com.",
   "additionalProperties": false,
   "type": "object",
   "properties": {
-    "version": {
-      "type": "number"
-    },
     "assignVariables": {
       "items": {
         "additionalProperties": false,
@@ -67,33 +64,13 @@
           },
           "type": "array"
         },
-        "securityOverwrites": {
-          "description": "Construct a type with a set of properties K of type T",
-          "type": "object"
-        },
         "keyValueReplacements": {
-          "description": "Construct a type with a set of properties K of type T",
+          "additionalProperties": {},
           "type": "object"
         },
         "orderOfOperations": {
           "items": {
             "type": "string"
-          },
-          "type": "array"
-        },
-        "rawReplacements": {
-          "items": {
-            "additionalProperties": false,
-            "properties": {
-              "replaceWith": {
-                "type": "string"
-              },
-              "searchFor": {
-                "type": "string"
-              }
-            },
-            "required": ["replaceWith", "searchFor"],
-            "type": "object"
           },
           "type": "array"
         },
@@ -108,13 +85,68 @@
                 "type": "string"
               }
             },
-            "required": ["replaceWith", "searchFor"],
+            "required": ["searchFor", "replaceWith"],
             "type": "object"
           },
           "type": "array"
         },
+        "rawReplacements": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "replaceWith": {
+                "type": "string"
+              },
+              "searchFor": {
+                "type": "string"
+              }
+            },
+            "required": ["searchFor", "replaceWith"],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "securityOverwrites": {
+          "additionalProperties": false,
+          "properties": {
+            "apiKey": {
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": ["value"],
+              "type": "object"
+            },
+            "basic": {
+              "additionalProperties": false,
+              "properties": {
+                "password": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                }
+              },
+              "required": ["username", "password"],
+              "type": "object"
+            },
+            "bearer": {
+              "additionalProperties": false,
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": ["token"],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "valueReplacements": {
-          "description": "Construct a type with a set of properties K of type T",
+          "additionalProperties": {},
           "type": "object"
         }
       },
@@ -213,7 +245,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": ["integer", "string", "boolean"]
+                  "type": "string"
                 }
               },
               "required": ["key"],
@@ -245,7 +277,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": ["integer", "string", "boolean"]
+                  "type": "string"
                 }
               },
               "required": ["key"],
@@ -270,7 +302,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": ["integer", "string", "boolean"]
+                  "type": "string"
                 }
               },
               "required": ["key"],
@@ -811,6 +843,9 @@
         }
       },
       "type": "object"
+    },
+    "version": {
+      "type": "number"
     }
   }
 }
