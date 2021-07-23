@@ -1,7 +1,7 @@
 import { CollectionDefinition } from 'postman-collection'
 import { SecurityOverwrite } from 'types'
 
-export const overwriteSecurityValues = (
+export const overwriteCollectionSecurityValues = (
   collectionJson: CollectionDefinition | Partial<CollectionDefinition>,
   { apiKey, basic, bearer }: SecurityOverwrite
 ): CollectionDefinition => {

@@ -4,7 +4,7 @@ import {
   orderCollectionRequests,
   overwriteCollectionKeyValues,
   overwriteCollectionValues,
-  overwriteSecurityValues,
+  overwriteCollectionSecurityValues,
   writeCollectionPreRequestScripts,
   writeRawReplacements
 } from '.'
@@ -41,7 +41,7 @@ export class CollectionWriter {
 
     // --- Portman - Set Security values for Postman
     if (securityOverwrites) {
-      collection = overwriteSecurityValues(collection, securityOverwrites)
+      collection = overwriteCollectionSecurityValues(collection, securityOverwrites)
     }
 
     // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection

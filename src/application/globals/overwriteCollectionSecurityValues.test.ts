@@ -1,5 +1,5 @@
 import { CollectionDefinition } from 'postman-collection'
-import { overwriteSecurityValues } from '../../application'
+import { overwriteCollectionSecurityValues } from '../../application'
 
 describe('overwriteSecurityValues()', () => {
   it('apiKey method should return {{apiKey}}', () => {
@@ -30,7 +30,7 @@ describe('overwriteSecurityValues()', () => {
       }
     } as CollectionDefinition
 
-    const replaced = overwriteSecurityValues(collection, dictionary)
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       auth: {
         type: 'apikey',
@@ -78,7 +78,7 @@ describe('overwriteSecurityValues()', () => {
       }
     } as CollectionDefinition
 
-    const replaced = overwriteSecurityValues(collection, dictionary)
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       auth: {
         type: 'basic',
@@ -116,7 +116,7 @@ describe('overwriteSecurityValues()', () => {
       }
     } as CollectionDefinition
 
-    const replaced = overwriteSecurityValues(collection, dictionary)
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
     expect(replaced).toStrictEqual({
       auth: {
         type: 'bearer',
