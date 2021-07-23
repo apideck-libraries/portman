@@ -1,4 +1,4 @@
-## v1.4.5 - (2021-07-23)
+## v1.5.0 - (2021-07-23)
 
 ### Enhancement
 
@@ -6,7 +6,7 @@
 
 ### Bugfix
 
-- Fix for the issue "spreadArray is not a function" since the __spreadArrays function for TypeScript has been deprecated (#99)
+- Fix for the issue "spreadArray is not a function" since the \_\_spreadArrays function for TypeScript has been deprecated (#99)
 
 ## v1.4.4 - (2021-07-22)
 
