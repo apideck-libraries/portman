@@ -273,11 +273,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": [
-                    "string",
-                    "number",
-                    "boolean"
-                  ]
+                  "type": "string"
                 }
               },
               "required": [
@@ -313,11 +309,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": [
-                    "string",
-                    "number",
-                    "boolean"
-                  ]
+                  "type": "string"
                 }
               },
               "required": [
@@ -344,11 +336,7 @@
                   "type": "boolean"
                 },
                 "value": {
-                  "type": [
-                    "string",
-                    "number",
-                    "boolean"
-                  ]
+                  "type": "string"
                 }
               },
               "required": [
