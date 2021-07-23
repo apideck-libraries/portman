@@ -1,3 +1,13 @@
+## v1.4.5 - (2021-07-23)
+
+### Enhancement
+
+- Added SecurityOverwrite options for methods: apiKey, Bearer Token & basic auth (#106)
+
+### Bugfix
+
+- Fix for the issue "spreadArray is not a function" since the __spreadArrays function for TypeScript has been deprecated (#99)
+
 ## v1.4.4 - (2021-07-22)
 
 ### Enhancement
