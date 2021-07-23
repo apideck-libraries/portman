@@ -453,6 +453,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 The security overwrites provides a number of security types:
 
 - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
 ```json
 "securityOverwrites": {
       "apiKey": {
@@ -460,9 +461,9 @@ The security overwrites provides a number of security types:
       }
     }
 ```
-  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
 
 - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
 ```json
 "securityOverwrites": {
       "bearer": {
@@ -470,9 +471,10 @@ The security overwrites provides a number of security types:
       }
     }
 ```
-  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
 
 - **basic**: Basic authentication involves sending a verified username and password with your request.
+  - **username (String)** : The value that will be inserted as the basic authentication username value
+  - **password (String)** : The value that will be inserted as the basic authentication password value
 ```json
 "securityOverwrites": {
       "basic": {
@@ -481,8 +483,6 @@ The security overwrites provides a number of security types:
       }
     }
 ```
-  - **username (String)** : The value that will be inserted as the basic authentication username value
-  - **password (String)** : The value that will be inserted as the basic authentication password value
 
 For more details on the `globals` configuration options , review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)
 
