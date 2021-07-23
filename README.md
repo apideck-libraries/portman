@@ -489,6 +489,8 @@ The security overwrites provides a number of security types:
 
 For more details on the `globals` configuration options , review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)
 
+<hr>
+
 ## Configure automatic upload to Postman App
 
 > REMARK: Portman does **not** require you to have a Postman account.
