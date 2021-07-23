@@ -4,6 +4,7 @@ import {
   orderCollectionRequests,
   overwriteCollectionKeyValues,
   overwriteCollectionValues,
+  overwriteCollectionSecurityValues,
   writeCollectionPreRequestScripts,
   writeRawReplacements
 } from '.'
@@ -28,6 +29,7 @@ export class CollectionWriter {
     const {
       globals: {
         collectionPreRequestScripts,
+        securityOverwrites,
         keyValueReplacements,
         valueReplacements,
         rawReplacements,
@@ -35,8 +37,14 @@ export class CollectionWriter {
       }
     } = this.config
 
-    // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
     let collection = this.collection
+
+    // --- Portman - Set Security values for Postman
+    if (securityOverwrites) {
+      collection = overwriteCollectionSecurityValues(collection, securityOverwrites)
+    }
+
+    // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
     if (keyValueReplacements) {
       collection = overwriteCollectionKeyValues(collection, keyValueReplacements)
     }

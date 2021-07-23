@@ -34,7 +34,6 @@ export const injectEnvVariables = (
   })?.value
 
   const { parsed = {} } = config({ path: path.resolve(envFile) })
-
   for (const [key, val] of Object.entries(parsed)) {
     if (key.startsWith('PORTMAN_')) {
       const id = key.replace('PORTMAN_', '')

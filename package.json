@@ -25,6 +25,7 @@
     "build": "tsc --project ./tsconfig.json",
     "ts-script": "TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register --project ./tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\"",
+    "generate-schema": "npx ts-json-schema-generator --path './src/types/PortmanConfig.ts' --type 'PortmanConfig' --out './src/utils/portman-config-schema.json' -f ./tsconfig.json --no-ref-encode true --expose none --no-top-ref true",
     "release": "np --branch main"
   },
   "files": [

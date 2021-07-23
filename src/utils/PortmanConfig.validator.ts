@@ -8,7 +8,8 @@ import PortmanConfigSchema from './portman-config-schema.json'
 
 export const validate = (data: unknown): Either.Either<ValidationError[], PortmanConfig> => {
   const ajv = new Ajv({
-    allErrors: true
+    allErrors: true,
+    allowUnionTypes: true
   })
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
