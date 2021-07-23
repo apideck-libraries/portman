@@ -78,7 +78,7 @@ export type ResponseBodyTest = {
 
 type OverwriteConfig = {
   key: string
-  value?: string
+  value?: string | number | boolean
   overwrite?: boolean
   remove?: boolean
 }
