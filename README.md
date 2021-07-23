@@ -448,8 +448,43 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/...
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
+- **securityOverwrites** : Provide a overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token")
 
-For more details, review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)
+The security overwrites provides a number of security types:
+
+- **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+```json
+"securityOverwrites": {
+      "apiKey": {
+        "value": "{{apiKey}}"
+      }
+    }
+```
+  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+
+- **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+```json
+"securityOverwrites": {
+      "bearer": {
+        "token": "{{bearerToken}}"
+      }
+    }
+```
+  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+
+- **basic**: Basic authentication involves sending a verified username and password with your request.
+```json
+"securityOverwrites": {
+      "basic": {
+        "username": "{{username}}",
+        "password": "{{password}}",
+      }
+    }
+```
+  - **username (String)** : The value that will be inserted as the basic authentication username value
+  - **password (String)** : The value that will be inserted as the basic authentication password value
+
+For more details on the `globals` configuration options , review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)
 
 ## Configure automatic upload to Postman App
 
