@@ -22,7 +22,7 @@ export const overwriteRequestPathIdVariables = (
   if (!pmOperation.item?.name) return pmOperation
 
   const pathParams = pmOperation.item.request.url?.path
-    ? [...pmOperation.item.request.url?.path]
+    ? Array.from(pmOperation.item.request.url?.path)
     : []
 
   const idIndex = pathParams.indexOf(':id')
