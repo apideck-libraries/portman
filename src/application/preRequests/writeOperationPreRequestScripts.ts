@@ -23,9 +23,11 @@ export const writeOperationPreRequestScripts = (
     }
 
     const script = new Script(preRequestEvent.script as ScriptDefinition)
-    const exec = Array.isArray(script.exec)
-      ? [...script.exec, ...scripts]
-      : [script.exec, ...scripts]
+    if (script.exec === undefined) script.exec = []
+    const exec =
+      script.exec && Array.isArray(script.exec)
+        ? ([] as string[]).concat(Array.from(script.exec), Array.from(scripts))
+        : ([script.exec] as string[]).concat(Array.from(scripts))
     script.update({ exec: exec.filter(i => Boolean(i)) as string[] })
     preRequestEvent.script = script.toJSON()
     operation.events.add(new Event(preRequestEvent))
