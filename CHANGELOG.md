@@ -1,3 +1,9 @@
+## v1.5.1 - (2021-07-26)
+
+### Bugfix
+
+- Replaced instances where we were spreading arrays until we can safely upgrade packages that rely on outdated tslib
+
 ## v1.5.0 - (2021-07-23)
 
 ### Enhancement
