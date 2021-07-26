@@ -5,6 +5,6 @@
   "portmanConfigFile": "./examples/testsuite-assign-variables/portman-config.crm.json",
   "postmanConfigFile": "./examples/testsuite-assign-variables/postman-config.crm.json",
   "includeTests": true,
-  "syncPostman": true,
+  "syncPostman": false,
   "runNewman": false
 }

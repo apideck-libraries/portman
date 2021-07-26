@@ -5,6 +5,6 @@
   "postmanConfigFile": "./examples/portman-globals/postman-config.crm.json",
   "portmanConfigFile": "./examples/portman-globals/portman-config.crm.json",
   "includeTests": true,
-  "syncPostman": true,
+  "syncPostman": false,
   "runNewman": false
 }

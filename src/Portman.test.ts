@@ -55,4 +55,171 @@ describe('Portman', () => {
     const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id'])).toMatchSnapshot()
   }, 30000)
+
+  it('will check example CLI filtering', async () => {
+    const cliOptionsFilePath = path.resolve('./examples/cli-filtering/portman-cli-options.json')
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaUrl: options.url,
+      output: './tmp/converted/crmApi.json'
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example CLI options', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve('./examples/cli-options/portman-cli-options.json')
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example portman globals', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve('./examples/portman-globals/portman-cli-options.json')
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example portman ordering', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const portman = new Portman({
+      oaLocal: './examples/postman-ordering/crm.yml',
+      output: './tmp/converted/crmApi.json',
+      includeTests: false,
+      portmanConfigPath: './examples/postman-ordering/portman-config.ordering.json',
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example testsuite assign variables', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-assign-variables/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example testsuite content tests', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-content-tests/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example testsuite contract tests', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-contract-tests/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example testsuite overwrites', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-overwrites/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('will check example testsuite variation tests', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-variation-tests/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
 })
