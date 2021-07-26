@@ -4,6 +4,7 @@ import { PostmanParser } from '../postman'
 
 type ContractTest = {
   enabled: boolean
+  excludeForOperations?: string[]
 }
 
 type StatusSuccess = ContractTest
