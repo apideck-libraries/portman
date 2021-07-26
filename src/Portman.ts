@@ -22,7 +22,7 @@ import {
   DownloadService,
   IOpenApiToPostmanConfig,
   OpenApiToPostmanService,
-  PostmanService
+  PostmanApiService
 } from './services'
 import { PortmanConfig } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
@@ -448,11 +448,20 @@ export class Portman {
       // Handle postmanUid from options
       if (postmanUid) {
         collUid = postmanUid
-        const postman = new PostmanService()
+        const postman = new PostmanApiService()
         respData = await postman.updateCollection(portmanCollection, collUid)
 
         msgReason = `Targeted Postman collection ID ${collUid} does not exist.`
         msgSolution = `Review the collection ID defined for the 'postmanUid' setting.`
+
+        const { data } = JSON.parse(respData)
+        if (data?.error?.message) {
+          msgReason = data.error.message
+
+          if (data?.error?.name && data?.error?.name === 'instanceNotFoundError') {
+            msgReason += ` Targeted Postman collection ID ${collUid} does not exist.`
+          }
+        }
       }
 
       // Handle non-fixed postmanUid from cache or by collection name
@@ -466,7 +475,7 @@ export class Portman {
 
         let remoteCollection = portmanCache[collName] as Record<string, unknown>
         if (!portmanCache[collName]) {
-          const postman = new PostmanService()
+          const postman = new PostmanApiService()
           remoteCollection = (await postman.findCollectionByName(collName)) as Record<
             string,
             unknown
@@ -475,7 +484,7 @@ export class Portman {
 
         if (remoteCollection?.uid) {
           // Update collection by Uid
-          const postman = new PostmanService()
+          const postman = new PostmanApiService()
           respData = await postman.updateCollection(
             portmanCollection,
             remoteCollection.uid as string
@@ -510,7 +519,7 @@ export class Portman {
           }
         } else {
           // Create collection
-          const postman = new PostmanService()
+          const postman = new PostmanApiService()
           respData = await postman.createCollection(portmanCollection)
           const { status, data } = JSON.parse(respData)
 
