@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import ora from 'ora'
 import { CollectionDefinition } from 'postman-collection'
 
-export class PostmanService {
+export class PostmanApiService {
   private baseUrl: string
   private apiKey: string
 
