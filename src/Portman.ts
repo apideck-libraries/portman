@@ -100,6 +100,7 @@ export class Portman {
         oaOutput,
         envFile,
         includeTests,
+        bundleContractTests,
         runNewman,
         newmanIterationData,
         syncPostman
@@ -130,6 +131,8 @@ export class Portman {
 
     console.log(chalk`{cyan  Environment: } \t\t{green ${envFile}}`)
     console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
+    bundleContractTests &&
+      console.log(chalk`{cyan  Bundle Tests: } \t{green ${bundleContractTests}}`)
     console.log(chalk`{cyan  Run Newman: } \t\t{green ${!!runNewman}}`)
     console.log(
       chalk`{cyan  Newman Iteration Data: }{green ${
