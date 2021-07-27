@@ -71,6 +71,10 @@ require('dotenv').config()
       describe: 'Inject Portman test suite (default: true)',
       type: 'boolean'
     })
+    .option('bundleContractTests', {
+      describe: 'Bundle Portman contract tests in a separate folder in Postman (default: false)',
+      type: 'boolean'
+    })
     .option('c', {
       alias: 'portmanConfigFile',
       describe: 'Path to Portman settings config file (portman-config.json)n',
@@ -94,7 +98,6 @@ require('dotenv').config()
       type: 'string'
     })
     .option('cliOptionsFile', {
-      // alias: 'cliOptionsFile',
       describe: 'Path to Portman CLI options file',
       type: 'string'
     })
@@ -154,6 +157,7 @@ require('dotenv').config()
   const oaLocal = options?.local || ''
   const baseUrl = options?.baseUrl || ''
   const includeTests = options?.includeTests ?? true
+  const bundleContractTests = options?.bundleContractTests ?? false
   const runNewman = options?.runNewman
   const newmanData = options?.newmanIterationData || ''
   const syncToPostman = options?.syncPostman || false
@@ -173,6 +177,7 @@ require('dotenv').config()
     oaLocal,
     baseUrl,
     includeTests,
+    bundleContractTests,
     runNewman,
     newmanIterationData: newmanData,
     syncPostman: syncToPostman,

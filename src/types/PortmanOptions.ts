@@ -13,6 +13,7 @@ export interface PortmanOptions {
   uploadOnly?: boolean
   syncPostman?: boolean
   includeTests?: boolean
+  bundleContractTests?: boolean
   portmanConfigFile?: string
   portmanConfigPath?: string
   postmanConfigFile?: string

@@ -359,10 +359,13 @@ export class Portman {
   }
 
   moveContractTestsToFolder(): void {
+    if (!this.options.bundleContractTests) return
+
     let pmOperationsWithContractTest: string[] = []
     const tests = this.testSuite.contractTests
     if (!tests) return
 
+    // map back over settings and get all operation ids that have contract tests
     tests.map(contractTest => {
       const operations = this.testSuite.getOperationsFromSetting(contractTest)
 
@@ -370,30 +373,41 @@ export class Portman {
         pmOperationsWithContractTest.push(pmOperation.item.id)
       })
     })
+
+    // unique ids only
     pmOperationsWithContractTest = Array.from(new Set(pmOperationsWithContractTest))
 
+    // create contract test folder
     const contractTestFolder = new ItemGroup({
       name: `Contract Tests`
     }) as ItemGroup<Item>
 
     pmOperationsWithContractTest.map(id => {
       const pmOperation = this.postmanParser.getOperationByItemId(id)
-      let target
+      let target: ItemGroup<Item>
+
       if (pmOperation) {
+        // get the folder this operation is in
         const parent = pmOperation.getParent()
 
         if (parent) {
+          // remove the operation from the folder
           parent?.items.remove(item => item.id === id, {})
+
+          // If we just removed the last item, remove the folder
           if (parent?.items.count() === 0) {
             this.postmanParser.collection.items.remove(item => item.id === parent.id, {})
           }
 
           if (!Collection.isCollection(parent)) {
+            // check if we've already recreated operations folder in Contract Test folder
             const folderName = parent.name
-            const folder = contractTestFolder.oneDeep(folderName)
+            const folder: unknown = contractTestFolder.oneDeep(folderName)
+
             if (folder) {
-              target = folder
+              target = folder as ItemGroup<Item>
             } else {
+              // recreate the operations original folder to move operation to
               const newFolder = new ItemGroup({
                 name: folderName
               }) as ItemGroup<Item>
@@ -403,12 +417,12 @@ export class Portman {
           } else {
             target = contractTestFolder
           }
+          target.items.add(pmOperation.item)
         }
-
-        target.items.add(pmOperation.item)
       }
     })
 
+    // all done, add contract test folder to root of collection
     this.postmanParser.collection.items.add(contractTestFolder)
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
@@ -493,8 +507,8 @@ export class Portman {
     const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
     let respData = ''
-    let msgReason
-    let msgSolution
+    let msgReason: string | undefined
+    let msgSolution: string | undefined
     let reTry = false
 
     if (syncPostman) {
