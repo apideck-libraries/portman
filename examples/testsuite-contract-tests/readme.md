@@ -684,19 +684,21 @@ pm.test('[GET]::/crm/leads/:id - Schema is valid', function () {
 Portman will store requests in group folders based on the tags of OpenAPI and inject the tests directly in the targeted Postman requests.
 
 With the CLI option `bundleContractTests`, you can bundle all requests with Portman contract tests in a separate folder in Postman.
-
-This can be useful for when running Newman tests only on certain folders.
+This can be useful for when running Newman tests only on certain folders, by using the Newman `--folder` option.
 
 > **Newman run option**: `--folder <name>` 
 > 
 >Run requests within a particular folder/folders or specific requests in a collection. Multiple folders or requests can be specified by using --folder multiple times, like so: --folder f1 --folder f2 --folder r1 --folder r2.
 
-The `bundleContractTests` can let you define your preferred folder strategy.
+The `bundleContractTests` CLI option let you define your preferred folder strategy for contract tests.
 
-The screenshot below show the folder results in Postman with the CLI option: `"bundleContractTests": false` (which is the default), where all the request are grouped in folders on the root level.
-
+Result with `"bundleContractTests": false`
 ![](./images/bundled-false.png)
 
-The screenshot below show the folder results in Postman with the CLI option: `"bundleContractTests": true`, where all the request (that match the target for contract testing) are grouped in folders in the "Contract Tests" folder.
+The screenshot shows the folder results in Postman with the CLI option: `"bundleContractTests": false` (which is the default), where all the request are grouped in folders on the root level.
 
+
+Result with `"bundleContractTests": true`
 ![](./images/bundled-true.png)
+
+The screenshot shows the folder results in Postman with the CLI option: `"bundleContractTests": true`, where all the request (that match the target for contract testing) are grouped in folders in the "Contract Tests" folder.
