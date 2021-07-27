@@ -5,7 +5,7 @@ import fs from 'fs-extra'
 import { NewmanRunOptions } from 'newman'
 import emoji from 'node-emoji'
 import path from 'path'
-import { Collection, CollectionDefinition } from 'postman-collection'
+import { Collection, CollectionDefinition, Item, ItemGroup } from 'postman-collection'
 import {
   CollectionWriter,
   IntegrationTestWriter,
@@ -57,6 +57,7 @@ export class Portman {
     this.injectVariationTests()
     this.injectVariationOverwrites()
     this.injectIntegrationTests()
+    this.moveContractTestsToFolder()
     this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
@@ -354,6 +355,61 @@ export class Portman {
       pmOperation && testSuite.injectOverwrites([pmOperation], overwrites)
     })
 
+    this.portmanCollection = this.postmanParser.collection.toJSON()
+  }
+
+  moveContractTestsToFolder(): void {
+    let pmOperationsWithContractTest: string[] = []
+    const tests = this.testSuite.contractTests
+    if (!tests) return
+
+    tests.map(contractTest => {
+      const operations = this.testSuite.getOperationsFromSetting(contractTest)
+
+      operations.map(pmOperation => {
+        pmOperationsWithContractTest.push(pmOperation.item.id)
+      })
+    })
+    pmOperationsWithContractTest = Array.from(new Set(pmOperationsWithContractTest))
+
+    const contractTestFolder = new ItemGroup({
+      name: `Contract Tests`
+    }) as ItemGroup<Item>
+
+    pmOperationsWithContractTest.map(id => {
+      const pmOperation = this.postmanParser.getOperationByItemId(id)
+      let target
+      if (pmOperation) {
+        const parent = pmOperation.getParent()
+
+        if (parent) {
+          parent?.items.remove(item => item.id === id, {})
+          if (parent?.items.count() === 0) {
+            this.postmanParser.collection.items.remove(item => item.id === parent.id, {})
+          }
+
+          if (!Collection.isCollection(parent)) {
+            const folderName = parent.name
+            const folder = contractTestFolder.oneDeep(folderName)
+            if (folder) {
+              target = folder
+            } else {
+              const newFolder = new ItemGroup({
+                name: folderName
+              }) as ItemGroup<Item>
+              contractTestFolder.items.add(newFolder)
+              target = newFolder
+            }
+          } else {
+            target = contractTestFolder
+          }
+        }
+
+        target.items.add(pmOperation.item)
+      }
+    })
+
+    this.postmanParser.collection.items.add(contractTestFolder)
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
