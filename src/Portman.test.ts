@@ -56,7 +56,21 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example CLI filtering', async () => {
+  it('should generate collection without contract tests (enabled:false)', async () => {
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      portmanConfigPath: './__tests__/fixtures/portman-no-contract-tests.crm.json',
+      output: './tmp/converted/crmApi.json'
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('should check example CLI filtering', async () => {
     const cliOptionsFilePath = path.resolve('./examples/cli-filtering/portman-cli-options.json')
     options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
     const portman = new Portman({
@@ -71,7 +85,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example CLI options', async () => {
+  it('should check example CLI options', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve('./examples/cli-options/portman-cli-options.json')
     options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
@@ -89,7 +103,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example portman globals', async () => {
+  it('should check example portman globals', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve('./examples/portman-globals/portman-cli-options.json')
     options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
@@ -107,7 +121,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example portman ordering', async () => {
+  it('should check example portman ordering', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const portman = new Portman({
       oaLocal: './examples/postman-ordering/crm.yml',
@@ -123,7 +137,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example testsuite assign variables', async () => {
+  it('should check example testsuite assign variables', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve(
       './examples/testsuite-assign-variables/portman-cli-options.json'
@@ -143,7 +157,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example testsuite content tests', async () => {
+  it('should check example testsuite content tests', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve(
       './examples/testsuite-content-tests/portman-cli-options.json'
@@ -163,7 +177,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example testsuite contract tests', async () => {
+  it('should check example testsuite contract tests', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve(
       './examples/testsuite-contract-tests/portman-cli-options.json'
@@ -183,7 +197,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example testsuite overwrites', async () => {
+  it('should check example testsuite overwrites', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve(
       './examples/testsuite-overwrites/portman-cli-options.json'
@@ -203,7 +217,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('will check example testsuite variation tests', async () => {
+  it('should check example testsuite variation tests', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve(
       './examples/testsuite-variation-tests/portman-cli-options.json'

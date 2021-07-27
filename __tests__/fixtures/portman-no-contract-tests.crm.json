@@ -1,0 +1,124 @@
+{
+  "version": 1.0,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "excludeForOperations": ["GET::/crm/companies"],
+        "statusSuccess": {
+          "enabled": false
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": false,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": false
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": false
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": false
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": false
+        }
+      }
+    ],
+    "contentTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "responseBodyTests": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          }
+        ]
+      }
+    ],
+    "extendTests": [
+      {
+        "openApiOperationIds": ["companiesAll", "contactsAll", "leadsAll"],
+        "tests": [
+          "pm.test('Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
+        ]
+      }
+    ]
+  },
+  "assignVariables": [
+    {
+      "openApiOperationId": "companiesAll",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data[0].id"
+        }
+      ]
+    }
+  ],
+  "overwrites": [
+    {
+      "openApiOperationId": "companiesAdd",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "Foo Inc. --{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "value": "4",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesUpdate",
+      "overwriteRequestHeaders": [
+        {
+          "key": "x-apideck-consumer-id",
+          "value": "portman-id-{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesUpdate",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true
+        }
+      ]
+    }
+  ],
+  "globals": {
+    "rawReplacements": [
+      {
+        "searchFor": "Unify ",
+        "replaceWith": "Unify Apideck "
+      }
+    ]
+  }
+}

@@ -1,3 +1,9 @@
+## v1.5.2 - (2021-07-27)
+
+### Bugfix
+
+- Fix for proper handling of contract tests with "enabled:false" during tests generation (#115).
+
 ## v1.5.1 - (2021-07-26)
 
 ### Bugfix
