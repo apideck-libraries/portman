@@ -5,7 +5,7 @@ import fs from 'fs-extra'
 import { NewmanRunOptions } from 'newman'
 import emoji from 'node-emoji'
 import path from 'path'
-import { Collection, CollectionDefinition } from 'postman-collection'
+import { Collection, CollectionDefinition, Item, ItemGroup } from 'postman-collection'
 import {
   CollectionWriter,
   IntegrationTestWriter,
@@ -57,6 +57,7 @@ export class Portman {
     this.injectVariationTests()
     this.injectVariationOverwrites()
     this.injectIntegrationTests()
+    this.moveContractTestsToFolder()
     this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
@@ -99,6 +100,7 @@ export class Portman {
         oaOutput,
         envFile,
         includeTests,
+        bundleContractTests,
         runNewman,
         newmanIterationData,
         syncPostman
@@ -129,6 +131,8 @@ export class Portman {
 
     console.log(chalk`{cyan  Environment: } \t\t{green ${envFile}}`)
     console.log(chalk`{cyan  Inject Tests: } \t{green ${includeTests}}`)
+    bundleContractTests &&
+      console.log(chalk`{cyan  Bundle Tests: } \t{green ${bundleContractTests}}`)
     console.log(chalk`{cyan  Run Newman: } \t\t{green ${!!runNewman}}`)
     console.log(
       chalk`{cyan  Newman Iteration Data: }{green ${
@@ -357,6 +361,75 @@ export class Portman {
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
+  moveContractTestsToFolder(): void {
+    if (!this.options.bundleContractTests) return
+
+    let pmOperationsWithContractTest: string[] = []
+    const tests = this.testSuite.contractTests
+    if (!tests) return
+
+    // map back over settings and get all operation ids that have contract tests
+    tests.map(contractTest => {
+      const operations = this.testSuite.getOperationsFromSetting(contractTest)
+
+      operations.map(pmOperation => {
+        pmOperationsWithContractTest.push(pmOperation.item.id)
+      })
+    })
+
+    // unique ids only
+    pmOperationsWithContractTest = Array.from(new Set(pmOperationsWithContractTest))
+
+    // create contract test folder
+    const contractTestFolder = new ItemGroup({
+      name: `Contract Tests`
+    }) as ItemGroup<Item>
+
+    pmOperationsWithContractTest.map(id => {
+      const pmOperation = this.postmanParser.getOperationByItemId(id)
+      let target: ItemGroup<Item>
+
+      if (pmOperation) {
+        // get the folder this operation is in
+        const parent = pmOperation.getParent()
+
+        if (parent) {
+          // remove the operation from the folder
+          parent?.items.remove(item => item.id === id, {})
+
+          // If we just removed the last item, remove the folder
+          if (parent?.items.count() === 0) {
+            this.postmanParser.collection.items.remove(item => item.id === parent.id, {})
+          }
+
+          if (!Collection.isCollection(parent)) {
+            // check if we've already recreated operations folder in Contract Test folder
+            const folderName = parent.name
+            const folder: unknown = contractTestFolder.oneDeep(folderName)
+
+            if (folder) {
+              target = folder as ItemGroup<Item>
+            } else {
+              // recreate the operations original folder to move operation to
+              const newFolder = new ItemGroup({
+                name: folderName
+              }) as ItemGroup<Item>
+              contractTestFolder.items.add(newFolder)
+              target = newFolder
+            }
+          } else {
+            target = contractTestFolder
+          }
+          target.items.add(pmOperation.item)
+        }
+      }
+    })
+
+    // all done, add contract test folder to root of collection
+    this.postmanParser.collection.items.add(contractTestFolder)
+    this.portmanCollection = this.postmanParser.collection.toJSON()
+  }
+
   writePortmanCollectionToFile(): void {
     // --- Portman - Write Postman collection to file
     const { output } = this.options
@@ -437,8 +510,8 @@ export class Portman {
     const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
     let respData = ''
-    let msgReason
-    let msgSolution
+    let msgReason: string | undefined
+    let msgSolution: string | undefined
     let reTry = false
 
     if (syncPostman) {

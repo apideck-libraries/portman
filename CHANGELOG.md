@@ -1,3 +1,10 @@
+## v1.6.0 - (2021-07-27)
+
+### Enhancement
+
+- Added optional `bundleContractTests` to PortmanOptions that will take all operations that have contract tests applied, and move them to a 'Contract Test' folder on the root of the generated Collection
+- Any operations that _do not_ have any contract tests will remain in their original place on the Collection
+
 ## v1.5.2 - (2021-07-27)
 
 ### Bugfix

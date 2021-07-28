@@ -87,26 +87,27 @@ $ npx @apideck/portman -l your-openapi-file.yaml
 Usage: -u <url> -l <local> -b <baseUrl> -t <includeTests>
 
 Options:
-      --help                 Show help                                                        [boolean]
-      --version              Show version number                                              [boolean]
-  -u, --url                  URL of OAS to port to Postman collection                         [string]
-  -l, --local                Use local OAS to port to Postman collection                      [string]
-  -b, --baseUrl              Override spec baseUrl to use in Postman                          [string]
-  -o, --output               Write the Postman collection to an output file                   [string]
-  --oaOutput                 Write the (filtered) OpenAPI file to an output file              [string]
-  -n, --runNewman            Run Newman on newly created collection                           [boolean]
-  --newmanRunOptions         JSON stringified object to pass options for configuring Newman   [string]
-  -d, --newmanIterationData  Iteration data to run Newman with newly created collection       [string]
-  --localPostman             Use local Postman collection, skips OpenAPI conversion           [string]
-  --syncPostman              Upload generated collection to Postman (default: false)          [boolean]
-  -p, --postmanUid           Collection UID to upload with generated Postman collection       [string]
-  -t, --includeTests         Inject Portman test suite (default: true)                        [boolean]
-  -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)       [string]
-  -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)     [string]
-  --filterFile               Path to openapi-format config file (oas-format-filter.json)      [string]
-  --envFile                  Path to the .env file to inject environment variables            [string]
-  --cliOptionsFile           Path to Portman CLI options file                                 [string]
-  --init                     Configure Portman CLI options in an interactive manner           [string]
+      --help                 Show help                                                                        [boolean]
+      --version              Show version number                                                              [boolean]
+  -u, --url                  URL of OAS to port to Postman collection                                         [string]
+  -l, --local                Use local OAS to port to Postman collection                                      [string]
+  -b, --baseUrl              Override spec baseUrl to use in Postman                                          [string]
+  -o, --output               Write the Postman collection to an output file                                   [string]
+  --oaOutput                 Write the (filtered) OpenAPI file to an output file                              [string]
+  -n, --runNewman            Run Newman on newly created collection                                           [boolean]
+  --newmanRunOptions         JSON stringified object to pass options for configuring Newman                   [string]
+  -d, --newmanIterationData  Iteration data to run Newman with newly created collection                       [string]
+  --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
+  --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
+  -p, --postmanUid           Collection UID to upload with generated Postman collection                       [string]
+  -t, --includeTests         Inject Portman test suite (default: true)                                        [boolean]
+  --bundleContractTests      Bundle Portman contract tests in a separate folder in Postman (default: false)   [boolean]
+  -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)                       [string]
+  -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)                     [string]
+  --filterFile               Path to openapi-format config file (oas-format-filter.json)                      [string]
+  --envFile                  Path to the .env file to inject environment variables                            [string]
+  --cliOptionsFile           Path to Portman CLI options file                                                 [string]
+  --init                     Configure Portman CLI options in an interactive manner                           [string]
 ```
 
 ### Environment variables as Postman variables
@@ -467,6 +468,7 @@ The security overwrites provides a number of security types:
 
 - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
   - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+
 ```json
 "securityOverwrites": {
       "bearer": {
@@ -478,6 +480,7 @@ The security overwrites provides a number of security types:
 - **basic**: Basic authentication involves sending a verified username and password with your request.
   - **username (String)** : The username that will be inserted as the basic authentication username value
   - **password (String)** : The password that will be inserted as the basic authentication password value
+
 ```json
 "securityOverwrites": {
       "basic": {
@@ -497,7 +500,7 @@ For more details on the `globals` configuration options , review the [globals ex
 
 In case you want to sync the generated Postman collection with the Postman app (`portman --syncPostman`), you would need a Postman account since Portman leverages the Postman API to sync the collection.
 
-This can be a "free" Postman account or any of the paid [Postman plans](https://www.postman.com/pricing/). 
+This can be a "free" Postman account or any of the paid [Postman plans](https://www.postman.com/pricing/).
 
 The generated Postman collection can always be [imported manually](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman), without a Postman account.
 
