@@ -9,6 +9,7 @@ export interface PortmanOptions {
   newmanIterationData?: string
   newmanRunOptions?: string | Partial<NewmanRunOptions>
   postmanUid?: string
+  postmanWorkspaceName?: string
   localPostman?: string
   uploadOnly?: boolean
   syncPostman?: boolean
