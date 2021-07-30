@@ -26,14 +26,14 @@ export const injectEnvVariables = (
   envFile: string | undefined,
   baseUrl: string | undefined
 ): CollectionDefinition => {
-  if (!envFile) return obj
-
   let variables = (obj.variable as VariableDefinition[]) || []
   const baseUrlFromSpec = variables.find(item => {
     return (item.id = 'baseUrl')
   })?.value
 
-  const { parsed = {} } = config({ path: path.resolve(envFile) })
+  envFile && config({ path: path.resolve(envFile) })
+  const parsed = process.env
+
   for (const [key, val] of Object.entries(parsed)) {
     if (key.startsWith('PORTMAN_')) {
       const id = key.replace('PORTMAN_', '')
@@ -41,6 +41,7 @@ export const injectEnvVariables = (
     }
   }
 
+  console.log(variables)
   variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
   obj.variable = Array.from(new Set(variables))
   return obj

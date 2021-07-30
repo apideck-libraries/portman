@@ -28,7 +28,7 @@ describe('injectEnvVariables', () => {
     testSuiteService.generateContractTests()
   })
 
-  it('should add script to skip tests if status returned is Not Implemented', async () => {
+  it('should add environment variables to collection variables', async () => {
     const collection = injectEnvVariables(testSuiteService.collection.toJSON(), envFile, undefined)
     expect(collection?.variable).toMatchSnapshot()
   })

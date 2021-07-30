@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`injectEnvVariables should add script to skip tests if status returned is Not Implemented 1`] = `
+exports[`injectEnvVariables should add environment variables to collection variables 1`] = `
 Array [
   Object {
     "key": "baseUrl",
