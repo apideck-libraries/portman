@@ -1,3 +1,9 @@
+## v1.7.0 - (2021-08-02)
+
+### Enhancement
+
+- Added overwrite `overwriteRequestSecurity` to be able to fine tune auth on a request level. This allows you to (for example) ensure all operations are authenticated via variation tests.
+
 ## v1.6.2 - (2021-08-02)
 
 ### Housekeeping

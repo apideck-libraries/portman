@@ -37141,6 +37141,1482 @@ Contact Support:
           "event": Array [],
           "item": Array [
             Object {
+              "event": Array [],
+              "name": "Create lead[InvalidAuth]",
+              "request": Object {
+                "auth": Object {
+                  "bearer": Array [
+                    Object {
+                      "key": "token",
+                      "type": "any",
+                      "value": "not_a_real_token",
+                    },
+                  ],
+                  "type": "bearer",
+                },
+                "body": Object {
+                  "mode": "raw",
+                  "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                },
+                "description": Object {
+                  "content": "Create lead",
+                  "type": "text/plain",
+                },
+                "header": Array [
+                  Object {
+                    "description": Object {
+                      "content": "(Required) ID of the consumer which you want to get or push data from",
+                      "type": "text/plain",
+                    },
+                    "disabled": false,
+                    "key": "x-apideck-consumer-id",
+                    "value": "test_consumer",
+                  },
+                  Object {
+                    "description": Object {
+                      "content": "(Required) The ID of your Unify application",
+                      "type": "text/plain",
+                    },
+                    "disabled": false,
+                    "key": "x-apideck-app-id",
+                    "value": "2222",
+                  },
+                  Object {
+                    "description": Object {
+                      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                      "type": "text/plain",
+                    },
+                    "disabled": false,
+                    "key": "x-apideck-service-id",
+                    "value": "salesforce",
+                  },
+                  Object {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                  },
+                ],
+                "method": "POST",
+                "name": "Create lead[InvalidAuth]",
+                "url": Object {
+                  "host": Array [
+                    "{{baseUrl}}",
+                  ],
+                  "path": Array [
+                    "crm",
+                    "leads",
+                  ],
+                  "query": Array [
+                    Object {
+                      "description": Object {
+                        "content": "Include raw response. Mostly used for debugging purposes",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "raw",
+                      "value": "true",
+                    },
+                  ],
+                  "variable": Array [],
+                },
+              },
+              "response": Array [
+                Object {
+                  "body": "{
+ \\"status_code\\": 200,
+ \\"status\\": \\"OK\\",
+ \\"service\\": \\"zoho-crm\\",
+ \\"resource\\": \\"companies\\",
+ \\"operation\\": \\"one\\",
+ \\"data\\": {
+  \\"id\\": \\"12345\\"
+ }
+}",
+                  "code": 201,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "Lead created",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Created",
+                },
+                Object {
+                  "body": "{
+ \\"status_code\\": 400,
+ \\"error\\": \\"Bad Request\\",
+ \\"typeName\\": \\"RequestHeadersValidationError\\",
+ \\"message\\": \\"Invalid Params\\",
+ \\"detail\\": \\"id voluptate\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#requestbodyvalidationerror\\"
+}",
+                  "code": 400,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "Bad Request",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Bad Request",
+                },
+                Object {
+                  "body": "{
+ \\"status_code\\": 401,
+ \\"error\\": \\"Unauthorized\\",
+ \\"typeName\\": \\"UnauthorizedError\\",
+ \\"message\\": \\"Unauthorized Request\\",
+ \\"detail\\": \\"cupidatat\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
+}",
+                  "code": 401,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "Unauthorized",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Unauthorized",
+                },
+                Object {
+                  "body": "{
+ \\"status_code\\": 402,
+ \\"error\\": \\"Payment Required\\",
+ \\"typeName\\": \\"RequestLimitError\\",
+ \\"message\\": \\"Request Limit Reached\\",
+ \\"detail\\": \\"You have reached your limit of 2000\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#requestlimiterror\\"
+}",
+                  "code": 402,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "Payment Required",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Payment Required",
+                },
+                Object {
+                  "body": "{
+ \\"status_code\\": 404,
+ \\"error\\": \\"Not Found\\",
+ \\"typeName\\": \\"EntityNotFoundError\\",
+ \\"message\\": \\"Unknown Widget\\",
+ \\"detail\\": \\"Could not find widget with id: '123'\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#entitynotfounderror\\"
+}",
+                  "code": 404,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "The specified resource was not found",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Not Found",
+                },
+                Object {
+                  "body": "{
+ \\"status_code\\": 422,
+ \\"error\\": \\"Unprocessable Entity\\",
+ \\"typeName\\": \\"InvalidStateError\\",
+ \\"message\\": \\"Invalid State\\",
+ \\"detail\\": \\"State did not include unified_api\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#invalidstateerror\\"
+}",
+                  "code": 422,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "Unprocessable",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                },
+                Object {
+                  "body": "{
+ \\"status_code\\": 400,
+ \\"error\\": \\"Bad Request\\",
+ \\"typeName\\": \\"RequestHeadersValidationError\\",
+ \\"message\\": \\"Invalid Params\\",
+ \\"detail\\": \\"esse ex qui in sunt\\",
+ \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
+}",
+                  "code": 500,
+                  "cookie": Array [],
+                  "header": Array [
+                    Object {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                    },
+                  ],
+                  "name": "Unexpected error",
+                  "originalRequest": Object {
+                    "body": Object {
+                      "mode": "raw",
+                      "raw": "{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}",
+                    },
+                    "header": Array [
+                      Object {
+                        "description": Object {
+                          "content": "Added as a part of security scheme: bearer",
+                          "type": "text/plain",
+                        },
+                        "key": "Authorization",
+                        "value": "Bearer <token>",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) ID of the consumer which you want to get or push data from",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-consumer-id",
+                        "value": "test_consumer",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "(Required) The ID of your Unify application",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-app-id",
+                        "value": "2222",
+                      },
+                      Object {
+                        "description": Object {
+                          "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                          "type": "text/plain",
+                        },
+                        "disabled": false,
+                        "key": "x-apideck-service-id",
+                        "value": "salesforce",
+                      },
+                    ],
+                    "method": "POST",
+                    "url": Object {
+                      "host": Array [
+                        "{{baseUrl}}",
+                      ],
+                      "path": Array [
+                        "crm",
+                        "leads",
+                      ],
+                      "query": Array [
+                        Object {
+                          "key": "raw",
+                          "value": "true",
+                        },
+                      ],
+                      "variable": Array [],
+                    },
+                  },
+                  "status": "Internal Server Error",
+                },
+              ],
+            },
+            Object {
               "event": Array [
                 Object {
                   "listen": "test",

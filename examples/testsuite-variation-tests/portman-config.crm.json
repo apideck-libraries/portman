@@ -50,6 +50,31 @@
     ],
     "variationTests": [
       {
+        "openApiOperation": "*::/crm/*",
+        "variations": [
+          {
+            "openApiResponse": "401",
+            "name": "Unauthorized",
+            "overwrites": [
+              {
+                "overwriteRequestSecurity": {
+                  "bearer": { "token": "bogus_token" }
+                }
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
         "openApiOperationId": "leadsAdd",
         "variations": [
           {
