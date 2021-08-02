@@ -1,6 +1,6 @@
 {
   "name": "@apideck/portman",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "description": "Port OpenAPI Spec to Postman Collection, with contract & variation tests included",
   "homepage": "https://apideck.com",
   "author": "Apideck <support@apideck.com> (https://apideck.com/)",
