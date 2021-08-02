@@ -146,6 +146,24 @@
               },
               "required": ["token"],
               "type": "object"
+            },
+            "other": {
+              "additionalProperties": {
+                "anyOf": [
+                  {},
+                  {
+                    "items": {},
+                    "type": "array"
+                  }
+                ]
+              },
+              "properties": {
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": ["type"],
+              "type": "object"
             }
           },
           "type": "object"
@@ -355,6 +373,24 @@
                   }
                 },
                 "required": ["token"],
+                "type": "object"
+              },
+              "other": {
+                "additionalProperties": {
+                  "anyOf": [
+                    {},
+                    {
+                      "items": {},
+                      "type": "array"
+                    }
+                  ]
+                },
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": ["type"],
                 "type": "object"
               }
             },

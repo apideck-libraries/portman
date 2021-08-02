@@ -154,6 +154,10 @@ export type SecurityOverwrite = {
   apiKey?: SecurityApiKey
   bearer?: SecurityBearer
   basic?: SecurityBasicAuth
+  other?: {
+    type: string
+    [key: string]: unknown | unknown[]
+  }
 }
 
 export type SecurityApiKey = {

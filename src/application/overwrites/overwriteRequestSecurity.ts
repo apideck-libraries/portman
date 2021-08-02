@@ -14,6 +14,8 @@ export const overwriteRequestSecurity = (
     authDefinition = { ...overwrite.basic, type: 'basic' }
   } else if (overwrite?.bearer) {
     authDefinition = { ...overwrite.bearer, type: 'bearer' }
+  } else if (overwrite?.other) {
+    authDefinition = { ...overwrite.other }
   }
 
   authDefinition && pmOperation.item.request.authorizeUsing({ ...authDefinition })
