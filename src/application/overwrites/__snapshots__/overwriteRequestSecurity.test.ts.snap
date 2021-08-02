@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overwriteRequestSecurity should overwrite the request apiKey definition 1`] = `
+Object {
+  "apikey": Array [
+    Object {
+      "key": "key",
+      "type": "any",
+      "value": "x-apideck-app-id",
+    },
+    Object {
+      "key": "value",
+      "type": "any",
+      "value": "foo-bar-baz",
+    },
+  ],
+  "bearer": Array [
+    Object {
+      "key": "token",
+      "type": "any",
+      "value": "<Bearer Token>",
+    },
+  ],
+  "type": "apikey",
+}
+`;
+
+exports[`overwriteRequestSecurity should overwrite the request basic auth 1`] = `
+Object {
+  "basic": Array [
+    Object {
+      "key": "username",
+      "type": "any",
+      "value": "foo",
+    },
+    Object {
+      "key": "password",
+      "type": "any",
+      "value": "bar",
+    },
+  ],
+  "bearer": Array [
+    Object {
+      "key": "token",
+      "type": "any",
+      "value": "<Bearer Token>",
+    },
+  ],
+  "type": "basic",
+}
+`;
+
+exports[`overwriteRequestSecurity should overwrite the request bearer token auth 1`] = `
+Object {
+  "bearer": Array [
+    Object {
+      "key": "token",
+      "type": "any",
+      "value": "foo",
+    },
+  ],
+  "type": "bearer",
+}
+`;

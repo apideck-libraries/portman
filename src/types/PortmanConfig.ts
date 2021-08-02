@@ -111,7 +111,10 @@ export type OverwriteRequestConfig = {
   overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
   overwriteRequestBody?: OverwriteRequestBodyConfig[]
   overwriteRequestHeaders?: OverwriteRequestHeadersConfig[]
+  overwriteRequestSecurity?: OverwriteRequestSecurityConfig
 }
+
+export type OverwriteRequestSecurityConfig = SecurityOverwrite
 
 export type CollectionVariableConfig = {
   requestBodyProp?: string
