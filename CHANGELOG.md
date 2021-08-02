@@ -1,3 +1,9 @@
+## v1.6.2 - (2021-08-02)
+
+### Housekeeping
+
+- remove console.log from variable injection
+
 ## v1.6.1 - (2021-07-30)
 
 - Environment variables prefixed with `PORTMAN_` will be added to the Collection variables. This allows CI/CD to handle dynamic injection of values that should not be commited to repo.
