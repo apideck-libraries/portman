@@ -431,6 +431,10 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attaches the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
 
+- **overwriteRequestSecurity (Object)** :
+
+  A Postman RequestAuthDefinition object that will be applied to the request.
+
 For more details, review the [overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites).
 
 <hr>
