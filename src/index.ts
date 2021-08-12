@@ -53,7 +53,7 @@ require('dotenv').config()
       type: 'string'
     })
     .option('postmanWorkspaceName', {
-      describe: 'Postman Workspace name to upload with the generated Postman collection',
+      describe: 'Postman Workspace name to target the upload of the generated Postman collection',
       type: 'string'
     })
     .option('localPostman', {
