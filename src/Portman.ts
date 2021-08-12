@@ -525,7 +525,7 @@ export class Portman {
         const portmanCachePath = path.resolve(portmanCacheFile)
         portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
 
-        if (portmanCache[workspaceTarget]) {
+        if (postmanWorkspaceName && portmanCache[workspaceTarget]) {
           // Get remoteWorkspace from cache
           remoteWorkspace = portmanCache[workspaceTarget]
           // Set remoteWorkspaceId from cache
