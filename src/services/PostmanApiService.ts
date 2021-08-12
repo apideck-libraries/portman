@@ -145,6 +145,58 @@ export class PostmanApiService {
     }
   }
 
+  async findWorkspaceCollectionByName(
+    workspaceId: string,
+    collName: string
+  ): Promise<CollectionDefinition> {
+    const config = {
+      method: 'get',
+      url: `${this.baseUrl}/workspaces/${workspaceId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.apiKey
+      }
+    } as AxiosRequestConfig
+
+    try {
+      const res = await axios(config)
+      const data = res.data
+      let match = {}
+
+      if (data?.workspace.collections) {
+        // Match all items by name, since Postman API does not support filtering by name
+        const matches = data.workspace.collections.filter((o: CollectionDefinition) => {
+          if (!o?.name) return
+          return (
+            o.name.toLowerCase().replace(/\s/g, '') === collName.toLowerCase().replace(/\s/g, '')
+          )
+        })
+
+        if (matches.length === 1) {
+          match = matches[0]
+        }
+        if (matches.length > 1) {
+          // Sort by date and take newest
+          matches.sort((a, b) => {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
+          })
+          console.log(
+            `\nMultiple Postman collection matching "${collName}" in the workspace, the most recent collection is updated.`
+          )
+          match = matches[0]
+        }
+      }
+      return match
+    } catch (error) {
+      console.log(error?.response?.data)
+      return error.toString()
+    }
+  }
+
   async findWorkspaceByName(workspaceName: string): Promise<CollectionDefinition> {
     const config = {
       method: 'get',

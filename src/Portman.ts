@@ -580,12 +580,23 @@ export class Portman {
       // Handle non-fixed postmanUid from cache or by collection name
       if (!postmanUid) {
         let remoteCollection = portmanCache[collName] as Record<string, unknown>
+
         if (!portmanCache[collName]) {
-          const postman = new PostmanApiService()
-          remoteCollection = (await postman.findCollectionByName(collName)) as Record<
-            string,
-            unknown
-          >
+          if (remoteWorkspaceId) {
+            // Get collection from specific Workspace
+            const postman = new PostmanApiService()
+            remoteCollection = (await postman.findWorkspaceCollectionByName(
+              remoteWorkspaceId,
+              collName
+            )) as Record<string, unknown>
+          } else {
+            // Get all collections
+            const postman = new PostmanApiService()
+            remoteCollection = (await postman.findCollectionByName(collName)) as Record<
+              string,
+              unknown
+            >
+          }
         }
 
         if (remoteCollection?.uid) {
