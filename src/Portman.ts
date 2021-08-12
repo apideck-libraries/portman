@@ -530,6 +530,9 @@ export class Portman {
           remoteWorkspace = portmanCache[workspaceTarget]
           // Set remoteWorkspaceId from cache
           remoteWorkspaceId = remoteWorkspace?.id
+        } else {
+          // Remove invalid cache item
+          delete portmanCache[workspaceTarget]
         }
       } catch (err) {
         // throw new Error(`Loading Portman cache failed.`)
