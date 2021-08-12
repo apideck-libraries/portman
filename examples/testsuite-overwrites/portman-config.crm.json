@@ -68,7 +68,12 @@
           "remove": true
         }
       ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestSecurity": {
+        "bearer": { "token": "{{managementToken}}" }
+      }
     }
   ]
-
 }

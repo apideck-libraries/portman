@@ -5,7 +5,8 @@ import {
   overwriteRequestHeaders,
   overwriteRequestPathIdVariables,
   overwriteRequestPathVariables,
-  overwriteRequestQueryParams
+  overwriteRequestQueryParams,
+  overwriteRequestSecurity
 } from '.'
 
 export const applyOverwrites = (
@@ -32,6 +33,9 @@ export const applyOverwrites = (
     // overwrite request headers
     overwriteSetting?.overwriteRequestHeaders &&
       overwriteRequestHeaders(overwriteSetting.overwriteRequestHeaders, pmOperation)
+
+    overwriteSetting?.overwriteRequestSecurity &&
+      overwriteRequestSecurity(overwriteSetting.overwriteRequestSecurity, pmOperation)
 
     return pmOperation
   })

@@ -4,9 +4,7 @@
     "contractTests": [
       {
         "openApiOperation": "*::/crm/*",
-        "excludeForOperations": [
-          "GET::/crm/companies"
-        ],
+        "excludeForOperations": ["GET::/crm/companies"],
         "statusSuccess": {
           "enabled": true
         }
@@ -63,6 +61,31 @@
       }
     ],
     "variationTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "variations": [
+          {
+            "openApiResponse": "403",
+            "name": "InvalidAuth",
+            "overwrites": [
+              {
+                "overwriteRequestSecurity": {
+                  "bearer": { "token": "not_a_real_token" }
+                }
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
       {
         "openApiOperationId": "leadsAdd",
         "variations": [
