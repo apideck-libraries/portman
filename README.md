@@ -99,7 +99,8 @@ Options:
   -d, --newmanIterationData  Iteration data to run Newman with newly created collection                       [string]
   --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
   --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
-  -p, --postmanUid           Collection UID to upload with generated Postman collection                       [string]
+  -p, --postmanUid           Postman collection UID to upload with the generated Postman collection           [string]
+  --postmanWorkspaceName     Postman Workspace name to target the upload of the generated Postman collection  [string]
   -t, --includeTests         Inject Portman test suite (default: true)                                        [boolean]
   --bundleContractTests      Bundle Portman contract tests in a separate folder in Postman (default: false)   [boolean]
   -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)                       [string]
@@ -184,7 +185,7 @@ For more details, review the [cli-filtering example](https://github.com/apideck-
 portman -l ./tmp/specs/crm.yml --syncPostman true
 ```
 
-Upload newly generated collection to Postman using the collection ID to overwrite the existing.
+Upload newly generated collection to Postman using the collection UID to overwrite the existing.
 
 ```
 portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
