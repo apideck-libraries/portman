@@ -44,7 +44,7 @@ export class Portman {
 
   constructor(options: PortmanOptions) {
     this.options = options
-    this.consoleLine = '='.repeat(process.stdout.columns - 80)
+    this.consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
   }
 
   async run(): Promise<void> {
@@ -506,7 +506,7 @@ export class Portman {
       portmanCollection,
       options: { syncPostman, postmanUid }
     } = this
-    const consoleLine = '='.repeat(process.stdout.columns - 80)
+    const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
     const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
     let respData = ''

@@ -18,7 +18,7 @@ type InitConfigOptions = {
 export const promptInit = async (): Promise<void> => {
   const config: InitConfigOptions = {}
   const localPath = JSON.stringify(process.cwd())
-  const consoleLine = '='.repeat(process.stdout.columns - 80)
+  const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
 
   console.log('\x1b[32m', consoleLine)
   console.log(`  Portman Configuration Utility`)
