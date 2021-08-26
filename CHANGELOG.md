@@ -1,3 +1,8 @@
+## Unreleased
+
+- Improve output for CI and smaller terminals (#126)
+- Updated example
+
 ## v1.7.0 - (2021-08-02)
 
 ### Enhancement
