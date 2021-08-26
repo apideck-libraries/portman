@@ -1,5 +1,6 @@
 ## Unreleased
 
+- Bug fix where portmanReplacements & upload to Postman had different results (#130)
 - Improve output for CI and smaller terminals (#126)
 - Updated example
 
