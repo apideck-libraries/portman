@@ -1,4 +1,4 @@
-## Unreleased
+## v1.8.0 - (2021-08-26)
 
 - Added support for Postman Workspace when uploading collections (#118)
 - Bug fix where portmanReplacements & upload to Postman had different results (#130)
