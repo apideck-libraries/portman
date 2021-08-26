@@ -505,11 +505,14 @@ export class Portman {
     // --- Portman - Upload Postman collection to Postman app
     const {
       portmanCollection,
-      options: { syncPostman, postmanUid }
+      options: { syncPostman, postmanUid, postmanWorkspaceName }
     } = this
     const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
     const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
+    let remoteWorkspaceId: string | undefined
+    let remoteWorkspace: { id?: string; name?: string; type?: string }
+    const workspaceTarget = 'postman-workspace'
     let respData = ''
     let msgReason: string | undefined
     let msgSolution: string | undefined
@@ -519,11 +522,51 @@ export class Portman {
       const collName = portmanCollection?.info?.name as string
       let collUid = collName // fallback
 
+      try {
+        const portmanCachePath = path.resolve(portmanCacheFile)
+        portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
+
+        if (postmanWorkspaceName && portmanCache[workspaceTarget]) {
+          // Get remoteWorkspace from cache
+          remoteWorkspace = portmanCache[workspaceTarget]
+          // Set remoteWorkspaceId from cache
+          remoteWorkspaceId = remoteWorkspace?.id
+        } else {
+          // Remove invalid cache item
+          delete portmanCache[workspaceTarget]
+        }
+      } catch (err) {
+        // throw new Error(`Loading Portman cache failed.`)
+      }
+
+      // Set remoteWorkspaceId from cache or by workspace name
+      if (postmanWorkspaceName) {
+        if (
+          !portmanCache[workspaceTarget] ||
+          (portmanCache && portmanCache[workspaceTarget] !== postmanWorkspaceName)
+        ) {
+          const postman = new PostmanApiService()
+          remoteWorkspace = (await postman.findWorkspaceByName(postmanWorkspaceName)) as Record<
+            string,
+            unknown
+          >
+          if (remoteWorkspace?.id) {
+            // Set remoteWorkspaceId from by workspace name
+            remoteWorkspaceId = remoteWorkspace.id
+
+            // Merge item data with cache
+            portmanCache = Object.assign({}, portmanCache, {
+              [workspaceTarget]: remoteWorkspace
+            })
+          }
+        }
+      }
+
       // Handle postmanUid from options
       if (postmanUid) {
         collUid = postmanUid
         const postman = new PostmanApiService()
-        respData = await postman.updateCollection(portmanCollection, collUid)
+        respData = await postman.updateCollection(portmanCollection, collUid, remoteWorkspaceId)
 
         msgReason = `Targeted Postman collection ID ${collUid} does not exist.`
         msgSolution = `Review the collection ID defined for the 'postmanUid' setting.`
@@ -540,20 +583,24 @@ export class Portman {
 
       // Handle non-fixed postmanUid from cache or by collection name
       if (!postmanUid) {
-        try {
-          const portmanCachePath = path.resolve(portmanCacheFile)
-          portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
-        } catch (err) {
-          // throw new Error(`Loading Portman cache failed.`)
-        }
-
         let remoteCollection = portmanCache[collName] as Record<string, unknown>
+
         if (!portmanCache[collName]) {
-          const postman = new PostmanApiService()
-          remoteCollection = (await postman.findCollectionByName(collName)) as Record<
-            string,
-            unknown
-          >
+          if (remoteWorkspaceId) {
+            // Get collection from specific Workspace
+            const postman = new PostmanApiService()
+            remoteCollection = (await postman.findWorkspaceCollectionByName(
+              remoteWorkspaceId,
+              collName
+            )) as Record<string, unknown>
+          } else {
+            // Get all collections
+            const postman = new PostmanApiService()
+            remoteCollection = (await postman.findCollectionByName(collName)) as Record<
+              string,
+              unknown
+            >
+          }
         }
 
         if (remoteCollection?.uid) {
@@ -561,7 +608,8 @@ export class Portman {
           const postman = new PostmanApiService()
           respData = await postman.updateCollection(
             portmanCollection,
-            remoteCollection.uid as string
+            remoteCollection.uid as string,
+            remoteWorkspaceId
           )
           const { status, data } = JSON.parse(respData)
 
@@ -594,7 +642,7 @@ export class Portman {
         } else {
           // Create collection
           const postman = new PostmanApiService()
-          respData = await postman.createCollection(portmanCollection)
+          respData = await postman.createCollection(portmanCollection, remoteWorkspaceId)
           const { status, data } = JSON.parse(respData)
 
           // Update cache

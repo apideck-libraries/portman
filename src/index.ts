@@ -49,7 +49,11 @@ require('dotenv').config()
     })
     .option('p', {
       alias: 'postmanUid',
-      describe: 'Collection UID to upload with generated Postman collection',
+      describe: 'Postman collection UID to upload with the generated Postman collection',
+      type: 'string'
+    })
+    .option('postmanWorkspaceName', {
+      describe: 'Postman Workspace name to target the upload of the generated Postman collection',
       type: 'string'
     })
     .option('localPostman', {
