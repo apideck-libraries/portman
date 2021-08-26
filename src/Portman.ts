@@ -549,9 +549,9 @@ export class Portman {
             string,
             unknown
           >
-          if (remoteWorkspace.id) {
+          if (remoteWorkspace?.id) {
             // Set remoteWorkspaceId from by workspace name
-            remoteWorkspaceId = remoteWorkspace?.id
+            remoteWorkspaceId = remoteWorkspace.id
 
             // Merge item data with cache
             portmanCache = Object.assign({}, portmanCache, {
