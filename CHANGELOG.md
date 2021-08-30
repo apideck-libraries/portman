@@ -1,6 +1,6 @@
 ## Unreleased
 
-- Bug fix for unwanted maxItems on the root level on a JSON Schema validation
+- Bug fix for unwanted maxItems on the root level on a JSON Schema validation (#133)
 
 ## v1.8.0 - (2021-08-26)
 
