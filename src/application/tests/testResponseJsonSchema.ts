@@ -39,6 +39,17 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
   // let jsonSchemaNotSupported = ['nullable', 'discriminator', 'readOnly', 'writeOnly', 'xml',
   //   'externalDocs', 'example', 'deprecated'];
 
+  if (jsonSchema?.maxItems === 2 && jsonSchema?.type === 'array') {
+    // deletes maxItems on the root level of the jsonSchema, which is added unwanted by oaToPostman.convert
+    // TODO find another way to respect the maxItems that might be passed by OpenAPI
+    delete jsonSchema.maxItems
+  }
+  if (jsonSchema?.minItems === 2 && jsonSchema?.type === 'array') {
+    // deletes minItems on the root level of the jsonSchema, which is added unwanted by oaToPostman.convert
+    // TODO find another way to respect the minItems that might be passed by OpenAPI
+    // delete jsonSchema.minItems
+  }
+
   // Recurse through OpenAPI Schema
   const traverse = obj => {
     for (const k in obj) {
