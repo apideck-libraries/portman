@@ -1,3 +1,7 @@
+## Unreleased
+
+- Bug fix for unwanted maxItems on the root level on a JSON Schema validation (#133)
+
 ## v1.8.0 - (2021-08-26)
 
 - Added support for Postman Workspace when uploading collections (#118)
