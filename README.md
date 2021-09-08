@@ -1,5 +1,11 @@
 ![portman-hero](https://user-images.githubusercontent.com/1112129/125833512-c32359d8-af27-495b-8211-744c504146b2.png)
 
+<p align="center">
+  <a href="https://www.npmjs.com/package/@apideck/portman"><img src="https://img.shields.io/npm/v/@apideck/portman.svg" alt="Total Downloads"></a>
+  <a href="https://www.npmjs.com/package/@apideck/portman"><img src="https://img.shields.io/npm/dw/@apideck/portman.svg" alt="Latest Stable Version"></a>
+</p>
+
+
 # Portman 👨🏽‍🚀
 
 Port OpenAPI Spec to Postman Collection, with contract & variation tests included!
