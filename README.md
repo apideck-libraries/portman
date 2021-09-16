@@ -455,9 +455,9 @@ The `operationPreRequestScripts` is inserted on the request level.
 
 #### operationPreRequestScripts options
 
-- **openApiOperationId (String)** : Reference to the OpenAPI operationId on which the Pre-request Scripts will be inserted (example: `leadsAll`)
-- **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, for which the Postman request will be overwritten or extended. (example: `['leadsAll', 'companiesAll', 'contactsAll']`
-- **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request will be overwritten or extended (example: `GET::/crm/leads`)
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId on which the "Pre-request Scripts" will be inserted. (example: `leadsAll`)
+- **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, for which the "Pre-request Scripts" will be inserted (example: `['leadsAll', 'companiesAll', 'contactsAll']`
+- **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the "Pre-request Scripts" will be inserted (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting. (example: `["leadsAdd", "GET::/crm/leads/{id}"]`)
 
 - **scripts (Array)** : Array of scripts that will be injected as Postman Pre-request Scripts on request level, that will execute before the targeted requests in this collection.
