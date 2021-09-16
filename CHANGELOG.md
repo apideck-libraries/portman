@@ -1,3 +1,7 @@
+## Unreleased
+
+- Documented  "operationPreRequestScripts" properties in the readme
+
 ## v1.8.1 - (2021-09-02)
 
 - Bug fix for unwanted maxItems on the root level on a JSON Schema validation (#133)
