@@ -249,7 +249,7 @@ The Portman settings consist out of multiple parts:
   - **extendTests** : refers to the custom additions of manually created Postman tests.
 - **assignVariables** : which refers to setting Postman collection variables for easier automation.
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data.
-- **operationPreRequestScripts** : which refers to injecting Postman Pre-request Scripts for requests in this collection.
+- **operationPreRequestScripts** : which refers to injecting Postman Pre-request Scripts for requests.
 - **globals** : which refers to the customization that applies for the whole Postman collection.
 
 ### Portman targeting
