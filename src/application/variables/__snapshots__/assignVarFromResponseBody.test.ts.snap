@@ -13,3 +13,17 @@ if (typeof jsonData.data.id !== \\"undefined\\") {
 ",
 ]
 `;
+
+exports[`assignVarFromResponseBody should add postman collection var with name and response body value for array 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = pm.response.json();
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0].id  
+if (typeof jsonData[0].id !== \\"undefined\\") {
+   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[0].id);
+   console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[0].id);
+};
+",
+]
+`;
