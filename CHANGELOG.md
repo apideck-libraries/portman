@@ -1,7 +1,7 @@
 ## Unreleased
 
-
 - Handle array for assign responseBodyProp 
+- Documented  "operationPreRequestScripts" properties in the readme
 
 ## v1.8.1 - (2021-09-02)
 
