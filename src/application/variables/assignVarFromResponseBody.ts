@@ -33,7 +33,7 @@ export const assignVarFromResponseBody = (
     varSetting.responseBodyProp.charAt(0) !== '['
       ? '.' + varSetting.responseBodyProp
       : varSetting.responseBodyProp
-  const varName = varSetting.name ? varSetting.name : opsRef + '.' + varProp
+  const varName = varSetting.name ? varSetting.name : opsRef + varProp
 
   pmVarAssign = [
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}  \n`,
