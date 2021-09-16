@@ -249,6 +249,7 @@ The Portman settings consist out of multiple parts:
   - **extendTests** : refers to the custom additions of manually created Postman tests.
 - **assignVariables** : which refers to setting Postman collection variables for easier automation.
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data.
+- **operationPreRequestScripts** : which refers to injecting Postman Pre-request Scripts for requests.
 - **globals** : which refers to the customization that applies for the whole Postman collection.
 
 ### Portman targeting
@@ -397,9 +398,9 @@ To facilitate automation, you might want to modify properties with "randomized" 
 #### overwrites options
 
 - **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman request will be overwritten or extended. (example: `leadsAll`)
-- **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, for which the Postman request will be overwritten or extended example: `['leadsAll', 'companiesAll', 'contactsAll']`
+- **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, for which the Postman request will be overwritten or extended (example: `['leadsAll', 'companiesAll', 'contactsAll']`)
 - **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request will be overwritten or extended (example: `GET::/crm/leads`)
-- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting. (example: `["leadsAdd", "GET::/crm/leads/{id}"]`)
 
 - **overwriteRequestQueryParams (Array)** :
 
@@ -443,6 +444,23 @@ To facilitate automation, you might want to modify properties with "randomized" 
   A Postman RequestAuthDefinition object that will be applied to the request.
 
 For more details, review the [overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites).
+
+<hr>
+
+### Portman - `operationPreRequestScripts` properties
+
+The `operationPreRequestScripts` configuration will inject pre-request scripts in the Postman collection, on request level.
+Postman executes pre-request scripts before a request runs. If you want to set the Postman Collection pre-request scripts on the collection level, you can use the `globals` > `collectionPreRequestScripts` configuration.
+The `operationPreRequestScripts` is inserted on the request level.
+
+#### operationPreRequestScripts options
+
+- **openApiOperationId (String)** : Reference to the OpenAPI operationId on which the "Pre-request Scripts" will be inserted. (example: `leadsAll`)
+- **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, for which the "Pre-request Scripts" will be inserted (example: `['leadsAll', 'companiesAll', 'contactsAll']`
+- **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the "Pre-request Scripts" will be inserted (example: `GET::/crm/leads`)
+- **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting. (example: `["leadsAdd", "GET::/crm/leads/{id}"]`)
+
+- **scripts (Array)** : Array of scripts that will be injected as Postman Pre-request Scripts on request level, that will be executed before the targeted requests in this collection.
 
 <hr>
 
