@@ -1,6 +1,7 @@
-## Unreleased
+## v1.8.2 - (2021-09-17)
 
-- Handle array for assign responseBodyProp 
+- Code rebuild of missing fix for unwanted maxItems (#133)
+- Handle array for assign responseBodyProp (#134)
 - Documented  "operationPreRequestScripts" properties in the readme
 
 ## v1.8.1 - (2021-09-02)
