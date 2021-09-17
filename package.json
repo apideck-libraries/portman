@@ -22,11 +22,12 @@
     "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
     "test": "jest --detectOpenHandles --colors --verbose --reporters=default --collectCoverage --no-cache",
     "test:watch": "jest  --verbose --bail --watch",
+    "clean": "rm -rf ./dist/*",
     "build": "tsc --project ./tsconfig.json",
     "ts-script": "TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register --project ./tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "generate-schema": "npx ts-json-schema-generator --path './src/types/PortmanConfig.ts' --type 'PortmanConfig' --out './src/utils/portman-config-schema.json' -f ./tsconfig.json --no-ref-encode true --expose none --no-top-ref true",
-    "release": "np --branch main"
+    "release": "npm run clean && np --branch main"
   },
   "files": [
     "dist/**/*",

@@ -23,4 +23,15 @@ describe('assignVarFromResponseBody', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add postman collection var with name and response body value for array', async () => {
+    const varSetting = {
+      responseBodyProp: '[0].id',
+      name: 'leadsAdd.id'
+    }
+
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

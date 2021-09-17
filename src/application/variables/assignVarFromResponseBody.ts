@@ -29,21 +29,24 @@ export const assignVarFromResponseBody = (
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varProp = varSetting.responseBodyProp
-  const varName = varSetting.name ? varSetting.name : opsRef + '.' + varProp
+  const varProp =
+    varSetting.responseBodyProp.charAt(0) !== '['
+      ? '.' + varSetting.responseBodyProp
+      : varSetting.responseBodyProp
+  const varName = varSetting.name ? varSetting.name : opsRef + varProp
 
   pmVarAssign = [
-    `// pm.collectionVariables - Set ${varName} as variable for jsonData.${varProp}  \n`,
-    `if (typeof jsonData.${varProp} !== "undefined") {\n`,
-    `   pm.collectionVariables.set("${varName}", jsonData.${varProp});\n`,
+    `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}  \n`,
+    `if (typeof jsonData${varProp} !== "undefined") {\n`,
+    `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   console.log("- use {{${varName}}} as collection variable for value",`,
-    `jsonData.${varProp});\n`,
+    `jsonData${varProp});\n`,
     `};\n`
   ].join('')
 
   // Expose the variable in Portman
   console.log(
-    `- Set variable for "${opsRef}" - use {{${varName}}} as variable for "response.${varProp}"`
+    `- Set variable for "${opsRef}" - use {{${varName}}} as variable for "response${varProp}"`
   )
 
   writeOperationTestScript(pmOperation, pmJsonData)
