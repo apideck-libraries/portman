@@ -22,7 +22,9 @@ export const assignVarFromResponseHeader = (
   if (!pmOperation.testJsonDataInjected) {
     pmJsonData = [
       `// Set response object as internal variable\n`,
-      `let jsonData = pm.response.json();\n`
+      `let jsonData = {};\n`,
+      `try {jsonData = pm.response.json();}catch(e){}\n`
+      // `let jsonData = pm.response.json();\n`
     ].join('')
     pmOperation.testJsonDataInjected = true
   }

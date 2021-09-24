@@ -14,7 +14,9 @@ export const testResponseBodyContent = (
     if (!pmOperation.testJsonDataInjected) {
       pmJsonData = [
         `// Set response object as internal variable\n`,
-        `let jsonData = pm.response.json();\n`
+        `let jsonData = {};\n`,
+        `try {jsonData = pm.response.json();}catch(e){}\n`
+        // `let jsonData = pm.response.json();\n`
       ].join('')
       // sets pmResponseJsonVarInjected on TestSuite
       pmOperation.testJsonDataInjected = true
@@ -43,7 +45,7 @@ export const testResponseBodyContent = (
 
       pmTestValue = [
         `// Response body should have value "${check.value}" for "${check.key}"\n`,
-        `if (typeof jsonData.${check.key} !== "undefined") {\n`,
+        `if (jsonData?.${check.key}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${check.key}' matches '${check.value}'", function() {\n`,
         `  pm.expect(jsonData.${check.key}).to.eql(${checkValue});\n`,

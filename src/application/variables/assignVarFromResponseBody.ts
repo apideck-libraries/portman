@@ -22,7 +22,9 @@ export const assignVarFromResponseBody = (
   if (!pmOperation.testJsonDataInjected) {
     pmJsonData = [
       `// Set response object as internal variable\n`,
-      `let jsonData = pm.response.json();\n`
+      `let jsonData = {};\n`,
+      `try {jsonData = pm.response.json();}catch(e){}\n`
+      // `let jsonData = pm.response.json();\n`
     ].join('')
     pmOperation.testJsonDataInjected = true
   }
@@ -37,7 +39,7 @@ export const assignVarFromResponseBody = (
 
   pmVarAssign = [
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}  \n`,
-    `if (typeof jsonData${varProp} !== "undefined") {\n`,
+    `if (jsonData?${varProp}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
