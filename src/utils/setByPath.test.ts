@@ -103,4 +103,173 @@ describe('setByPath', () => {
       ]
     })
   })
+
+  it('should set a flat value on a array item using dot notation', () => {
+    const arrayUnderTest = [
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://other-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-2',
+        email: 'foo-2@example.com',
+        websites: [
+          { url: 'http://example-2.com', type: 'primary' },
+          { url: 'http://other-2-example.com', type: 'secondary' }
+        ]
+      }
+    ]
+
+    const result = setByPath(arrayUnderTest, '[0].websites[1].url', 'http://new-example.com')
+    expect(result).toEqual([
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://new-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-1',
+        email: 'foo-2@example.com',
+        websites: [
+          { url: 'http://example-2.com', type: 'primary' },
+          { url: 'http://other-2-example.com', type: 'secondary' }
+        ]
+      }
+    ])
+  })
+
+  it('should set an object/array value on a array item using dot notation', () => {
+    const arrayUnderTest = [
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://other-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-2',
+        email: 'foo-2@example.com',
+        websites: [
+          { url: 'http://example-2.com', type: 'primary' },
+          { url: 'http://other-2-example.com', type: 'secondary' }
+        ]
+      }
+    ]
+
+    const result = setByPath(arrayUnderTest, '[1]', {
+      foo: 'bar-3',
+      email: 'foo-3@example.com',
+      websites: [{ url: 'http://one-3-example.com', type: 'work' }]
+    })
+
+    expect(result).toEqual([
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://other-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-3',
+        email: 'foo-3@example.com',
+        websites: [{ url: 'http://one-3-example.com', type: 'work' }]
+      }
+    ])
+  })
+
+  it('should set an object/array value on a nested array using dot notation', () => {
+    const arrayUnderTest = [
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://other-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-2',
+        email: 'foo-2@example.com',
+        websites: [
+          { url: 'http://example-2.com', type: 'primary' },
+          { url: 'http://other-2-example.com', type: 'secondary' }
+        ]
+      }
+    ]
+
+    const result = setByPath(arrayUnderTest, '[1].websites', [
+      { url: 'http://one-example.com', type: 'work' }
+    ])
+
+    expect(result).toEqual([
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://other-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-2',
+        email: 'foo-2@example.com',
+        websites: [{ url: 'http://one-example.com', type: 'work' }]
+      }
+    ])
+  })
+
+  it('should set an object/array value on a nested array item using dot notation', () => {
+    const arrayUnderTest = [
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://other-example.com', type: 'secondary' }
+        ]
+      },
+      {
+        foo: 'bar-2',
+        email: 'foo-2@example.com',
+        websites: [
+          { url: 'http://example-2.com', type: 'primary' },
+          { url: 'http://other-2-example.com', type: 'secondary' }
+        ]
+      }
+    ]
+
+    const result = setByPath(arrayUnderTest, '[0].websites[1]', [
+      { url: 'http://one-example.com', type: 'work' }
+    ])
+
+    expect(result).toEqual([
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://example.com', type: 'primary' },
+          { url: 'http://one-example.com', type: 'work' }
+        ]
+      },
+      {
+        foo: 'bar-2',
+        email: 'foo-2@example.com',
+        websites: [
+          { url: 'http://example-2.com', type: 'primary' },
+          { url: 'http://other-2-example.com', type: 'secondary' }
+        ]
+      }
+    ])
+  })
 })
