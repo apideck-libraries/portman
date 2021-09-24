@@ -291,7 +291,8 @@ it('should overwrite the body param with raw {{$randomInt}} instead of string', 
   const result = overwriteRequestBody(overwriteValues, pmOperation)
   expect(result.item.request?.body?.raw).toMatchSnapshot()
 })
-it('should overwrite the body nested array prop with raw {{$randomInt}} instead of string', async () => {
+
+xit('should overwrite the body nested array prop with raw {{$randomInt}} instead of string', async () => {
   const overwriteValues = [
     {
       key: '[0].websites[1]',

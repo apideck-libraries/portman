@@ -49,14 +49,6 @@ export const setByPath = (
     }
   }
 
-  // if (arrayPathCheck && !path.includes('.')) {
-  //   const subPath = path.substring(path.indexOf('.') + 1)
-    if (subPath) {
-      objectOrArray[indexKey] = setByPath(item, subPath, newValue)
-      return objectOrArray
-    }
-  }
-
   // Update property from object
   return dot.str(path, newValue, objectOrArray)
 }
