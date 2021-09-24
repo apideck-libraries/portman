@@ -35,7 +35,7 @@ export const setByPath = (
       const item = objectOrArray[indexKey]
       const subPath = path.substring(path.indexOf('.') + 1)
       if (subPath) {
-        objectOrArray[indexKey] = setByPath(item, subPath, newValue)
+        objectOrArray[indexKey] = dot.str(subPath, newValue, item)
         return objectOrArray
       }
     }
