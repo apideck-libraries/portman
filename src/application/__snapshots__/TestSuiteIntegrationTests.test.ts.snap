@@ -37156,7 +37156,7 @@ let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// pm.collectionVariables - Set companyId as variable for jsonData.data.id  
-if (jsonData?.data.id) {
+if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
 };
@@ -38708,7 +38708,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' ma
 })};",
                       "",
                       "// pm.collectionVariables - Set companyName as variable for jsonData.data.name  
-if (jsonData?.data.name) {
+if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
 };

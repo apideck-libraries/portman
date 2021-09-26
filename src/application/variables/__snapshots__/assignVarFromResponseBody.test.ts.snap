@@ -7,7 +7,7 @@ let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
   "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id  
-if (jsonData?.data.id) {
+if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
 };
@@ -22,7 +22,7 @@ let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
   "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0].id  
-if (jsonData?[0].id) {
+if (jsonData?.[0]?.id) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[0].id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[0].id);
 };

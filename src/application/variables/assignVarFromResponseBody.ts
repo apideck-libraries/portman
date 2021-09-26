@@ -1,6 +1,7 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { CollectionVariableConfig } from '../../types'
+import { renderChainPath } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -39,7 +40,7 @@ export const assignVarFromResponseBody = (
 
   pmVarAssign = [
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}  \n`,
-    `if (jsonData?${varProp}) {\n`,
+    `if (jsonData${renderChainPath(varProp)}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
