@@ -47,10 +47,12 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                   "",
-                  "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id  
+                  "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
 if (jsonData?.data?.[0]?.id) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
+} else {
+   console.log('INFO - Unable to assign variable {{createLeadMissingParams.data[0].id}}, as jsonData..data[0].id is undefined.'
 };
 ",
                 ],
@@ -38715,10 +38717,12 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                       "",
-                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id  
+                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
 if (jsonData?.data?.[0]?.id) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
+} else {
+   console.log('INFO - Unable to assign variable {{createLeadMissingParams.data[0].id}}, as jsonData..data[0].id is undefined.'
 };
 ",
                     ],

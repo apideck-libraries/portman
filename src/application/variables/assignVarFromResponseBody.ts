@@ -39,11 +39,13 @@ export const assignVarFromResponseBody = (
   const varName = varSetting.name ? varSetting.name : opsRef + varProp
 
   pmVarAssign = [
-    `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}  \n`,
+    `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
     `if (jsonData${renderChainPath(varProp)}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
+    `} else {\n`,
+    `   console.log('INFO - Unable to assign variable {{${varName}}}, as jsonData.${varProp} is undefined.'\n`,
     `};\n`
   ].join('')
 

@@ -27,10 +27,12 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () 
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-                  "// pm.collectionVariables - Set companyId as variable for jsonData.data.id  
+                  "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
 if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData..data.id is undefined.'
 };
 ",
                 ],
@@ -1579,10 +1581,12 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' ma
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};",
                   "",
-                  "// pm.collectionVariables - Set companyName as variable for jsonData.data.name  
+                  "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
 if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
+} else {
+   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData..data.name is undefined.'
 };
 ",
                 ],
@@ -39532,10 +39536,12 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () 
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-                      "// pm.collectionVariables - Set companyId as variable for jsonData.data.id  
+                      "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
 if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData..data.id is undefined.'
 };
 ",
                     ],
@@ -41084,10 +41090,12 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' ma
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};",
                       "",
-                      "// pm.collectionVariables - Set companyName as variable for jsonData.data.name  
+                      "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
 if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
+} else {
+   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData..data.name is undefined.'
 };
 ",
                     ],
