@@ -43,7 +43,7 @@ export const setByPath = (
 
     // Handle array definition with prop (example: [1].websites[1].url)
     const flatInput = dot.dot(objectOrArray)
-    if (flatInput[path] && !arrayPathCheck) {
+    if (!arrayPathCheck) {
       flatInput[path] = newValue
       const res = dot.object(flatInput)
       return res[Object.keys(res)[0]]

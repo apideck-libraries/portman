@@ -120,6 +120,102 @@ describe('setByPath', () => {
     expect(result[0].websites[1].url).toEqual('http://abc.com')
   })
 
+  it('should insert a flat value using dot notation', () => {
+    const arrayUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://123.com', type: 'primary' },
+        { url: 'http://456.com', type: 'secondary' }
+      ]
+    }
+
+    const result = setByPath(arrayUnderTest, 'marco', 'polo')
+    expect(result).toEqual({
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://123.com', type: 'primary' },
+        { url: 'http://456.com', type: 'secondary' }
+      ],
+      marco: 'polo'
+    })
+  })
+
+  it('should insert a flat value on a array item using dot notation', () => {
+    const arrayUnderTest = [
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://123.com', type: 'primary' },
+          { url: 'http://456.com', type: 'secondary' }
+        ]
+      }
+    ]
+
+    const result = setByPath(arrayUnderTest, '[0].marco', 'polo')
+    expect(result).toEqual([
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://123.com', type: 'primary' },
+          { url: 'http://456.com', type: 'secondary' }
+        ],
+        marco: 'polo'
+      }
+    ])
+  })
+
+  it('should insert a object value using dot notation', () => {
+    const arrayUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://123.com', type: 'primary' },
+        { url: 'http://456.com', type: 'secondary' }
+      ]
+    }
+
+    const result = setByPath(arrayUnderTest, 'marco', { firstname: 'polo' })
+    expect(result).toEqual({
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://123.com', type: 'primary' },
+        { url: 'http://456.com', type: 'secondary' }
+      ],
+      marco: { firstname: 'polo' }
+    })
+  })
+
+  it('should insert a object value on a array item using dot notation', () => {
+    const arrayUnderTest = [
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://123.com', type: 'primary' },
+          { url: 'http://456.com', type: 'secondary' }
+        ]
+      }
+    ]
+
+    const result = setByPath(arrayUnderTest, '[0].marco', { firstname: 'polo' })
+    expect(result).toEqual([
+      {
+        foo: 'bar',
+        email: 'foo@example.com',
+        websites: [
+          { url: 'http://123.com', type: 'primary' },
+          { url: 'http://456.com', type: 'secondary' }
+        ],
+        marco: { firstname: 'polo' }
+      }
+    ])
+  })
+
   it('should set an object/array value on a array item using dot notation', () => {
     const arrayUnderTest = [
       {
