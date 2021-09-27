@@ -45,7 +45,7 @@ export const assignVarFromResponseBody = (
     `   console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
     `} else {\n`,
-    `   console.log('INFO - Unable to assign variable {{${varName}}}, as jsonData.${varProp} is undefined.'\n`,
+    `   console.log('INFO - Unable to assign variable {{${varName}}}, as jsonData${varProp} is undefined.'\n`,
     `};\n`
   ].join('')
 

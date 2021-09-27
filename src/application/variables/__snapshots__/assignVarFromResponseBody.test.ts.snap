@@ -11,7 +11,7 @@ if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
 } else {
-   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData..data.id is undefined.'
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData.data.id is undefined.'
 };
 ",
 ]
@@ -28,7 +28,7 @@ if (jsonData?.[0]?.id) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[0].id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[0].id);
 } else {
-   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData.[0].id is undefined.'
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData[0].id is undefined.'
 };
 ",
 ]
