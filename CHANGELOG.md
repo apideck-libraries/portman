@@ -1,3 +1,9 @@
+## v1.8.3 - (2021-09-28)
+
+- Support overwrites for a request body array and array related cases (#143)
+- Implemented optional chaining for safer handling of JSON response when assigning vars
+- Added an INFO message when variable could not be assigned
+
 ## v1.8.2 - (2021-09-17)
 
 - Code rebuild of missing fix for unwanted maxItems (#133)
