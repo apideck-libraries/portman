@@ -26,3 +26,16 @@ export const getPostmanMappedCreateOperation = async (): Promise<PostmanMappedOp
   })
   return postmanParser.mappedOperations[1]
 }
+
+export const getPostmanMappedCreateArrayOperation = async (): Promise<PostmanMappedOperation> => {
+  const postmanJson = '__tests__/fixtures/crm-request-items.json'
+  const oasYml = '__tests__/fixtures/crm-request-items.yml'
+
+  await oasParser.convert({ inputFile: oasYml })
+  const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+  const postmanParser = new PostmanParser({
+    collection: new Collection(postmanObj),
+    oasParser: oasParser
+  })
+  return postmanParser.mappedOperations[0]
+}
