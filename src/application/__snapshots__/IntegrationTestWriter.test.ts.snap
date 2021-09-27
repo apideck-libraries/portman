@@ -24,12 +24,15 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () 
 });
 ",
                   "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
-                  "// pm.collectionVariables - Set companyId as variable for jsonData.data.id  
-if (typeof jsonData.data.id !== \\"undefined\\") {
+                  "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
+if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData.data.id is undefined.');
 };
 ",
                 ],
@@ -1564,7 +1567,8 @@ pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
 });
 ",
                   "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
                   "// Response body should have property \\"data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exists\\", function() {
@@ -1572,15 +1576,17 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exi
 });
 ",
                   "// Response body should have value \\"Integration Test: Create Company\\" for \\"data.name\\"
-if (typeof jsonData.data.name !== \\"undefined\\") {
+if (jsonData?.data.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};",
                   "",
-                  "// pm.collectionVariables - Set companyName as variable for jsonData.data.name  
-if (typeof jsonData.data.name !== \\"undefined\\") {
+                  "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
+if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
+} else {
+   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData.data.name is undefined.');
 };
 ",
                 ],
@@ -39527,12 +39533,15 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () 
 });
 ",
                       "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
-                      "// pm.collectionVariables - Set companyId as variable for jsonData.data.id  
-if (typeof jsonData.data.id !== \\"undefined\\") {
+                      "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
+if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData.data.id is undefined.');
 };
 ",
                     ],
@@ -41067,7 +41076,8 @@ pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
 });
 ",
                       "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// Response body should have property \\"data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exists\\", function() {
@@ -41075,15 +41085,17 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exi
 });
 ",
                       "// Response body should have value \\"Integration Test: Create Company\\" for \\"data.name\\"
-if (typeof jsonData.data.name !== \\"undefined\\") {
+if (jsonData?.data.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};",
                       "",
-                      "// pm.collectionVariables - Set companyName as variable for jsonData.data.name  
-if (typeof jsonData.data.name !== \\"undefined\\") {
+                      "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
+if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
+} else {
+   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData.data.name is undefined.');
 };
 ",
                     ],

@@ -3,12 +3,15 @@
 exports[`assignVarFromResponseBody should add postman collection var with name and response body value 1`] = `
 Array [
   "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id  
-if (typeof jsonData.data.id !== \\"undefined\\") {
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
+if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData.data.id is undefined.');
 };
 ",
 ]
@@ -17,12 +20,15 @@ if (typeof jsonData.data.id !== \\"undefined\\") {
 exports[`assignVarFromResponseBody should add postman collection var with name and response body value for array 1`] = `
 Array [
   "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0].id  
-if (typeof jsonData[0].id !== \\"undefined\\") {
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0].id
+if (jsonData?.[0]?.id) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[0].id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[0].id);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData[0].id is undefined.');
 };
 ",
 ]

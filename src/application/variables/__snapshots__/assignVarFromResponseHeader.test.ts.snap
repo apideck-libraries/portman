@@ -3,7 +3,8 @@
 exports[`assignVarFromResponseHeader should add postman collection var with name and response header value 1`] = `
 Array [
   "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
   "// pm.collectionVariables - Set leadsAdd.header as variable for header 
 let leadsAddheader = pm.response.headers.get(\\"operation-location\\");

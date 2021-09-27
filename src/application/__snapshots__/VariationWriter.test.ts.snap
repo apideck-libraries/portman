@@ -29,7 +29,8 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
 });
 ",
                   "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
                   "// Response body should have property \\"resource\\"
 pm.test(\\"[POST]::/crm/leads - Content check if property 'resource' exists\\", function() {
@@ -37,7 +38,7 @@ pm.test(\\"[POST]::/crm/leads - Content check if property 'resource' exists\\", 
 });
 ",
                   "// Response body should have value \\"leads\\" for \\"resource\\"
-if (typeof jsonData.resource !== \\"undefined\\") {
+if (jsonData?.resource) {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
   pm.expect(jsonData.resource).to.eql(\\"leads\\");
 })};",
@@ -46,10 +47,12 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                   "",
-                  "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id  
-if (typeof jsonData.data[0].id !== \\"undefined\\") {
+                  "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
+if (jsonData?.data?.[0]?.id) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
+} else {
+   console.log('INFO - Unable to assign variable {{createLeadMissingParams.data[0].id}}, as jsonData.data[0].id is undefined.');
 };
 ",
                 ],
@@ -38696,7 +38699,8 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
 });
 ",
                       "// Set response object as internal variable
-let jsonData = pm.response.json();
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// Response body should have property \\"resource\\"
 pm.test(\\"[POST]::/crm/leads - Content check if property 'resource' exists\\", function() {
@@ -38704,7 +38708,7 @@ pm.test(\\"[POST]::/crm/leads - Content check if property 'resource' exists\\", 
 });
 ",
                       "// Response body should have value \\"leads\\" for \\"resource\\"
-if (typeof jsonData.resource !== \\"undefined\\") {
+if (jsonData?.resource) {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
   pm.expect(jsonData.resource).to.eql(\\"leads\\");
 })};",
@@ -38713,10 +38717,12 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                       "",
-                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id  
-if (typeof jsonData.data[0].id !== \\"undefined\\") {
+                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
+if (jsonData?.data?.[0]?.id) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
+} else {
+   console.log('INFO - Unable to assign variable {{createLeadMissingParams.data[0].id}}, as jsonData.data[0].id is undefined.');
 };
 ",
                     ],
