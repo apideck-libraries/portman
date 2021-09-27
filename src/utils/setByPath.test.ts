@@ -22,26 +22,26 @@ describe('setByPath', () => {
     })
   })
 
-  // it('should set an object/array value using dot notation', () => {
-  //   const objUnderTest = {
-  //     foo: 'bar',
-  //     email: 'foo@example.com',
-  //     websites: [
-  //       { url: 'http://example.com', type: 'primary' },
-  //       { url: 'http://example-2.com', type: 'secondary' }
-  //     ]
-  //   }
-  //
-  //   const result = setByPath(objUnderTest, 'websites', [
-  //     { url: 'http://one-example.com', type: 'work' }
-  //   ])
-  //
-  //   expect(result).toEqual({
-  //     foo: 'bar',
-  //     email: 'foo@example.com',
-  //     websites: [{ url: 'http://one-example.com', type: 'work' }]
-  //   })
-  // })
+  it('should set an object/array value using dot notation', () => {
+    const objUnderTest = {
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [
+        { url: 'http://example.com', type: 'primary' },
+        { url: 'http://example-2.com', type: 'secondary' }
+      ]
+    }
+
+    const result = setByPath(objUnderTest, 'websites', [
+      { url: 'http://example-3.com', type: 'work' }
+    ])
+
+    expect(result).toEqual({
+      foo: 'bar',
+      email: 'foo@example.com',
+      websites: [{ url: 'http://example-3.com', type: 'work' }]
+    })
+  })
 
   it('should return unaltered object if path does not exist', () => {
     const objUnderTest = {
@@ -110,14 +110,14 @@ describe('setByPath', () => {
         foo: 'bar',
         email: 'foo@example.com',
         websites: [
-          { url: 'http://example.com', type: 'primary' },
-          { url: 'http://other-example.com', type: 'secondary' }
+          { url: 'http://123.com', type: 'primary' },
+          { url: 'http://456.com', type: 'secondary' }
         ]
       }
     ]
 
-    const result = setByPath(arrayUnderTest, '[0].websites[1].url', 'http://new-example.com')
-    expect(result[0].websites[1].url).toEqual('http://new-example.com')
+    const result = setByPath(arrayUnderTest, '[0].websites[1].url', 'http://abc.com')
+    expect(result[0].websites[1].url).toEqual('http://abc.com')
   })
 
   it('should set an object/array value on a array item using dot notation', () => {
@@ -224,9 +224,10 @@ describe('setByPath', () => {
       }
     ]
 
-    const result = setByPath(arrayUnderTest, '[0].websites[1]', [
-      { url: 'http://one-example.com', type: 'work' }
-    ])
+    const result = setByPath(arrayUnderTest, '[0].websites[1]', {
+      url: 'http://one-example.com',
+      type: 'work'
+    })
 
     expect(result).toEqual([
       {

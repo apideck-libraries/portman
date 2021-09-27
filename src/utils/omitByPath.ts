@@ -1,4 +1,4 @@
-import dot from 'dot-object'
+import Dot from 'dot-object'
 import { isObject } from './isObject'
 
 /**
@@ -11,6 +11,8 @@ export const omitByPath = (
   path: string
 ): Record<string, unknown> | Record<string, unknown>[] => {
   if (!isObject(objectOrArray) && !Array.isArray(objectOrArray)) return objectOrArray
+
+  const dot = new Dot() // Initiate new dot-object
 
   // Handle array of objects
   if (Array.isArray(objectOrArray)) {

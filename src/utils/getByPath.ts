@@ -1,4 +1,4 @@
-import dot from 'dot-object'
+import Dot from 'dot-object'
 import { isObject } from './isObject'
 
 /**
@@ -15,6 +15,7 @@ export const getByPath = (
 ): string | Record<string, unknown> | Record<string, unknown>[] | undefined => {
   if (!isObject(objectOrArray) && !Array.isArray(objectOrArray)) return objectOrArray
 
+  const dot = new Dot() // Initiate new dot-object
   const arrayPathCheck = path.endsWith(']')
   const indexKey = path.match(/\d+/g)?.[0]
 
