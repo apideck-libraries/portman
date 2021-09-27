@@ -32,7 +32,7 @@ if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
 } else {
-   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData.data.id is undefined.'
+   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData.data.id is undefined.');
 };
 ",
                 ],
@@ -1586,7 +1586,7 @@ if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
 } else {
-   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData.data.name is undefined.'
+   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData.data.name is undefined.');
 };
 ",
                 ],
@@ -39541,7 +39541,7 @@ if (jsonData?.data?.id) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
 } else {
-   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData.data.id is undefined.'
+   console.log('INFO - Unable to assign variable {{companyId}}, as jsonData.data.id is undefined.');
 };
 ",
                     ],
@@ -41095,7 +41095,7 @@ if (jsonData?.data?.name) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
 } else {
-   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData.data.name is undefined.'
+   console.log('INFO - Unable to assign variable {{companyName}}, as jsonData.data.name is undefined.');
 };
 ",
                     ],
