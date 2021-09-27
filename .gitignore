@@ -10,6 +10,10 @@ portman-config.json
 postman-config.json
 postman-testsuite.json
 
+/__tests__/testUtils/*.js
+/__tests__/testUtils/*.map
+/__tests__/testUtils/*.d.ts
+
 .DS_Store
 .idea
 /examples/testsuite-default-checks/tmp/
