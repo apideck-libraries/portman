@@ -1,4 +1,4 @@
-## v1.8.3 - (2021-09-28)
+## v1.8.3 - (2021-09-27)
 
 - Support overwrites for a request body array and array related cases (#143)
 - Implemented optional chaining for safer handling of JSON response when assigning vars
