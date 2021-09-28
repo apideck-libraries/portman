@@ -42,6 +42,10 @@ require('dotenv').config()
       describe: 'JSON stringified object to pass options for configuring Newman',
       type: 'string'
     })
+    .option('newmanOptionsFile', {
+      describe: 'Path to Newman options file to pass options for configuring Newman',
+      type: 'string'
+    })
     .option('d', {
       alias: 'newmanIterationData',
       describe: 'Iteration data to run Newman with newly created collection',
@@ -142,6 +146,22 @@ require('dotenv').config()
     }
   }
 
+  cliOptions.newmanOptionsFile = options?.newmanOptionsFile
+    ? options.newmanOptionsFile
+    : cliOptions.newmanOptionsFile
+  if (cliOptions.newmanOptionsFile) {
+    try {
+      const newmanOptionsFilePath = path.resolve(cliOptions.newmanOptionsFile)
+      cliOptions.newmanRunOptions = JSON.parse(await fs.readFile(newmanOptionsFilePath, 'utf8'))
+    } catch (err) {
+      console.error(
+        '\x1b[31m',
+        'Newman Options error - no such file or directory "' + options.newmanOptionsFile + '"'
+      )
+      process.exit(1)
+    }
+  }
+
   if (options.newmanRunOptions) {
     try {
       const newmanRunOptionsArg = JSON.parse(options.newmanRunOptions as string)
@@ -153,6 +173,7 @@ require('dotenv').config()
       process.exit(1)
     }
   }
+
   // Merge CLI configuration file with CLI parameters
   options = { ...cliOptions, ...options }
 

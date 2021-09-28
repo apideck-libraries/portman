@@ -102,6 +102,7 @@ Options:
   --oaOutput                 Write the (filtered) OpenAPI file to an output file                              [string]
   -n, --runNewman            Run Newman on newly created collection                                           [boolean]
   --newmanRunOptions         JSON stringified object to pass options for configuring Newman                   [string]
+  --newmanOptionsFile        Path to Newman options file to pass options for configuring Newman               [string]
   -d, --newmanIterationData  Iteration data to run Newman with newly created collection                       [string]
   --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
   --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
@@ -219,6 +220,31 @@ All the available Portman CLI options can be used in the config file.
 By passing the CLI options as parameter, you can overwrite the defined CLI options defined in the file.
 
 For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
+
+- Run Newman with Newman options
+
+All [Newman configuration options](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/#options) to run Newman can be passed along through Portman.
+
+```
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --runNewman --newmanOptionsFile ./tmp/crm/newman-options.json
+```
+
+Example of a `newman-options.json` config file
+
+```json
+{
+  "environment": "./tmp/crm/postman-dev.env.json",
+  "iteration-count": 5,
+  "ignore-redirects": true,
+  "insecure": true
+}
+```
+
+Another option to set the Newman options, is by passing the options as a stringified object on the CLI.
+
+```
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --runNewman --newmanRunOptions '{"environment":"./tmp/boyscout/SDC-api.team.env.json"}'
+```
 
 ### Output
 
