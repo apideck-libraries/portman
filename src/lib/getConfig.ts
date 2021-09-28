@@ -1,14 +1,23 @@
 import chalk from 'chalk'
 import fs from 'fs-extra'
 import path from 'path'
+const yaml = require('yaml')
 import { PortmanConfig } from '../types'
 
 export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {
   let config = {}
 
   if (configPath && (await fs.pathExists(path.resolve(configPath)))) {
-    config = await import(path.resolve(configPath)).then(module => module.default)
-  } else {
+    // Check if config is JSON file
+    if (configPath.indexOf('.json') >= 0) {
+      config = await import(path.resolve(configPath)).then(module => module.default)
+    }
+    if (configPath.indexOf('.yaml') >= 0 || configPath.indexOf('.yml') >= 0) {
+      yaml.parse(fs.readFileSync(configPath, 'utf8'))
+    }
+  }
+
+  if (Object.entries(config).length === 0) {
     console.log(chalk.red(`Portman config file not provided.`))
   }
 

@@ -84,6 +84,7 @@
     "postman-collection": "^4.0.0",
     "prompts": "^2.4.1",
     "replace-in-file": "^6.2.0",
+    "yaml": "1.10.2",
     "yargs": "^17.0.1"
   },
   "keywords": [
