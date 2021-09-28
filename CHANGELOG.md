@@ -1,3 +1,7 @@
+## unreleased
+
+- Added `newmanOptionsFile` as a Portman CLI option, to pass options for configuring Newman
+
 ## v1.8.3 - (2021-09-27)
 
 - Support overwrites for a request body array and array related cases (#143)
