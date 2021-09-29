@@ -9,7 +9,7 @@ export const getConfig = async (configPath: string | undefined): Promise<Portman
 
   if (configPath && (await fs.pathExists(path.resolve(configPath)))) {
     // Check if config is YAML file
-    if (configPath.indexOf('.yaml') >= 0 || configPath.indexOf('.yml') >= 0) {
+    if (configPath.includes('.yaml') || configPath.includes('.yml')) {
       yaml.parse(fs.readFileSync(configPath, 'utf8'))
     } else {
       config = await import(path.resolve(configPath)).then(module => module.default)
