@@ -168,7 +168,7 @@ portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d
 - Pass the path to a local spec (useful when updating your specs) and output Postman collection locally
 
 ```
-portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
+portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
 ```
 
 - Skip tests and just generate collection.
@@ -202,8 +202,14 @@ portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e7
 All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 Portman provides a default openapi-to-postman configuration [postman-config.default.json](postman-config.default.json), which will be used if no custom config `--postmanConfigFile` is passed.
 
+Portman configuration file in JSON format:
 ```
-portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./common/postman-config.json
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./portman/postman-config.json
+```
+
+Portman configuration file in YAML format:
+```
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./portman/postman-config.yaml
 ```
 
 - Pass all CLI options as JSON file
