@@ -204,12 +204,12 @@ Portman provides a default openapi-to-postman configuration [postman-config.defa
 
 Portman configuration file in JSON format:
 ```
-portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./portman/postman-config.json
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./common/postman-config.json
 ```
 
 Portman configuration file in YAML format:
 ```
-portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./portman/postman-config.yaml
+portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.yaml -s ./common/postman-config.json
 ```
 
 - Pass all CLI options as JSON file
