@@ -1,0 +1,17 @@
+{
+  "local": "./examples/cli-options/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/cli-options/crm.postman.json",
+  "portmanConfigFile": "./examples/cli-options/portman-config.crm.json",
+  "postmanConfigFile": "./examples/cli-options/postman-config.crm.json",
+  "envFile": "./examples/cli-options/.lead.env",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": true,
+  "newmanRunOptions": {
+    "environment": "./tmp/crm/postman-dev.env.json",
+    "iteration-count": 5,
+    "ignore-redirects": true,
+    "insecure": true
+  }
+}
