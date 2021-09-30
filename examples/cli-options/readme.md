@@ -103,7 +103,7 @@ Example of a [Portman CLI options file](portman-cli-options-newman.json):
   "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
   "syncPostman": false,
-  "runNewman": false,
+  "runNewman": true,
   "newmanRunOptions": {
     "environment": "./tmp/crm/postman-dev.env.json",
     "iteration-count": 5,
