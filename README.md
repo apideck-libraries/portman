@@ -229,22 +229,8 @@ All [Newman configuration options](https://learning.postman.com/docs/running-col
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --runNewman --newmanOptionsFile ./tmp/crm/newman-options.json
 ```
 
-Example of a `newman-options.json` config file
+For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
 
-```json
-{
-  "environment": "./tmp/crm/postman-dev.env.json",
-  "iteration-count": 5,
-  "ignore-redirects": true,
-  "insecure": true
-}
-```
-
-Another option to set the Newman options, is by passing the options as a stringified object on the CLI.
-
-```
-portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --runNewman --newmanRunOptions '{"environment":"./tmp/boyscout/SDC-api.team.env.json"}'
-```
 
 ### Output
 
