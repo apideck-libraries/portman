@@ -238,4 +238,51 @@ describe('Portman', () => {
     const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
+
+  it('should match JSON & YAML generated Postman', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsJsonFormat = {
+      local: './__tests__/fixtures/crm.yml',
+      portmanConfigFile: './__tests__/fixtures/portman.crm.json',
+      syncPostman: false,
+      includeTests: true,
+      runNewman: false
+    }
+    const cliOptionsYamFormat = {
+      local: './__tests__/fixtures/crm.yml',
+      portmanConfigFile: './__tests__/fixtures/portman.crm.yaml',
+      syncPostman: false,
+      includeTests: true,
+      runNewman: false
+    }
+    // JSON export
+    const portmanJson = new Portman({
+      ...cliOptionsJsonFormat,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portmanJson.run()
+
+    const outputFilePathJson = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollectionJson = JSON.parse(await fs.readFile(outputFilePathJson, 'utf8'))
+
+    // YAML export
+    const portmanYaml = new Portman({
+      ...cliOptionsYamFormat,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portmanYaml.run()
+
+    const outputFilePathYaml = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollectionYaml = JSON.parse(await fs.readFile(outputFilePathYaml, 'utf8'))
+
+    expect(omitKeys(finalCollectionJson, ['id', '_postman_id', 'postman_id', 'info'])).toEqual(
+      omitKeys(finalCollectionYaml, ['id', '_postman_id', 'postman_id', 'info'])
+    )
+  }, 30000)
 })
