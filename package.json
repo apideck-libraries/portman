@@ -65,11 +65,11 @@
   },
   "dependencies": {
     "@apideck/better-ajv-errors": "^0.2.5",
-    "@apidevtools/swagger-parser": "^10.0.2",
+    "@apidevtools/swagger-parser": "^10.0.3",
     "ajv": "^8.6.3",
     "axios": "^0.21.4",
     "camel-case": "^4.1.2",
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "dot-object": "^2.1.4",
     "dotenv": "^10.0.0",
     "fp-ts": "^2.10.5",
