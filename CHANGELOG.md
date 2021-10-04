@@ -1,4 +1,4 @@
-## v1.9.1 - (2021-10-03)
+## v1.9.1 - (2021-10-04)
 
 - Support loading Portman config in YAML format
 - Added `newmanOptionsFile` as a Portman CLI option, to pass options for configuring Newman
