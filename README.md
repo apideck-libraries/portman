@@ -570,13 +570,13 @@ To enable automatic uploads of the generated Postman collection through Portman,
 Next to the Postman API key, you can also pass along the Postman Workspace name & the specific Postman Collection UID.
 
 Supported Postman API .ENV variables:
-- **POSTMAN_API_KEY** : Post Postman API key
+- **POSTMAN_API_KEY** : Postman API key
 - **POSTMAN_WORKSPACE_NAME** : Postman Workspace name to target the upload of the generated Postman collection
 - **POSTMAN_COLLECTION_UID** : Postman collection UID to upload with the generated Postman collection
 
 The `POSTMAN_WORKSPACE_NAME` & `POSTMAN_COLLECTION_UID` variables can also be set as CLI Options `--postmanWorkspaceName` & `--postmanUid` , which will overrule the variables defined in the .ENV file. 
 
-> **RECOMMENDATION**: Do not commit this `.env` in any versioning system like GIT since it contains credentials.
+> **RECOMMENDATION**: Do not commit the `.env` file in any versioning system like GIT if it contains confidential credentials.
 
 # Credits
 
