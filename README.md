@@ -565,7 +565,7 @@ To enable automatic uploads of the generated Postman collection through Portman,
 
 3. Copy [env-postman-app-example](./.env-postman-app.example) as `.env` in the root folder of your project
 
-4. Enter your Postman API key in a local `.env` file, as `POSTMAN_API_KEY=[replace with valid Postman api key]`
+4. Enter your Postman API key in a local `.env` file, as `POSTMAN_API_KEY=[replace with Postman api key]`
 
 Next to the Postman API key, you can also pass along the Postman Workspace name & the specific Postman Collection UID.
 
