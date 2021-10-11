@@ -1,3 +1,8 @@
+## v1.9.2 - (2021-10-12)
+
+- Added support for passing postmanWorkspaceName & postmanUid as .ENV variables
+- Bumped dependencies
+
 ## v1.9.1 - (2021-10-04)
 
 - Support loading Portman config in YAML format
