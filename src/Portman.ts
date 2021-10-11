@@ -509,10 +509,10 @@ export class Portman {
     } = this
     const postmanUid = this.options?.postmanUid
       ? this.options.postmanUid
-      : `${process.env.POSTMAN_COLLECTION_UID}` || ''
+      : process.env.POSTMAN_COLLECTION_UID || ''
     const postmanWorkspaceName = this.options?.postmanWorkspaceName
       ? this.options.postmanWorkspaceName
-      : `${process.env.POSTMAN_WORKSPACE_NAME}` || ''
+      : process.env.POSTMAN_WORKSPACE_NAME || ''
     const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
     const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
