@@ -505,8 +505,14 @@ export class Portman {
     // --- Portman - Upload Postman collection to Postman app
     const {
       portmanCollection,
-      options: { syncPostman, postmanUid, postmanWorkspaceName }
+      options: { syncPostman }
     } = this
+    const postmanUid = this.options?.postmanUid
+      ? this.options.postmanUid
+      : process.env.POSTMAN_COLLECTION_UID || ''
+    const postmanWorkspaceName = this.options?.postmanWorkspaceName
+      ? this.options.postmanWorkspaceName
+      : process.env.POSTMAN_WORKSPACE_NAME || ''
     const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
     const portmanCacheFile = './tmp/.portman.cache'
     let portmanCache = {}
