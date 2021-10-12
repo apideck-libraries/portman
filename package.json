@@ -76,7 +76,7 @@
     "fs-extra": "^10.0.0",
     "newman": "^5.3.0",
     "node-emoji": "^1.10.0",
-    "openapi-format": "^1.6.2",
+    "openapi-format": "^1.6.3",
     "openapi-to-postmanv2": "^2.11.0",
     "openapi-types": "9.1.0",
     "ora": "^5.4.1",

@@ -16,6 +16,21 @@ describe('writeRawReplacements', () => {
     )
   })
 
+  it('should use config with space to replace all found values in string', () => {
+    const config = [
+      {
+        searchFor: 'foo bar',
+        replaceWith: 'bars lorem'
+      }
+    ]
+
+    const string = '{"root": "foo", "nested": {"foo bar": "monkey"}, "arr": ["monkey", "foo"]}'
+    const result = writeRawReplacements(string, config)
+    expect(result).toStrictEqual(
+      '{"root": "foo", "nested": {"bars lorem": "monkey"}, "arr": ["monkey", "foo"]}'
+    )
+  })
+
   it('should use config :: to replace all found values in string', () => {
     const config = [
       {
@@ -27,6 +42,68 @@ describe('writeRawReplacements', () => {
     const string = '{"exec": ["[GET]::/ - Status code is 2xx"]}'
     const result = writeRawReplacements(string, config)
     expect(result).toStrictEqual('{"exec": ["[GET]:-:/ - Status code is 2xx"]}')
+  })
+
+  it('should use config ?. to replace all found values in string', () => {
+    const config = [
+      {
+        searchFor: '?.',
+        replaceWith: '.'
+      }
+    ]
+
+    const string = 'Set post-data.id as variable for jsonData.id\nif (jsonData?.id) {\n'
+    const result = writeRawReplacements(string, config)
+    expect(result).toStrictEqual(
+      'Set post-data.id as variable for jsonData.id\nif (jsonData.id) {\n'
+    )
+  })
+
+  it('should use config ?.[0] to replace all found values in string', () => {
+    const config = [
+      {
+        searchFor: '?.[',
+        replaceWith: '['
+      }
+    ]
+
+    const string = 'Set post-data.id as variable for jsonData.id\nif (jsonData?.[0].id) {\n'
+    const result = writeRawReplacements(string, config)
+    expect(result).toStrictEqual(
+      'Set post-data.id as variable for jsonData.id\nif (jsonData[0].id) {\n'
+    )
+  })
+
+  it('should use multiple configs to replace all found values in string', () => {
+    const config = [
+      {
+        searchFor: '?.[',
+        replaceWith: '['
+      },
+      {
+        searchFor: '?.',
+        replaceWith: '.'
+      }
+    ]
+
+    const string = 'Set post-data.id as variable for jsonData.id\nif (jsonData?.[0]?.id) {\n'
+    const result = writeRawReplacements(string, config)
+    expect(result).toStrictEqual(
+      'Set post-data.id as variable for jsonData.id\nif (jsonData[0].id) {\n'
+    )
+  })
+
+  it('should use config ?.[]*(){} to replace all found values in string', () => {
+    const config = [
+      {
+        searchFor: '?.[]*(){}',
+        replaceWith: 'ABCDE'
+      }
+    ]
+
+    const string = 'Set post-data.id as variable for ?.[]*(){} {\n'
+    const result = writeRawReplacements(string, config)
+    expect(result).toStrictEqual('Set post-data.id as variable for ABCDE {\n')
   })
 
   it('should use config :: to replace all found values in escaped string', () => {
