@@ -1,6 +1,7 @@
 ## v1.9.2 - (2021-10-12)
 
 - Added support for passing postmanWorkspaceName & postmanUid as .ENV variables
+- Improved the "raw replacements" method to handle the special characters safely
 - Bumped dependencies
 
 ## v1.9.1 - (2021-10-04)
