@@ -74,7 +74,7 @@ describe('writeRawReplacements', () => {
     )
   })
 
-  it('should use config [0]? to replace all found values in string', () => {
+  it('should use multiple configs to replace all found values in string', () => {
     const config = [
       {
         searchFor: '?.[',
