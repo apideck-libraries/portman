@@ -47,7 +47,7 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
   if (jsonSchema?.minItems === 2 && jsonSchema?.type === 'array') {
     // deletes minItems on the root level of the jsonSchema, which is added unwanted by oaToPostman.convert
     // TODO find another way to respect the minItems that might be passed by OpenAPI
-    // delete jsonSchema.minItems
+    delete jsonSchema.minItems
   }
 
   // Recurse through OpenAPI Schema
@@ -62,12 +62,18 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
           obj[k].type = jsonTypes
           delete obj[k].nullable
         }
-        if (obj[k]?.maxItems === 2 && obj[k]?.type === 'array') {
+        if (
+          obj[k]?.maxItems === 2 &&
+          (obj[k]?.type === 'array' || obj[k]?.type.includes('array'))
+        ) {
           // deletes maxItems, which is added unwanted by oaToPostman.convert
           // TODO find another way to respect the maxItems that might be passed by OpenAPI
           delete obj[k].maxItems
         }
-        if (obj[k]?.minItems === 2 && obj[k]?.type === 'array') {
+        if (
+          obj[k]?.minItems === 2 &&
+          (obj[k]?.type === 'array' || obj[k]?.type.includes('array'))
+        ) {
           // deletes minItems, which is added unwanted by oaToPostman.convert
           // TODO find another way to respect the minItems that might be passed by OpenAPI
           delete obj[k].minItems
