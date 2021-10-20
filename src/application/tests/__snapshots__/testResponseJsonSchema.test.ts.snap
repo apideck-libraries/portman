@@ -13,10 +13,101 @@ pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
 ]
 `;
 
+exports[`testResponseJsonSchema should remove maxItems on items levels, for types array/null, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":[\\"array\\",\\"null\\"],\\"items\\":{\\"required\\":[\\"name\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"integer\\",\\"example\\":10},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"doggie\\"},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"pet status in the store\\",\\"enum\\":[\\"available\\"]}},\\"type\\":\\"object\\"}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
 exports[`testResponseJsonSchema should remove maxItems on items levels, for valid json schema 1`] = `
 Array [
   "// Response Validation
 const schema = {\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"name\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"integer\\",\\"example\\":10},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"doggie\\"},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"pet status in the store\\",\\"enum\\":[\\"available\\"]}},\\"type\\":\\"object\\"}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should remove maxItems on nested levels, for type array, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"p1\\"},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"},\\"ips\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"portMapping\\":{\\"type\\":\\"integer\\",\\"example\\":255},\\"pool\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"}},\\"additionalProperties\\":false}}},\\"additionalProperties\\":false,\\"required\\":[\\"id\\",\\"name\\"]}}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should remove maxItems on nested levels, for types array/null, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"p1\\"},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"},\\"ips\\":{\\"type\\":[\\"array\\",\\"null\\"],\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"portMapping\\":{\\"type\\":\\"integer\\",\\"example\\":255},\\"pool\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"}},\\"additionalProperties\\":false}}},\\"additionalProperties\\":false,\\"required\\":[\\"id\\",\\"name\\"]}}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should remove minItems on items levels, for types array/null, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":[\\"array\\",\\"null\\"],\\"items\\":{\\"required\\":[\\"name\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"integer\\",\\"example\\":10},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"doggie\\"},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"pet status in the store\\",\\"enum\\":[\\"available\\"]}},\\"type\\":\\"object\\"}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should remove minItems on items levels, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"name\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"integer\\",\\"example\\":10},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"doggie\\"},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"pet status in the store\\",\\"enum\\":[\\"available\\"]}},\\"type\\":\\"object\\"}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should remove minItems on nested levels, for type array, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"p1\\"},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"},\\"ips\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"portMapping\\":{\\"type\\":\\"integer\\",\\"example\\":255},\\"pool\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"}},\\"additionalProperties\\":false}}},\\"additionalProperties\\":false,\\"required\\":[\\"id\\",\\"name\\"]}}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should remove minItems on nested levels, for types array/null, for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"p1\\"},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"},\\"ips\\":{\\"type\\":[\\"array\\",\\"null\\"],\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"portMapping\\":{\\"type\\":\\"integer\\",\\"example\\":255},\\"pool\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"}},\\"additionalProperties\\":false}}},\\"additionalProperties\\":false,\\"required\\":[\\"id\\",\\"name\\"]}}}}
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
