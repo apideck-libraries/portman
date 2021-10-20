@@ -1,3 +1,8 @@
+## v1.9.3 - (2021-10-20)
+
+- Improved the handling of JSON schema maxItems/minItems for the types: array or null
+- Bumped dependencies
+
 ## v1.9.2 - (2021-10-12)
 
 - Added support for passing postmanWorkspaceName & postmanUid as .ENV variables
