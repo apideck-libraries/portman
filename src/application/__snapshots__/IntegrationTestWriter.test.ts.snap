@@ -1579,7 +1579,8 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exi
 if (jsonData?.data.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
-})};",
+})};
+",
                   "",
                   "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
 if (jsonData?.data?.name) {
@@ -41088,7 +41089,8 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exi
 if (jsonData?.data.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
-})};",
+})};
+",
                       "",
                       "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
 if (jsonData?.data?.name) {

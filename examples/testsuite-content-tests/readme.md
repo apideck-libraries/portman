@@ -34,6 +34,10 @@ file: examples/testsuite-content-tests/portman-config.crm.json
           "value": "Spacex"
         },
         {
+          "key": "data[0].name",
+          "contains": "Musk"
+        },
+        {
           "key": "data[0].monetary_amount",
           "value": 75000
         },
@@ -67,7 +71,8 @@ These target options are both supported for defining a target. In case both are 
 
 - **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
-  - **value (String)** : The value that will be used to check if the value in the response body matches.
+  - **value (String)** : The value that will be used to check if the value in the response body property matches.
+  - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
 
 ## Example explained
 
@@ -83,6 +88,9 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
         {
           "key": "data[0].company_name",
           "value": "Spacex"
+        {
+        "key": "data[0].name",
+        "contains": "Musk"
         },
         {
           "key": "data[0].monetary_amount",
@@ -168,6 +176,17 @@ if (typeof jsonData.data[0].company_name !== 'undefined') {
   )
 }
 
+// Response body should have property "data[0].name"
+pm.test("[GET]::/crm/leads - Content check if property 'data[0].name' exists", function() {
+  pm.expect((typeof jsonData.data[0].name !== "undefined")).to.be.true;
+});
+
+// Response body should contain value "Musk" for "data[0].name"
+if (jsonData?.data[0].name) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'data[0].name' contains 'Musk'", function() {
+    pm.expect(jsonData.data[0].name).to.include("Musk");
+  })};
+
 // Response body should have property "data[0].monetary_amount"
 pm.test(
   "[GET] /crm/leads - Content check if property 'data[0].monetary_amount' exists",
@@ -202,8 +221,9 @@ if (typeof jsonData.resource !== 'undefined') {
 }
 ```
 
-Per defined "contentTest" item, Portman will generate 2 tests:
+Per defined "contentTest" item, Portman can generate a number of tests:
 
+`key` example:
 ```js
 // Response body should have property "data[0].company_name"
 pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function () {
@@ -213,6 +233,7 @@ pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exi
 
 The first check validates if the response has the property "company_name" in the first item ("[0]") of the "data" array.
 
+`value` example:
 ```js
 // Response body should have value "Spacex" for "data[0].company_name"
 if (typeof jsonData.data[0].company_name !== 'undefined') {
@@ -225,9 +246,22 @@ if (typeof jsonData.data[0].company_name !== 'undefined') {
 }
 ```
 
-The 2nd check validates if the response has value "Spacex" for the property "company_name".
+The `value` check validates if the response has value "Spacex" for the property "company_name", using strict equality.
 
-These 2 tests are added for each "contentTests" item that is defined.
+When you add a `contains` test, the check validates if the response contains the value "Musk" in the value of the property "name". The `contains` test is case-sensitive.
+
+`contains` example:
+```js
+// Response body should have value "Spacex" for "data[0].company_name"
+if (typeof jsonData.data[0].company_name !== 'undefined') {
+  pm.test(
+    "[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'",
+    function () {
+      pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
+    }
+  )
+}
+```
 
 ## Alternative targeting option
 

@@ -445,7 +445,10 @@
                     "key": {
                       "type": "string"
                     },
-                    "value": {}
+                    "value": {},
+                    "contains": {
+                      "type": "string"
+                    }
                   },
                   "required": ["key"],
                   "type": "object"

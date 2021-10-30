@@ -10,6 +10,10 @@
             "value": "Spacex"
           },
           {
+            "key": "data[0].name",
+            "contains": "Musk"
+          },
+          {
             "key": "data[0].monetary_amount",
             "value": 75000
           },
