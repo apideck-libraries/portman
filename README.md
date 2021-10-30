@@ -446,7 +446,8 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **key (String)** : The key that will be targeted in the request Headers to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attaches the value to the original request header value.
-  - **remove (Boolean true/false | Default: false)** : Removes the request headers
+  - **remove (Boolean true/false | Default: false)** : Removes the targeted request headers from Postman.
+  - **insert (Boolean true/false | Default: true)** : Insert additional the request headers in Postman that are not present in OpenAPI.
 
 - **overwriteRequestBody (Array)** :
 

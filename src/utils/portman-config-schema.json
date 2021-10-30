@@ -267,6 +267,9 @@
                 "remove": {
                   "type": "boolean"
                 },
+                "insert": {
+                  "type": "boolean"
+                },
                 "value": {
                   "type": [
                     "string",
