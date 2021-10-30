@@ -42,6 +42,10 @@ file: examples/testsuite-content-tests/portman-config.crm.json
           "value": 75000
         },
         {
+          "key": "data[0].description",
+          "length": 9
+        },
+        {
           "key": "resource",
           "value": "companies"
         }
@@ -73,6 +77,7 @@ These target options are both supported for defining a target. In case both are 
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
+  - **length (Number)** : The number that will be used to check if the value of the response body property has a length of the defined number of characters.
 
 ## Example explained
 
@@ -89,12 +94,16 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
           "key": "data[0].company_name",
           "value": "Spacex"
         {
-        "key": "data[0].name",
-        "contains": "Musk"
+          "key": "data[0].name",
+          "contains": "Musk"
         },
         {
           "key": "data[0].monetary_amount",
           "value": 75000
+        },
+        {
+          "key": "data[0].description",
+          "length": 9
         },
         {
           "key": "resource",
@@ -261,6 +270,17 @@ if (typeof jsonData.data[0].company_name !== 'undefined') {
     }
   )
 }
+```
+
+When you add a `length` test, the check validates if the response contains the expected number of characters for the property "description".
+
+`length` example:
+```js
+// Response body should have a length of "9" for "data[0].description"
+if (jsonData?.data[0].description) {
+  pm.test("[GET]::/crm/leads - Content check if value of 'data[0].description' has a length of '9'", function() {
+  pm.expect(jsonData.data[0].description).to.have.lengthOf(12);
+})};
 ```
 
 ## Alternative targeting option

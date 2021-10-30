@@ -75,7 +75,8 @@ export type VariationConfig = {
 export type ResponseBodyTest = {
   key: string
   value?: any
-  contains?: any
+  contains?: string
+  length?: any
 }
 
 type OverwriteConfig = {

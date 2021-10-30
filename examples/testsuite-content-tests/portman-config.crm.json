@@ -18,6 +18,10 @@
             "value": 75000
           },
           {
+            "key": "data[0].description",
+            "length": 9
+          },
+          {
             "key": "resource",
             "value": "companies"
           }

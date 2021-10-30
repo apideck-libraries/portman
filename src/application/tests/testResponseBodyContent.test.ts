@@ -95,4 +95,16 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for property check & result has length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        length: 9
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

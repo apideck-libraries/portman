@@ -11,6 +11,7 @@ export const testResponseBodyContent = (
     let pmTestKey = ''
     let pmTestValue = ''
     let pmTestContains = ''
+    let pmTestLength = ''
 
     // Only set the jsonData once
     if (!pmOperation.testJsonDataInjected) {
@@ -76,10 +77,32 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
+    if (check.length) {
+      let checkLength = check.length
+      if (typeof check.length === 'string') {
+        // Quote string value
+        checkLength = `"${check.length}"`
+        // Get collection variables
+        if (check.length.includes('{{') && check.length.includes('}}')) {
+          checkLength = `pm.collectionVariables.get("${check.length.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestLength = [
+        `// Response body should have a length of "${check.length}" for "${check.key}"\n`,
+        `if (jsonData?.${check.key}) {\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if value of '${check.key}' has a length of '${check.length}'", function() {\n`,
+        `  pm.expect(jsonData.${check.key}).to.have.lengthOf(${checkLength});\n`,
+        `})};\n`
+      ].join('')
+    }
+
     if (pmJsonData !== '') writeOperationTestScript(pmOperation, pmJsonData)
     if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
+    if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
   })
 
   return pmOperation

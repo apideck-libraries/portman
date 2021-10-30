@@ -448,7 +448,8 @@
                     "value": {},
                     "contains": {
                       "type": "string"
-                    }
+                    },
+                    "length": {}
                   },
                   "required": ["key"],
                   "type": "object"
