@@ -53,8 +53,9 @@ These target options are both supported for defining a target. In case both are 
   - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
-  - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman
-  - **remove (Boolean true/false | Default: false)** : Removes the request query param
+  - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman.
+  - **remove (Boolean true/false | Default: false)** : Removes the targeted request query param from Postman.
+  - **insert (Boolean true/false | Default: true)** : Insert additional the request query param in Postman that are not present in OpenAPI.
 
 - **overwriteRequestPathVariables (Array)** : 
   
@@ -287,6 +288,11 @@ The example below will showcase the "disable" setting.
     },{
       "key": "cursor",
       "remove": true
+    },{
+      "key": "count",
+      "value": "yes",
+      "disable": true,
+      "description": "Get total result count"
     }
   ]
 }
@@ -296,6 +302,7 @@ This will target the OpenAPI `"openApiOperationId": "leadsAll"` .
 
 1. The request query params will set the `limit` property as **disabled** (because disable:true) in Postman.
 1. **Remove** the request `cursor` query param (because remove:true) from Postman.
+1. **Insert** the new request `count` query param into the Postman collection, with a value & description.
 
 file: examples/testsuite-overwrites/crm.postman.json >>
 

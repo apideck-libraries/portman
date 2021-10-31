@@ -70,6 +70,12 @@
         {
           "key": "cursor",
           "remove": true
+        },
+        {
+          "key": "count",
+          "value": "yes",
+          "disable": true,
+          "description": "Get total result count"
         }
       ]
     },

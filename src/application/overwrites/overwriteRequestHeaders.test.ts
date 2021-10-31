@@ -80,4 +80,18 @@ describe('overwriteRequestHeaders', () => {
     const result = overwriteRequestHeaders(overwriteValues, pmOperation)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
+
+  it('should insert the request headers variable with description, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-header',
+        value: 'foo-bar-baz',
+        description: 'Additional header'
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
 })

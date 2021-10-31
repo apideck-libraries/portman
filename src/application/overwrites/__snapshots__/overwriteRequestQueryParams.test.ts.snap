@@ -28,6 +28,67 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestQueryParams should insert the query param variable with description, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Additional query param",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "add-a-query-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should insert the query param variable with true insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-query-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should insert the query param variable, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-query-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should overwrite the request query param 1`] = `
 Array [
   Object {
@@ -43,3 +104,17 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should remove to the query param when remove is true 1`] = `Array []`;
+
+exports[`overwriteRequestQueryParams should skip the query param variable with false insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+]
+`;

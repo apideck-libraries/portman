@@ -51,17 +51,58 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
-  it('should return unaltered if key not found', async () => {
+  it('should insert the query param variable, if key not found', async () => {
     const overwriteValues = [
       {
-        key: 'not-a-variable',
+        key: 'add-a-query-param',
         value: 'foo-bar-baz'
       }
     ]
 
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
 
-    expect(result.item.request.url.query).toEqual(pmOperation.item.request.url.query)
+  it('should insert the query param variable with true insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-query-param',
+        value: 'foo-bar-baz',
+        insert: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should skip the query param variable with false insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-query-param',
+        value: 'foo-bar-baz',
+        insert: false
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should insert the query param variable with description, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-query-param',
+        value: 'foo-bar-baz',
+        description: 'Additional query param'
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
   })
 })

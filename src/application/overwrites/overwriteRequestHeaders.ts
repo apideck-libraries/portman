@@ -14,11 +14,6 @@ export const overwriteRequestHeaders = (
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
-  // Early exit if request url headers are not defined
-  // if (!pmOperation.item?.request?.headers) {
-  //   return pmOperation
-  // }
-
   // Get all Postman Headers
   const headerKeys = pmOperation.item.request.headers.map(({ key }) => key)
   // Detect overwrite headers that do not exist in the Postman collection
@@ -52,6 +47,11 @@ export const overwriteRequestHeaders = (
         pmHeader.disabled = true
       }
 
+      // Test suite - Overwrite header description
+      if (overwriteItem?.description) {
+        pmHeader.description = overwriteItem.description
+      }
+
       // Set Postman header
       pmOperation.item.request.upsertHeader(pmHeader)
     })
@@ -81,6 +81,7 @@ export const overwriteRequestHeaders = (
       // Set header properties based on the OverwriteValues
       if (headerToInsert.value) newPmHeader.value = headerToInsert.value
       if (headerToInsert.disable === true) newPmHeader.disabled = true
+      if (headerToInsert.description) newPmHeader.description = headerToInsert.description
 
       // Add Postman header
       pmOperation.item.request.addHeader(newPmHeader)

@@ -8,6 +8,15 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should insert the request headers variable with description, if key not found 1`] = `
+Object {
+  "add-a-header": "foo-bar-baz",
+  "x-apideck-app-id": "2222",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
 exports[`overwriteRequestHeaders should insert the request headers variable with true insert option, if key not found 1`] = `
 Object {
   "add-a-header": "foo-bar-baz",
