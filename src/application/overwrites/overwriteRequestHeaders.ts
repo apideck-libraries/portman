@@ -68,17 +68,22 @@ export const overwriteRequestHeaders = (
 
   // Test suite - Add headers
   insertNewKeys
-    .filter(overwriteItem => !overwriteItem.insert)
+    .filter(overwriteItem => !(overwriteItem.insert === false))
     .map(headerToInsert => {
-      const newPmHeader = { key: headerToInsert.key, value: '', disabled: false } as Header
-      if (headerToInsert.value) {
-        newPmHeader.value = headerToInsert.value
-      }
-      if (headerToInsert.disable === true) {
-        newPmHeader.disabled = true
-      }
+      // Initialize new Postman Header
+      const newPmHeader = {
+        key: headerToInsert.key,
+        value: '',
+        // description: '',
+        disabled: false
+      } as Header
+
+      // Set header properties based on the OverwriteValues
+      if (headerToInsert.value) newPmHeader.value = headerToInsert.value
+      if (headerToInsert.disable === true) newPmHeader.disabled = true
+
       // Add Postman header
-      pmOperation.item.request.headers.add(newPmHeader)
+      pmOperation.item.request.addHeader(newPmHeader)
 
       // Add requestHeaders
       if (pmOperation?.requestHeaders && Array.isArray(pmOperation.requestHeaders)) {

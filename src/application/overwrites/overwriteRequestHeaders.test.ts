@@ -78,6 +78,6 @@ describe('overwriteRequestHeaders', () => {
 
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestHeaders(overwriteValues, pmOperation)
-    expect(result.item.request.getHeaders()).toEqual(pmOperation.item.request.getHeaders())
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 })

@@ -10,6 +10,7 @@ Object {
 
 exports[`overwriteRequestHeaders should insert the request headers variable with true insert option, if key not found 1`] = `
 Object {
+  "add-a-header": "foo-bar-baz",
   "x-apideck-app-id": "2222",
   "x-apideck-consumer-id": "test_consumer",
   "x-apideck-service-id": "salesforce",
@@ -35,6 +36,14 @@ Object {
 
 exports[`overwriteRequestHeaders should remove to the header when remove is true 1`] = `
 Object {
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should skip the request headers variable with false insert option, if key not found 1`] = `
+Object {
+  "x-apideck-app-id": "2222",
   "x-apideck-consumer-id": "test_consumer",
   "x-apideck-service-id": "salesforce",
 }

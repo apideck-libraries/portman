@@ -56,8 +56,7 @@
         },
         {
           "key": "x-apideck-consumer-id-additional",
-          "value": "portman-id-{{$randomInt}}-additional",
-          "insert": true
+          "value": "portman-id-{{$randomInt}}-additional"
         }
       ]
     },

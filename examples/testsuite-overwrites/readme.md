@@ -343,8 +343,7 @@ Postman request "Leads" >> "Delete lead" Request query params:
     },
     {
       "key": "x-apideck-consumer-id-additional",
-      "value": "portman-id-{{$randomInt}}-additional",
-      "insert": true
+      "value": "portman-id-{{$randomInt}}-additional"
     }
   ]
 }
@@ -353,7 +352,7 @@ Postman request "Leads" >> "Delete lead" Request query params:
 This will target the OpenAPI `"openApiOperationId": "leadsUpdate"` and will overwrite the request query params.
 
 1. the `x-apideck-consumer-id` header property will be **overwritten** (because overwrite:true) with `portman-id-{{$randomInt}}`
-2. the `x-apideck-consumer-id-additional` header property will be **inserted** with `portman-id-{{$randomInt}}-additional`
+2. the `x-apideck-consumer-id-additional` header does not exist, so this new header will be **inserted** with `portman-id-{{$randomInt}}-additional`
 
 After the conversion, in the "leadsUpdate" request (PATCH::/crm/leads/{id}) in the Postman app, you can find the following result in the headers tab.
 
