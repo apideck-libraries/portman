@@ -38,7 +38,7 @@ describe('VariationWriter', () => {
     const pmOperation = pmOperations[0]
 
     const oaOperation = oasParser.getOperationByPath(pmOperation.pathRef)
-    variationWriter.add(pmOperation, oaOperation, variationTest.variations)
+    variationWriter.add(pmOperation, oaOperation, variationTest)
   })
 
   it(`should add postman items to its own collection`, () => {

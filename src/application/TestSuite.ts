@@ -108,9 +108,18 @@ export class TestSuite {
       const pmOperations = this.getOperationsFromSetting(variationTest)
 
       pmOperations.map(pmOperation => {
-        // Get OpenApi responses
+        // Get OpenApi operation
         const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
-        this.variationWriter.add(pmOperation, oaOperation, variationTest.variations)
+
+        if (!variationTest.openApiResponse) {
+          // No targeted openApiResponse configured, generate a variation based on the 1st response object
+          this.variationWriter.add(pmOperation, oaOperation, variationTest)
+        } else if (oaOperation?.responseCodes.includes(variationTest.openApiResponse)) {
+          // Configured an openApiResponse, only generate variation for the targeted response object
+          this.variationWriter.add(pmOperation, oaOperation, variationTest)
+        } else {
+          // Configured a openApiResponse, but it doesn't exist in OpenAPI, do nothing
+        }
       })
     })
 
@@ -399,4 +408,22 @@ export class TestSuite {
 
     return this.postmanParser.mappedOperations
   }
+
+  // public temperRequest = (
+  //   pmOperations?: PostmanMappedOperation[],
+  //   oaOperation: OasMappedOperation,
+  //   overwriteSettings?: OverwriteRequestConfig[]
+  // ): PostmanMappedOperation[] => {
+  //   const settings = overwriteSettings || this.config.overwrites
+  //
+  //   if (!settings) return this.postmanParser.mappedOperations
+  //
+  //   settings.map(overwriteSetting => {
+  //     //Get Postman operations to apply overwrites to
+  //     const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
+  //     applyOverwrites(operations, overwriteSetting)
+  //   })
+  //
+  //   return this.postmanParser.mappedOperations
+  // }
 }

@@ -24,6 +24,7 @@ export class OasMappedOperation implements IOasMappedOperation {
   public queryParams: OpenAPIV3.ParameterObject[]
   public cookieParams: OpenAPIV3.ParameterObject[]
   public schema: OpenAPIV3.OperationObject
+  public responseCodes: string[]
 
   constructor(path: string, method: string, operation: OpenAPIV3.OperationObject) {
     this.schema = { ...operation }
@@ -35,6 +36,7 @@ export class OasMappedOperation implements IOasMappedOperation {
     this.pathParams = this.mapParameters('path')
     this.queryParams = this.mapParameters('query')
     this.cookieParams = this.mapParameters('cookie')
+    this.responseCodes = this.mapResponseCodes()
   }
 
   private mapParameters(paramIn: string): OpenAPIV3.ParameterObject[] {
@@ -56,5 +58,9 @@ export class OasMappedOperation implements IOasMappedOperation {
     if (!requestBody || !requestBody?.content?.[mediaType]?.schema) return
 
     return requestBody.content[mediaType].schema as OpenAPIV3.SchemaObject
+  }
+
+  private mapResponseCodes(): string[] {
+    return Object.keys(this.schema?.responses as OpenAPIV3.ResponsesObject)
   }
 }

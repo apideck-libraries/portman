@@ -51,9 +51,9 @@
     "variationTests": [
       {
         "openApiOperation": "*::/crm/*",
+        "openApiResponse": "401",
         "variations": [
           {
-            "openApiResponse": "401",
             "name": "Unauthorized",
             "overwrites": [
               {
@@ -76,10 +76,10 @@
       },
       {
         "openApiOperationId": "leadsAdd",
+        "openApiResponse": "400",
         "variations": [
           {
             "name": "missingParams",
-            "openApiResponse": "400",
             "overwrites": [
               {
                 "overwriteRequestBody": [
@@ -95,8 +95,7 @@
               "contractTests": [
                 {
                   "statusCode": {
-                    "enabled": true,
-                    "code": 400
+                    "enabled": true
                   }
                 },
                 {
