@@ -1,3 +1,8 @@
+## vNext - (2021-xx-xx)
+
+- Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman.
+- Extended the overwriteRequestQueryParams capabilities with the option to insert new query params in Postman.
+
 ## v1.9.3 - (2021-10-20)
 
 - Improved the handling of JSON schema maxItems/minItems for the types: array or null
