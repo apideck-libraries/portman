@@ -50,6 +50,16 @@ file: examples/testsuite-content-tests/portman-config.crm.json
           "value": "companies"
         }
       ]
+    },
+    {
+      "openApiOperationId": "leadsOne",
+      "responseHeaderTests": [
+        {
+          "key": "Operation-Location",
+          "contains": "/operations/",
+          "length": 57
+        }
+      ]
     }
   ]
 }
@@ -78,6 +88,12 @@ These target options are both supported for defining a target. In case both are 
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
   - **length (Number)** : The number that will be used to check if the value of the response body property has a length of the defined number of characters.
+
+- **responseHeaderTests (Array)** : Array of key/value pairs of properties & values in the Postman response header.
+  - **key (String)** : The header name that will be targeted in the response header to check if it exists.
+  - **value (String)** : The value that will be used to check if the value in the response header matches.
+  - **contains (String)** : The value that will be used to check if the value is present in the value of the response header.
+  - **length (Number)** : The number that will be used to check if the value of the response header has a length of the defined number of characters.
 
 ## Example explained
 
@@ -110,15 +126,27 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
           "value": "companies"
         }
       ]
+    },
+    {
+      "openApiOperationId": "leadsOne",
+      "responseHeaderTests": [
+        {
+          "key": "Operation-Location",
+          "contains": "/operations/",
+          "length": 57
+        }
+      ]
     }
   ]
 ```
+
+### responseBodyTests
 
 After the conversion, in the "leadsAll" request (GET::/crm/leads) in the Postman app, you can find the specific tests in the "Tests" tab.
 
 file: examples/testsuite-content-tests/crm.postman.json >>
 
-Postman request "Leads"" >> List leads"API Response:
+Postman request "Leads" >> "List leads" API Response:
 
 ```json
 {
@@ -282,6 +310,78 @@ if (jsonData?.data[0].description) {
   pm.expect(jsonData.data[0].description).to.have.lengthOf(12);
 })};
 ```
+
+---
+
+### responseHeaderTests
+
+After the conversion, in the "leadsOne" request (GET::/crm/leads/:id) in the Postman app, you can find the specific header content tests in the "Tests" tab.
+
+file: examples/testsuite-content-tests/crm.postman.json >>
+
+Postman request "Leads" >> "Get leads" Tests tab:
+
+```javascript
+// Validate if response header is present 
+pm.test("[GET]::/crm/leads/:id - Response header Operation-Location is present", function () {
+  pm.response.to.have.header("Operation-Location");
+});
+
+// Response header should contain value "/operations/" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' contains '/operations/'", function() {
+  pm.expect(pm.response.headers.get('Operation-Location')).to.include("/operations/");
+});
+
+// Response header should have a length of "57" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '57'", function() {
+  pm.expect(pm.response.headers.get('Operation-Location')).to.have.lengthOf(57);
+});
+```
+
+Similar to the `responseBodyTests`, the content test `responseHeaderTests` will verify the actual content of the headers, with a number of checks
+
+`key` example:
+```js
+// Validate if response header is present 
+pm.test("[GET]::/crm/leads/:id - Response header Operation-Location is present", function () {
+  pm.response.to.have.header("Operation-Location");
+});
+```
+
+The header name will be verified, if it is present in the response. The header name should match the configured `key`.
+
+`value` example:
+```js
+// Response header should have value "/operations/123" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' matches '/operations/123'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).to.eql("/operations/123");
+});
+```
+
+The `value` check validates if the response has value "/operations/123" for the header "Operation-Location", using strict equality.
+
+When you add a `contains` test, the check validates if the response header contains the value "/operations/" in the header value. The `contains` test is case-sensitive.
+
+`contains` example:
+```js
+// Response header should contain value "/operations/" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' contains '/operations/'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).to.include("/operations/");
+});
+```
+
+When you add a `length` test, the check validates if the header value contains the expected number of characters.
+
+`length` example:
+```js
+// Response header should have a length of "57" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '57'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).to.have.lengthOf(57);
+});
+
+```
+
+---
 
 ## Alternative targeting option
 

@@ -1782,7 +1782,7 @@ components:
           description: 'URL to query for status of the operation. The operation ID will expire in 48 hours. '
           schema:
             type: string
-            example: '{baseUrl}/operations/bbadbeef-b3ab-40af-b05c-c0ffee6544cd'
+            example: '/operations/123'
       content:
         application/json:
           schema:

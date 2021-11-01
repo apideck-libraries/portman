@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testResponseHeaderContent should add content header test for property check & number value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have value \\"75000\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' matches '75000'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.eql(75000);
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check & pm variable value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have value \\"{{postman_env_variable}}\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' matches '{{postman_env_variable}}'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check & result contains pm variable value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should contain value \\"{{postman_env_variable}}\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' contains '{{postman_env_variable}}'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check & result contains value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should contain value \\"Musk\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' contains 'Musk'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.include(\\"Musk\\");
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check & result has length value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have a length of \\"57\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a length of '57'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.have.lengthOf(57);
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check without value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for string for property check & boolean value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have value \\"true\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' matches 'true'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.eql(true);
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for string for property check & string value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have value \\"Spacex\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' matches 'Spacex'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.eql(\\"Spacex\\");
+});
+",
+]
+`;

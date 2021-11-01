@@ -26,6 +26,17 @@
             "value": "companies"
           }
         ]
+      },
+      {
+        "openApiOperationId": "leadsOne",
+        "responseHeaderTests": [
+          {
+            "key": "Operation-Location",
+            "value": "/operations/123",
+            "contains": "/operations/",
+            "length": 57
+          }
+        ]
       }
     ]
   }

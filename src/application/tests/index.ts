@@ -1,5 +1,6 @@
 export * from './extendTest'
 export * from './testResponseBodyContent'
+export * from './testResponseHeaderContent'
 export * from './testResponseContentType'
 export * from './testResponseHeader'
 export * from './testResponseJsonBody'
