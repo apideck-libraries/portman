@@ -138,7 +138,7 @@ Variation tests can be injected by using the following properties:
 
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
-- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, that the 1st response object will be taken. If the configured response object code is not defined in the OpenAPI document, Portman will not generate a variation.
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured `openApiResponse` code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
 
 - **variations (Array )** : References to list of a variations that will be injected
 
