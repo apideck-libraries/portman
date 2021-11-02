@@ -267,6 +267,12 @@
                 "remove": {
                   "type": "boolean"
                 },
+                "insert": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string"
+                },
                 "value": {
                   "type": [
                     "string",
@@ -331,6 +337,12 @@
                 },
                 "remove": {
                   "type": "boolean"
+                },
+                "insert": {
+                  "type": "boolean"
+                },
+                "description": {
+                  "type": "string"
                 },
                 "value": {
                   "type": [

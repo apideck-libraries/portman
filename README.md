@@ -435,8 +435,10 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
-  - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman
-  - **remove (Boolean true/false | Default: false)** : Removes the request query param
+  - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman.
+  - **remove (Boolean true/false | Default: false)** : Removes the targeted request query param from Postman.
+  - **insert (Boolean true/false | Default: true)** : Insert additional the request query param in Postman that are not present in OpenAPI.
+  - **description (String)** : Overwrites the request query param description in Postman.
 
 - **overwriteRequestPathVariables (Array)** :
 
@@ -445,7 +447,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **key (String)** : The key that will be targeted in the request Path variables to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request path variable value OR attaches the value to the original request Path variable value.
-  - **remove (Boolean true/false | Default: false)** : Removes the request path variable
+  - **remove (Boolean true/false | Default: false)** : Removes the request path variable.
 
 - **overwriteRequestHeaders (Array)** :
 
@@ -454,7 +456,9 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **key (String)** : The key that will be targeted in the request Headers to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attaches the value to the original request header value.
-  - **remove (Boolean true/false | Default: false)** : Removes the request headers
+  - **remove (Boolean true/false | Default: false)** : Removes the targeted request headers from Postman.
+  - **insert (Boolean true/false | Default: true)** : Insert additional the request headers in Postman that are not present in OpenAPI.
+  - **description (String)** : Overwrites the request header description in Postman.
 
 - **overwriteRequestBody (Array)** :
 

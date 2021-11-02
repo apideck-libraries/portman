@@ -2,7 +2,7 @@ import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostm
 import { overwriteRequestHeaders } from '../../application'
 
 describe('overwriteRequestHeaders', () => {
-  it('should overwrite the request path variable', async () => {
+  it('should overwrite the request headers variable', async () => {
     const overwriteValues = [
       {
         key: 'x-apideck-app-id',
@@ -40,16 +40,58 @@ describe('overwriteRequestHeaders', () => {
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
-  it('should return unaltered if key not found', async () => {
+  it('should insert the request headers variable, if key not found', async () => {
     const overwriteValues = [
       {
-        key: 'not-a-header',
+        key: 'add-a-header',
         value: 'foo-bar-baz'
       }
     ]
 
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestHeaders(overwriteValues, pmOperation)
-    expect(result.item.request.getHeaders()).toEqual(pmOperation.item.request.getHeaders())
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should insert the request headers variable with true insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-header',
+        value: 'foo-bar-baz',
+        insert: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should skip the request headers variable with false insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-header',
+        value: 'foo-bar-baz',
+        insert: false
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should insert the request headers variable with description, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-header',
+        value: 'foo-bar-baz',
+        description: 'Additional header'
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 })
