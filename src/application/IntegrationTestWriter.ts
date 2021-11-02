@@ -1,5 +1,5 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
-import { IntegrationTestConfig } from 'src/types'
+import { IntegrationTestConfig, VariationConfig } from 'src/types'
 import { TestSuite, VariationWriter } from './'
 
 export class IntegrationTestWriter {
@@ -30,7 +30,10 @@ export class IntegrationTestWriter {
       variationFolderName: name
     })
 
-    operations.map(({ openApiOperationId, variations }) => {
+    operations.map(operation => {
+      const variations = (operation?.variations || []) as VariationConfig[]
+      const { openApiOperationId } = operation
+
       const pmOperation = testSuite.postmanParser.getOperationById(openApiOperationId)
 
       if (!pmOperation) return
@@ -45,7 +48,7 @@ export class IntegrationTestWriter {
           name: variationName
         })
 
-        variationWriter.injectVariations(operationVariation, oaOperation, variation)
+        variationWriter.injectVariations(operationVariation, oaOperation, variation, operation)
         variationWriter.addToFolder(operationVariation, variationWriter.variationFolder)
       })
     })

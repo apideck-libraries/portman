@@ -690,6 +690,9 @@
                     "openApiOperationId": {
                       "type": "string"
                     },
+                    "openApiResponse": {
+                      "type": "string"
+                    },
                     "variations": {
                       "items": {
                         "additionalProperties": false,
@@ -865,6 +868,9 @@
                   "type": "string"
                 },
                 "type": "array"
+              },
+              "openApiResponse": {
+                "type": "string"
               },
               "variations": {
                 "items": {

@@ -408,6 +408,15 @@ OasMappedOperation {
       },
     },
   ],
+  "responseCodes": Array [
+    "201",
+    "400",
+    "401",
+    "402",
+    "404",
+    "422",
+    "default",
+  ],
   "schema": Object {
     "description": "Create company",
     "operationId": "companiesAdd",

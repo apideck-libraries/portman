@@ -2,7 +2,12 @@ import { camelCase } from 'camel-case'
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
-import { OverwriteRequestConfig, VariationConfig } from '../types'
+import {
+  IntegrationTest,
+  OverwriteRequestConfig,
+  VariationConfig,
+  VariationTestConfig
+} from '../types'
 import { TestSuite } from './'
 
 export type VariationWriterOptions = {
@@ -31,9 +36,12 @@ export class VariationWriter {
   public add(
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation | null,
-    variations: VariationConfig[],
+    variation: VariationTestConfig,
     name?: string
   ): void {
+    const variations = (variation?.variations as VariationConfig[]) || []
+    const { ...variationMeta } = variation
+
     variations.map(variation => {
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
@@ -44,7 +52,7 @@ export class VariationWriter {
         name: variationName
       })
 
-      this.injectVariations(operationVariation, oaOperation, variation)
+      this.injectVariations(operationVariation, oaOperation, variation, variationMeta)
 
       this.addToLocalCollection(operationVariation, folderId, folderName)
     })
@@ -97,7 +105,8 @@ export class VariationWriter {
   injectVariations(
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation | null,
-    variation: VariationConfig
+    variation: VariationConfig,
+    variationMeta: VariationTestConfig | IntegrationTest | null
   ): void {
     const { overwrites, tests, assignVariables, operationPreRequestScripts } = variation
 
@@ -107,11 +116,18 @@ export class VariationWriter {
     }
 
     if (oaOperation && tests?.contractTests) {
+      // Set target OpenAPI response
+      let targetOaResponse = variation?.openApiResponse
+      if (!targetOaResponse && variationMeta?.openApiResponse) {
+        targetOaResponse = variationMeta.openApiResponse
+      }
+
+      // Generate contract tests
       this.testSuite.generateContractTests(
         [pmOperation],
         oaOperation,
         tests.contractTests,
-        variation?.openApiResponse
+        targetOaResponse
       )
     }
 

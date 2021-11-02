@@ -52,6 +52,7 @@ export type IntegrationTestConfig = {
 
 export type IntegrationTest = {
   openApiOperationId: string
+  openApiResponse?: string
   variations: VariationConfig[]
 }
 
@@ -60,6 +61,7 @@ export type VariationTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
+  openApiResponse?: string
   variations: VariationConfig[]
 }
 

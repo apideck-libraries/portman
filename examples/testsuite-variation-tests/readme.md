@@ -55,10 +55,10 @@ file: examples/testsuite-variation-tests/portman-config.crm.json
     "variationTests": [
       {
         "openApiOperationId": "leadsAdd",
+        "openApiResponse": "400",
         "variations": [
           {
             "name": "missingParams",
-            "openApiResponse": "400",
             "overwrites": [
               {
                 "overwriteRequestBody": [
@@ -138,6 +138,8 @@ Variation tests can be injected by using the following properties:
 
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured `openApiResponse` code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
+
 - **variations (Array )** : References to list of a variations that will be injected
 
   - **name** : allows you to define the name for the variation, which will be referenced in the Postman collection.
@@ -161,10 +163,10 @@ file: examples/testsuite-variation-tests/portman-config.crm.json >>
   "variationTests": [
       {
         "openApiOperationId": "leadsAdd",
+        "openApiResponse": "400",
         "variations": [
           {
             "name": "missingParams",
-            "openApiResponse": "400",
             "overwrites": [
               {
                 "verwriteRequestBody": [
@@ -181,7 +183,6 @@ file: examples/testsuite-variation-tests/portman-config.crm.json >>
                 {
                   "statusCode": {
                     "enabled": true,
-                    "code": 400
                   }
                 },
                 {
@@ -242,9 +243,10 @@ This will result in a Postman collection with:
 
 ```json
 "openApiOperationId": "leadsAdd",
+"openApiResponse": "400",
 ```
 
-We want to generate a variation specifically with `leadsApp` OpenAPI operation as the target.
+We want to generate a variation specifically with `leadsApp` OpenAPI operation as the target and verify if the response matches with the expected "400" reponse object, as defined in the OpenAPI document.
 
 ## overwrites
 
@@ -285,7 +287,6 @@ A variance support all test types:
                 {
                   "statusCode": {
                     "enabled": true,
-                    "code": 400
                   },
                   "jsonBody": {
                     "enabled": true
