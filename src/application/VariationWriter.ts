@@ -118,7 +118,7 @@ export class VariationWriter {
     if (oaOperation && tests?.contractTests) {
       // Set target OpenAPI response
       let targetOaResponse = variation?.openApiResponse
-      if (!variation?.openApiResponse && variationMeta?.openApiResponse) {
+      if (!targetOaResponse && variationMeta?.openApiResponse)
         targetOaResponse = variationMeta.openApiResponse
       }
 
