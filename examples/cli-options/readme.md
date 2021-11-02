@@ -1,13 +1,19 @@
 # Portman CLI options
 
-This example contains the setup of Portman where all the Portman CLI options are managed via a JSON file.
+This example contains the setup of Portman where all the Portman CLI options are managed via a JSON/YAML file.
 
 _use-case_: Run portman in CI/CD pipeline and pass the CLI options as part of a versioning system like GIT.
 
 ## CLI usage
 
+Portman CLI options settings in JSON format
 ```ssh
 portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
+```
+
+Portman CLI options settings in YAML format
+```ssh
+portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
 ```
 
 ## Portman CLI options settings

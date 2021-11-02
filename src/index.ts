@@ -8,6 +8,7 @@ import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
 import { promptInit } from './utils/promptInit'
+import yaml from 'yaml'
 
 require('dotenv').config()
 ;(async () => {
@@ -136,7 +137,12 @@ require('dotenv').config()
   if (options.cliOptionsFile) {
     try {
       const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
-      cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+      // Check if cliOptionsFile is YAML file
+      if (cliOptionsFilePath.includes('.yaml') || cliOptionsFilePath.includes('.yml')) {
+        cliOptions = yaml.parse(fs.readFileSync(cliOptionsFilePath, 'utf8'))
+      } else {
+        cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+      }
     } catch (err) {
       console.error(
         '\x1b[31m',
