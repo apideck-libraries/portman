@@ -2,13 +2,13 @@
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
 import fs from 'fs-extra'
-import { NewmanRunOptions } from 'newman'
 import path from 'path'
-import { PortmanOptions } from 'types'
 import yargs from 'yargs'
+import yaml from 'yaml'
+import { NewmanRunOptions } from 'newman'
+import { PortmanOptions } from 'types'
 import { Portman } from './Portman'
 import { promptInit } from './utils/promptInit'
-import yaml from 'yaml'
 
 require('dotenv').config()
 ;(async () => {

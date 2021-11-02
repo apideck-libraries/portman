@@ -225,7 +225,7 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 
 Portman CLI options settings in YAML format
 ```
-portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
+portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
 ```
 
 All the available Portman CLI options can be used in the config file.
