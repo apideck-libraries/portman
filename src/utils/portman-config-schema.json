@@ -445,7 +445,29 @@
                     "key": {
                       "type": "string"
                     },
-                    "value": {}
+                    "value": {},
+                    "contains": {
+                      "type": "string"
+                    },
+                    "length": {}
+                  },
+                  "required": ["key"],
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "responseHeaderTests": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "value": {},
+                    "contains": {
+                      "type": "string"
+                    },
+                    "length": {}
                   },
                   "required": ["key"],
                   "type": "object"
@@ -453,7 +475,6 @@
                 "type": "array"
               }
             },
-            "required": ["responseBodyTests"],
             "type": "object"
           },
           "type": "array"

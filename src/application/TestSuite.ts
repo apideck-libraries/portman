@@ -8,6 +8,7 @@ import {
   testResponseBodyContent,
   testResponseContentType,
   testResponseHeader,
+  testResponseHeaderContent,
   testResponseJsonBody,
   testResponseJsonSchema,
   testResponseStatusCode,
@@ -310,6 +311,10 @@ export class TestSuite {
         // check content of response body
         if (contentTest?.responseBodyTests) {
           testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
+        }
+        // check content of response header
+        if (contentTest?.responseHeaderTests) {
+          testResponseHeaderContent(contentTest.responseHeaderTests, pmOperation)
         }
       })
     })

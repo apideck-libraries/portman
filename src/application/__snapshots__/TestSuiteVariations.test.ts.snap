@@ -38653,7 +38653,8 @@ pm.test(\\"[POST]::/crm/leads - Content check if property 'resource' exists\\", 
 if (jsonData?.resource) {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
   pm.expect(jsonData.resource).to.eql(\\"leads\\");
-})};",
+})};
+",
                       "
 pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')

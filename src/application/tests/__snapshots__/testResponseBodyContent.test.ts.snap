@@ -15,7 +15,8 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].moneta
 if (jsonData?.data[0].monetary_amount) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '75000'\\", function() {
   pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);
-})};",
+})};
+",
 ]
 `;
 
@@ -34,7 +35,68 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].moneta
 if (jsonData?.data[0].monetary_amount) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '{{postman_env_variable}}'\\", function() {
   pm.expect(jsonData.data[0].monetary_amount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
-})};",
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & result contains pm variable value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have property \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should contain value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
+if (jsonData?.data[0].monetary_amount) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' contains '{{postman_env_variable}}'\\", function() {
+  pm.expect(jsonData.data[0].monetary_amount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & result contains value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have property \\"data[0].name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].name' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should contain value \\"Musk\\" for \\"data[0].name\\"
+if (jsonData?.data[0].name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].name' contains 'Musk'\\", function() {
+  pm.expect(jsonData.data[0].name).to.include(\\"Musk\\");
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & result has length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have property \\"data[0].description\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].description' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].description !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a length of \\"9\\" for \\"data[0].description\\"
+if (jsonData?.data[0].description) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data[0].description' has a length of '9'\\", function() {
+  pm.expect(jsonData.data[0].description).to.have.lengthOf(9);
+})};
+",
 ]
 `;
 
@@ -49,7 +111,6 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].moneta
    pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
 });
 ",
-  "",
 ]
 `;
 
@@ -68,7 +129,8 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].compan
 if (jsonData?.data[0].company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'true'\\", function() {
   pm.expect(jsonData.data[0].company_name).to.eql(true);
-})};",
+})};
+",
 ]
 `;
 
@@ -87,6 +149,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].compan
 if (jsonData?.data[0].company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
   pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
-})};",
+})};
+",
 ]
 `;

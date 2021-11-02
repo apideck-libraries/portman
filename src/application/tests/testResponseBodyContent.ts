@@ -10,6 +10,9 @@ export const testResponseBodyContent = (
     let pmJsonData = ''
     let pmTestKey = ''
     let pmTestValue = ''
+    let pmTestContains = ''
+    let pmTestLength = ''
+
     // Only set the jsonData once
     if (!pmOperation.testJsonDataInjected) {
       pmJsonData = [
@@ -49,12 +52,57 @@ export const testResponseBodyContent = (
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${check.key}' matches '${check.value}'", function() {\n`,
         `  pm.expect(jsonData.${check.key}).to.eql(${checkValue});\n`,
-        `})};`
+        `})};\n`
       ].join('')
     }
-    writeOperationTestScript(pmOperation, pmJsonData)
-    writeOperationTestScript(pmOperation, pmTestKey)
-    writeOperationTestScript(pmOperation, pmTestValue)
+
+    if (check.contains) {
+      let checkContains = check.contains
+      if (typeof check.contains === 'string') {
+        // Quote string value
+        checkContains = `"${check.contains}"`
+        // Get collection variables
+        if (check.contains.includes('{{') && check.contains.includes('}}')) {
+          checkContains = `pm.collectionVariables.get("${check.contains.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestContains = [
+        `// Response body should contain value "${check.contains}" for "${check.key}"\n`,
+        `if (jsonData?.${check.key}) {\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if value for '${check.key}' contains '${check.contains}'", function() {\n`,
+        `  pm.expect(jsonData.${check.key}).to.include(${checkContains});\n`,
+        `})};\n`
+      ].join('')
+    }
+
+    if (check.length) {
+      let checkLength = check.length
+      if (typeof check.length === 'string') {
+        // Quote string value
+        checkLength = `"${check.length}"`
+        // Get collection variables
+        if (check.length.includes('{{') && check.length.includes('}}')) {
+          checkLength = `pm.collectionVariables.get("${check.length.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestLength = [
+        `// Response body should have a length of "${check.length}" for "${check.key}"\n`,
+        `if (jsonData?.${check.key}) {\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if value of '${check.key}' has a length of '${check.length}'", function() {\n`,
+        `  pm.expect(jsonData.${check.key}).to.have.lengthOf(${checkLength});\n`,
+        `})};\n`
+      ].join('')
+    }
+
+    if (pmJsonData !== '') writeOperationTestScript(pmOperation, pmJsonData)
+    if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
+    if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
+    if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
+    if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
   })
 
   return pmOperation

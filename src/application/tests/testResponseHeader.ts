@@ -5,7 +5,7 @@ import { PostmanMappedOperation } from '../../postman'
 export const testResponseHeader = (
   headerName: string,
   pmOperation: PostmanMappedOperation,
-  _aOperation: OasMappedOperation
+  _aOperation: OasMappedOperation | null
 ): PostmanMappedOperation => {
   // Check - Response header check
   const pmTest: string = [

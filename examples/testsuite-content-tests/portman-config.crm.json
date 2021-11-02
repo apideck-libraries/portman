@@ -10,12 +10,31 @@
             "value": "Spacex"
           },
           {
+            "key": "data[0].name",
+            "contains": "Musk"
+          },
+          {
             "key": "data[0].monetary_amount",
             "value": 75000
           },
           {
+            "key": "data[0].description",
+            "length": 9
+          },
+          {
             "key": "resource",
             "value": "companies"
+          }
+        ]
+      },
+      {
+        "openApiOperationId": "leadsOne",
+        "responseHeaderTests": [
+          {
+            "key": "Operation-Location",
+            "value": "/operations/123",
+            "contains": "/operations/",
+            "length": 57
           }
         ]
       }

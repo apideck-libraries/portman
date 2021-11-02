@@ -42,6 +42,7 @@ export type ContentTestConfig = {
   openApiOperation?: string
   excludeForOperations?: string[]
   responseBodyTests: ResponseBodyTest[]
+  responseHeaderTests: ResponseHeaderTest[]
 }
 
 export type IntegrationTestConfig = {
@@ -75,6 +76,15 @@ export type VariationConfig = {
 export type ResponseBodyTest = {
   key: string
   value?: any
+  contains?: string
+  length?: any
+}
+
+export type ResponseHeaderTest = {
+  key: string
+  value?: any
+  contains?: string
+  length?: any
 }
 
 type OverwriteConfig = {
