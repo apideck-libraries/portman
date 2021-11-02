@@ -34,6 +34,20 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
 }
 ```
 
+./examples/cli-options/portman-cli-options.yaml >>
+
+```yaml
+local: ./examples/cli-options/crm.openapi.yml
+baseUrl: 'http://localhost:3050'
+output: ./examples/cli-options/crm.postman.json
+portmanConfigFile: ./examples/cli-options/portman-config.crm.json
+postmanConfigFile: ./examples/cli-options/postman-config.crm.json
+envFile: ./examples/cli-options/.lead.env
+includeTests: true
+syncPostman: false
+runNewman: false
+```
+
 ## Example explained
 
 In our example, we want to define all the CLI options upfront and store it in GIT, so that it can be executed in a CI/CD
