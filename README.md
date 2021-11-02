@@ -213,13 +213,19 @@ Portman configuration file in YAML format:
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.yaml -s ./common/postman-config.json
 ```
 
-- Pass all CLI options as JSON file
+- Pass all CLI options as JSON/YAML file
 
 All the CLI options can be managed in a separate configuration file and passed along to the portman command. This will
 make configuration easier, especially in CI/CD implementations.
 
+Portman CLI options settings in JSON format
 ```
 portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
+```
+
+Portman CLI options settings in YAML format
+```
+portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
 ```
 
 All the available Portman CLI options can be used in the config file.

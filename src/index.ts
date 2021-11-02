@@ -2,10 +2,11 @@
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
 import fs from 'fs-extra'
-import { NewmanRunOptions } from 'newman'
 import path from 'path'
-import { PortmanOptions } from 'types'
 import yargs from 'yargs'
+import yaml from 'yaml'
+import { NewmanRunOptions } from 'newman'
+import { PortmanOptions } from 'types'
 import { Portman } from './Portman'
 import { promptInit } from './utils/promptInit'
 
@@ -136,7 +137,12 @@ require('dotenv').config()
   if (options.cliOptionsFile) {
     try {
       const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
-      cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+      // Check if cliOptionsFile is YAML file
+      if (cliOptionsFilePath.includes('.yaml') || cliOptionsFilePath.includes('.yml')) {
+        cliOptions = yaml.parse(fs.readFileSync(cliOptionsFilePath, 'utf8'))
+      } else {
+        cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+      }
     } catch (err) {
       console.error(
         '\x1b[31m',
