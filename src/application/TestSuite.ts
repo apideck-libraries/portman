@@ -408,22 +408,4 @@ export class TestSuite {
 
     return this.postmanParser.mappedOperations
   }
-
-  // public temperRequest = (
-  //   pmOperations?: PostmanMappedOperation[],
-  //   oaOperation: OasMappedOperation,
-  //   overwriteSettings?: OverwriteRequestConfig[]
-  // ): PostmanMappedOperation[] => {
-  //   const settings = overwriteSettings || this.config.overwrites
-  //
-  //   if (!settings) return this.postmanParser.mappedOperations
-  //
-  //   settings.map(overwriteSetting => {
-  //     //Get Postman operations to apply overwrites to
-  //     const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
-  //     applyOverwrites(operations, overwriteSetting)
-  //   })
-  //
-  //   return this.postmanParser.mappedOperations
-  // }
 }
