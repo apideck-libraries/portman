@@ -1,7 +1,17 @@
-## vNext - (2021-xx-xx)
+## [Unreleased]
 
-- Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman.
-- Extended the overwriteRequestQueryParams capabilities with the option to insert new query params in Postman.
+- 
+- 
+
+## v1.10.0 - (2021-11-03)
+
+- Overwrites - Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman
+- Overwrites - Extended the overwriteRequestQueryParams capabilities with the option to insert new query params in Postman
+- ContentTest - Added new test type "requestHeader"
+- ContentTest - Extended the ContentTest for "requestBody" with checks : contains, length
+- ContentTest - Added the ContentTest for "requestHeader" with checks : key, value, contains, length
+- Variation Testing - Added the option to target the expected openApiResponse, skipping the variation if the response is not defined in OpenAPI
+- Added support for loading cliOptionsFile in YAML format
 
 ## v1.9.3 - (2021-10-20)
 
