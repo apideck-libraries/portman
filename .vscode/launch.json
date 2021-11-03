@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Localdeck",
+      "request": "launch",
+      "port": 9229,
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["dev"],
+      "skipFiles": ["<node_internals>/**", "node_modules/**"],
+      "type": "pwa-node"
+    },
+    {
+      "name": "Localdeck (Attach)",
+      "port": 9229,
+      "request": "attach",
+      "restart": {
+        "delay": 2000,
+        "maxAttempts": 10
+      },
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    },
+    {
+      "type": "pwa-node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "name": "Jest",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["--inspect", "./node_modules/.bin/jest", "--runInBand", "--watch"],
+      "console": "integratedTerminal",
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+    },
+    {
+      "name": "Jest (opened file)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "node",
+      "args": [
+        "./node_modules/.bin/jest",
+        "${fileBasenameNoExtension}",
+        "--runInBand",
+        "--no-cache",
+        "--watchAll"
+      ],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

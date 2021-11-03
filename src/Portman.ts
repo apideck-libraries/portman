@@ -22,7 +22,7 @@ import {
   DownloadService,
   IOpenApiToPostmanConfig,
   OpenApiToPostmanService,
-  PostmanApiService
+  PostmanSyncService
 } from './services'
 import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
@@ -500,193 +500,45 @@ export class Portman {
       portmanCollection,
       options: { syncPostman }
     } = this
+
+    if (!syncPostman) return
+
     const postmanUid = this.options?.postmanUid
       ? this.options.postmanUid
       : process.env.POSTMAN_COLLECTION_UID || ''
     const postmanWorkspaceName = this.options?.postmanWorkspaceName
       ? this.options.postmanWorkspaceName
       : process.env.POSTMAN_WORKSPACE_NAME || ''
+
     const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
-    const portmanCacheFile = './tmp/.portman.cache'
-    let portmanCache = {}
-    let remoteWorkspaceId: string | undefined
-    let remoteWorkspace: { id?: string; name?: string; type?: string }
-    const workspaceTarget = 'postman-workspace'
-    let respData = ''
-    let msgReason: string | undefined
-    let msgSolution: string | undefined
-    let reTry = false
 
-    if (syncPostman) {
-      const collName = portmanCollection?.info?.name as string
-      let collUid = collName // fallback
+    const postmanSyncService = new PostmanSyncService({
+      postmanUid,
+      postmanWorkspaceName,
+      portmanCollection
+    })
 
-      try {
-        const portmanCachePath = path.resolve(portmanCacheFile)
-        portmanCache = JSON.parse(fs.readFileSync(portmanCachePath, 'utf8').toString())
+    const response = await postmanSyncService.sync()
 
-        if (postmanWorkspaceName && portmanCache[workspaceTarget]) {
-          // Get remoteWorkspace from cache
-          remoteWorkspace = portmanCache[workspaceTarget]
-          // Set remoteWorkspaceId from cache
-          remoteWorkspaceId = remoteWorkspace?.id
-        } else {
-          // Remove invalid cache item
-          delete portmanCache[workspaceTarget]
-        }
-      } catch (err) {
-        // throw new Error(`Loading Portman cache failed.`)
-      }
+    // Process Postman API response as console output
+    const { status, data } = JSON.parse(response)
 
-      // Set remoteWorkspaceId from cache or by workspace name
-      if (postmanWorkspaceName) {
-        if (
-          !portmanCache[workspaceTarget] ||
-          (portmanCache && portmanCache[workspaceTarget] !== postmanWorkspaceName)
-        ) {
-          const postman = new PostmanApiService()
-          remoteWorkspace = (await postman.findWorkspaceByName(postmanWorkspaceName)) as Record<
-            string,
-            unknown
-          >
-          if (remoteWorkspace?.id) {
-            // Set remoteWorkspaceId from by workspace name
-            remoteWorkspaceId = remoteWorkspace.id
+    if (status === 'success') {
+      console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
+      console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
+    }
 
-            // Merge item data with cache
-            portmanCache = Object.assign({}, portmanCache, {
-              [workspaceTarget]: remoteWorkspace
-            })
-          }
-        }
-      }
+    if (status === 'fail') {
+      // if (msgReason) console.log(chalk`{red    -> Reason: } \t\t${msgReason}`)
+      // if (msgSolution) console.log(chalk`{red    -> Solution: } \t${msgSolution}`)
 
-      // Handle postmanUid from options
-      if (postmanUid) {
-        collUid = postmanUid
-        const postman = new PostmanApiService()
-        respData = await postman.updateCollection(portmanCollection, collUid, remoteWorkspaceId)
+      console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
+      console.log(chalk`{red    -> Postman UID: } \t${postmanSyncService.postmanUid}`)
 
-        msgReason = `Targeted Postman collection ID ${collUid} does not exist.`
-        msgSolution = `Review the collection ID defined for the 'postmanUid' setting.`
-
-        const { data } = JSON.parse(respData)
-        if (data?.error?.message) {
-          msgReason = data.error.message
-
-          if (data?.error?.name && data?.error?.name === 'instanceNotFoundError') {
-            msgReason += ` Targeted Postman collection ID ${collUid} does not exist.`
-          }
-        }
-      }
-
-      // Handle non-fixed postmanUid from cache or by collection name
-      if (!postmanUid) {
-        let remoteCollection = portmanCache[collName] as Record<string, unknown>
-
-        if (!portmanCache[collName]) {
-          if (remoteWorkspaceId) {
-            // Get collection from specific Workspace
-            const postman = new PostmanApiService()
-            remoteCollection = (await postman.findWorkspaceCollectionByName(
-              remoteWorkspaceId,
-              collName
-            )) as Record<string, unknown>
-          } else {
-            // Get all collections
-            const postman = new PostmanApiService()
-            remoteCollection = (await postman.findCollectionByName(collName)) as Record<
-              string,
-              unknown
-            >
-          }
-        }
-
-        if (remoteCollection?.uid) {
-          // Update collection by Uid
-          const postman = new PostmanApiService()
-          respData = await postman.updateCollection(
-            portmanCollection,
-            remoteCollection.uid as string,
-            remoteWorkspaceId
-          )
-          const { status, data } = JSON.parse(respData)
-
-          // Update cache
-          if (status === 'fail') {
-            // Remove invalid cache item
-            delete portmanCache[collName]
-          } else {
-            // Merge item data with cache
-            portmanCache = Object.assign({}, portmanCache, {
-              [collName]: {
-                name: collName,
-                uid: data?.collection?.uid
-              }
-            })
-          }
-          // Write portman cache
-          try {
-            const portmanCacheStr = JSON.stringify(portmanCache, null, 2)
-            fs.writeFileSync(portmanCacheFile, portmanCacheStr, 'utf8')
-          } catch (err) {
-            // skip writing file, continue
-          }
-
-          // Restart on invalid Postman Uid and use Postman name as sync identifier
-          if (status === 'fail') {
-            reTry = true
-            await this.syncCollectionToPostman()
-          }
-        } else {
-          // Create collection
-          const postman = new PostmanApiService()
-          respData = await postman.createCollection(portmanCollection, remoteWorkspaceId)
-          const { status, data } = JSON.parse(respData)
-
-          // Update cache
-          if (status === 'success') {
-            // Merge item data with cache
-            portmanCache = Object.assign({}, portmanCache, {
-              [collName]: {
-                name: collName,
-                uid: data?.collection?.uid
-              }
-            })
-
-            // Write portman cache
-            try {
-              const portmanCacheStr = JSON.stringify(portmanCache, null, 2)
-              fs.writeFileSync(portmanCacheFile, portmanCacheStr, 'utf8')
-            } catch (err) {
-              // skip writing file, continue
-            }
-          }
-        }
-      }
-
-      if (respData && !reTry) {
-        // Process Postman API response as console output
-        const { status, data } = JSON.parse(respData)
-
-        if (status === 'success') {
-          console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
-          console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
-        }
-
-        if (status === 'fail') {
-          if (msgReason) console.log(chalk`{red    -> Reason: } \t\t${msgReason}`)
-          if (msgSolution) console.log(chalk`{red    -> Solution: } \t${msgSolution}`)
-
-          console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
-          console.log(chalk`{red    -> Postman UID: } \t${collUid}`)
-
-          console.log(data?.error)
-          console.log(`\n`)
-          console.log(chalk.red(consoleLine))
-          process.exit(1)
-        }
-      }
+      console.log(data?.error)
+      console.log(`\n`)
+      console.log(chalk.red(consoleLine))
+      process.exit(1)
     }
   }
 }

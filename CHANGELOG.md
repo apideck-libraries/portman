@@ -1,9 +1,8 @@
 ## [Unreleased]
 
-- 
-- 
+-
 
-## v1.10.0 - (Unreleased)
+## v1.10.0 - (2021-11-03)
 
 - Overwrites - Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman
 - Overwrites - Extended the overwriteRequestQueryParams capabilities with the option to insert new query params in Postman
@@ -45,7 +44,7 @@
 
 - Code rebuild of missing fix for unwanted maxItems (#133)
 - Handle array for assign responseBodyProp (#134)
-- Documented  "operationPreRequestScripts" properties in the readme
+- Documented "operationPreRequestScripts" properties in the readme
 
 ## v1.8.1 - (2021-09-02)
 
