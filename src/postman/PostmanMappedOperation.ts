@@ -18,6 +18,7 @@ export class PostmanMappedOperation {
   public pathParams: Record<string, unknown>
   public testJsonDataInjected: boolean
   public item: Item
+  public postmanItemId?: string
 
   constructor(options: PostmanMappedOperationOptions) {
     const { item, operationIdMap, id } = options
@@ -45,6 +46,8 @@ export class PostmanMappedOperation {
       !id && operationIdMap && operationIdMap[this.pathRef]?.id
         ? operationIdMap[this.pathRef]?.id
         : (id as string)
+
+    this.postmanItemId = item?.id as string
 
     this.testJsonDataInjected = false
   }

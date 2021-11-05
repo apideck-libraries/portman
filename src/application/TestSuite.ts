@@ -27,7 +27,10 @@ import {
   IntegrationTestConfig,
   OperationPreRequestScriptConfig,
   OverwriteRequestConfig,
+  pmRequestType,
   PortmanConfig,
+  PortmanRequestTypes,
+  PortmanTestSuite,
   ResponseTime,
   StatusCode,
   TestSuiteOptions,
@@ -52,11 +55,13 @@ export class TestSuite {
   extendTests?: ExtendTestsConfig[]
 
   pmResponseJsonVarInjected: boolean
+  pmRequestTypes: pmRequestType[]
 
   constructor(options: TestSuiteOptions) {
     const { oasParser, postmanParser, config } = options
 
     this.pmResponseJsonVarInjected = false
+    this.pmRequestTypes = []
 
     this.oasParser = oasParser
     this.postmanParser = postmanParser
@@ -92,6 +97,21 @@ export class TestSuite {
         // Get OpenApi responses
         const operation = oaOperation || this.oasParser.getOperationByPath(pmOperation.pathRef)
 
+        // Build request type
+        const registerPm = {
+          postmanItemId: pmOperation.item.id,
+          postmanName: pmOperation.item.name,
+          requestType: PortmanRequestTypes.contract
+        } as pmRequestType
+
+        // Set/Update pmOperation request type
+        const idx = this.pmRequestTypes.findIndex(x => x.postmanItemId == registerPm.postmanItemId)
+        if (idx === -1) {
+          this.pmRequestTypes.push(registerPm)
+        } else {
+          this.pmRequestTypes[idx] = registerPm
+        }
+
         if (operation) {
           // Inject response tests
           this.injectContractTests(pmOperation, operation, contractTest, openApiResponseCode)
@@ -112,6 +132,22 @@ export class TestSuite {
         // Get OpenApi operation
         const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
 
+        // Build request type
+        const registerPm = {
+          postmanItemId: pmOperation.item.id,
+          postmanName: pmOperation.item.name,
+          requestType: PortmanRequestTypes.variation
+        } as pmRequestType
+
+        // Set/Update pmOperation request type
+        const idx = this.pmRequestTypes.findIndex(x => x.postmanItemId == registerPm.postmanItemId)
+        if (idx === -1) {
+          this.pmRequestTypes.push(registerPm)
+        } else {
+          this.pmRequestTypes[idx] = registerPm
+        }
+
+        // Insert variation
         if (!variationTest.openApiResponse) {
           // No targeted openApiResponse configured, generate a variation based on the 1st response object
           this.variationWriter.add(pmOperation, oaOperation, variationTest)
@@ -301,6 +337,7 @@ export class TestSuite {
         }
       }
     }
+
     return pmOperation
   }
 

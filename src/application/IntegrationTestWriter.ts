@@ -1,5 +1,10 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
-import { IntegrationTestConfig, VariationConfig } from 'src/types'
+import {
+  IntegrationTestConfig,
+  VariationConfig,
+  PortmanRequestTypes,
+  pmRequestType
+} from '../types'
 import { TestSuite, VariationWriter } from './'
 
 export class IntegrationTestWriter {
@@ -40,6 +45,24 @@ export class IntegrationTestWriter {
 
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
+      // Build request type
+      const registerPm = {
+        postmanItemId: pmOperation.item.id,
+        postmanName: pmOperation.item.name,
+        requestType: PortmanRequestTypes.integration
+      } as pmRequestType
+
+      // Set/Update pmOperation request type
+      const idx = this.testSuite.pmRequestTypes.findIndex(
+        x => x.postmanItemId == registerPm.postmanItemId
+      )
+      if (idx === -1) {
+        this.testSuite.pmRequestTypes.push(registerPm)
+      } else {
+        this.testSuite.pmRequestTypes[idx] = registerPm
+      }
+
+      // Handle integration variations
       variations.map(variation => {
         const variationName = variation.name
 
