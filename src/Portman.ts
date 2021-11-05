@@ -371,6 +371,7 @@ export class Portman {
     // map back over settings and get all operation ids that have contract tests
     pmOperationsWithContractTest = this.testSuite.pmRequestTypes
       .filter(obj => obj.requestType !== PortmanRequestTypes.contract)
+      // .filter(obj => obj.requestType === PortmanRequestTypes.contract)
       .map(obj => obj.postmanItemId)
 
     // create contract test folder
