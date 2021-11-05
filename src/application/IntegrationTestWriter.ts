@@ -45,23 +45,6 @@ export class IntegrationTestWriter {
 
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
-      // Build request type
-      const registerPm = {
-        postmanItemId: pmOperation.item.id,
-        postmanName: pmOperation.item.name,
-        requestType: PortmanRequestTypes.integration
-      } as pmRequestType
-
-      // Set/Update pmOperation request type
-      const idx = this.testSuite.pmRequestTypes.findIndex(
-        x => x.postmanItemId == registerPm.postmanItemId
-      )
-      if (idx === -1) {
-        this.testSuite.pmRequestTypes.push(registerPm)
-      } else {
-        this.testSuite.pmRequestTypes[idx] = registerPm
-      }
-
       // Handle integration variations
       variations.map(variation => {
         const variationName = variation.name
@@ -70,6 +53,23 @@ export class IntegrationTestWriter {
           newId: `${variationName}-${Math.random()}`,
           name: variationName
         })
+
+        // Build request type
+        const registerPm = {
+          postmanItemId: operationVariation.item.id,
+          postmanName: operationVariation.item.name,
+          requestType: PortmanRequestTypes.integration
+        } as pmRequestType
+
+        // Set/Update pmOperation request type
+        const idx = this.testSuite.pmRequestTypes.findIndex(
+          x => x.postmanItemId == registerPm.postmanItemId
+        )
+        if (idx === -1) {
+          this.testSuite.pmRequestTypes.push(registerPm)
+        } else {
+          this.testSuite.pmRequestTypes[idx] = registerPm
+        }
 
         variationWriter.injectVariations(operationVariation, oaOperation, variation, operation)
         variationWriter.addToFolder(operationVariation, variationWriter.variationFolder)

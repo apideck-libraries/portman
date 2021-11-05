@@ -363,23 +363,41 @@ export class Portman {
 
   moveContractTestsToFolder(): void {
     if (!this.options.bundleContractTests) return
-
-    let pmOperationsWithContractTest: (string | undefined)[] = []
     const tests = this.testSuite.contractTests
     if (!tests) return
 
+    let pmOpsWithContractTest: (string | undefined)[] = []
+    // const pmOpsNonContractTest = this.testSuite.pmRequestTypes.map(obj => obj.postmanItemId)
+
     // map back over settings and get all operation ids that have contract tests
-    pmOperationsWithContractTest = this.testSuite.pmRequestTypes
-      .filter(obj => obj.requestType !== PortmanRequestTypes.contract)
-      // .filter(obj => obj.requestType === PortmanRequestTypes.contract)
+    pmOpsWithContractTest = this.testSuite.pmRequestTypes
+      .filter(obj => obj.requestType === PortmanRequestTypes.contract)
       .map(obj => obj.postmanItemId)
 
-    // create contract test folder
+    // tests.map(contractTest => {
+    //   const operations = this.testSuite.getOperationsFromSetting(contractTest)
+    //   operations.map(pmOperation => {
+    //     pmOpsWithContractTest.push(pmOperation.item.id)
+    //   })
+    // })
+
+    // Unique ids only
+    // pmOpsWithContractTest = Array.from(new Set(pmOpsWithContractTest))
+
+    // Remove non-contract tests
+    // pmOpsWithContractTest = pmOpsWithContractTest.filter(el => !pmOpsNonContractTest.includes(el))
+
+    // Create contract test folder
     const contractTestFolder = new ItemGroup({
       name: `Contract Tests`
     }) as ItemGroup<Item>
 
-    pmOperationsWithContractTest.map(id => {
+    // const pmItems =
+    //   this.portmanCollection.item
+    //     ?.filter(obj => obj.name !== 'Variation Tests' && obj.name !== 'Integration Tests')
+    //     .map(obj => obj.id) || []
+
+    pmOpsWithContractTest.map(id => {
       const pmOperation = this.postmanParser.getOperationByItemId(id)
       let target: ItemGroup<Item>
 

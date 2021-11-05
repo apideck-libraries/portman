@@ -30,7 +30,6 @@ import {
   pmRequestType,
   PortmanConfig,
   PortmanRequestTypes,
-  PortmanTestSuite,
   ResponseTime,
   StatusCode,
   TestSuiteOptions,
@@ -108,8 +107,6 @@ export class TestSuite {
         const idx = this.pmRequestTypes.findIndex(x => x.postmanItemId == registerPm.postmanItemId)
         if (idx === -1) {
           this.pmRequestTypes.push(registerPm)
-        } else {
-          this.pmRequestTypes[idx] = registerPm
         }
 
         if (operation) {
@@ -131,21 +128,6 @@ export class TestSuite {
       pmOperations.map(pmOperation => {
         // Get OpenApi operation
         const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
-
-        // Build request type
-        const registerPm = {
-          postmanItemId: pmOperation.item.id,
-          postmanName: pmOperation.item.name,
-          requestType: PortmanRequestTypes.variation
-        } as pmRequestType
-
-        // Set/Update pmOperation request type
-        const idx = this.pmRequestTypes.findIndex(x => x.postmanItemId == registerPm.postmanItemId)
-        if (idx === -1) {
-          this.pmRequestTypes.push(registerPm)
-        } else {
-          this.pmRequestTypes[idx] = registerPm
-        }
 
         // Insert variation
         if (!variationTest.openApiResponse) {
