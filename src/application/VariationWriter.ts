@@ -189,12 +189,7 @@ export class VariationWriter {
           const newVariation = JSON.parse(JSON.stringify(clonedVariation))
           if (!newVariation?.overwrites) newVariation.overwrites = []
           const fuzzRequestBody = { key: requiredField, remove: true } as OverwriteRequestBodyConfig
-          const idx = newVariation.overwrites.findIndex(obj => obj.overwriteRequestBody)
-          if (idx === -1) {
-            newVariation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
-          } else {
-            newVariation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
-          }
+          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
 
           this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
           this.addToLocalCollection(operationVariation, folderId, folderName)
@@ -237,7 +232,7 @@ export class VariationWriter {
             name: variationFuzzName
           })
 
-          // Change the minimum value from Postman the request body
+          // Change the value of the Postman request body
           const newVariation = JSON.parse(JSON.stringify(clonedVariation))
           if (!newVariation?.overwrites) newVariation.overwrites = []
           const fuzzRequestBody = {
@@ -245,12 +240,7 @@ export class VariationWriter {
             value: numberVal,
             overwrite: true
           } as OverwriteRequestBodyConfig
-          const idx = newVariation.overwrites.findIndex(obj => obj.overwriteRequestBody)
-          if (idx === -1) {
-            newVariation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
-          } else {
-            newVariation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
-          }
+          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
 
           this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
           this.addToLocalCollection(operationVariation, folderId, folderName)
@@ -293,7 +283,7 @@ export class VariationWriter {
             name: variationFuzzName
           })
 
-          // Change the maximum value from Postman the request body
+          // Change the value of the Postman request body
           const newVariation = JSON.parse(JSON.stringify(clonedVariation))
           if (!newVariation?.overwrites) newVariation.overwrites = []
           const fuzzRequestBody = {
@@ -301,12 +291,7 @@ export class VariationWriter {
             value: numberVal,
             overwrite: true
           } as OverwriteRequestBodyConfig
-          const idx = newVariation.overwrites.findIndex(obj => obj.overwriteRequestBody)
-          if (idx === -1) {
-            newVariation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
-          } else {
-            newVariation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
-          }
+          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
 
           this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
           this.addToLocalCollection(operationVariation, folderId, folderName)
@@ -361,7 +346,7 @@ export class VariationWriter {
             name: variationFuzzName
           })
 
-          // Change the minimum value from Postman the request body
+          // Change the length of the Postman the request body
           const newVariation = JSON.parse(JSON.stringify(clonedVariation))
           if (!newVariation?.overwrites) newVariation.overwrites = []
           const fuzzRequestBody = {
@@ -369,12 +354,7 @@ export class VariationWriter {
             value: field.value,
             overwrite: true
           } as OverwriteRequestBodyConfig
-          const idx = newVariation.overwrites.findIndex(obj => obj.overwriteRequestBody)
-          if (idx === -1) {
-            newVariation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
-          } else {
-            newVariation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
-          }
+          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
 
           this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
           this.addToLocalCollection(operationVariation, folderId, folderName)
@@ -430,7 +410,7 @@ export class VariationWriter {
             name: variationFuzzName
           })
 
-          // Change the minimum value from Postman the request body
+          // Change the length of the Postman the request body
           const newVariation = JSON.parse(JSON.stringify(clonedVariation))
           if (!newVariation?.overwrites) newVariation.overwrites = []
           const fuzzRequestBody = {
@@ -438,12 +418,7 @@ export class VariationWriter {
             value: field.value,
             overwrite: true
           } as OverwriteRequestBodyConfig
-          const idx = newVariation.overwrites.findIndex(obj => obj.overwriteRequestBody)
-          if (idx === -1) {
-            newVariation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
-          } else {
-            newVariation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
-          }
+          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
 
           this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
           this.addToLocalCollection(operationVariation, folderId, folderName)
@@ -500,6 +475,24 @@ export class VariationWriter {
     })
 
     return fuzzItems
+  }
+
+  /**
+   * Add an OverwriteRequestBodyConfig to a variation
+   * @param variation
+   * @param fuzzRequestBody
+   */
+  public addOverwriteRequestBody(
+    variation: VariationConfig,
+    fuzzRequestBody: OverwriteRequestBodyConfig
+  ): VariationConfig {
+    const idx = variation.overwrites.findIndex(obj => obj.overwriteRequestBody)
+    if (idx === -1) {
+      variation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
+    } else {
+      variation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
+    }
+    return variation
   }
 
   injectVariations(
