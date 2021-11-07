@@ -221,12 +221,30 @@ export type TestConfig = {
   integrationTests?: IntegrationTestConfig[]
 }
 
+type fuzzingSchemaItem = {
+  path: string
+  field?: string
+  value: string | number
+}
+
+export type FuzzingSchemaItems = {
+  requiredFields?: string[]
+  minimumNumberFields?: fuzzingSchemaItem[]
+  maximumNumberFields?: fuzzingSchemaItem[]
+  minLengthFields?: fuzzingSchemaItem[]
+  maxLengthFields?: fuzzingSchemaItem[]
+}
+
 type fuzzingOptions = {
   enabled: boolean
 }
 
 export type fuzzRequestBody = {
-  requiredFields: fuzzingOptions
+  requiredFields?: fuzzingOptions
+  minimumNumberFields?: fuzzingOptions
+  maximumNumberFields?: fuzzingOptions
+  minLengthFields?: fuzzingOptions
+  maxLengthFields?: fuzzingOptions
 }
 
 export type fuzzingConfig = {

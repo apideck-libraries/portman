@@ -158,6 +158,8 @@ components:
           type: string
           example: Elon
           nullable: true
+          minLength: 1
+          maxLength: 10
         middle_name:
           type: string
           example: D.

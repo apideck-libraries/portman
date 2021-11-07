@@ -74,6 +74,18 @@
                 "requestBody": {
                   "requiredFields": {
                     "enabled": true
+                  },
+                  "minimumNumberFields": {
+                    "enabled": true
+                  },
+                  "maximumNumberFields": {
+                    "enabled": true
+                  },
+                  "minLengthFields": {
+                    "enabled": true
+                  },
+                  "maxLengthFields": {
+                    "enabled": true
                   }
                 }
               }

@@ -45,6 +45,7 @@
     "@types/node-emoji": "^1.8.1",
     "@types/node-fetch": "^2.5.10",
     "@types/postman-collection": "^3.5.5",
+    "@types/traverse": "^0.6.32",
     "@types/yargs": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
@@ -84,6 +85,7 @@
     "postman-collection": "4.1.0",
     "prompts": "^2.4.1",
     "replace-in-file": "^6.2.0",
+    "traverse": "^0.6.6",
     "yaml": "^1.10.2",
     "yargs": "^17.0.1"
   },
