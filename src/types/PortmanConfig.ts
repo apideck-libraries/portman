@@ -69,6 +69,7 @@ export type VariationConfig = {
   name: string
   openApiResponse?: string
   overwrites?: any
+  fuzzing?: fuzzingConfig[]
   tests: any
   assignVariables?: AssignVariablesConfig[]
   extendTests?: ExtendTestsConfig[]
@@ -218,6 +219,18 @@ export type TestConfig = {
   extendTests?: ExtendTestsConfig[]
   variationTests?: VariationTestConfig[]
   integrationTests?: IntegrationTestConfig[]
+}
+
+type fuzzingOptions = {
+  enabled: boolean
+}
+
+export type fuzzRequestBody = {
+  requiredFields: fuzzingOptions
+}
+
+export type fuzzingConfig = {
+  requestBody?: fuzzRequestBody
 }
 
 /**

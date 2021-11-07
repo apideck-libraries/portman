@@ -219,6 +219,26 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
+  it('should check example testsuite fuzzing tests', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-fuzzing-tests/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: options.portmanConfigFile,
+      postmanConfigPath: postmanOptionsFilePath
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
   it('should check example testsuite variation tests', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve(

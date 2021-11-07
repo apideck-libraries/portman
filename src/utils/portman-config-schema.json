@@ -787,6 +787,34 @@
                             },
                             "type": "array"
                           },
+                          "fuzzing": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "requestBody": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "requiredFields": {
+                                      "additionalProperties": false,
+                                      "properties": {
+                                        "enabled": {
+                                          "type": "boolean"
+                                        }
+                                      },
+                                      "required": [
+                                        "enabled"
+                                      ],
+                                      "type": "object"
+                                    }
+                                  },
+                                  "required": [],
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
                           "name": {
                             "type": "string"
                           },
@@ -962,6 +990,34 @@
                           }
                         },
                         "required": ["tests"],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "fuzzing": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "requestBody": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "requiredFields": {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "enabled": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "enabled"
+                                ],
+                                "type": "object"
+                              }
+                            },
+                            "required": [],
+                            "type": "object"
+                          }
+                        },
                         "type": "object"
                       },
                       "type": "array"
