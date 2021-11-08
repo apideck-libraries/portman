@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import newman, { NewmanRunOptions } from 'newman'
 import path from 'path'
 
-export const runNewmanWith = (
+export const runNewmanWith = async (
   postmanCollectionFile: string,
   newmanEnvFile: string,
   newmanDataFile: string | undefined,

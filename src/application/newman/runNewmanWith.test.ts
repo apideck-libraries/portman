@@ -11,7 +11,7 @@ describe('runNewmanWith', () => {
   const newmanEnvFile = '__tests__/fixtures/crmApi-env.json'
   const postmanFile = '__tests__/fixtures/crm.postman.json'
 
-  it('should call newman with options', () => {
+  it('should call newman with options', async () => {
     const runSpy = jest.spyOn(newman, 'run')
 
     runNewmanWith(postmanFile, newmanEnvFile, undefined, {})
