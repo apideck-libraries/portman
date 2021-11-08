@@ -88,6 +88,25 @@
                     "enabled": true
                   }
                 }
+              },
+              {
+                "requestQueryParams": {
+                  "requiredFields": {
+                    "enabled": true
+                  },
+                  "minimumNumberFields": {
+                    "enabled": true
+                  },
+                  "maximumNumberFields": {
+                    "enabled": true
+                  },
+                  "minLengthFields": {
+                    "enabled": true
+                  },
+                  "maxLengthFields": {
+                    "enabled": true
+                  }
+                }
               }
             ],
             "tests": {
@@ -99,72 +118,6 @@
                 }
               ]
             }
-          }
-        ]
-      },
-      {
-        "openApiOperationId": "leadsAdd",
-        "openApiResponse": "400",
-        "variations": [
-          {
-            "name": "missingParams",
-            "overwrites": [
-              {
-                "overwriteRequestBody": [
-                  {
-                    "key": "first_name",
-                    "value": "",
-                    "overwrite": true
-                  }
-                ]
-              }
-            ],
-            "tests": {
-              "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true
-                  }
-                },
-                {
-                  "jsonBody": {
-                    "enabled": true
-                  }
-                },
-                {
-                  "schemaValidation": {
-                    "enabled": true
-                  }
-                }
-              ],
-              "contentTests": [
-                {
-                  "responseBodyTests": [
-                    {
-                      "key": "resource",
-                      "value": "leads"
-                    }
-                  ]
-                }
-              ],
-              "extendTests": [
-                {
-                  "tests": [
-                    "\npm.test('say hello Portman', function(){ \n  console.log('Hello Portman')\n});"
-                  ]
-                }
-              ]
-            },
-            "assignVariables": [
-              {
-                "collectionVariables": [
-                  {
-                    "responseBodyProp": "data[0].id",
-                    "name": "missingParams.id"
-                  }
-                ]
-              }
-            ]
           }
         ]
       }

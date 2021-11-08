@@ -4,7 +4,9 @@ import { PostmanMappedOperation } from '../postman'
 import {
   FuzzingSchemaItems,
   IntegrationTest,
+  OverwriteQueryParamConfig,
   OverwriteRequestBodyConfig,
+  PortmanFuzzTypes,
   VariationConfig,
   VariationTestConfig
 } from '../types'
@@ -30,7 +32,7 @@ export class Fuzzer {
     this.fuzzVariations = []
   }
 
-  public injectFuzzVariations(
+  public injectFuzzRequestBodyVariations(
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation | null,
     variation: VariationConfig,
@@ -46,7 +48,7 @@ export class Fuzzer {
     // Analyse JSON schema
     const reqBody = oaOperation?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
     const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
-    const fuzzItems = this.analyzeFuzzJsonSchema(schema) || {}
+    const fuzzItems = this.analyzeFuzzJsonSchema(schema)
 
     // Loop over all the fuzzing configurations
     fuzzingSet.map(fuzz => {
@@ -102,6 +104,79 @@ export class Fuzzer {
     })
   }
 
+  public injectFuzzRequestQueryParamsVariations(
+    pmOperation: PostmanMappedOperation,
+    oaOperation: OasMappedOperation | null,
+    variation: VariationConfig,
+    variationMeta: VariationTestConfig | IntegrationTest | null
+  ): void {
+    const fuzzingSet = variation?.fuzzing || []
+    // Early exit if no fuzzingSet defined
+    if (fuzzingSet.length === 0) return
+
+    // No request body defined
+    if (!oaOperation?.queryParams) return
+
+    // Analyse JSON schema
+    const reqQueryParams = oaOperation?.queryParams as unknown as OpenAPIV3.ParameterObject[]
+    reqQueryParams.map(queryParam => {
+      const fuzzItems = this.analyzeQuerySchema(queryParam)
+
+      // Loop over all the fuzzing configurations
+      fuzzingSet.map(fuzz => {
+        if (fuzz?.requestQueryParams?.requiredFields?.enabled === true) {
+          this.injectFuzzRequiredVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
+
+        if (fuzz?.requestQueryParams?.minimumNumberFields?.enabled === true) {
+          this.injectFuzzMinimumVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
+
+        if (fuzz?.requestQueryParams?.maximumNumberFields?.enabled === true) {
+          this.injectFuzzMaximumVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
+
+        if (fuzz?.requestQueryParams?.minLengthFields?.enabled === true) {
+          this.injectFuzzMinLengthVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
+
+        if (fuzz?.requestQueryParams?.maxLengthFields?.enabled === true) {
+          this.injectFuzzMaxLengthVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
+      })
+    })
+  }
+
   public injectFuzzRequiredVariation(
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation | null,
@@ -152,6 +227,11 @@ export class Fuzzer {
     // Early exit if no fuzzing fields detected
     const minimumNumberFields = fuzzItems?.minimumNumberFields || []
     if (minimumNumberFields.length === 0) return
+    if (
+      !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+    )
+      return
 
     const clonedVariation = JSON.parse(JSON.stringify(variation))
 
@@ -171,12 +251,24 @@ export class Fuzzer {
       // Change the value of the Postman request body
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
-      const fuzzRequestBody = {
-        key: field.path,
-        value: numberVal,
-        overwrite: true
-      } as OverwriteRequestBodyConfig
-      this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        const fuzzRequestBody = {
+          key: field.path,
+          value: numberVal,
+          overwrite: true
+        } as OverwriteRequestBodyConfig
+        this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        const fuzzQueryParam = {
+          key: field.path,
+          value: numberVal,
+          overwrite: true
+        } as unknown as OverwriteQueryParamConfig
+        this.addOverwriteRequestBody(newVariation, fuzzQueryParam)
+      }
 
       this.variationWriter.injectVariations(
         operationVariation,
@@ -200,6 +292,11 @@ export class Fuzzer {
     // Early exit if no fuzzing fields defined
     const maximumNumberFields = fuzzItems?.maximumNumberFields || []
     if (maximumNumberFields.length === 0) return
+    if (
+      !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+    )
+      return
 
     const clonedVariation = JSON.parse(JSON.stringify(variation))
 
@@ -219,12 +316,25 @@ export class Fuzzer {
       // Change the value of the Postman request body
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
-      const fuzzRequestBody = {
-        key: field.path,
-        value: numberVal,
-        overwrite: true
-      } as OverwriteRequestBodyConfig
-      this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        const fuzzRequestBody = {
+          key: field.path,
+          value: numberVal,
+          overwrite: true
+        } as OverwriteRequestBodyConfig
+        this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        const fuzzRequestQueryParam = {
+          key: field.path,
+          value: numberVal,
+          overwrite: true,
+          disable: true
+        } as unknown as OverwriteQueryParamConfig
+        this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
+      }
 
       this.variationWriter.injectVariations(
         operationVariation,
@@ -248,6 +358,11 @@ export class Fuzzer {
     // Early exit if no fuzzing fields detected
     const minLengthFields = fuzzItems?.minLengthFields || []
     if (minLengthFields.length === 0) return
+    if (
+      !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+    )
+      return
 
     const clonedVariation = JSON.parse(JSON.stringify(variation))
 
@@ -255,17 +370,27 @@ export class Fuzzer {
       // Set Pm request name
       const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum length ${field.field}]`
 
-      // Get request body value
-      const reqBodyObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
-      const reqBodyValue = getByPath(reqBodyObj, field.path)
-      // const reqBodyValueLength = reqBodyValue?.toString().length || 0
+      let reqObj, reqValue
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        // Get request body value
+        reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
+        reqValue = getByPath(reqObj, field.path)
+        // const reqValueLength = reqBodyValue?.toString().length || 0
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        // Get request query param value
+        reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
+        reqValue = getByPath(reqObj, field.path)
+        // const reqValueLength = reqBodyValue?.toString().length || 0
+      }
 
       // Change length of value
-      if (typeof reqBodyValue === 'number' && typeof field.value === 'number') {
-        field.value = reqBodyValue / (10 * field.value)
+      if (typeof reqValue === 'number' && typeof field.value === 'number') {
+        field.value = reqValue / (10 * field.value)
       }
-      if (typeof reqBodyValue === 'string' && typeof field.value === 'number') {
-        field.value = reqBodyValue.substring(0, field.value - 1)
+      if (typeof reqValue === 'string' && typeof field.value === 'number') {
+        field.value = reqValue.substring(0, field.value - 1)
       }
 
       const operationVariation = pmOperation.clone({
@@ -273,15 +398,27 @@ export class Fuzzer {
         name: variationFuzzName
       })
 
-      // Change the length of the Postman the request body
+      // Change the length of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
-      const fuzzRequestBody = {
-        key: field.path,
-        value: field.value,
-        overwrite: true
-      } as OverwriteRequestBodyConfig
-      this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        const fuzzRequestBody = {
+          key: field.path,
+          value: field.value,
+          overwrite: true
+        } as OverwriteRequestBodyConfig
+        this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        const fuzzRequestQueryParam = {
+          key: field.path,
+          value: field.value,
+          overwrite: true
+        } as OverwriteQueryParamConfig
+        this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
+      }
 
       this.variationWriter.injectVariations(
         operationVariation,
@@ -305,6 +442,11 @@ export class Fuzzer {
     // Early exit if no fuzzing fields detected
     const maxLengthFields = fuzzItems?.maxLengthFields || []
     if (maxLengthFields.length === 0) return
+    if (
+      !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+    )
+      return
 
     const clonedVariation = JSON.parse(JSON.stringify(variation))
 
@@ -312,17 +454,27 @@ export class Fuzzer {
       // Set Pm request name
       const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum length ${field.field}]`
 
-      // Get request body value
-      const reqBodyObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
-      const reqBodyValue = getByPath(reqBodyObj, field.path)
-      const reqBodyValueLength = reqBodyValue?.toString().length || 0
+      let reqObj, reqValue, reqValueLength
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        // Get request body value
+        reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
+        reqValue = getByPath(reqObj, field.path)
+        reqValueLength = reqValue?.toString().length || 0
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        // Get request body value
+        reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
+        reqValue = getByPath(reqObj, field.path)
+        reqValueLength = reqValue?.toString().length || 0
+      }
 
       // Change length of value
-      if (typeof reqBodyValue === 'number' && typeof field.value === 'number') {
-        field.value = reqBodyValue * (10 * (reqBodyValueLength - field.value))
+      if (reqValue && typeof reqValue === 'number' && typeof field.value === 'number') {
+        field.value = reqValue * (10 * (reqValueLength - field.value))
       }
-      if (typeof reqBodyValue === 'string') {
-        field.value = reqBodyValue + new Array(reqBodyValueLength + 1).join(reqBodyValue.charAt(0))
+      if (reqValue && typeof reqValue === 'string') {
+        field.value = reqValue + new Array(reqValueLength + 1).join(reqValue.charAt(0))
       }
 
       const operationVariation = pmOperation.clone({
@@ -330,15 +482,27 @@ export class Fuzzer {
         name: variationFuzzName
       })
 
-      // Change the length of the Postman the request body
+      // Change the length of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
-      const fuzzRequestBody = {
-        key: field.path,
-        value: field.value,
-        overwrite: true
-      } as OverwriteRequestBodyConfig
-      this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        const fuzzRequestBody = {
+          key: field.path,
+          value: field.value,
+          overwrite: true
+        } as OverwriteRequestBodyConfig
+        this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        const fuzzRequestQueryParam = {
+          key: field.path,
+          value: field.value,
+          overwrite: true
+        } as OverwriteQueryParamConfig
+        this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
+      }
 
       this.variationWriter.injectVariations(
         operationVariation,
@@ -354,16 +518,17 @@ export class Fuzzer {
 
   public analyzeFuzzJsonSchema(
     jsonSchema: OpenAPIV3.SchemaObject | undefined
-  ): FuzzingSchemaItems | void {
-    if (!jsonSchema) return
-
+  ): FuzzingSchemaItems | null {
     const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
       requiredFields: [],
       minimumNumberFields: [],
       maximumNumberFields: [],
       minLengthFields: [],
       maxLengthFields: []
     } as FuzzingSchemaItems
+
+    if (!jsonSchema) return fuzzItems
 
     fuzzItems.requiredFields = jsonSchema?.required || []
 
@@ -402,6 +567,58 @@ export class Fuzzer {
     return fuzzItems
   }
 
+  public analyzeQuerySchema(
+    queryParam: OpenAPIV3.ParameterObject | undefined
+  ): FuzzingSchemaItems | null {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestQueryParam,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    if (!queryParam?.schema || !queryParam.name) return fuzzItems
+
+    const schema = queryParam?.schema as OpenAPIV3.BaseSchemaObject
+
+    // Register all fuzz-able items
+    if (schema?.required) {
+      fuzzItems?.requiredFields?.push(queryParam.name)
+    }
+    if (schema?.minimum) {
+      fuzzItems?.minimumNumberFields?.push({
+        path: queryParam.name,
+        field: queryParam.name,
+        value: schema.minimum
+      })
+    }
+    if (schema?.maximum) {
+      fuzzItems?.maximumNumberFields?.push({
+        path: queryParam.name,
+        field: queryParam.name,
+        value: schema.maximum
+      })
+    }
+    if (schema?.minLength) {
+      fuzzItems?.minLengthFields?.push({
+        path: queryParam.name,
+        field: queryParam.name,
+        value: schema.minLength
+      })
+    }
+    if (schema?.maxLength) {
+      fuzzItems?.maxLengthFields?.push({
+        path: queryParam.name,
+        field: queryParam.name,
+        value: schema.maxLength
+      })
+    }
+
+    return fuzzItems
+  }
+
   /**
    * Add an OverwriteRequestBodyConfig to a variation
    * @param variation
@@ -416,6 +633,24 @@ export class Fuzzer {
       variation.overwrites.push({ overwriteRequestBody: [fuzzRequestBody] })
     } else {
       variation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
+    }
+    return variation
+  }
+
+  /**
+   * Add an OverwriteRequestBodyConfig to a variation
+   * @param variation
+   * @param fuzzRequestQueryParam
+   */
+  public addOverwriteRequestQueryParam(
+    variation: VariationConfig,
+    fuzzRequestQueryParam: OverwriteQueryParamConfig
+  ): VariationConfig {
+    const idx = variation.overwrites.findIndex(obj => obj.overwriteRequestQueryParams)
+    if (idx === -1) {
+      variation.overwrites.push({ overwriteRequestQueryParams: [fuzzRequestQueryParam] })
+    } else {
+      variation.overwrites[idx].overwriteRequestQueryParams.push(fuzzRequestQueryParam)
     }
     return variation
   }

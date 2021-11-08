@@ -227,7 +227,15 @@ type fuzzingSchemaItem = {
   value: string | number
 }
 
+export const PortmanFuzzTypes = {
+  requestBody: 'requestBody',
+  requestQueryParam: 'requestQueryParam'
+} as const
+
+export type PortmanFuzzType = typeof PortmanFuzzTypes[keyof typeof PortmanFuzzTypes]
+
 export type FuzzingSchemaItems = {
+  fuzzType: PortmanFuzzType
   requiredFields?: string[]
   minimumNumberFields?: fuzzingSchemaItem[]
   maximumNumberFields?: fuzzingSchemaItem[]
@@ -247,8 +255,17 @@ export type fuzzRequestBody = {
   maxLengthFields?: fuzzingOptions
 }
 
+export type fuzzRequestQueryParams = {
+  requiredFields?: fuzzingOptions
+  minimumNumberFields?: fuzzingOptions
+  maximumNumberFields?: fuzzingOptions
+  minLengthFields?: fuzzingOptions
+  maxLengthFields?: fuzzingOptions
+}
+
 export type fuzzingConfig = {
   requestBody?: fuzzRequestBody
+  requestQueryParams?: fuzzRequestQueryParams
 }
 
 /**

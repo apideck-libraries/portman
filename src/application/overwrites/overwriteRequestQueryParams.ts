@@ -18,9 +18,9 @@ export const overwriteRequestQueryParams = (
   // Early exit if request url query is not defined
   // if (!pmOperation.item?.request?.url?.query) return pmOperation
 
-  // Get all Postman Headers
+  // Get all Postman query params
   const queryKeys = pmOperation.item.request.url.query.map(({ key }) => key)
-  // Detect overwrite headers that do not exist in the Postman collection
+  // Detect overwrite query params that do not exist in the Postman collection
   const insertNewKeys = overwriteValues.filter(x => !queryKeys.includes(x.key))
 
   pmOperation.item.request.url.query.each(pmQueryParam => {

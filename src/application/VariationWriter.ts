@@ -54,8 +54,21 @@ export class VariationWriter {
       const fuzzingSet = variation.fuzzing
 
       if (fuzzingSet) {
-        // Generate new variation for each Fuzz
-        this.fuzzer.injectFuzzVariations(pmOperation, oaOperation, variation, variationMeta)
+        // Generate new variation for each Fuzz of the request body
+        this.fuzzer.injectFuzzRequestBodyVariations(
+          pmOperation,
+          oaOperation,
+          variation,
+          variationMeta
+        )
+
+        // Generate new variation for each Fuzz of the request query param
+        this.fuzzer.injectFuzzRequestQueryParamsVariations(
+          pmOperation,
+          oaOperation,
+          variation,
+          variationMeta
+        )
 
         // Inject fuzzed variations to the folder
         this.fuzzer.fuzzVariations.map(operationVariation => {
