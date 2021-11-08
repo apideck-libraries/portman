@@ -3,17 +3,13 @@ import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import {
-  FuzzingSchemaItems,
   IntegrationTest,
-  OverwriteRequestBodyConfig,
   OverwriteRequestConfig,
   VariationConfig,
   VariationTestConfig
 } from '../types'
-import traverse from 'traverse'
 import { TestSuite } from './'
-import { OpenAPIV3 } from 'openapi-types'
-import { getByPath } from '../utils'
+import { Fuzzer } from './Fuzzer'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -22,6 +18,7 @@ export type VariationWriterOptions = {
 
 export class VariationWriter {
   testSuite: TestSuite
+  fuzzer: Fuzzer
   public variationFolder: ItemGroup<Item>
   public variationCollection: Collection
   public operationFolders: Record<string, string>
@@ -47,6 +44,9 @@ export class VariationWriter {
     const variations = (variation?.variations as VariationConfig[]) || []
     const { ...variationMeta } = variation
 
+    // Inject Fuzz Variations
+    this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
+
     variations.map(variation => {
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
@@ -54,51 +54,13 @@ export class VariationWriter {
       const fuzzingSet = variation.fuzzing
 
       if (fuzzingSet) {
-        // Analyse JSON schema
-        const reqBody = oaOperation?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
-        const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
-        const fuzzItems = this.analyzeFuzzJsonSchema(schema) || {}
-
         // Generate new variation for each Fuzz
-        this.injectFuzzRequiredVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
+        this.fuzzer.injectFuzzVariations(pmOperation, oaOperation, variation, variationMeta)
 
-        this.injectFuzzMinimumVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-
-        this.injectFuzzMaximumVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-
-        this.injectFuzzMinLengthVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-
-        this.injectFuzzMaxLengthVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
+        // Inject fuzzed variations to the folder
+        this.fuzzer.fuzzVariations.map(operationVariation => {
+          this.addToLocalCollection(operationVariation, folderId, folderName)
+        })
       } else {
         // Normal variation
         const operationVariation = pmOperation.clone({
@@ -153,346 +115,6 @@ export class VariationWriter {
 
   public addToFolder(operationVariation: PostmanMappedOperation, folder: ItemGroup<Item>): void {
     folder.items.add(operationVariation.item)
-  }
-
-  public injectFuzzRequiredVariation(
-    pmOperation: PostmanMappedOperation,
-    oaOperation: OasMappedOperation | null,
-    variation: VariationConfig,
-    variationMeta: VariationTestConfig | IntegrationTest | null,
-    fuzzItems: FuzzingSchemaItems | null
-  ): void {
-    const fuzzingSet = variation?.fuzzing || []
-    // Early exit if no fuzzingSet defined
-    if (fuzzingSet.length === 0) return
-
-    // Early exit if no required fields defined
-    const requiredFields = fuzzItems?.requiredFields || []
-    if (requiredFields.length === 0) return
-
-    const folderId = pmOperation.getParentFolderId()
-    const folderName = pmOperation.getParentFolderName()
-    const clonedVariation = JSON.parse(JSON.stringify(variation))
-
-    fuzzingSet.map(fuzz => {
-      if (fuzz?.requestBody?.requiredFields?.enabled === true) {
-        requiredFields.forEach(requiredField => {
-          // Set Pm request name
-          const variationFuzzName = `${pmOperation.item.name}[${variation.name}][required ${requiredField}]`
-
-          const operationVariation = pmOperation.clone({
-            newId: camelCase(variationFuzzName),
-            name: variationFuzzName
-          })
-
-          // Remove requiredField from Postman operation
-          const newVariation = JSON.parse(JSON.stringify(clonedVariation))
-          if (!newVariation?.overwrites) newVariation.overwrites = []
-          const fuzzRequestBody = { key: requiredField, remove: true } as OverwriteRequestBodyConfig
-          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
-
-          this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        })
-      }
-    })
-  }
-
-  public injectFuzzMinimumVariation(
-    pmOperation: PostmanMappedOperation,
-    oaOperation: OasMappedOperation | null,
-    variation: VariationConfig,
-    variationMeta: VariationTestConfig | IntegrationTest | null,
-    fuzzItems: FuzzingSchemaItems | null
-  ): void {
-    const fuzzingSet = variation?.fuzzing || []
-    // Early exit if no fuzzingSet defined
-    if (fuzzingSet.length === 0) return
-
-    // Early exit if no fuzzing fields detected
-    const minimumNumberFields = fuzzItems?.minimumNumberFields || []
-    if (minimumNumberFields.length === 0) return
-
-    const folderId = pmOperation.getParentFolderId()
-    const folderName = pmOperation.getParentFolderName()
-    const clonedVariation = JSON.parse(JSON.stringify(variation))
-
-    fuzzingSet.map(fuzz => {
-      if (fuzz?.requestBody?.minimumNumberFields?.enabled === true) {
-        minimumNumberFields.forEach(field => {
-          // Set Pm request name
-          const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum number value ${field.field}]`
-
-          // Transform to number
-          const numberVal =
-            typeof field.value === 'number' ? field.value - 1 : parseInt(field.value) - 1
-
-          const operationVariation = pmOperation.clone({
-            newId: camelCase(variationFuzzName),
-            name: variationFuzzName
-          })
-
-          // Change the value of the Postman request body
-          const newVariation = JSON.parse(JSON.stringify(clonedVariation))
-          if (!newVariation?.overwrites) newVariation.overwrites = []
-          const fuzzRequestBody = {
-            key: field.path,
-            value: numberVal,
-            overwrite: true
-          } as OverwriteRequestBodyConfig
-          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
-
-          this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        })
-      }
-    })
-  }
-
-  public injectFuzzMaximumVariation(
-    pmOperation: PostmanMappedOperation,
-    oaOperation: OasMappedOperation | null,
-    variation: VariationConfig,
-    variationMeta: VariationTestConfig | IntegrationTest | null,
-    fuzzItems: FuzzingSchemaItems | null
-  ): void {
-    const fuzzingSet = variation?.fuzzing || []
-    // Early exit if no fuzzingSet defined
-    if (fuzzingSet.length === 0) return
-
-    // Early exit if no fuzzing fields defined
-    const maximumNumberFields = fuzzItems?.maximumNumberFields || []
-    if (maximumNumberFields.length === 0) return
-
-    const folderId = pmOperation.getParentFolderId()
-    const folderName = pmOperation.getParentFolderName()
-    const clonedVariation = JSON.parse(JSON.stringify(variation))
-
-    fuzzingSet.map(fuzz => {
-      if (fuzz?.requestBody?.maximumNumberFields?.enabled === true) {
-        maximumNumberFields.forEach(field => {
-          // Set Pm request name
-          const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum number value ${field.field}]`
-
-          // Transform to number
-          const numberVal =
-            typeof field.value === 'number' ? field.value + 1 : parseInt(field.value) + 1
-
-          const operationVariation = pmOperation.clone({
-            newId: camelCase(variationFuzzName),
-            name: variationFuzzName
-          })
-
-          // Change the value of the Postman request body
-          const newVariation = JSON.parse(JSON.stringify(clonedVariation))
-          if (!newVariation?.overwrites) newVariation.overwrites = []
-          const fuzzRequestBody = {
-            key: field.path,
-            value: numberVal,
-            overwrite: true
-          } as OverwriteRequestBodyConfig
-          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
-
-          this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        })
-      }
-    })
-  }
-
-  public injectFuzzMinLengthVariation(
-    pmOperation: PostmanMappedOperation,
-    oaOperation: OasMappedOperation | null,
-    variation: VariationConfig,
-    variationMeta: VariationTestConfig | IntegrationTest | null,
-    fuzzItems: FuzzingSchemaItems | null
-  ): void {
-    const fuzzingSet = variation?.fuzzing || []
-    // Early exit if request body is not defined
-    if (!pmOperation.item?.request?.body?.raw) return
-
-    // Early exit if no fuzzingSet defined
-    if (fuzzingSet.length === 0) return
-
-    // Early exit if no fuzzing fields detected
-    const minLengthFields = fuzzItems?.minLengthFields || []
-    if (minLengthFields.length === 0) return
-
-    const folderId = pmOperation.getParentFolderId()
-    const folderName = pmOperation.getParentFolderName()
-    const clonedVariation = JSON.parse(JSON.stringify(variation))
-
-    fuzzingSet.map(fuzz => {
-      if (fuzz?.requestBody?.minLengthFields?.enabled === true) {
-        minLengthFields.forEach(field => {
-          // Set Pm request name
-          const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum length ${field.field}]`
-
-          // Get request body value
-          const reqBodyObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
-          const reqBodyValue = getByPath(reqBodyObj, field.path)
-          // const reqBodyValueLength = reqBodyValue?.toString().length || 0
-
-          // Change length of value
-          if (typeof reqBodyValue === 'number' && typeof field.value === 'number') {
-            field.value = reqBodyValue / (10 * field.value)
-          }
-          if (typeof reqBodyValue === 'string' && typeof field.value === 'number') {
-            field.value = reqBodyValue.substring(0, field.value - 1)
-          }
-
-          const operationVariation = pmOperation.clone({
-            newId: camelCase(variationFuzzName),
-            name: variationFuzzName
-          })
-
-          // Change the length of the Postman the request body
-          const newVariation = JSON.parse(JSON.stringify(clonedVariation))
-          if (!newVariation?.overwrites) newVariation.overwrites = []
-          const fuzzRequestBody = {
-            key: field.path,
-            value: field.value,
-            overwrite: true
-          } as OverwriteRequestBodyConfig
-          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
-
-          this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        })
-      }
-    })
-  }
-
-  public injectFuzzMaxLengthVariation(
-    pmOperation: PostmanMappedOperation,
-    oaOperation: OasMappedOperation | null,
-    variation: VariationConfig,
-    variationMeta: VariationTestConfig | IntegrationTest | null,
-    fuzzItems: FuzzingSchemaItems | null
-  ): void {
-    const fuzzingSet = variation?.fuzzing || []
-    // Early exit if request body is not defined
-    if (!pmOperation.item?.request?.body?.raw) return
-
-    // Early exit if no fuzzingSet defined
-    if (fuzzingSet.length === 0) return
-
-    // Early exit if no fuzzing fields detected
-    const maxLengthFields = fuzzItems?.maxLengthFields || []
-    if (maxLengthFields.length === 0) return
-
-    const folderId = pmOperation.getParentFolderId()
-    const folderName = pmOperation.getParentFolderName()
-    const clonedVariation = JSON.parse(JSON.stringify(variation))
-
-    fuzzingSet.map(fuzz => {
-      if (fuzz?.requestBody?.maxLengthFields?.enabled === true) {
-        maxLengthFields.forEach(field => {
-          // Set Pm request name
-          const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum length ${field.field}]`
-
-          // Get request body value
-          const reqBodyObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
-          const reqBodyValue = getByPath(reqBodyObj, field.path)
-          const reqBodyValueLength = reqBodyValue?.toString().length || 0
-
-          // Change length of value
-          if (typeof reqBodyValue === 'number' && typeof field.value === 'number') {
-            field.value = reqBodyValue * (10 * (reqBodyValueLength - field.value))
-          }
-          if (typeof reqBodyValue === 'string') {
-            field.value =
-              reqBodyValue + new Array(reqBodyValueLength + 1).join(reqBodyValue.charAt(0))
-          }
-
-          const operationVariation = pmOperation.clone({
-            newId: camelCase(variationFuzzName),
-            name: variationFuzzName
-          })
-
-          // Change the length of the Postman the request body
-          const newVariation = JSON.parse(JSON.stringify(clonedVariation))
-          if (!newVariation?.overwrites) newVariation.overwrites = []
-          const fuzzRequestBody = {
-            key: field.path,
-            value: field.value,
-            overwrite: true
-          } as OverwriteRequestBodyConfig
-          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
-
-          this.injectVariations(operationVariation, oaOperation, newVariation, variationMeta)
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        })
-      }
-    })
-  }
-
-  public analyzeFuzzJsonSchema(
-    jsonSchema: OpenAPIV3.SchemaObject | undefined
-  ): FuzzingSchemaItems | void {
-    if (!jsonSchema) return
-
-    const fuzzItems = {
-      requiredFields: [],
-      minimumNumberFields: [],
-      maximumNumberFields: [],
-      minLengthFields: [],
-      maxLengthFields: []
-    } as FuzzingSchemaItems
-
-    fuzzItems.requiredFields = jsonSchema?.required || []
-
-    traverse(jsonSchema.properties).forEach(function (node) {
-      // Register all fuzz-able items
-      if (node.minimum) {
-        fuzzItems?.minimumNumberFields?.push({
-          path: this.path.join('.'),
-          field: this.key,
-          value: node.minimum
-        })
-      }
-      if (node.maximum) {
-        fuzzItems?.maximumNumberFields?.push({
-          path: this.path.join('.'),
-          field: this.key,
-          value: node.maximum
-        })
-      }
-      if (node.minLength) {
-        fuzzItems?.minLengthFields?.push({
-          path: this.path.join('.'),
-          field: this.key,
-          value: node.minLength
-        })
-      }
-      if (node.maxLength) {
-        fuzzItems?.maxLengthFields?.push({
-          path: this.path.join('.'),
-          field: this.key,
-          value: node.maxLength
-        })
-      }
-    })
-
-    return fuzzItems
-  }
-
-  /**
-   * Add an OverwriteRequestBodyConfig to a variation
-   * @param variation
-   * @param fuzzRequestBody
-   */
-  public addOverwriteRequestBody(
-    variation: VariationConfig,
-    fuzzRequestBody: OverwriteRequestBodyConfig
-  ): VariationConfig {
-    const idx = variation.overwrites.findIndex(obj => obj.overwriteRequestBody)
-    if (idx === -1) {
-      variation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
-    } else {
-      variation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
-    }
-    return variation
   }
 
   injectVariations(
