@@ -1,11 +1,11 @@
-import { PortmanRequestType } from './PortmanConstants'
+import { PortmanTestType } from './PortmanConstants'
 
-export type pmRequestType = {
+export type PortmanReqTestType = {
   postmanItemId?: string
   postmanName?: string
-  requestType?: PortmanRequestType
+  reqTestType?: PortmanTestType
 }
 
 export interface PortmanTestSuite {
-  pmRequestType?: pmRequestType
+  pmReqTestType?: PortmanReqTestType
 }

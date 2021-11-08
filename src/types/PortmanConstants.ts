@@ -1,7 +1,7 @@
-export const PortmanRequestTypes = {
+export const PortmanTestTypes = {
   integration: 'integration',
   variation: 'variation',
   contract: 'contract'
 } as const
 
-export type PortmanRequestType = typeof PortmanRequestTypes[keyof typeof PortmanRequestTypes]
+export type PortmanTestType = typeof PortmanTestTypes[keyof typeof PortmanTestTypes]

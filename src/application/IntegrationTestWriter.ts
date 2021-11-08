@@ -1,10 +1,5 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
-import {
-  IntegrationTestConfig,
-  VariationConfig,
-  PortmanRequestTypes,
-  pmRequestType
-} from '../types'
+import { IntegrationTestConfig, VariationConfig, PortmanTestTypes } from '../types'
 import { TestSuite, VariationWriter } from './'
 
 export class IntegrationTestWriter {
@@ -54,22 +49,8 @@ export class IntegrationTestWriter {
           name: variationName
         })
 
-        // Build request type
-        const registerPm = {
-          postmanItemId: operationVariation.item.id,
-          postmanName: operationVariation.item.name,
-          requestType: PortmanRequestTypes.integration
-        } as pmRequestType
-
-        // Set/Update pmOperation request type
-        const idx = this.testSuite.pmRequestTypes.findIndex(
-          x => x.postmanItemId == registerPm.postmanItemId
-        )
-        if (idx === -1) {
-          this.testSuite.pmRequestTypes.push(registerPm)
-        } else {
-          this.testSuite.pmRequestTypes[idx] = registerPm
-        }
+        // Set/Update Portman operation test type
+        this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.integration)
 
         variationWriter.injectVariations(operationVariation, oaOperation, variation, operation)
         variationWriter.addToFolder(operationVariation, variationWriter.variationFolder)
