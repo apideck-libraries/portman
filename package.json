@@ -20,7 +20,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
-    "test": "jest --detectOpenHandles --colors --verbose --reporters=default --collectCoverage --no-cache",
+    "test": "jest --ci --reporters=jest-progress-bar-reporter --collectCoverage",
     "test:watch": "jest  --verbose --bail --watch",
     "clean": "rm -rf ./dist/*",
     "build": "tsc --project ./tsconfig.json",
