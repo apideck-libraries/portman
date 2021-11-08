@@ -72,7 +72,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('should check example CLI filtering', async () => {
+  it('should check example CLI: filtering', async () => {
     const cliOptionsFilePath = path.resolve('./examples/cli-filtering/portman-cli-options.json')
     options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
     const portman = new Portman({
@@ -87,7 +87,7 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
-  it('should check example CLI options', async () => {
+  it('should check example CLI: options', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsFilePath = path.resolve('./examples/cli-options/portman-cli-options.json')
     options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
