@@ -40,6 +40,9 @@ export class Fuzzer {
     // Early exit if no fuzzingSet defined
     if (fuzzingSet.length === 0) return
 
+    // No request body defined
+    if (!oaOperation?.schema?.requestBody) return
+
     // Analyse JSON schema
     const reqBody = oaOperation?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
     const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
@@ -366,28 +369,28 @@ export class Fuzzer {
 
     traverse(jsonSchema.properties).forEach(function (node) {
       // Register all fuzz-able items
-      if (node.minimum) {
+      if (node?.minimum) {
         fuzzItems?.minimumNumberFields?.push({
           path: this.path.join('.'),
           field: this.key,
           value: node.minimum
         })
       }
-      if (node.maximum) {
+      if (node?.maximum) {
         fuzzItems?.maximumNumberFields?.push({
           path: this.path.join('.'),
           field: this.key,
           value: node.maximum
         })
       }
-      if (node.minLength) {
+      if (node?.minLength) {
         fuzzItems?.minLengthFields?.push({
           path: this.path.join('.'),
           field: this.key,
           value: node.minLength
         })
       }
-      if (node.maxLength) {
+      if (node?.maxLength) {
         fuzzItems?.maxLengthFields?.push({
           path: this.path.join('.'),
           field: this.key,
@@ -410,7 +413,7 @@ export class Fuzzer {
   ): VariationConfig {
     const idx = variation.overwrites.findIndex(obj => obj.overwriteRequestBody)
     if (idx === -1) {
-      variation.overwrites.push = { overwriteRequestBody: [fuzzRequestBody] }
+      variation.overwrites.push({ overwriteRequestBody: [fuzzRequestBody] })
     } else {
       variation.overwrites[idx].overwriteRequestBody.push(fuzzRequestBody)
     }

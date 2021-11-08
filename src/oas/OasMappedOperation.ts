@@ -61,6 +61,9 @@ export class OasMappedOperation implements IOasMappedOperation {
   }
 
   private mapResponseCodes(): string[] {
-    return Object.keys(this.schema?.responses as OpenAPIV3.ResponsesObject)
+    if (this?.schema?.responses) {
+      return Object.keys(this.schema?.responses as OpenAPIV3.ResponsesObject)
+    }
+    return []
   }
 }
