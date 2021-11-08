@@ -20,7 +20,8 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
-    "test": "jest --ci --reporters=jest-progress-bar-reporter --collectCoverage",
+    "test": "jest --colors --verbose --reporters=default --collectCoverage --no-cache",
+    "test:ci": "jest --ci --reporters=jest-progress-bar-reporter --collectCoverage",
     "test:watch": "jest  --verbose --bail --watch",
     "clean": "rm -rf ./dist/*",
     "build": "tsc --project ./tsconfig.json",
@@ -55,6 +56,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
     "jest": "^27.0.6",
+    "jest-progress-bar-reporter": "^1.0.21",
     "np": "^7.5.0",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.3",
