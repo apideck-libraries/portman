@@ -1,4 +1,4 @@
 export * from './PortmanConfig'
-export * from './PortmanConstants'
+export * from './PortmanTestTypes'
 export * from './PortmanOptions'
 export * from './PortmanTestSuite'

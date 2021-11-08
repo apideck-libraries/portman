@@ -1,4 +1,4 @@
-import { PortmanTestType } from './PortmanConstants'
+import { PortmanTestType } from './PortmanTestTypes'
 
 export type PortmanReqTestType = {
   postmanItemId?: string
