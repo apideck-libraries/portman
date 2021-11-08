@@ -292,7 +292,7 @@ describe('Portman', () => {
       includeTests: true,
       runNewman: false
     }
-    const cliOptionsYamFormat = {
+    const cliOptionsYamlFormat = {
       local: './__tests__/fixtures/crm.yml',
       portmanConfigFile: './__tests__/fixtures/portman.crm.yaml',
       syncPostman: false,
@@ -314,7 +314,7 @@ describe('Portman', () => {
 
     // YAML export
     const portmanYaml = new Portman({
-      ...cliOptionsYamFormat,
+      ...cliOptionsYamlFormat,
       oaLocal: options.local,
       output: './tmp/converted/crmApi.json',
       portmanConfigPath: options.portmanConfigFile,

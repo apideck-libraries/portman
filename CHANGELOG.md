@@ -1,6 +1,8 @@
 ## [Unreleased]
 
--
+## v1.10.1 - (Unreleased)
+
+- rework PostmanSyncService to be more resilient when handling cross workspace workflows
 
 ## v1.10.0 - (2021-11-03)
 
