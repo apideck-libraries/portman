@@ -35,6 +35,7 @@ With Portman, you can:
   - [x] Inject Postman Integration Tests
   - [x] Inject Postman with Pre-request scripts on a collection or operation level
   - [x] Modify Postman requests
+  - [x] Fuzz Postman requests
 - [x] Upload the Postman collection to your Postman app
 - [x] Test the Postman collection with Newman
 - [x] Manage everything in config file for easy local or CI/CD usage
@@ -349,6 +350,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
   - **extendTests** : refers to the custom additions of manual created Postman tests to be included in the variation.
 - **assignVariables** : This refers to setting Postman collection variables that are assigned based on variation.
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
+- **fuzzing** : Fuzz testing sets unexpected values for API requests, in an effort to cause unexpected behavior and errors in the API response.
 
 For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests).
 
@@ -481,6 +483,35 @@ To facilitate automation, you might want to modify properties with "randomized" 
   A Postman RequestAuthDefinition object that will be applied to the request.
 
 For more details, review the [overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites).
+<hr>
+
+### Portman - `fuzzing` properties - BETA 🏗
+
+NOTICE: This feature is considered BETA, since we are investigating additional the Fuzzing capabilities.
+
+> Fuzzing or fuzz testing is an automated software testing technique that involves providing invalid, unexpected, or random data as inputs to a computer program (a REST API in case of Portman).
+
+Fuzzing changes the requests (body, query params, ... ) to unexpected values in an effort to cause unexpected behavior and errors in the API response. 
+For Portman, we want to provide a simple form of Fuzzing, with the goal trigger validation/error responses, which can be contract tested. 
+The automatic fuzzing is based on the OpenAPI request properties, where for each fuzzing variation, a new Postman request will be generated, with optional contract tests.
+
+The Fuzzing options describes the configuration setting for available OpenAPI fuzzing variations.
+
+#### fuzzing options
+
+- **requestBody (Array)** :
+
+  Array of key/value pairs to fuzzing the Postman Request Body.
+
+  REMARK: Fuzzing is only applicable for OpenAPI request bodies of media type: "application/json"
+
+  - **requiredFields (Boolean)** : Removes the properties & value from the request body that are marked as "required" in OpenAPI.
+  - **minimumNumberFields (Boolean)** : Changes the value to below the minimum defined value as defined as "minimum" for the number fields in OpenAPI.
+  - **maximumNumberFields (Boolean)** :  Changes the value to above the maximum defined value as defined as "maximum" for the number fields in OpenAPI.
+  - **minLengthFields (Boolean)** : Changes the length of the value to below the minimum defined length as defined as "minLength" for the number fields in OpenAPI.
+  - **maxLengthFields (Boolean)** : Changes the length of the value to above the maximum defined length as defined as "maxLength" for the number fields in OpenAPI.
+
+For more details, review the [fuzzing example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-fuzzing-tests).
 
 <hr>
 
