@@ -1,5 +1,5 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
-import { IntegrationTestConfig, VariationConfig } from 'src/types'
+import { IntegrationTestConfig, VariationConfig, PortmanTestTypes } from '../types'
 import { TestSuite, VariationWriter } from './'
 
 export class IntegrationTestWriter {
@@ -40,6 +40,7 @@ export class IntegrationTestWriter {
 
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
+      // Handle integration variations
       variations.map(variation => {
         const variationName = variation.name
 
@@ -47,6 +48,9 @@ export class IntegrationTestWriter {
           newId: `${variationName}-${Math.random()}`,
           name: variationName
         })
+
+        // Set/Update Portman operation test type
+        this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.integration)
 
         variationWriter.injectVariations(operationVariation, oaOperation, variation, operation)
         variationWriter.addToFolder(operationVariation, variationWriter.variationFolder)

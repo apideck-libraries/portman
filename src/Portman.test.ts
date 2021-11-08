@@ -239,6 +239,50 @@ describe('Portman', () => {
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
 
+  it('should check testsuite variation tests, with bundled contract test', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const portmanOptionsFilePath = path.resolve('./__tests__/fixtures/portman-variations.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-variation-tests/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: portmanOptionsFilePath,
+      postmanConfigPath: postmanOptionsFilePath,
+      bundleContractTests: true
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
+  it('should check testsuite content tests, with bundled contract test', async () => {
+    const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
+    const portmanOptionsFilePath = path.resolve('./__tests__/fixtures/portman-variations.crm.json')
+    const cliOptionsFilePath = path.resolve(
+      './examples/testsuite-content-tests/portman-cli-options.json'
+    )
+    options = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
+    const portman = new Portman({
+      ...options,
+      oaLocal: options.local,
+      output: './tmp/converted/crmApi.json',
+      portmanConfigPath: portmanOptionsFilePath,
+      postmanConfigPath: postmanOptionsFilePath,
+      bundleContractTests: true
+    })
+    await portman.run()
+
+    const outputFilePath = path.resolve('./tmp/converted/crmApi.json')
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
+  }, 30000)
+
   it('should match JSON & YAML generated Postman', async () => {
     const postmanOptionsFilePath = path.resolve('./__tests__/fixtures/postman-config.crm.json')
     const cliOptionsJsonFormat = {

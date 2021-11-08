@@ -5,6 +5,7 @@ import { PostmanMappedOperation } from '../postman'
 import {
   IntegrationTest,
   OverwriteRequestConfig,
+  PortmanTestTypes,
   VariationConfig,
   VariationTestConfig
 } from '../types'
@@ -52,8 +53,10 @@ export class VariationWriter {
         name: variationName
       })
 
-      this.injectVariations(operationVariation, oaOperation, variation, variationMeta)
+      // Set/Update Portman operation test type
+      this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
 
+      this.injectVariations(operationVariation, oaOperation, variation, variationMeta)
       this.addToLocalCollection(operationVariation, folderId, folderName)
     })
   }

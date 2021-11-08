@@ -24,7 +24,7 @@ import {
   OpenApiToPostmanService,
   PostmanApiService
 } from './services'
-import { PortmanConfig } from './types'
+import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 
@@ -364,28 +364,21 @@ export class Portman {
   moveContractTestsToFolder(): void {
     if (!this.options.bundleContractTests) return
 
-    let pmOperationsWithContractTest: string[] = []
-    const tests = this.testSuite.contractTests
-    if (!tests) return
+    let pmOpsWithContractTest: (string | undefined)[] = []
 
     // map back over settings and get all operation ids that have contract tests
-    tests.map(contractTest => {
-      const operations = this.testSuite.getOperationsFromSetting(contractTest)
+    pmOpsWithContractTest = this.testSuite.requestTestTypes
+      .filter(obj => obj.reqTestType === PortmanTestTypes.contract)
+      .map(obj => obj.postmanItemId)
 
-      operations.map(pmOperation => {
-        pmOperationsWithContractTest.push(pmOperation.item.id)
-      })
-    })
+    if (!pmOpsWithContractTest) return
 
-    // unique ids only
-    pmOperationsWithContractTest = Array.from(new Set(pmOperationsWithContractTest))
-
-    // create contract test folder
+    // Create contract test folder
     const contractTestFolder = new ItemGroup({
       name: `Contract Tests`
     }) as ItemGroup<Item>
 
-    pmOperationsWithContractTest.map(id => {
+    pmOpsWithContractTest.map(id => {
       const pmOperation = this.postmanParser.getOperationByItemId(id)
       let target: ItemGroup<Item>
 
@@ -425,8 +418,8 @@ export class Portman {
       }
     })
 
-    // all done, add contract test folder to root of collection
-    this.postmanParser.collection.items.add(contractTestFolder)
+    // Add contract test folder to root of collection
+    this.postmanParser.collection.items.prepend(contractTestFolder)
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 

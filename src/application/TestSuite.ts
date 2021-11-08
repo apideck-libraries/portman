@@ -28,6 +28,9 @@ import {
   OperationPreRequestScriptConfig,
   OverwriteRequestConfig,
   PortmanConfig,
+  PortmanTestType,
+  PortmanTestTypes,
+  PortmanReqTestType,
   ResponseTime,
   StatusCode,
   TestSuiteOptions,
@@ -52,11 +55,13 @@ export class TestSuite {
   extendTests?: ExtendTestsConfig[]
 
   pmResponseJsonVarInjected: boolean
+  requestTestTypes: PortmanReqTestType[]
 
   constructor(options: TestSuiteOptions) {
     const { oasParser, postmanParser, config } = options
 
     this.pmResponseJsonVarInjected = false
+    this.requestTestTypes = []
 
     this.oasParser = oasParser
     this.postmanParser = postmanParser
@@ -95,6 +100,9 @@ export class TestSuite {
         if (operation) {
           // Inject response tests
           this.injectContractTests(pmOperation, operation, contractTest, openApiResponseCode)
+
+          // Set/Update Portman operation test type
+          this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
         }
       })
     })
@@ -112,6 +120,7 @@ export class TestSuite {
         // Get OpenApi operation
         const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
 
+        // Insert variation
         if (!variationTest.openApiResponse) {
           // No targeted openApiResponse configured, generate a variation based on the 1st response object
           this.variationWriter.add(pmOperation, oaOperation, variationTest)
@@ -301,6 +310,7 @@ export class TestSuite {
         }
       }
     }
+
     return pmOperation
   }
 
@@ -319,11 +329,19 @@ export class TestSuite {
       operations.map(pmOperation => {
         // check content of response body
         if (contentTest?.responseBodyTests) {
+          // Insert response body content check
           testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
+
+          // Set/Update Portman operation test type
+          this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
         }
         // check content of response header
         if (contentTest?.responseHeaderTests) {
+          // Insert response header content check
           testResponseHeaderContent(contentTest.responseHeaderTests, pmOperation)
+
+          // Set/Update Portman operation test type
+          this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
         }
       })
     })
@@ -372,6 +390,9 @@ export class TestSuite {
         // Assign Postman collection variable with a request body value
         if (extendedTestsSetting?.tests) {
           extendTest(extendedTestsSetting, pmOperation)
+
+          // Set/Update Portman operation test type
+          this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
         }
       })
     })
@@ -412,5 +433,26 @@ export class TestSuite {
     })
 
     return this.postmanParser.mappedOperations
+  }
+
+  public registerOperationTestType = (
+    pmOperation: PostmanMappedOperation,
+    operationTestType: PortmanTestType,
+    update = true
+  ): void => {
+    // Build request test type
+    const opTestType = {
+      postmanItemId: pmOperation.item.id,
+      postmanName: pmOperation.item.name,
+      reqTestType: operationTestType
+    } as PortmanReqTestType
+
+    // Set/Update pmOperation request test type
+    const idx = this.requestTestTypes.findIndex(x => x.postmanItemId == opTestType.postmanItemId)
+    if (idx === -1) {
+      this.requestTestTypes.push(opTestType)
+    } else if (update) {
+      this.requestTestTypes[idx] = opTestType
+    }
   }
 }
