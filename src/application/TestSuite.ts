@@ -30,11 +30,11 @@ import {
   PortmanConfig,
   PortmanTestTypes,
   PortmanReqTestType,
+  PortmanTestType,
   ResponseTime,
   StatusCode,
   TestSuiteOptions,
-  VariationTestConfig,
-  PortmanTestType
+  VariationTestConfig
 } from '../types'
 import { inRange } from '../utils'
 import { inOperations } from '../utils/inOperations'
