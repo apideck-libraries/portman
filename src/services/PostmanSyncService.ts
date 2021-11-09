@@ -129,10 +129,18 @@ export class PostmanSyncService {
   }
 
   existsInWorkspace(): boolean {
-    return (
-      !!this.state.workspaceId &&
-      !!this.postmanRepo.findWorkspaceCollectionByName(this.collectionName as string)
-    )
+    const workspaceCollection = this.state.workspaceId
+      ? (this.postmanRepo.findWorkspaceCollectionByName(
+          this.collectionName as string
+        ) as Partial<PostmanApiCollectionResult>)
+      : undefined
+
+    if (workspaceCollection?.uid) {
+      this.postmanUid = workspaceCollection.uid
+      this.state.postmanUid = workspaceCollection.uid
+    }
+
+    return !!this.state.workspaceId && !!workspaceCollection
   }
 
   async lookupWorkspaceId(): Promise<string | undefined> {

@@ -6,14 +6,14 @@
     "description": "Demos.",
     "collections": [
       {
-        "id": "f695cab7-6878-eb55-7943-ad88e1ccfd65",
+        "id": "631643-f695cab7-6878-eb55-7943-ad88e1ccfd65",
         "name": "Postman Echo",
         "uid": "631643-f695cab7-6878-eb55-7943-ad88e1ccfd65"
       },
       {
-        "id": "f2e66c2e-5297-e4a5-739e-20cbb90900e3",
+        "id": "22eb0345-7fcb-4358-88bc-af234ffc8943",
         "name": "Sample Collection",
-        "uid": "631643-f2e66c2e-5297-e4a5-739e-20cbb90900e3"
+        "uid": "631643-22eb0345-7fcb-4358-88bc-af234ffc8943"
       }
     ],
     "environments": []
