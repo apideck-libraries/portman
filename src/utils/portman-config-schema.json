@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
-  "title": "Portman Configuration",
+  "definitions": {},
   "description": "Portman by Apideck allows you to port your OpenApi Spec to a Postman Collection, inject a powerful test suite, and run your tests with Newman. Details about all configuration options can be found at http://getportman.com.",
   "properties": {
     "assignVariables": {
@@ -449,7 +449,9 @@
                       "type": "string"
                     },
                     "length": {},
-                    "value": {}
+                    "value": {
+                      "type": ["string", "number", "boolean"]
+                    }
                   },
                   "required": ["key"],
                   "type": "object"
@@ -467,7 +469,9 @@
                       "type": "string"
                     },
                     "length": {},
-                    "value": {}
+                    "value": {
+                      "type": ["string", "number", "boolean"]
+                    }
                   },
                   "required": ["key"],
                   "type": "object"

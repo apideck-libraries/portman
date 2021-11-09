@@ -77,14 +77,14 @@ export type VariationConfig = {
 
 export type ResponseBodyTest = {
   key: string
-  value?: any
+  value?: string | number | boolean
   contains?: string
   length?: any
 }
 
 export type ResponseHeaderTest = {
   key: string
-  value?: any
+  value?: string | number | boolean
   contains?: string
   length?: any
 }
