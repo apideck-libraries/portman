@@ -1,10 +1,6 @@
 ## [Unreleased]
 
-## v1.10.1 - (Unreleased)
-
-- rework PostmanSyncService to be more resilient when handling cross workspace workflows
-
-## v1.10.0 - (2021-11-03)
+## v1.10.0 - (Unreleased)
 
 - Overwrites - Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman
 - Overwrites - Extended the overwriteRequestQueryParams capabilities with the option to insert new query params in Postman
@@ -14,6 +10,9 @@
 - Variation Testing - Added the option to target the expected openApiResponse, skipping the variation if the response is not defined in OpenAPI
 - Added support for loading cliOptionsFile in YAML format
 - Fix for bundle contract folder issue (#145)
+- Rework PostmanSyncService to be more resilient when handling cross workspace workflows (#164)
+- Extend unit tests for Postman class itself
+- Update Portman Config jsonSchema
 
 ## v1.9.3 - (2021-10-20)
 
