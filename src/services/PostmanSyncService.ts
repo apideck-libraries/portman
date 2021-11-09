@@ -1,5 +1,5 @@
 import { CollectionDefinition } from 'postman-collection'
-import { PostmanApiCollectionResult, PostmanApiService, PostmanApiWorkspaceResult } from 'services'
+import { PostmanApiCollectionResult, PostmanApiService, PostmanApiWorkspaceResult } from './'
 import { PostmanRepo } from './PostmanRepo'
 
 type PostmanCache = {
@@ -150,12 +150,18 @@ export class PostmanSyncService {
   }
 
   async createCollection(): Promise<string> {
-    const { portmanCollection, workspaceId } = this.state
+    const {
+      state: { workspaceId },
+      portmanCollection
+    } = this
     return this.postmanApi.createCollection(portmanCollection, workspaceId)
   }
 
   async updateCollection(): Promise<string> {
-    const { portmanCollection, postmanUid, workspaceId } = this.state
+    const {
+      state: { postmanUid, workspaceId },
+      portmanCollection
+    } = this
     return this.postmanApi.updateCollection(portmanCollection, postmanUid, workspaceId)
   }
 }

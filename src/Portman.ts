@@ -247,8 +247,8 @@ export class Portman {
       }
     } else {
       postmanObj = await oaToPostman.convert(oaToPostmanConfig).catch(err => {
-        console.log('error: ', err)
-        throw new Error(`Postman Collection generation failed.`)
+        console.error('Postman Collection generation failed: ', err)
+        process.exit(1)
       })
     }
 
@@ -525,8 +525,12 @@ export class Portman {
     const { status, data } = JSON.parse(response)
 
     if (status === 'success') {
-      console.log(chalk`{cyan    -> Postman Name: } \t{green ${data?.collection?.name}}`)
-      console.log(chalk`{cyan    -> Postman UID: } \t{green ${data?.collection?.uid}}`)
+      this.postmanSyncService?.postmanWorkspaceName &&
+        console.log(
+          chalk`{cyan    -> Postman Workspace: }{green ${this.postmanSyncService?.postmanWorkspaceName}}`
+        )
+      console.log(chalk`{cyan    -> Postman Name: } \t {green ${data?.collection?.name}}`)
+      console.log(chalk`{cyan    -> Postman UID: } \t {green ${data?.collection?.uid}}`)
     }
 
     if (status === 'fail') {

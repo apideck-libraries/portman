@@ -178,16 +178,32 @@ export class PostmanApiService {
 
     const spinner = ora({
       prefixText: ' ',
-      text: 'Uploading & updating collection in Postman ...\n'
+      text: 'Updating collection in Postman ...\n'
     })
 
     // Start Spinner
     spinner.start()
+    let responseStatusCode
 
     try {
       axios.interceptors.request.use(req => {
         return req
       })
+
+      axios.interceptors.response.use(
+        response => {
+          responseStatusCode = response.status
+          return response
+        },
+        error => {
+          // Some errors don't have a response
+          if (!error.response) {
+            error.response = {}
+          }
+          responseStatusCode = error?.response?.status || error?.code
+          return error
+        }
+      )
 
       const res = await axios(config)
       const respData = res.data
@@ -195,9 +211,16 @@ export class PostmanApiService {
       spinner.succeed('Upload to Postman Success')
       return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
-      spinner.fail(chalk.red(`Upload to Postman Failed`))
+      spinner.fail(chalk.red(`Upload to Postman Failed: ${responseStatusCode}`))
       spinner.clear()
-      return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
+      return JSON.stringify(
+        {
+          status: 'fail',
+          data: error?.response?.data || error.response || error?.toJSON() || error?.toString()
+        },
+        null,
+        2
+      )
     }
   }
 
