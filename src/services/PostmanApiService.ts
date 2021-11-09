@@ -1,8 +1,9 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import chalk from 'chalk'
 import * as Either from 'fp-ts/lib/Either'
 import ora from 'ora'
 import { CollectionDefinition } from 'postman-collection'
+import { Readable } from 'stream'
 
 export type PostmanApiWorkspaceResult = {
   id: string
@@ -134,26 +135,61 @@ export class PostmanApiService {
 
     const spinner = ora({
       prefixText: ' ',
-      text: 'Uploading & creating collection in Postman ...\n'
+      text: 'Creating collection in Postman ...\n'
     })
 
     // Start Spinner
     spinner.start()
+    let responseStatusCode
 
     try {
       axios.interceptors.request.use(req => {
+        spinner.text = `Executing Request. Waiting on response...\n`
         return req
       })
 
-      const res = await axios(config)
-      const respData = res.data
+      axios.interceptors.response.use(
+        response => {
+          spinner.text = `Response Received: ${response?.status}\n`
+
+          responseStatusCode = response.status
+          return response
+        },
+        error => {
+          // Some errors don't have a response
+          if (!error.response) {
+            error.response = {}
+          }
+          responseStatusCode = error?.response?.status || error?.code
+          return error
+        }
+      )
+
+      let response: AxiosResponse<Readable> | undefined
+      let error: AxiosError | undefined
+
+      try {
+        response = await axios.request(config)
+      } catch (err) {
+        error = err
+        response = error?.response
+      }
+
+      const respData = response?.data
 
       spinner.succeed('Upload to Postman Success')
       return JSON.stringify({ status: 'success', data: respData }, null, 2)
     } catch (error) {
-      spinner.fail(chalk.red(`Upload to Postman Failed`))
+      spinner.fail(chalk.red(`Upload to Postman Failed: ${responseStatusCode}`))
       spinner.clear()
-      return JSON.stringify({ status: 'fail', data: error?.response?.data }, null, 2)
+      return JSON.stringify(
+        {
+          status: 'fail',
+          data: error?.response?.data || error.response || error?.toJSON() || error?.toString()
+        },
+        null,
+        2
+      )
     }
   }
 
@@ -187,11 +223,14 @@ export class PostmanApiService {
 
     try {
       axios.interceptors.request.use(req => {
+        spinner.text = `Executing Request. Waiting on response...\n`
         return req
       })
 
       axios.interceptors.response.use(
         response => {
+          spinner.text = `Response Received: ${response?.status}\n`
+
           responseStatusCode = response.status
           return response
         },
@@ -205,8 +244,17 @@ export class PostmanApiService {
         }
       )
 
-      const res = await axios(config)
-      const respData = res.data
+      let response: AxiosResponse<Readable> | undefined
+      let error: AxiosError | undefined
+
+      try {
+        response = await axios.request(config)
+      } catch (err) {
+        error = err
+        response = error?.response
+      }
+
+      const respData = response?.data
 
       spinner.succeed('Upload to Postman Success')
       return JSON.stringify({ status: 'success', data: respData }, null, 2)
@@ -221,159 +269,6 @@ export class PostmanApiService {
         null,
         2
       )
-    }
-  }
-
-  async findCollectionByName(collName: string): Promise<CollectionDefinition> {
-    const config = {
-      method: 'get',
-      url: `${this.baseUrl}/collections`,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': this.apiKey
-      }
-    } as AxiosRequestConfig
-
-    try {
-      const res = await axios(config)
-      const data = res.data
-      let match = {}
-
-      if (data.collections) {
-        // Match all items by name, since Postman API does not support filtering by name
-        const matches = data.collections.filter((o: CollectionDefinition) => {
-          if (!o?.name) return
-          return (
-            o.name.toLowerCase().replace(/\s/g, '') === collName.toLowerCase().replace(/\s/g, '')
-          )
-        })
-
-        if (matches.length === 1) {
-          match = matches[0]
-        }
-        if (matches.length > 1) {
-          // Sort by date and take newest
-          matches.sort((a, b) => {
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
-          })
-          console.log(
-            `\nMultiple Postman collection matching "${collName}", the most recent collection is updated.`
-          )
-          match = matches[0]
-        }
-      }
-      return match
-    } catch (error) {
-      console.log(error?.response?.data)
-      return error.toString()
-    }
-  }
-
-  async findWorkspaceCollectionByName(
-    workspaceId: string,
-    collName: string
-  ): Promise<CollectionDefinition> {
-    const config = {
-      method: 'get',
-      url: `${this.baseUrl}/workspaces/${workspaceId}`,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': this.apiKey
-      }
-    } as AxiosRequestConfig
-
-    try {
-      const res = await axios(config)
-      const data = res.data
-      let match = {}
-
-      if (data?.workspace.collections) {
-        // Match all items by name, since Postman API does not support filtering by name
-        const matches = data.workspace.collections.filter((o: CollectionDefinition) => {
-          if (!o?.name) return
-          return (
-            o.name.toLowerCase().replace(/\s/g, '') === collName.toLowerCase().replace(/\s/g, '')
-          )
-        })
-
-        if (matches.length === 1) {
-          match = matches[0]
-        }
-        if (matches.length > 1) {
-          // Sort by date and take newest
-          matches.sort((a, b) => {
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
-          })
-          console.log(
-            `\nMultiple Postman collection matching "${collName}" in the workspace, the most recent collection is updated.`
-          )
-          match = matches[0]
-        }
-      }
-      return match
-    } catch (error) {
-      console.log(error?.response?.data)
-      return error.toString()
-    }
-  }
-
-  async findWorkspaceByName(workspaceName: string): Promise<CollectionDefinition> {
-    const config = {
-      method: 'get',
-      url: `${this.baseUrl}/workspaces`,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': this.apiKey
-      }
-    } as AxiosRequestConfig
-
-    try {
-      const res = await axios(config)
-      const data = res.data
-      let match = {}
-
-      if (data.workspaces) {
-        // Match all items by name, since Postman API does not support filtering by name
-        const matches = data.workspaces.filter(
-          (o: { id?: string; name?: string; type?: string }) => {
-            if (!o?.name) return
-            return (
-              o.name.toLowerCase().replace(/\s/g, '') ===
-              workspaceName.toLowerCase().replace(/\s/g, '')
-            )
-          }
-        )
-
-        if (matches.length === 1) {
-          match = matches[0]
-        }
-        if (matches.length > 1) {
-          // Sort by date and take newest
-          matches.sort((a, b) => {
-            // Turn your strings into dates, and then subtract them
-            // to get a value that is either negative, positive, or zero.
-
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return <any>new Date(b.updatedAt) - <any>new Date(a.updatedAt)
-          })
-          console.log(
-            `\nMultiple Postman workspaces matching "${workspaceName}", the most recent workspace is updated.`
-          )
-          match = matches[0]
-        }
-      }
-      return match
-    } catch (error) {
-      console.log(error?.response?.data)
-      return error.toString()
     }
   }
 

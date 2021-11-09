@@ -91,9 +91,15 @@ export class PostmanRepo {
       return undefined
     }
 
-    results.sort((a, b) => {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    })
+    if (results.length > 1) {
+      console.log(
+        `\nMultiple Postman collection found matching "${name}", the most recent collection is updated.`
+      )
+
+      results.sort((a, b) => {
+        return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      })
+    }
 
     return results[0]
   }
