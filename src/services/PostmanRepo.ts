@@ -93,7 +93,7 @@ export class PostmanRepo {
 
     if (results.length > 1) {
       console.log(
-        `\nMultiple Postman collection found matching "${name}", the most recent collection is updated.`
+        `\n    Note: Multiple Postman collection found matching "${name}", the most recent collection is updated.`
       )
 
       results.sort((a, b) => {
