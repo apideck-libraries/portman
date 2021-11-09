@@ -41,8 +41,8 @@ export type ContentTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
-  responseBodyTests: ResponseBodyTest[]
-  responseHeaderTests: ResponseHeaderTest[]
+  responseBodyTests?: ResponseBodyTest[]
+  responseHeaderTests?: ResponseHeaderTest[]
 }
 
 export type IntegrationTestConfig = {

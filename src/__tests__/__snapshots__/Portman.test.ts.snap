@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portman Portman.injectTestSuite() should inject test suite into Postman collection 1`] = `
+Array [
+  Object {
+    "postmanName": "Create company",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get company",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update company",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete company",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List contacts",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create contact",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get contact",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update contact",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete contact",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List opportunities",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create opportunity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get opportunity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update opportunity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete opportunity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List leads",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create lead",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get lead",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update lead",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete lead",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List pipelines",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create pipeline",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get pipeline",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update pipeline",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete pipeline",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List notes",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create note",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get note",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update note",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete note",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List users",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create user",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get user",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update user",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete user",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List activities",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create activity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Get activity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Update activity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Delete activity",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "List companies",
+    "reqTestType": "contract",
+  },
+  Object {
+    "postmanName": "Create lead[missingParams]",
+    "reqTestType": "variation",
+  },
+  Object {
+    "postmanName": "Create Company",
+    "reqTestType": "integration",
+  },
+  Object {
+    "postmanName": "Fetch Company",
+    "reqTestType": "integration",
+  },
+]
+`;
+
+exports[`Portman Portman.injectVariationOverwrites() should inject variation overwrites into Postman collection 1`] = `"Integration Tests"`;
+
+exports[`Portman Portman.injectVariationTests() should inject variation tests into Postman collection 1`] = `"Variation Tests"`;

@@ -479,7 +479,6 @@
                 "type": "array"
               }
             },
-            "required": ["responseBodyTests", "responseHeaderTests"],
             "type": "object"
           },
           "type": "array"

@@ -38,6 +38,7 @@ export class Portman {
   testSuite: TestSuite
   variationWriter: VariationWriter
   integrationTestWriter: IntegrationTestWriter
+  postmanSyncService: PostmanSyncService
   consoleLine: string
 
   public collectionFile: string
@@ -512,13 +513,13 @@ export class Portman {
 
     const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
 
-    const postmanSyncService = new PostmanSyncService({
+    this.postmanSyncService = new PostmanSyncService({
       postmanUid,
       postmanWorkspaceName,
       portmanCollection
     })
 
-    const response = await postmanSyncService.sync()
+    const response = await this.postmanSyncService.sync()
 
     // Process Postman API response as console output
     const { status, data } = JSON.parse(response)
@@ -533,7 +534,7 @@ export class Portman {
       // if (msgSolution) console.log(chalk`{red    -> Solution: } \t${msgSolution}`)
 
       console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
-      console.log(chalk`{red    -> Postman UID: } \t${postmanSyncService.postmanUid}`)
+      console.log(chalk`{red    -> Postman UID: } \t${this.postmanSyncService.postmanUid}`)
 
       console.log(data?.error)
       console.log(`\n`)
