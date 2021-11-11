@@ -254,10 +254,16 @@ export class PostmanApiService {
         response = error?.response
       }
 
-      const respData = response?.data
+      const respData = response?.data ?? {}
 
-      spinner.succeed('Upload to Postman Success')
-      return JSON.stringify({ status: 'success', data: respData }, null, 2)
+      if (responseStatusCode < 300) {
+        spinner.succeed(`Upload to Postman Succeeded`)
+      } else {
+        spinner.succeed(
+          `Upload to Postman completed with status: ${responseStatusCode}. \n\n Please review your collection within Postman as they can respond with timeout but still mutate your collection`
+        )
+      }
+      return JSON.stringify({ status: 'success', data: { ...respData, collection } }, null, 2)
     } catch (error) {
       spinner.fail(chalk.red(`Upload to Postman Failed: ${responseStatusCode}`))
       spinner.clear()

@@ -11,11 +11,12 @@ export class PostmanSyncService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public state: any
   public portmanCollection: CollectionDefinition
+  public collectionName?: string
 
   postmanApi: PostmanApiService
   postmanUid?: string
   postmanWorkspaceName?: string
-  collectionName?: string
+
   postmanRepo: PostmanRepo
   cacheFile: string
   cache: PostmanCache

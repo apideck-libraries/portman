@@ -529,13 +529,29 @@ export class Portman {
         console.log(
           chalk`{cyan    -> Postman Workspace: }{green ${this.postmanSyncService?.postmanWorkspaceName}}`
         )
-      console.log(chalk`{cyan    -> Postman Name: } \t {green ${data?.collection?.name}}`)
-      console.log(chalk`{cyan    -> Postman UID: } \t {green ${data?.collection?.uid}}`)
+      console.log(
+        chalk`{cyan    -> Postman Name: } \t {green ${
+          data?.collection?.name || this.postmanSyncService?.collectionName
+        }}`
+      )
+      console.log(
+        chalk`{cyan    -> Postman UID: } \t {green ${
+          data?.collection?.uid || this.postmanSyncService.postmanUid
+        }}`
+      )
     }
 
     if (status === 'fail') {
-      console.log(chalk`{red    -> Postman Name: } \t${portmanCollection?.info?.name}`)
-      console.log(chalk`{red    -> Postman UID: } \t${this.postmanSyncService.postmanUid}`)
+      console.log(
+        chalk`{red    -> Postman Name: } \t${
+          portmanCollection?.info?.name || this.postmanSyncService?.collectionName
+        }`
+      )
+      console.log(
+        chalk`{red    -> Postman UID: } \t${
+          data?.collection?.uid || this.postmanSyncService.postmanUid
+        }`
+      )
 
       console.log(data?.error)
       console.log(`\n`)
