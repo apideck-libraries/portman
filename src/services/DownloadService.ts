@@ -23,7 +23,7 @@ export class DownloadService {
         })
       })
     } catch (axiosError) {
-      console.error('\x1b[31m', `OAS URL error - There is an problem with the url: "${url}"`)
+      console.error('\x1b[31m', `OAS URL error - There is a problem with the url: "${url}"`)
       console.error('\x1b[31m', axiosError.message)
       process.exit(1)
     }
