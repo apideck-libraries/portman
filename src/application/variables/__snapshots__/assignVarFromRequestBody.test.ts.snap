@@ -2,9 +2,33 @@
 
 exports[`assignVarFromRequestBody should add postman collection var with name and request body value 1`] = `
 Array [
-  "// pm.collectionVariables - Set leadsAdd.company_name as variable from request body 
-pm.collectionVariables.set(\\"leadsAdd.company_name\\", undefined);
-console.log(\\"- use {{leadsAdd.company_name}} as collection variable for value\\", undefined);
+  "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
+console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
 ",
+]
+`;
+
+exports[`assignVarFromRequestBody should add postman collection var without name and request body array value 1`] = `
+Array [
+  "// pm.collectionVariables - Set companiesAdd.websites[0].url as variable from request body 
+pm.collectionVariables.set(\\"companiesAdd.websites[0].url\\", \\"http://example.com\\");
+console.log(\\"- use {{companiesAdd.websites[0].url}} as collection variable for value\\", \\"http://example.com\\");
+",
+]
+`;
+
+exports[`assignVarFromRequestBody should add postman collection var without name and request body value 1`] = `
+Array [
+  "// pm.collectionVariables - Set companiesAdd.name as variable from request body 
+pm.collectionVariables.set(\\"companiesAdd.name\\", \\"Copper\\");
+console.log(\\"- use {{companiesAdd.name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;
+
+exports[`assignVarFromRequestBody should not fail when on unexisting request body value 1`] = `
+Array [
+  "",
 ]
 `;
