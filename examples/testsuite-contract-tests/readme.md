@@ -389,7 +389,7 @@ pm.test('[GET]::/crm/leads/:id - Status code is 2xx', function () {
 Generates a check to verify if the HTTP status code matches the `code`
 
 ```js
-// Validate status 2xx
+// Validate response status code 
 pm.test('[GET]::/crm/leads/:id - Response status code time is 400', function () {
   pm.expect(pm.response.code).to.equal(400);
 })
