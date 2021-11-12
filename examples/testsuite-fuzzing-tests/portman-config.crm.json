@@ -63,7 +63,7 @@
                 "overwriteRequestBody": [
                   {
                     "key": "name",
-                    "value": "--{{$randomInt}}",
+                    "value": "{{$randomCompanyName}} {{$randomCompanyName}}",
                     "remove": false
                   }
                 ]
@@ -71,42 +71,46 @@
             ],
             "fuzzing": [
               {
-                "requestBody": {
-                  "requiredFields": {
-                    "enabled": true
-                  },
-                  "minimumNumberFields": {
-                    "enabled": true
-                  },
-                  "maximumNumberFields": {
-                    "enabled": true
-                  },
-                  "minLengthFields": {
-                    "enabled": true
-                  },
-                  "maxLengthFields": {
-                    "enabled": true
+                "requestBody": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
                   }
-                }
+                ]
               },
               {
-                "requestQueryParams": {
-                  "requiredFields": {
-                    "enabled": true
-                  },
-                  "minimumNumberFields": {
-                    "enabled": true
-                  },
-                  "maximumNumberFields": {
-                    "enabled": true
-                  },
-                  "minLengthFields": {
-                    "enabled": true
-                  },
-                  "maxLengthFields": {
-                    "enabled": true
+                "requestQueryParams": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
                   }
-                }
+                ]
               }
             ],
             "tests": {

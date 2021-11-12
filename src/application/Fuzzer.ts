@@ -2,7 +2,10 @@ import { camelCase } from 'camel-case'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import {
+  fuzzingConfig,
   FuzzingSchemaItems,
+  fuzzRequestBody,
+  fuzzRequestQueryParams,
   IntegrationTest,
   OverwriteQueryParamConfig,
   OverwriteRequestBodyConfig,
@@ -14,6 +17,7 @@ import traverse from 'traverse'
 import { TestSuite, VariationWriter } from './'
 import { OpenAPIV3 } from 'openapi-types'
 import { getByPath } from '../utils'
+import { QueryParam } from 'postman-collection'
 
 export type FuzzerOptions = {
   testSuite: TestSuite
@@ -50,57 +54,62 @@ export class Fuzzer {
     const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
     const fuzzItems = this.analyzeFuzzJsonSchema(schema)
 
+    const fuzzReqBodySet = fuzzingSet.filter(fuzz => fuzz?.requestBody) as fuzzingConfig[]
+
     // Loop over all the fuzzing configurations
-    fuzzingSet.map(fuzz => {
-      if (fuzz?.requestBody?.requiredFields?.enabled === true) {
-        this.injectFuzzRequiredVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-      }
+    fuzzReqBodySet.map(fuzzItem => {
+      const fuzzSet = fuzzItem?.requestBody as fuzzRequestBody[]
+      fuzzSet.map(fuzz => {
+        if (fuzz?.requiredFields?.enabled === true) {
+          this.injectFuzzRequiredVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
 
-      if (fuzz?.requestBody?.minimumNumberFields?.enabled === true) {
-        this.injectFuzzMinimumVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-      }
+        if (fuzz?.minimumNumberFields?.enabled === true) {
+          this.injectFuzzMinimumVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
 
-      if (fuzz?.requestBody?.maximumNumberFields?.enabled === true) {
-        this.injectFuzzMaximumVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-      }
+        if (fuzz?.maximumNumberFields?.enabled === true) {
+          this.injectFuzzMaximumVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
 
-      if (fuzz?.requestBody?.minLengthFields?.enabled === true) {
-        this.injectFuzzMinLengthVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-      }
+        if (fuzz?.minLengthFields?.enabled === true) {
+          this.injectFuzzMinLengthVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
 
-      if (fuzz?.requestBody?.maxLengthFields?.enabled === true) {
-        this.injectFuzzMaxLengthVariation(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta,
-          fuzzItems
-        )
-      }
+        if (fuzz?.maxLengthFields?.enabled === true) {
+          this.injectFuzzMaxLengthVariation(
+            pmOperation,
+            oaOperation,
+            variation,
+            variationMeta,
+            fuzzItems
+          )
+        }
+      })
     })
   }
 
@@ -122,57 +131,62 @@ export class Fuzzer {
     reqQueryParams.map(queryParam => {
       const fuzzItems = this.analyzeQuerySchema(queryParam)
 
+      const fuzzQueryParamSet = fuzzingSet.filter(fuzz => fuzz?.requestQueryParams)
+
       // Loop over all the fuzzing configurations
-      fuzzingSet.map(fuzz => {
-        if (fuzz?.requestQueryParams?.requiredFields?.enabled === true) {
-          this.injectFuzzRequiredVariation(
-            pmOperation,
-            oaOperation,
-            variation,
-            variationMeta,
-            fuzzItems
-          )
-        }
+      fuzzQueryParamSet.map(fuzzItem => {
+        const fuzzSet = fuzzItem?.requestQueryParams as fuzzRequestQueryParams[]
+        fuzzSet.map(fuzz => {
+          if (fuzz?.requiredFields?.enabled === true) {
+            this.injectFuzzRequiredVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
 
-        if (fuzz?.requestQueryParams?.minimumNumberFields?.enabled === true) {
-          this.injectFuzzMinimumVariation(
-            pmOperation,
-            oaOperation,
-            variation,
-            variationMeta,
-            fuzzItems
-          )
-        }
+          if (fuzz?.minimumNumberFields?.enabled === true) {
+            this.injectFuzzMinimumVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
 
-        if (fuzz?.requestQueryParams?.maximumNumberFields?.enabled === true) {
-          this.injectFuzzMaximumVariation(
-            pmOperation,
-            oaOperation,
-            variation,
-            variationMeta,
-            fuzzItems
-          )
-        }
+          if (fuzz?.maximumNumberFields?.enabled === true) {
+            this.injectFuzzMaximumVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
 
-        if (fuzz?.requestQueryParams?.minLengthFields?.enabled === true) {
-          this.injectFuzzMinLengthVariation(
-            pmOperation,
-            oaOperation,
-            variation,
-            variationMeta,
-            fuzzItems
-          )
-        }
+          if (fuzz?.minLengthFields?.enabled === true) {
+            this.injectFuzzMinLengthVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
 
-        if (fuzz?.requestQueryParams?.maxLengthFields?.enabled === true) {
-          this.injectFuzzMaxLengthVariation(
-            pmOperation,
-            oaOperation,
-            variation,
-            variationMeta,
-            fuzzItems
-          )
-        }
+          if (fuzz?.maxLengthFields?.enabled === true) {
+            this.injectFuzzMaxLengthVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
+        })
       })
     })
   }
@@ -259,7 +273,7 @@ export class Fuzzer {
         name: variationFuzzName
       })
 
-      // Change the length of the Postman the request property
+      // Change the value of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
@@ -324,7 +338,7 @@ export class Fuzzer {
         name: variationFuzzName
       })
 
-      // Change the length of the Postman the request property
+      // Change the value of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
@@ -386,22 +400,27 @@ export class Fuzzer {
         // Get request body value
         reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
         reqValue = getByPath(reqObj, field.path)
-        // const reqValueLength = reqBodyValue?.toString().length || 0
+        // reqValueLength = reqValue?.toString().length || 0
       }
 
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
         // Get request query param value
-        reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
-        reqValue = getByPath(reqObj, field.path)
-        // const reqValueLength = reqBodyValue?.toString().length || 0
+        const queryParams = JSON.parse(JSON.stringify(pmOperation.item.request.url.query))
+        const pmQueryParam = queryParams.find(obj => {
+          return obj.key === field.field
+        }) as QueryParam
+        reqValue = pmQueryParam?.value
+        // reqValueLength = reqValue?.toString().length || 0
       }
 
       // Change length of value
+      let newLenVal
       if (typeof reqValue === 'number' && typeof field.value === 'number') {
-        field.value = reqValue / (10 * field.value)
+        newLenVal = parseInt(reqValue.toString().substr(0, field.value - 1)) || 0
+        // reqValue / (10 * field.value)
       }
       if (typeof reqValue === 'string' && typeof field.value === 'number') {
-        field.value = reqValue.substring(0, field.value - 1)
+        newLenVal = reqValue.substring(0, field.value - 1)
       }
 
       const operationVariation = pmOperation.clone({
@@ -413,19 +432,19 @@ export class Fuzzer {
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody && newLenVal !== undefined) {
         const fuzzRequestBody = {
           key: field.path,
-          value: field.value,
+          value: newLenVal,
           overwrite: true
         } as OverwriteRequestBodyConfig
         this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
       }
 
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam && newLenVal !== undefined) {
         const fuzzRequestQueryParam = {
           key: field.path,
-          value: field.value,
+          value: newLenVal,
           overwrite: true
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
@@ -474,9 +493,12 @@ export class Fuzzer {
       }
 
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
-        // Get request body value
-        reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
-        reqValue = getByPath(reqObj, field.path)
+        // Get request query param value
+        const queryParams = JSON.parse(JSON.stringify(pmOperation.item.request.url.query))
+        const pmQueryParam = queryParams.find(obj => {
+          return obj.key === field.field
+        }) as QueryParam
+        reqValue = pmQueryParam?.value
         reqValueLength = reqValue?.toString().length || 0
       }
 
@@ -484,8 +506,8 @@ export class Fuzzer {
       if (reqValue && typeof reqValue === 'number' && typeof field.value === 'number') {
         field.value = reqValue * (10 * (reqValueLength - field.value))
       }
-      if (reqValue && typeof reqValue === 'string') {
-        field.value = reqValue + new Array(reqValueLength + 1).join(reqValue.charAt(0))
+      if (reqValue && typeof reqValue === 'string' && typeof field.value === 'number' && reqValue) {
+        field.value = reqValue.padEnd(field.value + 1, reqValue.charAt(0))
       }
 
       const operationVariation = pmOperation.clone({
@@ -497,7 +519,11 @@ export class Fuzzer {
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+      if (
+        fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody &&
+        reqValue &&
+        reqValue !== undefined
+      ) {
         const fuzzRequestBody = {
           key: field.path,
           value: field.value,
@@ -506,7 +532,7 @@ export class Fuzzer {
         this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
       }
 
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam && reqValue !== undefined) {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: field.value,

@@ -264,8 +264,8 @@ export type fuzzRequestQueryParams = {
 }
 
 export type fuzzingConfig = {
-  requestBody?: fuzzRequestBody
-  requestQueryParams?: fuzzRequestQueryParams
+  requestBody?: fuzzRequestBody[]
+  requestQueryParams?: fuzzRequestQueryParams[]
 }
 
 /**
