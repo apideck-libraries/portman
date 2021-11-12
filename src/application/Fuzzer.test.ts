@@ -483,6 +483,31 @@ describe('Fuzzer', () => {
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
   })
 
+  it('should not fuzz if plain Postman variable in the request query', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestQueryParam,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: [{ path: 'raw', field: 'raw', value: 10 }]
+    } as FuzzingSchemaItems
+
+    // Postman dynamic variable
+    pmOpQuery.item.request.url.query.members[0].value = '{{fooBar}}'
+
+    fuzzer.injectFuzzMaxLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result).toBeUndefined()
+  })
+
   it('should analyse JSON schema of request body for fuzz detection', async () => {
     // Analyse JSON schema
     const reqBody = oaOpBody?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject

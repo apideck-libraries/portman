@@ -82,9 +82,7 @@
                       "enabled": true
                     }
                   }
-                ]
-              },
-              {
+                ],
                 "requestQueryParams": [
                   {
                     "requiredFields": {

@@ -414,9 +414,14 @@ export class Fuzzer {
       }
 
       // Detect & Replace Postman dynamic variables
-      if (reqValue.includes('{{') && reqValue.includes('}}')) {
-        const pmVarGen = new PostmanDynamicVarGenerator()
-        reqValue = pmVarGen.replaceDynamicVar(reqValue)
+      if (typeof reqValue === 'string' && reqValue.includes('{{') && reqValue.includes('}}')) {
+        if (reqValue.includes('{{$')) {
+          const pmVarGen = new PostmanDynamicVarGenerator()
+          reqValue = pmVarGen.replaceDynamicVar(reqValue)
+        } else {
+          // Plain Postman variable, let skip this
+          return
+        }
       }
 
       // Change length of value
@@ -509,9 +514,14 @@ export class Fuzzer {
       }
 
       // Detect & Replace Postman dynamic variables
-      if (reqValue.includes('{{') && reqValue.includes('}}')) {
-        const pmVarGen = new PostmanDynamicVarGenerator()
-        reqValue = pmVarGen.replaceDynamicVar(reqValue)
+      if (typeof reqValue === 'string' && reqValue.includes('{{') && reqValue.includes('}}')) {
+        if (reqValue.includes('{{$')) {
+          const pmVarGen = new PostmanDynamicVarGenerator()
+          reqValue = pmVarGen.replaceDynamicVar(reqValue)
+        } else {
+          // Plain Postman variable, let skip this
+          return
+        }
       }
 
       // Change length of value

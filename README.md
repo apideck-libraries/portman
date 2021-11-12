@@ -497,6 +497,8 @@ The automatic fuzzing is based on the OpenAPI request properties, where for each
 
 The Fuzzing options describes the configuration setting for available OpenAPI fuzzing variations.
 
+REMARK: [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) are rendered before being fuzzed. Regular Postman variables are skipped from fuzzing.
+
 #### fuzzing options
 
 - **requestBody (Array)** :
