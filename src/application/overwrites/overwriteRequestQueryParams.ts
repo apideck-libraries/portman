@@ -32,7 +32,7 @@ export const overwriteRequestQueryParams = (
       }
 
       // Test suite - Overwrite/extend query param value
-      if (overwriteItem?.value && pmQueryParam?.value) {
+      if (overwriteItem?.value !== undefined && pmQueryParam?.value) {
         const orginalValue = pmQueryParam.value
         let newValue = overwriteItem.value
 
