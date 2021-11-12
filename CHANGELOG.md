@@ -13,6 +13,7 @@
 - Rework PostmanSyncService to be more resilient when handling cross workspace workflows (#164)
 - Extend unit tests for Postman class itself
 - Update Portman Config jsonSchema
+- Fix typo in OAS URL error string (#168)
 
 ## v1.9.3 - (2021-10-20)
 
