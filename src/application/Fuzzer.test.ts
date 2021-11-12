@@ -433,6 +433,56 @@ describe('Fuzzer', () => {
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
   })
 
+  it('should fuzz the length of a PM dynamic variable in the request query params above the defined minimum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestQueryParam,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'raw', field: 'raw', value: 2 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    // Postman dynamic variable
+    pmOpQuery.item.request.url.query.members[0].value = '{{$randomIntTest}}'
+
+    fuzzer.injectFuzzMinLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.url?.query?.members).toMatchSnapshot()
+  })
+
+  it('should fuzz the length of a PM dynamic variable in the request query params above the defined maximum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestQueryParam,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: [{ path: 'raw', field: 'raw', value: 10 }]
+    } as FuzzingSchemaItems
+
+    // Postman dynamic variable
+    pmOpQuery.item.request.url.query.members[0].value = '{{$randomIntTest}}'
+
+    fuzzer.injectFuzzMaxLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.url?.query?.members).toMatchSnapshot()
+  })
+
   it('should analyse JSON schema of request body for fuzz detection', async () => {
     // Analyse JSON schema
     const reqBody = oaOpBody?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject

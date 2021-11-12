@@ -1,6 +1,6 @@
 import faker from '../lib/faker.js'
 
-export class PostmanDynamicVariables {
+export class PostmanDynamicVarGenerator {
   dynamicGenerators: any
 
   constructor() {

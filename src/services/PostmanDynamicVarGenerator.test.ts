@@ -1,10 +1,10 @@
-import { PostmanDynamicVariables } from './PostmanDynamicVariables'
+import { PostmanDynamicVarGenerator } from './PostmanDynamicVarGenerator'
 
 describe('PostmanDynamicVariables', () => {
-  let pmVars: PostmanDynamicVariables
+  let pmVars: PostmanDynamicVarGenerator
 
   beforeEach(async () => {
-    pmVars = new PostmanDynamicVariables()
+    pmVars = new PostmanDynamicVarGenerator()
   })
 
   describe('constructor', () => {

@@ -18,6 +18,7 @@ import { TestSuite, VariationWriter } from './'
 import { OpenAPIV3 } from 'openapi-types'
 import { getByPath } from '../utils'
 import { QueryParam } from 'postman-collection'
+import { PostmanDynamicVarGenerator } from '../services/PostmanDynamicVarGenerator'
 
 export type FuzzerOptions = {
   testSuite: TestSuite
@@ -412,6 +413,12 @@ export class Fuzzer {
         // reqValueLength = reqValue?.toString().length || 0
       }
 
+      // Detect & Replace Postman dynamic variables
+      if (reqValue.includes('{{') && reqValue.includes('}}')) {
+        const pmVarGen = new PostmanDynamicVarGenerator()
+        reqValue = pmVarGen.replaceDynamicVar(reqValue)
+      }
+
       // Change length of value
       let newLenVal
       if (typeof reqValue === 'number' && typeof field.value === 'number') {
@@ -499,6 +506,12 @@ export class Fuzzer {
         }) as QueryParam
         reqValue = pmQueryParam?.value
         // reqValueLength = reqValue?.toString().length || 0
+      }
+
+      // Detect & Replace Postman dynamic variables
+      if (reqValue.includes('{{') && reqValue.includes('}}')) {
+        const pmVarGen = new PostmanDynamicVarGenerator()
+        reqValue = pmVarGen.replaceDynamicVar(reqValue)
       }
 
       // Change length of value

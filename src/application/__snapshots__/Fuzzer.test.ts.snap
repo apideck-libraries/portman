@@ -158,6 +158,124 @@ exports[`Fuzzer should fuzz the 2nd required props of the request body 1`] = `
 }"
 `;
 
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request query params above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "12311111111",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request query params above the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "1",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
 exports[`Fuzzer should fuzz the length of a number prop of the request body above the defined maximum 1`] = `
 "{
     \\"name\\": \\"Elon Musk\\",
