@@ -354,9 +354,8 @@ export class Fuzzer {
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
         const fuzzRequestQueryParam = {
           key: field.path,
-          value: numberVal,
-          overwrite: true,
-          disable: true
+          value: numberVal.toString(), // Query params should passed as string to Postman
+          overwrite: true
         } as unknown as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -531,7 +530,7 @@ export class Fuzzer {
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam && reqValue !== undefined) {
         const fuzzRequestQueryParam = {
           key: field.path,
-          value: field.value,
+          value: field.value.toString(), // Query params should passed as string to Postman
           overwrite: true
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)

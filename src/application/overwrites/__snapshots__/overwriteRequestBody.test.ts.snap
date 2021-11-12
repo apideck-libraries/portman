@@ -1115,6 +1115,118 @@ exports[`overwriteRequestBody should overwrite the body param with raw {{$random
 }"
 `;
 
+exports[`overwriteRequestBody should overwrite the request body with boolean value 1`] = `
+"{
+    \\"name\\": true,
+    \\"owner_id\\": \\"12345\\",
+    \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+    \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+    \\"vat_number\\": \\"BE0689615164\\",
+    \\"currency\\": \\"USD\\",
+    \\"status\\": \\"Open\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"bank_accounts\\": [
+        {
+            \\"iban\\": \\"CH2989144532982975332\\",
+            \\"bic\\": \\"AUDSCHGGXXX\\"
+        },
+        {
+            \\"iban\\": \\"CH2989144532982975332\\",
+            \\"bic\\": \\"AUDSCHGGXXX\\"
+        }
+    ],
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
 exports[`overwriteRequestBody should overwrite the request body with dot notation path value 1`] = `
 "{
     \\"name\\": \\"Copper\\",
@@ -1145,6 +1257,118 @@ exports[`overwriteRequestBody should overwrite the request body with dot notatio
             \\"url\\": \\"http://example.com\\",
             \\"id\\": \\"12345\\",
             \\"type\\": \\"secondary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`overwriteRequestBody should overwrite the request body with number value 1`] = `
+"{
+    \\"name\\": 987654321,
+    \\"owner_id\\": \\"12345\\",
+    \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+    \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+    \\"vat_number\\": \\"BE0689615164\\",
+    \\"currency\\": \\"USD\\",
+    \\"status\\": \\"Open\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"bank_accounts\\": [
+        {
+            \\"iban\\": \\"CH2989144532982975332\\",
+            \\"bic\\": \\"AUDSCHGGXXX\\"
+        },
+        {
+            \\"iban\\": \\"CH2989144532982975332\\",
+            \\"bic\\": \\"AUDSCHGGXXX\\"
+        }
+    ],
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
         }
     ],
     \\"addresses\\": [

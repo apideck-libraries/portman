@@ -1606,9 +1606,9 @@ Array [
       "content": "Number of records to return",
       "type": "text/plain",
     },
-    "disabled": true,
+    "disabled": false,
     "key": "limit",
-    "value": 101,
+    "value": "101",
   },
   Object {
     "description": Object {
