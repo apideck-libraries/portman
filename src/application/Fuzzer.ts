@@ -202,8 +202,19 @@ export class Fuzzer {
       // Remove requiredField from Postman operation
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
-      const fuzzRequestBody = { key: requiredField, remove: true } as OverwriteRequestBodyConfig
-      this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+        const fuzzRequestBody = { key: requiredField, remove: true } as OverwriteRequestBodyConfig
+        this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+        const fuzzRequestQueryParam = {
+          key: requiredField,
+          remove: true
+        } as OverwriteQueryParamConfig
+        this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
+      }
 
       this.variationWriter.injectVariations(
         operationVariation,
@@ -248,7 +259,7 @@ export class Fuzzer {
         name: variationFuzzName
       })
 
-      // Change the value of the Postman request body
+      // Change the length of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
@@ -267,7 +278,7 @@ export class Fuzzer {
           value: numberVal,
           overwrite: true
         } as unknown as OverwriteQueryParamConfig
-        this.addOverwriteRequestBody(newVariation, fuzzQueryParam)
+        this.addOverwriteRequestQueryParam(newVariation, fuzzQueryParam)
       }
 
       this.variationWriter.injectVariations(
@@ -313,7 +324,7 @@ export class Fuzzer {
         name: variationFuzzName
       })
 
-      // Change the value of the Postman request body
+      // Change the length of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
@@ -584,7 +595,7 @@ export class Fuzzer {
     const schema = queryParam?.schema as OpenAPIV3.BaseSchemaObject
 
     // Register all fuzz-able items
-    if (schema?.required) {
+    if (queryParam?.required) {
       fuzzItems?.requiredFields?.push(queryParam.name)
     }
     if (schema?.minimum) {
