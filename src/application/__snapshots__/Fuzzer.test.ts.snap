@@ -120,7 +120,7 @@ exports[`Fuzzer should fuzz the length of a number prop of the request body abov
     \\"prefix\\": \\"Sir\\",
     \\"title\\": \\"CEO\\",
     \\"status\\": \\"New\\",
-    \\"monetary_amount\\": -3750000,
+    \\"monetary_amount\\": 75000000000,
     \\"currency\\": \\"USD\\",
     \\"fax\\": \\"+12129876543\\",
     \\"websites\\": [
@@ -458,7 +458,7 @@ Array [
     },
     "disabled": false,
     "key": "limit",
-    "value": "20",
+    "value": "",
   },
   Object {
     "description": Object {
@@ -1185,7 +1185,7 @@ Array [
     },
     "disabled": false,
     "key": "filter[first_name]",
-    "value": "Elon",
+    "value": "",
   },
   Object {
     "description": Object {

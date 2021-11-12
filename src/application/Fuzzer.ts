@@ -484,12 +484,12 @@ export class Fuzzer {
       // Set Pm request name
       const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum length ${field.field}]`
 
-      let reqObj, reqValue, reqValueLength
+      let reqObj, reqValue
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
         // Get request body value
         reqObj = JSON.parse(pmOperation?.item?.request?.body?.raw || '')
         reqValue = getByPath(reqObj, field.path)
-        reqValueLength = reqValue?.toString().length || 0
+        // reqValueLength = reqValue?.toString().length || 0
       }
 
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
@@ -499,12 +499,12 @@ export class Fuzzer {
           return obj.key === field.field
         }) as QueryParam
         reqValue = pmQueryParam?.value
-        reqValueLength = reqValue?.toString().length || 0
+        // reqValueLength = reqValue?.toString().length || 0
       }
 
       // Change length of value
       if (reqValue && typeof reqValue === 'number' && typeof field.value === 'number') {
-        field.value = reqValue * (10 * (reqValueLength - field.value))
+        field.value = parseInt(reqValue.toString().padEnd(field.value + 1, '0')) || reqValue
       }
       if (reqValue && typeof reqValue === 'string' && typeof field.value === 'number' && reqValue) {
         field.value = reqValue.padEnd(field.value + 1, reqValue.charAt(0))
@@ -519,11 +519,7 @@ export class Fuzzer {
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
       if (!newVariation?.overwrites) newVariation.overwrites = []
 
-      if (
-        fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody &&
-        reqValue &&
-        reqValue !== undefined
-      ) {
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody && reqValue !== undefined) {
         const fuzzRequestBody = {
           key: field.path,
           value: field.value,
