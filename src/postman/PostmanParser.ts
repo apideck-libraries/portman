@@ -104,7 +104,8 @@ export class PostmanParser implements IPostmanParser {
     return this.mappedOperations.filter(({ id }) => id && operationIds.includes(id))
   }
 
-  public getOperationByItemId(itemId: string): PostmanMappedOperation | null {
+  public getOperationByItemId(itemId: string | undefined): PostmanMappedOperation | null {
+    if (itemId == undefined) return null
     return this.mappedOperations.find(mappedOperation => mappedOperation.item.id === itemId) || null
   }
 

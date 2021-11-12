@@ -57,7 +57,7 @@ file: examples/testsuite-content-tests/portman-config.crm.json
         {
           "key": "Operation-Location",
           "contains": "/operations/",
-          "length": 57
+          "length": 15
         }
       ]
     }
@@ -133,7 +133,7 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
         {
           "key": "Operation-Location",
           "contains": "/operations/",
-          "length": 57
+          "length": 15
         }
       ]
     }
@@ -307,7 +307,7 @@ When you add a `length` test, the check validates if the response contains the e
 // Response body should have a length of "9" for "data[0].description"
 if (jsonData?.data[0].description) {
   pm.test("[GET]::/crm/leads - Content check if value of 'data[0].description' has a length of '9'", function() {
-  pm.expect(jsonData.data[0].description).to.have.lengthOf(12);
+  pm.expect(jsonData.data[0].description).to.have.lengthOf(9);
 })};
 ```
 
@@ -332,9 +332,9 @@ pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Lo
   pm.expect(pm.response.headers.get('Operation-Location')).to.include("/operations/");
 });
 
-// Response header should have a length of "57" for "Operation-Location"
-pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '57'", function() {
-  pm.expect(pm.response.headers.get('Operation-Location')).to.have.lengthOf(57);
+// Response header should have a length of "15" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '15'", function() {
+  pm.expect(pm.response.headers.get('Operation-Location')).to.have.lengthOf(15);
 });
 ```
 
@@ -374,9 +374,9 @@ When you add a `length` test, the check validates if the header value contains t
 
 `length` example:
 ```js
-// Response header should have a length of "57" for "Operation-Location"
-pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '57'", function() {
-  pm.expect(pm.response.headers.get("Operation-Location")).to.have.lengthOf(57);
+// Response header should have a length of "15" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '15'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).to.have.lengthOf(15);
 });
 
 ```

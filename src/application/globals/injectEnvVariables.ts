@@ -42,6 +42,10 @@ export const injectEnvVariables = (
   }
 
   variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
-  obj.variable = Array.from(new Set(variables))
-  return obj
+  const uniqueVariables = Array.from(new Set(variables))
+
+  const collection = JSON.parse(JSON.stringify(obj))
+  collection.variable = uniqueVariables
+
+  return collection as CollectionDefinition
 }

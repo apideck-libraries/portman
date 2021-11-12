@@ -30,7 +30,7 @@ export const assignVarFromRequestBody = (
   // Set variable value
   const reqBodyObj = JSON.parse(pmOperation.item.request.body.raw)
   const reqBodyValue = getByPath(reqBodyObj, varProp)
-  if (reqBodyValue !== 'undefined') {
+  if (reqBodyValue !== undefined) {
     const varValue = typeof reqBodyValue === 'string' ? `"${reqBodyValue}"` : reqBodyValue
     pmVarAssign = [
       `// pm.collectionVariables - Set ${varName} as variable from request body \n`,

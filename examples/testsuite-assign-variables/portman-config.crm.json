@@ -46,7 +46,8 @@
       "openApiOperation": "POST::*",
       "collectionVariables": [
         {
-          "responseBodyProp": "data.id"
+          "responseBodyProp": "data.id",
+          "name": "leadsAdd.id"
         }
       ]
     },
