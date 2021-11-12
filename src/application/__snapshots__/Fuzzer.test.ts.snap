@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Fuzzer should analyse JSON schema of request body for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 1,
+    },
+    Object {
+      "field": "url",
+      "path": "websites.items.properties.url",
+      "value": 1,
+    },
+    Object {
+      "field": "url",
+      "path": "social_links.items.properties.url",
+      "value": 1,
+    },
+    Object {
+      "field": "number",
+      "path": "phone_numbers.items.properties.number",
+      "value": 1,
+    },
+    Object {
+      "field": "email",
+      "path": "emails.items.properties.email",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "name",
+    "company_name",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse the request query param for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestQueryParam",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [],
+}
+`;
+
 exports[`Fuzzer should fuzz the 2nd required props of the request body 1`] = `
 "{
     \\"name\\": \\"Elon Musk\\",

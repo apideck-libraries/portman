@@ -6,6 +6,7 @@ import { getConfig } from '../lib'
 import { Collection } from 'postman-collection'
 import { Fuzzer } from './Fuzzer'
 import { FuzzingSchemaItems, PortmanFuzzTypes } from '../types'
+import { OpenAPIV3 } from 'openapi-types'
 
 describe('Fuzzer', () => {
   let postmanParser: PostmanParser
@@ -19,7 +20,8 @@ describe('Fuzzer', () => {
   let pmOps
   let pmOpBody
   let pmOpQuery
-  let oaOp
+  let oaOpBody
+  let oaOpQuery
 
   const postmanJson = '__tests__/fixtures/crm.postman.json'
   const oasYml = '__tests__/fixtures/crm.yml'
@@ -49,7 +51,8 @@ describe('Fuzzer', () => {
     pmOps = testSuite.getOperationsFromSetting(variationTest)
     pmOpBody = pmOps[11] // POST Leads operation
     pmOpQuery = pmOps[10] // GET Leads operation
-    oaOp = oasParser.getOperationByPath(pmOpBody.pathRef)
+    oaOpBody = oasParser.getOperationByPath(pmOpBody.pathRef)
+    oaOpQuery = oasParser.getOperationByPath(pmOpQuery.pathRef)
   })
 
   it('should not fuzz', async () => {
@@ -62,7 +65,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzRequiredVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzRequiredVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result).toBeUndefined()
@@ -78,7 +81,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzRequiredVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzRequiredVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -94,7 +97,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzRequiredVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzRequiredVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[1]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -110,7 +113,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -126,7 +129,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -142,7 +145,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -158,7 +161,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -174,7 +177,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -190,7 +193,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -206,7 +209,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -222,7 +225,7 @@ describe('Fuzzer', () => {
       maxLengthFields: [{ path: 'first_name', field: 'first_name', value: 10 }]
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -238,7 +241,7 @@ describe('Fuzzer', () => {
       maxLengthFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 10 }]
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.body?.raw).toMatchSnapshot()
@@ -254,7 +257,13 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzRequiredVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -270,7 +279,13 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzRequiredVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[1]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -286,7 +301,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinimumVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinimumVariation(pmOpQuery, oaOpQuery, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -302,7 +317,7 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMaximumVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMaximumVariation(pmOpQuery, oaOpQuery, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -318,7 +333,13 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -334,7 +355,13 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -350,7 +377,13 @@ describe('Fuzzer', () => {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMinLengthVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMinLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -366,7 +399,13 @@ describe('Fuzzer', () => {
       maxLengthFields: [{ path: 'filter[first_name]', field: 'filter[first_name]', value: 10 }]
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMaxLengthVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMaxLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -382,9 +421,32 @@ describe('Fuzzer', () => {
       maxLengthFields: [{ path: 'limit', field: 'limit', value: 10 }]
     } as FuzzingSchemaItems
 
-    fuzzer.injectFuzzMaxLengthVariation(pmOpQuery, oaOp, variationTest, variationMeta, fuzzItems)
+    fuzzer.injectFuzzMaxLengthVariation(
+      pmOpQuery,
+      oaOpQuery,
+      variationTest,
+      variationMeta,
+      fuzzItems
+    )
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body for fuzz detection', async () => {
+    // Analyse JSON schema
+    const reqBody = oaOpBody?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
+    const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse the request query param for fuzz detection', async () => {
+    // Analyse query param
+    const reqQueryParams = oaOpQuery?.queryParams as unknown as OpenAPIV3.ParameterObject[]
+
+    const result = fuzzer.analyzeQuerySchema(reqQueryParams[1])
+    expect(result).toMatchSnapshot()
   })
 })
