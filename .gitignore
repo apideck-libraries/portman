@@ -2,6 +2,7 @@ node_modules
 coverage
 .env
 tmp/*
+specs/*
 /dist
 .release
 .eslintcache

@@ -1,0 +1,36 @@
+{
+  "collections": [
+    {
+      "id": "dac5eac9-148d-a32e-b76b-3edee9da28f7",
+      "name": "Cloud API",
+      "owner": "631643",
+      "uid": "631643-dac5eac9-148d-a32e-b76b-3edee9da28f7",
+      "createdAt": "2020-10-23T18:48:46.000Z",
+      "updatedAt": "2020-10-23T18:48:47.000Z"
+    },
+    {
+      "id": "f695cab7-6878-eb55-7943-ad88e1ccfd65",
+      "name": "Postman Echo",
+      "owner": "631643",
+      "uid": "631643-f695cab7-6878-eb55-7943-ad88e1ccfd65",
+      "createdAt": "2021-03-17T09:43:13.000Z",
+      "updatedAt": "2021-11-05T12:41:12.000Z"
+    },
+    {
+      "id": "f2e66c2e-5297-e4a5-739e-20cbb90900e3",
+      "name": "Sample Collection",
+      "owner": "631643",
+      "uid": "631643-f2e66c2e-5297-e4a5-739e-20cbb90900e3",
+      "createdAt": "2021-11-04T19:45:53.000Z",
+      "updatedAt": "2021-11-04T19:56:43.000Z"
+    },
+    {
+      "id": "22eb0345-7fcb-4358-88bc-af234ffc8943",
+      "name": "Sample Collection",
+      "owner": "631643",
+      "uid": "631643-22eb0345-7fcb-4358-88bc-af234ffc8943",
+      "createdAt": "2021-11-04T19:45:53.000Z",
+      "updatedAt": "2021-11-05T12:41:12.000Z"
+    }
+  ]
+}

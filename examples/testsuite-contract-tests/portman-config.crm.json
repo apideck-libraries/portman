@@ -10,13 +10,6 @@
       },
       {
         "openApiOperation": "*::/crm/*",
-        "statusCode": {
-          "enabled": true,
-          "code": 400
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
         "excludeForOperations": ["leadsAdd", "GET::/crm/leads/{id}"],
         "responseTime": {
           "enabled": true,

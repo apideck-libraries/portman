@@ -1,0 +1,21 @@
+{
+  "workspace": {
+    "id": "4e6d34c2-cfdb-4b33-8868-12a875bebda3",
+    "name": "My Workspace",
+    "type": "personal",
+    "description": "Demos.",
+    "collections": [
+      {
+        "id": "631643-f695cab7-6878-eb55-7943-ad88e1ccfd65",
+        "name": "Postman Echo",
+        "uid": "631643-f695cab7-6878-eb55-7943-ad88e1ccfd65"
+      },
+      {
+        "id": "22eb0345-7fcb-4358-88bc-af234ffc8943",
+        "name": "Sample Collection",
+        "uid": "631643-22eb0345-7fcb-4358-88bc-af234ffc8943"
+      }
+    ],
+    "environments": []
+  }
+}

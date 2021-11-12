@@ -1,0 +1,14 @@
+{
+  "workspaces": [
+    {
+      "id": "4e6d34c2-cfdb-4b33-8868-12a875bebda3",
+      "name": "My Workspace",
+      "type": "personal"
+    },
+    {
+      "id": "f8801e9e-03a4-4c7b-b31e-5db5cd771696",
+      "name": "Team workspace",
+      "type": "team"
+    }
+  ]
+}

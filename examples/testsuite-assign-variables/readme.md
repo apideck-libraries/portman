@@ -66,7 +66,8 @@ file: examples/testsuite-assign-variables/portman-config.crm.json >>
       "openApiOperation": "POST::*",
       "collectionVariables": [
         {
-          "responseBodyProp": "data.id"
+          "responseBodyProp": "data.id",
+          "name": "leadsAdd.id"
         }
       ]
     },
