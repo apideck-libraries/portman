@@ -7,20 +7,20 @@ Wikipedia definition of fuzzing:
 
 Portman provides automatic [fuzzing](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-fuzzing-tests) for triggering the "unhappy" test paths.
 
-Variation test for 2 types of results:
+Variation test types:
 
 - **happy path variations**: Typically you test all possible query parameters/headers/..., that should respond with a 2xx
 - **unhappy path variations** . The unhappy path is used to verify the API validation/error responses by setting unexpected values in the request inputs.
 
 Portman provides a simple form of Fuzzing by changing the request inputs (body, query params, ... ) to unexpected values based on the OpenAPI request properties.
-For each fuzzing variation, a new Postman request will be generated, for which you optionally can add contract tests, assign variables, overwrite input, ...
+For each fuzzing variation, a new Postman request will be generated, for which you optionally can add contract tests, assign variables, overwrite inputs, ...
 
 _use-cases_:
 
-- Test with variations without the required query params or request body fields
-- Test with variations for invalid inputs that are below a minimum value or above a maximum value
-- Test with variations for invalid inputs that are too long or too short
-- Test APIs that should return a 4xx error/validation response
+- Tests without the required query params or request body fields
+- Tests with invalid inputs that are below a minimum value or above a maximum value
+- Test with invalid inputs that are too long or too short
+- Test responses that should return a 4xx error/validation response
 
 ## CLI usage
 
@@ -184,7 +184,7 @@ The Portman configuration will result in a Postman collection with:
 - **Normal "Leads" folder**: which could all the "happy path" tests
 - **"Variation testing" folder**: which contains all the variation tests with our "fuzzed" requests.
 
-In the example, we only included a variation configuration to keep the example clear and compact, but you can combine the Portman configuration with all the tests (contract test, content test, overwrites, ...) options.
+In the example, we only included a variation configuration to keep configuration clear and compact, but you can combine the Portman configuration with all the tests (contract test, content test, overwrites, ...) options.
 
 ![](./images/variation-fuzzing-list.png)
 
@@ -207,8 +207,8 @@ We want to generate test variations for all OpenAPI operations and verify if the
     "name": "Unprocessable",
 ```
 
-The "variations" contain the list of all the variations we want to build up for on the targeted requests.
-We can provide "name" for the variations to nicely recognize the requests, that will be used in the generated request name. 
+The "variations" contain the list of all the variations we want to build up for the targeted request.
+We can provide a "name" for the variations to easily recognize the requests in the list of Postman request. The defined "name" will be used in the generated request name. 
 
 ## fuzzing
 
@@ -246,8 +246,6 @@ The **requestBody** config is an array of fuzzing options for the Postman Reques
 Portman scans the OpenAPI request body for properties that can be fuzzed.
 The **requestBody** configuration allows you to define for which fuzzing options you want to generate request variations.
 
-REMARK: Fuzzing is only applicable for OpenAPI request bodies of media type: "application/json"
-
 - **requiredFields (Boolean)** : Removes the properties & values from the request body that are marked as "required" in OpenAPI.
 - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
 - **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
@@ -255,6 +253,12 @@ REMARK: Fuzzing is only applicable for OpenAPI request bodies of media type: "ap
 - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
 As a result, you will get automatically generated Postman requests for each possible variation found in the OpenAPI request body properties.
+See the screenshot above or the generated [postman collection](./crm.postman.json).
+
+REMARKS:
+- Fuzzing is only applicable for OpenAPI request bodies of media type: "application/json"
+- [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) are rendered before being fuzzed.
+- Regular Postman variables are skipped from fuzzing.
 
 ### fuzzing requestQueryParams
 ```json
@@ -293,7 +297,8 @@ Like for the **requestBody**, you have full control over which **requestQueryPar
 - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
 - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
-As a result, you will get automatically generated Postman requests for each possible variation found in the OpenAPI request query parameters.
+Portman uses the options to automatically generate Postman requests for each possible variation found in the OpenAPI request query parameters.
+See the screenshot above or the generated [postman collection](./crm.postman.json).
 
 ### variation contract test
 
@@ -337,7 +342,7 @@ The contract tests will be injected for each generated fuzzing variation.
 
 In our example, Portman will add for each variation:  a status code check, a content-type check, a response JSON body check, a header check, and a JSON schema validation; all based on the expected OpenAPI 422 response.
 
-Any of the available ["contract test" options](https://github.com/apideck-libraries/portman/tree/main#portman---contracttests-options), ["content test" options](https://github.com/apideck-libraries/portman#portman---contenttests-properties) and ["extended test" options](https://github.com/apideck-libraries/portman#portman---extendtests-properties) can be used for the generated variances.
+Any of the available ["contract test"](https://github.com/apideck-libraries/portman/tree/main#portman---contracttests-options), ["content test"](https://github.com/apideck-libraries/portman#portman---contenttests-properties) and ["extended test"](https://github.com/apideck-libraries/portman#portman---extendtests-properties) options can be used for the generated variances.
 
 ## Conclusion
 
