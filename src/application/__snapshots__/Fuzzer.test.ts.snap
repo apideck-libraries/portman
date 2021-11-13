@@ -1836,7 +1836,7 @@ Array [
     },
     "disabled": false,
     "key": "limit",
-    "value": 9,
+    "value": "9",
   },
   Object {
     "description": Object {

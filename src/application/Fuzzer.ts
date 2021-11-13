@@ -250,7 +250,7 @@ export class Fuzzer {
     variationMeta: VariationTestConfig | IntegrationTest | null,
     fuzzItems: FuzzingSchemaItems | null
   ): void {
-    // Early exit if no fuzzing fields detected
+    // Early exit if no fuzzing fields defined
     const minimumNumberFields = fuzzItems?.minimumNumberFields || []
     if (minimumNumberFields.length === 0) return
     if (
@@ -288,12 +288,12 @@ export class Fuzzer {
       }
 
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
-        const fuzzQueryParam = {
+        const fuzzRequestQueryParam = {
           key: field.path,
-          value: numberVal,
+          value: numberVal.toString(), // Query params should passed as string to Postman
           overwrite: true
         } as unknown as OverwriteQueryParamConfig
-        this.addOverwriteRequestQueryParam(newVariation, fuzzQueryParam)
+        this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
 
       this.variationWriter.injectVariations(
@@ -428,7 +428,6 @@ export class Fuzzer {
       let newLenVal
       if (typeof reqValue === 'number' && typeof field.value === 'number') {
         newLenVal = parseInt(reqValue.toString().substr(0, field.value - 1)) || 0
-        // reqValue / (10 * field.value)
       }
       if (typeof reqValue === 'string' && typeof field.value === 'number') {
         newLenVal = reqValue.substring(0, field.value - 1)
@@ -455,7 +454,7 @@ export class Fuzzer {
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam && newLenVal !== undefined) {
         const fuzzRequestQueryParam = {
           key: field.path,
-          value: newLenVal,
+          value: newLenVal.toString(), // Query params should passed as string to Postman
           overwrite: true
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
