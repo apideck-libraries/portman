@@ -125,12 +125,12 @@ export class Fuzzer {
     // Early exit if no fuzzingSet defined
     if (fuzzingSet.length === 0) return
 
-    // No request body defined
+    // No request query params defined
     if (!oaOperation?.queryParams) return
 
-    // Analyse JSON schema
     const reqQueryParams = oaOperation?.queryParams as unknown as OpenAPIV3.ParameterObject[]
     reqQueryParams.map(queryParam => {
+      // Analyse query param schema
       const fuzzItems = this.analyzeQuerySchema(queryParam)
 
       const fuzzQueryParamSet = fuzzingSet.filter(fuzz => fuzz?.requestQueryParams)
