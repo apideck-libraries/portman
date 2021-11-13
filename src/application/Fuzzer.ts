@@ -10,6 +10,7 @@ import {
   OverwriteQueryParamConfig,
   OverwriteRequestBodyConfig,
   PortmanFuzzTypes,
+  PortmanTestTypes,
   VariationConfig,
   VariationTestConfig
 } from '../types'
@@ -209,10 +210,18 @@ export class Fuzzer {
       // Set Pm request name
       const variationFuzzName = `${pmOperation.item.name}[${variation.name}][required ${requiredField}]`
 
+      // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
         newId: camelCase(variationFuzzName),
         name: variationFuzzName
       })
+
+      // Set/Update Portman operation test type
+      this.testSuite.registerOperationTestType(
+        operationVariation,
+        PortmanTestTypes.variation,
+        false
+      )
 
       // Remove requiredField from Postman operation
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
@@ -269,10 +278,18 @@ export class Fuzzer {
       const numberVal =
         typeof field.value === 'number' ? field.value - 1 : parseInt(field.value) - 1
 
+      // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
         newId: camelCase(variationFuzzName),
         name: variationFuzzName
       })
+
+      // Set/Update Portman operation test type
+      this.testSuite.registerOperationTestType(
+        operationVariation,
+        PortmanTestTypes.variation,
+        false
+      )
 
       // Change the value of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
@@ -334,10 +351,18 @@ export class Fuzzer {
       const numberVal =
         typeof field.value === 'number' ? field.value + 1 : parseInt(field.value) + 1
 
+      // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
         newId: camelCase(variationFuzzName),
         name: variationFuzzName
       })
+
+      // Set/Update Portman operation test type
+      this.testSuite.registerOperationTestType(
+        operationVariation,
+        PortmanTestTypes.variation,
+        false
+      )
 
       // Change the value of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
@@ -433,10 +458,18 @@ export class Fuzzer {
         newLenVal = reqValue.substring(0, field.value - 1)
       }
 
+      // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
         newId: camelCase(variationFuzzName),
         name: variationFuzzName
       })
+
+      // Set/Update Portman operation test type
+      this.testSuite.registerOperationTestType(
+        operationVariation,
+        PortmanTestTypes.variation,
+        false
+      )
 
       // Change the length of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
@@ -531,10 +564,18 @@ export class Fuzzer {
         field.value = reqValue.padEnd(field.value + 1, reqValue.charAt(0))
       }
 
+      // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
         newId: camelCase(variationFuzzName),
         name: variationFuzzName
       })
+
+      // Set/Update Portman operation test type
+      this.testSuite.registerOperationTestType(
+        operationVariation,
+        PortmanTestTypes.variation,
+        false
+      )
 
       // Change the length of the Postman the request property
       const newVariation = JSON.parse(JSON.stringify(clonedVariation))
