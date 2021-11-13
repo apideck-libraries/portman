@@ -13,6 +13,9 @@
 - Rework PostmanSyncService to be more resilient when handling cross workspace workflows (#164)
 - Extend unit tests for Postman class itself
 - Update Portman Config jsonSchema
+- Fuzzing - Added fuzzing variation generation of the request body fields for OpenAPI properties: required, minimum number, maximum number, minLength, maxLength
+- Fuzzing - Added fuzzing variation generation of the request query parameters for OpenAPI properties: required, minimum number, maximum number, minLength, maxLength
+- Fuzzing - Added support for Postman Dynamic Variables on the minLength, maxLength for fuzzing options
 
 ## v1.9.3 - (2021-10-20)
 
