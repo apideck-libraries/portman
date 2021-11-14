@@ -493,7 +493,7 @@ NOTICE: This feature is considered BETA, since we are investigating additional f
 
 Fuzzing changes the requests (body, query params, ... ) to unexpected values in an effort to cause unexpected behavior and errors in the API response.
 For Portman, we want to provide a simple form of Fuzzing, with the goal to trigger validation/error responses, which can be contract tested.
-The automatic fuzzing is based on the OpenAPI request properties, where for each fuzzing variation, a new Postman request will be generated, with optional contract tests.
+The automatic fuzzing is based on the OpenAPI request properties, where for each fuzzing variation a new Postman request will be generated, with optional contract tests.
 
 The Fuzzing options describe the configuration setting for available OpenAPI fuzzing variations.
 
