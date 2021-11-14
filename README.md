@@ -497,7 +497,9 @@ The automatic fuzzing is based on the OpenAPI request properties, where for each
 
 The Fuzzing options describe the configuration setting for available OpenAPI fuzzing variations.
 
-REMARK: [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) are rendered before being fuzzed. Regular Postman variables are skipped from fuzzing.
+REMARKS:
+- [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) are rendered before being fuzzed. 
+- Regular Postman variables are skipped from fuzzing.
 
 #### fuzzing options
 
@@ -532,7 +534,7 @@ REMARK: [Postman Dynamic variables](https://learning.Postman.com/docs/writing-sc
   - **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
-  - 
+
 For more details, review the [fuzzing example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-fuzzing-tests).
 
 <hr>
