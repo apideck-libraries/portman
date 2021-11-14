@@ -40,6 +40,31 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse the request header for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestHeader",
+  "maxLengthFields": Array [
+    Object {
+      "field": "x-apideck-app-id",
+      "path": "x-apideck-app-id",
+      "value": 15,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "x-apideck-app-id",
+      "path": "x-apideck-app-id",
+      "value": 2,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "x-apideck-app-id",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse the request query param for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestQueryParam",
@@ -156,6 +181,70 @@ exports[`Fuzzer should fuzz the 2nd required props of the request body 1`] = `
         \\"New\\"
     ]
 }"
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "12311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request header above the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "1",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
 `;
 
 exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request query params above the defined maximum 1`] = `
@@ -600,6 +689,70 @@ exports[`Fuzzer should fuzz the length of a number prop of the request body belo
 }"
 `;
 
+exports[`Fuzzer should fuzz the length of a number prop of the request header above the defined below the defined minimum length of 1 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumertttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
 exports[`Fuzzer should fuzz the length of a number prop of the request query params above the defined below the defined minimum length of 1 1`] = `
 Array [
   Object {
@@ -1042,6 +1195,70 @@ exports[`Fuzzer should fuzz the length of a string prop of the request body abov
 }"
 `;
 
+exports[`Fuzzer should fuzz the length of a string prop of the request header above the defined below the defined minimum length of 2 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "22222222222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
 exports[`Fuzzer should fuzz the length of a string prop of the request query params above the defined below the defined minimum length of 2 1`] = `
 Array [
   Object {
@@ -1156,6 +1373,29 @@ Array [
     "disabled": false,
     "key": "filter[email]",
     "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the multiple required props of the request header 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
   },
 ]
 `;
@@ -1316,6 +1556,38 @@ exports[`Fuzzer should fuzz the request body to empty when minimum length is 1 1
         \\"New\\"
     ]
 }"
+`;
+
+exports[`Fuzzer should fuzz the request header to empty when minimum length is 1 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
 `;
 
 exports[`Fuzzer should fuzz the request query params to empty when minimum length is 1 1`] = `
@@ -1482,6 +1754,29 @@ exports[`Fuzzer should fuzz the required prop of the request body 1`] = `
         \\"New\\"
     ]
 }"
+`;
+
+exports[`Fuzzer should fuzz the required prop of the request header 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
 `;
 
 exports[`Fuzzer should fuzz the required prop of the request query params 1`] = `
@@ -1748,6 +2043,70 @@ exports[`Fuzzer should fuzz the value of a prop of the request body below the de
         \\"New\\"
     ]
 }"
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "101",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request header below the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "9",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
 `;
 
 exports[`Fuzzer should fuzz the value of a prop of the request query params above the defined maximum 1`] = `

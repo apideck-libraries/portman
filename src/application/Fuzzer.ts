@@ -5,10 +5,12 @@ import {
   fuzzingConfig,
   FuzzingSchemaItems,
   fuzzRequestBody,
-  fuzzRequestQueryParams,
+  fuzzRequestHeader,
+  fuzzRequestQueryParam,
   IntegrationTest,
   OverwriteQueryParamConfig,
   OverwriteRequestBodyConfig,
+  OverwriteRequestHeadersConfig,
   PortmanFuzzTypes,
   PortmanTestTypes,
   VariationConfig,
@@ -137,7 +139,85 @@ export class Fuzzer {
 
       // Loop over all the fuzzing configurations
       fuzzQueryParamSet.map(fuzzItem => {
-        const fuzzSet = fuzzItem?.requestQueryParams as fuzzRequestQueryParams[]
+        const fuzzSet = fuzzItem?.requestQueryParams as fuzzRequestQueryParam[]
+        fuzzSet.map(fuzz => {
+          if (fuzz?.requiredFields?.enabled === true) {
+            this.injectFuzzRequiredVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
+
+          if (fuzz?.minimumNumberFields?.enabled === true) {
+            this.injectFuzzMinimumVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
+
+          if (fuzz?.maximumNumberFields?.enabled === true) {
+            this.injectFuzzMaximumVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
+
+          if (fuzz?.minLengthFields?.enabled === true) {
+            this.injectFuzzMinLengthVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
+
+          if (fuzz?.maxLengthFields?.enabled === true) {
+            this.injectFuzzMaxLengthVariation(
+              pmOperation,
+              oaOperation,
+              variation,
+              variationMeta,
+              fuzzItems
+            )
+          }
+        })
+      })
+    })
+  }
+
+  public injectFuzzRequestHeadersVariations(
+    pmOperation: PostmanMappedOperation,
+    oaOperation: OasMappedOperation | null,
+    variation: VariationConfig,
+    variationMeta: VariationTestConfig | IntegrationTest | null
+  ): void {
+    const fuzzingSet = variation?.fuzzing || []
+    // Early exit if no fuzzingSet defined
+    if (fuzzingSet.length === 0) return
+
+    // No request headers defined
+    if (!oaOperation?.requestHeaders) return
+
+    const reqHeaders = oaOperation?.requestHeaders as unknown as OpenAPIV3.ParameterObject[]
+    reqHeaders.map(header => {
+      // Analyse header schema
+      const fuzzItems = this.analyzeHeaderSchema(header)
+
+      const fuzzHeaderSet = fuzzingSet.filter(fuzz => fuzz?.requestHeaders)
+
+      // Loop over all the fuzzing configurations
+      fuzzHeaderSet.map(fuzzItem => {
+        const fuzzSet = fuzzItem?.requestHeaders as fuzzRequestHeader[]
         fuzzSet.map(fuzz => {
           if (fuzz?.requiredFields?.enabled === true) {
             this.injectFuzzRequiredVariation(
@@ -240,6 +320,14 @@ export class Fuzzer {
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
 
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        const fuzzRequestHeader = {
+          key: requiredField,
+          remove: true
+        } as OverwriteRequestHeadersConfig
+        this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
+      }
+
       this.variationWriter.injectVariations(
         operationVariation,
         oaOperation,
@@ -264,7 +352,8 @@ export class Fuzzer {
     if (minimumNumberFields.length === 0) return
     if (
       !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
-      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestHeader === fuzzItems?.fuzzType)
     )
       return
 
@@ -313,6 +402,15 @@ export class Fuzzer {
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
 
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        const fuzzRequestHeader = {
+          key: field.path,
+          value: numberVal.toString(),
+          overwrite: true
+        } as OverwriteRequestHeadersConfig
+        this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
+      }
+
       this.variationWriter.injectVariations(
         operationVariation,
         oaOperation,
@@ -337,7 +435,8 @@ export class Fuzzer {
     if (maximumNumberFields.length === 0) return
     if (
       !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
-      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestHeader === fuzzItems?.fuzzType)
     )
       return
 
@@ -386,6 +485,15 @@ export class Fuzzer {
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
 
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        const fuzzRequestHeader = {
+          key: field.path,
+          value: numberVal.toString(),
+          overwrite: true
+        } as OverwriteRequestHeadersConfig
+        this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
+      }
+
       this.variationWriter.injectVariations(
         operationVariation,
         oaOperation,
@@ -410,7 +518,8 @@ export class Fuzzer {
     if (minLengthFields.length === 0) return
     if (
       !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
-      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestHeader === fuzzItems?.fuzzType)
     )
       return
 
@@ -435,6 +544,16 @@ export class Fuzzer {
           return obj.key === field.field
         }) as QueryParam
         reqValue = pmQueryParam?.value
+        // reqValueLength = reqValue?.toString().length || 0
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        // Get request header value
+        const reqHeaders = JSON.parse(JSON.stringify(pmOperation.item.request.headers))
+        const pmHeader = reqHeaders.find(obj => {
+          return obj.key === field.field
+        }) as QueryParam
+        reqValue = pmHeader?.value
         // reqValueLength = reqValue?.toString().length || 0
       }
 
@@ -493,6 +612,15 @@ export class Fuzzer {
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
 
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        const fuzzRequestHeader = {
+          key: field.path,
+          value: newLenVal.toString(),
+          overwrite: true
+        } as OverwriteRequestHeadersConfig
+        this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
+      }
+
       this.variationWriter.injectVariations(
         operationVariation,
         oaOperation,
@@ -517,7 +645,8 @@ export class Fuzzer {
     if (maxLengthFields.length === 0) return
     if (
       !(PortmanFuzzTypes.requestBody === fuzzItems?.fuzzType) &&
-      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType)
+      !(PortmanFuzzTypes.requestQueryParam === fuzzItems?.fuzzType) &&
+      !(PortmanFuzzTypes.requestHeader === fuzzItems?.fuzzType)
     )
       return
 
@@ -542,6 +671,16 @@ export class Fuzzer {
           return obj.key === field.field
         }) as QueryParam
         reqValue = pmQueryParam?.value
+        // reqValueLength = reqValue?.toString().length || 0
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        // Get request header value
+        const reqHeaders = JSON.parse(JSON.stringify(pmOperation.item.request.headers))
+        const pmHeader = reqHeaders.find(obj => {
+          return obj.key === field.field
+        }) as QueryParam
+        reqValue = pmHeader?.value
         // reqValueLength = reqValue?.toString().length || 0
       }
 
@@ -597,6 +736,15 @@ export class Fuzzer {
           overwrite: true
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
+      }
+
+      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+        const fuzzRequestHeader = {
+          key: field.path,
+          value: field.value.toString(),
+          overwrite: true
+        } as OverwriteRequestHeadersConfig
+        this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
 
       this.variationWriter.injectVariations(
@@ -714,6 +862,58 @@ export class Fuzzer {
     return fuzzItems
   }
 
+  public analyzeHeaderSchema(
+    header: OpenAPIV3.ParameterObject | undefined
+  ): FuzzingSchemaItems | null {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestHeader,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    if (!header?.schema || !header.name) return fuzzItems
+
+    const schema = header?.schema as OpenAPIV3.BaseSchemaObject
+
+    // Register all fuzz-able items
+    if (header?.required) {
+      fuzzItems?.requiredFields?.push(header.name)
+    }
+    if (schema?.minimum) {
+      fuzzItems?.minimumNumberFields?.push({
+        path: header.name,
+        field: header.name,
+        value: schema.minimum
+      })
+    }
+    if (schema?.maximum) {
+      fuzzItems?.maximumNumberFields?.push({
+        path: header.name,
+        field: header.name,
+        value: schema.maximum
+      })
+    }
+    if (schema?.minLength) {
+      fuzzItems?.minLengthFields?.push({
+        path: header.name,
+        field: header.name,
+        value: schema.minLength
+      })
+    }
+    if (schema?.maxLength) {
+      fuzzItems?.maxLengthFields?.push({
+        path: header.name,
+        field: header.name,
+        value: schema.maxLength
+      })
+    }
+
+    return fuzzItems
+  }
+
   /**
    * Add an OverwriteRequestBodyConfig to a variation
    * @param variation
@@ -746,6 +946,24 @@ export class Fuzzer {
       variation.overwrites.push({ overwriteRequestQueryParams: [fuzzRequestQueryParam] })
     } else {
       variation.overwrites[idx].overwriteRequestQueryParams.push(fuzzRequestQueryParam)
+    }
+    return variation
+  }
+
+  /**
+   * Add an OverwriteRequestHeadersConfig to a variation
+   * @param variation
+   * @param fuzzRequestHeader
+   */
+  public addOverwriteRequestHeader(
+    variation: VariationConfig,
+    fuzzRequestHeader: OverwriteRequestHeadersConfig
+  ): VariationConfig {
+    const idx = variation.overwrites.findIndex(obj => obj.overwriteRequestHeaders)
+    if (idx === -1) {
+      variation.overwrites.push({ overwriteRequestHeaders: [fuzzRequestHeader] })
+    } else {
+      variation.overwrites[idx].overwriteRequestHeaders.push(fuzzRequestHeader)
     }
     return variation
   }

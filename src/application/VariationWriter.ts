@@ -63,8 +63,16 @@ export class VariationWriter {
           variationMeta
         )
 
-        // Generate new variation for each Fuzz of the request query param
+        // Generate new variation for each Fuzz of the request query params
         this.fuzzer.injectFuzzRequestQueryParamsVariations(
+          pmOperation,
+          oaOperation,
+          variation,
+          variationMeta
+        )
+
+        // Generate new variation for each Fuzz of the request headers
+        this.fuzzer.injectFuzzRequestHeadersVariations(
           pmOperation,
           oaOperation,
           variation,

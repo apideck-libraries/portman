@@ -101,6 +101,25 @@ file: examples/testsuite-fuzzing-tests/portman-config.crm.json
                       "enabled": true
                     }
                   }
+                ],
+                "requestHeaders": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
                 ]
               }
             ],
@@ -261,6 +280,7 @@ REMARKS:
 - Regular Postman variables are skipped from fuzzing.
 
 ### fuzzing requestQueryParams
+
 ```json
 "fuzzing": [
   {
@@ -298,6 +318,46 @@ Like for the **requestBody**, you have full control over which **requestQueryPar
 - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
 Portman uses the options to automatically generate Postman requests for each possible variation found in the OpenAPI request query parameters.
+See the screenshot above or the generated [postman collection](./crm.postman.json).
+
+### fuzzing requestHeaders
+
+```json
+"fuzzing": [
+  {
+    "requestHeaders": [
+      {
+        "requiredFields": {
+          "enabled": true
+        },
+        "minimumNumberFields": {
+          "enabled": true
+        },
+        "maximumNumberFields": {
+          "enabled": true
+        },
+        "minLengthFields": {
+          "enabled": true
+        },
+        "maxLengthFields": {
+          "enabled": true
+        }
+      }
+    ],
+```
+
+The **requestHeaders** config is an array of fuzzing options for the Postman Request headers.
+By analysing the OpenAPI request headers, Portman can detects all possible fuzzable properties.
+
+Like for the **requestBody** & **requestQueryParams** , you have full control over which **requestHeaders** fuzzing configuration you want to generate request variations.
+
+- **requiredFields (Boolean)** : Removes the properties & values from the request headers that are marked as "required" in OpenAPI.
+- **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
+- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+- **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
+- **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
+
+Portman uses the options to automatically generate Postman requests for each possible variation found in the OpenAPI request headers.
 See the screenshot above or the generated [postman collection](./crm.postman.json).
 
 ### variation contract test

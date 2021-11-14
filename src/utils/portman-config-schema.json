@@ -854,6 +854,75 @@
                             "items": {
                               "additionalProperties": false,
                               "properties": {
+                                "requestHeaders": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "maxLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "maximumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minimumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "requiredFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
                                 "requestBody": {
                                   "items": {
                                     "additionalProperties": false,
@@ -1195,6 +1264,75 @@
                       "items": {
                         "additionalProperties": false,
                         "properties": {
+                          "requestHeaders": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "maxLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "maximumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minimumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "requiredFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
                           "requestBody": {
                             "items": {
                               "additionalProperties": false,

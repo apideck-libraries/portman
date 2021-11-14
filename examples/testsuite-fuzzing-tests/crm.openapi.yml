@@ -1647,8 +1647,11 @@ components:
       in: header
       required: true
       description: The ID of your Unify application
+      example: Foo Bar
       schema:
         type: string
+        minLength: 2
+        maxLength: 15
     serviceId:
       name: x-apideck-service-id
       in: header
@@ -1660,8 +1663,11 @@ components:
       in: header
       required: true
       description: ID of the consumer which you want to get or push data from
+      example: 10
       schema:
-        type: string
+        type: number
+        minimum: 10
+        maximum: 100
     raw:
       name: raw
       in: query
