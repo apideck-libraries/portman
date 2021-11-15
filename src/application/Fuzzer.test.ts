@@ -59,7 +59,7 @@ describe('Fuzzer', () => {
     oaOpHeader = oasParser.getOperationByPath(pmOpHeader.pathRef)
   })
 
-  it('should not fuzz', async () => {
+  it('should not fuzz when no OpenAPI fuzzable properties are detected', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
       requiredFields: [],
