@@ -29,6 +29,30 @@ describe('overwriteRequestBody', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should overwrite the request body with number value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 987654321
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the request body with boolean value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should add a property to the request body with simple key value', async () => {
     const overwriteValues = [
       {

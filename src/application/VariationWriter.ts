@@ -10,6 +10,7 @@ import {
   VariationTestConfig
 } from '../types'
 import { TestSuite } from './'
+import { Fuzzer } from './Fuzzer'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -18,6 +19,7 @@ export type VariationWriterOptions = {
 
 export class VariationWriter {
   testSuite: TestSuite
+  fuzzer: Fuzzer
   public variationFolder: ItemGroup<Item>
   public variationCollection: Collection
   public operationFolders: Record<string, string>
@@ -43,21 +45,57 @@ export class VariationWriter {
     const variations = (variation?.variations as VariationConfig[]) || []
     const { ...variationMeta } = variation
 
+    // Inject Fuzz Variations
+    this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
+
     variations.map(variation => {
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
       const variationName = name || `${pmOperation.item.name}[${variation.name}]`
+      const fuzzingSet = variation.fuzzing
 
-      const operationVariation = pmOperation.clone({
-        newId: camelCase(variationName),
-        name: variationName
-      })
+      if (fuzzingSet) {
+        // Generate new variation for each Fuzz of the request body
+        this.fuzzer.injectFuzzRequestBodyVariations(
+          pmOperation,
+          oaOperation,
+          variation,
+          variationMeta
+        )
 
-      // Set/Update Portman operation test type
-      this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
+        // Generate new variation for each Fuzz of the request query params
+        this.fuzzer.injectFuzzRequestQueryParamsVariations(
+          pmOperation,
+          oaOperation,
+          variation,
+          variationMeta
+        )
 
-      this.injectVariations(operationVariation, oaOperation, variation, variationMeta)
-      this.addToLocalCollection(operationVariation, folderId, folderName)
+        // Generate new variation for each Fuzz of the request headers
+        this.fuzzer.injectFuzzRequestHeadersVariations(
+          pmOperation,
+          oaOperation,
+          variation,
+          variationMeta
+        )
+
+        // Inject fuzzed variations to the folder
+        this.fuzzer.fuzzVariations.map(operationVariation => {
+          this.addToLocalCollection(operationVariation, folderId, folderName)
+        })
+      } else {
+        // Normal variation
+        const operationVariation = pmOperation.clone({
+          newId: camelCase(variationName),
+          name: variationName
+        })
+
+        // Set/Update Portman operation test type
+        this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
+
+        this.injectVariations(operationVariation, oaOperation, variation, variationMeta)
+        this.addToLocalCollection(operationVariation, folderId, folderName)
+      }
     })
   }
 

@@ -260,7 +260,7 @@ export class PostmanApiService {
         spinner.succeed(`Upload to Postman Succeeded`)
       } else {
         spinner.succeed(
-          `Upload to Postman completed with status: ${responseStatusCode}. \n\n Please review your collection within Postman as they can respond with timeout but still mutate your collection`
+          `Upload to Postman completed with status: ${responseStatusCode}. \n\n Please review your collection within Postman as they can respond with a 504 timeout but still import your collection`
         )
       }
       return JSON.stringify({ status: 'success', data: { ...respData, collection } }, null, 2)

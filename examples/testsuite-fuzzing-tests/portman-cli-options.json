@@ -1,0 +1,8 @@
+{
+  "local": "./examples/testsuite-fuzzing-tests/crm.openapi.yml",
+  "output": "./examples/testsuite-fuzzing-tests/crm.postman.json",
+  "portmanConfigFile": "./examples/testsuite-fuzzing-tests/portman-config.crm.json",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": false
+}

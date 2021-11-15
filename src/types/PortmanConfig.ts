@@ -69,6 +69,7 @@ export type VariationConfig = {
   name: string
   openApiResponse?: string
   overwrites?: any
+  fuzzing?: fuzzingConfig[]
   tests: any
   assignVariables?: AssignVariablesConfig[]
   extendTests?: ExtendTestsConfig[]
@@ -218,6 +219,63 @@ export type TestConfig = {
   extendTests?: ExtendTestsConfig[]
   variationTests?: VariationTestConfig[]
   integrationTests?: IntegrationTestConfig[]
+}
+
+type fuzzingSchemaItem = {
+  path: string
+  field?: string
+  value: string | number
+}
+
+export const PortmanFuzzTypes = {
+  requestBody: 'requestBody',
+  requestQueryParam: 'requestQueryParam',
+  requestHeader: 'requestHeader'
+} as const
+
+export type PortmanFuzzType = typeof PortmanFuzzTypes[keyof typeof PortmanFuzzTypes]
+
+export type FuzzingSchemaItems = {
+  fuzzType: PortmanFuzzType
+  requiredFields?: string[]
+  minimumNumberFields?: fuzzingSchemaItem[]
+  maximumNumberFields?: fuzzingSchemaItem[]
+  minLengthFields?: fuzzingSchemaItem[]
+  maxLengthFields?: fuzzingSchemaItem[]
+}
+
+type fuzzingOptions = {
+  enabled: boolean
+}
+
+export type fuzzRequestBody = {
+  requiredFields?: fuzzingOptions
+  minimumNumberFields?: fuzzingOptions
+  maximumNumberFields?: fuzzingOptions
+  minLengthFields?: fuzzingOptions
+  maxLengthFields?: fuzzingOptions
+}
+
+export type fuzzRequestQueryParam = {
+  requiredFields?: fuzzingOptions
+  minimumNumberFields?: fuzzingOptions
+  maximumNumberFields?: fuzzingOptions
+  minLengthFields?: fuzzingOptions
+  maxLengthFields?: fuzzingOptions
+}
+
+export type fuzzRequestHeader = {
+  requiredFields?: fuzzingOptions
+  minimumNumberFields?: fuzzingOptions
+  maximumNumberFields?: fuzzingOptions
+  minLengthFields?: fuzzingOptions
+  maxLengthFields?: fuzzingOptions
+}
+
+export type fuzzingConfig = {
+  requestBody?: fuzzRequestBody[]
+  requestQueryParams?: fuzzRequestQueryParam[]
+  requestHeaders?: fuzzRequestHeader[]
 }
 
 /**

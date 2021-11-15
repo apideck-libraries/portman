@@ -1,0 +1,153 @@
+{
+  "version": 1.0,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "statusSuccess": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "excludeForOperations": [
+          "leadsAdd",
+          "GET::/crm/leads/{id}"
+        ],
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
+      }
+    ],
+    "variationTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "openApiResponse": "422",
+        "variations": [
+          {
+            "name": "Unprocessable",
+            "fuzzing": [
+              {
+                "requestBody": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ],
+                "requestQueryParams": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ],
+                "requestHeaders": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "openApiOperation": "*::/crm/*",
+                  "contentType": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "openApiOperation": "*::/crm/*",
+                  "jsonBody": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "openApiOperation": "*::/crm/*",
+                  "schemaValidation": {
+                    "enabled": true
+                  }
+                },
+                {
+                  "openApiOperation": "*::/crm/*",
+                  "headersPresent": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

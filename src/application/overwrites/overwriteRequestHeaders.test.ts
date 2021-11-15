@@ -94,4 +94,18 @@ describe('overwriteRequestHeaders', () => {
     const result = overwriteRequestHeaders(overwriteValues, pmOperation)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
+
+  it('should overwrite the header variable with a blank value', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '',
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
 })

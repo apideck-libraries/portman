@@ -14,6 +14,10 @@
 - Extend unit tests for Postman class itself
 - Update Portman Config jsonSchema
 - Fix typo in OAS URL error string (#168)
+- Fuzzing - Added fuzzing variation generation of the request body fields for OpenAPI properties: required, minimum number, maximum number, minLength, maxLength
+- Fuzzing - Added fuzzing variation generation of the request query parameters for OpenAPI properties: required, minimum number, maximum number, minLength, maxLength
+- Fuzzing - Added fuzzing variation generation of the request headers for OpenAPI properties: required, minimum number, maximum number, minLength, maxLength
+- Fuzzing - Added support for Postman Dynamic Variables on the minLength, maxLength for fuzzing options
 
 ## v1.9.3 - (2021-10-20)
 

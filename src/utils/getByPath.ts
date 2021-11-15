@@ -12,7 +12,7 @@ export const getByPath = (
   path: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValue: any | undefined = undefined
-): string | Record<string, unknown> | Record<string, unknown>[] | undefined => {
+): string | number | boolean | Record<string, unknown> | Record<string, unknown>[] | undefined => {
   if (!isObject(objectOrArray) && !Array.isArray(objectOrArray)) return objectOrArray
 
   const dot = new Dot() // Initiate new dot-object

@@ -49,7 +49,9 @@
             "type": "array"
           }
         },
-        "required": ["collectionVariables"],
+        "required": [
+          "collectionVariables"
+        ],
         "type": "object"
       },
       "type": "array"
@@ -84,7 +86,10 @@
                 "type": "string"
               }
             },
-            "required": ["searchFor", "replaceWith"],
+            "required": [
+              "searchFor",
+              "replaceWith"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -100,7 +105,10 @@
                 "type": "string"
               }
             },
-            "required": ["searchFor", "replaceWith"],
+            "required": [
+              "searchFor",
+              "replaceWith"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -121,7 +129,9 @@
                   "type": "string"
                 }
               },
-              "required": ["value"],
+              "required": [
+                "value"
+              ],
               "type": "object"
             },
             "basic": {
@@ -134,7 +144,10 @@
                   "type": "string"
                 }
               },
-              "required": ["username", "password"],
+              "required": [
+                "username",
+                "password"
+              ],
               "type": "object"
             },
             "bearer": {
@@ -144,7 +157,9 @@
                   "type": "string"
                 }
               },
-              "required": ["token"],
+              "required": [
+                "token"
+              ],
               "type": "object"
             },
             "other": {
@@ -162,7 +177,9 @@
                   "type": "string"
                 }
               },
-              "required": ["type"],
+              "required": [
+                "type"
+              ],
               "type": "object"
             }
           },
@@ -204,7 +221,9 @@
             "type": "array"
           }
         },
-        "required": ["scripts"],
+        "required": [
+          "scripts"
+        ],
         "type": "object"
       },
       "type": "array"
@@ -246,7 +265,9 @@
                 },
                 "value": {}
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -277,7 +298,9 @@
                   "type": "string"
                 }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -290,7 +313,9 @@
                   "type": "boolean"
                 }
               },
-              "required": ["enabled"],
+              "required": [
+                "enabled"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -309,7 +334,9 @@
                   "type": "string"
                 }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -340,7 +367,9 @@
                   "type": "string"
                 }
               },
-              "required": ["key"],
+              "required": [
+                "key"
+              ],
               "type": "object"
             },
             "type": "array"
@@ -361,7 +390,9 @@
                     "type": "string"
                   }
                 },
-                "required": ["value"],
+                "required": [
+                  "value"
+                ],
                 "type": "object"
               },
               "basic": {
@@ -374,7 +405,10 @@
                     "type": "string"
                   }
                 },
-                "required": ["username", "password"],
+                "required": [
+                  "username",
+                  "password"
+                ],
                 "type": "object"
               },
               "bearer": {
@@ -384,7 +418,9 @@
                     "type": "string"
                   }
                 },
-                "required": ["token"],
+                "required": [
+                  "token"
+                ],
                 "type": "object"
               },
               "other": {
@@ -402,7 +438,9 @@
                     "type": "string"
                   }
                 },
-                "required": ["type"],
+                "required": [
+                  "type"
+                ],
                 "type": "object"
               }
             },
@@ -450,10 +488,16 @@
                     },
                     "length": {},
                     "value": {
-                      "type": ["string", "number", "boolean"]
+                      "type": [
+                        "string",
+                        "number",
+                        "boolean"
+                      ]
                     }
                   },
-                  "required": ["key"],
+                  "required": [
+                    "key"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
@@ -470,10 +514,16 @@
                     },
                     "length": {},
                     "value": {
-                      "type": ["string", "number", "boolean"]
+                      "type": [
+                        "string",
+                        "number",
+                        "boolean"
+                      ]
                     }
                   },
-                  "required": ["key"],
+                  "required": [
+                    "key"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
@@ -500,7 +550,9 @@
                     "type": "array"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "excludeForOperations": {
@@ -522,7 +574,9 @@
                     "type": "array"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "jsonBody": {
@@ -538,7 +592,9 @@
                     "type": "array"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "openApiOperation": {
@@ -569,7 +625,10 @@
                     "type": "number"
                   }
                 },
-                "required": ["enabled", "maxMs"],
+                "required": [
+                  "enabled",
+                  "maxMs"
+                ],
                 "type": "object"
               },
               "schemaValidation": {
@@ -585,7 +644,9 @@
                     "type": "array"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "statusCode": {
@@ -604,7 +665,9 @@
                     "type": "array"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               },
               "statusSuccess": {
@@ -620,7 +683,9 @@
                     "type": "array"
                   }
                 },
-                "required": ["enabled"],
+                "required": [
+                  "enabled"
+                ],
                 "type": "object"
               }
             },
@@ -663,7 +728,9 @@
                 "type": "array"
               }
             },
-            "required": ["tests"],
+            "required": [
+              "tests"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -734,7 +801,9 @@
                                   "type": "array"
                                 }
                               },
-                              "required": ["collectionVariables"],
+                              "required": [
+                                "collectionVariables"
+                              ],
                               "type": "object"
                             },
                             "type": "array"
@@ -774,7 +843,225 @@
                                   "type": "array"
                                 }
                               },
-                              "required": ["tests"],
+                              "required": [
+                                "tests"
+                              ],
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "fuzzing": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "requestHeaders": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "maxLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "maximumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minimumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "requiredFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "requestBody": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "maxLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "maximumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minimumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "requiredFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                },
+                                "requestQueryParams": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "maxLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "maximumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minLengthFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "minimumNumberFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "requiredFields": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "enabled": {
+                                            "type": "boolean"
+                                          }
+                                        },
+                                        "required": [
+                                          "enabled"
+                                        ],
+                                        "type": "object"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "type": "array"
+                                }
+                              },
                               "type": "object"
                             },
                             "type": "array"
@@ -814,7 +1101,9 @@
                                   "type": "array"
                                 }
                               },
-                              "required": ["scripts"],
+                              "required": [
+                                "scripts"
+                              ],
                               "type": "object"
                             },
                             "type": "array"
@@ -822,19 +1111,28 @@
                           "overwrites": {},
                           "tests": {}
                         },
-                        "required": ["name", "tests"],
+                        "required": [
+                          "name",
+                          "tests"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
                     }
                   },
-                  "required": ["openApiOperationId", "variations"],
+                  "required": [
+                    "openApiOperationId",
+                    "variations"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
               }
             },
-            "required": ["name", "operations"],
+            "required": [
+              "name",
+              "operations"
+            ],
             "type": "object"
           },
           "type": "array"
@@ -913,7 +1211,9 @@
                             "type": "array"
                           }
                         },
-                        "required": ["collectionVariables"],
+                        "required": [
+                          "collectionVariables"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
@@ -953,7 +1253,225 @@
                             "type": "array"
                           }
                         },
-                        "required": ["tests"],
+                        "required": [
+                          "tests"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "fuzzing": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "requestHeaders": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "maxLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "maximumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minimumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "requiredFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "requestBody": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "maxLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "maximumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minimumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "requiredFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "requestQueryParams": {
+                            "items": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "maxLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "maximumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minLengthFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "minimumNumberFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                "requiredFields": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "enabled": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "enabled"
+                                  ],
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
                         "type": "object"
                       },
                       "type": "array"
@@ -993,7 +1511,9 @@
                             "type": "array"
                           }
                         },
-                        "required": ["scripts"],
+                        "required": [
+                          "scripts"
+                        ],
                         "type": "object"
                       },
                       "type": "array"
@@ -1001,13 +1521,18 @@
                     "overwrites": {},
                     "tests": {}
                   },
-                  "required": ["name", "tests"],
+                  "required": [
+                    "name",
+                    "tests"
+                  ],
                   "type": "object"
                 },
                 "type": "array"
               }
             },
-            "required": ["variations"],
+            "required": [
+              "variations"
+            ],
             "type": "object"
           },
           "type": "array"

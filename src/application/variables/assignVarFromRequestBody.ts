@@ -16,7 +16,7 @@ export const assignVarFromRequestBody = (
   // Early exit if request body is not defined
   if (!pmOperation.item?.request?.body?.raw) return pmOperation
 
-  // Early exit if request body is not defined
+  // Early exit if request body prop is not defined
   if (!varSetting.requestBodyProp) return pmOperation
 
   // const requestBody = pmOperation.item.request.body.raw

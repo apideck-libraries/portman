@@ -47,7 +47,20 @@ export class OpenApiParser {
   }
 
   pathsToOperations = (): OasMappedOperation[] => {
-    const paths = this.oas.paths
+    const paths = this.oas.paths as OpenAPIV3.PathsObject
+
+    // Merge path parameters with operation parameters
+    Object.entries(paths).map(path => {
+      if (path?.[1] && path[1].parameters) {
+        Object.keys(path[1]).forEach(key => {
+          if (key !== 'parameters' && path?.[1]?.parameters && path?.[1]?.[key]?.parameters) {
+            path[1][key].parameters = [...path[1].parameters, ...path[1][key].parameters]
+          }
+        })
+      }
+    })
+
+    // Map operations
     const mappedOperations = Object.entries(paths)
       .filter(([_path, operations]) => !!operations)
       .map(([path, operations]) => {

@@ -1,0 +1,2554 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fuzzer should analyse JSON schema of request body for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 1,
+    },
+    Object {
+      "field": "url",
+      "path": "websites.items.properties.url",
+      "value": 1,
+    },
+    Object {
+      "field": "url",
+      "path": "social_links.items.properties.url",
+      "value": 1,
+    },
+    Object {
+      "field": "number",
+      "path": "phone_numbers.items.properties.number",
+      "value": 1,
+    },
+    Object {
+      "field": "email",
+      "path": "emails.items.properties.email",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "name",
+    "company_name",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse the request header for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestHeader",
+  "maxLengthFields": Array [
+    Object {
+      "field": "x-apideck-app-id",
+      "path": "x-apideck-app-id",
+      "value": 15,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "x-apideck-app-id",
+      "path": "x-apideck-app-id",
+      "value": 2,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "x-apideck-app-id",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse the request query param for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestQueryParam",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [],
+}
+`;
+
+exports[`Fuzzer should fuzz the 2nd required props of the request body 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "12311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request header above the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "1",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request query params above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "12311111111",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a PM dynamic variable in the request query params above the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "1",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request body above the defined maximum 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000000000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request body below the defined minimum length of 1 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 0,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request body below the defined minimum length of 2 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 7,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request header above the defined below the defined minimum length of 1 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumertttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request query params above the defined below the defined minimum length of 1 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a number prop of the request query params above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20222222222",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request body above the defined maximum 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"ElonEEEEEEE\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request body above the defined minimum length of 2 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"E\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request body above the defined negative minimum 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request header above the defined below the defined minimum length of 2 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "22222222222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request query params above the defined below the defined minimum length of 2 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "E",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the length of a string prop of the request query params above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "ElonEEEEEEE",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the multiple required props of the request header 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the multiple required props of the request query params 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the request body to empty when minimum length is 1 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the request header to empty when minimum length is 1 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the request query params to empty when minimum length is 1 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the required prop of the request body 1`] = `
+"{
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the required prop of the request header 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the required prop of the request query params 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "20",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request body above the defined maximum 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 301,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request body above the defined maximum in float format 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 301.67,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request body above the defined minimum in float format 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 99.1,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request body below the defined minimum 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 99,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request header above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "101",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request header above the defined maximum in float format 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "301.67",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+  Object {
+    "key": "Content-Type",
+    "value": "application/json",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request header above the defined minimum in float format 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "99.1",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+  Object {
+    "key": "Content-Type",
+    "value": "application/json",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request header below the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "9",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request query params above the defined maximum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "101",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request query params above the defined maximum in float format 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "limit",
+    "value": "301.67",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request query params above the defined minimum in float format 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "limit",
+    "value": "99.1",
+  },
+]
+`;
+
+exports[`Fuzzer should fuzz the value of a prop of the request query params below the defined minimum 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "description": Object {
+      "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "cursor",
+    "value": "",
+  },
+  Object {
+    "description": Object {
+      "content": "Number of records to return",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "limit",
+    "value": "9",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[first_name]",
+    "value": "Elon",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[last_name]",
+    "value": "Musk",
+  },
+  Object {
+    "description": Object {
+      "content": "Apply filters (beta)",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "filter[email]",
+    "value": "elon@tesla.com",
+  },
+]
+`;
