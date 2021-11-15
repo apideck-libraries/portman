@@ -364,8 +364,7 @@ export class Fuzzer {
       const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum number value ${field.field}]`
 
       // Transform to number
-      const numberVal =
-        typeof field.value === 'number' ? field.value - 1 : parseInt(field.value) - 1
+      const numberVal = typeof field.value === 'number' ? field.value - 1 : Number(field.value) - 1
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
@@ -447,8 +446,7 @@ export class Fuzzer {
       const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum number value ${field.field}]`
 
       // Transform to number
-      const numberVal =
-        typeof field.value === 'number' ? field.value + 1 : parseInt(field.value) + 1
+      const numberVal = typeof field.value === 'number' ? field.value + 1 : Number(field.value) + 1
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
@@ -571,7 +569,7 @@ export class Fuzzer {
       // Change length of value
       let newLenVal
       if (typeof reqValue === 'number' && typeof field.value === 'number') {
-        newLenVal = parseInt(reqValue.toString().substr(0, field.value - 1)) || 0
+        newLenVal = Number(reqValue.toString().substr(0, field.value - 1)) || 0
       }
       if (typeof reqValue === 'string' && typeof field.value === 'number') {
         newLenVal = reqValue.substring(0, field.value - 1)
@@ -697,7 +695,7 @@ export class Fuzzer {
 
       // Change length of value
       if (reqValue && typeof reqValue === 'number' && typeof field.value === 'number') {
-        field.value = parseInt(reqValue.toString().padEnd(field.value + 1, '0')) || reqValue
+        field.value = Number(reqValue.toString().padEnd(field.value + 1, '0')) || reqValue
       }
       if (reqValue && typeof reqValue === 'string' && typeof field.value === 'number' && reqValue) {
         field.value = reqValue.padEnd(field.value + 1, reqValue.charAt(0))

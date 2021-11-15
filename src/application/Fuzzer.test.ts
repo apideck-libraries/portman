@@ -139,6 +139,38 @@ describe('Fuzzer', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should fuzz the value of a prop of the request body above the defined minimum in float format', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 100.1 }],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request body above the defined maximum in float format', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 300.67 }],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should fuzz the request body to empty when minimum length is 1', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -322,6 +354,38 @@ describe('Fuzzer', () => {
     } as FuzzingSchemaItems
 
     fuzzer.injectFuzzMaximumVariation(pmOpQuery, oaOpQuery, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.url?.query?.members).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request query params above the defined minimum in float format', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestQueryParam,
+      requiredFields: [],
+      minimumNumberFields: [{ path: 'limit', field: 'limit', value: 100.1 }],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.url?.query?.members).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request query params above the defined maximum in float format', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestQueryParam,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [{ path: 'limit', field: 'limit', value: 300.67 }],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.url?.query?.members).toMatchSnapshot()
@@ -583,6 +647,38 @@ describe('Fuzzer', () => {
     } as FuzzingSchemaItems
 
     fuzzer.injectFuzzMaximumVariation(pmOpQuery, oaOpQuery, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.headers?.members).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request header above the defined minimum in float format', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestHeader,
+      requiredFields: [],
+      minimumNumberFields: [{ path: 'x-apideck-app-id', field: 'x-apideck-app-id', value: 100.1 }],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.headers?.members).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request header above the defined maximum in float format', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestHeader,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [{ path: 'x-apideck-app-id', field: 'x-apideck-app-id', value: 300.67 }],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
     expect(result.item.request?.headers?.members).toMatchSnapshot()
