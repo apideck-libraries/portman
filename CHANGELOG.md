@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## v1.10.0 - (Unreleased)
+## v1.10.0 - (2021-11-15)
 
 - Overwrites - Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman
 - Overwrites - Extended the overwriteRequestQueryParams capabilities with the option to insert new query params in Postman
