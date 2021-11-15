@@ -1,4 +1,7 @@
-import faker from '../lib/faker.js'
+import * as faker from 'faker/locale/en'
+
+// Ported from the original Postman implementation for dynamic-variables
+// https://github.com/postmanlabs/postman-collection/blob/develop/lib/superstring/dynamic-variables.js
 
 export class PostmanDynamicVarGenerator {
   dynamicGenerators: any
@@ -229,7 +232,7 @@ export class PostmanDynamicVarGenerator {
       },
 
       $randomInt: {
-        description: 'A random integer between 1 and 1000',
+        description: 'A random integer between 0 and 1000',
         generator: function () {
           return ~~(Math.random() * (1000 + 1))
         }
@@ -249,7 +252,7 @@ export class PostmanDynamicVarGenerator {
       $randomPhoneNumberExt: {
         description: 'A random phone number with extension (12 digits)',
         generator: function () {
-          return faker.random.number({ min: 1, max: 99 }) + '-' + faker.phone.phoneNumberFormat(0)
+          return faker.datatype.number({ min: 1, max: 99 }) + '-' + faker.phone.phoneNumberFormat(0)
         }
       },
 
@@ -290,7 +293,9 @@ export class PostmanDynamicVarGenerator {
       // faker's system.directoryPath returns nothing. this returns a path for a directory.
       $randomDirectoryPath: {
         description: 'A random directory path',
-        generator: faker.random.arrayElement(DIRECTORY_PATHS)
+        generator: function () {
+          return faker.random.arrayElement(DIRECTORY_PATHS)
+        }
       },
 
       $randomCity: {
@@ -439,7 +444,7 @@ export class PostmanDynamicVarGenerator {
         generator: faker.finance.mask
       },
       $randomPrice: {
-        description: 'A random price between 100.00 and 999.00',
+        description: 'A random price between 0.00 and 1000.00',
         generator: faker.finance.amount
       },
       $randomTransactionType: {
@@ -690,11 +695,11 @@ export class PostmanDynamicVarGenerator {
 
       $randomUUID: {
         description: 'A random 36-character UUID',
-        generator: faker.random.uuid
+        generator: faker.datatype.uuid
       },
       $randomBoolean: {
         description: 'A random boolean value (true/false)',
-        generator: faker.random.boolean
+        generator: faker.datatype.boolean
       },
       $randomWord: {
         description: 'A random word',
