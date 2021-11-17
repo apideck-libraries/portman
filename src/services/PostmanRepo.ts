@@ -84,7 +84,7 @@ export class PostmanRepo {
     }
 
     const results = this.cache.collections.filter(
-      collection => collection.name.toLowerCase() === name.toLowerCase()
+      collection => collection.name.toLowerCase() === name?.toLowerCase()
     )
 
     if (results.length === 0) {
@@ -118,7 +118,7 @@ export class PostmanRepo {
     }
 
     const results = this.cache.workspace.collections.filter(
-      collection => collection.name.toLowerCase() === name.toLowerCase()
+      collection => collection.name.toLowerCase() === name?.toLowerCase()
     )
 
     if (results.length === 0) {
