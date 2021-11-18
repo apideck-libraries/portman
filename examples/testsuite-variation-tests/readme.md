@@ -46,85 +46,6 @@ The portman settings (in JSON format) consists out of multiple parts:
 
 In this example we focus on the **variationTests** section and settings.
 
-file: examples/testsuite-variation-tests/portman-config.crm.json
-
-```json
-{
-  "version": 1.0,
-  "tests": {
-    "variationTests": [
-      {
-        "openApiOperationId": "leadsAdd",
-        "openApiResponse": "400",
-        "variations": [
-          {
-            "name": "missingParams",
-            "overwrites": [
-              {
-                "overwriteRequestBody": [
-                  {
-                    "key": "first_name",
-                    "value": "",
-                    "overwrite": true
-                  }
-                ]
-              }
-            ],
-            "tests": {
-              "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true,
-                    "code": 400
-                  }
-                },
-                {
-                  "jsonBody": {
-                    "enabled": true
-                  }
-                },
-                {
-                  "schemaValidation": {
-                    "enabled": true
-                  }
-                }
-              ],
-              "contentTests": [
-                {
-                  "responseBodyTests": [
-                    {
-                      "key": "typeName",
-                      "value": "RequestBodyValidationError"
-                    }
-                  ]
-                }
-              ],
-              "extendTests": [
-                {
-                  "append": false,
-                  "tests": [
-                    "// Validate status Implemented \nif(pm.response.status === 'Not Implemented'){ return };\n"
-                  ]
-                }
-              ]
-            },
-            "assignVariables": [
-              {
-                "collectionVariables": [
-                  {
-                    "responseBodyProp": "data[0].id",
-                    "name": "missingParams.id"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-}
-```
 
 ## Portman - "variationTest" properties
 
@@ -169,7 +90,7 @@ file: examples/testsuite-variation-tests/portman-config.crm.json >>
             "name": "missingParams",
             "overwrites": [
               {
-                "verwriteRequestBody": [
+                "overwriteRequestBody": [
                   {
                     "key": "first_name",
                     "value": "",
@@ -182,17 +103,13 @@ file: examples/testsuite-variation-tests/portman-config.crm.json >>
               "contractTests": [
                 {
                   "statusCode": {
-                    "enabled": true,
-                  }
-                },
-                {
+                    "enabled": true
+                  },
                   "jsonBody": {
-                  "enabled": true
-                  }
-                },
-                {
+                    "enabled": true
+                  },
                   "schemaValidation": {
-                  "enabled": true
+                    "enabled": true
                   }
                 }
               ],
@@ -286,7 +203,7 @@ A variance support all test types:
 "contractTests": [
                 {
                   "statusCode": {
-                    "enabled": true,
+                    "enabled": true
                   },
                   "jsonBody": {
                     "enabled": true
