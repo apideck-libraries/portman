@@ -6,13 +6,22 @@
         "openApiOperation": "*::/crm/*",
         "statusSuccess": {
           "enabled": true
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
+        },
         "statusCode": {
           "enabled": true,
           "code": 400
+        },
+        "contentType": {
+          "enabled": true
+        },
+        "jsonBody": {
+          "enabled": true
+        },
+        "schemaValidation": {
+          "enabled": true
+        },
+        "headersPresent": {
+          "enabled": true
         }
       },
       {
@@ -21,30 +30,6 @@
         "responseTime": {
           "enabled": true,
           "maxMs": 300
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
-        "contentType": {
-          "enabled": true
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
-        "jsonBody": {
-          "enabled": true
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
-        "schemaValidation": {
-          "enabled": true
-        }
-      },
-      {
-        "openApiOperation": "*::/crm/*",
-        "headersPresent": {
-          "enabled": true
         }
       }
     ],
@@ -96,14 +81,10 @@
                 {
                   "statusCode": {
                     "enabled": true
-                  }
-                },
-                {
+                  },
                   "jsonBody": {
                     "enabled": true
-                  }
-                },
-                {
+                  },
                   "schemaValidation": {
                     "enabled": true
                   }
