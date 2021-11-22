@@ -7,5 +7,6 @@
   "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
   "syncPostman": false,
-  "runNewman": false
+  "runNewman": false,
+  "oaRename": "CRM API - Test suite"
 }

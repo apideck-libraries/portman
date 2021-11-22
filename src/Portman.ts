@@ -9,6 +9,7 @@ import { Collection, CollectionDefinition, Item, ItemGroup } from 'postman-colle
 import {
   CollectionWriter,
   IntegrationTestWriter,
+  oasRename,
   runNewmanWith,
   TestSuite,
   VariationWriter,
@@ -99,6 +100,7 @@ export class Portman {
         postmanConfigFile,
         filterFile,
         oaOutput,
+        oaRename,
         envFile,
         includeTests,
         bundleContractTests,
@@ -141,6 +143,9 @@ export class Portman {
       }}`
     )
     console.log(chalk`{cyan  Upload to Postman: } \t{green ${syncPostman}}  `)
+
+    oaRename && console.log(chalk`{cyan  OpenAPI title: } \t{green ${oaRename}}`)
+
     console.log(chalk.red(consoleLine))
 
     await fs.ensureDir('./tmp/working/')
@@ -175,7 +180,7 @@ export class Portman {
 
   async parseOpenApiSpec(): Promise<void> {
     // --- OpenApi - Get OpenApi file locally or remote
-    const { oaLocal, oaUrl, filterFile, oaOutput } = this.options
+    const { oaLocal, oaUrl, filterFile, oaOutput, oaRename } = this.options
 
     let openApiSpec = oaUrl && (await new DownloadService().get(oaUrl))
 
@@ -219,7 +224,13 @@ export class Portman {
         throw new Error(`Parsing ${openApiSpec} failed.`)
       })
 
+    // Assign oasParser entity
     this.oasParser = oasParser
+
+    // Rename OpenAPI document title
+    if (oaRename) {
+      this.oasParser.oas = oasRename(this.oasParser.oas, this.options)
+    }
   }
 
   async convertToPostmanCollection(): Promise<void> {

@@ -1,4 +1,5 @@
 export * from './injectEnvVariables'
+export * from './oasRename'
 export * from './orderCollectionRequests'
 export * from './overwriteCollectionKeyValues'
 export * from './overwriteCollectionSecurityValues'

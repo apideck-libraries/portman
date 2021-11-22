@@ -30,7 +30,8 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
   "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
   "syncPostman": false,
-  "runNewman": false
+  "runNewman": false,
+  "oaRename": "CRM API - Test suite"
 }
 ```
 
@@ -46,6 +47,7 @@ envFile: ./examples/cli-options/.lead.env
 includeTests: true
 syncPostman: false
 runNewman: false
+oaRename: 'CRM API - Test suite'
 ```
 
 ## Example explained
@@ -65,6 +67,7 @@ pipeline
 - **postmanUid**: refers to the collection ID to upload the generated collection to your postman app
 - **syncPostman**: a toggle to upload the newly created collection to the Postman app
 - **runNewman**: a toggle to run Newman on a newly created collection
+- **oaRename**: Change the OpenAPI title & Postman collection name to 'CRM API - Test suite'. This might be handy if you want to have your original Postman collection and your Portman generated Postman collection as separate collections.
 
 ## Portman Newman CLI options
 

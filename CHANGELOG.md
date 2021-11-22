@@ -4,6 +4,7 @@
 
 - Fixed missing collection name issue (#171)
 - Improved formatting of variation test example config (#170)
+- Added the option to change the OpenAPI title & Postman collection name (#172)
 
 ## v1.10.0 - (2021-11-15)
 
