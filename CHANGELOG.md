@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.10.1 - (Unreleased)
+
+- Fixed missing collection name issue (#171)
+- Improved formatting of variation test example config (#170)
+
 ## v1.10.0 - (2021-11-15)
 
 - Overwrites - Extended the overwriteRequestHeaders capabilities with the option to insert new headers in Postman
