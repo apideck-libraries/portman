@@ -58,7 +58,7 @@
     "husky": "^6.0.0",
     "jest": "^27.0.6",
     "jest-progress-bar-reporter": "^1.0.21",
-    "np": "^7.5.0",
+    "np": "^7.6.0",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.3",
     "ts-json-schema-generator": "^0.95.0",
