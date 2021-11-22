@@ -448,7 +448,7 @@ export class Portman {
       // --- Portman - Replace & clean-up Portman
       if (globals?.portmanReplacements) {
         collectionString = writeRawReplacements(collectionString, globals.portmanReplacements)
-        this.portmanCollection = new Collection(JSON.parse(collectionString))
+        this.portmanCollection = new Collection(JSON.parse(collectionString)).toJSON()
       }
 
       fs.writeFileSync(postmanCollectionFile, collectionString, 'utf8')
