@@ -44,7 +44,7 @@ export class PostmanSyncService {
     this.postmanRepo = new PostmanRepo(this.cacheFile, this.postmanApi)
 
     this.portmanCollection = portmanCollection
-    this.collectionName = collectionName || (portmanCollection?.name as string)
+    this.collectionName = collectionName || (portmanCollection?.info?.name as string)
     this.state = {}
   }
 
