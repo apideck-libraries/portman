@@ -7,10 +7,6 @@
         "statusSuccess": {
           "enabled": true
         },
-        "statusCode": {
-          "enabled": true,
-          "code": 400
-        },
         "contentType": {
           "enabled": true
         },
