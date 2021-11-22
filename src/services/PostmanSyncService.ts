@@ -46,6 +46,12 @@ export class PostmanSyncService {
     this.portmanCollection = portmanCollection
     this.collectionName = collectionName || (portmanCollection?.info?.name as string)
     this.state = {}
+
+    if (!this.collectionName) {
+      throw new Error(
+        `Postman collection name is required. Please ensure your OpenAPI document has title.`
+      )
+    }
   }
 
   public async sync(): Promise<string> {
