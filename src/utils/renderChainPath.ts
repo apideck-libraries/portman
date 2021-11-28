@@ -3,7 +3,7 @@
  * @param path the path definition (example: website[0].url)
  */
 export const renderChainPath = (path: string): string => {
-  const m = process.version.match(/(\d+)\.(\d+)\.(\d+)/)
+  const m = process.version.match(/(\d+)\.(\d+)\.(\d+)/) || ['10.0.0', '10']
   const [major] = m.slice(1).map(_ => parseInt(_))
   if (major < 14) {
     // Optional chaining is only supported from Node version 14, for lower versions we will return the less safe path
