@@ -105,5 +105,8 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }

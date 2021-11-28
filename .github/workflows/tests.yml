@@ -1,12 +1,12 @@
 name: Node Tests CI
-on: [push]
+on: [ push ]
 jobs:
   test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [ '12', '14' ]
 
     steps:
       - uses: actions/checkout@v2
