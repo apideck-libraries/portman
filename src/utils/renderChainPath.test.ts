@@ -4,12 +4,23 @@ describe('renderChainPath', () => {
   const m = process.version.match(/(\d+)\.(\d+)\.(\d+)/) || ['10.0.0', '10']
   const [major] = m.slice(1).map(_ => parseInt(_))
 
+  it('should return original', () => {
+    const path = 'foo'
+
+    const result = renderChainPath(path)
+    if (major < 14) {
+      expect(result).toEqual('foo')
+    } else {
+      expect(result).toEqual('foo')
+    }
+  })
+
   it('should render chained dot notation', () => {
     const path = 'foo.bar'
 
     const result = renderChainPath(path)
     if (major < 14) {
-      expect(result).toEqual('foo.bar')
+      expect(result).toEqual('foo && foo.bar')
     } else {
       expect(result).toEqual('foo?.bar')
     }
@@ -20,7 +31,7 @@ describe('renderChainPath', () => {
 
     const result = renderChainPath(path)
     if (major < 14) {
-      expect(result).toEqual('foo.bar.marco.polo')
+      expect(result).toEqual('foo && foo.bar && foo.bar.marco && foo.bar.marco.polo')
     } else {
       expect(result).toEqual('foo?.bar?.marco?.polo')
     }
@@ -42,7 +53,9 @@ describe('renderChainPath', () => {
 
     const result = renderChainPath(path)
     if (major < 14) {
-      expect(result).toEqual('foo[0].bar[1].marco[2].polo[3]')
+      expect(result).toEqual(
+        'foo[0] && foo[0].bar[1] && foo[0].bar[1].marco[2] && foo[0].bar[1].marco[2].polo[3]'
+      )
     } else {
       expect(result).toEqual('foo?.[0]?.bar?.[1]?.marco?.[2]?.polo?.[3]')
     }
@@ -53,7 +66,7 @@ describe('renderChainPath', () => {
 
     const result = renderChainPath(path)
     if (major < 14) {
-      expect(result).toEqual('foo[0].bar')
+      expect(result).toEqual('foo[0] && foo[0].bar')
     } else {
       expect(result).toEqual('foo?.[0]?.bar')
     }
