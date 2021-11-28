@@ -40,7 +40,7 @@ export const assignVarFromResponseBody = (
 
   pmVarAssign = [
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
-    `if (jsonData${renderChainPath(varProp)}) {\n`,
+    `if (${renderChainPath(`jsonData${varProp}`)}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
