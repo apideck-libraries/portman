@@ -1,6 +1,10 @@
 ## [Unreleased]
 
-## v1.10.1 - (Unreleased)
+## v1.10.2 - (2021-11-29)
+
+- Support Node 12 (#175)
+
+## v1.10.1 - (2021-11-22)
 
 - Fixed missing collection name issue (#171)
 - Improved formatting of variation test example config (#170)
