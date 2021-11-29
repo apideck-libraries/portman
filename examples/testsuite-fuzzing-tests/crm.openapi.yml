@@ -616,6 +616,12 @@ components:
           type: string
           example: '12345'
           nullable: true
+        code:
+          type: number
+          example: 1
+          minimum: 1
+          maximum: 100
+          nullable: true
         url:
           type: string
           example: 'https://www.twitter.com/apideck-io'
