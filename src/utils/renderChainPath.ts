@@ -27,5 +27,5 @@ export const renderSafeFullPath = (path: string): string => {
     const nextPath = s.slice(0, index + 1)
     newPath += `${nextPath.join('.')} && `
   }
-  return `${newPath.slice(0, -3)}`
+  return `${newPath.slice(0, -4)}`
 }
