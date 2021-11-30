@@ -278,6 +278,82 @@ export class PostmanApiService {
     }
   }
 
+  async deleteCollection(postmanUid: string): Promise<string> {
+    const config = {
+      method: 'delete',
+      url: `${this.baseUrl}/collections/${postmanUid}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.apiKey
+      }
+    } as AxiosRequestConfig
+
+    const spinner = ora({
+      prefixText: ' ',
+      text: 'Deleting collection in Postman ...\n'
+    })
+
+    // Start Spinner
+    spinner.start()
+    let responseStatusCode
+
+    try {
+      axios.interceptors.request.use(req => {
+        spinner.text = `Executing Request. Waiting on response...\n`
+        return req
+      })
+
+      axios.interceptors.response.use(
+        response => {
+          spinner.text = `Response Received: ${response?.status}\n`
+
+          responseStatusCode = response.status
+          return response
+        },
+        error => {
+          // Some errors don't have a response
+          if (!error.response) {
+            error.response = {}
+          }
+          responseStatusCode = error?.response?.status || error?.code
+          return error
+        }
+      )
+
+      let response: AxiosResponse<Readable> | undefined
+      let error: AxiosError | undefined
+
+      try {
+        response = await axios.request(config)
+      } catch (err) {
+        error = err
+        response = error?.response
+      }
+
+      const respData = response?.data ?? {}
+
+      if (responseStatusCode < 300) {
+        spinner.succeed(`Delete from Postman Succeeded`)
+      } else {
+        spinner.succeed(
+          `Delete from Postman completed with status: ${responseStatusCode}. \n\n Please review your collection within Postman as they can respond with a 5xx but still delete your collection`
+        )
+      }
+      return JSON.stringify({ status: 'success', data: { ...respData } }, null, 2)
+    } catch (error) {
+      spinner.fail(chalk.red(`Delete from Postman Failed: ${responseStatusCode}`))
+      spinner.clear()
+      return JSON.stringify(
+        {
+          status: 'fail',
+          data: error?.response?.data || error.response || error?.toJSON() || error?.toString()
+        },
+        null,
+        2
+      )
+    }
+  }
+
   isGuid(value: string | undefined): boolean {
     return /^\{?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\}?$/.test(
       <string>value

@@ -2,6 +2,7 @@ import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import { PostmanApiService } from './PostmanApiService'
 import { PostmanRepo } from './PostmanRepo'
+import { omitKeys } from '../utils'
 const workspacesJson = JSON.parse(
   fs.readFileSync('__tests__/fixtures/api_workspaces.json').toString()
 )
@@ -56,8 +57,10 @@ describe('PostmanRepo', () => {
         ]
       })
     )
-    await repo.initCache()
-    expect(repo.cache).toMatchSnapshot()
+    await repo.initCache(true, true)
+    expect(
+      omitKeys(repo.cache, ['collectionsLastUpdated', 'workspacesLastUpdated'])
+    ).toMatchSnapshot()
   })
 
   it('should be able to retrieve collection by case-insensitive name', async () => {

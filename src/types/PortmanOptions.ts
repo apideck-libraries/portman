@@ -11,6 +11,8 @@ export interface PortmanOptions {
   newmanOptionsFile?: string
   postmanUid?: string
   postmanWorkspaceName?: string
+  postmanRefreshCache?: boolean
+  postmanFastSync?: boolean
   localPostman?: string
   uploadOnly?: boolean
   syncPostman?: boolean

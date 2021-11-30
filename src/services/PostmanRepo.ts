@@ -11,6 +11,8 @@ export type PostmanCache = {
   collections: PostmanApiCollectionResult[]
   workspaces: PostmanApiWorkspaceResult[]
   workspace?: PostmanApiWorkspaceDetailResult
+  collectionsLastUpdated: number
+  workspacesLastUpdated: number
 }
 
 export class PostmanRepo {
@@ -20,24 +22,40 @@ export class PostmanRepo {
     this.cacheFile = cacheFile
   }
 
-  async initCache(): Promise<void> {
+  async initCache(
+    refreshCollectionCache?: boolean,
+    refreshWorkspaceCache?: boolean
+  ): Promise<void> {
     try {
       this.cache = await fs.readJSON(this.cacheFile)
     } catch (error) {
       this.cache = {
+        collectionsLastUpdated: new Date().getTime(),
+        workspacesLastUpdated: new Date().getTime(),
         collections: [],
         workspaces: []
       }
       await this.persistCache()
     }
 
-    await this.getCollections()
-    await this.getWorkspaces()
+    // Check cache expiration
+    const oneHour = 60 * 60 * 1000
+    const collExpired = new Date().getTime() - this.cache?.workspacesLastUpdated > oneHour // expire after 1h
+    const workspaceExpired = new Date().getTime() - this.cache?.workspacesLastUpdated > oneHour // expire after 1h
+
+    if (refreshCollectionCache || this.cache?.collections?.length === 0 || collExpired) {
+      await this.getCollections()
+    }
+    if (refreshWorkspaceCache || this.cache?.workspaces?.length === 0 || workspaceExpired) {
+      await this.getWorkspaces()
+    }
 
     this.cache = await fs.readJSON(this.cacheFile)
   }
 
   async persistCache(): Promise<void> {
+    this.cache.collectionsLastUpdated = new Date().getTime()
+    this.cache.workspacesLastUpdated = new Date().getTime()
     await fs.writeJSON(this.cacheFile, this.cache)
   }
 
