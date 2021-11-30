@@ -1,5 +1,12 @@
 ## [Unreleased]
 
+## v1.11.0 - (2021-11-30)
+
+- Improved caching of Postman API, reducing API calls towards Postman
+- Added "postmanFastSync" option to sync collections faster by using delete & create of a new collection (new UID), instead of an update
+- Added "postmanRefreshCache" Postman sync option to refresh all local cached Postman API data
+- Added Fuzzing support for deeply nested properties 
+
 ## v1.10.2 - (2021-11-29)
 
 - Support Node 12 (#175)
