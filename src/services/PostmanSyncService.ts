@@ -52,8 +52,8 @@ export class PostmanSyncService {
     this.portmanCollection = portmanCollection
     this.collectionName = collectionName || (portmanCollection?.info?.name as string)
 
-    this.postmanFastSync = postmanFastSync || false
-    this.postmanRefreshCache = postmanRefreshCache || false
+    this.postmanFastSync = postmanFastSync ?? false
+    this.postmanRefreshCache = postmanRefreshCache ?? false
 
     // Prevent collection delete, when postmanUid is set
     if (this.postmanUid) {
