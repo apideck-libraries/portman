@@ -61,6 +61,14 @@ require('dotenv').config()
       describe: 'Postman Workspace name to target the upload of the generated Postman collection',
       type: 'string'
     })
+    .option('postmanFastSync', {
+      describe: 'Postman sync creates new collection (new UID), instead of update',
+      type: 'boolean'
+    })
+    .option('postmanRefreshCache', {
+      describe: 'Postman sync will refresh all local cached Postman API data',
+      type: 'boolean'
+    })
     .option('localPostman', {
       describe: 'Use local Postman collection, skips OpenAPI conversion',
       type: 'string'
@@ -68,6 +76,11 @@ require('dotenv').config()
     .option('uploadOnly', {
       alias: 'uploadOnly',
       describe: 'Upload generated collection to Postman',
+      type: 'boolean'
+    })
+    .option('syncPostman', {
+      alias: 'syncPostman',
+      describe: 'Upload generated collection to Postman, after conversion',
       type: 'boolean'
     })
     .option('syncPostman', {

@@ -499,7 +499,7 @@ export class Portman {
     // --- Portman - Upload Postman collection to Postman app
     const {
       portmanCollection,
-      options: { syncPostman }
+      options: { syncPostman, postmanRefreshCache, postmanFastSync }
     } = this
 
     if (!syncPostman) return
@@ -516,7 +516,9 @@ export class Portman {
     this.postmanSyncService = new PostmanSyncService({
       postmanUid,
       postmanWorkspaceName,
-      portmanCollection
+      portmanCollection,
+      postmanRefreshCache: postmanRefreshCache,
+      postmanFastSync: postmanFastSync
     })
 
     const response = await this.postmanSyncService.sync()

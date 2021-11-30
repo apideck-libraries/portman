@@ -72,7 +72,7 @@ $ yarn add @apideck/portman
 ```
 
 Note that this will require you to run the Portman CLI with `npx @apideck/portman -l your-openapi-file.yaml` or, if
-you are using an older version of npm, `./node_modules/.bin/Portman -l your-openapi-file.yaml`.
+you are using an older version of npm, `./node_modules/.bin/portman -l your-openapi-file.yaml`.
 
 ### Global Installation
 
@@ -107,6 +107,8 @@ Options:
   -d, --newmanIterationData  Iteration data to run Newman with newly created collection                       [string]
   --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
   --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
+  --postmanFastSync          Postman sync creates new collection (new UID),instead of update (default: false) [boolean]
+  --postmanRefreshCache      Postman sync will refresh all local cached Postman API data (default: false)     [boolean]
   -p, --postmanUid           Postman collection UID to upload with the generated Postman collection           [string]
   --postmanWorkspaceName     Postman Workspace name to target the upload of the generated Postman collection  [string]
   -t, --includeTests         Inject Portman test suite (default: true)                                        [boolean]
