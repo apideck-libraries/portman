@@ -771,13 +771,11 @@ export class Fuzzer {
 
     if (!jsonSchema) return fuzzItems
 
-    // Register fuzz-able required fields
-    fuzzItems.requiredFields = jsonSchema?.required || []
-
     const skipSchemaKeys = ['properties', 'items']
-    traverse(jsonSchema.properties).forEach(function (node) {
+    traverse(jsonSchema).forEach(function (node) {
       let path = ``
-      if (node?.minimum || node?.maximum || node?.minLength || node?.maxLength) {
+
+      if (node?.minimum || node?.maximum || node?.minLength || node?.maxLength || node?.required) {
         // Build up fuzzing prop schema path from parents once
         this.parents.forEach(item => {
           // Handle object
@@ -788,7 +786,17 @@ export class Fuzzer {
           if (item?.key && item?.node?.type === 'array') {
             path += `${item.key}[0].`
           }
+          // Handle root array
+          if (item?.isRoot && item?.node?.type === 'array') {
+            path += `[0].`
+          }
         })
+      }
+
+      if (node?.required) {
+        // Register fuzz-able required fields
+        const requiredFuzz = node.required.map(key => `${path}${key}`)
+        fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
       }
 
       // Register all fuzz-able items

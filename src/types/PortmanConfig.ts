@@ -237,7 +237,7 @@ export type PortmanFuzzType = typeof PortmanFuzzTypes[keyof typeof PortmanFuzzTy
 
 export type FuzzingSchemaItems = {
   fuzzType: PortmanFuzzType
-  requiredFields?: string[]
+  requiredFields: string[]
   minimumNumberFields?: fuzzingSchemaItem[]
   maximumNumberFields?: fuzzingSchemaItem[]
   minLengthFields?: fuzzingSchemaItem[]
