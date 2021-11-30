@@ -117,28 +117,16 @@
                 {
                   "statusCode": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "contentType": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "jsonBody": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "schemaValidation": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "headersPresent": {
                     "enabled": true
                   }
