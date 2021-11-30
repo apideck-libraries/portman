@@ -882,6 +882,136 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it('should analyse JSON schema of request body with deeply object nesting for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      properties: {
+        nestedOb: {
+          type: 'object',
+          properties: {
+            level1: {
+              type: 'object',
+              properties: {
+                level2: {
+                  type: 'object',
+                  properties: {
+                    code: {
+                      type: 'number',
+                      example: 1,
+                      minimum: 1,
+                      maximum: 100,
+                      minLength: 1,
+                      maxLength: 5,
+                      nullable: true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with deeply array nesting for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      properties: {
+        nestedArray: {
+          type: 'array',
+          items: {
+            level1: {
+              type: 'array',
+              items: {
+                level2: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    required: ['code'],
+                    properties: {
+                      code: {
+                        type: 'number',
+                        example: 1,
+                        minimum: 1,
+                        maximum: 100,
+                        minLength: 1,
+                        maxLength: 5,
+                        nullable: true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with deeply array nesting with items prop for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      properties: {
+        nestedArray: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              items: {
+                type: 'number',
+                example: 1,
+                minimum: 1,
+                maximum: 100,
+                minLength: 1,
+                maxLength: 5,
+                nullable: true
+              }
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with deeply array nesting with properties prop for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      properties: {
+        nestedArray: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              properties: {
+                type: 'number',
+                example: 1,
+                minimum: 1,
+                maximum: 100,
+                minLength: 1,
+                maxLength: 5,
+                nullable: true
+              }
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
   it('should analyse the request query param for fuzz detection', async () => {
     // Analyse query param
     const reqQueryParams = oaOpQuery?.queryParams as unknown as OpenAPIV3.ParameterObject[]

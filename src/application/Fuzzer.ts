@@ -361,7 +361,7 @@ export class Fuzzer {
 
     minimumNumberFields.forEach(field => {
       // Set Pm request name
-      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum number value ${field.field}]`
+      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum number value ${field.path}]`
 
       // Transform to number
       const numberVal = typeof field.value === 'number' ? field.value - 1 : Number(field.value) - 1
@@ -443,7 +443,7 @@ export class Fuzzer {
 
     maximumNumberFields.forEach(field => {
       // Set Pm request name
-      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum number value ${field.field}]`
+      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum number value ${field.path}]`
 
       // Transform to number
       const numberVal = typeof field.value === 'number' ? field.value + 1 : Number(field.value) + 1
@@ -525,7 +525,7 @@ export class Fuzzer {
 
     minLengthFields.forEach(field => {
       // Set Pm request name
-      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum length ${field.field}]`
+      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][minimum length ${field.path}]`
 
       let reqObj, reqValue
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
@@ -652,7 +652,7 @@ export class Fuzzer {
 
     maxLengthFields.forEach(field => {
       // Set Pm request name
-      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum length ${field.field}]`
+      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][maximum length ${field.path}]`
 
       let reqObj, reqValue
       if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
@@ -771,34 +771,51 @@ export class Fuzzer {
 
     if (!jsonSchema) return fuzzItems
 
+    // Register fuzz-able required fields
     fuzzItems.requiredFields = jsonSchema?.required || []
 
+    const skipSchemaKeys = ['properties', 'items']
     traverse(jsonSchema.properties).forEach(function (node) {
+      let path = ``
+      if (node?.minimum || node?.maximum || node?.minLength || node?.maxLength) {
+        // Build up fuzzing prop schema path from parents once
+        this.parents.forEach(item => {
+          // Handle object
+          if (item?.key && item?.node?.type === 'object' && !skipSchemaKeys.includes(item?.key)) {
+            path += `${item.key}.`
+          }
+          // Handle array
+          if (item?.key && item?.node?.type === 'array') {
+            path += `${item.key}[0].`
+          }
+        })
+      }
+
       // Register all fuzz-able items
       if (node?.minimum) {
         fuzzItems?.minimumNumberFields?.push({
-          path: this.path.join('.'),
+          path: `${path}${this.key}`,
           field: this.key,
           value: node.minimum
         })
       }
       if (node?.maximum) {
         fuzzItems?.maximumNumberFields?.push({
-          path: this.path.join('.'),
+          path: `${path}${this.key}`,
           field: this.key,
           value: node.maximum
         })
       }
       if (node?.minLength) {
         fuzzItems?.minLengthFields?.push({
-          path: this.path.join('.'),
+          path: `${path}${this.key}`,
           field: this.key,
           value: node.minLength
         })
       }
       if (node?.maxLength) {
         fuzzItems?.maxLengthFields?.push({
-          path: this.path.join('.'),
+          path: `${path}${this.key}`,
           field: this.key,
           value: node.maxLength
         })
