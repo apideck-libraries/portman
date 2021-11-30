@@ -192,13 +192,27 @@ For more details, review the [cli-filtering example](https://github.com/apideck-
 - Upload newly generated collection to Postman, which will upsert the collection, based on the collection name
 
 ```
-portman -l ./tmp/specs/crm.yml --syncPostman true
+portman -l ./tmp/specs/crm.yml --syncPostman
 ```
 
 Upload newly generated collection to Postman using the collection UID to overwrite the existing.
 
 ```
-portman -l ./tmp/specs/crm.yml --syncPostman true -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
+portman -l ./tmp/specs/crm.yml --syncPostman -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
+```
+
+When a collection gets large, the Postman API will compare all the requests when updating the collection. This can take some time and even resulting in 5xx errors.
+To overcome this, you can use the `--postmanFastSync` option. This option will sync using delete and create of the generated collection, instead of the update.
+
+```
+portman -l ./tmp/specs/crm.yml --syncPostman --postmanFastSync
+```
+
+Portman caches a set of Postman API data to facilitate faster lookups and uploads, preventing unnecessary connecting to the Postman API.
+In case you need to reset the cache you simply remove the `.portman.cache.json` file or set the `--postmanRefreshCache` option when running the Postman sync.
+
+```
+portman -l ./tmp/specs/crm.yml --syncPostman --postmanRefreshCache
 ```
 
 - Pass custom paths for config files
