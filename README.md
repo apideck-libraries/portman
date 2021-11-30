@@ -196,8 +196,7 @@ For more details, review the [cli-filtering example](https://github.com/apideck-
 portman -u https://specs.apideck.com/crm.yml --stripResponseExamples --output ./tmp/specs/crm.postman.json
 ```
 
-![Documentation Pipeline](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-strip-response-examples.png)
-As part of the conversion, all requests will get response examples in Postman. When generating variations, the number of examples can grow quickly.
+As part of the conversion, all requests will get [response examples in Postman](https://raw.githubusercontent.com/apideck-libraries/portman/main/docs/img/postman-strip-response-examples.png). When generating variations, the number of examples can grow quickly.
 To keep the Postman collection compact, you can use the CLI option `--stripResponseExamples`. This will strip response examples from the final generated collection.
 
 ###### Upload newly generated collection to Postman, which will upsert the collection, based on the collection name
