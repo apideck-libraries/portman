@@ -204,6 +204,8 @@ portman -l ./tmp/specs/crm.yml --syncPostman -p 9601963a-53ff-4aaa-92a0-2e70a8a2
 When a collection gets large, the Postman API will compare all the requests when updating the collection. This can take some time and even resulting in 5xx errors.
 To overcome this, you can use the `--postmanFastSync` option. This option will sync using delete and create of the generated collection, instead of the update.
 
+REMARK: Using `--postmanFastSync` will result in a new Postman UID for each sync
+
 ```
 portman -l ./tmp/specs/crm.yml --syncPostman --postmanFastSync
 ```
