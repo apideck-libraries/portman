@@ -201,10 +201,10 @@ Upload newly generated collection to Postman using the collection UID to overwri
 portman -l ./tmp/specs/crm.yml --syncPostman -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
 ```
 
-When a collection gets large, the Postman API will compare all the requests when updating the collection. This can take some time and even resulting in 5xx errors.
-To overcome this, you can use the `--postmanFastSync` option. This option will sync using delete and create of the generated collection, instead of the update.
+When a collection gets large, the Postman API will compare all the requests when updating the collection. This can take some time even result  in 5xx errors.
+To overcome this, you can use the `--postmanFastSync` option. This option will sync your collection to Postman by using "delete" and "create" operations instead of the "update".
 
-REMARK: Using `--postmanFastSync` will result in a new Postman UID for each sync
+REMARK: Using `--postmanFastSync` will result in a new Postman collection and Postman UID for each sync.
 
 ```
 portman -l ./tmp/specs/crm.yml --syncPostman --postmanFastSync
