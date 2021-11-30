@@ -143,7 +143,7 @@ By default, Portman will leverage any ENVIRONMENT variable that is defined that 
 
 ### CLI Options
 
-- Initialize Portman CLI configuration:
+###### Initialize Portman CLI configuration:
 
 ```
 portman --init
@@ -151,37 +151,37 @@ portman --init
 
 The `init` option will help you to configure the cliConfig options and put the default config, env file in place to kick-start the usage of Portman.
 
-- Pass in the remotely hosted spec:
+###### Pass in the remotely hosted spec:
 
 ```
 portman -u https://specs.apideck.com/crm.yml
 ```
 
-- Overwrite the baseUrl in spec and run Newman.
+###### Overwrite the baseUrl in spec and run Newman.
 
 ```
 portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true
 ```
 
-- Path pass to a local data file for Newman to use for iterations.
+###### Path pass to a local data file for Newman to use for iterations.
 
 ```
 portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d ./tmp/newman/data/crm.json
 ```
 
-- Pass the path to a local spec (useful when updating your specs) and output Postman collection locally
+###### Pass the path to a local spec (useful when updating your specs) and output Postman collection locally
 
 ```
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
 ```
 
-- Skip tests and just generate collection.
+###### Skip tests and just generate collection.
 
 ```
 portman -l ./tmp/specs/crm.yml -t false
 ```
 
-- Filter OpenAPI and generate collection.
+###### Filter OpenAPI and generate collection.
 
 ```
 portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering/oas-format-filter.json
@@ -189,7 +189,7 @@ portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering
 
 For more details, review the [cli-filtering example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-filtering).
 
-- Upload newly generated collection to Postman, which will upsert the collection, based on the collection name
+###### Upload newly generated collection to Postman, which will upsert the collection, based on the collection name
 
 ```
 portman -l ./tmp/specs/crm.yml --syncPostman
@@ -215,7 +215,7 @@ In case you need to reset the cache you simply remove the `.portman.cache.json` 
 portman -l ./tmp/specs/crm.yml --syncPostman --postmanRefreshCache
 ```
 
-- Pass custom paths for config files
+###### Pass custom paths for config files
 
 All configuration options to convert from OpenAPI to Postman can be on the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 Portman provides a default openapi-to-postman configuration [postman-config.default.json](postman-config.default.json), which will be used if no custom config `--postmanConfigFile` is passed.
@@ -230,7 +230,7 @@ Portman configuration file in YAML format:
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.yaml -s ./common/postman-config.json
 ```
 
-- Pass all CLI options as JSON/YAML file
+###### Pass all CLI options as JSON/YAML file
 
 All the CLI options can be managed in a separate configuration file and passed along to the portman command. This will
 make configuration easier, especially in CI/CD implementations.
@@ -250,7 +250,7 @@ By passing the CLI options as parameter, you can overwrite the defined CLI optio
 
 For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
 
-- Run Newman with Newman options
+###### Run Newman with Newman options
 
 All [Newman configuration options](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/#options) to run Newman can be passed along through Portman.
 
@@ -260,6 +260,8 @@ portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --
 
 For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
 
+NOTE: Newman is set to ignore redirects to allow for testing redirect response codes. If you are running collections within Postman UI, you'll need to ensure Postman is set to the same, or your redirect tests will fail.
+> Postman > Preferences > Automatically follow redirects > OFF
 
 ### Output
 
@@ -271,11 +273,6 @@ By using `-o` or `--output` parameter, you can define the location where the Pos
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
 
-### NOTE:
-
-Newman is set to ignore redirects to allow for testing redirect response codes. If you are running collections within Postman UI, you'll need to ensure Postman is set to the same, or your redirect tests will fail.
-
-Postman > Preferences > Automatically follow redirects > OFF
 
 ## Portman settings
 
