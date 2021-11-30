@@ -278,11 +278,10 @@ export class PostmanApiService {
     }
   }
 
-  async deleteCollection(postmanUid: string, workspaceId?: string): Promise<string> {
-    const workspaceIdParam = workspaceId ? `?workspace=${workspaceId}` : ''
+  async deleteCollection(postmanUid: string): Promise<string> {
     const config = {
       method: 'delete',
-      url: `${this.baseUrl}/collections/${postmanUid}${workspaceIdParam}`,
+      url: `${this.baseUrl}/collections/${postmanUid}`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey

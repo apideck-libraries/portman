@@ -203,8 +203,8 @@ export class PostmanSyncService {
 
   async deleteCollection(): Promise<string> {
     const {
-      state: { postmanUid, workspaceId }
+      state: { postmanUid }
     } = this
-    return this.postmanApi.deleteCollection(postmanUid, workspaceId)
+    return this.postmanApi.deleteCollection(postmanUid)
   }
 }
