@@ -143,7 +143,7 @@ By default, Portman will leverage any ENVIRONMENT variable that is defined that 
 
 ### CLI Options
 
-###### Initialize Portman CLI configuration:
+###### Initialize Portman CLI configuration
 
 ```
 portman --init
@@ -151,19 +151,19 @@ portman --init
 
 The `init` option will help you to configure the cliConfig options and put the default config, env file in place to kick-start the usage of Portman.
 
-###### Pass in the remotely hosted spec:
+###### Pass in the remotely hosted spec
 
 ```
 portman -u https://specs.apideck.com/crm.yml
 ```
 
-###### Overwrite the baseUrl in spec and run Newman.
+###### Overwrite the baseUrl in spec and run Newman
 
 ```
 portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true
 ```
 
-###### Path pass to a local data file for Newman to use for iterations.
+###### Path pass to a local data file for Newman to use for iterations
 
 ```
 portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d ./tmp/newman/data/crm.json
@@ -175,13 +175,13 @@ portman -u https://specs.apideck.com/crm.yml -b http://localhost:3050 -n true -d
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json
 ```
 
-###### Skip tests and just generate collection.
+###### Skip tests and just generate collection
 
 ```
 portman -l ./tmp/specs/crm.yml -t false
 ```
 
-###### Filter OpenAPI and generate collection.
+###### Filter OpenAPI and generate collection
 
 ```
 portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering/oas-format-filter.json
