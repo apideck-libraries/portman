@@ -52,13 +52,8 @@ require('dotenv').config()
       describe: 'Iteration data to run Newman with newly created collection',
       type: 'string'
     })
-    .option('p', {
-      alias: 'postmanUid',
-      describe: 'Postman collection UID to upload with the generated Postman collection',
-      type: 'string'
-    })
-    .option('postmanWorkspaceName', {
-      describe: 'Postman Workspace name to target the upload of the generated Postman collection',
+    .option('localPostman', {
+      describe: 'Use local Postman collection, skips OpenAPI conversion',
       type: 'string'
     })
     .option('syncPostman', {
@@ -74,14 +69,19 @@ require('dotenv').config()
       describe: 'Postman sync will refresh all local cached Postman API data',
       type: 'boolean'
     })
+    .option('p', {
+      alias: 'postmanUid',
+      describe: 'Postman collection UID to upload with the generated Postman collection',
+      type: 'string'
+    })
+    .option('postmanWorkspaceName', {
+      describe: 'Postman Workspace name to target the upload of the generated Postman collection',
+      type: 'string'
+    })
     .option('uploadOnly', {
       alias: 'uploadOnly',
       describe: 'Upload generated collection to Postman',
       type: 'boolean'
-    })
-    .option('localPostman', {
-      describe: 'Use local Postman collection, skips OpenAPI conversion',
-      type: 'string'
     })
     .option('t', {
       alias: 'includeTests',
