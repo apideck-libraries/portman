@@ -48,6 +48,48 @@ Object {
   "requiredFields": Array [
     "name",
     "company_name",
+    "websites[0].url",
+    "social_links[0].url",
+    "phone_numbers[0].number",
+    "emails[0].email",
+    "custom_fields[0].id",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse JSON schema of request body with array of objects for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "code",
   ],
 }
 `;
@@ -83,7 +125,9 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [],
+  "requiredFields": Array [
+    "nestedArray[0].level1[0].level2[0].code",
+  ],
 }
 `;
 
@@ -118,7 +162,9 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [],
+  "requiredFields": Array [
+    "nestedArray[0].items",
+  ],
 }
 `;
 
@@ -153,7 +199,9 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [],
+  "requiredFields": Array [
+    "nestedArray[0].properties",
+  ],
 }
 `;
 
