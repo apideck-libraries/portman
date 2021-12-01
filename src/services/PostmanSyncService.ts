@@ -76,7 +76,11 @@ export class PostmanSyncService {
     const { shouldCreate, shouldUpdate } = this.state
 
     if (this.postmanFastSync) {
-      await this.deleteCollection()
+      const deleteResponse = await this.deleteCollection()
+      const { status } = JSON.parse(deleteResponse)
+      if (status === 'fail') {
+        return deleteResponse
+      }
     }
 
     if ((shouldCreate && !shouldUpdate) || this.postmanFastSync) {
