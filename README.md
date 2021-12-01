@@ -111,7 +111,6 @@ Options:
   -p, --postmanUid           Postman collection UID to upload with the generated Postman collection           [string]
       --postmanWorkspaceName Postman Workspace name to target the upload of the generated Postman collection  [string]
   -t, --includeTests         Inject Portman test suite (default: true)                                        [boolean]
-      --ignoreCircularRefs   Ignore circular references in OpenAPI spec (default: false)                      [boolean]
       --bundleContractTests  Bundle Portman contract tests in a separate folder in Postman (default: false)   [boolean]
   -c, --portmanConfigFile    Path to Portman settings config file (portman-config.json)                       [string]
   -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)                     [string]
@@ -119,6 +118,7 @@ Options:
       --envFile              Path to the .env file to inject environment variables                            [string]
       --collectionName       Overwrite OpenAPI title to set the Postman collection name                       [string]
       --cliOptionsFile       Path to Portman CLI options file                                                 [string]
+      --ignoreCircularRefs   Ignore circular references in OpenAPI spec (default: false)                      [boolean]
       --init                 Configure Portman CLI options in an interactive manner                           [string]
 ```
 

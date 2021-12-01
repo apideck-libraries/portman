@@ -4,11 +4,11 @@
 
 ---
 
-One or more schemas in your API have a circular reference, meaning that they reference themselves at the same level.
+One or more schemas in your OpenAPI spec have a circular reference, meaning that they reference themselves at the same level.
 
 One example of a circular reference might be a `Box` object with a property called `contains`. The `contains` property references another `Box`.
 
-While JSONSchema allows for circular references, The OpenAPI Specification does not.
+While JSONSchema allows for circular references, the OpenAPI Specification does not.
 
 As Portman is based on porting your OAS to port to a Postman collection, a valid spec is required.
 
