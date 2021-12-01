@@ -83,6 +83,11 @@ require('dotenv').config()
       describe: 'Upload generated collection to Postman',
       type: 'boolean'
     })
+    .option('ignoreCircularRefs', {
+      alias: 'ignoreCircularRefs',
+      describe: 'Ignore circular references in OpenAPI spec (default: false)',
+      type: 'boolean'
+    })
     .option('t', {
       alias: 'includeTests',
       describe: 'Inject Portman test suite (default: true)',
