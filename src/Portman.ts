@@ -61,7 +61,7 @@ export class Portman {
       const circularRef = message.includes('Circular $ref')
       console.log(chalk.red(message))
       if (circularRef) {
-        const docLink = 'https://github.com/apideck-libraries/portman/blob/main/docs/ERRORS.md'
+        const docLink = 'https://github.com/apideck-libraries/portman/tree/main/docs/ERRORS.md'
         console.log(chalk.red(`\nPlease see ${docLink} for more information about this error.`))
       }
       console.log(chalk.red(this.consoleLine))

@@ -1,11 +1,19 @@
 ## [Unreleased]
 
+## v1.20.0 - (2021-12-01)
+
+- Added `--ignoreCircularRefs` option to allow OAS specs that contain invalid circular references to still be processed by Portman
+- Added the `--collectionName`` option to change the OpenAPI title & Postman collection name
+- Added `--stripResponseExamples` CLI option to slim down generated Postman collection
+- Fuzzing - added support for root array structure in the request body
+- Update package dependencies
+
 ## v1.11.0 - (2021-11-30)
 
 - Improved caching of Postman API, reducing API calls towards Postman
 - Added "postmanFastSync" option to sync collections faster by using delete & create of a new collection (new UID), instead of an update
 - Added "postmanRefreshCache" Postman sync option to refresh all local cached Postman API data
-- Added Fuzzing support for deeply nested properties 
+- Added Fuzzing support for deeply nested properties
 
 ## v1.10.2 - (2021-11-29)
 
