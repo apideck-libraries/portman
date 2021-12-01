@@ -205,6 +205,7 @@ export type GlobalConfig = {
   rawReplacements?: GlobalReplacement[]
   portmanReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
+  stripResponseExamples?: boolean
 }
 
 export interface TestSuiteOptions {

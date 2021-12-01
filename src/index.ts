@@ -118,10 +118,6 @@ require('dotenv').config()
       describe: 'Path to Portman CLI options file',
       type: 'string'
     })
-    .option('stripResponseExamples', {
-      describe: 'Strip the response examples from the generated Postman collection',
-      type: 'boolean'
-    })
     .option('init', {
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'

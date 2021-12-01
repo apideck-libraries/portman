@@ -10,6 +10,7 @@ import {
   CollectionWriter,
   IntegrationTestWriter,
   runNewmanWith,
+  stripResponseExamples,
   TestSuite,
   VariationWriter,
   writeNewmanEnv,
@@ -27,7 +28,6 @@ import {
 import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
-import traverse from 'traverse'
 
 export class Portman {
   config: PortmanConfig
@@ -427,7 +427,7 @@ export class Portman {
 
   writePortmanCollectionToFile(): void {
     // --- Portman - Write Postman collection to file
-    const { output, stripResponseExamples } = this.options
+    const { output } = this.options
     const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
@@ -445,12 +445,8 @@ export class Portman {
 
     try {
       // --- Portman - Strip Response Examples
-      if (stripResponseExamples) {
-        traverse(this.portmanCollection).forEach(function (node) {
-          if (this?.parent?.key === 'item' && node?.response) {
-            node.response = []
-          }
-        })
+      if (globals?.stripResponseExamples) {
+        this.portmanCollection = stripResponseExamples(this.portmanCollection)
       }
 
       let collectionString = JSON.stringify(this.portmanCollection, null, 2)
