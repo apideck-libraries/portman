@@ -14,7 +14,6 @@ export interface PortmanOptions {
   postmanRefreshCache?: boolean
   postmanFastSync?: boolean
   localPostman?: string
-  stripResponseExamples?: boolean
   uploadOnly?: boolean
   syncPostman?: boolean
   includeTests?: boolean
