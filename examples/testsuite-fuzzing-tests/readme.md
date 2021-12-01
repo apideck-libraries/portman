@@ -128,28 +128,16 @@ file: examples/testsuite-fuzzing-tests/portman-config.crm.json
                 {
                   "statusCode": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "contentType": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "jsonBody": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "schemaValidation": {
                     "enabled": true
-                  }
-                },
-                {
-                  "openApiOperation": "*::/crm/*",
+                  },
                   "headersPresent": {
                     "enabled": true
                   }
@@ -367,32 +355,19 @@ See the screenshot above or the generated [postman collection](./crm.postman.jso
       "contractTests": [
         {
           "statusCode": {
-            "enabled": true
-          }
+          "enabled": true
         },
-        {
-          "openApiOperation": "*::/crm/*",
           "contentType": {
-            "enabled": true
-          }
+          "enabled": true
         },
-        {
-          "openApiOperation": "*::/crm/*",
           "jsonBody": {
-            "enabled": true
-          }
+          "enabled": true
         },
-        {
-          "openApiOperation": "*::/crm/*",
           "schemaValidation": {
-            "enabled": true
-          }
+          "enabled": true
         },
-        {
-          "openApiOperation": "*::/crm/*",
           "headersPresent": {
-            "enabled": true
-          }
+          "enabled": true
         }
       ]
     }

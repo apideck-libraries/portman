@@ -974,7 +974,8 @@ describe('Fuzzer', () => {
                 maxLength: 5,
                 nullable: true
               }
-            }
+            },
+            required: ['items']
           }
         }
       }
@@ -1002,9 +1003,34 @@ describe('Fuzzer', () => {
                 maxLength: 5,
                 nullable: true
               }
-            }
+            },
+            required: ['properties']
           }
         }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with array of objects for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      items: {
+        type: 'object',
+        properties: {
+          code: {
+            type: 'number',
+            example: 1,
+            minimum: 1,
+            maximum: 100,
+            minLength: 1,
+            maxLength: 5,
+            nullable: true
+          }
+        },
+        required: ['code']
       }
     } as OpenAPIV3.SchemaObject
 

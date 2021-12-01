@@ -205,6 +205,7 @@ export type GlobalConfig = {
   rawReplacements?: GlobalReplacement[]
   portmanReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
+  stripResponseExamples?: boolean
 }
 
 export interface TestSuiteOptions {
@@ -237,7 +238,7 @@ export type PortmanFuzzType = typeof PortmanFuzzTypes[keyof typeof PortmanFuzzTy
 
 export type FuzzingSchemaItems = {
   fuzzType: PortmanFuzzType
-  requiredFields?: string[]
+  requiredFields: string[]
   minimumNumberFields?: fuzzingSchemaItem[]
   maximumNumberFields?: fuzzingSchemaItem[]
   minLengthFields?: fuzzingSchemaItem[]

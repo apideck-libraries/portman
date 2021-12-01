@@ -11,6 +11,7 @@ import {
   IntegrationTestWriter,
   renamePostmanCollection,
   runNewmanWith,
+  stripResponseExamples,
   TestSuite,
   VariationWriter,
   writeNewmanEnv,
@@ -454,6 +455,11 @@ export class Portman {
     }
 
     try {
+      // --- Portman - Strip Response Examples
+      if (globals?.stripResponseExamples) {
+        this.portmanCollection = stripResponseExamples(this.portmanCollection)
+      }
+
       let collectionString = JSON.stringify(this.portmanCollection, null, 2)
 
       // --- Portman - Replace & clean-up Portman
