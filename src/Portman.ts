@@ -9,7 +9,7 @@ import { Collection, CollectionDefinition, Item, ItemGroup } from 'postman-colle
 import {
   CollectionWriter,
   IntegrationTestWriter,
-  oasRename,
+  renamePostmanCollection,
   runNewmanWith,
   TestSuite,
   VariationWriter,
@@ -95,12 +95,12 @@ export class Portman {
         oaLocal,
         output,
         cliOptionsFile,
+        collectionName,
         portmanConfigFile,
         portmanConfigPath,
         postmanConfigFile,
         filterFile,
         oaOutput,
-        oaRename,
         envFile,
         includeTests,
         bundleContractTests,
@@ -144,7 +144,7 @@ export class Portman {
     )
     console.log(chalk`{cyan  Upload to Postman: } \t{green ${syncPostman}}  `)
 
-    oaRename && console.log(chalk`{cyan  OpenAPI title: } \t{green ${oaRename}}`)
+    collectionName && console.log(chalk`{cyan  OpenAPI title: } \t{green ${collectionName}}`)
 
     console.log(chalk.red(consoleLine))
 
@@ -180,7 +180,7 @@ export class Portman {
 
   async parseOpenApiSpec(): Promise<void> {
     // --- OpenApi - Get OpenApi file locally or remote
-    const { oaLocal, oaUrl, filterFile, oaOutput, oaRename } = this.options
+    const { oaLocal, oaUrl, filterFile, oaOutput, collectionName } = this.options
 
     let openApiSpec = oaUrl && (await new DownloadService().get(oaUrl))
 
@@ -228,8 +228,8 @@ export class Portman {
     this.oasParser = oasParser
 
     // Rename OpenAPI document title
-    if (oaRename) {
-      this.oasParser.oas = oasRename(this.oasParser.oas, this.options)
+    if (collectionName) {
+      this.oasParser.oas = renamePostmanCollection(this.oasParser.oas, this.options)
     }
   }
 

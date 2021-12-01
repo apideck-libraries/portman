@@ -1,4 +1,4 @@
-import { oasRename } from '../../application'
+import { renamePostmanCollection } from '../../application'
 import { OpenApiParser } from '../../oas'
 import { PortmanOptions } from '../../types'
 
@@ -11,35 +11,35 @@ beforeEach(async () => {
   await oasParser.convert({ inputFile: oasYml })
 })
 
-describe('oasRename', () => {
+describe('renamePostmanCollection', () => {
   it('should return changed OpenAPI document title', () => {
     const oas = oasParser.oas
-    const options = { oaRename: 'Foo bar' } as PortmanOptions
-    const result = oasRename(oas, options)
+    const options = { collectionName: 'Foo bar' } as PortmanOptions
+    const result = renamePostmanCollection(oas, options)
     expect(result.info.title).toStrictEqual('Foo bar')
   })
 
-  it('should return unchanged OpenAPI document title when oaRename is not set', () => {
+  it('should return unchanged OpenAPI document title when collectionName is not set', () => {
     const oas = oasParser.oas
     const options = {} as PortmanOptions
-    const result = oasRename(oas, options)
+    const result = renamePostmanCollection(oas, options)
     expect(result.info.title).toStrictEqual('CRM API')
   })
 
-  it('should return unchanged OpenAPI document title when oaRename is blank', () => {
+  it('should return unchanged OpenAPI document title when collectionName is blank', () => {
     const oas = oasParser.oas
-    const options = { oaRename: '' } as PortmanOptions
-    const result = oasRename(oas, options)
+    const options = { collectionName: '' } as PortmanOptions
+    const result = renamePostmanCollection(oas, options)
     expect(result.info.title).toStrictEqual('CRM API')
   })
 
   it('should return error when OpenAPI document title is not set', () => {
     const oas = oasParser.oas
     oas.info.title = ''
-    const options = { oaRename: 'Foo Bar' } as PortmanOptions
+    const options = { collectionName: 'Foo Bar' } as PortmanOptions
 
     expect(() => {
-      oasRename(oas, options)
+      renamePostmanCollection(oas, options)
     }).toThrowError('required')
   })
 })

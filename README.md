@@ -101,7 +101,6 @@ Options:
   -b, --baseUrl              Override spec baseUrl to use in Postman                                          [string]
   -o, --output               Write the Postman collection to an output file                                   [string]
   --oaOutput                 Write the (filtered) OpenAPI file to an output file                              [string]
-  --oaRename                 Change the OpenAPI title & Postman collection name                               [string]
   -n, --runNewman            Run Newman on newly created collection                                           [boolean]
   --newmanRunOptions         JSON stringified object to pass options for configuring Newman                   [string]
   --newmanOptionsFile        Path to Newman options file to pass options for configuring Newman               [string]
@@ -116,6 +115,7 @@ Options:
   -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)                     [string]
   --filterFile               Path to openapi-format config file (oas-format-filter.json)                      [string]
   --envFile                  Path to the .env file to inject environment variables                            [string]
+  --collectionName           Overwrite OpenAPI title to set the Postman collection name                       [string]
   --cliOptionsFile           Path to Portman CLI options file                                                 [string]
   --init                     Configure Portman CLI options in an interactive manner                           [string]
 ```
