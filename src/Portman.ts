@@ -167,7 +167,7 @@ export class Portman {
       console.log(
         emoji.get(':see_no_evil:'),
         chalk.red(
-          `Ignoring circular references in OpenAPI Spec. Validation of schema is disabled!`
+          `Ignoring circular references in OpenAPI Spec. Response validation is disabled for invalid schemas!`
         ),
         emoji.get(':see_no_evil:')
       )

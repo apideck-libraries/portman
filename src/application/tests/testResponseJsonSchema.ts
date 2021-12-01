@@ -29,7 +29,7 @@ export const testResponseJsonSchema = (
   if (containsRef) {
     pmTest = [
       `// Response Validation Disabled due to Circular Reference\n`,
-      `console.log(${oaOperation.id} response is not being validated against your spec!);\n`
+      `console.log('${oaOperation.id} response is not being validated against your spec!');\n`
     ].join('')
   }
 

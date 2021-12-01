@@ -116,3 +116,11 @@ pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
 ",
 ]
 `;
+
+exports[`testResponseJsonSchema should skip test for invalid json schema 1`] = `
+Array [
+  "// Response Validation Disabled due to Circular Reference
+console.log('companiesOne response is not being validated against your spec!');
+",
+]
+`;
