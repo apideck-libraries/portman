@@ -332,8 +332,8 @@ export class PostmanApiService {
 
       const respData = response?.data ?? {}
 
-      if (responseStatusCode < 300 || responseStatusCode != 404) {
-        spinner.succeed(`Delete from Postman Succeeded`)
+      if (responseStatusCode < 300 || responseStatusCode === 404) {
+        spinner.succeed(`Delete from Postman Completed`)
         return JSON.stringify({ status: 'success', data: { ...respData } }, null, 2)
       } else {
         spinner.fail(`Delete from Postman Failed: ${responseStatusCode}`)
