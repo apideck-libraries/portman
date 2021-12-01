@@ -1,9 +1,9 @@
 ## [Unreleased]
 
-## v1.20.0 - (2021-12-01)
+## v1.12.0 - (2021-12-01)
 
 - Added `--ignoreCircularRefs` option to allow OAS specs that contain invalid circular references to still be processed by Portman
-- Added the `--collectionName`` option to change the OpenAPI title & Postman collection name
+- Added the `--collectionName` option to change the OpenAPI title & Postman collection name
 - Added `--stripResponseExamples` CLI option to slim down generated Postman collection
 - Fuzzing - added support for root array structure in the request body
 - Update package dependencies
