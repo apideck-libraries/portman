@@ -195,11 +195,11 @@ Example:
 
 BEFORE
 
-![](./images/globals-strip-response-examples-before.png)
+![](./images/globals-strip-response-examples-before.png | width=400)
 
 AFTER
 
-![](./images/globals-strip-response-examples-after.png)
+![](./images/globals-strip-response-examples-after.png | width=400)
 
 ### securityOverwrites
 
