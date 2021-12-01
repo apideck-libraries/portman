@@ -20,6 +20,8 @@ export class PostmanSyncService {
   postmanRepo: PostmanRepo
   cacheFile: string
   cache: PostmanCache
+  postmanFastSync: boolean
+  postmanRefreshCache: boolean
 
   constructor({
     postmanApi = new PostmanApiService(),
@@ -27,7 +29,9 @@ export class PostmanSyncService {
     postmanUid,
     postmanWorkspaceName,
     collectionName,
-    cacheFile
+    cacheFile,
+    postmanFastSync,
+    postmanRefreshCache
   }: {
     portmanCollection: CollectionDefinition
     postmanApi?: PostmanApiService
@@ -35,6 +39,8 @@ export class PostmanSyncService {
     postmanWorkspaceName?: string
     collectionName?: string
     cacheFile?: string
+    postmanFastSync?: boolean
+    postmanRefreshCache?: boolean
   }) {
     this.postmanApi = postmanApi
     this.postmanUid = postmanUid
@@ -45,6 +51,15 @@ export class PostmanSyncService {
 
     this.portmanCollection = portmanCollection
     this.collectionName = collectionName || (portmanCollection?.info?.name as string)
+
+    this.postmanFastSync = postmanFastSync ?? false
+    this.postmanRefreshCache = postmanRefreshCache ?? false
+
+    // Prevent collection delete, when postmanUid is set
+    if (this.postmanUid) {
+      this.postmanFastSync = false
+    }
+
     this.state = {}
 
     if (!this.collectionName) {
@@ -55,13 +70,19 @@ export class PostmanSyncService {
   }
 
   public async sync(): Promise<string> {
-    await this.postmanRepo.initCache()
+    await this.postmanRepo.initCache(this.postmanRefreshCache, this.postmanRefreshCache)
     await this.validateState()
 
     const { shouldCreate, shouldUpdate } = this.state
 
-    if (shouldCreate && !shouldUpdate) {
-      return await this.createCollection()
+    if (this.postmanFastSync) {
+      await this.deleteCollection()
+    }
+
+    if ((shouldCreate && !shouldUpdate) || this.postmanFastSync) {
+      const collCreate = await this.createCollection()
+      await this.postmanRepo.initCache(true, false)
+      return collCreate
     }
 
     return await this.updateCollection()
@@ -178,5 +199,12 @@ export class PostmanSyncService {
       portmanCollection
     } = this
     return this.postmanApi.updateCollection(portmanCollection, postmanUid, workspaceId)
+  }
+
+  async deleteCollection(): Promise<string> {
+    const {
+      state: { postmanUid }
+    } = this
+    return this.postmanApi.deleteCollection(postmanUid)
   }
 }
