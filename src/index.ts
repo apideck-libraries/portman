@@ -110,6 +110,10 @@ require('dotenv').config()
       describe: 'Write the (filtered) OpenAPI file to an output file',
       type: 'string'
     })
+    .option('collectionName', {
+      describe: 'Overwrite OpenAPI title to set the Postman collection name',
+      type: 'string'
+    })
     .option('envFile', {
       describe: 'Path to the .env file to inject environment variables',
       type: 'string'
@@ -209,6 +213,7 @@ require('dotenv').config()
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
   const oaOutput = options.oaOutput || ''
+  const collectionName = options.collectionName || ''
 
   const portman = new Portman({
     ...options,
@@ -226,7 +231,8 @@ require('dotenv').config()
     postmanConfigPath,
     envFile,
     filterFile,
-    oaOutput
+    oaOutput,
+    collectionName
   })
 
   if (options.uploadOnly) {

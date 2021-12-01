@@ -117,6 +117,7 @@ Options:
   -s, --postmanConfigFile    Path to openapi-to-postman config file (postman-config.json)                     [string]
       --filterFile           Path to openapi-format config file (oas-format-filter.json)                      [string]
       --envFile              Path to the .env file to inject environment variables                            [string]
+      --collectionName       Overwrite OpenAPI title to set the Postman collection name                       [string]
       --cliOptionsFile       Path to Portman CLI options file                                                 [string]
       --init                 Configure Portman CLI options in an interactive manner                           [string]
 ```
