@@ -21,3 +21,5 @@ postman-testsuite.json
 /examples/testsuite-content-checks/tmp/
 /examples/testsuite-overwrites/tmp/
 /examples/testsuite-assign-variables/tmp/
+
+.vscode/settings.json

@@ -6,6 +6,7 @@ import { OasMappedOperation } from './OasMappedOperation'
 
 export interface OpenApiParserConfig {
   inputFile: string
+  ignoreCircularRefs?: boolean
 }
 
 export interface IOpenApiParser {
@@ -23,8 +24,15 @@ export class OpenApiParser {
 
   async convert(options: OpenApiParserConfig): Promise<OpenAPIV3.Document> {
     const inputFile = path.resolve(options.inputFile)
+    const ignoreCircularRefs = !!options.ignoreCircularRefs ?? false
+
     // Dereference the spec so all entities have encapsulated schemas
-    const api = await SwaggerParser.dereference(inputFile)
+    const api = await SwaggerParser.dereference(inputFile, {
+      dereference: {
+        circular: ignoreCircularRefs ? 'ignore' : false
+      }
+    })
+
     const oasDoc = (await SwaggerParser.bundle(api, {
       parse: {
         json: false, // Disable the JSON parser
@@ -33,7 +41,7 @@ export class OpenApiParser {
         }
       },
       dereference: {
-        circular: false // Don't allow circular $refs
+        circular: ignoreCircularRefs ? 'ignore' : false
       },
       validate: {
         spec: false // Don't validate against the Swagger spec

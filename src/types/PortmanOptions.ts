@@ -16,6 +16,7 @@ export interface PortmanOptions {
   localPostman?: string
   uploadOnly?: boolean
   syncPostman?: boolean
+  ignoreCircularRefs?: boolean
   includeTests?: boolean
   bundleContractTests?: boolean
   portmanConfigFile?: string

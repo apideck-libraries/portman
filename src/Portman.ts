@@ -54,7 +54,20 @@ export class Portman {
     await this.before()
     if (!this.config) return
 
-    await this.parseOpenApiSpec()
+    try {
+      await this.parseOpenApiSpec()
+    } catch (err) {
+      const message = err.toString()
+      const circularRef = message.includes('Circular $ref')
+      console.log(chalk.red(message))
+      if (circularRef) {
+        const docLink = 'https://github.com/apideck-libraries/portman/tree/main/docs/ERRORS.md'
+        console.log(chalk.red(`\nPlease see ${docLink} for more information about this error.`))
+      }
+      console.log(chalk.red(this.consoleLine))
+      process.exit(1)
+    }
+
     await this.convertToPostmanCollection()
     this.injectTestSuite()
     this.injectVariationTests()
@@ -103,6 +116,7 @@ export class Portman {
         filterFile,
         oaOutput,
         envFile,
+        ignoreCircularRefs,
         includeTests,
         bundleContractTests,
         runNewman,
@@ -149,6 +163,16 @@ export class Portman {
 
     console.log(chalk.red(consoleLine))
 
+    if (ignoreCircularRefs) {
+      console.log(
+        emoji.get(':see_no_evil:'),
+        chalk.red(
+          `Ignoring circular references in OpenAPI Spec. Response validation is disabled for invalid schemas!`
+        ),
+        emoji.get(':see_no_evil:')
+      )
+      console.log(chalk.red(consoleLine))
+    }
     await fs.ensureDir('./tmp/working/')
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
@@ -181,7 +205,8 @@ export class Portman {
 
   async parseOpenApiSpec(): Promise<void> {
     // --- OpenApi - Get OpenApi file locally or remote
-    const { oaLocal, oaUrl, filterFile, oaOutput, collectionName } = this.options
+    const { oaLocal, oaUrl, filterFile, oaOutput, ignoreCircularRefs, collectionName } =
+      this.options
 
     let openApiSpec = oaUrl && (await new DownloadService().get(oaUrl))
 
@@ -216,14 +241,10 @@ export class Portman {
     }
 
     const oasParser = new OpenApiParser()
-    await oasParser
-      .convert({
-        inputFile: openApiSpec
-      })
-      .catch(err => {
-        console.log('error: ', err)
-        throw new Error(`Parsing ${openApiSpec} failed.`)
-      })
+    await oasParser.convert({
+      inputFile: openApiSpec,
+      ignoreCircularRefs
+    })
 
     // Assign oasParser entity
     this.oasParser = oasParser

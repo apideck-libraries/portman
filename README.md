@@ -5,7 +5,6 @@
   <a href="https://www.npmjs.com/package/@apideck/portman"><img src="https://img.shields.io/npm/dw/@apideck/portman.svg" alt="Latest Stable Version"></a>
 </p>
 
-
 # Portman 👨🏽‍🚀
 
 Port OpenAPI Spec to Postman Collection, with contract & variation tests included!
@@ -119,6 +118,7 @@ Options:
       --envFile              Path to the .env file to inject environment variables                            [string]
       --collectionName       Overwrite OpenAPI title to set the Postman collection name                       [string]
       --cliOptionsFile       Path to Portman CLI options file                                                 [string]
+      --ignoreCircularRefs   Ignore circular references in OpenAPI spec (default: false)                      [boolean]
       --init                 Configure Portman CLI options in an interactive manner                           [string]
 ```
 
@@ -202,7 +202,7 @@ Upload newly generated collection to Postman using the collection UID to overwri
 portman -l ./tmp/specs/crm.yml --syncPostman -p 9601963a-53ff-4aaa-92a0-2e70a8a2a748
 ```
 
-When a collection gets large, the Postman API will compare all the requests when updating the collection. This can take some time even result  in 5xx errors.
+When a collection gets large, the Postman API will compare all the requests when updating the collection. This can take some time even result in 5xx errors.
 To overcome this, you can use the `--postmanFastSync` option. This option will sync your collection to Postman by using "delete" and "create" operations instead of the "update".
 
 REMARK: Using `--postmanFastSync` will result in a new Postman collection and Postman UID for each sync.
@@ -224,11 +224,13 @@ All configuration options to convert from OpenAPI to Postman can be on the [open
 Portman provides a default openapi-to-postman configuration [postman-config.default.json](postman-config.default.json), which will be used if no custom config `--postmanConfigFile` is passed.
 
 Portman configuration file in JSON format:
+
 ```
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json -s ./common/postman-config.json
 ```
 
 Portman configuration file in YAML format:
+
 ```
 portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.yaml -s ./common/postman-config.json
 ```
@@ -239,11 +241,13 @@ All the CLI options can be managed in a separate configuration file and passed a
 make configuration easier, especially in CI/CD implementations.
 
 Portman CLI options settings in JSON format
+
 ```
 portman --cliOptionsFile ./examples/cli-options/portman-cli-options.json
 ```
 
 Portman CLI options settings in YAML format
+
 ```
 portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
 ```
@@ -264,6 +268,7 @@ portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --
 For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
 
 NOTE: Newman is set to ignore redirects to allow for testing redirect response codes. If you are running collections within Postman UI, you'll need to ensure Postman is set to the same, or your redirect tests will fail.
+
 > Postman > Preferences > Automatically follow redirects > OFF
 
 ### Output
@@ -275,7 +280,6 @@ By using `-o` or `--output` parameter, you can define the location where the Pos
 ```
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
-
 
 ## Portman settings
 
@@ -358,7 +362,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
 - **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, example: `['leadsAll', 'companiesAll', 'contactsAll']`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path for which a variation will be created. (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
-- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured `openApiResponse` code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations. 
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured `openApiResponse` code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
 
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
 - **fuzzing** : Fuzz testing sets unexpected values for API requests, to cause unexpected behavior and errors in the API response.
@@ -388,6 +392,7 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
 - **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
+
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
@@ -499,6 +504,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
   A Postman RequestAuthDefinition object that will be applied to the request.
 
 For more details, review the [overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites).
+
 <hr>
 
 ### Portman - `fuzzing` properties - BETA 🏗
@@ -514,7 +520,8 @@ The automatic fuzzing is based on the OpenAPI request properties, where for each
 The Fuzzing options describe the configuration setting for available OpenAPI fuzzing variations.
 
 REMARKS:
-- [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) are rendered before being fuzzed. 
+
+- [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) are rendered before being fuzzed.
 - Regular Postman variables are skipped from fuzzing.
 
 #### fuzzing options
@@ -527,17 +534,17 @@ REMARKS:
 
   - **requiredFields (Boolean)** : Removes the properties & values from the request body that are marked as "required" in OpenAPI.
   - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-  - **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
-  
+
 - **requestQueryParams (Array)** :
 
   An array of fuzzing options for the Postman Request Query parameters.
 
   - **requiredFields (Boolean)** : Removes the properties & values from the request query params that are marked as "required" in OpenAPI.
   - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-  - **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
@@ -547,7 +554,7 @@ REMARKS:
 
   - **requiredFields (Boolean)** : Removes the properties & values from the request headers that are marked as "required" in OpenAPI.
   - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-  - **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
@@ -661,11 +668,12 @@ To enable automatic uploads of the generated Postman collection through Portman,
 Next to the Postman API key, you can also pass along the Postman Workspace name & the specific Postman Collection UID.
 
 Supported Postman API .ENV variables:
+
 - **POSTMAN_API_KEY** : Postman API key
 - **POSTMAN_WORKSPACE_NAME** : Postman Workspace name to target the upload of the generated Postman collection
 - **POSTMAN_COLLECTION_UID** : Postman collection UID to upload with the generated Postman collection
 
-The `POSTMAN_WORKSPACE_NAME` & `POSTMAN_COLLECTION_UID` variables can also be set as CLI Options `--postmanWorkspaceName` & `--postmanUid` , which will overrule the variables defined in the .ENV file. 
+The `POSTMAN_WORKSPACE_NAME` & `POSTMAN_COLLECTION_UID` variables can also be set as CLI Options `--postmanWorkspaceName` & `--postmanUid` , which will overrule the variables defined in the .ENV file.
 
 > **RECOMMENDATION**: Do not commit the `.env` file in any versioning system like GIT if it contains confidential credentials.
 
@@ -684,5 +692,3 @@ Credits for this package for the hard work of [Nick Lloyd](https://github.com/ni
 # Future ideas
 
 - [ ] Make Postman security dynamic
-- [ ] add task to initialize config files
-- [ ] add interactive cli prompts

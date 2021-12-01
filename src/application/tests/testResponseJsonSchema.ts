@@ -6,21 +6,32 @@ export const testResponseJsonSchema = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   jsonSchema: any,
   pmOperation: PostmanMappedOperation,
-  _aOperation: OasMappedOperation
+  oaOperation: OasMappedOperation
 ): PostmanMappedOperation => {
   // deletes nullable and adds "null" to type array if nullable is true
   jsonSchema = convertUnsupportedJsonSchemaProperties(jsonSchema)
 
+  const jsonSchemaString = JSON.stringify(jsonSchema)
+  const containsRef = jsonSchemaString.includes('$ref')
+  let pmTest = ''
+
   // Check - Response json schema check
-  const pmTest: string = [
+  pmTest = [
     `// Response Validation\n`,
-    `const schema = ${JSON.stringify(jsonSchema)}\n\n`,
+    `const schema = ${jsonSchemaString}\n\n`,
     `// Validate if response matches JSON schema \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
     ` - Schema is valid", function() {\n`,
     `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ["int32", "int64"]});\n`,
     `});\n`
   ].join('')
+
+  if (containsRef) {
+    pmTest = [
+      `// Response Validation Disabled due to Circular Reference\n`,
+      `console.log('${oaOperation.id} response is not being validated against your spec!');\n`
+    ].join('')
+  }
 
   writeOperationTestScript(pmOperation, pmTest)
   return pmOperation

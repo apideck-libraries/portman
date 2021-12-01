@@ -1,0 +1,438 @@
+{
+  "version": 1.0,
+  "globals": {
+    "stripResponseExamples": true,
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "keyValueReplacements": {
+      "x-apideck-app-id": "{{applicationId}}"
+    },
+    "valueReplacements": {
+      "<Bearer Token>": "{{bearerToken}}"
+    },
+    "rawReplacements": [
+      {
+        "searchFor": "Unify",
+        "replaceWith": "Unify ApiDeck"
+      }
+    ]
+  },
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "excludeForOperations": ["GET::/crm/companies"],
+        "statusSuccess": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "responseTime": {
+          "enabled": true,
+          "maxMs": 300
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "contentType": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "jsonBody": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true
+        }
+      },
+      {
+        "openApiOperation": "*::/crm/*",
+        "headersPresent": {
+          "enabled": true
+        }
+      }
+    ],
+    "contentTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "responseBodyTests": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          }
+        ]
+      }
+    ],
+    "extendTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "tests": [
+          "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});"
+        ]
+      }
+    ],
+    "variationTests": [
+      {
+        "openApiOperationId": "leadsAdd",
+        "variations": [
+          {
+            "openApiResponse": "403",
+            "name": "InvalidAuth",
+            "overwrites": [
+              {
+                "overwriteRequestSecurity": {
+                  "bearer": { "token": "not_a_real_token" }
+                }
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "openApiOperationId": "companiesAdd",
+        "openApiResponse": "422",
+        "variations": [
+          {
+            "name": "Unprocessable",
+            "fuzzing": [
+              {
+                "requestBody": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ]
+              },
+              {
+                "requestQueryParams": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ]
+              },
+              {
+                "requestHeaders": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "contractTests": [
+                {
+                  "statusCode": {
+                    "enabled": true
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "integrationTests": [
+      {
+        "name": "companies",
+        "operations": [
+          {
+            "openApiOperationId": "companiesAdd",
+            "variations": [
+              {
+                "name": "Create Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusCode": {
+                        "enabled": true,
+                        "code": 201
+                      }
+                    }
+                  ]
+                },
+                "overwrites": [
+                  {
+                    "overwriteRequestBody": [
+                      {
+                        "key": "name",
+                        "value": "Integration Test: Create Company",
+                        "overwrite": true
+                      }
+                    ]
+                  }
+                ],
+                "operationPreRequestScripts": [
+                  {
+                    "scripts": [
+                      "pm.collectionVariables.set('integrationCompanyBody', request.data);"
+                    ]
+                  }
+                ],
+                "assignVariables": [
+                  {
+                    "collectionVariables": [
+                      {
+                        "responseBodyProp": "data.id",
+                        "name": "companyId"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesOne",
+            "variations": [
+              {
+                "name": "Fetch Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    }
+                  ],
+                  "contentTests": [
+                    {
+                      "responseBodyTests": [
+                        {
+                          "key": "data.name",
+                          "value": "Integration Test: Create Company"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "assignVariables": [
+                  {
+                    "collectionVariables": [
+                      {
+                        "responseBodyProp": "data.name",
+                        "name": "companyName"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesUpdate",
+            "variations": [
+              {
+                "name": "Update Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    }
+                  ]
+                },
+                "overwrites": [
+                  {
+                    "overwriteRequestBody": [
+                      {
+                        "key": "name",
+                        "value": "Integration Test: Update Company",
+                        "overwrite": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesOne",
+            "variations": [
+              {
+                "name": "Verify Company Updated",
+                "tests": {
+                  "contentTests": [
+                    {
+                      "responseBodyTests": [
+                        {
+                          "key": "data.name",
+                          "value": "Integration Test: Update Company"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesDelete",
+            "variations": [
+              {
+                "name": "Delete Company",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "openApiOperationId": "companiesOne",
+            "variations": [
+              {
+                "name": "Verify Company Deleted",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusCode": {
+                        "enabled": true,
+                        "code": 404
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "assignVariables": [
+    {
+      "openApiOperation": "POST::*",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.id",
+          "name": "leadsAdd.id"
+        }
+      ]
+    },
+    {
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "collectionVariables": [
+        {
+          "responseBodyProp": "data.company_name"
+        },
+        {
+          "responseHeaderProp": "Operation-Location"
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsAdd",
+      "collectionVariables": [
+        {
+          "requestBodyProp": "company_name",
+          "name": "leadsAdd.company_name"
+        }
+      ]
+    }
+  ],
+  "overwrites": [
+    {
+      "openApiOperationId": "companiesAdd",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "Foo Inc. --{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesAll",
+      "overwriteRequestQueryParams": [
+        {
+          "key": "limit",
+          "value": "4",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesUpdate",
+      "overwriteRequestHeaders": [
+        {
+          "key": "x-apideck-consumer-id",
+          "value": "portman-id-{{$randomInt}}",
+          "overwrite": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "companiesUpdate",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true
+        }
+      ]
+    }
+  ]
+}

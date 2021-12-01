@@ -21,6 +21,20 @@ describe('testResponseJsonSchema', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should skip test for invalid json schema', async () => {
+    const schema = {
+      type: 'object',
+      properties: {
+        foo: {
+          $ref: '#/components/schemas/Foo'
+        }
+      }
+    }
+
+    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
   it('should remove minItems on items levels, for valid json schema', async () => {
     const schema = {
       type: 'array',

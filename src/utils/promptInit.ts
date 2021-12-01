@@ -100,7 +100,7 @@ export const promptInit = async (): Promise<void> => {
       type: 'text',
       name: 'location',
       message:
-        `Where you want to save the Portman CLI settings, relative to ${localPath}\n` +
+        `Where do you want to save the Portman CLI settings, relative to ${localPath}\n` +
         `Enter the local folder path:`,
       initial: `portman`
     })

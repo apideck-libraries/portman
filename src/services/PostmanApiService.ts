@@ -332,14 +332,21 @@ export class PostmanApiService {
 
       const respData = response?.data ?? {}
 
-      if (responseStatusCode < 300) {
-        spinner.succeed(`Delete from Postman Succeeded`)
+      if (responseStatusCode < 300 || responseStatusCode === 404) {
+        spinner.succeed(`Delete from Postman Completed`)
+        return JSON.stringify({ status: 'success', data: { ...respData } }, null, 2)
       } else {
-        spinner.succeed(
-          `Delete from Postman completed with status: ${responseStatusCode}. \n\n Please review your collection within Postman as they can respond with a 5xx but still delete your collection`
+        spinner.fail(`Delete from Postman Failed: ${responseStatusCode}`)
+        spinner.clear()
+        return JSON.stringify(
+          {
+            status: 'fail',
+            data: error?.response?.data || error?.response || error?.toJSON() || error?.toString()
+          },
+          null,
+          2
         )
       }
-      return JSON.stringify({ status: 'success', data: { ...respData } }, null, 2)
     } catch (error) {
       spinner.fail(chalk.red(`Delete from Postman Failed: ${responseStatusCode}`))
       spinner.clear()
