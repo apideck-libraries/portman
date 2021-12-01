@@ -67,7 +67,8 @@ Version 1.0
   This is very useful to replace data from the OpenAPI specification, before it is used in the Portman test automation generation.
 - **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/...
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
-- **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
+- **stripResponseExamples (Boolean | optional)** : Strip the response examples from the generated Postman collection.
+- **securityOverwrites** : Provide a overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token")
 
 ## Example explained
 
@@ -175,3 +176,68 @@ BEFORE
 AFTER
 
 ![](./images/globals-portman-after.png)
+
+
+### stripResponseExamples
+
+As part of the conversion from OpenAPI to Postman, all requests will get response examples in Postman. When generating variations, the number of examples can grow quickly.
+To keep the Postman collection compact, you can use the CLI option `--stripResponseExamples`. This option will strip response examples from the final generated collection.
+
+Example:
+```json
+{
+  "version": 1.0,
+  "globals": {
+    "stripResponseExamples": true
+  }
+}
+```
+
+BEFORE
+
+<img src="./images/globals-strip-response-examples-before.png" width="400" >
+
+AFTER
+
+<img src="./images/globals-strip-response-examples-after.png" width="400" >
+
+### securityOverwrites
+
+The security overwrites provides a number of security types:
+
+- **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+  - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+  - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+
+```json
+"securityOverwrites": {
+      "apiKey": {
+        "value": "{{apiKey}}"
+      }
+    }
+```
+
+- **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+  - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+
+```json
+"securityOverwrites": {
+      "bearer": {
+        "token": "{{bearerToken}}"
+      }
+    }
+```
+
+- **basic**: Basic authentication involves sending a verified username and password with your request.
+  - **username (String)** : The username that will be inserted as the basic authentication username value
+  - **password (String)** : The password that will be inserted as the basic authentication password value
+
+```json
+"securityOverwrites": {
+      "basic": {
+        "username": "{{username}}",
+        "password": "{{password}}",
+      }
+    }
+```
