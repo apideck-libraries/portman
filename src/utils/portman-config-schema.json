@@ -185,6 +185,9 @@
           },
           "type": "object"
         },
+        "stripResponseExamples": {
+          "type": "boolean"
+        },
         "valueReplacements": {
           "additionalProperties": {},
           "type": "object"
