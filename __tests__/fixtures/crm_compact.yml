@@ -3487,7 +3487,7 @@ paths:
     get:
       tags:
         - Contacts
-      operationId: contactsOne
+#      operationId: contactsOne # operationId is optional
       summary: Get contact
       description: Get contact
       parameters:

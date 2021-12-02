@@ -171,12 +171,16 @@ export class TestSuite {
 
     if (settings?.excludeForOperations) {
       const excludedOperations = settings.excludeForOperations
+      // Filter based on pathRef
       pmOperations = pmOperations.filter((pmOperation: PostmanMappedOperation) => {
-        return (
-          pmOperation?.id &&
-          !excludedOperations.includes(pmOperation?.id) &&
-          !excludedOperations.includes(pmOperation?.pathRef)
-        )
+        return !excludedOperations.includes(pmOperation?.pathRef)
+      })
+      // Filter based on operationId
+      pmOperations = pmOperations.filter((pmOperation: PostmanMappedOperation) => {
+        if (pmOperation?.id) {
+          return !excludedOperations.includes(pmOperation?.id)
+        }
+        return true
       })
     }
 
