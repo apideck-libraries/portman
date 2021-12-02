@@ -894,6 +894,7 @@ describe('Fuzzer', () => {
               properties: {
                 level2: {
                   type: 'object',
+                  required: ['code'],
                   properties: {
                     code: {
                       type: 'number',
@@ -964,6 +965,7 @@ describe('Fuzzer', () => {
           type: 'array',
           items: {
             type: 'object',
+            required: ['items'],
             properties: {
               items: {
                 type: 'number',
@@ -974,8 +976,7 @@ describe('Fuzzer', () => {
                 maxLength: 5,
                 nullable: true
               }
-            },
-            required: ['items']
+            }
           }
         }
       }
@@ -993,6 +994,7 @@ describe('Fuzzer', () => {
           type: 'array',
           items: {
             type: 'object',
+            required: ['properties'],
             properties: {
               properties: {
                 type: 'number',
@@ -1003,8 +1005,7 @@ describe('Fuzzer', () => {
                 maxLength: 5,
                 nullable: true
               }
-            },
-            required: ['properties']
+            }
           }
         }
       }
@@ -1019,6 +1020,7 @@ describe('Fuzzer', () => {
     const schema = {
       items: {
         type: 'object',
+        required: ['code'],
         properties: {
           code: {
             type: 'number',
@@ -1029,8 +1031,49 @@ describe('Fuzzer', () => {
             maxLength: 5,
             nullable: true
           }
-        },
-        required: ['code']
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with a mix of nested items for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      items: {
+        type: 'object',
+        required: ['code', 'nestedArray'],
+        properties: {
+          code: {
+            type: 'number',
+            example: 1,
+            minimum: 1,
+            maximum: 100,
+            minLength: 1,
+            maxLength: 5,
+            nullable: true
+          },
+          nestedArray: {
+            type: 'array',
+            items: {
+              type: 'object',
+              required: ['code2'],
+              properties: {
+                code2: {
+                  type: 'number',
+                  example: 1,
+                  minimum: 1,
+                  maximum: 100,
+                  minLength: 1,
+                  maxLength: 5,
+                  nullable: true
+                }
+              }
+            }
+          }
+        }
       }
     } as OpenAPIV3.SchemaObject
 
