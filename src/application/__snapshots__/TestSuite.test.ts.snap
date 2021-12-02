@@ -263,43 +263,6 @@ Array [
 ]
 `;
 
-exports[`TestSuite injectOverwrites should return all operations for getOperationsFromSetting without the excludeForOperations based operationId 1`] = `
-Array [
-  "POST/crm/companies",
-  "PATCH/crm/companies/:id",
-  "DELETE/crm/companies/:id",
-  "GET/crm/leads",
-  "POST/crm/leads",
-  "GET/crm/leads/:id",
-  "PATCH/crm/leads/:id",
-  "DELETE/crm/leads/:id",
-  "GET/crm/contacts",
-  "POST/crm/contacts",
-  "GET/crm/contacts/:id",
-  "PATCH/crm/contacts/:id",
-  "DELETE/crm/contacts/:id",
-]
-`;
-
-exports[`TestSuite injectOverwrites should return all operations for getOperationsFromSetting without the excludeForOperations based pathRef 1`] = `
-Array [
-  "POST/crm/companies",
-  "GET/crm/companies/:id",
-  "PATCH/crm/companies/:id",
-  "DELETE/crm/companies/:id",
-  "GET/crm/leads",
-  "POST/crm/leads",
-  "GET/crm/leads/:id",
-  "PATCH/crm/leads/:id",
-  "DELETE/crm/leads/:id",
-  "GET/crm/contacts",
-  "POST/crm/contacts",
-  "GET/crm/contacts/:id",
-  "PATCH/crm/contacts/:id",
-  "DELETE/crm/contacts/:id",
-]
-`;
-
 exports[`TestSuite should generateContractTests 1`] = `
 Object {
   "_": Object {
