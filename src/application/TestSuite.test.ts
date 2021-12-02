@@ -11,8 +11,8 @@ describe('TestSuite', () => {
   let oasParser: OpenApiParser
   let testSuite: TestSuite
 
-  const postmanJson = '__tests__/fixtures/crm.postman.json'
-  const oasYml = '__tests__/fixtures/crm.yml'
+  const postmanJson = '__tests__/fixtures/crm_compact.postman.json'
+  const oasYml = '__tests__/fixtures/crm_compact.yml'
   const postmanConfigFile = '__tests__/fixtures/portman.crm.json'
 
   beforeEach(async () => {
@@ -80,5 +80,16 @@ describe('TestSuite', () => {
 
       expect(postmanParser.mappedOperations[3].item.request.headers).toMatchSnapshot()
     })
+
+    // it('should excludeForOperations', async () => {
+    //   const config = await getConfig(postmanConfigFile)
+    //   testSuite = new TestSuite({ oasParser, postmanParser, config })
+    //   testSuite.variationWriter = new VariationWriter({
+    //     testSuite: testSuite,
+    //     variationFolderName: 'Variation Tests'
+    //   })
+    //
+    //   expect(postmanParser.mappedOperations[3].item.request.headers).toMatchSnapshot()
+    // })
   })
 })
