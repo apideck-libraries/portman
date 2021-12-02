@@ -3,7 +3,7 @@ import { Collection } from 'postman-collection'
 import { TestSuite, VariationWriter } from '../application'
 import { getConfig } from '../lib'
 import { OpenApiParser } from '../oas'
-import { PostmanParser } from '../postman'
+import { PostmanMappedOperation, PostmanParser } from '../postman'
 import { omitKeys } from '../utils'
 
 describe('TestSuite', () => {
@@ -11,8 +11,8 @@ describe('TestSuite', () => {
   let oasParser: OpenApiParser
   let testSuite: TestSuite
 
-  const postmanJson = '__tests__/fixtures/crm.postman.json'
-  const oasYml = '__tests__/fixtures/crm.yml'
+  const postmanJson = '__tests__/fixtures/crm_compact.postman.json'
+  const oasYml = '__tests__/fixtures/crm_compact.yml'
   const postmanConfigFile = '__tests__/fixtures/portman.crm.json'
 
   beforeEach(async () => {
@@ -79,6 +79,45 @@ describe('TestSuite', () => {
       testSuite.injectOverwrites()
 
       expect(postmanParser.mappedOperations[3].item.request.headers).toMatchSnapshot()
+    })
+
+    it('should return all operations for getOperationsFromSetting', async () => {
+      const contractTest = {
+        openApiOperation: '*::/crm/*',
+        excludeForOperations: ['GET::/crm/companies'],
+        statusSuccess: {
+          enabled: true
+        }
+      }
+      const ops = testSuite.getOperationsFromSetting(contractTest) as PostmanMappedOperation[]
+      const result = ops.map(o => o.path)
+      expect(result).toMatchSnapshot()
+    })
+
+    it('should return all operations for getOperationsFromSetting without the excludeForOperations based on pathRef', async () => {
+      const contractTest = {
+        openApiOperation: '*::/crm/*',
+        excludeForOperations: ['GET::/crm/companies'],
+        statusSuccess: {
+          enabled: true
+        }
+      }
+      const ops = testSuite.getOperationsFromSetting(contractTest) as PostmanMappedOperation[]
+      const result = ops.map(o => o.method + o.path)
+      expect(result).toMatchSnapshot()
+    })
+
+    it('should return all operations for getOperationsFromSetting without the excludeForOperations based on operationId', async () => {
+      const contractTest = {
+        openApiOperation: '*::/crm/*',
+        excludeForOperations: ['companiesAll', 'companiesOne'],
+        statusSuccess: {
+          enabled: true
+        }
+      }
+      const ops = testSuite.getOperationsFromSetting(contractTest) as PostmanMappedOperation[]
+      const result = ops.map(o => o.method + o.path)
+      expect(result).toMatchSnapshot()
     })
   })
 })
