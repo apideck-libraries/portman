@@ -776,7 +776,7 @@ export class Fuzzer {
       let path = ``
 
       if (node?.minimum || node?.maximum || node?.minLength || node?.maxLength || node?.required) {
-        // Build up fuzzing prop schema path from parents once
+        // Build up fuzzing prop schema path from parents array
         this.parents.forEach(item => {
           // Handle object
           if (item?.key && item?.node?.type === 'object' && !skipSchemaKeys.includes(item?.key)) {
@@ -794,8 +794,12 @@ export class Fuzzer {
       }
 
       if (node?.required) {
+        // Build path for nested required properties
+        if (node?.type === 'object' && this.key && !skipSchemaKeys.includes(this.key)) {
+          path += `${this.key}.`
+        }
         // Register fuzz-able required fields
-        const requiredFuzz = node.required.map(key => `${path}${key}`)
+        const requiredFuzz = node.required.map(req => `${path}${req}`)
         fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
       }
 
