@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.12.1 - (2021-12-03)
+
+- Fuzzing - added support for deeply nested required properties in the request body
+- Bugfix for unwanted removal of operations without OperationId when using "excludeForOperations" (#185)
+
 ## v1.12.0 - (2021-12-01)
 
 - Added `--ignoreCircularRefs` option to allow OAS specs that contain invalid circular references to still be processed by Portman
