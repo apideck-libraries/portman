@@ -4,6 +4,7 @@
 
 - Fuzzing - added support for deeply nested required properties in the request body
 - Bugfix for unwanted removal of operations without OperationId when using "excludeForOperations" (#185)
+- Bumped openapi-format to version 1.7.0
 
 ## v1.12.0 - (2021-12-01)
 
