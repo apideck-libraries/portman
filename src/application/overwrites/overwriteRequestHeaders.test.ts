@@ -14,6 +14,18 @@ describe('overwriteRequestHeaders', () => {
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
+  it('should disable the request headers variable', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        disable: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.headers).toMatchSnapshot()
+  })
+  
   it('should append to the header when overwrite is false', async () => {
     const overwriteValues = [
       {
