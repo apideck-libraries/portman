@@ -25,7 +25,7 @@ describe('overwriteRequestHeaders', () => {
     const result = overwriteRequestHeaders(overwriteValues, pmOperation)
     expect(result.item.request.headers).toMatchSnapshot()
   })
-  
+
   it('should append to the header when overwrite is false', async () => {
     const overwriteValues = [
       {
