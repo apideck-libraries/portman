@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.12.2 - (2021-12-15)
+
+- Added better handling of Postman API errors
+
 ## v1.12.1 - (2021-12-03)
 
 - Fuzzing - added support for deeply nested required properties in the request body

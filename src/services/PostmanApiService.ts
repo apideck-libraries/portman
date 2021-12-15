@@ -66,7 +66,7 @@ export class PostmanApiService {
         return Either.left('No workspaces found')
       }
     } catch (error) {
-      return Either.left(error.toString())
+      return Either.left(`Postman API List Workspaces ${error.toString()}`)
     }
   }
 
@@ -90,7 +90,7 @@ export class PostmanApiService {
         return Either.left('Workspace not found')
       }
     } catch (error) {
-      return Either.left(error.toString())
+      return Either.left(`Postman API Get Workspace ${error.toString()} (Workspace ID: ${id})`)
     }
   }
 
@@ -114,7 +114,7 @@ export class PostmanApiService {
         return Either.left('No collections found')
       }
     } catch (error) {
-      return Either.left(error.toString())
+      return Either.left(`Postman API Get Collections ${error.toString()}`)
     }
   }
 

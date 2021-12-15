@@ -44,10 +44,9 @@
     "@types/jest": "^26.0.23",
     "@types/newman": "^5.1.4",
     "@types/node-emoji": "^1.8.1",
-    "@types/node-fetch": "^2.5.10",
     "@types/postman-collection": "^3.5.5",
     "@types/traverse": "^0.6.32",
-    "@types/uuid": "^8.3.1",
+    "@types/uuid": "^8.3.3",
     "@types/yargs": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
@@ -70,14 +69,14 @@
   "dependencies": {
     "@apideck/better-ajv-errors": "^0.3.1",
     "@apidevtools/swagger-parser": "^10.0.3",
-    "ajv": "^8.6.3",
-    "axios": "^0.21.4",
+    "ajv": "^8.8.2",
+    "axios": "^0.24.0",
     "camel-case": "^4.1.2",
     "chalk": "^4.1.2",
     "dot-object": "^2.1.4",
     "dotenv": "^10.0.0",
     "faker": "^5.5.3",
-    "fp-ts": "^2.10.5",
+    "fp-ts": "^2.11.5",
     "fs-extra": "^10.0.0",
     "newman": "^5.3.0",
     "node-emoji": "^1.10.0",
@@ -91,7 +90,7 @@
     "replace-in-file": "^6.2.0",
     "traverse": "^0.6.6",
     "yaml": "^1.10.2",
-    "yargs": "^17.0.1"
+    "yargs": "^17.2.1"
   },
   "keywords": [
     "apideck",

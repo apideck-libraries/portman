@@ -131,11 +131,12 @@ export class PostmanRepo {
   }
 
   findWorkspaceCollectionByName(name: string): unknown | undefined {
-    if (!this.cache.workspace) {
+    if (!this.cache.workspace || !name) {
       return undefined
     }
 
-    const results = this.cache.workspace.collections.filter(
+    const collections = this.cache.workspace.collections ?? []
+    const results = collections.filter(
       collection => collection.name.toLowerCase() === name.toLowerCase()
     )
 
