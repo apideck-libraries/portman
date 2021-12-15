@@ -77,7 +77,7 @@
     "dot-object": "^2.1.4",
     "dotenv": "^10.0.0",
     "faker": "^5.5.3",
-    "fp-ts": "^2.10.5",
+    "fp-ts": "^2.11.5",
     "fs-extra": "^10.0.0",
     "newman": "^5.3.0",
     "node-emoji": "^1.10.0",
@@ -91,7 +91,7 @@
     "replace-in-file": "^6.2.0",
     "traverse": "^0.6.6",
     "yaml": "^1.10.2",
-    "yargs": "^17.0.1"
+    "yargs": "^17.2.1"
   },
   "keywords": [
     "apideck",
