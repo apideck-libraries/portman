@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## v1.12.2 - (2021-12-01)
+## v1.12.2 - (2021-12-15)
 
 - Added better handling of Postman API errors
 
