@@ -559,10 +559,22 @@ export class Portman {
       postmanFastSync: postmanFastSync
     })
 
-    const response = await this.postmanSyncService.sync()
+    let response: unknown
+
+    try {
+      response = await this.postmanSyncService.sync()
+    } catch (error) {
+      console.log(`\n`)
+      console.log(chalk.red(consoleLine))
+      console.log(chalk.red(`Postman sync failed with: `))
+      console.log(emoji.get(':cold_sweat:'), chalk.yellow(error?.message || error))
+
+      console.log(chalk.red(consoleLine))
+      process.exit(1)
+    }
 
     // Process Postman API response as console output
-    const { status, data } = JSON.parse(response)
+    const { status, data } = JSON.parse(response as string)
 
     if (status === 'success') {
       this.postmanSyncService?.postmanWorkspaceName &&
