@@ -51,6 +51,38 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should disable the request headers variable 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
 exports[`overwriteRequestHeaders should remove to the header when remove is true 1`] = `
 Object {
   "x-apideck-consumer-id": "test_consumer",
