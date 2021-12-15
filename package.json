@@ -91,7 +91,7 @@
     "replace-in-file": "^6.2.0",
     "traverse": "^0.6.6",
     "yaml": "^1.10.2",
-    "yargs": "^17.0.1"
+    "yargs": "^17.2.1"
   },
   "keywords": [
     "apideck",
