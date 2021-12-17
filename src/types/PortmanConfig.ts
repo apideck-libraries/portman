@@ -81,6 +81,8 @@ export type ResponseBodyTest = {
   value?: string | number | boolean
   contains?: string
   length?: any
+  minLength?: any
+  maxLength?: any
 }
 
 export type ResponseHeaderTest = {

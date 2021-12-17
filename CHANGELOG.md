@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+- ContentTest - Check length of array or string
+- ContentTest - Check minimum length of array or string
+- ContentTest - Check maximum length of array or string
+
 ## v1.12.2 - (2021-12-15)
 
 - Added better handling of Postman API errors
