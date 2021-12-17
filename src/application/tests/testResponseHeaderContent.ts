@@ -10,6 +10,8 @@ export const testResponseHeaderContent = (
     let pmTestValue = ''
     let pmTestContains = ''
     let pmTestLength = ''
+    let pmTestMinLength = ''
+    let pmTestMaxLength = ''
 
     if (check.value) {
       let checkValue = check.value
@@ -71,10 +73,52 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
+    if (check.minLength) {
+      let checkMinLength = check.minLength
+      if (typeof check.minLength === 'string') {
+        // Quote string value
+        checkMinLength = `"${check.minLength}"`
+        // Get collection variables
+        if (check.minLength.includes('{{') && check.minLength.includes('}}')) {
+          checkMinLength = `pm.collectionVariables.get("${check.minLength.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestMinLength = [
+        `// Response header should have a minimum length of "${check.minLength}" for "${check.key}"\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if header value of '${check.key}' has a minimum length of '${check.minLength}'", function() {\n`,
+        `  pm.expect(pm.response.headers.get("${check.key}").length).is.at.least(${checkMinLength});\n`,
+        `});\n`
+      ].join('')
+    }
+
+    if (check.maxLength) {
+      let checkMaxLength = check.maxLength
+      if (typeof check.maxLength === 'string') {
+        // Quote string value
+        checkMaxLength = `"${check.maxLength}"`
+        // Get collection variables
+        if (check.maxLength.includes('{{') && check.maxLength.includes('}}')) {
+          checkMaxLength = `pm.collectionVariables.get("${check.maxLength.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestMinLength = [
+        `// Response header should have a maximum length of "${check.maxLength}" for "${check.key}"\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if header value of '${check.key}' has a maximum length of '${check.maxLength}'", function() {\n`,
+        `  pm.expect(pm.response.headers.get("${check.key}").length).is.at.least(${checkMaxLength});\n`,
+        `});\n`
+      ].join('')
+    }
+
     if (check?.key) testResponseHeader(check.key, pmOperation, null)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
     if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
+    if (pmTestMinLength !== '') writeOperationTestScript(pmOperation, pmTestMinLength)
+    if (pmTestMaxLength !== '') writeOperationTestScript(pmOperation, pmTestMaxLength)
   })
 
   return pmOperation
