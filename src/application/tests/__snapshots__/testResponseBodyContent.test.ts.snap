@@ -94,7 +94,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].descri
   "// Response body should have a length of \\"9\\" for \\"data[0].description\\"
 if (jsonData?.data[0].description) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data[0].description' has a length of '9'\\", function() {
-  pm.expect(jsonData.data[0].description).to.have.lengthOf(9);
+  pm.expect(jsonData.data[0].description.length).to.equal(9);
 })};
 ",
 ]

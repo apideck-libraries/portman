@@ -93,7 +93,7 @@ export const testResponseBodyContent = (
         `if (jsonData?.${check.key}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${check.key}' has a length of '${check.length}'", function() {\n`,
-        `  pm.expect(jsonData.${check.key}).to.have.lengthOf(${checkLength});\n`,
+        `  pm.expect(jsonData.${check.key}.length).to.equal(${checkLength});\n`,
         `})};\n`
       ].join('')
     }
