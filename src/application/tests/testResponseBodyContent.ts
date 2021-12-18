@@ -12,6 +12,8 @@ export const testResponseBodyContent = (
     let pmTestValue = ''
     let pmTestContains = ''
     let pmTestLength = ''
+    let pmTestMinLength = ''
+    let pmTestMaxLength = ''
 
     // Only set the jsonData once
     if (!pmOperation.testJsonDataInjected) {
@@ -98,11 +100,55 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
+    if (check.minLength) {
+      let checkMinLength = check.minLength
+      if (typeof check.minLength === 'string') {
+        // Quote string value
+        checkMinLength = `"${check.minLength}"`
+        // Get collection variables
+        if (check.minLength.includes('{{') && check.minLength.includes('}}')) {
+          checkMinLength = `pm.collectionVariables.get("${check.minLength.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestMinLength = [
+        `// Response body should have a minimum length of "${check.minLength}" for "${check.key}"\n`,
+        `if (jsonData?.${check.key}) {\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if value of '${check.key}' has a minimum length of '${check.minLength}'", function() {\n`,
+        `  pm.expect(jsonData.${check.key}.length).is.at.least(${checkMinLength});\n`,
+        `})};\n`
+      ].join('')
+    }
+
+    if (check.maxLength) {
+      let checkMaxLength = check.maxLength
+      if (typeof check.maxLength === 'string') {
+        // Quote string value
+        checkMaxLength = `"${check.maxLength}"`
+        // Get collection variables
+        if (check.maxLength.includes('{{') && check.maxLength.includes('}}')) {
+          checkMaxLength = `pm.collectionVariables.get("${check.maxLength.replace(/{{|}}/g, '')}")`
+        }
+      }
+
+      pmTestMaxLength = [
+        `// Response body should have a maximum length of "${check.maxLength}" for "${check.key}"\n`,
+        `if (jsonData?.${check.key}) {\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if value of '${check.key}' has a maximum length of '${check.maxLength}'", function() {\n`,
+        `  pm.expect(jsonData.${check.key}.length).is.at.most(${checkMaxLength});\n`,
+        `})};\n`
+      ].join('')
+    }
+
     if (pmJsonData !== '') writeOperationTestScript(pmOperation, pmJsonData)
     if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
     if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
+    if (pmTestMinLength !== '') writeOperationTestScript(pmOperation, pmTestMinLength)
+    if (pmTestMaxLength !== '') writeOperationTestScript(pmOperation, pmTestMaxLength)
   })
 
   return pmOperation

@@ -75,6 +75,36 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operati
 ]
 `;
 
+exports[`testResponseHeaderContent should add content header test for property check & result has maximum length value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have a maximum length of \\"57\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a maximum length of '57'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.least(57);
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check & result has minimum length value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have a minimum length of \\"57\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a minimum length of '57'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.least(57);
+});
+",
+]
+`;
+
 exports[`testResponseHeaderContent should add content header test for property check without value 1`] = `
 Array [
   "// Validate if response header is present 

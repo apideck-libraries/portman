@@ -107,4 +107,28 @@ describe('testResponseHeaderContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content header test for property check & result has minimum length value', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        minLength: 57
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content header test for property check & result has maximum length value', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        maxLength: 57
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

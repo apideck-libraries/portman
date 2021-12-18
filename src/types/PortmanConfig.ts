@@ -80,14 +80,18 @@ export type ResponseBodyTest = {
   key: string
   value?: string | number | boolean
   contains?: string
-  length?: any
+  length?: string | number
+  minLength?: string | number
+  maxLength?: string | number
 }
 
 export type ResponseHeaderTest = {
   key: string
   value?: string | number | boolean
   contains?: string
-  length?: any
+  length?: string | number
+  minLength?: string | number
+  maxLength?: string | number
 }
 
 type OverwriteConfig = {

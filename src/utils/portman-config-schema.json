@@ -489,7 +489,24 @@
                     "key": {
                       "type": "string"
                     },
-                    "length": {},
+                    "length": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
+                    "maxLength": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
+                    "minLength": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
                     "value": {
                       "type": [
                         "string",
@@ -515,7 +532,24 @@
                     "key": {
                       "type": "string"
                     },
-                    "length": {},
+                    "length": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
+                    "maxLength": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
+                    "minLength": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    },
                     "value": {
                       "type": [
                         "string",
@@ -857,7 +891,7 @@
                             "items": {
                               "additionalProperties": false,
                               "properties": {
-                                "requestHeaders": {
+                                "requestBody": {
                                   "items": {
                                     "additionalProperties": false,
                                     "properties": {
@@ -926,7 +960,7 @@
                                   },
                                   "type": "array"
                                 },
-                                "requestBody": {
+                                "requestHeaders": {
                                   "items": {
                                     "additionalProperties": false,
                                     "properties": {
@@ -1267,7 +1301,7 @@
                       "items": {
                         "additionalProperties": false,
                         "properties": {
-                          "requestHeaders": {
+                          "requestBody": {
                             "items": {
                               "additionalProperties": false,
                               "properties": {
@@ -1336,7 +1370,7 @@
                             },
                             "type": "array"
                           },
-                          "requestBody": {
+                          "requestHeaders": {
                             "items": {
                               "additionalProperties": false,
                               "properties": {
