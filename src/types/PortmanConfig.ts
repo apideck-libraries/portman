@@ -22,6 +22,10 @@ export type StatusCode = ContractTest & {
   code?: number
 }
 
+export type additionalProperties = ContractTest & {
+  additionalProperties?: boolean
+}
+
 export type ContractTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
@@ -32,6 +36,7 @@ export type ContractTestConfig = {
   contentType?: ContentType
   jsonBody?: JsonBody
   schemaValidation?: SchemaValidation
+  additionalProperties?: additionalProperties
   headersPresent?: HeadersPresent
   responseTime?: ResponseTime
 }

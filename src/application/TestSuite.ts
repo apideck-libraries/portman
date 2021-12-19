@@ -292,7 +292,12 @@ export class TestSuite {
           content?.schema &&
           !inOperations(pmOperation, optSchemaValidation?.excludeForOperations)
         ) {
-          pmOperation = testResponseJsonSchema(content?.schema, pmOperation, oaOperation)
+          pmOperation = testResponseJsonSchema(
+            optSchemaValidation,
+            content.schema,
+            pmOperation,
+            oaOperation
+          )
         }
 
         contentTypesCounter++
