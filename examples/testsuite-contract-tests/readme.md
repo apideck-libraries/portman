@@ -679,6 +679,25 @@ pm.test('[GET]::/crm/leads/:id - Schema is valid', function () {
 })
 ```
 
+### schemaValidation - additionalProperties
+
+```json
+"contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true,
+          "additionalProperties": false
+        }
+      }
+]
+```
+
+This `additionalProperties` OpenAPI property is a powerful setting, since it allows you to specify if your API has an evolving response or fixed response, when it comes to the properties documented.
+The `additionalProperties` setting in Portman provides the option to extend the expected JSON schema used for the schema validation by setting all the "additionalProperties" to "false" (strict/fixed) or "true" (fluid). 
+Setting `"additionalProperties": false` will generate a contract test to validate if the response only returns the documented response properties and nothing more.
+A failing contract test with `schemaValidation - additionalProperties` could indicate that there are undocumented properties OR that the API returns too much information, which could be undesired.
+
 ## CLI Option - bundleContractTests
 
 Portman will store requests in group folders based on the tags of OpenAPI and inject the tests directly in the targeted Postman requests.
