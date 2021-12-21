@@ -132,6 +132,7 @@ overwrites:
         value: '123456789'
         overwrite: true
 globals:
+  stripResponseExamples: true
   rawReplacements:
     - searchFor: 'Unify '
       replaceWith: 'Unify Apideck '
