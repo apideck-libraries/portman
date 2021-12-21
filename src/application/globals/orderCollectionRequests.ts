@@ -42,8 +42,9 @@ const propComparatorPortmanOperation = (priorityArr: any): any => {
     if (!Array.isArray(priorityArr)) {
       return 0
     }
-    const ia = priorityArr.indexOf(a['_portman_operation'])
-    const ib = priorityArr.indexOf(b['_portman_operation'])
+    const regEx = new RegExp('/', 'g')
+    const ia = priorityArr.findIndex(pri => a['_portman_operation'].match(pri.replace(regEx, '/')))
+    const ib = priorityArr.findIndex(pri => b['_portman_operation'].match(pri.replace(regEx, '/')))
     if (ia !== -1) {
       return ib !== -1 ? ia - ib : -1
     }
