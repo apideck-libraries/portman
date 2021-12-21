@@ -104,11 +104,11 @@ export const testResponseHeaderContent = (
         }
       }
 
-      pmTestMinLength = [
+      pmTestMaxLength = [
         `// Response header should have a maximum length of "${check.maxLength}" for "${check.key}"\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if header value of '${check.key}' has a maximum length of '${check.maxLength}'", function() {\n`,
-        `  pm.expect(pm.response.headers.get("${check.key}").length).is.at.least(${checkMaxLength});\n`,
+        `  pm.expect(pm.response.headers.get("${check.key}").length).is.at.most(${checkMaxLength});\n`,
         `});\n`
       ].join('')
     }

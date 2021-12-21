@@ -82,9 +82,9 @@ pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is pre
    pm.response.to.have.header(\\"Operation-Location\\");
 });
 ",
-  "// Response header should have a maximum length of \\"57\\" for \\"Operation-Location\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a maximum length of '57'\\", function() {
-  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.least(57);
+  "// Response header should have a maximum length of \\"60\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a maximum length of '60'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.most(60);
 });
 ",
 ]
@@ -97,9 +97,9 @@ pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is pre
    pm.response.to.have.header(\\"Operation-Location\\");
 });
 ",
-  "// Response header should have a minimum length of \\"57\\" for \\"Operation-Location\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a minimum length of '57'\\", function() {
-  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.least(57);
+  "// Response header should have a minimum length of \\"10\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a minimum length of '10'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.least(10);
 });
 ",
 ]

@@ -112,7 +112,7 @@ describe('testResponseHeaderContent', () => {
     const contentTests = [
       {
         key: 'Operation-Location',
-        minLength: 57
+        minLength: 10
       }
     ]
     pmOperation = testResponseHeaderContent(contentTests, pmOperation)
@@ -124,7 +124,7 @@ describe('testResponseHeaderContent', () => {
     const contentTests = [
       {
         key: 'Operation-Location',
-        maxLength: 57
+        maxLength: 60
       }
     ]
     pmOperation = testResponseHeaderContent(contentTests, pmOperation)
