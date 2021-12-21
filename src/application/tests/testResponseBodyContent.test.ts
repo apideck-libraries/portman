@@ -107,4 +107,28 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for property check & result has minimum length value', async () => {
+    const contentTests = [
+      {
+        key: 'data',
+        minLength: 1
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & result has maximum length value', async () => {
+    const contentTests = [
+      {
+        key: 'data',
+        maxLength: 10
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

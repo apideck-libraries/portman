@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
 export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): any => {
   // Normalize orderOfOperations ({id}) to match with Postman format (:id)
+  const regStart = new RegExp('{', 'g')
+  const regEnd = new RegExp('}', 'g')
   const orderOfOperationsNorm = orderOfOperations.map(item =>
-    item.replace('{', ':').replace('}', '')
+    item.replace(regStart, ':').replace(regEnd, '')
   )
 
   obj.item.map(pmFolder => {
@@ -40,8 +42,9 @@ const propComparatorPortmanOperation = (priorityArr: any): any => {
     if (!Array.isArray(priorityArr)) {
       return 0
     }
-    const ia = priorityArr.indexOf(a['_portman_operation'])
-    const ib = priorityArr.indexOf(b['_portman_operation'])
+    const regEx = new RegExp('/', 'g')
+    const ia = priorityArr.findIndex(pri => a['_portman_operation'].match(pri.replace(regEx, '/')))
+    const ib = priorityArr.findIndex(pri => b['_portman_operation'].match(pri.replace(regEx, '/')))
     if (ia !== -1) {
       return ib !== -1 ? ia - ib : -1
     }

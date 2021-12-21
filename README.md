@@ -396,13 +396,17 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
-  - **length (Number)** : The number that will be used to check if the value of the response body property has a length of the defined number of characters.
+  - **length (Number)** : The number that will be used to check if the value of the response body property (string/array) has a length of the defined number.
+  - **minLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
+  - **maxLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a maximum length of the defined number.
 
 - **responseHeaderTests (Array)** : Array of key/value pairs of properties & values in the Postman response header.
   - **key (String)** : The header name that will be targeted in the response header to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response header matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response header.
   - **length (Number)** : The number that will be used to check if the value of the response header has a length of the defined number of characters.
+  - **minLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
+  - **maxLength (Number)** : The number that will be used to check if the value of the response header has a maximum length of the defined number of characters.
 
 For more details, review the [content-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-content-tests).
 

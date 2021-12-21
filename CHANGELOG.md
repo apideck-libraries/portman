@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+- ContentTest - Check length of array or string
+- ContentTest - Check minimum length of array or string of response body
+- ContentTest - Check maximum length of array or string of response body
+- ContentTest - Check minimum length of array or string of response header
+- ContentTest - Check maximum length of array or string of response header
+- Fix for orderOfOperations for operations have multiple path variables (#208)
+- Implemented suggested fix for orderOfOperations with * wildcard (#122)
+
 ## v1.12.2 - (2021-12-15)
 
 - Added better handling of Postman API errors
