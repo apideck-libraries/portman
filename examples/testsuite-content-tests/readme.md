@@ -356,7 +356,7 @@ if (jsonData?.data) {
 ```
 
 > **REMARK**:
-When using the content tests for `length`, `minLength`, `maxLength`, Portman will add specific checks as the Postman tests. 
+When using the content tests for `length`, `minLength`, `maxLength`, Portman will add specific content checks as Postman tests. 
 You could also include these types of length validation as part of your [OpenAPI specification](https://spec.openapis.org/oas/v3.0.3#properties), which will include maxLength, minLength, minItems, maxItems as part of the JSON schema validation contract test.
 
 ---
