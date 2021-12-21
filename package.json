@@ -87,7 +87,6 @@
     "pluralize": "^8.0.0",
     "postman-collection": "4.1.0",
     "prompts": "^2.4.2",
-    "replace-in-file": "^6.2.0",
     "traverse": "^0.6.6",
     "yaml": "^1.10.2",
     "yargs": "^17.2.1"

@@ -4,6 +4,7 @@ import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostm
 import { testResponseJsonSchema } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
+import { ContractTestConfig } from '../../types'
 
 describe('testResponseJsonSchema', () => {
   let oasOperation: OasMappedOperation
@@ -16,7 +17,12 @@ describe('testResponseJsonSchema', () => {
 
   it('should add test for valid json schema', async () => {
     const schema = (oasOperation.schema?.responses?.['200'] as OpenAPIV3.ResponseObject)?.content
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      { enabled: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -31,7 +37,12 @@ describe('testResponseJsonSchema', () => {
       }
     }
 
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -59,7 +70,12 @@ describe('testResponseJsonSchema', () => {
       },
       minItems: 2
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -88,7 +104,12 @@ describe('testResponseJsonSchema', () => {
       },
       minItems: 2
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -117,7 +138,12 @@ describe('testResponseJsonSchema', () => {
       },
       maxItems: 2
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -146,7 +172,12 @@ describe('testResponseJsonSchema', () => {
       },
       maxItems: 2
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -193,7 +224,12 @@ describe('testResponseJsonSchema', () => {
         }
       }
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -240,7 +276,12 @@ describe('testResponseJsonSchema', () => {
         }
       }
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -287,7 +328,12 @@ describe('testResponseJsonSchema', () => {
         }
       }
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -334,7 +380,116 @@ describe('testResponseJsonSchema', () => {
         }
       }
     }
-    pmOperation = testResponseJsonSchema(schema, pmOperation, oasOperation)
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should toggle additional properties to false on nested levels for valid json schema', async () => {
+    const schema = {
+      type: 'object',
+      properties: {
+        value: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: {
+                type: 'string',
+                example: 'p1'
+              },
+              name: {
+                type: 'string',
+                example: 'G-1'
+              },
+              ips: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    portMapping: {
+                      type: 'integer',
+                      example: 255
+                    },
+                    pool: {
+                      type: 'string',
+                      example: 'G-1'
+                    }
+                  },
+                  additionalProperties: true
+                },
+                maxItems: 2
+              }
+            },
+            additionalProperties: true,
+            required: ['id', 'name']
+          }
+        }
+      }
+    }
+    pmOperation = testResponseJsonSchema(
+      { additionalProperties: false } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should toggle additional properties to true on nested levels for valid json schema', async () => {
+    const schema = {
+      type: 'object',
+      properties: {
+        value: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: {
+                type: 'string',
+                example: 'p1'
+              },
+              name: {
+                type: 'string',
+                example: 'G-1'
+              },
+              ips: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    portMapping: {
+                      type: 'integer',
+                      example: 255
+                    },
+                    pool: {
+                      type: 'string',
+                      example: 'G-1'
+                    }
+                  },
+                  additionalProperties: false
+                },
+                maxItems: 2
+              }
+            },
+            additionalProperties: false,
+            required: ['id', 'name']
+          }
+        }
+      }
+    }
+    pmOperation = testResponseJsonSchema(
+      { additionalProperties: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

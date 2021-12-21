@@ -349,9 +349,11 @@ The contract tests are grouped in an array of `contractTests`.
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
 - **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)** : Adds the test to verify if the response of the Postman request is returned within a number of ms.
+  - **maxMs (number)** : Define the expected number of ms for the `responseTime` check.
 - **contentType (Boolean)** : Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)** : Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
 - **schemaValidation (Boolean)** : Adds the test if the response body is matching the JSON schema defined in the OpenAPI spec. The JSON schema is inserted inline in the Postman test.
+  - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`.
 - **headersPresent (Boolean)** : Adds the test to verify if the Postman response header has the header names present, like defined in the OpenAPI spec.
 
 For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests).

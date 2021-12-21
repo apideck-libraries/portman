@@ -85,9 +85,11 @@ The following contract tests can be enabled by using the following properties:
 - **statusSuccess (Boolean)**: Adds the test if the response of the Postman request return a 2xx
 - **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)**: Adds the test to verify if the response of the Postman request is returned within a number of ms.
+  - **maxMs (number)** : Define the expected number of ms for the `responseTime` check.
 - **contentType (Boolean)**: Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)**: Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
 - **schemaValidation (Boolean)**: Adds the test if the response body is matching the JSON schema defined in the OpenAPI spec. The JSON schema is inserted inline in the Postman test.
+  - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`.
 - **headersPresent (Boolean)**: Adds the test to verify if the Postman response header has the header names present, like defined in the OpenAPI spec.
 
 ## Example explained
@@ -678,6 +680,25 @@ pm.test('[GET]::/crm/leads/:id - Schema is valid', function () {
   pm.response.to.have.jsonSchema(schema, { unknownFormats: ['int32', 'int64'] })
 })
 ```
+
+### schemaValidation - additionalProperties
+
+```json
+"contractTests": [
+      {
+        "openApiOperation": "*::/crm/*",
+        "schemaValidation": {
+          "enabled": true,
+          "additionalProperties": false
+        }
+      }
+]
+```
+
+This `additionalProperties` OpenAPI property is a powerful setting, since it allows you to specify if your API has an evolving response or fixed response, when it comes to the properties documented.
+The `additionalProperties` setting in Portman provides the option to extend the expected JSON schema used for the schema validation by setting all the "additionalProperties" to "false" (strict/fixed) or "true" (fluid). 
+Setting `"additionalProperties": false` will generate a contract test to validate if the response only returns the documented response properties and nothing more.
+A failing contract test with `schemaValidation - additionalProperties` could indicate that there are undocumented properties OR that the API returns too much information, which could be undesired.
 
 ## CLI Option - bundleContractTests
 
