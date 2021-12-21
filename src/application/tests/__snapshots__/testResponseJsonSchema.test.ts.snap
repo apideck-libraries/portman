@@ -124,3 +124,29 @@ console.log('companiesOne response is not being validated against your spec!');
 ",
 ]
 `;
+
+exports[`testResponseJsonSchema should toggle additional properties to false on nested levels for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"p1\\"},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"},\\"ips\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"portMapping\\":{\\"type\\":\\"integer\\",\\"example\\":255},\\"pool\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"}},\\"additionalProperties\\":false}}},\\"additionalProperties\\":false,\\"required\\":[\\"id\\",\\"name\\"]}}},\\"additionalProperties\\":false}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;
+
+exports[`testResponseJsonSchema should toggle additional properties to true on nested levels for valid json schema 1`] = `
+Array [
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"p1\\"},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"},\\"ips\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"portMapping\\":{\\"type\\":\\"integer\\",\\"example\\":255},\\"pool\\":{\\"type\\":\\"string\\",\\"example\\":\\"G-1\\"}},\\"additionalProperties\\":true}}},\\"additionalProperties\\":true,\\"required\\":[\\"id\\",\\"name\\"]}}},\\"additionalProperties\\":true}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+]
+`;

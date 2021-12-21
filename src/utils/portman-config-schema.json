@@ -679,6 +679,9 @@
                       "type": "string"
                     },
                     "type": "array"
+                  },
+                  "additionalProperties": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
