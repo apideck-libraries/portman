@@ -2,7 +2,12 @@ import { orderCollectionRequests } from '../../application'
 
 describe('orderCollectionRequests()', () => {
   it('should order the postman request items in the order like defined', () => {
-    const order = ['POST::/crm/{id}', 'POST::/crm/monkies/{id}', 'GET::/crm/monkies/{id}']
+    const order = [
+      'POST::/crm/{id}',
+      'POST::/crm/monkies/{id}',
+      'GET::/crm/{crmId}/monkies/{id}',
+      'GET::/crm/monkies/{id}'
+    ]
     const obj = {
       item: [
         {
@@ -13,6 +18,30 @@ describe('orderCollectionRequests()', () => {
                 url: {
                   path: ['crm', 'monkies', ':id'],
                   variable: [
+                    {
+                      disabled: false,
+                      type: 'any',
+                      value: '<string>',
+                      key: 'id',
+                      description: '(Required) ID of the monkey you are acting upon.'
+                    }
+                  ]
+                },
+                method: 'GET'
+              }
+            },
+            {
+              request: {
+                url: {
+                  path: ['crm', ':crmId', 'monkies', ':id'],
+                  variable: [
+                    {
+                      disabled: false,
+                      type: 'any',
+                      value: '<string>',
+                      key: 'crmId',
+                      description: '(Required) ID of the crm you are acting upon.'
+                    },
                     {
                       disabled: false,
                       type: 'any',

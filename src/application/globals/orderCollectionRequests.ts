@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any */
 export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): any => {
   // Normalize orderOfOperations ({id}) to match with Postman format (:id)
+  const regStart = new RegExp('{', 'g')
+  const regEnd = new RegExp('}', 'g')
   const orderOfOperationsNorm = orderOfOperations.map(item =>
-    item.replace('{', ':').replace('}', '')
+    item.replace(regStart, ':').replace(regEnd, '')
   )
 
   obj.item.map(pmFolder => {
