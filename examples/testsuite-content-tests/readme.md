@@ -340,8 +340,8 @@ When you add a `minLength` test, the check validates if the response contains at
 // Response body should have a minimum length of "1" for "data"
 if (jsonData?.data) {
   pm.test("[GET]::/crm/leads - Content check if value of 'data' has a minimum length of '1'", function() {
-    pm.expect(jsonData.data.length).is.at.least(1);
-  })};
+  pm.expect(jsonData.data.length).is.at.least(1);
+})};
 ```
 
 When you add a `maxLength` test, the check validates if the response contains at least the number of characters/array items for the targeted property.
@@ -351,8 +351,8 @@ When you add a `maxLength` test, the check validates if the response contains at
 // Response body should have a maximum length of "20" for "data"
 if (jsonData?.data) {
   pm.test("[GET]::/crm/leads - Content check if value of 'data' has a maximum length of '20'", function() {
-    pm.expect(jsonData.data.length).is.at.most(20);
-  })};
+  pm.expect(jsonData.data.length).is.at.most(20);
+})};
 ```
 
 > **REMARK**:
