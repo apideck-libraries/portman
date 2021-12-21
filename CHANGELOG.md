@@ -5,6 +5,7 @@
 - ContentTest - Check maximum length of array or string of response body
 - ContentTest - Check minimum length of array or string of response header
 - ContentTest - Check maximum length of array or string of response header
+- Fix for order of operations, where the operations have multiple path variables (#208)
 
 ## v1.12.2 - (2021-12-15)
 
