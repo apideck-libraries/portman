@@ -1,6 +1,7 @@
 {
   "version": 1.0,
   "globals": {
+    "stripResponseExamples": true,
     "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
