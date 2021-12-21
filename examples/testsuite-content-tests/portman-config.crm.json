@@ -22,6 +22,14 @@
             "length": 9
           },
           {
+            "key": "data",
+            "minLength": 1
+          },
+          {
+            "key": "data",
+            "maxLength": 20
+          },
+          {
             "key": "resource",
             "value": "companies"
           }
@@ -34,7 +42,9 @@
             "key": "Operation-Location",
             "value": "/operations/123",
             "contains": "/operations/",
-            "length": 15
+            "length": 15,
+            "minLength": 5,
+            "maxLength": 20
           }
         ]
       }

@@ -46,6 +46,14 @@ file: examples/testsuite-content-tests/portman-config.crm.json
           "length": 9
         },
         {
+          "key": "data",
+          "minLength": 1
+        },
+        {
+          "key": "data",
+          "maxLength": 20
+        },
+        {
           "key": "resource",
           "value": "companies"
         }
@@ -87,13 +95,17 @@ These target options are both supported for defining a target. In case both are 
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
-  - **length (Number)** : The number that will be used to check if the value of the response body property has a length of the defined number of characters.
+  - **length (Number)** : The number that will be used to check if the value of the response body property (string/array) has a length of the defined number.
+  - **minLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
+  - **maxLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
 
 - **responseHeaderTests (Array)** : Array of key/value pairs of properties & values in the Postman response header.
   - **key (String)** : The header name that will be targeted in the response header to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response header matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response header.
   - **length (Number)** : The number that will be used to check if the value of the response header has a length of the defined number of characters.
+  - **minLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
+  - **maxLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
 
 ## Example explained
 
@@ -122,6 +134,14 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
           "length": 9
         },
         {
+          "key": "data",
+          "minLength": 1
+        },
+        {
+          "key": "data",
+          "maxLength": 20
+        },
+        {
           "key": "resource",
           "value": "companies"
         }
@@ -133,7 +153,9 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
         {
           "key": "Operation-Location",
           "contains": "/operations/",
-          "length": 15
+          "length": 15,
+          "minLength": 5,
+          "maxLength": 20
         }
       ]
     }
@@ -300,7 +322,7 @@ if (typeof jsonData.data[0].company_name !== 'undefined') {
 }
 ```
 
-When you add a `length` test, the check validates if the response contains the expected number of characters for the property "description".
+When you add a `length` test, the check validates if the response contains the expected number of characters/array items for the defined key.
 
 `length` example:
 ```js
@@ -310,6 +332,32 @@ if (jsonData?.data[0].description) {
   pm.expect(jsonData.data[0].description).to.have.lengthOf(9);
 })};
 ```
+
+When you add a `minLength` test, the check validates if the response contains at least the number of characters/array items for the targeted property.
+
+`minLength` example:
+```js
+// Response body should have a minimum length of "1" for "data"
+if (jsonData?.data) {
+  pm.test("[GET]::/crm/leads - Content check if value of 'data' has a minimum length of '1'", function() {
+  pm.expect(jsonData.data.length).is.at.least(1);
+})};
+```
+
+When you add a `maxLength` test, the check validates if the response contains at least the number of characters/array items for the targeted property.
+
+`maxLength` example:
+```js
+// Response body should have a maximum length of "20" for "data"
+if (jsonData?.data) {
+  pm.test("[GET]::/crm/leads - Content check if value of 'data' has a maximum length of '20'", function() {
+  pm.expect(jsonData.data.length).is.at.most(20);
+})};
+```
+
+> **REMARK**:
+When using the content tests for `length`, `minLength`, `maxLength`, Portman will add specific content checks as Postman tests. 
+You could also include these types of length validation as part of your [OpenAPI specification](https://spec.openapis.org/oas/v3.0.3#properties), which will include maxLength, minLength, minItems, maxItems as part of the JSON schema validation contract test.
 
 ---
 
@@ -378,7 +426,26 @@ When you add a `length` test, the check validates if the header value contains t
 pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '15'", function() {
   pm.expect(pm.response.headers.get("Operation-Location")).to.have.lengthOf(15);
 });
+```
 
+When you add a `minLength` test, the check validates if the header value contains at least the defined number of characters.
+
+`minLength` example:
+```js
+// Response header should have a minimum length of "5" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a minimum length of '5'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location").length).is.at.least(5);
+});
+```
+
+When you add a `maxLength` test, the check validates if the header value contains at most the defined number of characters.
+
+`maxLength` example:
+```js
+// Response header should have a maximum length of "20" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a maximum length of '20'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location").length).is.at.most(20);
+});
 ```
 
 ---
