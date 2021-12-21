@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+## v1.13.0 - (2021-12-15)
+
+- Contract test - extend JSON schema validation with option to set additional properties behaviour.
 - ContentTest - Check length of array or string
 - ContentTest - Check minimum length of array or string of response body
 - ContentTest - Check maximum length of array or string of response body
