@@ -21,7 +21,7 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
       })
     }
     if (pmFolder.item) {
-      // Sort items
+      // Sort requests in folder
       pmFolder.item = pmFolder.item.sort(propComparatorPortmanOperation(orderOfOperationsNorm))
     }
   })
@@ -31,7 +31,6 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
     if (!request.item) {
       //Normalize Postman request url paths for sorting
       const postmanPath = request.request.url.path.join('/')
-      // let postmanPath = request.request.url.path.join('/').replace(/:([^\s]+)/g,'{$1}')
       const postmanMethod = request.request.method
       request._portman_operation = postmanMethod + '::/' + postmanPath
     }
