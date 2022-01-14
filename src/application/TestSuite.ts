@@ -237,7 +237,7 @@ export class TestSuite {
       optStatusCode.enabled &&
       !inOperations(pmOperation, optStatusCode?.excludeForOperations)
     ) {
-      const statusCodeSetting = optStatusCode as StatusCode
+      const statusCodeSetting = { ...optStatusCode } as StatusCode
       if (!statusCodeSetting.code && responseCode) {
         statusCodeSetting.code = responseCode
       }
