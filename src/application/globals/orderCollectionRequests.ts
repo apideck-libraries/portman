@@ -7,6 +7,7 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
     item.replace(regStart, ':').replace(regEnd, '')
   )
 
+  // Sort requests in folders
   obj.item.map(pmFolder => {
     if (pmFolder.item && pmFolder.item.length > 0) {
       if (pmFolder.item[0]?.item) return //skip nested folders for now
@@ -19,9 +20,26 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
         request._portman_operation = postmanMethod + '::/' + postmanPath
       })
     }
-    // Sort items
-    pmFolder.item = pmFolder.item.sort(propComparatorPortmanOperation(orderOfOperationsNorm))
+    if (pmFolder.item) {
+      // Sort requests in folder
+      pmFolder.item = pmFolder.item.sort(propComparatorPortmanOperation(orderOfOperationsNorm))
+    }
   })
+
+  // Prepare requests on root level
+  obj.item.map(request => {
+    if (!request.item) {
+      //Normalize Postman request url paths for sorting
+      const postmanPath = request.request.url.path.join('/')
+      const postmanMethod = request.request.method
+      request._portman_operation = postmanMethod + '::/' + postmanPath
+    }
+  })
+
+  // Sort root items
+  if (obj.item && obj.item.length > 0) {
+    obj.item = obj.item.sort(propComparatorPortmanOperation(orderOfOperationsNorm))
+  }
   return obj
 }
 
