@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+- Extended orderOfOperations to include the sorting on root level, next to the folder sorting (#236)
+- Fix for status code in contract test (#238)
+- Bumped dependencies
+
 ## v1.13.0 - (2021-12-15)
 
 - Contract test - extend JSON schema validation with option to set additional properties behaviour.
