@@ -1,7 +1,10 @@
 ## [Unreleased]
 
+## v1.13.1 - (2022-01-17)
+
 - Extended orderOfOperations to include the sorting on root level, next to the folder sorting (#236)
 - Fix for status code in contract test (#238)
+- Patch for follow-redirects vulnerability
 - Bumped dependencies
 
 ## v1.13.0 - (2021-12-15)
