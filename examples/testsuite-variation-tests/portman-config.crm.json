@@ -118,5 +118,8 @@
         ]
       }
     ]
+  },
+  "globals": {
+    "stripResponseExamples": true
   }
 }
