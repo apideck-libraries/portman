@@ -6,6 +6,7 @@ import {
   extendTest,
   IntegrationTestWriter,
   testResponseBodyContent,
+  testResponseBodyEmpty,
   testResponseContentType,
   testResponseHeader,
   testResponseHeaderContent,
@@ -201,6 +202,7 @@ export class TestSuite {
       inRange(parseInt(res[0]), 200, 302)
     )
 
+    // Target openApiResponse code
     if (openApiResponseCode && typeof openApiResponseCode === 'string') {
       response = Object.entries(oaOperation.schema.responses).filter(
         res => parseInt(res[0]) === parseInt(openApiResponseCode)
@@ -251,6 +253,18 @@ export class TestSuite {
       !inOperations(pmOperation, optResponseTime?.excludeForOperations)
     ) {
       pmOperation = testResponseTime(optResponseTime as ResponseTime, pmOperation)
+    }
+
+    // Add empty body check for 204 HTTP response
+    // 204 is a popular status code for PUT, POST and DELETE operations and MUST not have a response body
+    // RFC7231 https://datatracker.ietf.org/doc/html/rfc7231#section-6.3.5
+    if (
+      optJsonBody &&
+      optJsonBody.enabled &&
+      responseCode === 204 &&
+      !inOperations(pmOperation, optJsonBody?.excludeForOperations)
+    ) {
+      pmOperation = testResponseBodyEmpty(pmOperation, oaOperation)
     }
 
     // Add response content checks
