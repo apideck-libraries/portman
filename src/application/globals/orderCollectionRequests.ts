@@ -51,8 +51,8 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
 const propComparatorPortmanOperation = (priorityArr: any): any => {
   return (a, b) => {
     if (
-      a['_portman_operation'] &&
-      b['_portman_operation'] &&
+      a['_portman_operation'] === undefined ||
+      b['_portman_operation'] === undefined ||
       a['_portman_operation'] === b['_portman_operation']
     ) {
       return 0
