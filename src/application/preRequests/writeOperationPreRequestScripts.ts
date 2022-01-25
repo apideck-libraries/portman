@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs'
 import { Event, EventDefinition, EventList, Script, ScriptDefinition } from 'postman-collection'
 import { PostmanMappedOperation } from 'src/postman'
 
