@@ -22,7 +22,7 @@ export const writeCollectionPreRequestScripts = (
 
   const scriptContents = scripts.map(src => {
     if (src.startsWith('file:')) {
-      return fs.readFileSync(src.replace('file:', ''), { encoding:'utf8', flag:'r' })
+      return getScriptContent(src.replace('file:', ''))
     } else {
       return src
     }
@@ -39,4 +39,15 @@ export const writeCollectionPreRequestScripts = (
     : [preRequestEvent]
 
   return collection
+}
+
+function getScriptContent(scriptPath: string): string {
+  try {
+    return fs.readFileSync(scriptPath, { encoding:'utf8', flag:'r' })
+  } catch(ex) {
+    console.error(
+      '\x1b[31m', 
+      `Config pre-request script file error - no such file or directory "${scriptPath}"`)
+    process.exit(1)
+  }
 }
