@@ -12,4 +12,15 @@ describe('writeCollectionPreRequestScripts', () => {
     const result = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
     expect(result?.event && result.event.map(({ script }) => script['exec'])).toMatchSnapshot()
   })
+
+  it('should inject the configured PreRequestScripts from file on collection', async () => {
+    const collection = getPostmanCollection().toJSON()
+
+    const collectionPreRequestScripts = [
+      'file:src/application/globals/__fixtures__/samplePreRequest1.js',
+      'file:src/application/globals/__fixtures__/samplePreRequest2.js'
+    ]
+    const result = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
+    expect(result?.event && result.event.map(({ script }) => script['exec'])).toMatchSnapshot()
+  })
 })

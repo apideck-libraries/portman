@@ -581,7 +581,7 @@ The `operationPreRequestScripts` is inserted on the request level.
 - **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the "Pre-request Scripts" will be inserted (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting. (example: `["leadsAdd", "GET::/crm/leads/{id}"]`)
 
-- **scripts (Array)** : Array of scripts that will be injected as Postman Pre-request Scripts on request level, that will be executed before the targeted requests in this collection.
+- **scripts (Array)** : Array of scripts that will be injected as Postman Pre-request Scripts on request level, that will be executed before the targeted requests in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 
 <hr>
 
@@ -591,7 +591,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 #### globals options
 
-- **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection.
+- **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **keyValueReplacements** : A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements** : A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...

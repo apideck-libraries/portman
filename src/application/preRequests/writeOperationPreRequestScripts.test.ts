@@ -12,4 +12,15 @@ describe('writeOperationPreRequestScripts', () => {
     writeOperationPreRequestScripts([pmOperation], operationPreRequestScripts)
     expect(pmOperation.item.events.map(({ script }) => script['exec'])).toMatchSnapshot()
   })
+
+  it('should inject the configured PreRequestScripts from file on collection', async () => {
+    const pmOperation = await getPostmanMappedOperation()
+
+    const operationPreRequestScripts = [
+      'file:src/application/preRequests/__fixtures__/samplePreRequest1.js',
+      'file:src/application/preRequests/__fixtures__/samplePreRequest2.js'
+    ]
+    writeOperationPreRequestScripts([pmOperation], operationPreRequestScripts)
+    expect(pmOperation.item.events.map(({ script }) => script['exec'])).toMatchSnapshot()
+  })
 })

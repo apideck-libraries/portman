@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`writeCollectionPreRequestScripts should inject the configured PreRequestScripts from file on collection 1`] = `
+Array [
+  Array [
+    "pm.request.headers.add({key: \\"header_name\\", value: \\"header_value\\" });
+",
+    "pm.collectionVariables.set(\\"applicationId\\", pm.iterationData.get(\\"applicationId\\") || \\"1111\\");
+",
+  ],
+]
+`;
+
 exports[`writeCollectionPreRequestScripts should inject the configured PreRequestScripts on collection 1`] = `
 Array [
   Array [
