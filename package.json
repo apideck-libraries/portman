@@ -55,7 +55,7 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
-    "jest": "^27.0.6",
+    "jest": "^27.4.7",
     "jest-progress-bar-reporter": "^1.0.21",
     "np": "^7.6.0",
     "prettier": "^2.3.2",
