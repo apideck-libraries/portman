@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.14.0 - (2022-02-09)
+
+- Allow importing files for operationPreRequestScripts and collectionPreRequestScripts
+- Bumped dependencies
+
 ## v1.13.1 - (2022-01-17)
 
 - Extended orderOfOperations to include the sorting on root level, next to the folder sorting (#236)
