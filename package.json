@@ -80,7 +80,7 @@
     "fs-extra": "^10.0.0",
     "newman": "^5.3.1",
     "node-emoji": "^1.11.0",
-    "openapi-format": "^1.9.0",
+    "openapi-format": "^1.9.1",
     "openapi-to-postmanv2": "^2.13.0",
     "openapi-types": "9.1.0",
     "ora": "^5.4.1",
