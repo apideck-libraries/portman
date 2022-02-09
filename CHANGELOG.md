@@ -3,6 +3,7 @@
 ## v1.14.0 - (2022-02-09)
 
 - Allow importing files for operationPreRequestScripts and collectionPreRequestScripts
+- Contract test - extended "jsonBody" to verify that a 204 response has no response body content
 - Bumped dependencies
 
 ## v1.13.1 - (2022-01-17)
