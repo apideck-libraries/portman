@@ -4,7 +4,11 @@
 
 - Allow importing files for operationPreRequestScripts and collectionPreRequestScripts
 - Contract test - extended "jsonBody" to verify that a 204 response has no response body content
-- Bumped dependencies
+- Bumped dependencies openapi-format to 1.9.1
+- Bumped dependencies openapi-to-postman to 2.14.1
+
+REMARK: openapi-to-postman v2.14.1 introduces the change that the "Accept" header is now set based on the response content-type by default. For more info visit the [Github PR](https://github.com/postmanlabs/openapi-to-postman/pull/459).
+Additionally [disableBodyPruning](https://github.com/postmanlabs/openapi-to-postman/issues/467), a Postman specific property is added to the generated request object.
 
 ## v1.13.1 - (2022-01-17)
 
