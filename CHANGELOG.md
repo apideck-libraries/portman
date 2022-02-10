@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.14.1 - (2022-02-10)
+
+- Bumped dependencies openapi-format to 1.9.2
+
 ## v1.14.0 - (2022-02-09)
 
 - Allow importing files for operationPreRequestScripts and collectionPreRequestScripts
