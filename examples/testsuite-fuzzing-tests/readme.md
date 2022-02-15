@@ -299,7 +299,7 @@ Portman analyses the OpenAPI request query parameter for possible fuzzable prope
 
 Like for the **requestBody**, you have full control over which **requestQueryParams** fuzzing configuration you want to generate request variations.
 
-- **requiredFields (Boolean)** : Removes the properties & values from the request body that are marked as "required" in OpenAPI.
+- **requiredFields (Boolean)** : Removes the properties & values from the request query parameters that are marked as "required" in OpenAPI.
 - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
 - **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
 - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
@@ -352,25 +352,26 @@ See the screenshot above or the generated [postman collection](./crm.postman.jso
 
 ```json
 "tests": {
-      "contractTests": [
-        {
-          "statusCode": {
+    "contractTests": [
+      {
+        "statusCode": {
           "enabled": true
         },
-          "contentType": {
+        "contentType": {
           "enabled": true
         },
-          "jsonBody": {
+        "jsonBody": {
           "enabled": true
         },
-          "schemaValidation": {
+        "schemaValidation": {
           "enabled": true
         },
-          "headersPresent": {
+        "headersPresent": {
           "enabled": true
         }
-      ]
-    }
+      }
+    ]
+  }
 ```
 
 The contract tests will be injected for each generated fuzzing variation.
