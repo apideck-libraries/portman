@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.14.2 - (2022-02-22)
+
+- Fuzzing - skip nullable required properties
+- Bumped dependency follow-redirects
+
 ## v1.14.1 - (2022-02-10)
 
 - Bumped dependencies openapi-format to 1.9.2
