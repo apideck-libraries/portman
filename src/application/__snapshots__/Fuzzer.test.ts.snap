@@ -47,7 +47,6 @@ Object {
   ],
   "requiredFields": Array [
     "name",
-    "company_name",
     "websites[0].url",
     "social_links[0].url",
     "phone_numbers[0].number",
@@ -116,6 +115,63 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 5,
+    },
+    Object {
+      "field": "code2",
+      "path": "nestedArray[0].code2",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 100,
+    },
+    Object {
+      "field": "code2",
+      "path": "nestedArray[0].code2",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 1,
+    },
+    Object {
+      "field": "code2",
+      "path": "nestedArray[0].code2",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 1,
+    },
+    Object {
+      "field": "code2",
+      "path": "nestedArray[0].code2",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "nestedArray",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse JSON schema of request body with array of objects for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestBody",
@@ -150,6 +206,41 @@ Object {
   "requiredFields": Array [
     "code",
   ],
+}
+`;
+
+exports[`Fuzzer should analyse JSON schema of request body with array of objects for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "code",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [],
 }
 `;
 
@@ -190,6 +281,41 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body with deeply array nesting for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedArray[0].level1[0].level2[0].code",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedArray[0].level1[0].level2[0].code",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedArray[0].level1[0].level2[0].code",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedArray[0].level1[0].level2[0].code",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [],
+}
+`;
+
 exports[`Fuzzer should analyse JSON schema of request body with deeply array nesting with items prop for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestBody",
@@ -224,6 +350,41 @@ Object {
   "requiredFields": Array [
     "nestedArray[0].items",
   ],
+}
+`;
+
+exports[`Fuzzer should analyse JSON schema of request body with deeply array nesting with items prop for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "items",
+      "path": "nestedArray[0].items",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "items",
+      "path": "nestedArray[0].items",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "items",
+      "path": "nestedArray[0].items",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "items",
+      "path": "nestedArray[0].items",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [],
 }
 `;
 
@@ -264,6 +425,41 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body with deeply array nesting with properties prop for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "properties",
+      "path": "nestedArray[0].properties",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "properties",
+      "path": "nestedArray[0].properties",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "properties",
+      "path": "nestedArray[0].properties",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "properties",
+      "path": "nestedArray[0].properties",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [],
+}
+`;
+
 exports[`Fuzzer should analyse JSON schema of request body with deeply object nesting for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestBody",
@@ -298,6 +494,41 @@ Object {
   "requiredFields": Array [
     "nestedOb.level1.level2.code",
   ],
+}
+`;
+
+exports[`Fuzzer should analyse JSON schema of request body with deeply object nesting for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedOb.level1.level2.code",
+      "value": 5,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedOb.level1.level2.code",
+      "value": 100,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedOb.level1.level2.code",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "code",
+      "path": "nestedOb.level1.level2.code",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [],
 }
 `;
 
