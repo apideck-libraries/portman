@@ -775,7 +775,14 @@ export class Fuzzer {
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
 
-      if (node?.minimum || node?.maximum || node?.minLength || node?.maxLength || node?.required) {
+      if (
+        node?.minimum ||
+        node?.maximum ||
+        node?.minLength ||
+        node?.maxLength ||
+        node?.required ||
+        node?.nullable
+      ) {
         // Build up fuzzing prop schema path from parents array
         this.parents.forEach(item => {
           // Handle object
@@ -801,6 +808,13 @@ export class Fuzzer {
         // Register fuzz-able required fields
         const requiredFuzz = node.required.map(req => `${path}${req}`)
         fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
+      }
+
+      // Unregister fuzz-able nullable required fields
+      if (node?.nullable === true && fuzzItems.requiredFields.length > 0) {
+        fuzzItems.requiredFields = fuzzItems.requiredFields.filter(
+          item => item !== `${path}${this.key}`
+        )
       }
 
       // Register all fuzz-able items
