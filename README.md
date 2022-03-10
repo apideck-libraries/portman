@@ -600,7 +600,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
 - **stripResponseExamples (Boolean | optional)** : Strip the response examples from the generated Postman collection.
-- **securityOverwrites** : Provide a overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token")
+- **securityOverwrites** : Overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token") or inject a Postman authorization option (supported types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2) on a collection level. 
 
 The security overwrites provides a number of security types:
 
@@ -639,6 +639,61 @@ The security overwrites provides a number of security types:
         "password": "{{password}}",
       }
     }
+```
+
+- **Postman security options**: Overwrite/Insert Postman authorization settings.
+  - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+    - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file). 
+
+```json
+{
+  "globals": {
+    "securityOverwrites": {
+      "oauth1": [
+        {
+          "key": "addEmptyParamsToSign",
+          "value": true,
+          "type": "boolean"
+        },
+        {
+          "key": "timestamp",
+          "value": "1461319769",
+          "type": "string"
+        },
+        {
+          "key": "nonce",
+          "value": "ik3oT5",
+          "type": "string"
+        },
+        {
+          "key": "consumerSecret",
+          "value": "D+EdQ-gs$-%@2Nu7",
+          "type": "string"
+        },
+        {
+          "key": "consumerKey",
+          "value": "RKCGzna7bv9YD57c",
+          "type": "string"
+        },
+        {
+          "key": "signatureMethod",
+          "value": "HMAC-SHA1",
+          "type": "string"
+        },
+        {
+          "key": "version",
+          "value": "1.0",
+          "type": "string"
+        },
+        {
+          "key": "addParamsToHeader",
+          "value": false,
+          "type": "boolean"
+        }
+      ]
+    }
+  }
+}
 ```
 
 For more details on the `globals` configuration options , review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)

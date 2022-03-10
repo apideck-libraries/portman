@@ -183,4 +183,102 @@ describe('overwriteSecurityValues()', () => {
       }
     })
   })
+
+  it('oauth1 method should be injected', () => {
+    const dictionary = {
+      oauth1: [
+        {
+          key: 'addEmptyParamsToSign',
+          value: true,
+          type: 'boolean'
+        },
+        {
+          key: 'timestamp',
+          value: '1461319769',
+          type: 'string'
+        },
+        {
+          key: 'nonce',
+          value: 'ik3oT5',
+          type: 'string'
+        },
+        {
+          key: 'consumerSecret',
+          value: 'D+EdQ-gs$-%@2Nu7',
+          type: 'string'
+        },
+        {
+          key: 'consumerKey',
+          value: 'RKCGzna7bv9YD57c',
+          type: 'string'
+        },
+        {
+          key: 'signatureMethod',
+          value: 'HMAC-SHA1',
+          type: 'string'
+        },
+        {
+          key: 'version',
+          value: '1.0',
+          type: 'string'
+        },
+        {
+          key: 'addParamsToHeader',
+          value: false,
+          type: 'boolean'
+        }
+      ]
+    } as Record<string, unknown>
+
+    const collection = {} as CollectionDefinition
+
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'oauth1',
+        oauth1: [
+          {
+            key: 'addEmptyParamsToSign',
+            value: true,
+            type: 'boolean'
+          },
+          {
+            key: 'timestamp',
+            value: '1461319769',
+            type: 'string'
+          },
+          {
+            key: 'nonce',
+            value: 'ik3oT5',
+            type: 'string'
+          },
+          {
+            key: 'consumerSecret',
+            value: 'D+EdQ-gs$-%@2Nu7',
+            type: 'string'
+          },
+          {
+            key: 'consumerKey',
+            value: 'RKCGzna7bv9YD57c',
+            type: 'string'
+          },
+          {
+            key: 'signatureMethod',
+            value: 'HMAC-SHA1',
+            type: 'string'
+          },
+          {
+            key: 'version',
+            value: '1.0',
+            type: 'string'
+          },
+          {
+            key: 'addParamsToHeader',
+            value: false,
+            type: 'boolean'
+          }
+        ]
+      }
+    })
+  })
 })
