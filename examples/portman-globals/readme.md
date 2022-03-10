@@ -251,7 +251,7 @@ Next to the above security overwrites, you can also insert/overwrite Postman aut
 
 The easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file.
 
-<img src="./images/globals-postman-authorization.png" width="600" >
+<img src="./images/globals-postman-authorization.png" width="800" >
 
 which would result in the following Portman configuration:
 ```json
