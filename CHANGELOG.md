@@ -2,7 +2,8 @@
 
 ## v1.14.3 - (2022-03-22)
 - Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors and openapif-format
-- Valid schema when float as a format is used #281
+- Enhance generated schema validation to support float as a format (#281)
+- Fix handling of the Global configuration properties (#261) 
 
 ## v1.14.2 - (2022-02-22)
 
