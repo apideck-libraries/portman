@@ -40,13 +40,13 @@
     "portman": "bin/portman"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.11",
+    "@types/fs-extra": "^9.0.13",
     "@types/jest": "^26.0.23",
     "@types/newman": "^5.1.4",
     "@types/node-emoji": "^1.8.1",
     "@types/postman-collection": "^3.5.7",
     "@types/traverse": "^0.6.32",
-    "@types/uuid": "^8.3.3",
+    "@types/uuid": "^8.3.4",
     "@types/yargs": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
