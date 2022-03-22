@@ -67,7 +67,7 @@
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "@apideck/better-ajv-errors": "^0.3.2",
+    "@apideck/better-ajv-errors": "^0.3.3",
     "@apidevtools/swagger-parser": "^10.0.3",
     "ajv": "^8.9.0",
     "axios": "^0.25.0",
