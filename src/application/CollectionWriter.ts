@@ -8,7 +8,8 @@ import {
   writeCollectionPreRequestScripts,
   writeRawReplacements
 } from '.'
-import { PortmanConfig, PortmanOptions } from '../types'
+import { GlobalConfig, PortmanConfig, PortmanOptions } from '../types'
+import { isEmptyObject } from 'utils'
 
 export class CollectionWriter {
   public collection: CollectionDefinition
@@ -22,35 +23,32 @@ export class CollectionWriter {
   }
 
   public execute(): void {
-    if (!this.config?.globals) return
-
     const { envFile, baseUrl } = this.options
 
+    const { globals = {} } = this.config
     const {
-      globals: {
-        collectionPreRequestScripts,
-        securityOverwrites,
-        keyValueReplacements,
-        valueReplacements,
-        rawReplacements,
-        orderOfOperations
-      }
-    } = this.config
+      collectionPreRequestScripts = [],
+      securityOverwrites = {},
+      keyValueReplacements = {},
+      valueReplacements = {},
+      rawReplacements = [],
+      orderOfOperations = []
+    } = globals as GlobalConfig
 
     let collection = this.collection
 
     // --- Portman - Set Security values for Postman
-    if (securityOverwrites) {
+    if (securityOverwrites && !isEmptyObject(securityOverwrites)) {
       collection = overwriteCollectionSecurityValues(collection, securityOverwrites)
     }
 
     // --- Portman - Search for keys in dictionary to set the value if key is found anywhere in collection
-    if (keyValueReplacements) {
+    if (keyValueReplacements && !isEmptyObject(keyValueReplacements)) {
       collection = overwriteCollectionKeyValues(collection, keyValueReplacements)
     }
 
     // --- Portman - Search for keys in dictionary to set the values if value is found anywhere in collection
-    if (valueReplacements) {
+    if (valueReplacements && !isEmptyObject(valueReplacements)) {
       collection = overwriteCollectionValues(collection, valueReplacements)
     }
 
@@ -60,17 +58,17 @@ export class CollectionWriter {
     }
 
     // --- Portman - Set manually order Postman requests
-    if (orderOfOperations) {
+    if (orderOfOperations && orderOfOperations.length > 0) {
       collection = orderCollectionRequests(collection, orderOfOperations)
     }
 
     // --- Portman - Set Postman pre-requests
-    if (collectionPreRequestScripts) {
+    if (collectionPreRequestScripts && collectionPreRequestScripts.length > 0) {
       collection = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
     }
 
     // --- Portman - Replace & clean-up Postman
-    if (rawReplacements) {
+    if (rawReplacements && rawReplacements.length > 0) {
       const collectionString = writeRawReplacements(
         JSON.stringify(collection, null, 2),
         rawReplacements

@@ -145,6 +145,20 @@ describe('CollectionWriter.execute()', () => {
       expect(spy).toHaveBeenCalled()
     })
 
+    it('should call with envFile without globals', () => {
+      const config = {} as PortmanConfig
+
+      const options = {
+        envFile: '.test.env',
+        baseUrl: 'http://example.com'
+      } as PortmanOptions
+
+      const collectionWriter = new CollectionWriter(config, options, {})
+      collectionWriter.execute()
+
+      expect(spy).toHaveBeenCalled()
+    })
+
     it('should not call without envFile', () => {
       const config = {
         globals: {}

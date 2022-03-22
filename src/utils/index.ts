@@ -1,5 +1,6 @@
 export * from './getByPath'
 export * from './inRange'
+export * from './isEmptyObject'
 export * from './isObject'
 export * from './matchPath'
 export * from './methods'
