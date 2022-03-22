@@ -9,7 +9,7 @@ import {
   writeRawReplacements
 } from '.'
 import { GlobalConfig, PortmanConfig, PortmanOptions } from '../types'
-import { isEmptyObject } from 'utils'
+import { isEmptyObject } from '../utils'
 
 export class CollectionWriter {
   public collection: CollectionDefinition
