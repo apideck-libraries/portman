@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.14.3 - (2022-03-22)
+- Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors and openapif-format
+- Valid schema when float as a format is used #281
+
 ## v1.14.2 - (2022-02-22)
 
 - Fuzzing - skip nullable required properties

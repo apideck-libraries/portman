@@ -38637,7 +38637,7 @@ const schema = {\\"properties\\":{\\"status_code\\":{\\"type\\":\\"number\\",\\"
 
 // Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
 });
 ",
                       "// Set response object as internal variable
@@ -40168,7 +40168,7 @@ const schema = {\\"properties\\":{\\"status_code\\":{\\"type\\":\\"number\\",\\"
 
 // Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
 });
 ",
                     ],
