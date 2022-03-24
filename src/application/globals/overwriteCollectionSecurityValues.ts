@@ -5,14 +5,11 @@ export const overwriteCollectionSecurityValues = (
   collectionJson: CollectionDefinition | Partial<CollectionDefinition>,
   { apiKey, basic, bearer, awsv4, digest, edgegrid, ntlm, oauth1, oauth2 }: SecurityOverwrite
 ): CollectionDefinition => {
-  let defaultSec = false
-
-  // Early exit if no auth is defined
-  // if (!collectionJson.auth) return collectionJson
+  let defaultSecurity = false
 
   // Check default security types
   if (apiKey !== undefined || basic !== undefined || bearer !== undefined) {
-    defaultSec = true
+    defaultSecurity = true
   }
 
   // Handle OAS securitySchemes type apiKey
@@ -20,7 +17,7 @@ export const overwriteCollectionSecurityValues = (
     collectionJson?.auth?.apikey &&
     Array.isArray(collectionJson.auth.apikey) &&
     apiKey?.value &&
-    defaultSec
+    defaultSecurity
   ) {
     collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
       el.key === 'value' ? { ...el, value: apiKey.value } : el
@@ -45,7 +42,7 @@ export const overwriteCollectionSecurityValues = (
     Array.isArray(collectionJson.auth.basic) &&
     basic?.username &&
     basic?.password &&
-    defaultSec
+    defaultSecurity
   ) {
     collectionJson.auth.basic = collectionJson.auth.basic.map(el =>
       el.key === 'username' ? { ...el, value: basic?.username } : el
@@ -60,7 +57,7 @@ export const overwriteCollectionSecurityValues = (
     collectionJson?.auth?.bearer &&
     Array.isArray(collectionJson.auth.bearer) &&
     bearer?.token &&
-    defaultSec
+    defaultSecurity
   ) {
     collectionJson.auth.bearer = collectionJson.auth.bearer.map(el =>
       el.key === 'token' ? { ...el, value: bearer?.token } : el
@@ -69,7 +66,7 @@ export const overwriteCollectionSecurityValues = (
 
   // Handle Postman securitySchemes types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2
   if (
-    defaultSec === false &&
+    defaultSecurity === false &&
     !collectionJson.auth &&
     (awsv4 || digest || edgegrid || ntlm || oauth1 || oauth2)
   ) {
