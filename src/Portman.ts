@@ -177,8 +177,8 @@ export class Portman {
     await fs.ensureDir('./tmp/converted/')
     await fs.ensureDir('./tmp/newman/')
 
-    const configJson = await getConfig(portmanConfigPath)
-    const config = validate(configJson)
+    const configData = await getConfig(portmanConfigPath)
+    const config = validate(configData)
 
     if (Either.isLeft(config)) {
       console.log(chalk`{red  Invalid Portman Config: } \t\t{green ${portmanConfigPath}}`)

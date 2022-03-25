@@ -1,0 +1,5 @@
+globals:
+  stripResponseExamples: true
+  rawReplacements:
+    - searchFor: 'Unify '
+      replaceWith: 'Unify Apideck '

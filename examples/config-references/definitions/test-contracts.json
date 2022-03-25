@@ -1,0 +1,41 @@
+{
+  "contractTests": [
+    {
+      "openApiOperation": "*::/crm/*",
+      "statusSuccess": {
+        "enabled": true
+      }
+    },
+    {
+      "openApiOperation": "*::/crm/*",
+      "responseTime": {
+        "enabled": false,
+        "maxMs": 300
+      }
+    },
+    {
+      "openApiOperation": "*::/crm/*",
+      "contentType": {
+        "enabled": true
+      }
+    },
+    {
+      "openApiOperation": "*::/crm/*",
+      "jsonBody": {
+        "enabled": true
+      }
+    },
+    {
+      "openApiOperation": "*::/crm/*",
+      "schemaValidation": {
+        "enabled": true
+      }
+    },
+    {
+      "openApiOperation": "*::/crm/*",
+      "headersPresent": {
+        "enabled": true
+      }
+    }
+  ]
+}
