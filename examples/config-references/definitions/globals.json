@@ -1,16 +1,10 @@
 {
   "globals": {
     "stripResponseExamples": true,
-    "collectionPreRequestScripts": [
-      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
-    ],
-    "keyValueReplacements": {
-      "application_id": "{{applicationId}}"
-    },
     "rawReplacements": [
       {
-        "searchFor": "\"maxItems\":2,",
-        "replaceWith": ""
+        "searchFor": "Unify ",
+        "replaceWith": "Unify Apideck "
       }
     ]
   }
