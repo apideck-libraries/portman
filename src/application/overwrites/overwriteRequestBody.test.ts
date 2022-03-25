@@ -316,6 +316,45 @@ it('should overwrite the body param with raw {{$randomInt}} instead of string', 
   expect(result.item.request?.body?.raw).toMatchSnapshot()
 })
 
+it('should overwrite the body param with string {{variable}}', async () => {
+  const overwriteValues = [
+    {
+      key: '[0].name',
+      value: '{{variable_x}}',
+      overwrite: true
+    }
+  ]
+  const pmOperation = await getPostmanMappedCreateArrayOperation()
+  const result = overwriteRequestBody(overwriteValues, pmOperation)
+  expect(result.item.request?.body?.raw).toMatchSnapshot()
+})
+
+it('should overwrite the body param with raw {{variable}} instead of string', async () => {
+  const overwriteValues = [
+    {
+      key: '[0].name',
+      value: '{{{variable_x}}}',
+      overwrite: true
+    }
+  ]
+  const pmOperation = await getPostmanMappedCreateArrayOperation()
+  const result = overwriteRequestBody(overwriteValues, pmOperation)
+  expect(result.item.request?.body?.raw).toMatchSnapshot()
+})
+
+it('should overwrite the body param with valua that contains a {{variable}}', async () => {
+  const overwriteValues = [
+    {
+      key: '[0].name',
+      value: 'Marco Polo {{variable_x}}',
+      overwrite: true
+    }
+  ]
+  const pmOperation = await getPostmanMappedCreateArrayOperation()
+  const result = overwriteRequestBody(overwriteValues, pmOperation)
+  expect(result.item.request?.body?.raw).toMatchSnapshot()
+})
+
 xit('should overwrite the body nested array prop with raw {{$randomInt}} instead of string', async () => {
   const overwriteValues = [
     {

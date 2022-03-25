@@ -79,8 +79,20 @@ export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
 
 export const decodeDynamicPmVars = (jsonString: string): string => {
   // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to number
-  const find = ['"{{$randomInt}}"', '"{{$randomCreditCardMask}}"', '"{{$randomBankAccount}}"']
-  const replace = ['{{$randomInt}}', '{{$randomCreditCardMask}}', '{{$randomBankAccount}}']
+  const find = [
+    '"{{$randomInt}}"',
+    '"{{$randomCreditCardMask}}"',
+    '"{{$randomBankAccount}}"',
+    '"{{{',
+    '}}}"'
+  ]
+  const replace = [
+    '{{$randomInt}}',
+    '{{$randomCreditCardMask}}',
+    '{{$randomBankAccount}}',
+    '{{',
+    '}}'
+  ]
   find.forEach(function (item, index) {
     // eslint-disable-next-line no-useless-escape
     const escapedFind = item.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1')
