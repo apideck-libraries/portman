@@ -51,7 +51,7 @@ These target options are both supported for defining a target. In case both are 
   Array of key/value pairs to overwrite in the Postman Request Query params.
 
   - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend.
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (Any)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. The value can be a text/number/boolean/array/object or Postman variable (to pass the Postman variable as type boolean or number, use `{{{variableName}}}` surrounded by 3x {{{ and 3x }}}).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
   - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request query param from Postman.

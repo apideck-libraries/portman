@@ -501,7 +501,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
   Array of key/value pairs to overwrite in the Postman Request Body.
 
   - **key (String)** : The key that will be targeted in the request body to overwrite/extend.
-  - **value (String)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (Any)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. The value can be a text/number/boolean/array/object or Postman variable (to pass the Postman variable as type boolean or number, use `{{{variableName}}}` surrounded by 3x {{{ and 3x }}}).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attaches the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
 
