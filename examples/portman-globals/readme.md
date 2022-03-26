@@ -241,3 +241,66 @@ The security overwrites provides a number of security types:
       }
     }
 ```
+
+Next to the above security overwrites, you can also insert/overwrite Postman authorization.
+
+- **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+  - **key (String)** : The authorization "key" that will be used as the Postman authorization setting. 
+  - **value (String | Boolean)** : The value that will be inserted as the Postman authorization value for the Postman authorization setting (key).
+  - **type (String)** : The "type" of value, which is used to determine how the value is inserted. Supported types are: `string`, `boolean`.
+
+The easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file.
+
+<img src="./images/globals-postman-authorization.png" width="800" >
+
+which would result in the following Portman configuration:
+```json
+{
+  "globals": {
+    "securityOverwrites": {
+      "oauth1": [
+        {
+          "key": "addEmptyParamsToSign",
+          "value": true,
+          "type": "boolean"
+        },
+        {
+          "key": "timestamp",
+          "value": "1461319769",
+          "type": "string"
+        },
+        {
+          "key": "nonce",
+          "value": "ik3oT5",
+          "type": "string"
+        },
+        {
+          "key": "consumerSecret",
+          "value": "D+EdQ-gs$-%@2Nu7",
+          "type": "string"
+        },
+        {
+          "key": "consumerKey",
+          "value": "RKCGzna7bv9YD57c",
+          "type": "string"
+        },
+        {
+          "key": "signatureMethod",
+          "value": "HMAC-SHA1",
+          "type": "string"
+        },
+        {
+          "key": "version",
+          "value": "1.0",
+          "type": "string"
+        },
+        {
+          "key": "addParamsToHeader",
+          "value": false,
+          "type": "boolean"
+        }
+      ]
+    }
+  }
+}
+```

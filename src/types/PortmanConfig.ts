@@ -176,10 +176,23 @@ export type OperationPreRequestScriptConfig = {
   scripts: string[]
 }
 
+export interface AuthAttribute {
+  key: string
+  value?: unknown
+  type?: string
+}
+
 export type SecurityOverwrite = {
   apiKey?: SecurityApiKey
   bearer?: SecurityBearer
   basic?: SecurityBasicAuth
+  awsv4?: AuthAttribute[]
+  digest?: AuthAttribute[]
+  edgegrid?: AuthAttribute[]
+  hawk?: AuthAttribute[]
+  ntlm?: AuthAttribute[]
+  oauth1?: AuthAttribute[]
+  oauth2?: AuthAttribute[]
   other?: {
     type: string
     [key: string]: unknown | unknown[]
