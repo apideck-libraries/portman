@@ -1,0 +1,5 @@
+contentTests:
+  - openApiOperationId: companiesAll
+    responseBodyTests:
+      - key: 'data[0].company_name'
+        value: Spacex

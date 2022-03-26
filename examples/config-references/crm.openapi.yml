@@ -1,0 +1,2548 @@
+openapi: 3.0.3
+info:
+  version: 1.3.0
+  title: CRM API
+  description: "Welcome to the CRM API.\n\nYou can use this API to access all CRM API endpoints.\n\nEasily import the CRM API into your favorite API tool by using the buttons below.\n\n[![Run our CRM API in Postman](https://app.apideck.com/images/postman-button.svg)](https://app.getpostman.com/run-collection/1311564-22eb0345-7fcb-4358-88bc-af234ffc8943)\n\n[![Run our CRM API in Insomnia}](https://app.apideck.com/images/insomnia-button.svg)](https://insomnia.rest/run/?label=Apideck%20CRM%20API&uri=https%3A%2F%2Fspecs.apideck.com%2Fcrm.yml)\n\n## Base URL\n\nThe base URL for all API requests is `https://unify.apideck.com`\n\n## GraphQL\n\nUse the [GraphQL playground](https://unify.apideck.com/graphql) to test out the GraphQL API.\n\n## Headers\n\nCustom headers that are expected as part of the request. Note that [RFC7230](https://tools.ietf.org/html/rfc7230) states header names are case insensitive.\n\n| Name                  | Type    | Required | Description                                                                                                                                                    |\n| --------------------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| x-apideck-consumer-id | String  | Yes      | The id of the customer stored inside Apideck Vault. This can be a user id, account id, device id or whatever entity that can have integration within your app. |\n| x-apideck-service-id  | String  | No       | Describe the service you want to call (e.g., pipedrive). Only needed when a customer has activated multiple integrations for the same Unified API.             |\n| x-apideck-raw         | Boolean | No       | Include raw response. Mostly used for debugging purposes.                                                                                                      |\n| x-apideck-app-id      | String  | Yes      | The application id of your Unify application. Available at https://app.apideck.com/unify/api-keys.                                                             |\n| Authorization         | String  | Yes      | Bearer API KEY                                                                                                                                                 |\n\n## Authorization\n\nYou can interact with the API through the authorization methods below.\n\n<!-- ReDoc-Inject: <security-definitions> -->\n\n## Pagination\n\nAll API resources have support for bulk retrieval via list APIs. For example, you can list [opportunities](#tag/Opportunities), [companies](#tag/Companies) and [leads](#tag/Leads). Apideck uses cursor-based pagination via the optional `cursor` and `limit` parameters.\n\nTo fetch the first page of results, call the list API without a `cursor` parameter. Afterwards you can fetch subsequent pages by providing a cursor parameter. You will find the next cursor in the response body in `meta.cursors.next`. If `meta.cursors.next` is `null` you're at the end of the list.\n\nIn the REST API you can also use the `links` from the response for added convenience. Simply call the URL in `links.next` to get the next page of results.\n\n### Query Parameters\n\n| Name   | Type   | Required | Description                                                                                                        |\n| ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------------ |\n| cursor | String | No       | Cursor to start from. You can find cursors for next & previous pages in the meta.cursors property of the response. |\n| limit  | Number | No       | Number of results to return. Minimum 1, Maximum 200, Default 20                                                    |\n\n### Response Body\n\n| Name                  | Type   | Description                                                        |\n| --------------------- | ------ | ------------------------------------------------------------------ |\n| meta.cursors.previous | String | Cursor to navigate to the previous page of results through the API |\n| meta.cursors.current  | String | Cursor to navigate to the current page of results through the API  |\n| meta.cursors.next     | String | Cursor to navigate to the next page of results through the API     |\n| meta.items_on_page    | Number | Number of items returned in the data property of the response      |\n| links.previous        | String | Link to navigate to the previous page of results through the API   |\n| links.current         | String | Link to navigate to the current page of results through the API    |\n| links.next            | String | Link to navigate to the next page of results through the API       |\n\n⚠️ `meta.cursors.previous`/`links.previous` is not available for all connectors.\n\n## Connectors\n\nSupported connectors and endpoints\n\n| Service ID                                                      | Status            | v*         | Custom fields | Webhooks  |\n| --------------------------------------------------------------- | ----------------- | ---------- | ------------- | --------- |\n| [ActiveCampaign](https://www.activecampaign.com/)               | &#9989;           | 3          | &#9989;       | &#128284; |\n| [Auth0](https://auth0.com)                                      | &#128736;&#65039; | 2          | &#128284;     | &#128284; |\n| [Close](https://close.com)                                      | &#9989;           | 1.0.0      | &#9989;       | &#9989;   |\n| [Copper](https://www.copper.com/)                               | &#9989;           | 1.0.0      | &#9989;       | &#128284; |\n| [Customer.io](https://customer.io/)                             | &#128736;&#65039; |            | &#128284;     | &#128284; |\n| [HubSpot](https://www.hubspot.com/)                             | &#9989;           | 3.0.0      | &#128284;     | &#128284; |\n| [Microsoft Dynamics CRM](https://dynamics.microsoft.com/en-us/) | &#9989;           | 1          | &#128284;     | &#128284; |\n| [Mixmax](https://mixmax.com)                                    | &#128736;&#65039; | 0.1.0      | &#128284;     | &#128284; |\n| [Pipedrive](https://www.pipedrive.com/)                         | &#9989;           | 0.0.1      | &#9989;       | &#128284; |\n| [Reply](https://reply.io)                                       | &#128736;&#65039; | 1.0        | &#128284;     | &#128284; |\n| [Salesflare](https://salesflare.com)                            | &#9989;           | 0.0.1      | &#128284;     | &#128284; |\n| [Salesforce](https://www.salesforce.com)                        | &#9989;           | v51.0      | &#9989;       | &#128284; |\n| [Teamleader](https://www.teamleader.eu/)                        | &#9989;           | 2019-10-09 | &#9989;       | &#128284; |\n| [Zendesk Sell](https://www.zendesk.com/sell/)                   | &#9989;           | 2.0        | &#9989;       | &#128284; |\n| [Zoho CRM](https://www.zoho.com/crm/)                           | &#9989;           | 2.0        | &#9989;       | &#128284; |\n\n| &#9989; <span style=\"font-size:0.75em\">Available for implementation</span> | - <span style=\"font-size:0.75em\">Not Supported</span>        | &#128736;&#65039; <span style=\"font-size:0.75em\">In Development</span> |\n| -------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------- |\n| * <span style=\"font-size:0.75em\">Latest supported API version</span>       | &#128284; <span style=\"font-size:0.75em\">Coming Soon!</span> |                                                                        |\n\n## SDKs and API Clients\n\nUpcoming. [Request the SDK of your choice](https://integrations.apideck.com/request).\n\n## Debugging\n\nBecause of the nature of the abstraction we do in Apideck Unify we still provide the option to the receive raw requests and responses being handled underlying. By including the raw flag `?raw=true` in your requests you can still receive the full request. Please note that this increases the response size and can introduce extra latency.\n\n## Errors\n\nThe API returns standard HTTP response codes to indicate success or failure of the API requests. For errors, we also return a customized error message inside the JSON response. You can see the returned HTTP status codes below.\n\n| Code | Title                | Description                                                                                                                                                                                              |\n| ---- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 200  | OK                   | The request message has been successfully processed, and it has produced a response. The response message varies, depending on the request method and the requested data.                                |\n| 201  | Created              | The request has been fulfilled and has resulted in one or more new resources being created.                                                                                                              |\n| 204  | No Content           | The server has successfully fulfilled the request and that there is no additional content to send in the response payload body.                                                                          |\n| 400  | Bad Request          | The receiving server cannot understand the request because of malformed syntax. Do not repeat the request without first modifying it; check the request for errors, fix them and then retry the request. |\n| 401  | Unauthorized         | The request has not been applied because it lacks valid authentication credentials for the target resource.                                                                                              |\n| 402  | Payment Required     | Subscription data is incomplete or out of date. You'll need to provide payment details to continue.                                                                                                      |\n| 403  | Forbidden            | You do not have the appropriate user rights to access the request. Do not repeat the request.                                                                                                            |\n| 404  | Not Found            | The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.                                                                           |\n| 409  | Conflict             | The request could not be completed due to a conflict with the current state of the target resource.                                                                                                      |\n| 422  | Unprocessable Entity | The server understands the content type of the request entity, and the syntax of the request entity is correct but was unable to process the contained instructions.                                     |\n| 5xx  | Server Errors        | Something went wrong with the Unify API. These errors are logged on our side. You can contact our team to resolve the issue.                                                                             |\n\n### Handling errors\n\nThe Unify API and SDKs can produce errors for many reasons, such as a failed requests due to misconfigured integrations, invalid parameters, authentication errors, and network unavailability.\n\n### Error Types\n\n#### MissingParamsError\n\nRequest is missing parameters from either path of body. Missing required params are described in the error detail of response.\n\n#### MissingHeadersError\n\nRequest was made missing one of the required headers. Missing headers are described in the error detail of response. Check the documentation for the request you are making. One or more of the following will be required: `x-apideck-app-id`, `x-apideck-consumer-id`, `x-apideck-service-id`\n\n#### RequestBodyValidationError\n\nRequest body is not valid for the current endpoint. Check the spelling and types of your attributes, and ensure you are not passing data that is outside of the specification.\n\n#### RequestParametersValidationError\n\nRequest parameters are not valid for the current endpoint. Check the spelling and types of your parameters, and ensure you are not passing parameters that are outside of the specification.\n\n#### UnsupportedFiltersError\n\nFilters in the request are valid, but not supported by the connector. Remove the unsupported filter(s) to get a successful response.\n\n#### InvalidCursorError\n\nPagination cursor in the request is not valid for the current connector. Make sure to use a cursor returned from the API, for the same connector.\n\n#### ConnectorExecutionError\n\nA Unified API request made via one of our downstream connectors returned an unexpected error. The `status_code` returned is proxied through to error response along with their original response via the error detail.\n\n#### ConnectorProcessingError\n\nA Unified API request made via one of our downstream connectors returned a status code that was less than 400, along with a description of why the request could not be processed. Often this is due to the shape of request data being valid, but unable to be processed due to internal business logic - for example: an invalid relationship or `ID` present in your request.\n\n#### UnauthorizedError\n\nWe were unable to authorize the request as made. This can happen for a number of reasons, from missing header params to passing an incorrect authorization token. Verify your Api Key is being set correctly in the authorization header. ie: `Authorization: 'Bearer sk_live_***'`\n\n#### ConnectorCredentialsError\n\nA request using a given connector has not been authorized. Ensure the connector you are trying to use has been configured correctly and been authorized for use.\n\n#### ConnectorDisabledError\n\nA request has been made to a connector that has since been disabled. This may be temporary - You can contact our team to resolve the issue.\n\n#### RequestLimitError\n\nYou have reached the number of requests included in your Free Tier Subscription. You will no be able to make further requests until this limit resets at the end of the month, or talk to us about upgrading your subscription to continue immediately.\n\n#### EntityNotFoundError\n\nYou've made a request for a resource or route that does not exist. Verify your path parameters or any identifiers used to fetch this resource.\n\n#### OAuthCredentialsNotFoundError\n\nWhen adding a connector integration that implements OAuth, both a `client_id` and `client_secret` must be provided before any authorizations can be performed. Verify the integration has been configured properly before continuing.\n\n#### IntegrationNotFoundError\n\nThe requested connector integration could not be found associated to your `application_id`. Verify your `application_id` is correct, and that this connector has been added and configured for your application.\n\n#### ConnectionNotFoundError\n\nA valid connection could not be found associated to your `application_id`. Something _may_ have interrupted the authorization flow. You may need to start the connector authorization process again.\n\n#### ConnectorNotFoundError\n\nA request was made for an unknown connector. Verify your `service_id` is spelled correctly, and that this connector is enabled for your provided `unified_api`.\n\n#### OAuthRedirectUriError\n\nA request was made either in a connector authorization flow, or attempting to revoke connector access without a valid `redirect_uri`. This is the url the user should be returned to on completion of process.\n\n#### OAuthInvalidStateError\n\nThe state param is required and is used to ensure the outgoing authorization state has not been altered before the user is redirected back. It also contains required params needed to identify the connector being used. If this has been altered, the authorization will not succeed.\n\n#### OAuthCodeExchangeError\n\nWhen attempting to exchange the authorization code for an `access_token` during an OAuth flow, an error occurred. This may be temporary. You can reattempt authorization or contact our team to resolve the issue.\n\n#### MappingError\n\nThere was an error attempting to retrieve the mapping for a given attribute. We've been notified and are working to fix this issue.\n\n#### ConnectorMappingNotFoundError\n\nIt seems the implementation for this connector is incomplete. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.\n\n#### ConnectorResponseMappingNotFoundError\n\nWe were unable to retrieve the response mapping for this connector. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.\n\n#### ConnectorOperationMappingNotFoundError\n\nConnector mapping has not been implemented for the requested operation. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.\n\n#### ConnectorWorkflowMappingError\n\nThe composite api calls required for this operation have not been mapped entirely. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.\n\n#### PaginationNotSupportedError\n\nPagination is not yet supported for this connector, try removing limit and/or cursor from the query. It's possible this connector is in `beta` or still under development. We've been notified and are working to fix this issue.\n\n## API Design\n\n### API Styles and data formats\n\n#### REST API\n\nThe API is organized around [REST](https://restfulapi.net/), providing simple and predictable URIs to access and modify objects. Requests support standard HTTP methods like GET, PUT, POST, and DELETE and standard status codes. JSON is returned by all API responses, including errors. In all API requests, you must set the content-type HTTP header to application/json. All API requests must be made over HTTPS. Calls made over HTTP will fail.\n\n##### Available HTTP methods\n\nThe Apideck API uses HTTP verbs to understand if you want to read (GET), delete (DELETE) or create (POST) an object. When your web application cannot do a POST or DELETE, we provide the ability to set the method through the query parameter \\_method.\n\n```\nPOST /messages\nGET /messages\nGET /messages/{messageId}\nPATCH /messages/{messageId}\nDELETE /messages/{messageId}\n```\n\nResponse bodies are always UTF-8 encoded JSON objects, unless explicitly documented otherwise. For some endpoints and use cases we divert from REST to provide a better developer experience.\n\n### Schema\n\nAll API requests and response bodies adhere to a common JSON format representing individual items, collections of items, links to related items and additional meta data.\n\n### Meta\n\nMeta data can be represented as a top level member named “meta”. Any information may be provided in the meta data. It’s most common use is to return the total number of records when requesting a collection of resources.\n\n### Idempotence (upcoming)\n\nTo prevent the creation of duplicate resources, every POST method (such as one that creates a consumer record) must specify a unique value for the X-Unique-Transaction-ID header name. Uniquely identifying each unique POST request ensures that the API processes a given request once and only once.\n\nUniquely identifying new resource-creation POSTs is especially important when the outcome of a response is ambiguous because of a transient service interruption, such as a server-side timeout or network disruption. If a service interruption occurs, then the client application can safely retry the uniquely identified request without creating duplicate operations. (API endpoints that guarantee that every uniquely identified request is processed only once no matter how many times that uniquely identifiable request is made are described as idempotent.)\n\n### Request IDs\n\nEach API request has an associated request identifier. You can find this value in the response headers, under Request-Id. You can also find request identifiers in the URLs of individual request logs in your Dashboard. If you need to contact us about a specific request, providing the request identifier will ensure the fastest possible resolution.\n\n### Fixed field types\n\n#### Dates\n\nThe dates returned by the API are all represented in UTC (ISO8601 format).\n\nThis example\_`2019-11-14T00:55:31.820Z`\_is defined by the\_ISO 8601\_standard. The\_T\_in the middle separates the year-month-day portion from the hour-minute-second portion. The\_Z\_on the end means UTC, that is, an offset-from-UTC of zero hours-minutes-seconds. The\_Z\_is pronounced \"Zulu\" per military/aviation tradition.\n\nThe ISO 8601 standard is more modern. The formats are wisely designed to be easy to parse by machine as well as easy to read by humans across cultures.\n\n#### Prices and Currencies\n\nAll prices returned by the API are represented as integer amounts in a currency’s smallest unit. For example, $5 USD would be returned as 500 (i.e, 500 cents).\n\nFor zero-decimal currencies, amounts will still be provided as an integer but without the need to divide by 100. For example, an amount of ¥5 (JPY) would be returned as 5.\n\nAll currency codes conform to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217).\n\n## Support\n\nIf you have problems or need help with your case, you can always reach out to our Support.\n"
+  contact:
+    email: hello@apideck.com
+    url: 'https://developers.apideck.com'
+  x-logo:
+    url: 'https://developers.apideck.com/icon.png'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: 'https://unify.apideck.com'
+    description: Production
+security:
+  - apiKey: [ ]
+    applicationId: [ ]
+    consumerId: [ ]
+tags:
+  - name: Companies
+    description: ''
+  - name: Opportunities
+    description: ''
+  - name: Leads
+    description: ''
+  - name: Contacts
+    description: ''
+components:
+  schemas:
+    UnifiedId:
+      title: UnifiedId
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '12345'
+    Company:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '12345'
+        interaction_count:
+          type: integer
+          example: 1
+          readOnly: true
+          nullable: true
+        name:
+          type: string
+          example: Copper
+        owner_id:
+          type: string
+          example: '12345'
+        image_url:
+          type: string
+          example: 'https://www.spacex.com/static/images/share.jpg'
+          nullable: true
+        description:
+          type: string
+          example: 'A crm that works for you, so you can spend time on relationships instead of data.'
+          nullable: true
+        vat_number:
+          description: VAT number
+          type: string
+          example: BE0689615164
+          nullable: true
+        currency:
+          type: string
+          example: USD
+          nullable: true
+        fax:
+          type: string
+          example: '+12129876543'
+          nullable: true
+        bank_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccount'
+        websites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        social_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        updated_by:
+          type: string
+          example: '12345'
+          readOnly: true
+          nullable: true
+        created_by:
+          type: string
+          example: '12345'
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          readOnly: true
+    Contact:
+      required:
+        - name
+      x-pii:
+        - name
+        - first_name
+        - middle_name
+        - last_name
+        - email
+      properties:
+        id:
+          type: string
+          example: '12345'
+          readOnly: true
+        owner_id:
+          type: string
+          example: '54321'
+          nullable: true
+        company_id:
+          type: string
+          example: '23456'
+          nullable: true
+        company_name:
+          type: string
+          example: '23456'
+          nullable: true
+        lead_id:
+          type: string
+          example: '34567'
+          nullable: true
+        name:
+          type: string
+          example: Elon Musk
+        first_name:
+          type: string
+          example: Elon
+          nullable: true
+        middle_name:
+          type: string
+          example: D.
+          nullable: true
+        last_name:
+          type: string
+          example: Musk
+          nullable: true
+        prefix:
+          type: string
+          example: Mr.
+          nullable: true
+        suffix:
+          type: string
+          example: PhD
+          nullable: true
+        title:
+          type: string
+          example: CEO
+          nullable: true
+        department:
+          type: string
+          example: Engineering
+          nullable: true
+        language:
+          type: string
+          example: EN
+          description: language code according to ISO 639-1. For the United States - EN
+          nullable: true
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+            - unisex
+          example: female
+          nullable: true
+        birthday:
+          type: string
+          example: '2000-08-12'
+          nullable: true
+        image:
+          type: string
+          example: 'https://logo.clearbit.com/spacex.com?s=128'
+          nullable: true
+        lead_source:
+          type: string
+          minLength: 1
+          example: Cold Call
+          nullable: true
+        fax:
+          type: string
+          example: '+12129876543'
+          nullable: true
+        description:
+          type: string
+          example: Internal champion
+          nullable: true
+        status:
+          type: string
+          example: open
+          nullable: true
+        websites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        social_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        updated_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+      additionalProperties: false
+    Opportunity:
+      type: object
+      required:
+        - title
+        - primary_contact_id
+      properties:
+        id:
+          type: string
+          example: '12345'
+          readOnly: true
+        title:
+          type: string
+          example: New Rocket
+        description:
+          type: string
+          minLength: 1
+          example: Opportunities are created for People and Companies that are interested in buying your products or services. Create Opportunities for People and Companies to move them through one of your Pipelines.
+          nullable: true
+        monetary_amount:
+          type: number
+          example: 75000
+          nullable: true
+        currency:
+          type: string
+          example: USD
+          nullable: true
+        win_probability:
+          type: number
+          example: 40
+          nullable: true
+        close_date:
+          type: string
+          example: '2020-10-30'
+          format: date
+          nullable: true
+        loss_reason_id:
+          type: string
+          example: '12345'
+          nullable: true
+        loss_reason:
+          type: string
+          example: No budget
+          nullable: true
+        won_reason_id:
+          type: string
+          example: '12345'
+          nullable: true
+        won_reason:
+          type: string
+          example: Best pitch
+          nullable: true
+        pipeline_id:
+          type: string
+          example: '12345'
+          nullable: true
+        pipeline_stage_id:
+          type: string
+          example: '12345'
+          nullable: true
+        source_id:
+          type: string
+          example: '12345'
+          nullable: true
+        primary_contact_id:
+          type: string
+          example: '12345'
+          nullable: true
+        lead_id:
+          type: string
+          example: '12345'
+          nullable: true
+        contact_id:
+          type: string
+          example: '12345'
+          nullable: true
+        company_id:
+          type: string
+          example: '12345'
+          nullable: true
+        company_name:
+          type: string
+          example: Copper
+          nullable: true
+        owner_id:
+          type: string
+          example: '12345'
+          nullable: true
+        priority:
+          type: string
+          minLength: 1
+          example: None
+          nullable: true
+        status:
+          type: string
+          minLength: 1
+          example: Open
+          nullable: true
+        status_id:
+          type: string
+          example: '12345'
+          nullable: true
+        tags:
+          $ref: '#/components/schemas/Tags'
+        interaction_count:
+          type: number
+          example: 0
+          readOnly: true
+          nullable: true
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        date_stage_changed:
+          type: string
+          example: '2020-09-30T00:00:00.000Z'
+          format: date-time
+          nullable: true
+          readOnly: true
+        date_last_contacted:
+          type: string
+          example: '2020-09-30T00:00:00.000Z'
+          format: date-time
+          nullable: true
+          readOnly: true
+        date_lead_created:
+          type: string
+          example: '2020-09-30T00:00:00.000Z'
+          format: date-time
+          nullable: true
+          readOnly: true
+        updated_by:
+          type: string
+          example: '12345'
+          nullable: true
+          readOnly: true
+        created_by:
+          type: string
+          example: '12345'
+          nullable: true
+          readOnly: true
+        updated_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          format: date-time
+          readOnly: true
+        created_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          format: date-time
+          readOnly: true
+    Lead:
+      required:
+        - name
+        - company_name
+      x-pii:
+        - name
+        - email
+        - first_name
+        - last_name
+      properties:
+        id:
+          type: string
+          example: '12345'
+          readOnly: true
+        owner_id:
+          type: string
+          example: '54321'
+        company_id:
+          type: string
+          example: '2'
+          nullable: true
+        company_name:
+          type: string
+          example: Spacex
+          nullable: true
+        contact_id:
+          type: string
+          example: '2'
+          nullable: true
+        name:
+          type: string
+          example: Elon Musk
+        first_name:
+          type: string
+          example: Elon
+          nullable: true
+        last_name:
+          type: string
+          example: Musk
+          nullable: true
+        description:
+          type: string
+          example: A thinker
+          nullable: true
+        prefix:
+          type: string
+          example: Sir
+          nullable: true
+        title:
+          type: string
+          example: CEO
+          nullable: true
+        status:
+          type: string
+          example: New
+          nullable: true
+        monetary_amount:
+          type: number
+          example: 75000
+          nullable: true
+        currency:
+          type: string
+          example: USD
+          nullable: true
+        fax:
+          type: string
+          example: '+12129876543'
+          nullable: true
+        websites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        social_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        updated_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          readOnly: true
+    BankAccount:
+      type: object
+      properties:
+        iban:
+          type: string
+          example: CH2989144532982975332
+          nullable: true
+        bic:
+          type: string
+          example: AUDSCHGGXXX
+          nullable: true
+    Website:
+      type: object
+      required:
+        - url
+      properties:
+        id:
+          type: string
+          example: '12345'
+          nullable: true
+        url:
+          type: string
+          example: 'http://example.com'
+        type:
+          type: string
+          x-graphql-type-name: WebsiteType
+          enum:
+            - primary
+            - secondary
+            - work
+            - personal
+            - other
+          example: primary
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '123'
+          nullable: true
+        type:
+          type: string
+          x-graphql-type-name: AddressType
+          enum:
+            - primary
+            - secondary
+            - home
+            - office
+            - shipping
+            - billing
+            - other
+          example: primary
+        name:
+          type: string
+          example: HQ US
+          nullable: true
+        line1:
+          type: string
+          example: Main street
+          description: 'Line 1 of the address e.g. number, street, suite, apt #, etc.'
+          nullable: true
+        line2:
+          type: string
+          example: 'apt #'
+          description: Line 2 of the address
+          nullable: true
+        city:
+          type: string
+          example: San Francisco
+          description: Name of city.
+          nullable: true
+        state:
+          type: string
+          example: CA
+          description: Name of state
+          nullable: true
+        postal_code:
+          type: string
+          example: '94104'
+          description: Zip code or equivalent.
+          nullable: true
+        country:
+          type: string
+          example: US
+          description: country code according to ISO 3166-1 alpha-2.
+          nullable: true
+        latitude:
+          type: string
+          example: '40.759211'
+          nullable: true
+        longitude:
+          type: string
+          example: '-73.984638'
+          nullable: true
+    SocialLink:
+      required:
+        - url
+      type: object
+      properties:
+        id:
+          type: string
+          example: '12345'
+          nullable: true
+        url:
+          type: string
+          example: 'https://www.twitter.com/apideck-io'
+        type:
+          type: string
+          example: twitter
+          nullable: true
+    PhoneNumber:
+      required:
+        - number
+      type: object
+      properties:
+        id:
+          type: string
+          example: '12345'
+          nullable: true
+        number:
+          type: string
+          example: 111-111-1111
+        type:
+          type: string
+          x-graphql-type-name: PhoneType
+          enum:
+            - primary
+            - secondary
+            - home
+            - office
+            - mobile
+            - assistant
+            - fax
+            - other
+          example: primary
+    Email:
+      required:
+        - email
+      type: object
+      properties:
+        id:
+          type: string
+          example: '123'
+        email:
+          type: string
+          format: email
+          example: elon@musk.com
+        type:
+          type: string
+          x-graphql-type-name: EmailType
+          enum:
+            - primary
+            - secondary
+            - work
+            - personal
+            - billing
+            - other
+          example: primary
+    CustomField:
+      type: object
+      required:
+        - id
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          example: custom_technologies
+        value:
+          anyOf:
+            - type: string
+              example: Uses Salesforce and Marketo
+              nullable: true
+            - type: number
+              example: 10
+              nullable: true
+            - type: boolean
+              example: true
+              nullable: true
+            - type: array
+              items:
+                type: string
+    Tags:
+      type: array
+      items:
+        type: string
+      example:
+        - New
+    Meta:
+      type: object
+      description: Reponse metadata
+      properties:
+        items_on_page:
+          type: integer
+          description: Number of items returned in the data property of the response
+          example: 50
+        cursors:
+          type: object
+          description: Cursors to navigate to previous or next pages through the API
+          properties:
+            previous:
+              type: string
+              description: Cursor to navigate to the previous page of results through the API
+              example: em9oby1jcm06OnBhZ2U6OjE=
+              nullable: true
+            current:
+              type: string
+              description: Cursor to navigate to the current page of results through the API
+              example: em9oby1jcm06OnBhZ2U6OjI=
+              nullable: true
+            next:
+              type: string
+              description: Cursor to navigate to the next page of results through the API
+              example: em9oby1jcm06OnBhZ2U6OjM=
+              nullable: true
+    Links:
+      type: object
+      description: Links to navigate to previous or next pages through the API
+      properties:
+        previous:
+          type: string
+          description: Link to navigate to the previous page through the API
+          example: 'https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D'
+          nullable: true
+        current:
+          type: string
+          description: Link to navigate to the current page through the API
+          example: 'https://unify.apideck.com/crm/companies'
+        next:
+          type: string
+          description: Link to navigate to the previous page through the API
+          example: 'https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM'
+          nullable: true
+    NotFoundResponse:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 404
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Not Found
+        typeName:
+          type: string
+          description: The type of error returned
+          example: EntityNotFoundError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Unknown Widget
+        detail:
+          type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: "Could not find widget with id: '123'"
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#entitynotfounderror'
+    Unauthorized:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 401
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Unauthorized
+        typeName:
+          type: string
+          description: The type of error returned
+          example: UnauthorizedError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Unauthorized Request
+        detail:
+          anyOf:
+            - type: string
+            - type: object
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: Failed to generate valid JWT Session. Verify applicationId is correct
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#unauthorizederror'
+    Unprocessable:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 422
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Unprocessable Entity
+        typeName:
+          type: string
+          description: The type of error returned
+          example: InvalidStateError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Invalid State
+        detail:
+          type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: State did not include unified_api
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#invalidstateerror'
+    BadRequest:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 400
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Bad Request
+        typeName:
+          type: string
+          description: The type of error returned
+          example: MissingHeadersError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Invalid Params
+        detail:
+          anyOf:
+            - type: string
+            - type: object
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example:
+            missing:
+              - - foobar: required
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#missingheaderserror'
+    PaymentRequired:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 402
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Payment Required
+        typeName:
+          type: string
+          description: The type of error returned
+          example: RequestLimitError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Request Limit Reached
+        detail:
+          type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: You have reached your limit of 2000
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#requestlimiterror'
+    NotImplemented:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 501
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Not Implemented
+        typeName:
+          type: string
+          description: The type of error returned
+          example: MappingError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Unmapped Attribute
+        detail:
+          anyOf:
+            - type: string
+            - type: object
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: Failed to retrieve Widget tokenUrl from 'components.securitySchemes.oauth2.flows'
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#mappingerror'
+    UnexpectedError:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 400
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Bad Request
+        typeName:
+          type: string
+          description: The type of error returned
+          example: MissingHeadersError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Invalid Params
+        detail:
+          anyOf:
+            - type: string
+            - type: object
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: 'Missing Header: x-apideck-consumer-id'
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#unauthorizederror'
+    CreateCompanyResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateCompanyResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteCompanyResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    GetCompanyResponse:
+      x-graphql-type-name: company
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Company'
+    GetCompaniesResponse:
+      x-graphql-type-name: CompanyList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    CreateLeadResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateLeadResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteLeadResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    GetLeadResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Lead'
+    GetLeadsResponse:
+      x-graphql-type-name: LeadList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lead'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    CreateOpportunityResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: opportunities
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateOpportunityResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteOpportunityResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    GetOpportunityResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: opportunities
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Opportunity'
+    GetOpportunitiesResponse:
+      x-graphql-type-name: OpportunityList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: opportunities
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Opportunity'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    CreateContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    GetContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Contact'
+    GetContactsResponse:
+      x-graphql-type-name: ContactList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    ContactsFilter:
+      type: object
+      x-graphql-type-name: ContactsFilter
+      example:
+        first_name: Elon
+        last_name: Musk
+      properties:
+        name:
+          type: string
+          description: Name of the contact to filter on
+          example: Elon Musk
+        first_name:
+          type: string
+          description: First name of the contact to filter on
+          example: Elon
+        last_name:
+          type: string
+          description: Last name of the contact to filter on
+          example: Musk
+        email:
+          type: string
+          description: E-mail of the contact to filter on
+          example: elon@tesla.com
+      additionalProperties: false
+    OpportunitiesFilter:
+      type: object
+      x-graphql-type-name: OpportunitiesFilter
+      example:
+        name: Alex
+      properties:
+        name:
+          type: string
+          description: Name to filter on
+          example: Alex
+      additionalProperties: false
+  parameters:
+    applicationId:
+      name: x-apideck-app-id
+      in: header
+      required: true
+      description: The ID of your Unify application
+      schema:
+        type: string
+    serviceId:
+      name: x-apideck-service-id
+      in: header
+      description: 'Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.'
+      schema:
+        type: string
+    consumerId:
+      name: x-apideck-consumer-id
+      in: header
+      required: true
+      description: ID of the consumer which you want to get or push data from
+      schema:
+        type: string
+    raw:
+      name: raw
+      in: query
+      description: Include raw response. Mostly used for debugging purposes
+      schema:
+        type: boolean
+        default: true
+    id:
+      in: path
+      name: id
+      schema:
+        type: string
+      required: true
+      description: ID of the record you are acting upon.
+    limit:
+      name: limit
+      in: query
+      description: Number of records to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 20
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+      schema:
+        type: string
+        nullable: true
+        default: null
+    contactsFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/ContactsFilter'
+    opportunitiesFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/OpportunitiesFilter'
+  responses:
+    GetCompanies:
+      description: Companies
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCompaniesResponse'
+    GetCompany:
+      description: Company
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCompanyResponse'
+    CreateCompany:
+      description: Company created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCompanyResponse'
+    UpdateCompany:
+      description: Company updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCompanyResponse'
+    DeleteCompany:
+      description: Company deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteCompanyResponse'
+    GetContacts:
+      description: Contacts
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetContactsResponse'
+    GetContact:
+      description: Contact
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetContactResponse'
+    CreateContact:
+      description: Contact created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateContactResponse'
+    UpdateContact:
+      description: Contact updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateContactResponse'
+    DeleteContact:
+      description: Contact deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteContactResponse'
+    GetLeads:
+      description: Leads
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetLeadsResponse'
+    GetLead:
+      description: Lead
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetLeadResponse'
+    CreateLead:
+      description: Lead created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateLeadResponse'
+    UpdateLead:
+      description: Lead updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateLeadResponse'
+    DeleteLead:
+      description: Lead deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteLeadResponse'
+    GetOpportunities:
+      description: Opportunities
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetOpportunitiesResponse'
+    GetOpportunity:
+      description: Opportunity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetOpportunityResponse'
+    CreateOpportunity:
+      description: Opportunity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateOpportunityResponse'
+    UpdateOpportunity:
+      description: Opportunity updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateOpportunityResponse'
+    DeleteOpportunity:
+      description: Opportunity deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteOpportunityResponse'
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Unauthorized'
+    Unprocessable:
+      description: Unprocessable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Unprocessable'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequest'
+    PaymentRequired:
+      description: Payment Required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequired'
+    NotImplemented:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotImplemented'
+    UnexpectedError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnexpectedError'
+  securitySchemes:
+    apiKey:
+      type: http
+      scheme: bearer
+      description: |
+        To use API you have to sign up and get your own API key. Unify API accounts have sandbox mode and live mode API keys.
+        To change modes just use the appropriate key to get a live or test object. You can find your API keys on the unify settings of your Apideck app.
+        Your Apideck application_id can also be found on the same page.
+
+        Authenticate your API requests by including your test or live secret API key in the request header.
+
+        - Bearer authorization header: `Authorization: Bearer <your-apideck-api-key>`
+        - Application id header: `x-apideck-app-id: <your-apideck-app-id>`
+
+        You should use the public keys on the SDKs and the secret keys to authenticate API requests.
+
+        **Do not share or include your secret API keys on client side code.** Your API keys carry significant privileges. Please ensure to keep them 100% secure and be sure to not share your secret API keys in areas that are publicly accessible like GitHub.
+
+        Learn how to set the Authorization header inside Postman https://learning.postman.com/docs/postman/sending-api-requests/authorization/#api-key
+
+        Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
+    applicationId:
+      type: apiKey
+      in: header
+      name: x-apideck-app-id
+      description: The ID of your Unify application
+    consumerId:
+      type: apiKey
+      in: header
+      name: x-apideck-consumer-id
+      description: The ID of the consumer which you want to get or push data from
+paths:
+  /crm/companies:
+    get:
+      tags:
+        - Companies
+      operationId: companiesAll
+      x-graphql-field-name: companies
+      summary: List companies
+      description: List companies
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCompanies'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    post:
+      tags:
+        - Companies
+      operationId: companiesAdd
+      summary: Create company
+      description: Create company
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateCompany'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  '/crm/companies/{id}':
+    get:
+      tags:
+        - Companies
+      operationId: companiesOne
+      summary: Get company
+      description: Get company
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCompany'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    patch:
+      tags:
+        - Companies
+      operationId: companiesUpdate
+      summary: Update company
+      description: Update company
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateCompany'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    delete:
+      tags:
+        - Companies
+      operationId: companiesDelete
+      summary: Delete company
+      description: Delete company
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteCompany'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  /crm/contacts:
+    get:
+      tags:
+        - Contacts
+      x-graphql-field-name: contacts
+      operationId: contactsAll
+      summary: List contacts
+      description: List contacts
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/contactsFilter'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetContacts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    post:
+      tags:
+        - Contacts
+      operationId: contactsAdd
+      summary: Create contact
+      description: Create contact
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  '/crm/contacts/{id}':
+    get:
+      tags:
+        - Contacts
+      operationId: contactsOne
+      summary: Get contact
+      description: Get contact
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    patch:
+      tags:
+        - Contacts
+      operationId: contactsUpdate
+      summary: Update contact
+      description: Update contact
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    delete:
+      tags:
+        - Contacts
+      operationId: contactsDelete
+      summary: Delete contact
+      description: Delete contact
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  /crm/opportunities:
+    get:
+      tags:
+        - Opportunities
+      x-graphql-field-name: opportunities
+      operationId: opportunitiesAll
+      summary: List opportunities
+      description: List opportunities
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/opportunitiesFilter'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetOpportunities'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    post:
+      tags:
+        - Opportunities
+      operationId: opportunitiesAdd
+      summary: Create opportunity
+      description: Create opportunity
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateOpportunity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  '/crm/opportunities/{id}':
+    get:
+      tags:
+        - Opportunities
+      operationId: opportunitiesOne
+      summary: Get opportunity
+      description: Get opportunity
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetOpportunity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    patch:
+      tags:
+        - Opportunities
+      operationId: opportunitiesUpdate
+      summary: Update opportunity
+      description: Update opportunity
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Opportunity'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateOpportunity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    delete:
+      tags:
+        - Opportunities
+      operationId: opportunitiesDelete
+      summary: Delete opportunity
+      description: Delete opportunity
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteOpportunity'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  /crm/leads:
+    get:
+      tags:
+        - Leads
+      x-graphql-field-name: leads
+      operationId: leadsAll
+      summary: List leads
+      description: List leads
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetLeads'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    post:
+      tags:
+        - Leads
+      operationId: leadsAdd
+      summary: Create lead
+      description: Create lead
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  '/crm/leads/{id}':
+    get:
+      tags:
+        - Leads
+      operationId: leadsOne
+      summary: Get lead
+      description: Get lead
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    patch:
+      tags:
+        - Leads
+      operationId: leadsUpdate
+      summary: Update lead
+      description: Update lead
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    delete:
+      tags:
+        - Leads
+      operationId: leadsDelete
+      summary: Delete lead
+      description: Delete lead
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'

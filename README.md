@@ -37,6 +37,7 @@ With Portman, you can:
   - [x] Fuzz Postman requests
 - [x] Upload the Postman collection to your Postman app
 - [x] Test the Postman collection with Newman
+- [x] Split the configuration into multiple files using $ref
 - [x] Manage everything in config file for easy local or CI/CD usage
 
 ## Getting started

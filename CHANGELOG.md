@@ -1,9 +1,10 @@
 ## [Unreleased]
 
-## v1.14.3 - (2022-03-22)
+## v1.15.0 - (2022-03-25)
 - Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors and openapif-format
 - Enhance generated schema validation to support float as a format (#281)
 - Fix handling of the Global configuration properties (#261) 
+- Support $ref for splitting Portman config (#277)
 
 ## v1.14.2 - (2022-02-22)
 

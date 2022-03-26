@@ -1,0 +1,11 @@
+{
+  "version": 1.0,
+  "tests": {
+    "contractTests": {
+      "$ref": "./examples/config-references/definitions/test-contracts.json#/contractTests"
+    }
+  },
+  "globals": {
+    "$ref": "https://raw.githubusercontent.com/apideck-libraries/portman/main/examples/config-references/globals.json#/globals"
+  }
+}

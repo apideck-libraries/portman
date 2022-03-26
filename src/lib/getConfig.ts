@@ -3,14 +3,16 @@ import fs from 'fs-extra'
 import path from 'path'
 import yaml from 'yaml'
 import { PortmanConfig } from '../types'
+import { parsePortmanConfig } from '../utils/PortmanConfig.parse'
 
 export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {
-  let config = {}
+  let config = {} as PortmanConfig
 
   if (configPath && (await fs.pathExists(path.resolve(configPath)))) {
     // Check if config is YAML file
     if (configPath.includes('.yaml') || configPath.includes('.yml')) {
-      yaml.parse(fs.readFileSync(configPath, 'utf8'))
+      const configFile = fs.readFileSync(configPath, 'utf8')
+      config = await yaml.parse(configFile)
     } else {
       config = await import(path.resolve(configPath)).then(module => module.default)
     }
@@ -19,6 +21,9 @@ export const getConfig = async (configPath: string | undefined): Promise<Portman
   if (Object.entries(config).length === 0) {
     console.log(chalk.red(`Portman config file not provided.`))
   }
+
+  // Dereference config
+  config = await parsePortmanConfig(config)
 
   return config
 }

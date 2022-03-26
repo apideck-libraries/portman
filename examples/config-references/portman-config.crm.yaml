@@ -1,0 +1,8 @@
+version: 1
+tests:
+  contractTests:
+    $ref: './examples/config-references/definitions/test-contracts.yaml#/contractTests'
+  contentTests:
+    $ref: './examples/config-references/definitions/test-content.yaml#/contentTests'
+globals:
+    $ref: 'https://raw.githubusercontent.com/apideck-libraries/portman/main/examples/config-references/definitions/globals.yaml#/globals'
