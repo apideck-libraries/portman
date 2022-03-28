@@ -221,7 +221,7 @@ export const promptInit = async (): Promise<void> => {
         fs.mkdirSync(config.localFolder)
       }
 
-      fs.writeFileSync(portmanCliFilePath, portmanCliSettings, 'utf8')
+      fs.outputFileSync(portmanCliFilePath, portmanCliSettings, 'utf8')
     } catch (err) {
       console.error('\x1b[31m', `Output file error - no such directory "./${config?.localFolder}"`)
       process.exit(1)

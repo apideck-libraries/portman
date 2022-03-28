@@ -56,7 +56,7 @@ export class OpenApiToPostmanService {
             const filePath = path.resolve(outputFile)
 
             try {
-              fs.writeFileSync(filePath, JSON.stringify(status.output[0].data, null, 4))
+              fs.outputFileSync(filePath, JSON.stringify(status.output[0].data, null, 4))
             } catch (error) {
               console.log('Could not write to file', error)
               spinner.fail(error.toString())
