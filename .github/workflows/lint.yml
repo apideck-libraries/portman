@@ -1,5 +1,9 @@
-name: Node Tests CI
-on: [ push, pull_request ]
+name: Lint
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 jobs:
   test:
     runs-on: ubuntu-latest
