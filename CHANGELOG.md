@@ -4,6 +4,7 @@
 - Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors, Newman, and openapi-format
 - Enhance generated schema validation to support float as a format (#281)
 - Fix handling of the Global configuration properties (#261) 
+- Improved file handling, including support for directory creation (#278)
 - Support $ref for Portman config (#277)
 - Set Postman variables as boolean & number types in overwriteRequestBody (#295)
 - securityOverwrites - Added support for Postman authorization options (#272)
