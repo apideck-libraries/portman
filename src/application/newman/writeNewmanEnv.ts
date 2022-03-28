@@ -15,7 +15,7 @@ export const writeNewmanEnv = (obj: CollectionDefinition, newmanEnvFilePath: str
     }
   })
 
-  fs.writeFileSync(
+  fs.outputFileSync(
     newmanEnvFilePath,
     JSON.stringify(
       {

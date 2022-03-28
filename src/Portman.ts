@@ -237,8 +237,20 @@ export class Portman {
       throw new Error(`${openApiSpec} doesn't exist. `)
     }
 
-    if (filterFile && (await fs.pathExists(filterFile))) {
+    let filterFileExists = false
+    if (filterFile) {
+      const filterFileCheck = await fs.pathExists(filterFile)
+      if (!filterFileCheck) {
+        throw new Error(`Filter file error - ${filterFile} doesn't exist. `)
+      }
+      filterFileExists = true
+    }
+
+    if (filterFile && filterFileExists) {
       const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
+
+      // Create oaOutput file if it doesn't exist
+      fs.outputFileSync(openApiSpecPath, '', 'utf8')
 
       await execShellCommand(
         `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
@@ -495,7 +507,7 @@ export class Portman {
         this.portmanCollection = new Collection(JSON.parse(collectionString)).toJSON()
       }
 
-      fs.writeFileSync(postmanCollectionFile, collectionString, 'utf8')
+      fs.outputFileSync(postmanCollectionFile, collectionString, 'utf8')
       this.collectionFile = postmanCollectionFile
     } catch (err) {
       console.error(
