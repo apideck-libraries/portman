@@ -1,10 +1,12 @@
 ## [Unreleased]
 
-## v1.15.0 - (2022-03-25)
-- Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors and openapif-format
+## v1.15.0 - (2022-03-28)
+- Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors, Newman, and openapi-format
 - Enhance generated schema validation to support float as a format (#281)
 - Fix handling of the Global configuration properties (#261) 
-- Support $ref for splitting Portman config (#277)
+- Support $ref for Portman config (#277)
+- Set Postman variables as boolean & number types in overwriteRequestBody (#295)
+- securityOverwrites - Added support for Postman authorization options (#272)
 
 ## v1.14.2 - (2022-02-22)
 
