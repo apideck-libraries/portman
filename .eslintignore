@@ -1,3 +1,5 @@
 node_modules
 .vscode
 .webpack
+src/application/globals/__fixtures__
+src/application/preRequests/__fixtures__

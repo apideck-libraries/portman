@@ -1,11 +1,14 @@
 import chalk from 'chalk'
+import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import path from 'path'
 import yaml from 'yaml'
 import { PortmanConfig } from '../types'
 import { parsePortmanConfig } from '../utils/PortmanConfig.parse'
 
-export const getConfig = async (configPath: string | undefined): Promise<PortmanConfig> => {
+export const getConfig = async (
+  configPath: string | undefined
+): Promise<Either.Either<Record<string, unknown>, PortmanConfig>> => {
   let config = {} as PortmanConfig
 
   if (configPath && (await fs.pathExists(path.resolve(configPath)))) {
@@ -23,7 +26,5 @@ export const getConfig = async (configPath: string | undefined): Promise<Portman
   }
 
   // Dereference config
-  config = await parsePortmanConfig(config)
-
-  return config
+  return parsePortmanConfig(config)
 }

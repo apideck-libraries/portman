@@ -1,9 +1,11 @@
+import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import { Collection } from 'postman-collection'
 import { injectEnvVariables, TestSuite } from '../../application'
 import { getConfig } from '../../lib'
 import { OpenApiParser } from '../../oas'
 import { PostmanParser } from '../../postman'
+import { PortmanError } from '../../utils'
 
 describe('injectEnvVariables', () => {
   let postmanParser: PostmanParser
@@ -12,7 +14,7 @@ describe('injectEnvVariables', () => {
 
   const postmanJson = '__tests__/fixtures/crm.postman.json'
   const oasYml = '__tests__/fixtures/crm.yml'
-  const postmanConfigFile = '__tests__/fixtures/portman.crm.json'
+  const portmanConfigFile = '__tests__/fixtures/portman.crm.json'
   const envFile = '__tests__/fixtures/.crm.env'
 
   beforeEach(async () => {
@@ -23,7 +25,14 @@ describe('injectEnvVariables', () => {
       collection: new Collection(postmanObj),
       oasParser: oasParser
     })
-    const config = await getConfig(postmanConfigFile)
+    const configResult = await getConfig(portmanConfigFile)
+
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+
+    const config = configResult.right
+
     testSuiteService = new TestSuite({ oasParser, postmanParser, config })
     testSuiteService.generateContractTests()
   })
