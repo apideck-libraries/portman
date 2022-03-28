@@ -20,6 +20,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
+    "lint:ci": "eslint ./src --ext ts,js --cache --quiet",
     "test": "jest --colors --verbose --reporters=default --collectCoverage --no-cache",
     "test:ci": "jest --ci --reporters=jest-progress-bar-reporter --collectCoverage",
     "test:watch": "jest  --verbose --bail --watch",

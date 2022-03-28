@@ -29,6 +29,7 @@ import {
 import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
+import { PortmanError } from './utils/PortmanError'
 
 export class Portman {
   config: PortmanConfig
@@ -178,7 +179,12 @@ export class Portman {
     await fs.ensureDir('./tmp/newman/')
 
     const configData = await getConfig(portmanConfigPath)
-    const config = validate(configData)
+
+    if (Either.isLeft(configData)) {
+      return PortmanError.render(configData.left)
+    }
+
+    const config = validate(configData.right as PortmanConfig)
 
     if (Either.isLeft(config)) {
       console.log(chalk`{red  Invalid Portman Config: } \t\t{green ${portmanConfigPath}}`)

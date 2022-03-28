@@ -1,12 +1,14 @@
-import { TestSuite, VariationWriter } from '../application'
-import { PostmanParser } from '../postman'
-import { OpenApiParser } from '../oas'
+import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
-import { getConfig } from '../lib'
-import { Collection } from 'postman-collection'
-import { Fuzzer } from './Fuzzer'
-import { FuzzingSchemaItems, PortmanFuzzTypes } from '../types'
 import { OpenAPIV3 } from 'openapi-types'
+import { Collection } from 'postman-collection'
+import { TestSuite, VariationWriter } from '../application'
+import { getConfig } from '../lib'
+import { OpenApiParser } from '../oas'
+import { PostmanParser } from '../postman'
+import { FuzzingSchemaItems, PortmanFuzzTypes } from '../types'
+import { PortmanError } from '../utils/PortmanError'
+import { Fuzzer } from './Fuzzer'
 
 describe('Fuzzer', () => {
   let postmanParser: PostmanParser
@@ -33,7 +35,14 @@ describe('Fuzzer', () => {
     oasParser = new OpenApiParser()
     await oasParser.convert({ inputFile: oasYml })
     const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
-    const config = await getConfig(portmanConfigFile)
+    const configResult = await getConfig(portmanConfigFile)
+
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+
+    const config = configResult.right
+
     postmanParser = new PostmanParser({
       collection: new Collection(postmanObj),
       oasParser: oasParser

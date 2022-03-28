@@ -1,1 +1,1 @@
-pm.collectionVariables.set("applicationId", pm.iterationData.get("applicationId") || "1111");
+pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111')

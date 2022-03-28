@@ -43,11 +43,12 @@ export const writeCollectionPreRequestScripts = (
 
 function getScriptContent(scriptPath: string): string {
   try {
-    return fs.readFileSync(scriptPath, { encoding:'utf8', flag:'r' })
-  } catch(ex) {
+    return fs.readFileSync(scriptPath, { encoding: 'utf8', flag: 'r' })
+  } catch (ex) {
     console.error(
-      '\x1b[31m', 
-      `Config pre-request script file error - no such file or directory "${scriptPath}"`)
+      '\x1b[31m',
+      `Config pre-request script file error - no such file or directory "${scriptPath}"`
+    )
     process.exit(1)
   }
 }
