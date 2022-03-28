@@ -6,6 +6,6 @@
     }
   },
   "globals": {
-    "$ref": "https://raw.githubusercontent.com/apideck-libraries/portman/main/examples/config-references/globals.json#/globals"
+    "$ref": "https://raw.githubusercontent.com/apideck-libraries/portman/main/examples/config-references/definitions/globals.json#/globals"
   }
 }
