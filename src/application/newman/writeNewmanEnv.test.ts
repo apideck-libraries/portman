@@ -8,7 +8,7 @@ describe('writeNewmanEnv', () => {
   })
 
   it('map variables from collection and write to file', () => {
-    const fsSpy = jest.spyOn(fs, 'writeFileSync')
+    const fsSpy = jest.spyOn(fs, 'outputFileSync')
 
     const collection = getPostmanCollection()
     const postmanJson = collection.toJSON()
@@ -18,7 +18,7 @@ describe('writeNewmanEnv', () => {
   })
 
   it('should not writeToFile if no variables are defined', () => {
-    const fsSpy = jest.spyOn(fs, 'writeFileSync')
+    const fsSpy = jest.spyOn(fs, 'outputFileSync')
 
     writeNewmanEnv({}, 'tmp/mock.json')
     expect(fsSpy).not.toHaveBeenCalled()
