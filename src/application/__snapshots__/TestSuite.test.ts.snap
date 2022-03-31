@@ -322,7 +322,7 @@ const schema = {\\"x-graphql-type-name\\":\\"CompanyList\\",\\"type\\":\\"object
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -459,7 +459,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -685,7 +685,7 @@ const schema = {\\"x-graphql-type-name\\":\\"company\\",\\"type\\":\\"object\\",
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -807,7 +807,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[PATCH]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -1045,7 +1045,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[DELETE]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -1177,7 +1177,7 @@ const schema = {\\"x-graphql-type-name\\":\\"LeadList\\",\\"type\\":\\"object\\"
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/leads - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -1332,7 +1332,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -1554,7 +1554,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -1676,7 +1676,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -1910,7 +1910,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -2042,7 +2042,7 @@ const schema = {\\"x-graphql-type-name\\":\\"ContactList\\",\\"type\\":\\"object
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/contacts - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -2215,7 +2215,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/contacts - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -2443,7 +2443,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/contacts/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -2565,7 +2565,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[PATCH]::/crm/contacts/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
@@ -2805,7 +2805,7 @@ const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"sta
 
 // Validate if response matches JSON schema 
 pm.test(\\"[DELETE]::/crm/contacts/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
                 ],
