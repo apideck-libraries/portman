@@ -7,7 +7,7 @@ const schema = {\\"application/json\\":{\\"schema\\":{\\"x-graphql-type-name\\":
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -20,7 +20,7 @@ const schema = {\\"type\\":[\\"array\\",\\"null\\"],\\"items\\":{\\"required\\":
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -33,7 +33,7 @@ const schema = {\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"name\\"],
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -46,7 +46,7 @@ const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -59,7 +59,7 @@ const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -72,7 +72,7 @@ const schema = {\\"type\\":[\\"array\\",\\"null\\"],\\"items\\":{\\"required\\":
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -85,7 +85,7 @@ const schema = {\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"name\\"],
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -98,7 +98,7 @@ const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -111,7 +111,7 @@ const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -132,7 +132,7 @@ const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]
@@ -145,7 +145,7 @@ const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"value\\":{\\"type\\
 
 // Validate if response matches JSON schema 
 pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
-    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\"]});
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
 ",
 ]

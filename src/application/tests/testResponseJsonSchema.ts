@@ -34,7 +34,7 @@ export const testResponseJsonSchema = (
     `// Validate if response matches JSON schema \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
     ` - Schema is valid", function() {\n`,
-    `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ["int32", "int64", "float"]});\n`,
+    `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ["int32", "int64", "float", "double"]});\n`,
     `});\n`
   ].join('')
 
