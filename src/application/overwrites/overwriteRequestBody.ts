@@ -62,12 +62,22 @@ export const overwriteRequestBody = (
   return pmOperation
 }
 export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
-  // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to number
-  const find = [': {{$randomInt}},', ': {{$randomCreditCardMask}},', ': {{$randomBankAccount}},']
+  // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from unescaped values to safe values
+  const find = [
+    // ': {{$randomInt}},',
+    // ': {{$randomCreditCardMask}},',
+    // ': {{$randomBankAccount}},',
+    ': {{',
+    '}},',
+    '}}\n'
+  ]
   const replace = [
-    ': "{{$randomInt}}",',
-    ': "{{$randomCreditCardMask}}",',
-    ': "{{$randomBankAccount}}",'
+    // ': "{{$randomInt}}",',
+    // ': "{{$randomCreditCardMask}}",',
+    // ': "{{$randomBankAccount}}",',
+    ': "{{{',
+    '}}}",',
+    '}}}"\n'
   ]
   find.forEach(function (item, index) {
     // eslint-disable-next-line no-useless-escape
@@ -78,7 +88,7 @@ export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
 }
 
 export const decodeDynamicPmVars = (jsonString: string): string => {
-  // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to number
+  // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to escaped number/boolean
   const find = [
     '"{{$randomInt}}"',
     '"{{$randomCreditCardMask}}"',

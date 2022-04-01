@@ -4236,7 +4236,7 @@ exports[`should overwrite the body param with string {{variable}} 1`] = `
 ]"
 `;
 
-exports[`should overwrite the body param with valua that contains a {{variable}} 1`] = `
+exports[`should overwrite the body param with value that contains a {{variable}} 1`] = `
 "[
     {
         \\"name\\": \\"Marco Polo {{variable_x}}\\",
