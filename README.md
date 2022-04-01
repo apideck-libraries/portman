@@ -425,7 +425,7 @@ Anything added in the `tests` array will be added to the Postman test scripts.
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
-- **tests (Array)** : Array of additional Postman test scripts.
+- **tests (Array)** : Array of additional Postman test scripts.  Values can be the script content or path to the script file (with `file:` prefix).
 - **overwrite (Boolean true/false | Default: false)** : Resets all generateTests and overwrites them with the defined tests from
   the `tests` array.
 - **append (Boolean true/false | Default: true)** : Place the tests after (append) or before (prepend) all generated tests.

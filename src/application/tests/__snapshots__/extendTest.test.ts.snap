@@ -30,3 +30,18 @@ Array [
 pm.test('check userId after create', function(){Number.isInteger(responseBody);}); ",
 ]
 `;
+
+exports[`extendTest should append the configured extend tests from file 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "pm.test('200 ok', function(){pm.response.to.have.status(200);});
+pm.request.headers.add({ key: 'header_name', value: 'header_value' })
+
+pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111')
+",
+]
+`;
