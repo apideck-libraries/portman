@@ -2,7 +2,11 @@ import {
   getPostmanMappedCreateOperation,
   getPostmanMappedCreateArrayOperation
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
-import { overwriteRequestBody } from '../../application'
+import {
+  decodeDynamicPmVars,
+  makeJsonSafeDynamicPmVars,
+  overwriteRequestBody
+} from '../../application'
 
 describe('overwriteRequestBody', () => {
   it('should extend the root request body', async () => {
@@ -320,8 +324,8 @@ it('should overwrite the body param with string {{variable}}', async () => {
   const overwriteValues = [
     {
       key: '[0].name',
-      value: '{{variable_x}}',
-      overwrite: true
+      overwrite: true,
+      value: '{{variable_x}}'
     }
   ]
   const pmOperation = await getPostmanMappedCreateArrayOperation()
@@ -342,7 +346,7 @@ it('should overwrite the body param with raw {{variable}} instead of string', as
   expect(result.item.request?.body?.raw).toMatchSnapshot()
 })
 
-it('should overwrite the body param with valua that contains a {{variable}}', async () => {
+it('should overwrite the body param with value that contains a {{variable}}', async () => {
   const overwriteValues = [
     {
       key: '[0].name',
@@ -353,6 +357,60 @@ it('should overwrite the body param with valua that contains a {{variable}}', as
   const pmOperation = await getPostmanMappedCreateArrayOperation()
   const result = overwriteRequestBody(overwriteValues, pmOperation)
   expect(result.item.request?.body?.raw).toMatchSnapshot()
+})
+
+it('should convert raw escaped {{}} values to JSON safe values', async () => {
+  const jsonString = `{
+    "data": [
+      {
+        "key_1": "{{attributeString}}",
+        "key_2": "{{{attributeNumber}}}",
+        "key_3": "{{{attributeBoolean}}}",
+        "key_4": "{{$randomInt}}"
+      }
+    ]
+  }`
+  const expected = `{
+    "data": [
+      {
+        "key_1": "{{attributeString}}",
+        "key_2": "{{{attributeNumber}}}",
+        "key_3": "{{{attributeBoolean}}}",
+        "key_4": "{{$randomInt}}"
+      }
+    ]
+  }`
+  const result = makeJsonSafeDynamicPmVars(jsonString)
+  expect(result).toEqual(expected)
+  const parseJson = () => {
+    JSON.parse(result)
+  }
+  expect(parseJson).not.toThrow()
+})
+
+it('should convert decode {{}} values to JSON safe values', async () => {
+  const jsonString = `{
+    "data": [
+        {
+            "key_1": "{{attributeString}}",
+            "key_2": "{{{attributeNumber}}}",
+            "key_3": "{{{attributeBoolean}}}",
+            "key_4": "{{$randomInt}}"
+        }
+    ]
+}`
+  const expected = `{
+    "data": [
+        {
+            "key_1": "{{attributeString}}",
+            "key_2": {{attributeNumber}},
+            "key_3": {{attributeBoolean}},
+            "key_4": {{$randomInt}}
+        }
+    ]
+}`
+  const result = decodeDynamicPmVars(jsonString)
+  expect(result).toEqual(expected)
 })
 
 xit('should overwrite the body nested array prop with raw {{$randomInt}} instead of string', async () => {
