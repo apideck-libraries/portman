@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## v1.15.1 - (2022-04-01)
+- ExtendTest - Allow importing files for extendTest (#304)
+- Extended supported OpenAPI methods (#306)
+- Fix for incorrect en/decoding of boolean/number Postman variables (#286)
+- Enhance generated schema validation to support double as a format (#307)
+
 ## v1.15.0 - (2022-03-28)
 - Bumped dependency versions of axios, ajv, @apideck/better-ajv-errors, Newman, and openapi-format
 - Enhance generated schema validation to support float as a format (#281)
