@@ -32,7 +32,7 @@ export const assignVarFromResponseHeader = (
   }
 
   // Toggle log output
-  const log = options?.logAssignVariables === false ? '// ' : ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
@@ -51,7 +51,7 @@ export const assignVarFromResponseHeader = (
     `let ${safeVarName} = pm.response.headers.get("${varProp}");\n`,
     `if (${safeVarName} !== undefined) {\n`,
     `   pm.collectionVariables.set("${varName}", ${safeVarName});\n`,
-    `   ${log}console.log("- use {{${varName}}} as collection variable for value", ${safeVarName});\n`,
+    `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value", ${safeVarName});\n`,
     `};\n`
   ].join('')
 

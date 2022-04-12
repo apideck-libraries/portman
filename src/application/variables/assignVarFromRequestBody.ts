@@ -25,7 +25,7 @@ export const assignVarFromRequestBody = (
   let pmVarAssign = ''
 
   // Toggle log output
-  const log = options?.logAssignVariables === false ? '// ' : ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
@@ -40,7 +40,7 @@ export const assignVarFromRequestBody = (
     pmVarAssign = [
       `// pm.collectionVariables - Set ${varName} as variable from request body \n`,
       `pm.collectionVariables.set("${varName}", ${varValue});\n`,
-      `${log}console.log("- use {{${varName}}} as collection variable for value", ${varValue});\n`
+      `${toggleLog}console.log("- use {{${varName}}} as collection variable for value", ${varValue});\n`
     ].join('')
 
     // Expose the variable in Portman

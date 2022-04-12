@@ -33,7 +33,7 @@ export const assignVarFromResponseBody = (
   }
 
   // Toggle log output
-  const log = options?.logAssignVariables === false ? '// ' : ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
@@ -47,7 +47,7 @@ export const assignVarFromResponseBody = (
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
     `if (${renderChainPath(`jsonData${varProp}`)}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
-    `   ${log}console.log("- use {{${varName}}} as collection variable for value",`,
+    `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
     `} else {\n`,
     `   console.log('INFO - Unable to assign variable {{${varName}}}, as jsonData${varProp} is undefined.');\n`,

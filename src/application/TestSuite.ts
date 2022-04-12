@@ -383,8 +383,6 @@ export class TestSuite {
     const settings = assignVariables || this.config.assignVariables
     if (!settings) return this.postmanParser.mappedOperations
 
-    console.log(this)
-
     settings.map(assignVarSetting => {
       if (!assignVarSetting?.collectionVariables) return
       // Get Postman operations to apply assign variables for
