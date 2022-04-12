@@ -235,7 +235,7 @@ export interface TestSuiteOptions {
   config: PortmanConfig
   oasParser: OpenApiParser
   postmanParser: PostmanParser
-  options: PortmanOptions
+  options?: PortmanOptions
 }
 
 export type TestConfig = {
