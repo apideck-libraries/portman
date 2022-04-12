@@ -127,6 +127,11 @@ require('dotenv').config()
       describe: 'Path to Portman CLI options file',
       type: 'string'
     })
+    .option('logAssignVariables', {
+      describe: 'Toggle logging of assigned variables',
+      type: 'boolean',
+      default: true
+    })
     .option('init', {
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'

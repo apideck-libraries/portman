@@ -314,15 +314,10 @@ export class Portman {
   }
 
   injectTestSuite(): void {
-    const {
-      config,
-      options: { includeTests },
-      oasParser,
-      postmanParser
-    } = this
+    const { config, options, oasParser, postmanParser } = this
 
-    if (includeTests) {
-      const testSuite = new TestSuite({ oasParser, postmanParser, config })
+    if (options?.includeTests) {
+      const testSuite = new TestSuite({ oasParser, postmanParser, config, options })
       // Inject automated tests
       testSuite.generateContractTests()
 

@@ -32,3 +32,21 @@ Array [
   "",
 ]
 `;
+
+exports[`assignVarFromRequestBody should not show the log output for request body assign variable 1`] = `
+Array [
+  "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
+// console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;
+
+exports[`assignVarFromRequestBody should show the log output for request body assign variable 1`] = `
+Array [
+  "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
+console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;

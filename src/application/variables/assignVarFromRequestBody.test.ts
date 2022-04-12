@@ -53,4 +53,26 @@ describe('assignVarFromRequestBody', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should show the log output for request body assign variable', async () => {
+    const varSetting = {
+      requestBodyProp: 'name',
+      name: 'leadsAdd.name'
+    }
+
+    pmOperation = assignVarFromRequestBody(varSetting, pmOperation, { logAssignVariables: true })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not show the log output for request body assign variable', async () => {
+    const varSetting = {
+      requestBodyProp: 'name',
+      name: 'leadsAdd.name'
+    }
+
+    pmOperation = assignVarFromRequestBody(varSetting, pmOperation, { logAssignVariables: false })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

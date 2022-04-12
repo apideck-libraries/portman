@@ -23,4 +23,30 @@ describe('assignVarFromResponseHeader', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should show the log output for add postman collection var with name and response header value', async () => {
+    const varSetting = {
+      responseHeaderProp: 'operation-location',
+      name: 'leadsAdd.header'
+    }
+
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {
+      logAssignVariables: true
+    })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not show the log output for add postman collection var with name and response header value', async () => {
+    const varSetting = {
+      responseHeaderProp: 'operation-location',
+      name: 'leadsAdd.header'
+    }
+
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {
+      logAssignVariables: false
+    })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })
