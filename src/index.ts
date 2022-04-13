@@ -129,8 +129,7 @@ require('dotenv').config()
     })
     .option('logAssignVariables', {
       describe: 'Toggle logging of assigned variables',
-      type: 'boolean',
-      default: true
+      type: 'boolean'
     })
     .option('init', {
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
@@ -224,6 +223,7 @@ require('dotenv').config()
   const filterFile = options.filterFile
   const oaOutput = options.oaOutput || ''
   const collectionName = options.collectionName || ''
+  const logAssignVariables = options?.logAssignVariables
 
   const portman = new Portman({
     ...options,
@@ -242,7 +242,8 @@ require('dotenv').config()
     envFile,
     filterFile,
     oaOutput,
-    collectionName
+    collectionName,
+    logAssignVariables
   })
 
   if (options.uploadOnly) {
