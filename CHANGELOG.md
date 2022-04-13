@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+## v1.16.1 - (2022-04-13)
 - Set the 'logAssignVariables' option via 'cliOptions' to toggle console output for assigned variables
 
 ## v1.16.0 - (2022-04-13)
