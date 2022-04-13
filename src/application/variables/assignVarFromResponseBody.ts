@@ -1,16 +1,18 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig } from '../../types'
+import { CollectionVariableConfig, PortmanOptions } from '../../types'
 import { renderChainPath } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
  * @param varSetting
  * @param pmOperation
+ * @param options
  */
 export const assignVarFromResponseBody = (
   varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  options?: PortmanOptions
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if response body is not defined
@@ -30,6 +32,9 @@ export const assignVarFromResponseBody = (
     pmOperation.testJsonDataInjected = true
   }
 
+  // Toggle log output
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
+
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp =
@@ -42,7 +47,7 @@ export const assignVarFromResponseBody = (
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
     `if (${renderChainPath(`jsonData${varProp}`)}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
-    `   console.log("- use {{${varName}}} as collection variable for value",`,
+    `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
     `} else {\n`,
     `   console.log('INFO - Unable to assign variable {{${varName}}}, as jsonData${varProp} is undefined.');\n`,

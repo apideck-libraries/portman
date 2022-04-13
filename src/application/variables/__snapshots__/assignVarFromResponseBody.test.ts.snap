@@ -33,3 +33,37 @@ if (jsonData?.[0]?.id) {
 ",
 ]
 `;
+
+exports[`assignVarFromResponseBody should not show the log output for a postman collection var with name and response body value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
+if (jsonData?.data?.id) {
+   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
+   // console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData.data.id is undefined.');
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseBody should show the log output for a postman collection var with name and response body value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
+if (jsonData?.data?.id) {
+   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
+   console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData.data.id is undefined.');
+};
+",
+]
+`;

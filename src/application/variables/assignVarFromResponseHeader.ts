@@ -1,15 +1,17 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig } from '../../types'
+import { CollectionVariableConfig, PortmanOptions } from '../../types'
 
 /**
  * Assign PM variables with values defined by the request body
  * @param varSetting
  * @param pmOperation
+ * @param options
  */
 export const assignVarFromResponseHeader = (
   varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  options?: PortmanOptions
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if response header is not defined
@@ -29,6 +31,9 @@ export const assignVarFromResponseHeader = (
     pmOperation.testJsonDataInjected = true
   }
 
+  // Toggle log output
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
+
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = varSetting.responseHeaderProp
@@ -46,7 +51,7 @@ export const assignVarFromResponseHeader = (
     `let ${safeVarName} = pm.response.headers.get("${varProp}");\n`,
     `if (${safeVarName} !== undefined) {\n`,
     `   pm.collectionVariables.set("${varName}", ${safeVarName});\n`,
-    `   console.log("- use {{${varName}}} as collection variable for value", ${safeVarName});\n`,
+    `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value", ${safeVarName});\n`,
     `};\n`
   ].join('')
 

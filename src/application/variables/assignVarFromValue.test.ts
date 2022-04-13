@@ -51,4 +51,22 @@ describe('assignVarFromValue', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should show the log output for add postman collection var without name for string value', async () => {
+    const varSetting = {
+      value: 'portman'
+    }
+    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: true })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not show the log output for add postman collection var without name for string value', async () => {
+    const varSetting = {
+      value: 'portman'
+    }
+    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: false })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

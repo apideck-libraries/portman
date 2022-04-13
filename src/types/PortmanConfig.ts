@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { OpenApiParser } from '../oas'
 import { PostmanParser } from '../postman'
+import { PortmanOptions } from './PortmanOptions'
 
 type ContractTest = {
   enabled: boolean
@@ -234,6 +235,7 @@ export interface TestSuiteOptions {
   config: PortmanConfig
   oasParser: OpenApiParser
   postmanParser: PostmanParser
+  options?: PortmanOptions
 }
 
 export type TestConfig = {

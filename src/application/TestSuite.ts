@@ -29,6 +29,7 @@ import {
   OperationPreRequestScriptConfig,
   OverwriteRequestConfig,
   PortmanConfig,
+  PortmanOptions,
   PortmanReqTestType,
   PortmanTestType,
   PortmanTestTypes,
@@ -56,10 +57,12 @@ export class TestSuite {
   extendTests?: ExtendTestsConfig[]
 
   pmResponseJsonVarInjected: boolean
+  options?: PortmanOptions
+
   requestTestTypes: PortmanReqTestType[]
 
-  constructor(options: TestSuiteOptions) {
-    const { oasParser, postmanParser, config } = options
+  constructor(testSuiteOptions: TestSuiteOptions) {
+    const { oasParser, postmanParser, config, options } = testSuiteOptions
 
     this.pmResponseJsonVarInjected = false
     this.requestTestTypes = []
@@ -67,6 +70,7 @@ export class TestSuite {
     this.oasParser = oasParser
     this.postmanParser = postmanParser
     this.config = config
+    this.options = options
 
     this.collection = postmanParser.collection
     this.setupTests()
@@ -390,7 +394,8 @@ export class TestSuite {
         fixedValueCounter = assignCollectionVariables(
           pmOperation,
           assignVarSetting,
-          fixedValueCounter
+          fixedValueCounter,
+          this.options
         ) as number
       })
     })
