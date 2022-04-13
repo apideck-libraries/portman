@@ -65,6 +65,12 @@
           },
           "type": "array"
         },
+        "collectionTestScripts": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "keyValueReplacements": {
           "additionalProperties": {},
           "type": "object"
