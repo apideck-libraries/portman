@@ -19,15 +19,6 @@
         "searchFor": "Unify",
         "replaceWith": "Unify ApiDeck"
       }
-    ],
-    "securityOverwrites": {
-      "oauth2": [
-        {
-          "key": "accessTokenUrl",
-          "value": "{{tokenUrl}}",
-          "type": "string"
-        }
-      ]
-    }
+    ]
   }
 }
