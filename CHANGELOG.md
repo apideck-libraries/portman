@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+## v1.16.0 - (2022-04-13)
 - Bumped dependency versions of ajv, yargs, fp-ts
 - Added the 'logAssignVariables' CLI option to toggle console output for assigned variables (#317)
 - Globals - Added the ability for globals as 'collectionTestScripts' for Test Scripts on collection level (#305)

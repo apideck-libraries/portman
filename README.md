@@ -120,7 +120,7 @@ Options:
  --collectionName           Overwrite OpenAPI title to set the Postman collection name                       [string]
  --cliOptionsFile           Path to Portman CLI options file                                                 [string]
  --ignoreCircularRefs       Ignore circular references in OpenAPI spec (default: false)                      [boolean]
- --logAssignVariables       Toggle logging of assigned variables (default: true )                            [boolean]
+ --logAssignVariables       Toggle logging of assigned variables (default: true)                             [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
 ```
 
@@ -593,8 +593,8 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 #### globals options
 
-- **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
-- **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts that will execute after every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
+- **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will be executed by Postman before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
+- **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts will be executed by Postman after every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **keyValueReplacements** : A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements** : A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
