@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Set the 'logAssignVariables' option via 'cliOptions' to toggle console output for assigned variables
+
 ## v1.16.0 - (2022-04-13)
 - Bumped dependency versions of ajv, yargs, fp-ts
 - Added the 'logAssignVariables' CLI option to toggle console output for assigned variables (#317)
