@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`writeCollectionTestScripts should inject the configured TestScripts from file on collection 1`] = `
+Array [
+  Array [
+    "pm.request.headers.add({ key: 'header_name', value: 'header_value' })
+",
+    "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111')
+",
+  ],
+]
+`;
+
+exports[`writeCollectionTestScripts should inject the configured TestScripts on collection 1`] = `
+Array [
+  Array [
+    "pm.request.headers.add({key: \\"header_name\\", value: \\"header_value\\" });
+",
+    "pm.collectionVariables.set(\\"applicationId\\", pm.iterationData.get(\\"applicationId\\") || \\"1111\\");
+",
+  ],
+]
+`;

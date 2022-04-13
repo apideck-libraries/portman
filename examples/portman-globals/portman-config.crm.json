@@ -5,6 +5,9 @@
     "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
+    "collectionTestScripts": [
+      "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111');"
+    ],
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
     },

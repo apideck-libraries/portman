@@ -10,6 +10,7 @@ import {
 } from '.'
 import { GlobalConfig, PortmanConfig, PortmanOptions } from '../types'
 import { isEmptyObject } from '../utils'
+import { writeCollectionTestScripts } from './globals/writeCollectionTestScripts'
 
 export class CollectionWriter {
   public collection: CollectionDefinition
@@ -28,6 +29,7 @@ export class CollectionWriter {
     const { globals = {} } = this.config
     const {
       collectionPreRequestScripts = [],
+      collectionTestScripts = [],
       securityOverwrites = {},
       keyValueReplacements = {},
       valueReplacements = {},
@@ -62,9 +64,14 @@ export class CollectionWriter {
       collection = orderCollectionRequests(collection, orderOfOperations)
     }
 
-    // --- Portman - Set Postman pre-requests
+    // --- Portman - Set Postman collection pre-requests scripts
     if (collectionPreRequestScripts && collectionPreRequestScripts.length > 0) {
       collection = writeCollectionPreRequestScripts(collection, collectionPreRequestScripts)
+    }
+
+    // --- Portman - Set Postman collection test scripts
+    if (collectionTestScripts && collectionTestScripts.length > 0) {
+      collection = writeCollectionTestScripts(collection, collectionTestScripts)
     }
 
     // --- Portman - Replace & clean-up Postman
