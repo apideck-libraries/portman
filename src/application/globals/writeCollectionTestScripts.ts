@@ -1,18 +1,17 @@
 import fs from 'fs'
 import { CollectionDefinition, EventDefinition, Script, ScriptDefinition } from 'postman-collection'
 
-export const writeCollectionPreRequestScripts = (
+export const writeCollectionTestScripts = (
   collection: CollectionDefinition,
   scripts: string[]
 ): CollectionDefinition => {
   const collectionEvents = collection?.event || []
 
-  let preRequestEvent =
-    collectionEvents && collectionEvents.find(e => e?.listen === 'prerequest', null)
+  let testEvent = collectionEvents && collectionEvents.find(e => e?.listen === 'test', null)
 
-  if (!preRequestEvent) {
-    preRequestEvent = {
-      listen: 'prerequest',
+  if (!testEvent) {
+    testEvent = {
+      listen: 'test',
       script: {
         exec: [],
         type: 'text/javascript'
@@ -27,16 +26,16 @@ export const writeCollectionPreRequestScripts = (
       return src
     }
   })
-  const script = new Script(preRequestEvent.script as ScriptDefinition)
+  const script = new Script(testEvent.script as ScriptDefinition)
   if (script.exec === undefined) script.exec = []
   const exec = Array.isArray(script.exec)
     ? ([] as string[]).concat(Array.from(script.exec), Array.from(scriptContents))
     : ([script.exec] as string[]).concat(Array.from(scriptContents))
   script.update({ exec: exec.filter(i => Boolean(i)) as string[] })
-  preRequestEvent.script = script.toJSON()
+  testEvent.script = script.toJSON()
   collection.event = collection?.event
-    ? ([] as EventDefinition[]).concat(Array.from(collection.event), [preRequestEvent])
-    : [preRequestEvent]
+    ? ([] as EventDefinition[]).concat(Array.from(collection.event), [testEvent])
+    : [testEvent]
 
   return collection
 }
@@ -47,7 +46,7 @@ function getScriptContent(scriptPath: string): string {
   } catch (ex) {
     console.error(
       '\x1b[31m',
-      `Config collection pre-request script file error - no such file or directory "${scriptPath}"`
+      `Config collection test script file error - no such file or directory "${scriptPath}"`
     )
     process.exit(1)
   }

@@ -61,6 +61,7 @@ Version 1.0
 ##### Globals options:
 
 - **collectionPreRequestScripts**: Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection.
+- **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts that will execute after every request in this collection.
 - **keyValueReplacements**: A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements**: A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
@@ -80,6 +81,9 @@ file: examples/portman-globals/postman.crm.json >>
 "globals": {
     "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "collectionTestScripts": [
+      "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111');"
     ],
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
@@ -103,6 +107,14 @@ By setting the `collectionPreRequestScripts`, all the script items in the array 
 AFTER
 
 ![](./images/globals-prerequest-after.png)
+
+### collectionTestScripts
+
+By setting the `collectionTestScripts`, all the script items in the array will be injected to the Postman "Test script" on Postman collection level.
+
+AFTER
+
+![](./images/globals-test-after.png)
 
 ### keyValueReplacements
 
