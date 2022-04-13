@@ -65,11 +65,7 @@ export const overwriteCollectionSecurityValues = (
   }
 
   // Handle Postman securitySchemes types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2
-  if (
-    defaultSecurity === false &&
-    !collectionJson.auth &&
-    (awsv4 || digest || edgegrid || ntlm || oauth1 || oauth2)
-  ) {
+  if (!defaultSecurity && (awsv4 || digest || edgegrid || ntlm || oauth1 || oauth2)) {
     let type
     let authAttributes = [] as AuthAttribute[]
 

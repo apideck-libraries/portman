@@ -18,6 +18,8 @@ security:
   - apiKey: [ ]
     applicationId: [ ]
     consumerId: [ ]
+  - aad-oauth2:
+      - read
 tags:
   - name: Leads
     description: ''
@@ -1903,6 +1905,13 @@ components:
       in: header
       name: x-apideck-consumer-id
       description: The ID of the consumer which you want to get or push data from
+    aad-oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://xxx
+          scopes:
+            read: Default API scope
 paths:
   /crm/leads:
     get:

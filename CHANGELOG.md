@@ -2,7 +2,8 @@
 
 - Bumped dependency versions of ajv, yargs, fp-ts
 - Added the 'logAssignVariables' CLI option to toggle console output for assigned variables (#317)
-- Added the ability for globals as 'collectionTestScripts' for Test Scripts on collection level
+- Globals - Added the ability for globals as 'collectionTestScripts' for Test Scripts on collection level (#305)
+- Globals - Overwrite OpenAPI authorization with the 'securityOverwrites' (#306)
 
 ## v1.15.1 - (2022-04-01)
 - ExtendTest - Allow importing files for extendTest (#304)
