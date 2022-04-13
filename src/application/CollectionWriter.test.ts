@@ -6,6 +6,7 @@ jest.mock('./globals/overwriteCollectionKeyValues')
 jest.mock('./globals/overwriteCollectionValues')
 jest.mock('./globals/orderCollectionRequests')
 jest.mock('./globals/writeCollectionPreRequestScripts')
+jest.mock('./globals/writeCollectionTestScripts')
 jest.mock('./globals/injectEnvVariables')
 jest.mock('./globals/writeRawReplacements')
 
@@ -115,6 +116,34 @@ describe('CollectionWriter.execute()', () => {
     })
 
     it('should not call without collectionPreRequestScripts', () => {
+      const config = {
+        globals: {}
+      } as PortmanConfig
+
+      const collectionWriter = new CollectionWriter(config, {}, {})
+      collectionWriter.execute()
+
+      expect(spy).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('writeCollectionTestScripts', () => {
+    const spy = jest.spyOn(globals, 'writeCollectionTestScripts')
+
+    it('should call with writeCollectionTestScripts', () => {
+      const config = {
+        globals: {
+          collectionTestScripts: ['console.log("foo")']
+        }
+      } as PortmanConfig
+
+      const collectionWriter = new CollectionWriter(config, {}, {})
+      collectionWriter.execute()
+
+      expect(spy).toHaveBeenCalled()
+    })
+
+    it('should not call without writeCollectionTestScripts', () => {
       const config = {
         globals: {}
       } as PortmanConfig
