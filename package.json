@@ -86,7 +86,7 @@
     "openapi-types": "9.1.0",
     "ora": "^5.4.1",
     "pluralize": "^8.0.0",
-    "postman-collection": "4.1.1",
+    "postman-collection": "4.1.2",
     "prompts": "^2.4.2",
     "traverse": "^0.6.6",
     "yaml": "^1.10.2",
