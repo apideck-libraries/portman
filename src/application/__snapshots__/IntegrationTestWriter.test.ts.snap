@@ -41885,7 +41885,7 @@ if (jsonData?.data?.name) {
               ],
             },
           ],
-          "name": "companies",
+          "name": "Companies",
         },
       ],
       "name": "Integration Tests",
