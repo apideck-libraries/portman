@@ -2375,7 +2375,7 @@ if (jsonData?.data?.name) {
           ],
         },
       ],
-      "name": "companies",
+      "name": "Companies",
     },
   ],
   "variable": Array [],
