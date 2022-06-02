@@ -80,7 +80,7 @@ export class IntegrationTestWriter {
       } else {
         // create a new item group and add
         const newFolder = new ItemGroup({
-          name: `${folderName} Integrations` || 'Integrations'
+          name: `${folderName}` || 'Integrations'
         }) as ItemGroup<Item>
 
         this.integrationTestCollection.items.add(newFolder)
