@@ -297,7 +297,7 @@ export class TestSuite {
         if (
           optJsonBody &&
           optJsonBody.enabled &&
-          contentType === 'application/json' &&
+          (contentType === 'application/json' || contentType.includes('json')) &&
           !inOperations(pmOperation, optJsonBody?.excludeForOperations)
         ) {
           pmOperation = testResponseJsonBody(pmOperation, oaOperation)
