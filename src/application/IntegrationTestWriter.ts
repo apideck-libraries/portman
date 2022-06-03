@@ -1,24 +1,27 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { IntegrationTestConfig, VariationConfig, PortmanTestTypes } from '../types'
 import { TestSuite, VariationWriter } from './'
+import { PostmanMappedOperation } from 'postman'
+
+export type IntegrationTestWriterOptions = {
+  testSuite: TestSuite
+  integrationTestFolderName: string
+}
 
 export class IntegrationTestWriter {
   public testSuite: TestSuite
-  integrationTestFolder: ItemGroup<Item>
-  integrationTestCollection: Collection
+  public integrationTestFolder: ItemGroup<Item>
+  public integrationTestCollection: Collection
+  public operationFolders: Record<string, string>
 
-  constructor({
-    testSuite,
-    integrationTestFolderName
-  }: {
-    testSuite: TestSuite
-    integrationTestFolderName: string
-  }) {
+  constructor(options: IntegrationTestWriterOptions) {
+    const { testSuite, integrationTestFolderName } = options
     this.testSuite = testSuite
+    this.operationFolders = {}
+    this.integrationTestCollection = new Collection()
     this.integrationTestFolder = new ItemGroup<Item>({
       name: integrationTestFolderName
     })
-    this.integrationTestCollection = new Collection()
   }
 
   public add(integrationTest: IntegrationTestConfig): void {
@@ -38,6 +41,9 @@ export class IntegrationTestWriter {
 
       if (!pmOperation) return
 
+      const folderId = pmOperation.getParentFolderId()
+      // const folderName = pmOperation.getParentFolderName()
+
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
       // Handle integration variations
@@ -53,13 +59,39 @@ export class IntegrationTestWriter {
         this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.integration)
 
         variationWriter.injectVariations(operationVariation, oaOperation, variation, operation)
-        variationWriter.addToFolder(operationVariation, variationWriter.variationFolder)
+        this.addToLocalCollection(operationVariation, folderId, name)
       })
     })
+  }
 
-    this.integrationTestCollection = variationWriter.mergeToCollection(
-      this.integrationTestCollection
-    )
+  public addToLocalCollection(
+    operationVariation: PostmanMappedOperation,
+    folderId: string | null,
+    folderName: string | null
+  ): void {
+    let target: Collection | ItemGroup<Item>
+
+    if (folderId) {
+      if (this.operationFolders[folderId]) {
+        // we've done this dance, add to existing folder
+        target = this.integrationTestCollection.items.one(
+          this.operationFolders[folderId]
+        ) as ItemGroup<Item>
+      } else {
+        // create a new item group and add
+        const newFolder = new ItemGroup({
+          name: folderName || 'Integrations'
+        }) as ItemGroup<Item>
+
+        this.integrationTestCollection.items.add(newFolder)
+        this.operationFolders[folderId] = newFolder.id
+        target = newFolder
+      }
+    } else {
+      target = this.integrationTestCollection
+    }
+
+    target.items.add(operationVariation.item)
   }
 
   public mergeToCollection(collection: Collection): Collection {
@@ -69,6 +101,7 @@ export class IntegrationTestWriter {
     })
 
     collection.items.add(this.integrationTestFolder)
+    this.testSuite.postmanParser.collection = collection
     return collection
   }
 }
