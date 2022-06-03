@@ -41,8 +41,8 @@ export const getPostmanMappedCreateArrayOperation = async (): Promise<PostmanMap
 }
 
 export const getPostmanMappedListArrayOperation = async (): Promise<PostmanMappedOperation> => {
-  const postmanJson = '__tests__/fixtures/crm-request-items.json'
-  const oasYml = '__tests__/fixtures/crm-request-items.yml'
+  const postmanJson = '__tests__/fixtures/crm-request-array.json'
+  const oasYml = '__tests__/fixtures/crm-request-array.yml'
 
   await oasParser.convert({ inputFile: oasYml })
   const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
