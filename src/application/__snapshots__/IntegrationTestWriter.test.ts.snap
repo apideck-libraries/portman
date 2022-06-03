@@ -41080,13 +41080,13 @@ pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-                      "// Response body should have property \\"data.name\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data.name' exists\\", function() {
+                      "// Response body should have \\"data.name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", function() {
    pm.expect((typeof jsonData.data.name !== \\"undefined\\")).to.be.true;
 });
 ",
                       "// Response body should have value \\"Integration Test: Create Company\\" for \\"data.name\\"
-if (jsonData?.data.name) {
+if (jsonData?.data?.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};

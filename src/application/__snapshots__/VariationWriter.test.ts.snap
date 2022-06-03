@@ -38703,8 +38703,8 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-                      "// Response body should have property \\"resource\\"
-pm.test(\\"[POST]::/crm/leads - Content check if property 'resource' exists\\", function() {
+                      "// Response body should have \\"resource\\"
+pm.test(\\"[POST]::/crm/leads - Content check if 'resource' exists\\", function() {
    pm.expect((typeof jsonData.resource !== \\"undefined\\")).to.be.true;
 });
 ",
