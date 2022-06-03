@@ -43362,7 +43362,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Response status code is 404\\", function 
               ],
             },
           ],
-          "name": "Companies",
+          "name": "companies",
         },
       ],
       "name": "Integration Tests",
