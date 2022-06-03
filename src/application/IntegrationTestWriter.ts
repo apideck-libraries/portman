@@ -30,7 +30,7 @@ export class IntegrationTestWriter {
 
     const variationWriter = new VariationWriter({
       testSuite: this.testSuite,
-      variationFolderName: `${name}`
+      variationFolderName: name
     })
 
     operations.map(operation => {
@@ -42,7 +42,7 @@ export class IntegrationTestWriter {
       if (!pmOperation) return
 
       const folderId = pmOperation.getParentFolderId()
-      const folderName = pmOperation.getParentFolderName()
+      // const folderName = pmOperation.getParentFolderName()
 
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
 
@@ -52,14 +52,14 @@ export class IntegrationTestWriter {
 
         const operationVariation = pmOperation.clone({
           newId: `${variationName}-${Math.random()}`,
-          name: `${variationName}`
+          name: variationName
         })
 
         // Set/Update Portman operation test type
         this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.integration)
 
         variationWriter.injectVariations(operationVariation, oaOperation, variation, operation)
-        this.addToLocalCollection(operationVariation, folderId, folderName)
+        this.addToLocalCollection(operationVariation, folderId, name)
       })
     })
   }
@@ -80,7 +80,7 @@ export class IntegrationTestWriter {
       } else {
         // create a new item group and add
         const newFolder = new ItemGroup({
-          name: `${folderName}` || 'Integrations'
+          name: folderName || 'Integrations'
         }) as ItemGroup<Item>
 
         this.integrationTestCollection.items.add(newFolder)
