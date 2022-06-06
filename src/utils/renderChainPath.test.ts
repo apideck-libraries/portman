@@ -86,4 +86,46 @@ describe('renderChainPath', () => {
     const result = renderChainPath(path, true)
     expect(result).toEqual('foo[0] && foo[0].bar')
   })
+
+  it('should render root array & dot notation', () => {
+    const path = '[0].bar'
+
+    const result = renderChainPath(path)
+    expect(result).toEqual('?.[0]?.bar')
+  })
+
+  it('should render root array & dot notation, legacy mode', () => {
+    const path = '[0].bar'
+
+    const result = renderChainPath(path, true)
+    expect(result).toEqual('[0] && [0].bar')
+  })
+
+  it('should render dot notation with single quote, supporting bracket', () => {
+    const path = "foo['hydra:bar']"
+
+    const result = renderChainPath(path)
+    expect(result).toEqual("foo?.['hydra:bar']")
+  })
+
+  it('should render dot notation with double quote, supporting bracket', () => {
+    const path = 'foo["hydra:bar"]'
+
+    const result = renderChainPath(path)
+    expect(result).toEqual('foo?.["hydra:bar"]')
+  })
+
+  it('should render dot notation with single quote, supporting bracket, legacy mode', () => {
+    const path = "foo['hydra:bar']"
+
+    const result = renderChainPath(path, true)
+    expect(result).toEqual("foo['hydra:bar']")
+  })
+
+  it('should render dot notation with double quote, supporting bracket, legacy mode', () => {
+    const path = 'foo["hydra:bar"]'
+
+    const result = renderChainPath(path, true)
+    expect(result).toEqual('foo["hydra:bar"]')
+  })
 })
