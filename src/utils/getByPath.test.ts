@@ -105,4 +105,14 @@ describe('getByPath', () => {
       ]
     })
   })
+
+  it('should get the root element using dot notation', () => {
+    const result = getByPath(objUnderTest, '.')
+    expect(result).toEqual(objUnderTest)
+  })
+
+  it('should get the root array element using dot notation', () => {
+    const result = getByPath(arrayUnderTest, '.')
+    expect(result).toEqual(arrayUnderTest)
+  })
 })
