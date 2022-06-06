@@ -80,26 +80,6 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data['hydra:me
 ]
 `;
 
-exports[`testResponseBodyContent should add content test for bracket property check & result has minimum length value 2`] = `
-Array [
-  "// Set response object as internal variable
-let jsonData = {};
-try {jsonData = pm.response.json();}catch(e){}
-",
-  "// Response body should have \\"[0].['hydra:member']\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].['hydra:member']' exists\\", function() {
-   pm.expect((typeof jsonData[0].['hydra:member'] !== \\"undefined\\")).to.be.true;
-});
-",
-  "// Response body should have a minimum length of \\"1\\" for \\"[0].['hydra:member']\\"
-if (jsonData?.[0]?.?.['hydra:member']) {
-pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].['hydra:member']' has a minimum length of '1'\\", function() {
-  pm.expect(jsonData[0].['hydra:member'].length).is.at.least(1);
-})};
-",
-]
-`;
-
 exports[`testResponseBodyContent should add content test for property check & number value 1`] = `
 Array [
   "// Set response object as internal variable
