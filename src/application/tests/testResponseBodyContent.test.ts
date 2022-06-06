@@ -279,4 +279,43 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for bracket property check & result has minimum length value', async () => {
+    const contentTests = [
+      {
+        key: "data['hydra:member']",
+        minLength: 1
+      }
+    ]
+
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for bracket array property check & result has minimum length value', async () => {
+    const contentTests = [
+      {
+        key: "[0].['hydra:member']",
+        minLength: 1
+      }
+    ]
+
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for array bracket check & result has minimum length value', async () => {
+    const contentTests = [
+      {
+        key: "[0]['hydra:member']",
+        minLength: 1
+      }
+    ]
+
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

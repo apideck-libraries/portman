@@ -13,7 +13,10 @@ export const renderChainPath = (path: string, legacyMode = false): string => {
   }
   // Transform the path to optional chained syntax
   // eslint-disable-next-line no-useless-escape
-  return path.replace(/\./g, '?.').replace(/[\[']+/g, '?.[')
+  return path
+    .replace(/\./g, '?.')
+    .replace(/\[+/g, '?.[')
+    .replace(/\?\.\?\.+/g, '?.')
 }
 
 export const renderSafeFullPath = (path: string): string => {
