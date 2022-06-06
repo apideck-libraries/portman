@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - Fix missing integrationTests when using "bundleContractTests" (#330)
+- ContentCheck - allow targeting of root object or array (#334)
 
 ## v1.16.1 - (2022-04-13)
 - Set the 'logAssignVariables' option via 'cliOptions' to toggle console output for assigned variables

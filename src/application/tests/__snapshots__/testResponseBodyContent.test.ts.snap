@@ -1,18 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`testResponseBodyContent should add content test for  root array & result has maximum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"ROOT\\"
+pm.test(\\"[GET]::/crm/companies - Content check if 'ROOT' exists\\", function() {
+   pm.expect((typeof jsonData !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a maximum length of \\"10\\" for \\"ROOT\\"
+if (jsonData) {
+pm.test(\\"[GET]::/crm/companies - Content check if value of 'ROOT' has a maximum length of '10'\\", function() {
+  pm.expect(jsonData.length).is.at.most(10);
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for property check & number value 1`] = `
 Array [
   "// Set response object as internal variable
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].monetary_amount\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+  "// Response body should have \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
 });
 ",
   "// Response body should have value \\"75000\\" for \\"data[0].monetary_amount\\"
-if (jsonData?.data[0].monetary_amount) {
+if (jsonData?.data?.[0]?.monetary_amount) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '75000'\\", function() {
   pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);
 })};
@@ -26,13 +46,13 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].monetary_amount\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+  "// Response body should have \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
 });
 ",
   "// Response body should have value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
-if (jsonData?.data[0].monetary_amount) {
+if (jsonData?.data?.[0]?.monetary_amount) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '{{postman_env_variable}}'\\", function() {
   pm.expect(jsonData.data[0].monetary_amount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};
@@ -46,13 +66,13 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].monetary_amount\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+  "// Response body should have \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
 });
 ",
-  "// Response body should contain value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
-if (jsonData?.data[0].monetary_amount) {
+  "// Response body should contain value \\"{{postman_env_variable}}\\" for \\".data[0].monetary_amount\\"
+if (jsonData?.data?.[0]?.monetary_amount) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' contains '{{postman_env_variable}}'\\", function() {
   pm.expect(jsonData.data[0].monetary_amount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};
@@ -66,13 +86,13 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].name\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].name' exists\\", function() {
+  "// Response body should have \\"data[0].name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].name' exists\\", function() {
    pm.expect((typeof jsonData.data[0].name !== \\"undefined\\")).to.be.true;
 });
 ",
-  "// Response body should contain value \\"Musk\\" for \\"data[0].name\\"
-if (jsonData?.data[0].name) {
+  "// Response body should contain value \\"Musk\\" for \\".data[0].name\\"
+if (jsonData?.data?.[0]?.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].name' contains 'Musk'\\", function() {
   pm.expect(jsonData.data[0].name).to.include(\\"Musk\\");
 })};
@@ -86,13 +106,13 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].description\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].description' exists\\", function() {
+  "// Response body should have \\"data[0].description\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
    pm.expect((typeof jsonData.data[0].description !== \\"undefined\\")).to.be.true;
 });
 ",
   "// Response body should have a length of \\"9\\" for \\"data[0].description\\"
-if (jsonData?.data[0].description) {
+if (jsonData?.data?.[0]?.description) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data[0].description' has a length of '9'\\", function() {
   pm.expect(jsonData.data[0].description.length).to.equal(9);
 })};
@@ -106,8 +126,8 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data' exists\\", function() {
+  "// Response body should have \\"data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data' exists\\", function() {
    pm.expect((typeof jsonData.data !== \\"undefined\\")).to.be.true;
 });
 ",
@@ -126,8 +146,8 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data' exists\\", function() {
+  "// Response body should have \\"data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data' exists\\", function() {
    pm.expect((typeof jsonData.data !== \\"undefined\\")).to.be.true;
 });
 ",
@@ -146,9 +166,163 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].monetary_amount\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].monetary_amount' exists\\", function() {
+  "// Response body should have \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array & result has minimum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"ROOT\\"
+pm.test(\\"[GET]::/crm/companies - Content check if 'ROOT' exists\\", function() {
+   pm.expect((typeof jsonData !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a minimum length of \\"1\\" for \\"ROOT\\"
+if (jsonData) {
+pm.test(\\"[GET]::/crm/companies - Content check if value of 'ROOT' has a minimum length of '1'\\", function() {
+  pm.expect(jsonData.length).is.at.least(1);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & number value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"75000\\" for \\"[0].data.monetary_amount\\"
+if (jsonData?.[0]?.data?.monetary_amount) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.monetary_amount' matches '75000'\\", function() {
+  pm.expect(jsonData[0].data.monetary_amount).to.eql(75000);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & pm variable value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"{{postman_env_variable}}\\" for \\"[0].data.monetary_amount\\"
+if (jsonData?.[0]?.data?.monetary_amount) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.monetary_amount' matches '{{postman_env_variable}}'\\", function() {
+  pm.expect(jsonData[0].data.monetary_amount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & result contains pm variable value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should contain value \\"{{postman_env_variable}}\\" for \\"[0].data.monetary_amount\\"
+if (jsonData?.[0]?.data?.monetary_amount) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.monetary_amount' contains '{{postman_env_variable}}'\\", function() {
+  pm.expect(jsonData[0].data.monetary_amount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & result contains value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.name' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should contain value \\"Musk\\" for \\"[0].data.name\\"
+if (jsonData?.[0]?.data?.name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.name' contains 'Musk'\\", function() {
+  pm.expect(jsonData[0].data.name).to.include(\\"Musk\\");
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & result has length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.description\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.description' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.description !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a length of \\"9\\" for \\"[0].data.description\\"
+if (jsonData?.[0]?.data?.description) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data.description' has a length of '9'\\", function() {
+  pm.expect(jsonData[0].data.description.length).to.equal(9);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & result has minimum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a minimum length of \\"1\\" for \\"[0].data\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data' has a minimum length of '1'\\", function() {
+  pm.expect(jsonData[0].data.length).is.at.least(1);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check without value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.monetary_amount !== \\"undefined\\")).to.be.true;
 });
 ",
 ]
@@ -160,13 +334,13 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].company_name\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].company_name' exists\\", function() {
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
 });
 ",
   "// Response body should have value \\"true\\" for \\"data[0].company_name\\"
-if (jsonData?.data[0].company_name) {
+if (jsonData?.data?.[0]?.company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'true'\\", function() {
   pm.expect(jsonData.data[0].company_name).to.eql(true);
 })};
@@ -180,15 +354,75 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have property \\"data[0].company_name\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if property 'data[0].company_name' exists\\", function() {
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
 });
 ",
   "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
-if (jsonData?.data[0].company_name) {
+if (jsonData?.data?.[0]?.company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
   pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for string for root array property check & boolean value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.company_name' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"true\\" for \\"[0].data.company_name\\"
+if (jsonData?.[0]?.data?.company_name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.company_name' matches 'true'\\", function() {
+  pm.expect(jsonData[0].data.company_name).to.eql(true);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for string for root array property check & string value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].company_name' exists\\", function() {
+   pm.expect((typeof jsonData[0].company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"[0].company_name\\"
+if (jsonData?.[0]?.company_name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].company_name' matches 'Spacex'\\", function() {
+  pm.expect(jsonData[0].company_name).to.eql(\\"Spacex\\");
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test forroot array property check & result has maximum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a maximum length of \\"10\\" for \\"[0].data\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data' has a maximum length of '10'\\", function() {
+  pm.expect(jsonData[0].data.length).is.at.most(10);
 })};
 ",
 ]

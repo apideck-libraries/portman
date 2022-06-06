@@ -15,6 +15,9 @@ export const getByPath = (
 ): string | number | boolean | Record<string, unknown> | Record<string, unknown>[] | undefined => {
   if (!isObject(objectOrArray) && !Array.isArray(objectOrArray)) return objectOrArray
 
+  // Return full root element
+  if (path === '.') return objectOrArray
+
   const dot = new Dot() // Initiate new dot-object
   const arrayPathCheck = path.endsWith(']')
   const indexKey = path.match(/\d+/g)?.[0]

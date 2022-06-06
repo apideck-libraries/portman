@@ -1,0 +1,993 @@
+{
+  "info": {
+    "_postman_id": "6c394a2f-6610-4180-802a-32980c4d526a",
+    "name": "CRM API - ITEMS",
+    "description": "Welcome to the CRM API.\n\nContact Support:\n Email: hello@apideck.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "238711"
+  },
+  "item": [
+    {
+      "name": "crm/companies",
+      "item": [
+        {
+          "name": "Create company",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "<Bearer Token>",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "description": "(Required) ID of the consumer which you want to get or push data from",
+                "key": "x-apideck-consumer-id",
+                "value": "ex dolor consequat commodo"
+              },
+              {
+                "description": "(Required) The ID of your Unify application",
+                "key": "x-apideck-app-id",
+                "value": "ex dolor consequat commodo"
+              },
+              {
+                "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "key": "x-apideck-service-id",
+                "value": "ex dolor consequat commodo"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/crm/companies?raw=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "crm",
+                "companies"
+              ],
+              "query": [
+                {
+                  "key": "raw",
+                  "value": "true",
+                  "description": "Include raw response. Mostly used for debugging purposes"
+                }
+              ]
+            },
+            "description": "Create company"
+          },
+          "response": [
+            {
+              "name": "Company created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 200,\n  \"status\": \"OK\",\n  \"service\": \"zoho-crm\",\n  \"resource\": \"companies\",\n  \"operation\": \"one\",\n  \"data\": {\n    \"id\": \"12345\"\n  }\n}"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 400,\n  \"error\": \"Bad Request\",\n  \"typeName\": \"RequestHeadersValidationError\",\n  \"message\": \"Invalid Params\",\n  \"detail\": \"Missing property foobar\",\n  \"ref\": \"https://developers.apideck.com/errors#requestbodyvalidationerror\"\n}"
+            },
+            {
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 401,\n  \"error\": \"Unauthorized\",\n  \"typeName\": \"UnauthorizedError\",\n  \"message\": \"Unauthorized Request\",\n  \"detail\": \"Failed to generate valid JWT Session. Verify applicationId is correct\",\n  \"ref\": \"https://developers.apideck.com/errors#unauthorizederror\"\n}"
+            },
+            {
+              "name": "Payment Required",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 402,\n  \"error\": \"Payment Required\",\n  \"typeName\": \"RequestLimitError\",\n  \"message\": \"Request Limit Reached\",\n  \"detail\": \"You have reached your limit of 2000\",\n  \"ref\": \"https://developers.apideck.com/errors#requestlimiterror\"\n}"
+            },
+            {
+              "name": "The specified resource was not found",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 404,\n  \"error\": \"Not Found\",\n  \"typeName\": \"EntityNotFoundError\",\n  \"message\": \"Unknown Widget\",\n  \"detail\": \"Could not find widget with id: '123'\",\n  \"ref\": \"https://developers.apideck.com/errors#entitynotfounderror\"\n}"
+            },
+            {
+              "name": "Unprocessable",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 422,\n  \"error\": \"Unprocessable Entity\",\n  \"typeName\": \"InvalidStateError\",\n  \"message\": \"Invalid State\",\n  \"detail\": \"State did not include unified_api\",\n  \"ref\": \"https://developers.apideck.com/errors#invalidstateerror\"\n}"
+            },
+            {
+              "name": "Unexpected error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  },\n  {\n    \"name\": \"Copper\",\n    \"owner_id\": \"12345\",\n    \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n    \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n    \"vat_number\": \"BE0689615164\",\n    \"currency\": \"USD\",\n    \"status\": \"Open\",\n    \"fax\": \"+12129876543\",\n    \"bank_accounts\": [\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      },\n      {\n        \"iban\": \"CH2989144532982975332\",\n        \"bic\": \"AUDSCHGGXXX\"\n      }\n    ],\n    \"websites\": [\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"url\": \"http://example.com\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      },\n      {\n        \"id\": \"123\",\n        \"type\": \"primary\",\n        \"name\": \"HQ US\",\n        \"line1\": \"Main street\",\n        \"line2\": \"apt #\",\n        \"city\": \"San Francisco\",\n        \"state\": \"CA\",\n        \"postal_code\": \"94104\",\n        \"country\": \"US\",\n        \"latitude\": \"40.759211\",\n        \"longitude\": \"-73.984638\"\n      }\n    ],\n    \"social_links\": [\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      },\n      {\n        \"url\": \"https://www.twitter.com/apideck-io\",\n        \"id\": \"12345\",\n        \"type\": \"twitter\"\n      }\n    ],\n    \"phone_numbers\": [\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      },\n      {\n        \"number\": \"111-111-1111\",\n        \"id\": \"12345\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"emails\": [\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      },\n      {\n        \"email\": \"elon@musk.com\",\n        \"id\": \"123\",\n        \"type\": \"primary\"\n      }\n    ],\n    \"custom_fields\": [\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      },\n      {\n        \"id\": \"custom_technologies\",\n        \"value\": \"Uses Salesforce and Marketo\"\n      }\n    ],\n    \"tags\": [\n      \"New\"\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 400,\n  \"error\": \"Bad Request\",\n  \"typeName\": \"RequestHeadersValidationError\",\n  \"message\": \"Invalid Params\",\n  \"detail\": \"Missing Header: x-apideck-consumer-id\",\n  \"ref\": \"https://developers.apideck.com/errors#unauthorizederror\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get companies",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "<Bearer Token>",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "description": "(Required) ID of the consumer which you want to get or push data from",
+                "key": "x-apideck-consumer-id",
+                "value": "ex dolor consequat commodo"
+              },
+              {
+                "description": "(Required) The ID of your Unify application",
+                "key": "x-apideck-app-id",
+                "value": "ex dolor consequat commodo"
+              },
+              {
+                "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                "key": "x-apideck-service-id",
+                "value": "ex dolor consequat commodo"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/crm/companies?raw=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "crm",
+                "companies"
+              ],
+              "query": [
+                {
+                  "key": "raw",
+                  "value": "true",
+                  "description": "Include raw response. Mostly used for debugging purposes"
+                }
+              ]
+            },
+            "description": "Get companies"
+          },
+          "response": [
+            {
+              "name": "Companies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"status_code\": 200,\n    \"status\": \"OK\",\n    \"service\": \"zoho-crm\",\n    \"resource\": \"companies\",\n    \"operation\": \"one\",\n    \"data\": {\n      \"name\": \"Copper\",\n      \"id\": \"12345\",\n      \"interaction_count\": 1,\n      \"owner_id\": \"12345\",\n      \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n      \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n      \"vat_number\": \"BE0689615164\",\n      \"currency\": \"USD\",\n      \"status\": \"Open\",\n      \"fax\": \"+12129876543\",\n      \"bank_accounts\": [\n        {\n          \"iban\": \"CH2989144532982975332\",\n          \"bic\": \"AUDSCHGGXXX\"\n        },\n        {\n          \"iban\": \"CH2989144532982975332\",\n          \"bic\": \"AUDSCHGGXXX\"\n        }\n      ],\n      \"websites\": [\n        {\n          \"url\": \"http://example.com\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        },\n        {\n          \"url\": \"http://example.com\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"id\": \"123\",\n          \"type\": \"primary\",\n          \"name\": \"HQ US\",\n          \"line1\": \"Main street\",\n          \"line2\": \"apt #\",\n          \"city\": \"San Francisco\",\n          \"state\": \"CA\",\n          \"postal_code\": \"94104\",\n          \"country\": \"US\",\n          \"latitude\": \"40.759211\",\n          \"longitude\": \"-73.984638\"\n        },\n        {\n          \"id\": \"123\",\n          \"type\": \"primary\",\n          \"name\": \"HQ US\",\n          \"line1\": \"Main street\",\n          \"line2\": \"apt #\",\n          \"city\": \"San Francisco\",\n          \"state\": \"CA\",\n          \"postal_code\": \"94104\",\n          \"country\": \"US\",\n          \"latitude\": \"40.759211\",\n          \"longitude\": \"-73.984638\"\n        }\n      ],\n      \"social_links\": [\n        {\n          \"url\": \"https://www.twitter.com/apideck-io\",\n          \"id\": \"12345\",\n          \"type\": \"twitter\"\n        },\n        {\n          \"url\": \"https://www.twitter.com/apideck-io\",\n          \"id\": \"12345\",\n          \"type\": \"twitter\"\n        }\n      ],\n      \"phone_numbers\": [\n        {\n          \"number\": \"111-111-1111\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        },\n        {\n          \"number\": \"111-111-1111\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        }\n      ],\n      \"emails\": [\n        {\n          \"email\": \"elon@musk.com\",\n          \"id\": \"123\",\n          \"type\": \"primary\"\n        },\n        {\n          \"email\": \"elon@musk.com\",\n          \"id\": \"123\",\n          \"type\": \"primary\"\n        }\n      ],\n      \"custom_fields\": [\n        {\n          \"id\": \"custom_technologies\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"custom_technologies\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"tags\": [\n        \"New\"\n      ],\n      \"updated_by\": \"12345\",\n      \"created_by\": \"12345\",\n      \"updated_at\": \"2020-09-30T07:43:32.000Z\",\n      \"created_at\": \"2020-09-30T07:43:32.000Z\"\n    }\n  },\n  {\n    \"status_code\": 200,\n    \"status\": \"OK\",\n    \"service\": \"zoho-crm\",\n    \"resource\": \"companies\",\n    \"operation\": \"one\",\n    \"data\": {\n      \"name\": \"Copper\",\n      \"id\": \"12345\",\n      \"interaction_count\": 1,\n      \"owner_id\": \"12345\",\n      \"image_url\": \"https://www.spacex.com/static/images/share.jpg\",\n      \"description\": \"A crm that works for you, so you can spend time on relationships instead of data.\",\n      \"vat_number\": \"BE0689615164\",\n      \"currency\": \"USD\",\n      \"status\": \"Open\",\n      \"fax\": \"+12129876543\",\n      \"bank_accounts\": [\n        {\n          \"iban\": \"CH2989144532982975332\",\n          \"bic\": \"AUDSCHGGXXX\"\n        },\n        {\n          \"iban\": \"CH2989144532982975332\",\n          \"bic\": \"AUDSCHGGXXX\"\n        }\n      ],\n      \"websites\": [\n        {\n          \"url\": \"http://example.com\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        },\n        {\n          \"url\": \"http://example.com\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        }\n      ],\n      \"addresses\": [\n        {\n          \"id\": \"123\",\n          \"type\": \"primary\",\n          \"name\": \"HQ US\",\n          \"line1\": \"Main street\",\n          \"line2\": \"apt #\",\n          \"city\": \"San Francisco\",\n          \"state\": \"CA\",\n          \"postal_code\": \"94104\",\n          \"country\": \"US\",\n          \"latitude\": \"40.759211\",\n          \"longitude\": \"-73.984638\"\n        },\n        {\n          \"id\": \"123\",\n          \"type\": \"primary\",\n          \"name\": \"HQ US\",\n          \"line1\": \"Main street\",\n          \"line2\": \"apt #\",\n          \"city\": \"San Francisco\",\n          \"state\": \"CA\",\n          \"postal_code\": \"94104\",\n          \"country\": \"US\",\n          \"latitude\": \"40.759211\",\n          \"longitude\": \"-73.984638\"\n        }\n      ],\n      \"social_links\": [\n        {\n          \"url\": \"https://www.twitter.com/apideck-io\",\n          \"id\": \"12345\",\n          \"type\": \"twitter\"\n        },\n        {\n          \"url\": \"https://www.twitter.com/apideck-io\",\n          \"id\": \"12345\",\n          \"type\": \"twitter\"\n        }\n      ],\n      \"phone_numbers\": [\n        {\n          \"number\": \"111-111-1111\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        },\n        {\n          \"number\": \"111-111-1111\",\n          \"id\": \"12345\",\n          \"type\": \"primary\"\n        }\n      ],\n      \"emails\": [\n        {\n          \"email\": \"elon@musk.com\",\n          \"id\": \"123\",\n          \"type\": \"primary\"\n        },\n        {\n          \"email\": \"elon@musk.com\",\n          \"id\": \"123\",\n          \"type\": \"primary\"\n        }\n      ],\n      \"custom_fields\": [\n        {\n          \"id\": \"custom_technologies\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"id\": \"custom_technologies\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"tags\": [\n        \"New\"\n      ],\n      \"updated_by\": \"12345\",\n      \"created_by\": \"12345\",\n      \"updated_at\": \"2020-09-30T07:43:32.000Z\",\n      \"created_at\": \"2020-09-30T07:43:32.000Z\"\n    }\n  }\n]"
+            },
+            {
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 400,\n  \"error\": \"Bad Request\",\n  \"typeName\": \"RequestHeadersValidationError\",\n  \"message\": \"Invalid Params\",\n  \"detail\": \"Missing property foobar\",\n  \"ref\": \"https://developers.apideck.com/errors#requestbodyvalidationerror\"\n}"
+            },
+            {
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 401,\n  \"error\": \"Unauthorized\",\n  \"typeName\": \"UnauthorizedError\",\n  \"message\": \"Unauthorized Request\",\n  \"detail\": \"Failed to generate valid JWT Session. Verify applicationId is correct\",\n  \"ref\": \"https://developers.apideck.com/errors#unauthorizederror\"\n}"
+            },
+            {
+              "name": "Payment Required",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Payment Required",
+              "code": 402,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 402,\n  \"error\": \"Payment Required\",\n  \"typeName\": \"RequestLimitError\",\n  \"message\": \"Request Limit Reached\",\n  \"detail\": \"You have reached your limit of 2000\",\n  \"ref\": \"https://developers.apideck.com/errors#requestlimiterror\"\n}"
+            },
+            {
+              "name": "The specified resource was not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 404,\n  \"error\": \"Not Found\",\n  \"typeName\": \"EntityNotFoundError\",\n  \"message\": \"Unknown Widget\",\n  \"detail\": \"Could not find widget with id: '123'\",\n  \"ref\": \"https://developers.apideck.com/errors#entitynotfounderror\"\n}"
+            },
+            {
+              "name": "Unprocessable",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 422,\n  \"error\": \"Unprocessable Entity\",\n  \"typeName\": \"InvalidStateError\",\n  \"message\": \"Invalid State\",\n  \"detail\": \"State did not include unified_api\",\n  \"ref\": \"https://developers.apideck.com/errors#invalidstateerror\"\n}"
+            },
+            {
+              "name": "Unexpected error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "description": "(Required) ID of the consumer which you want to get or push data from",
+                    "key": "x-apideck-consumer-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "(Required) The ID of your Unify application",
+                    "key": "x-apideck-app-id",
+                    "value": "ex dolor consequat commodo"
+                  },
+                  {
+                    "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+                    "key": "x-apideck-service-id",
+                    "value": "ex dolor consequat commodo"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/crm/companies?raw=true",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "crm",
+                    "companies"
+                  ],
+                  "query": [
+                    {
+                      "key": "raw",
+                      "value": "true"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status_code\": 400,\n  \"error\": \"Bad Request\",\n  \"typeName\": \"RequestHeadersValidationError\",\n  \"message\": \"Invalid Params\",\n  \"detail\": \"Missing Header: x-apideck-consumer-id\",\n  \"ref\": \"https://developers.apideck.com/errors#unauthorizederror\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "<Bearer Token>",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://unify.apideck.com",
+      "type": "string"
+    }
+  ]
+}

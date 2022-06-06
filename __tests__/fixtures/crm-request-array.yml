@@ -1,0 +1,1679 @@
+openapi: 3.0.3
+info:
+  version: 4.1.0
+  title: CRM API - ITEMS
+  description: "Welcome to the CRM API."
+  contact:
+    email: hello@apideck.com
+    url: 'https://developers.apideck.com'
+  x-logo:
+    url: 'https://developers.apideck.com/icon.png'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+externalDocs:
+  description: Apideck Developer Docs
+  url: 'https://developers.apideck.com'
+servers:
+  - url: 'https://unify.apideck.com'
+    description: Production
+security:
+  - apiKey: []
+    applicationId: []
+    consumerId: []
+tags:
+  - name: Companies
+    description: ''
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '123'
+          nullable: true
+        type:
+          type: string
+          x-graphql-type-name: AddressType
+          enum:
+            - primary
+            - secondary
+            - home
+            - office
+            - shipping
+            - billing
+            - other
+          example: primary
+        name:
+          type: string
+          example: HQ US
+          nullable: true
+        line1:
+          type: string
+          example: Main street
+          description: 'Line 1 of the address e.g. number, street, suite, apt #, etc.'
+          nullable: true
+        line2:
+          type: string
+          example: 'apt #'
+          description: Line 2 of the address
+          nullable: true
+        city:
+          type: string
+          example: San Francisco
+          description: Name of city.
+          nullable: true
+        state:
+          type: string
+          example: CA
+          description: Name of state
+          nullable: true
+        postal_code:
+          type: string
+          example: '94104'
+          description: Zip code or equivalent.
+          nullable: true
+        country:
+          type: string
+          example: US
+          description: country code according to ISO 3166-1 alpha-2.
+          nullable: true
+        latitude:
+          type: string
+          example: '40.759211'
+          nullable: true
+        longitude:
+          type: string
+          example: '-73.984638'
+          nullable: true
+    BadRequest:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 400
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Bad Request
+        typeName:
+          type: string
+          description: The type of error returned
+          example: RequestHeadersValidationError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Invalid Params
+        detail:
+          anyOf:
+            - type: string
+              example: Missing property foobar
+            - type: object
+              example:
+                missing:
+                  - - foobar: required
+          description: Contains parameter or domain specific information related to the error and why it occured.
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#requestbodyvalidationerror'
+    BankAccount:
+      type: object
+      properties:
+        iban:
+          type: string
+          example: CH2989144532982975332
+          nullable: true
+        bic:
+          type: string
+          example: AUDSCHGGXXX
+          nullable: true
+    CompaniesFilter:
+      type: object
+      x-graphql-type-name: CompaniesFilter
+      example:
+        name: SpaceX
+      properties:
+        name:
+          type: string
+          description: Name of the company to filter on
+          example: SpaceX
+      additionalProperties: false
+    CompaniesSort:
+      type: object
+      x-graphql-type-name: CompaniesSort
+      example:
+        by: created_at
+        direction: desc
+      properties:
+        by:
+          type: string
+          description: The field on which to sort the Companies
+          enum:
+            - created_at
+            - updated_at
+            - name
+          example: created_at
+        direction:
+          type: string
+          description: The direction in which to sort the Companies
+          enum:
+            - asc
+            - desc
+          default: asc
+      required:
+        - by
+      additionalProperties: false
+    CompanyArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/Company'
+    Company:
+      type: object
+      required:
+        - name
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '12345'
+        name:
+          type: string
+          example: Copper
+          minLength: 1
+        interaction_count:
+          type: integer
+          example: 1
+          readOnly: true
+          nullable: true
+        owner_id:
+          type: string
+          example: '12345'
+        image_url:
+          type: string
+          example: 'https://www.spacex.com/static/images/share.jpg'
+          nullable: true
+        description:
+          type: string
+          example: 'A crm that works for you, so you can spend time on relationships instead of data.'
+          nullable: true
+        vat_number:
+          description: VAT number
+          type: string
+          example: BE0689615164
+          nullable: true
+        currency:
+          type: string
+          example: USD
+          nullable: true
+        status:
+          type: string
+          minLength: 1
+          example: Open
+          nullable: true
+        fax:
+          type: string
+          example: '+12129876543'
+          nullable: true
+        bank_accounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/BankAccount'
+        websites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        social_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        updated_by:
+          type: string
+          example: '12345'
+          readOnly: true
+          nullable: true
+        created_by:
+          type: string
+          example: '12345'
+          readOnly: true
+          nullable: true
+        updated_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2020-09-30T07:43:32.000Z'
+          readOnly: true
+    Contact:
+      required:
+        - name
+      x-pii:
+        - name
+        - first_name
+        - middle_name
+        - last_name
+        - email
+      properties:
+        id:
+          type: string
+          example: '12345'
+          readOnly: true
+        name:
+          type: string
+          example: Elon Musk
+          minLength: 1
+        owner_id:
+          type: string
+          example: '54321'
+          nullable: true
+        company_id:
+          type: string
+          example: '23456'
+          nullable: true
+        company_name:
+          type: string
+          example: '23456'
+          nullable: true
+        lead_id:
+          type: string
+          example: '34567'
+          nullable: true
+        first_name:
+          type: string
+          example: Elon
+          nullable: true
+        middle_name:
+          type: string
+          example: D.
+          nullable: true
+        last_name:
+          type: string
+          example: Musk
+          nullable: true
+        prefix:
+          type: string
+          example: Mr.
+          nullable: true
+        suffix:
+          type: string
+          example: PhD
+          nullable: true
+        title:
+          type: string
+          example: CEO
+          nullable: true
+        department:
+          type: string
+          example: Engineering
+          nullable: true
+        language:
+          type: string
+          example: EN
+          description: language code according to ISO 639-1. For the United States - EN
+          nullable: true
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+            - unisex
+          example: female
+          nullable: true
+        birthday:
+          type: string
+          example: '2000-08-12'
+          nullable: true
+        image:
+          type: string
+          example: 'https://logo.clearbit.com/spacex.com?s=128'
+          nullable: true
+        lead_source:
+          type: string
+          minLength: 1
+          example: Cold Call
+          nullable: true
+        fax:
+          type: string
+          example: '+12129876543'
+          nullable: true
+        description:
+          type: string
+          example: Internal champion
+          nullable: true
+        status:
+          type: string
+          example: open
+          nullable: true
+        websites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        social_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        updated_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+      additionalProperties: false
+    ContactsFilter:
+      type: object
+      x-graphql-type-name: ContactsFilter
+      example:
+        first_name: Elon
+        last_name: Musk
+        email: elon@tesla.com
+      properties:
+        name:
+          type: string
+          description: Name of the contact to filter on
+          example: Elon Musk
+        first_name:
+          type: string
+          description: First name of the contact to filter on
+          example: Elon
+        last_name:
+          type: string
+          description: Last name of the contact to filter on
+          example: Musk
+        email:
+          type: string
+          description: E-mail of the contact to filter on
+          example: elon@tesla.com
+      additionalProperties: false
+    ContactsSort:
+      type: object
+      x-graphql-type-name: ContactsSort
+      example:
+        by: created_at
+        direction: desc
+      properties:
+        by:
+          type: string
+          description: The field on which to sort the Contacts
+          enum:
+            - created_at
+            - updated_at
+            - name
+            - first_name
+            - last_name
+            - email
+          example: created_at
+        direction:
+          type: string
+          description: The direction in which to sort the Contacts
+          enum:
+            - asc
+            - desc
+          default: asc
+      required:
+        - by
+      additionalProperties: false
+    CreateCompanyResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    CreateContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    CreateUserResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: users
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    CustomField:
+      type: object
+      required:
+        - id
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          example: custom_technologies
+        value:
+          anyOf:
+            - type: string
+              example: Uses Salesforce and Marketo
+              nullable: true
+            - type: number
+              example: 10
+              nullable: true
+            - type: boolean
+              example: true
+              nullable: true
+            - type: array
+              items:
+                type: string
+    DeleteCompanyResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteUserResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: users
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    Email:
+      required:
+        - email
+      type: object
+      properties:
+        id:
+          type: string
+          example: '123'
+        email:
+          type: string
+          format: email
+          example: elon@musk.com
+          minLength: 1
+        type:
+          type: string
+          x-graphql-type-name: EmailType
+          enum:
+            - primary
+            - secondary
+            - work
+            - personal
+            - billing
+            - other
+          example: primary
+    GetCompaniesResponse:
+      x-graphql-type-name: CompanyList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Company'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    GetCompaniesArrayResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/GetCompanyResponse'
+    GetCompanyResponse:
+      x-graphql-type-name: company
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Company'
+    GetContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Contact'
+    GetContactsResponse:
+      x-graphql-type-name: ContactList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    GetUserResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/User'
+    GetUsersResponse:
+      x-graphql-type-name: UserList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: users
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    Links:
+      type: object
+      description: Links to navigate to previous or next pages through the API
+      properties:
+        previous:
+          type: string
+          description: Link to navigate to the previous page through the API
+          example: 'https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D'
+          nullable: true
+        current:
+          type: string
+          description: Link to navigate to the current page through the API
+          example: 'https://unify.apideck.com/crm/companies'
+        next:
+          type: string
+          description: Link to navigate to the previous page through the API
+          example: 'https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM'
+          nullable: true
+    Meta:
+      type: object
+      description: Reponse metadata
+      properties:
+        items_on_page:
+          type: integer
+          description: Number of items returned in the data property of the response
+          example: 50
+        cursors:
+          type: object
+          description: Cursors to navigate to previous or next pages through the API
+          properties:
+            previous:
+              type: string
+              description: Cursor to navigate to the previous page of results through the API
+              example: em9oby1jcm06OnBhZ2U6OjE=
+              nullable: true
+            current:
+              type: string
+              description: Cursor to navigate to the current page of results through the API
+              example: em9oby1jcm06OnBhZ2U6OjI=
+              nullable: true
+            next:
+              type: string
+              description: Cursor to navigate to the next page of results through the API
+              example: em9oby1jcm06OnBhZ2U6OjM=
+              nullable: true
+    NotFoundResponse:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 404
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Not Found
+        typeName:
+          type: string
+          description: The type of error returned
+          example: EntityNotFoundError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Unknown Widget
+        detail:
+          anyOf:
+            - type: string
+              example: "Could not find widget with id: '123'"
+            - type: object
+              example:
+                not_found:
+                  entity: widget
+                  id: '123'
+          description: Contains parameter or domain specific information related to the error and why it occured.
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#entitynotfounderror'
+    NotImplemented:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 501
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Not Implemented
+        typeName:
+          type: string
+          description: The type of error returned
+          example: MappingError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Unmapped Attribute
+        detail:
+          anyOf:
+            - type: string
+              example: Failed to retrieve Widget tokenUrl from 'components.securitySchemes.oauth2.flows'
+            - type: object
+          description: Contains parameter or domain specific information related to the error and why it occured.
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#mappingerror'
+    PaymentRequired:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 402
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Payment Required
+        typeName:
+          type: string
+          description: The type of error returned
+          example: RequestLimitError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Request Limit Reached
+        detail:
+          type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: You have reached your limit of 2000
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#requestlimiterror'
+    PhoneNumber:
+      required:
+        - number
+      type: object
+      properties:
+        id:
+          type: string
+          example: '12345'
+          nullable: true
+        number:
+          type: string
+          example: 111-111-1111
+          minLength: 1
+        type:
+          type: string
+          x-graphql-type-name: PhoneType
+          enum:
+            - primary
+            - secondary
+            - home
+            - office
+            - mobile
+            - assistant
+            - fax
+            - other
+          example: primary
+    SocialLink:
+      required:
+        - url
+      type: object
+      properties:
+        id:
+          type: string
+          example: '12345'
+          nullable: true
+        url:
+          type: string
+          example: 'https://www.twitter.com/apideck-io'
+          minLength: 1
+        type:
+          type: string
+          example: twitter
+          nullable: true
+    Tags:
+      type: array
+      items:
+        type: string
+      example:
+        - New
+    User:
+      required:
+        - email
+      x-pii:
+        - username
+        - first_name
+        - last_name
+        - email
+      properties:
+        id:
+          type: string
+          example: '12345'
+          readOnly: true
+        email:
+          type: string
+          format: email
+          example: elon@musk.com
+          minLength: 1
+        parent_id:
+          type: string
+          example: '54321'
+          nullable: true
+        username:
+          type: string
+          example: masterofcoin
+          nullable: true
+        first_name:
+          type: string
+          example: Elon
+          nullable: true
+        last_name:
+          type: string
+          example: Musk
+          nullable: true
+        image:
+          type: string
+          example: 'https://logo.clearbit.com/spacex.com?s=128'
+          nullable: true
+        language:
+          type: string
+          example: EN
+          nullable: true
+        status:
+          type: string
+          example: active
+          nullable: true
+        password:
+          type: string
+          example: supersecretpassword
+          writeOnly: true
+        updated_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+    Unauthorized:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 401
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Unauthorized
+        typeName:
+          type: string
+          description: The type of error returned
+          example: UnauthorizedError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Unauthorized Request
+        detail:
+          type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: Failed to generate valid JWT Session. Verify applicationId is correct
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#unauthorizederror'
+    UnexpectedError:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 400
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Bad Request
+        typeName:
+          type: string
+          description: The type of error returned
+          example: RequestHeadersValidationError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Invalid Params
+        detail:
+          anyOf:
+            - type: string
+              example: 'Missing Header: x-apideck-consumer-id'
+            - type: object
+              example:
+                missing:
+                  - - x-apideck-consumer-id: required
+          description: Contains parameter or domain specific information related to the error and why it occured.
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#unauthorizederror'
+    UnifiedId:
+      title: UnifiedId
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          readOnly: true
+          example: '12345'
+    Unprocessable:
+      properties:
+        status_code:
+          type: number
+          description: HTTP status code
+          example: 422
+        error:
+          type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
+          example: Unprocessable Entity
+        typeName:
+          type: string
+          description: The type of error returned
+          example: InvalidStateError
+        message:
+          type: string
+          description: A human-readable message providing more details about the error.
+          example: Invalid State
+        detail:
+          type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
+          example: State did not include unified_api
+        ref:
+          type: string
+          description: Link to documentation of error type
+          example: 'https://developers.apideck.com/errors#invalidstateerror'
+    UpdateCompanyResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateUserResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    Website:
+      type: object
+      required:
+        - url
+      properties:
+        id:
+          type: string
+          example: '12345'
+          nullable: true
+        url:
+          type: string
+          example: 'http://example.com'
+          minLength: 1
+        type:
+          type: string
+          x-graphql-type-name: WebsiteType
+          enum:
+            - primary
+            - secondary
+            - work
+            - personal
+            - other
+          example: primary
+  parameters:
+    applicationId:
+      name: x-apideck-app-id
+      in: header
+      required: true
+      description: The ID of your Unify application
+      schema:
+        type: string
+    serviceId:
+      name: x-apideck-service-id
+      in: header
+      description: 'Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.'
+      schema:
+        type: string
+    consumerId:
+      name: x-apideck-consumer-id
+      in: header
+      required: true
+      description: ID of the consumer which you want to get or push data from
+      schema:
+        type: string
+    raw:
+      name: raw
+      in: query
+      description: Include raw response. Mostly used for debugging purposes
+      schema:
+        type: boolean
+        default: true
+    id:
+      in: path
+      name: id
+      schema:
+        type: string
+      required: true
+      description: ID of the record you are acting upon.
+    limit:
+      name: limit
+      in: query
+      description: Number of records to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 20
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+      schema:
+        type: string
+        nullable: true
+        default: null
+    contactsFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/ContactsFilter'
+    contactsSort:
+      name: sort
+      in: query
+      description: Apply sorting (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/ContactsSort'
+    companiesFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/CompaniesFilter'
+    companiesSort:
+      name: sort
+      in: query
+      description: Apply sorting (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/CompaniesSort'
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequest'
+    CreateCompany:
+      description: Company created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCompanyResponse'
+    CreateContact:
+      description: Contact created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateContactResponse'
+    CreateUser:
+      description: User created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateUserResponse'
+    DeleteCompany:
+      description: Company deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteCompanyResponse'
+    DeleteContact:
+      description: Contact deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteContactResponse'
+    DeleteUser:
+      description: User deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteUserResponse'
+    GetCompanies:
+      description: Companies
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCompaniesResponse'
+    GetCompaniesArray:
+      description: Companies
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCompaniesArrayResponse'
+    GetCompany:
+      description: Company
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetCompanyResponse'
+    GetContact:
+      description: Contact
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetContactResponse'
+    GetContacts:
+      description: Contacts
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetContactsResponse'
+    GetUsers:
+      description: Users
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetUsersResponse'
+    GetUser:
+      description: User
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetUserResponse'
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundResponse'
+    NotImplemented:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotImplemented'
+    PaymentRequired:
+      description: Payment Required
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentRequired'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Unauthorized'
+    UnexpectedError:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnexpectedError'
+    Unprocessable:
+      description: Unprocessable
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Unprocessable'
+    UpdateCompany:
+      description: Company updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCompanyResponse'
+    UpdateContact:
+      description: Contact updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateContactResponse'
+    UpdateUser:
+      description: User updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateUserResponse'
+  securitySchemes:
+    apiKey:
+      type: http
+      scheme: bearer
+      description: |
+        To use API you have to sign up and get your own API key. Unify API accounts have sandbox mode and live mode API keys.
+        To change modes just use the appropriate key to get a live or test object. You can find your API keys on the unify settings of your Apideck app.
+        Your Apideck application_id can also be found on the same page.
+
+        Authenticate your API requests by including your test or live secret API key in the request header.
+
+        - Bearer authorization header: `Authorization: Bearer <your-apideck-api-key>`
+        - Application id header: `x-apideck-app-id: <your-apideck-app-id>`
+
+        You should use the public keys on the SDKs and the secret keys to authenticate API requests.
+
+        **Do not share or include your secret API keys on client side code.** Your API keys carry significant privileges. Please ensure to keep them 100% secure and be sure to not share your secret API keys in areas that are publicly accessible like GitHub.
+
+        Learn how to set the Authorization header inside Postman https://learning.postman.com/docs/postman/sending-api-requests/authorization/#api-key
+
+        Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
+    applicationId:
+      type: apiKey
+      in: header
+      name: x-apideck-app-id
+      description: The ID of your Unify application
+    consumerId:
+      type: apiKey
+      in: header
+      name: x-apideck-consumer-id
+      description: The ID of the consumer which you want to get or push data from
+paths:
+  /crm/companies:
+    post:
+      tags:
+        - Companies
+      operationId: companiesAdd
+      summary: Create company
+      description: Create company
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyArray'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateCompany'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    get:
+      tags:
+        - Companies
+      operationId: companiesList
+      summary: Get companies
+      description: Get companies
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetCompaniesArray'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
