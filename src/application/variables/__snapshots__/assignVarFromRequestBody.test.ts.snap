@@ -9,11 +9,85 @@ console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"C
 ]
 `;
 
+exports[`assignVarFromRequestBody should add postman collection var with name and request body value from a root element 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[POST]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[POST]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[POST]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"title\\":\\"UnifiedId\\",\\"required\\":[\\"id\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"}},\\"type\\":\\"object\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+  "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
+console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;
+
 exports[`assignVarFromRequestBody should add postman collection var without name and request body array value 1`] = `
 Array [
   "// pm.collectionVariables - Set companiesAdd.websites[0].url as variable from request body 
 pm.collectionVariables.set(\\"companiesAdd.websites[0].url\\", \\"http://example.com\\");
 console.log(\\"- use {{companiesAdd.websites[0].url}} as collection variable for value\\", \\"http://example.com\\");
+",
+]
+`;
+
+exports[`assignVarFromRequestBody should add postman collection var without name and request body array value from a root element 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[POST]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[POST]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[POST]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"title\\":\\"UnifiedId\\",\\"required\\":[\\"id\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"}},\\"type\\":\\"object\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+  "// pm.collectionVariables - Set companiesAdd.[0].websites[0].url as variable from request body 
+pm.collectionVariables.set(\\"companiesAdd.[0].websites[0].url\\", \\"http://example.com\\");
+console.log(\\"- use {{companiesAdd.[0].websites[0].url}} as collection variable for value\\", \\"http://example.com\\");
 ",
 ]
 `;
@@ -27,8 +101,79 @@ console.log(\\"- use {{companiesAdd.name}} as collection variable for value\\", 
 ]
 `;
 
+exports[`assignVarFromRequestBody should add postman collection var without name and request body value from a root element 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[POST]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[POST]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[POST]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"title\\":\\"UnifiedId\\",\\"required\\":[\\"id\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"}},\\"type\\":\\"object\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+  "// pm.collectionVariables - Set companiesAdd.[0].name as variable from request body 
+pm.collectionVariables.set(\\"companiesAdd.[0].name\\", \\"Copper\\");
+console.log(\\"- use {{companiesAdd.[0].name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;
+
 exports[`assignVarFromRequestBody should not fail when on unexisting request body value 1`] = `
 Array [
+  "",
+]
+`;
+
+exports[`assignVarFromRequestBody should not fail when on unexisting request body value from a root element 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[POST]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[POST]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[POST]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"title\\":\\"UnifiedId\\",\\"required\\":[\\"id\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"}},\\"type\\":\\"object\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
   "",
 ]
 `;
@@ -42,8 +187,82 @@ pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
 ]
 `;
 
+exports[`assignVarFromRequestBody should not show the log output for request body assign variable from a root element 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[POST]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[POST]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[POST]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"title\\":\\"UnifiedId\\",\\"required\\":[\\"id\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"}},\\"type\\":\\"object\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
+  "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
+// console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;
+
 exports[`assignVarFromRequestBody should show the log output for request body assign variable 1`] = `
 Array [
+  "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
+pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
+console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
+",
+]
+`;
+
+exports[`assignVarFromRequestBody should show the log output for request body assign variable from a root element 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[POST]::/crm/companies - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+  "// Validate response time 
+pm.test(\\"[POST]::/crm/companies - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+  "// Validate if response header has matching content-type
+pm.test(\\"[POST]::/crm/companies - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+  "// Validate if response has JSON Body 
+pm.test(\\"[POST]::/crm/companies - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+  "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"title\\":\\"UnifiedId\\",\\"required\\":[\\"id\\"],\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"readOnly\\":true,\\"example\\":\\"12345\\"}},\\"type\\":\\"object\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[POST]::/crm/companies - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\"]});
+});
+",
   "// pm.collectionVariables - Set leadsAdd.name as variable from request body 
 pm.collectionVariables.set(\\"leadsAdd.name\\", \\"Copper\\");
 console.log(\\"- use {{leadsAdd.name}} as collection variable for value\\", \\"Copper\\");
