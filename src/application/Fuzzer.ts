@@ -19,7 +19,7 @@ import {
 import traverse from 'traverse'
 import { TestSuite, VariationWriter } from './'
 import { OpenAPIV3 } from 'openapi-types'
-import { getByPath } from '../utils'
+import { getByPath, getJsonContentType } from '../utils'
 import { QueryParam } from 'postman-collection'
 import { PostmanDynamicVarGenerator } from '../services/PostmanDynamicVarGenerator'
 
@@ -53,9 +53,15 @@ export class Fuzzer {
     // No request body defined
     if (!oaOperation?.schema?.requestBody) return
 
-    // Analyse JSON schema
+    // Analyse request body & content-type
     const reqBody = oaOperation?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
-    const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
+    const jsonContentType = getJsonContentType(Object.keys(reqBody?.content))
+
+    // No JSON content-type defined
+    if (!jsonContentType) return
+
+    // Analyse JSON schema
+    const schema = reqBody?.content?.[jsonContentType]?.schema as OpenAPIV3.SchemaObject
     const fuzzItems = this.analyzeFuzzJsonSchema(schema)
 
     const fuzzReqBodySet = fuzzingSet.filter(fuzz => fuzz?.requestBody) as fuzzingConfig[]

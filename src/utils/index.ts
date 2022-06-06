@@ -1,4 +1,5 @@
 export * from './getByPath'
+export * from './getJsonContentType'
 export * from './inRange'
 export * from './isEmptyObject'
 export * from './isObject'
