@@ -23,5 +23,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Update browserslist
+        run: npx -y browserslist@latest --update-db
+
       - name: Run Unit Tests
         run: npm run test:ci
