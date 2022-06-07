@@ -784,7 +784,7 @@ export class Fuzzer {
       // Merge allOf properties
       jsonSchema.allOf.forEach(function (s) {
         if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties || {})
+          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
         }
       })
       delete jsonSchema.allOf
@@ -795,7 +795,7 @@ export class Fuzzer {
       // Merge anyOf properties
       jsonSchema.anyOf.forEach(function (s) {
         if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties || {})
+          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
           return
         }
       })
@@ -807,7 +807,7 @@ export class Fuzzer {
       // Merge oneOf properties
       jsonSchema.oneOf.forEach(function (s) {
         if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties || {})
+          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
           return
         }
       })
