@@ -7,7 +7,7 @@ export const pathToRegExp = (path: string): RegExp => {
     // Escape literal dots
     .replace(/\./g, '\\.')
     // Escape literal slashes
-    .replace(/\//g, '/')
+    .replace(/\/\//g, '/')
     // Escape literal question marks
     .replace(/\?/g, '\\?')
     // Ignore trailing slashes
