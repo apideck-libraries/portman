@@ -5,7 +5,7 @@
 - Tests - support bracket notation for targeted keys (#333)
 - Fuzzing - support JSON variants as content-type (#332)
 - Fuzzing - added support for allOf, anyOf, oneOf schemas (#335)
-- Bumped dependencies openapi-format, jest
+- Bumped dependencies openapi-format, jest, @apideck/better-ajv-errors, @apidevtools/swagger-parser, fs-extra
 
 ## v1.16.1 - (2022-04-13)
 - Set the 'logAssignVariables' option via 'cliOptions' to toggle console output for assigned variables
