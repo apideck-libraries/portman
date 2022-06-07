@@ -532,6 +532,147 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse allOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "id",
+      "path": "array[0].id",
+      "value": 100,
+    },
+    Object {
+      "field": "scheme",
+      "path": "array[0].scheme",
+      "value": 50,
+    },
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 120,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "id",
+      "path": "array[0].id",
+      "value": 1,
+    },
+    Object {
+      "field": "scheme",
+      "path": "array[0].scheme",
+      "value": 1,
+    },
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "name",
+    "array[0].id",
+    "array[0].scheme",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse anyOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "id",
+      "path": "array[0].id",
+      "value": 100,
+    },
+    Object {
+      "field": "scheme",
+      "path": "array[0].scheme",
+      "value": 50,
+    },
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 120,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "id",
+      "path": "array[0].id",
+      "value": 1,
+    },
+    Object {
+      "field": "scheme",
+      "path": "array[0].scheme",
+      "value": 1,
+    },
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "name",
+    "array[0].id",
+    "array[0].scheme",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse oneOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "id",
+      "path": "array[0].id",
+      "value": 100,
+    },
+    Object {
+      "field": "scheme",
+      "path": "array[0].scheme",
+      "value": 50,
+    },
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 120,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "id",
+      "path": "array[0].id",
+      "value": 1,
+    },
+    Object {
+      "field": "scheme",
+      "path": "array[0].scheme",
+      "value": 1,
+    },
+    Object {
+      "field": "name",
+      "path": "name",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "name",
+    "array[0].id",
+    "array[0].scheme",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse the request header for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestHeader",

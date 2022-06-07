@@ -1282,6 +1282,165 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it('should analyse allOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      allOf: [
+        {
+          description: 'Definition of base properties.',
+          properties: {
+            array: {
+              description: 'A collection.',
+              items: {
+                description: 'My Object.',
+                properties: {
+                  id: {
+                    description: 'The identifier.',
+                    example: '112223333',
+                    maxLength: 100,
+                    minLength: 1,
+                    type: 'string'
+                  },
+                  scheme: {
+                    description: 'The scheme.',
+                    example: 'FOO',
+                    maxLength: 50,
+                    minLength: 1,
+                    type: 'string'
+                  }
+                },
+                required: ['id', 'scheme'],
+                type: 'object'
+              },
+              type: 'array',
+              maxItems: 2,
+              minItems: 2
+            },
+            name: {
+              description: 'Name.',
+              example: 'My Name',
+              maxLength: 120,
+              minLength: 1,
+              type: 'string'
+            }
+          },
+          type: 'object'
+        }
+      ],
+      description: 'Definition of properties for creating an item.',
+      required: ['name']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse anyOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      anyOf: [
+        {
+          description: 'Definition of base properties.',
+          properties: {
+            array: {
+              description: 'A collection.',
+              items: {
+                description: 'My Object.',
+                properties: {
+                  id: {
+                    description: 'The identifier.',
+                    example: '112223333',
+                    maxLength: 100,
+                    minLength: 1,
+                    type: 'string'
+                  },
+                  scheme: {
+                    description: 'The scheme.',
+                    example: 'FOO',
+                    maxLength: 50,
+                    minLength: 1,
+                    type: 'string'
+                  }
+                },
+                required: ['id', 'scheme'],
+                type: 'object'
+              },
+              type: 'array',
+              maxItems: 2,
+              minItems: 2
+            },
+            name: {
+              description: 'Name.',
+              example: 'My Name',
+              maxLength: 120,
+              minLength: 1,
+              type: 'string'
+            }
+          },
+          type: 'object'
+        }
+      ],
+      description: 'Definition of properties for creating an item.',
+      required: ['name']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse oneOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      oneOf: [
+        {
+          description: 'Definition of base properties.',
+          properties: {
+            array: {
+              description: 'A collection.',
+              items: {
+                description: 'My Object.',
+                properties: {
+                  id: {
+                    description: 'The identifier.',
+                    example: '112223333',
+                    maxLength: 100,
+                    minLength: 1,
+                    type: 'string'
+                  },
+                  scheme: {
+                    description: 'The scheme.',
+                    example: 'FOO',
+                    maxLength: 50,
+                    minLength: 1,
+                    type: 'string'
+                  }
+                },
+                required: ['id', 'scheme'],
+                type: 'object'
+              },
+              type: 'array',
+              maxItems: 2,
+              minItems: 2
+            },
+            name: {
+              description: 'Name.',
+              example: 'My Name',
+              maxLength: 120,
+              minLength: 1,
+              type: 'string'
+            }
+          },
+          type: 'object'
+        }
+      ],
+      description: 'Definition of properties for creating an item.',
+      required: ['name']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
   it('should analyse the request query param for fuzz detection', async () => {
     // Analyse query param
     const reqQueryParams = oaOpQuery?.queryParams as unknown as OpenAPIV3.ParameterObject[]
