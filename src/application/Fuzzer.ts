@@ -764,7 +764,7 @@ export class Fuzzer {
   }
 
   public analyzeFuzzJsonSchema(
-    jsonSchema: OpenAPIV3.SchemaObject | undefined
+    jsonOrgSchema: OpenAPIV3.SchemaObject | undefined
   ): FuzzingSchemaItems | null {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -775,9 +775,46 @@ export class Fuzzer {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    if (!jsonSchema) return fuzzItems
+    if (!jsonOrgSchema) return fuzzItems
+    // Copy jsonSchema to keep the original jsonSchema untouched
+    const jsonSchema = { ...jsonOrgSchema } as OpenAPIV3.SchemaObject
 
-    const skipSchemaKeys = ['properties', 'items']
+    // Handle allOf properties
+    if (jsonSchema.allOf) {
+      // Merge allOf properties
+      jsonSchema.allOf.forEach(function (s) {
+        if ('properties' in s) {
+          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties || {})
+        }
+      })
+      delete jsonSchema.allOf
+    }
+
+    // Handle anyOf properties
+    if (jsonSchema.anyOf) {
+      // Merge anyOf properties
+      jsonSchema.anyOf.forEach(function (s) {
+        if ('properties' in s) {
+          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties || {})
+          return
+        }
+      })
+      delete jsonSchema.anyOf
+    }
+
+    // Handle oneOf properties
+    if (jsonSchema.oneOf) {
+      // Merge oneOf properties
+      jsonSchema.oneOf.forEach(function (s) {
+        if ('properties' in s) {
+          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties || {})
+          return
+        }
+      })
+      delete jsonSchema.oneOf
+    }
+
+    const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
 
