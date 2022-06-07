@@ -764,7 +764,7 @@ export class Fuzzer {
   }
 
   public analyzeFuzzJsonSchema(
-    jsonOrgSchema: OpenAPIV3.SchemaObject | undefined
+    originalJsonSchema: OpenAPIV3.SchemaObject | undefined
   ): FuzzingSchemaItems | null {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -775,9 +775,9 @@ export class Fuzzer {
       maxLengthFields: []
     } as FuzzingSchemaItems
 
-    if (!jsonOrgSchema) return fuzzItems
+    if (!originalJsonSchema) return fuzzItems
     // Copy jsonSchema to keep the original jsonSchema untouched
-    const jsonSchema = { ...jsonOrgSchema } as OpenAPIV3.SchemaObject
+    const jsonSchema = { ...originalJsonSchema } as OpenAPIV3.SchemaObject
 
     // Handle allOf properties
     if (jsonSchema.allOf) {
