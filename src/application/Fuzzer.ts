@@ -815,8 +815,57 @@ export class Fuzzer {
     }
 
     const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
+    // const skipCombineKeys = ['allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
+
+      // Handle allOf properties
+      if (node.allOf) {
+        const combinedObj = JSON.parse(JSON.stringify(node))
+        combinedObj.type = 'object'
+        // Merge allOf properties
+        combinedObj.allOf.forEach(function (s) {
+          if ('properties' in s) {
+            combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
+          }
+          if ('required' in s) {
+            combinedObj.properties.required = [
+              ...(combinedObj.properties.required || []),
+              ...s.required
+            ]
+          }
+        })
+        delete combinedObj.allOf
+        this.update(combinedObj)
+      }
+
+      // Handle anyOf properties
+      if (node.anyOf) {
+        const combinedObj = JSON.parse(JSON.stringify(node))
+        // Merge anyOf properties
+        combinedObj.anyOf.forEach(function (s) {
+          if ('properties' in s) {
+            combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
+            return
+          }
+        })
+        delete combinedObj.anyOf
+        this.update(combinedObj)
+      }
+
+      // Handle oneOf properties
+      if (node.oneOf) {
+        const combinedObj = JSON.parse(JSON.stringify(node))
+        // Merge oneOf properties
+        combinedObj.oneOf.forEach(function (s) {
+          if ('properties' in s) {
+            combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
+            return
+          }
+        })
+        delete combinedObj.oneOf
+        this.update(combinedObj)
+      }
 
       if (
         node?.minimum ||
