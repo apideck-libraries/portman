@@ -779,41 +779,6 @@ export class Fuzzer {
     // Copy jsonSchema to keep the original jsonSchema untouched
     const jsonSchema = { ...originalJsonSchema } as OpenAPIV3.SchemaObject
 
-    // Handle allOf properties
-    if (jsonSchema.allOf) {
-      // Merge allOf properties
-      jsonSchema.allOf.forEach(function (s) {
-        if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
-        }
-      })
-      delete jsonSchema.allOf
-    }
-
-    // Handle anyOf properties
-    if (jsonSchema.anyOf) {
-      // Merge anyOf properties
-      jsonSchema.anyOf.forEach(function (s) {
-        if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
-          return
-        }
-      })
-      delete jsonSchema.anyOf
-    }
-
-    // Handle oneOf properties
-    if (jsonSchema.oneOf) {
-      // Merge oneOf properties
-      jsonSchema.oneOf.forEach(function (s) {
-        if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
-          return
-        }
-      })
-      delete jsonSchema.oneOf
-    }
-
     const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
     // const skipCombineKeys = ['allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
@@ -848,6 +813,12 @@ export class Fuzzer {
             combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
             return
           }
+          if ('required' in s) {
+            combinedObj.properties.required = [
+              ...(combinedObj.properties.required || []),
+              ...s.required
+            ]
+          }
         })
         delete combinedObj.anyOf
         this.update(combinedObj)
@@ -861,6 +832,12 @@ export class Fuzzer {
           if ('properties' in s) {
             combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
             return
+          }
+          if ('required' in s) {
+            combinedObj.properties.required = [
+              ...(combinedObj.properties.required || []),
+              ...s.required
+            ]
           }
         })
         delete combinedObj.oneOf

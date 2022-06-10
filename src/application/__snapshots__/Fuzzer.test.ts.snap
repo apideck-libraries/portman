@@ -626,6 +626,122 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse nested allOf JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "address",
+      "path": "payload.order.address",
+      "value": 10,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "address",
+      "path": "payload.order.address",
+      "value": 1,
+    },
+    Object {
+      "field": "street",
+      "path": "payload.order.address.street",
+      "value": 5,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "streetNumber",
+      "path": "payload.order.address.streetNumber",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "payload",
+    "payload.order",
+    "payload.order.address",
+    "payload.order.address.street",
+    "payload.order.address.cityName",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse nested anyOf JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "address",
+      "path": "payload.order.address",
+      "value": 10,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "address",
+      "path": "payload.order.address",
+      "value": 1,
+    },
+    Object {
+      "field": "street",
+      "path": "payload.order.street",
+      "value": 5,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "streetNumber",
+      "path": "payload.order.streetNumber",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "payload",
+    "payload.order",
+    "payload.order.address",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse nested oneOf JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "address",
+      "path": "payload.order.address",
+      "value": 10,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "address",
+      "path": "payload.order.address",
+      "value": 1,
+    },
+    Object {
+      "field": "street",
+      "path": "payload.order.street",
+      "value": 5,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "streetNumber",
+      "path": "payload.order.streetNumber",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "payload",
+    "payload.order",
+    "payload.order.address",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse oneOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
 Object {
   "fuzzType": "requestBody",
