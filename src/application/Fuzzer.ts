@@ -780,7 +780,6 @@ export class Fuzzer {
     const jsonSchema = { ...originalJsonSchema } as OpenAPIV3.SchemaObject
 
     const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
-    // const skipCombineKeys = ['allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
       let requiredPath = ``
