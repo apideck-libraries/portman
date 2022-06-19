@@ -497,6 +497,49 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body with deeply object nesting for fuzz detection with minimum length object 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "nestedOb",
+      "path": "nestedOb",
+      "value": 100,
+    },
+    Object {
+      "field": "level1",
+      "path": "nestedOb.level1",
+      "value": 100,
+    },
+    Object {
+      "field": "level2",
+      "path": "nestedOb.level1.level2",
+      "value": 100,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "nestedOb",
+      "path": "nestedOb",
+      "value": 1,
+    },
+    Object {
+      "field": "level1",
+      "path": "nestedOb.level1",
+      "value": 1,
+    },
+    Object {
+      "field": "level2",
+      "path": "nestedOb.level1.level2",
+      "value": 1,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [],
+}
+`;
+
 exports[`Fuzzer should analyse JSON schema of request body with deeply object nesting for fuzz detection with nullable property 1`] = `
 Object {
   "fuzzType": "requestBody",
@@ -685,14 +728,14 @@ Object {
     },
     Object {
       "field": "street",
-      "path": "payload.order.street",
+      "path": "payload.order.address.street",
       "value": 5,
     },
   ],
   "minimumNumberFields": Array [
     Object {
       "field": "streetNumber",
-      "path": "payload.order.streetNumber",
+      "path": "payload.order.address.streetNumber",
       "value": 1,
     },
   ],
@@ -700,6 +743,8 @@ Object {
     "payload",
     "payload.order",
     "payload.order.address",
+    "payload.order.address.street",
+    "payload.order.address.cityName",
   ],
 }
 `;
@@ -723,14 +768,14 @@ Object {
     },
     Object {
       "field": "street",
-      "path": "payload.order.street",
+      "path": "payload.order.address.street",
       "value": 5,
     },
   ],
   "minimumNumberFields": Array [
     Object {
       "field": "streetNumber",
-      "path": "payload.order.streetNumber",
+      "path": "payload.order.address.streetNumber",
       "value": 1,
     },
   ],
@@ -738,6 +783,8 @@ Object {
     "payload",
     "payload.order",
     "payload.order.address",
+    "payload.order.address.street",
+    "payload.order.address.cityName",
   ],
 }
 `;

@@ -891,6 +891,31 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it.skip('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      type: 'object',
+      minLength: 1,
+      maxLength: 5,
+      properties: {
+        level1: {
+          required: ['code'],
+          properties: {
+            code: {
+              type: 'number',
+              example: 1,
+              minimum: 1,
+              maximum: 100
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
   it('should analyse JSON schema of request body with deeply object nesting for fuzz detection', async () => {
     // Analyse JSON schema with nested properties
     const schema = {
@@ -949,6 +974,40 @@ describe('Fuzzer', () => {
                       maxLength: 5,
                       nullable: true
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with deeply object nesting for fuzz detection with minimum length object', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      nestedOb: {
+        minLength: 1,
+        maxLength: 100,
+        type: 'object',
+        properties: {
+          level1: {
+            type: 'object',
+            minLength: 1,
+            maxLength: 100,
+            properties: {
+              level2: {
+                type: 'object',
+                minLength: 1,
+                maxLength: 100,
+                properties: {
+                  code: {
+                    type: 'number',
+                    example: 1
                   }
                 }
               }

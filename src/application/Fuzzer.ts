@@ -783,65 +783,37 @@ export class Fuzzer {
     // const skipCombineKeys = ['allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
+      let requiredPath = ``
 
-      // Handle allOf properties
-      if (node.allOf) {
-        const combinedObj = JSON.parse(JSON.stringify(node))
-        combinedObj.type = 'object'
-        // Merge allOf properties
-        combinedObj.allOf.forEach(function (s) {
+      // Merge anyOf, oneOf, allOf OpenAPI schema objects into a simplified schema object
+      if (node.allOf || node.oneOf || node.anyOf) {
+        const SchemaObject = traverse(node).clone()
+        // const newObject: OpenAPIV3.SchemaObject = {}
+        const modelType = SchemaObject.anyOf ? 'anyOf' : SchemaObject.oneOf ? 'oneOf' : 'allOf'
+
+        // Merge properties & required
+        SchemaObject[modelType].forEach(function (s) {
+          // Initiate SchemaObject
+          if ('type' in s) {
+            SchemaObject.type = s.type
+          }
+
           if ('properties' in s) {
-            combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
+            SchemaObject.properties = Object.assign(SchemaObject.properties || {}, s.properties)
           }
           if ('required' in s) {
-            combinedObj.properties.required = [
-              ...(combinedObj.properties.required || []),
-              ...s.required
-            ]
+            SchemaObject.required = [...(SchemaObject.required || []), ...s.required]
           }
+          if (!SchemaObject.allOf) return // Take 1st item when 'oneOf' : 'anyOf'
         })
-        delete combinedObj.allOf
-        this.update(combinedObj)
+        delete SchemaObject[modelType]
+        this.update(SchemaObject)
+        node = SchemaObject
       }
 
-      // Handle anyOf properties
-      if (node.anyOf) {
-        const combinedObj = JSON.parse(JSON.stringify(node))
-        // Merge anyOf properties
-        combinedObj.anyOf.forEach(function (s) {
-          if ('properties' in s) {
-            combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
-            return
-          }
-          if ('required' in s) {
-            combinedObj.properties.required = [
-              ...(combinedObj.properties.required || []),
-              ...s.required
-            ]
-          }
-        })
-        delete combinedObj.anyOf
-        this.update(combinedObj)
-      }
-
-      // Handle oneOf properties
-      if (node.oneOf) {
-        const combinedObj = JSON.parse(JSON.stringify(node))
-        // Merge oneOf properties
-        combinedObj.oneOf.forEach(function (s) {
-          if ('properties' in s) {
-            combinedObj.properties = Object.assign(combinedObj.properties || {}, s.properties)
-            return
-          }
-          if ('required' in s) {
-            combinedObj.properties.required = [
-              ...(combinedObj.properties.required || []),
-              ...s.required
-            ]
-          }
-        })
-        delete combinedObj.oneOf
-        this.update(combinedObj)
+      // Remove unwanted anyOf, oneOf, allOf
+      if (this.key === 'anyOf' || this.key === 'oneOf' || this.key === 'allOf') {
+        this.delete()
       }
 
       if (
@@ -866,23 +838,26 @@ export class Fuzzer {
           if (item?.isRoot && item?.node?.type === 'array') {
             path += `[0].`
           }
+
+          // Handle required path
+          requiredPath = path
         })
       }
 
       if (node?.required) {
         // Build path for nested required properties
         if (node?.type === 'object' && this.key && !skipSchemaKeys.includes(this.key)) {
-          path += `${this.key}.`
+          requiredPath += `${this.key}.`
         }
         // Register fuzz-able required fields
-        const requiredFuzz = node.required.map(req => `${path}${req}`)
+        const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
         fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
       }
 
       // Unregister fuzz-able nullable required fields
       if (node?.nullable === true && fuzzItems.requiredFields.length > 0) {
         fuzzItems.requiredFields = fuzzItems.requiredFields.filter(
-          item => item !== `${path}${this.key}`
+          item => item !== `${requiredPath}${this.key}`
         )
       }
 
