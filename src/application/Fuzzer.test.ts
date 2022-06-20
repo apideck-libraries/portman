@@ -196,6 +196,54 @@ describe('Fuzzer', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should fuzz the request body array to empty when minimum length is 1', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'addresses', field: 'addresses', value: 1 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the request body array to 1 when the minimum length of 2', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'addresses', field: 'addresses', value: 2 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it.skip('should fuzz the request body object to 1 when the minimum length of 2', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'websites[0]', field: 'websites[0]', value: 2 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should fuzz the length of a string prop of the request body above the defined negative minimum', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -284,6 +332,38 @@ describe('Fuzzer', () => {
       maximumNumberFields: [],
       minLengthFields: [],
       maxLengthFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 10 }]
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the request body array to maximum length above the defined maximum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: [{ path: 'addresses', field: 'addresses', value: 3 }]
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it.skip('should fuzz the request body object to maximum length above the defined maximum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: [{ path: 'websites.[0]', field: 'websites.[0]', value: 5 }]
     } as FuzzingSchemaItems
 
     fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)

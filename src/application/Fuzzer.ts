@@ -574,12 +574,30 @@ export class Fuzzer {
 
       // Change length of value
       let newLenVal
+      // Handle number
       if (typeof reqValue === 'number' && typeof field.value === 'number') {
         newLenVal = Number(reqValue.toString().substr(0, field.value - 1)) || 0
       }
+      // Handle string
       if (typeof reqValue === 'string' && typeof field.value === 'number') {
         newLenVal = reqValue.substring(0, field.value - 1)
       }
+      // Handle array
+      if (Array.isArray(reqValue) && typeof field.value === 'number') {
+        const newLength = field.value - 1
+        newLenVal = reqValue.slice(0, newLength)
+      }
+      // TODO Handle object keys
+      // if (typeof reqValue === 'object' && typeof field.value === 'number') {
+      //   let objKeysLength = Object.keys(reqValue).length
+      //   // increment object keys until the length is equal to the max length
+      //   while (objKeysLength > field.value - 1) {
+      //     const keys = Object.keys(reqValue)
+      //     delete reqValue[keys[keys.length - 1]]
+      //     objKeysLength--
+      //   }
+      //   newLenVal = reqValue
+      // }
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
@@ -700,12 +718,30 @@ export class Fuzzer {
       }
 
       // Change length of value
+      // Handle number
       if (reqValue && typeof reqValue === 'number' && typeof field.value === 'number') {
         field.value = Number(reqValue.toString().padEnd(field.value + 1, '0')) || reqValue
       }
+      // Handle string
       if (reqValue && typeof reqValue === 'string' && typeof field.value === 'number' && reqValue) {
         field.value = reqValue.padEnd(field.value + 1, reqValue.charAt(0))
       }
+      // Handle array
+      if (Array.isArray(reqValue) && typeof field.value === 'number') {
+        field.value = reqValue.concat(Array(field.value + 1).fill(reqValue[0]))
+      }
+      // TODO Handle object keys
+      // if (typeof reqValue === 'object' && typeof field.value === 'number') {
+      //   const [orgKey, orgValue] = Object.entries(reqValue)[0] || {}
+      //   let objKeysLength = Object.keys(reqValue).length
+      //   // increment object keys until the length is equal to the max length
+      //   while (objKeysLength < field.value + 1) {
+      //     const extraKey = `${orgKey}_${objKeysLength}`
+      //     reqValue[extraKey] = orgValue
+      //     objKeysLength++
+      //   }
+      //   field.value = reqValue
+      // }
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
@@ -875,14 +911,14 @@ export class Fuzzer {
           value: node.maximum
         })
       }
-      if (node?.minLength) {
+      if (node?.minLength && !node?.type?.includes('object')) {
         fuzzItems?.minLengthFields?.push({
           path: `${path}${this.key}`,
           field: this.key,
           value: node.minLength
         })
       }
-      if (node?.maxLength) {
+      if (node?.maxLength && !node?.type?.includes('object')) {
         fuzzItems?.maxLengthFields?.push({
           path: `${path}${this.key}`,
           field: this.key,

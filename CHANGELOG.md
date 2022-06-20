@@ -5,6 +5,7 @@
 - Tests - support bracket notation for targeted keys (#333)
 - Fuzzing - support JSON variants as content-type (#332)
 - Fuzzing - added support for allOf, anyOf, oneOf schemas (#335)
+- Fuzzing - added min/maxLength support for arrays (#335)
 
 ## v1.16.1 - (2022-04-13)
 - Set the 'logAssignVariables' option via 'cliOptions' to toggle console output for assigned variables
