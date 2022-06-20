@@ -131,4 +131,16 @@ describe('testResponseHeaderContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content header test for property check & result matches oneOf values', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        oneOf: ['Space-X', 'Tesla']
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

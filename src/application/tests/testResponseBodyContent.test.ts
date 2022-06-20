@@ -318,4 +318,52 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for root array property check & result oneOf value', async () => {
+    const contentTests = [
+      {
+        key: '[0].data.name',
+        oneOf: ['Spacex', 'Tesla']
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for string for property check & oneOf string values', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        oneOf: ['Spacex', 'Tesla']
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for string for property check & oneOf boolean values', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        oneOf: [true, false]
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & oneOf number values', async () => {
+    const contentTests = [
+      {
+        key: 'status_code',
+        oneOf: [200, 201]
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

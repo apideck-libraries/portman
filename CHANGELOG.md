@@ -6,6 +6,7 @@
 - Fuzzing - support JSON variants as content-type (#332)
 - Fuzzing - added support for allOf, anyOf, oneOf schemas (#335)
 - Fuzzing - added min/maxLength support for arrays (#335)
+- ContentTest - Added "oneOf" check for response body & header (#313)
 - Bumped dependencies openapi-format, jest, @apideck/better-ajv-errors, @apidevtools/swagger-parser, fs-extra
 
 ## v1.16.1 - (2022-04-13)

@@ -14,6 +14,10 @@
             "contains": "Musk"
           },
           {
+            "key": "status_code",
+            "oneOf": [200, 201]
+          },
+          {
             "key": "data[0].monetary_amount",
             "value": 75000
           },
