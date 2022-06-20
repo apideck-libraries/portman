@@ -574,12 +574,30 @@ export class Fuzzer {
 
       // Change length of value
       let newLenVal
+      // Handle number
       if (typeof reqValue === 'number' && typeof field.value === 'number') {
         newLenVal = Number(reqValue.toString().substr(0, field.value - 1)) || 0
       }
+      // Handle string
       if (typeof reqValue === 'string' && typeof field.value === 'number') {
         newLenVal = reqValue.substring(0, field.value - 1)
       }
+      // Handle array
+      if (Array.isArray(reqValue) && typeof field.value === 'number') {
+        const newLength = field.value - 1
+        newLenVal = reqValue.slice(0, newLength)
+      }
+      // TODO Handle object keys
+      // if (typeof reqValue === 'object' && typeof field.value === 'number') {
+      //   let objKeysLength = Object.keys(reqValue).length
+      //   // increment object keys until the length is equal to the max length
+      //   while (objKeysLength > field.value - 1) {
+      //     const keys = Object.keys(reqValue)
+      //     delete reqValue[keys[keys.length - 1]]
+      //     objKeysLength--
+      //   }
+      //   newLenVal = reqValue
+      // }
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
@@ -700,12 +718,30 @@ export class Fuzzer {
       }
 
       // Change length of value
+      // Handle number
       if (reqValue && typeof reqValue === 'number' && typeof field.value === 'number') {
         field.value = Number(reqValue.toString().padEnd(field.value + 1, '0')) || reqValue
       }
+      // Handle string
       if (reqValue && typeof reqValue === 'string' && typeof field.value === 'number' && reqValue) {
         field.value = reqValue.padEnd(field.value + 1, reqValue.charAt(0))
       }
+      // Handle array
+      if (Array.isArray(reqValue) && typeof field.value === 'number') {
+        field.value = reqValue.concat(Array(field.value + 1).fill(reqValue[0]))
+      }
+      // TODO Handle object keys
+      // if (typeof reqValue === 'object' && typeof field.value === 'number') {
+      //   const [orgKey, orgValue] = Object.entries(reqValue)[0] || {}
+      //   let objKeysLength = Object.keys(reqValue).length
+      //   // increment object keys until the length is equal to the max length
+      //   while (objKeysLength < field.value + 1) {
+      //     const extraKey = `${orgKey}_${objKeysLength}`
+      //     reqValue[extraKey] = orgValue
+      //     objKeysLength++
+      //   }
+      //   field.value = reqValue
+      // }
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
@@ -779,44 +815,41 @@ export class Fuzzer {
     // Copy jsonSchema to keep the original jsonSchema untouched
     const jsonSchema = { ...originalJsonSchema } as OpenAPIV3.SchemaObject
 
-    // Handle allOf properties
-    if (jsonSchema.allOf) {
-      // Merge allOf properties
-      jsonSchema.allOf.forEach(function (s) {
-        if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
-        }
-      })
-      delete jsonSchema.allOf
-    }
-
-    // Handle anyOf properties
-    if (jsonSchema.anyOf) {
-      // Merge anyOf properties
-      jsonSchema.anyOf.forEach(function (s) {
-        if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
-          return
-        }
-      })
-      delete jsonSchema.anyOf
-    }
-
-    // Handle oneOf properties
-    if (jsonSchema.oneOf) {
-      // Merge oneOf properties
-      jsonSchema.oneOf.forEach(function (s) {
-        if ('properties' in s) {
-          jsonSchema.properties = Object.assign(jsonSchema.properties || {}, s.properties)
-          return
-        }
-      })
-      delete jsonSchema.oneOf
-    }
-
     const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
+      let requiredPath = ``
+
+      // Merge anyOf, oneOf, allOf OpenAPI schema objects into a simplified schema object
+      if (node.allOf || node.oneOf || node.anyOf) {
+        const SchemaObject = traverse(node).clone()
+        // const newObject: OpenAPIV3.SchemaObject = {}
+        const modelType = SchemaObject.anyOf ? 'anyOf' : SchemaObject.oneOf ? 'oneOf' : 'allOf'
+
+        // Merge properties & required
+        SchemaObject[modelType].forEach(function (s) {
+          // Initiate SchemaObject
+          if ('type' in s) {
+            SchemaObject.type = s.type
+          }
+
+          if ('properties' in s) {
+            SchemaObject.properties = Object.assign(SchemaObject.properties || {}, s.properties)
+          }
+          if ('required' in s) {
+            SchemaObject.required = [...(SchemaObject.required || []), ...s.required]
+          }
+          if (!SchemaObject.allOf) return // Take 1st item when 'oneOf' : 'anyOf'
+        })
+        delete SchemaObject[modelType]
+        this.update(SchemaObject)
+        node = SchemaObject
+      }
+
+      // Remove unwanted anyOf, oneOf, allOf
+      if (this.key === 'anyOf' || this.key === 'oneOf' || this.key === 'allOf') {
+        this.delete()
+      }
 
       if (
         node?.minimum ||
@@ -840,23 +873,26 @@ export class Fuzzer {
           if (item?.isRoot && item?.node?.type === 'array') {
             path += `[0].`
           }
+
+          // Handle required path
+          requiredPath = path
         })
       }
 
       if (node?.required) {
         // Build path for nested required properties
         if (node?.type === 'object' && this.key && !skipSchemaKeys.includes(this.key)) {
-          path += `${this.key}.`
+          requiredPath += `${this.key}.`
         }
         // Register fuzz-able required fields
-        const requiredFuzz = node.required.map(req => `${path}${req}`)
+        const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
         fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
       }
 
       // Unregister fuzz-able nullable required fields
       if (node?.nullable === true && fuzzItems.requiredFields.length > 0) {
         fuzzItems.requiredFields = fuzzItems.requiredFields.filter(
-          item => item !== `${path}${this.key}`
+          item => item !== `${requiredPath}${this.key}`
         )
       }
 
@@ -875,14 +911,14 @@ export class Fuzzer {
           value: node.maximum
         })
       }
-      if (node?.minLength) {
+      if (node?.minLength && !node?.type?.includes('object')) {
         fuzzItems?.minLengthFields?.push({
           path: `${path}${this.key}`,
           field: this.key,
           value: node.minLength
         })
       }
-      if (node?.maxLength) {
+      if (node?.maxLength && !node?.type?.includes('object')) {
         fuzzItems?.maxLengthFields?.push({
           path: `${path}${this.key}`,
           field: this.key,

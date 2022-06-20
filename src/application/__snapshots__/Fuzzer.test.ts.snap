@@ -497,6 +497,17 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body with deeply object nesting for fuzz detection with minimum length object 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [],
+}
+`;
+
 exports[`Fuzzer should analyse JSON schema of request body with deeply object nesting for fuzz detection with nullable property 1`] = `
 Object {
   "fuzzType": "requestBody",
@@ -622,6 +633,93 @@ Object {
     "name",
     "array[0].id",
     "array[0].scheme",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse nested allOf JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "street",
+      "path": "payload.order.address.street",
+      "value": 5,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "streetNumber",
+      "path": "payload.order.address.streetNumber",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "payload",
+    "payload.order",
+    "payload.order.address",
+    "payload.order.address.street",
+    "payload.order.address.cityName",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse nested anyOf JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "street",
+      "path": "payload.order.address.street",
+      "value": 5,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "streetNumber",
+      "path": "payload.order.address.streetNumber",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "payload",
+    "payload.order",
+    "payload.order.address",
+    "payload.order.address.street",
+    "payload.order.address.cityName",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse nested oneOf JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "street",
+      "path": "payload.order.address.street",
+      "value": 5,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "streetNumber",
+      "path": "payload.order.address.streetNumber",
+      "value": 1,
+    },
+  ],
+  "requiredFields": Array [
+    "payload",
+    "payload.order",
+    "payload.order.address",
+    "payload.order.address.street",
+    "payload.order.address.cityName",
   ],
 }
 `;
@@ -2081,6 +2179,342 @@ Array [
     "value": "elon@tesla.com",
   },
 ]
+`;
+
+exports[`Fuzzer should fuzz the request body array to 1 when the minimum length of 2 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the request body array to empty when minimum length is 1 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
+`;
+
+exports[`Fuzzer should fuzz the request body array to maximum length above the defined maximum 1`] = `
+"{
+    \\"name\\": \\"Elon Musk\\",
+    \\"company_name\\": \\"Spacex\\",
+    \\"owner_id\\": \\"54321\\",
+    \\"company_id\\": \\"2\\",
+    \\"contact_id\\": \\"2\\",
+    \\"first_name\\": \\"Elon\\",
+    \\"last_name\\": \\"Musk\\",
+    \\"description\\": \\"A thinker\\",
+    \\"prefix\\": \\"Sir\\",
+    \\"title\\": \\"CEO\\",
+    \\"status\\": \\"New\\",
+    \\"monetary_amount\\": 75000,
+    \\"currency\\": \\"USD\\",
+    \\"fax\\": \\"+12129876543\\",
+    \\"websites\\": [
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"url\\": \\"http://example.com\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"addresses\\": [
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        },
+        {
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\",
+            \\"name\\": \\"HQ US\\",
+            \\"line1\\": \\"Main street\\",
+            \\"line2\\": \\"apt #\\",
+            \\"city\\": \\"San Francisco\\",
+            \\"state\\": \\"CA\\",
+            \\"postal_code\\": \\"94104\\",
+            \\"country\\": \\"US\\",
+            \\"latitude\\": \\"40.759211\\",
+            \\"longitude\\": \\"-73.984638\\"
+        }
+    ],
+    \\"social_links\\": [
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        },
+        {
+            \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"twitter\\"
+        }
+    ],
+    \\"phone_numbers\\": [
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"number\\": \\"111-111-1111\\",
+            \\"id\\": \\"12345\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"emails\\": [
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        },
+        {
+            \\"email\\": \\"elon@musk.com\\",
+            \\"id\\": \\"123\\",
+            \\"type\\": \\"primary\\"
+        }
+    ],
+    \\"custom_fields\\": [
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        },
+        {
+            \\"id\\": \\"custom_technologies\\",
+            \\"value\\": \\"Uses Salesforce and Marketo\\"
+        }
+    ],
+    \\"tags\\": [
+        \\"New\\"
+    ]
+}"
 `;
 
 exports[`Fuzzer should fuzz the request body to empty when minimum length is 1 1`] = `
