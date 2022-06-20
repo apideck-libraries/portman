@@ -108,6 +108,7 @@ These target options are both supported for defining a target. In case both are 
   - **key (String)** : The header name that will be targeted in the response header to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response header matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response header.
+  - **oneOf (String[],Number[],Boolean[])** : The value that will be used to check one of the values is matching the value of the response header.
   - **length (Number)** : The number that will be used to check if the value of the response header has a length of the defined number of characters.
   - **minLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
   - **maxLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
@@ -450,6 +451,16 @@ When you add a `contains` test, the check validates if the response header conta
 // Response header should contain value "/operations/" for "Operation-Location"
 pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' contains '/operations/'", function() {
   pm.expect(pm.response.headers.get("Operation-Location")).to.include("/operations/");
+});
+```
+
+When you add a `oneOf` test, the check validates if the response header matches one of the defined values.
+
+`oneOf` example:
+```js
+// Response header should be one of the values "/operations/123,/operations/456" for "Operation-Location"
+pm.test("[GET]::/crm/leads - Content check if header value for 'Operation-Location' is matching one of: '/operations/123,/operations/456'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).to.be.oneOf(["/operations/123","/operations/456"]);
 });
 ```
 

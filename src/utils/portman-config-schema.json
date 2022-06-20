@@ -858,6 +858,12 @@
                         "number"
                       ]
                     },
+                    "oneOf": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
                     "value": {
                       "type": [
                         "string",

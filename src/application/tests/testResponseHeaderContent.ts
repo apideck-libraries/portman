@@ -9,6 +9,7 @@ export const testResponseHeaderContent = (
   ResponseHeaderTests.map(check => {
     let pmTestValue = ''
     let pmTestContains = ''
+    let pmTestOneOf = ''
     let pmTestLength = ''
     let pmTestMinLength = ''
     let pmTestMaxLength = ''
@@ -51,6 +52,24 @@ export const testResponseHeaderContent = (
         `  pm.expect(pm.response.headers.get("${check.key}")).to.include(${checkContains});\n`,
         `});\n`
       ].join('')
+    }
+
+    if (check.oneOf) {
+      if (Array.isArray(check.oneOf)) {
+        // Make items safe to inject into test
+        const safeOneOf = check.oneOf.map(item => {
+          // Quote string value
+          return `"${item}"`
+        })
+
+        pmTestOneOf = [
+          `// Response header should be one of the values "${check.oneOf}" for "${check.key}"\n`,
+          `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+          ` - Content check if header value for '${check.key}' is matching one of: '${check.oneOf}'", function() {\n`,
+          `  pm.expect(pm.response.headers.get("${check.key}")).to.be.oneOf([${safeOneOf}]);\n`,
+          `});\n`
+        ].join('')
+      }
     }
 
     if (check.length) {
@@ -116,6 +135,7 @@ export const testResponseHeaderContent = (
     if (check?.key) testResponseHeader(check.key, pmOperation, null)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
+    if (pmTestOneOf !== '') writeOperationTestScript(pmOperation, pmTestOneOf)
     if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
     if (pmTestMinLength !== '') writeOperationTestScript(pmOperation, pmTestMinLength)
     if (pmTestMaxLength !== '') writeOperationTestScript(pmOperation, pmTestMaxLength)
