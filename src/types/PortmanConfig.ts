@@ -250,7 +250,7 @@ export type TestConfig = {
 type fuzzingSchemaItem = {
   path: string
   field?: string
-  value: string | number
+  value: any
 }
 
 export const PortmanFuzzTypes = {

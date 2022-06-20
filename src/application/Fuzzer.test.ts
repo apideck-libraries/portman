@@ -196,6 +196,54 @@ describe('Fuzzer', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should fuzz the request body array to empty when minimum length is 1', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'addresses', field: 'addresses', value: 1 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the request body array to 1 when the minimum length of 2', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'addresses', field: 'addresses', value: 2 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it.skip('should fuzz the request body object to 1 when the minimum length of 2', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [{ path: 'websites[0]', field: 'websites[0]', value: 2 }],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should fuzz the length of a string prop of the request body above the defined negative minimum', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -284,6 +332,38 @@ describe('Fuzzer', () => {
       maximumNumberFields: [],
       minLengthFields: [],
       maxLengthFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 10 }]
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the request body array to maximum length above the defined maximum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: [{ path: 'addresses', field: 'addresses', value: 3 }]
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it.skip('should fuzz the request body object to maximum length above the defined maximum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: [{ path: 'websites.[0]', field: 'websites.[0]', value: 5 }]
     } as FuzzingSchemaItems
 
     fuzzer.injectFuzzMaxLengthVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
@@ -891,6 +971,31 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it.skip('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      type: 'object',
+      minLength: 1,
+      maxLength: 5,
+      properties: {
+        level1: {
+          required: ['code'],
+          properties: {
+            code: {
+              type: 'number',
+              example: 1,
+              minimum: 1,
+              maximum: 100
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
   it('should analyse JSON schema of request body with deeply object nesting for fuzz detection', async () => {
     // Analyse JSON schema with nested properties
     const schema = {
@@ -949,6 +1054,40 @@ describe('Fuzzer', () => {
                       maxLength: 5,
                       nullable: true
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse JSON schema of request body with deeply object nesting for fuzz detection with minimum length object', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      nestedOb: {
+        minLength: 1,
+        maxLength: 100,
+        type: 'object',
+        properties: {
+          level1: {
+            type: 'object',
+            minLength: 1,
+            maxLength: 100,
+            properties: {
+              level2: {
+                type: 'object',
+                minLength: 1,
+                maxLength: 100,
+                properties: {
+                  code: {
+                    type: 'number',
+                    example: 1
                   }
                 }
               }
@@ -1435,6 +1574,165 @@ describe('Fuzzer', () => {
       ],
       description: 'Definition of properties for creating an item.',
       required: ['name']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse nested allOf JSON schema of request body with a mix of nested items for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      type: 'object',
+      properties: {
+        payload: {
+          type: 'object',
+          properties: {
+            order: {
+              type: 'object',
+              properties: {
+                address: {
+                  allOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        street: {
+                          type: 'string',
+                          minLength: 5,
+                          title: 'street'
+                        },
+                        streetNumber: {
+                          type: 'number',
+                          minimum: 1,
+                          title: 'street number'
+                        },
+                        cityName: {
+                          type: 'string',
+                          title: 'cityName'
+                        }
+                      },
+                      required: ['street', 'cityName'],
+                      title: 'Address'
+                    }
+                  ],
+                  minLength: 1,
+                  maxLength: 10
+                }
+              },
+              required: ['address'],
+              title: 'order'
+            }
+          },
+          required: ['order']
+        }
+      },
+      required: ['payload']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse nested anyOf JSON schema of request body with a mix of nested items for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      type: 'object',
+      properties: {
+        payload: {
+          type: 'object',
+          properties: {
+            order: {
+              type: 'object',
+              properties: {
+                address: {
+                  anyOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        street: {
+                          type: 'string',
+                          minLength: 5,
+                          title: 'street'
+                        },
+                        streetNumber: {
+                          type: 'number',
+                          minimum: 1,
+                          title: 'street number'
+                        },
+                        cityName: {
+                          type: 'string',
+                          title: 'cityName'
+                        }
+                      },
+                      required: ['street', 'cityName'],
+                      title: 'Address'
+                    }
+                  ],
+                  minLength: 1,
+                  maxLength: 10
+                }
+              },
+              required: ['address'],
+              title: 'order'
+            }
+          },
+          required: ['order']
+        }
+      },
+      required: ['payload']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse nested oneOf JSON schema of request body with a mix of nested items for fuzz detection', async () => {
+    // Analyse JSON schema with nested properties
+    const schema = {
+      type: 'object',
+      properties: {
+        payload: {
+          type: 'object',
+          properties: {
+            order: {
+              type: 'object',
+              properties: {
+                address: {
+                  oneOf: [
+                    {
+                      type: 'object',
+                      properties: {
+                        street: {
+                          type: 'string',
+                          minLength: 5,
+                          title: 'street'
+                        },
+                        streetNumber: {
+                          type: 'number',
+                          minimum: 1,
+                          title: 'street number'
+                        },
+                        cityName: {
+                          type: 'string',
+                          title: 'cityName'
+                        }
+                      },
+                      required: ['street', 'cityName'],
+                      title: 'Address'
+                    }
+                  ],
+                  minLength: 1,
+                  maxLength: 10
+                }
+              },
+              required: ['address'],
+              title: 'order'
+            }
+          },
+          required: ['order']
+        }
+      },
+      required: ['payload']
     } as OpenAPIV3.SchemaObject
 
     const result = fuzzer.analyzeFuzzJsonSchema(schema)
