@@ -100,6 +100,26 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monet
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for property check & oneOf number values 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"status_code\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'status_code' exists\\", function() {
+   pm.expect((typeof jsonData.status_code !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should be one of the values \\"200,201\\" for \\"status_code\\"
+if (jsonData?.status_code) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'status_code' is matching one of: '200,201'\\", function() {
+  pm.expect(jsonData.status_code).to.be.oneOf([200,201]);
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for property check & pm variable value 1`] = `
 Array [
   "// Set response object as internal variable
@@ -131,7 +151,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount
    pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
 });
 ",
-  "// Response body should contain value \\"{{postman_env_variable}}\\" for \\".data[0].monetary_amount\\"
+  "// Response body should contain value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
 if (jsonData?.data?.[0]?.monetary_amount) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' contains '{{postman_env_variable}}'\\", function() {
   pm.expect(jsonData.data[0].monetary_amount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
@@ -151,7 +171,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].name' exists\\"
    pm.expect((typeof jsonData.data[0].name !== \\"undefined\\")).to.be.true;
 });
 ",
-  "// Response body should contain value \\"Musk\\" for \\".data[0].name\\"
+  "// Response body should contain value \\"Musk\\" for \\"data[0].name\\"
 if (jsonData?.data?.[0]?.name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].name' contains 'Musk'\\", function() {
   pm.expect(jsonData.data[0].name).to.include(\\"Musk\\");
@@ -374,6 +394,26 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data' has 
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for root array property check & result oneOf value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data.name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.name' exists\\", function() {
+   pm.expect((typeof jsonData[0].data.name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should be one of the values \\"Spacex,Tesla\\" for \\"[0].data.name\\"
+if (jsonData?.[0]?.data?.name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.name' is matching one of: 'Spacex,Tesla'\\", function() {
+  pm.expect(jsonData[0].data.name).to.be.oneOf([\\"Spacex\\",\\"Tesla\\"]);
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for root array property check without value 1`] = `
 Array [
   "// Set response object as internal variable
@@ -403,6 +443,46 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
 if (jsonData?.data?.[0]?.company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'true'\\", function() {
   pm.expect(jsonData.data[0].company_name).to.eql(true);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for string for property check & oneOf boolean values 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should be one of the values \\"true,false\\" for \\"data[0].company_name\\"
+if (jsonData?.data?.[0]?.company_name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' is matching one of: 'true,false'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.be.oneOf([true,false]);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for string for property check & oneOf string values 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should be one of the values \\"Spacex,Tesla\\" for \\"data[0].company_name\\"
+if (jsonData?.data?.[0]?.company_name) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' is matching one of: 'Spacex,Tesla'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.be.oneOf([\\"Spacex\\",\\"Tesla\\"]);
 })};
 ",
 ]

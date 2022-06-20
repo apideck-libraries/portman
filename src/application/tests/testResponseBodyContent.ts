@@ -12,6 +12,7 @@ export const testResponseBodyContent = (
     let pmTestKey = ''
     let pmTestValue = ''
     let pmTestContains = ''
+    let pmTestOneOf = ''
     let pmTestLength = ''
     let pmTestMinLength = ''
     let pmTestMaxLength = ''
@@ -76,13 +77,35 @@ export const testResponseBodyContent = (
       }
 
       pmTestContains = [
-        `// Response body should contain value "${check.contains}" for "${keyValue}"\n`,
+        `// Response body should contain value "${check.contains}" for "${keyLabel}"\n`,
         `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' contains '${check.contains}'", function() {\n`,
         `  pm.expect(jsonData${keyValue}).to.include(${checkContains});\n`,
         `})};\n`
       ].join('')
+    }
+
+    if (check.oneOf) {
+      if (Array.isArray(check.oneOf)) {
+        // Make items safe to inject into test
+        const safeOneOf = check.oneOf.map(item => {
+          if (typeof item === 'string') {
+            // Quote string value
+            return `"${item}"`
+          }
+          return item
+        })
+
+        pmTestOneOf = [
+          `// Response body should be one of the values "${check.oneOf}" for "${keyLabel}"\n`,
+          `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+          `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+          ` - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'", function() {\n`,
+          `  pm.expect(jsonData${keyValue}).to.be.oneOf([${safeOneOf}]);\n`,
+          `})};\n`
+        ].join('')
+      }
     }
 
     if (check.length) {
@@ -152,6 +175,7 @@ export const testResponseBodyContent = (
     if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
+    if (pmTestOneOf !== '') writeOperationTestScript(pmOperation, pmTestOneOf)
     if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
     if (pmTestMinLength !== '') writeOperationTestScript(pmOperation, pmTestMinLength)
     if (pmTestMaxLength !== '') writeOperationTestScript(pmOperation, pmTestMaxLength)

@@ -793,6 +793,28 @@
                         "number"
                       ]
                     },
+                    "oneOf": {
+                      "anyOf": [
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "items": {
+                            "type": "number"
+                          },
+                          "type": "array"
+                        },
+                        {
+                          "items": {
+                            "type": "boolean"
+                          },
+                          "type": "array"
+                        }
+                      ]
+                    },
                     "value": {
                       "type": [
                         "string",

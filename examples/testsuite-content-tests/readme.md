@@ -38,6 +38,10 @@ file: examples/testsuite-content-tests/portman-config.crm.json
           "contains": "Musk"
         },
         {
+          "key": "status_code",
+          "oneOf": [200, 201]
+        },
+        {
           "key": "data[0].monetary_amount",
           "value": 75000
         },
@@ -95,6 +99,7 @@ These target options are both supported for defining a target. In case both are 
   - **key (String)** : The key that will be targeted in the response body to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
+  - **oneOf (String[],Number[],Boolean[])** : The value that will be used to check one of the values is matching the response body property.
   - **length (Number)** : The number that will be used to check if the value of the response body property (string/array) has a length of the defined number.
   - **minLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
   - **maxLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
@@ -124,6 +129,10 @@ file: examples/testsuite-content-tests/portman-config.crm.json >>
         {
           "key": "data[0].name",
           "contains": "Musk"
+        },
+        {
+          "key": "status_code",
+          "oneOf": [200, 201]
         },
         {
           "key": "data[0].monetary_amount",
@@ -246,6 +255,17 @@ if (jsonData?.data[0].name) {
     pm.expect(jsonData.data[0].name).to.include("Musk");
   })};
 
+// Response body should have "status_code"
+pm.test("[GET]::/crm/leads - Content check if 'status_code' exists", function() {
+  pm.expect((typeof jsonData.status_code !== "undefined")).to.be.true;
+});
+
+// Response body should be one of the values "200,201" for "status_code"
+if (jsonData?.status_code) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'status_code' is matching one of: '200,201'", function() {
+    pm.expect(jsonData.status_code).to.be.oneOf([200,201]);
+  })};
+
 // Response body should have property "data[0].monetary_amount"
 pm.test(
   "[GET] /crm/leads - Content check if property 'data[0].monetary_amount' exists",
@@ -318,6 +338,21 @@ if (typeof jsonData.data[0].company_name !== 'undefined') {
     function () {
       pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
     }
+  )
+}
+```
+
+When you add a `oneOf` test, the check validates if the response matches one of the values: "200,201" for the value of the property "status_code".
+
+`oneOf` example:
+```js
+// Response body should be one of the values "200,201" for "status_code"
+if (typeof jsonData.status_code !== 'undefined') {
+  pm.test(
+    "[GET]::/crm/leads - Content check if value for 'status_code' is matching one of: '200,201'",
+      function() {
+        pm.expect(jsonData.status_code).to.be.oneOf([200, 201]);
+      }
   )
 }
 ```

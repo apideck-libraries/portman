@@ -86,6 +86,7 @@ export type ResponseBodyTest = {
   key: string
   value?: string | number | boolean
   contains?: string
+  oneOf?: string[] | number[] | boolean[]
   length?: string | number
   minLength?: string | number
   maxLength?: string | number
