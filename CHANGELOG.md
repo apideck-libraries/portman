@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.17.0 - (2022-06-21)
+
 - Fix missing integrationTests when using "bundleContractTests" (#330)
 - ContentCheck - allow targeting of root object or array (#334)
 - Tests - support bracket notation for targeted keys (#333)
