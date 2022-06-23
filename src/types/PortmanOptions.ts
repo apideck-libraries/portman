@@ -32,4 +32,5 @@ export interface PortmanOptions {
   oaUrl?: string
   init?: boolean
   logAssignVariables?: boolean
+  extraUnknownFormats?: string[]
 }

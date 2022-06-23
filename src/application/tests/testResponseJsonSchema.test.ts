@@ -46,6 +46,20 @@ describe('testResponseJsonSchema', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add extra unknown formats', async () => {
+    const schema = (oasOperation.schema?.responses?.['200'] as OpenAPIV3.ResponseObject)?.content
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation,
+      ["abc", "xyz"]
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should remove minItems on items levels, for valid json schema', async () => {
     const schema = {
       type: 'array',
