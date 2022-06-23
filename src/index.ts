@@ -228,7 +228,7 @@ require('dotenv').config()
   const oaOutput = options.oaOutput || ''
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
-  const extraUnknownFormats = options?.extraUnknownFormats || [];
+  const extraUnknownFormats = options?.extraUnknownFormats || []
 
   const portman = new Portman({
     ...options,
