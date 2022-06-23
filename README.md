@@ -122,6 +122,7 @@ Options:
  --ignoreCircularRefs       Ignore circular references in OpenAPI spec (default: false)                      [boolean]
  --logAssignVariables       Toggle logging of assigned variables (default: true)                             [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
+ --extraUnknownFormats      Add extra unknown formats to json schema tests                                   [array]
 ```
 
 ### Environment variables as Postman variables
