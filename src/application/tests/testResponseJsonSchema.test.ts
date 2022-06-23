@@ -54,7 +54,7 @@ describe('testResponseJsonSchema', () => {
       schema,
       pmOperation,
       oasOperation,
-      ["abc", "xyz"]
+      ['abc', 'xyz']
     )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()

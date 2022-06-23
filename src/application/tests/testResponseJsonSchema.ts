@@ -28,7 +28,7 @@ export const testResponseJsonSchema = (
   const containsRef = jsonSchemaString.includes('$ref')
   let pmTest = ''
 
-  const unknownFormats = "[" + ["int32", "int64", "float", "double"].concat(extraUnknownFormats).map(fmt => `\"${fmt}\"`).join(", ") + "]";
+  const unknownFormats = '[' + ['int32', 'int64', 'float', 'double'].concat(extraUnknownFormats).map(fmt => `"${fmt}"`).join(', ') + ']'
 
   // Check - Response json schema check
   pmTest = [
