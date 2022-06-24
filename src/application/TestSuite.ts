@@ -314,7 +314,8 @@ export class TestSuite {
             optSchemaValidation,
             content.schema,
             pmOperation,
-            oaOperation
+            oaOperation,
+            this.options?.extraUnknownFormats ?? []
           )
         }
 

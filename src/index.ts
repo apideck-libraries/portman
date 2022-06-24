@@ -134,6 +134,10 @@ require('dotenv').config()
     .option('init', {
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'
+    })
+    .option('extraUnknownFormats', {
+      describe: 'Add extra unknown formats to json schema tests',
+      type: 'array'
     }).argv as PortmanOptions
 
   let cliOptions: Partial<PortmanOptions> = {}
@@ -224,6 +228,7 @@ require('dotenv').config()
   const oaOutput = options.oaOutput || ''
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
+  const extraUnknownFormats = options?.extraUnknownFormats || []
 
   const portman = new Portman({
     ...options,
@@ -243,7 +248,8 @@ require('dotenv').config()
     filterFile,
     oaOutput,
     collectionName,
-    logAssignVariables
+    logAssignVariables,
+    extraUnknownFormats
   })
 
   if (options.uploadOnly) {

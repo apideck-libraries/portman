@@ -10,7 +10,8 @@ export const testResponseJsonSchema = (
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   jsonSchema: any,
   pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation
+  oaOperation: OasMappedOperation,
+  extraUnknownFormats: string[] = []
 ): PostmanMappedOperation => {
   // overwrite JSON schema validation for additionalProperties
   if (schemaValidation.additionalProperties || schemaValidation.additionalProperties === false) {
@@ -27,6 +28,14 @@ export const testResponseJsonSchema = (
   const containsRef = jsonSchemaString.includes('$ref')
   let pmTest = ''
 
+  const unknownFormats =
+    '[' +
+    ['int32', 'int64', 'float', 'double']
+      .concat(extraUnknownFormats)
+      .map(fmt => `"${fmt}"`)
+      .join(', ') +
+    ']'
+
   // Check - Response json schema check
   pmTest = [
     `// Response Validation\n`,
@@ -34,7 +43,7 @@ export const testResponseJsonSchema = (
     `// Validate if response matches JSON schema \n`,
     `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
     ` - Schema is valid", function() {\n`,
-    `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ["int32", "int64", "float", "double"]});\n`,
+    `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ${unknownFormats}});\n`,
     `});\n`
   ].join('')
 

@@ -122,6 +122,7 @@ Options:
  --ignoreCircularRefs       Ignore circular references in OpenAPI spec (default: false)                      [boolean]
  --logAssignVariables       Toggle logging of assigned variables (default: true)                             [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
+ --extraUnknownFormats      Add extra unknown formats to json schema tests                                   [array]
 ```
 
 ### Environment variables as Postman variables
@@ -191,6 +192,14 @@ portman -u https://specs.apideck.com/crm.yml --filterFile examples/cli-filtering
 ```
 
 For more details, review the [cli-filtering example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-filtering).
+
+###### Add extra forms to Json schema validation
+
+```
+portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.postman.json --extraUnknownFormats ulid one two
+```
+
+This makes the schema validation more lenient, and solves problems with unknown formats
 
 ###### Upload newly generated collection to Postman, which will upsert the collection, based on the collection name
 
