@@ -1,12 +1,14 @@
 ## [Unreleased]
 
 - Overwrites - Automatically convert values for request query parameters, path variables & headers to string (#336)
-- Fix ContentCheck with 0 (zero) for length/minLength/maxLength (#369)
+- Fix ContentTests with length/minLength/maxLength checks with 0 (zero) as value (#369)
+- Fix ContentTests with empty as value
+- ContentTests - Added "notExist" check for response body & headers (#364)
 
 ## v1.17.0 - (2022-06-21)
 
 - Fix missing integrationTests when using "bundleContractTests" (#330)
-- ContentCheck - allow targeting of root object or array (#334)
+- ContentTests - allow targeting of root object or array (#334)
 - Tests - support bracket notation for targeted keys (#333)
 - Fuzzing - support JSON variants as content-type (#332)
 - Fuzzing - added support for allOf, anyOf, oneOf schemas (#335)

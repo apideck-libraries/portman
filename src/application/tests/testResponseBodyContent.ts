@@ -35,17 +35,20 @@ export const testResponseBodyContent = (
       pmOperation.testJsonDataInjected = true
     }
 
-    if (check.key) {
+    if (check.hasOwnProperty('key')) {
+      const negate = check.notExist === true ? '===' : '!=='
+      const negateLabel = check.notExist === true ? 'not exists' : 'exists'
+
       pmTestKey = [
         `// Response body should have "${keyLabel}"\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
-        ` - Content check if '${keyLabel}' exists", function() {\n`,
-        `   pm.expect((typeof jsonData${keyValue} !== "undefined")).to.be.true;\n`,
+        ` - Content check if '${keyLabel}' ${negateLabel}", function() {\n`,
+        `   pm.expect((typeof jsonData${keyValue} ${negate} "undefined")).to.be.true;\n`,
         `});\n`
       ].join('')
     }
 
-    if (check.value) {
+    if (check.hasOwnProperty('value')) {
       let checkValue = check.value
       if (typeof check.value === 'string') {
         // Quote string value
@@ -66,7 +69,7 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
-    if (check.contains) {
+    if (check.hasOwnProperty('contains')) {
       let checkContains = check.contains
       if (typeof check.contains === 'string') {
         // Quote string value
@@ -87,7 +90,7 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
-    if (check.oneOf) {
+    if (check.hasOwnProperty('oneOf')) {
       if (Array.isArray(check.oneOf)) {
         // Make items safe to inject into test
         const safeOneOf = check.oneOf.map(item => {
