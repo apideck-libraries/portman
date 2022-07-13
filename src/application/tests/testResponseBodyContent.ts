@@ -22,6 +22,7 @@ export const testResponseBodyContent = (
     const isArray = check.key.startsWith('[')
     const keyLabel = isRoot ? `ROOT` : `${check.key}`
     const keyValue = isRoot ? `` : isArray ? `${check.key}` : `.${check.key}`
+    const keyPath = `${renderChainPath(`jsonData${keyValue}`)}`
 
     // Only set the jsonData once
     if (!pmOperation.testJsonDataInjected) {
@@ -57,7 +58,7 @@ export const testResponseBodyContent = (
 
       pmTestValue = [
         `// Response body should have value "${check.value}" for "${keyLabel}"\n`,
-        `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+        `if (${keyPath}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' matches '${check.value}'", function() {\n`,
         `  pm.expect(jsonData${keyValue}).to.eql(${checkValue});\n`,
@@ -78,7 +79,7 @@ export const testResponseBodyContent = (
 
       pmTestContains = [
         `// Response body should contain value "${check.contains}" for "${keyLabel}"\n`,
-        `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+        `if (${keyPath}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' contains '${check.contains}'", function() {\n`,
         `  pm.expect(jsonData${keyValue}).to.include(${checkContains});\n`,
@@ -99,7 +100,7 @@ export const testResponseBodyContent = (
 
         pmTestOneOf = [
           `// Response body should be one of the values "${check.oneOf}" for "${keyLabel}"\n`,
-          `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+          `if (${keyPath}) {\n`,
           `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
           ` - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'", function() {\n`,
           `  pm.expect(jsonData${keyValue}).to.be.oneOf([${safeOneOf}]);\n`,
@@ -108,7 +109,7 @@ export const testResponseBodyContent = (
       }
     }
 
-    if (check.length) {
+    if (check.hasOwnProperty('length')) {
       let checkLength = check.length
       if (typeof check.length === 'string') {
         // Quote string value
@@ -121,7 +122,7 @@ export const testResponseBodyContent = (
 
       pmTestLength = [
         `// Response body should have a length of "${check.length}" for "${keyLabel}"\n`,
-        `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+        `if (${keyPath}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a length of '${check.length}'", function() {\n`,
         `  pm.expect(jsonData${keyValue}.length).to.equal(${checkLength});\n`,
@@ -129,7 +130,7 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
-    if (check.minLength) {
+    if (check.hasOwnProperty('minLength')) {
       let checkMinLength = check.minLength
       if (typeof check.minLength === 'string') {
         // Quote string value
@@ -142,7 +143,7 @@ export const testResponseBodyContent = (
 
       pmTestMinLength = [
         `// Response body should have a minimum length of "${check.minLength}" for "${keyLabel}"\n`,
-        `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+        `if (${keyPath}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a minimum length of '${check.minLength}'", function() {\n`,
         `  pm.expect(jsonData${keyValue}.length).is.at.least(${checkMinLength});\n`,
@@ -150,7 +151,7 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
-    if (check.maxLength) {
+    if (check.hasOwnProperty('maxLength')) {
       let checkMaxLength = check.maxLength
       if (typeof check.maxLength === 'string') {
         // Quote string value
@@ -163,7 +164,7 @@ export const testResponseBodyContent = (
 
       pmTestMaxLength = [
         `// Response body should have a maximum length of "${check.maxLength}" for "${keyLabel}"\n`,
-        `if (${renderChainPath(`jsonData${keyValue}`)}) {\n`,
+        `if (${keyPath}) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a maximum length of '${check.maxLength}'", function() {\n`,
         `  pm.expect(jsonData${keyValue}.length).is.at.most(${checkMaxLength});\n`,
