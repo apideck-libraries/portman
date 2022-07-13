@@ -8,7 +8,9 @@ describe('getByPath', () => {
       { url: 'http://example.com', type: 'primary' },
       { url: 'http://other-example.com', type: 'secondary' }
     ],
-    link: { url: 'http://example.com', type: 'primary' }
+    link: { url: 'http://example.com', type: 'primary' },
+    'hydra:member': true,
+    '@count': true
   }
 
   let arrayUnderTest = [
@@ -18,7 +20,9 @@ describe('getByPath', () => {
       websites: [
         { url: 'http://example.com', type: 'primary' },
         { url: 'http://other-example.com', type: 'secondary' }
-      ]
+      ],
+      'hydra:member': true,
+      '@count': true
     },
     {
       foo: 'bar-2',
@@ -26,7 +30,9 @@ describe('getByPath', () => {
       websites: [
         { url: 'http://example-2.com', type: 'primary' },
         { url: 'http://other-2-example.com', type: 'secondary' }
-      ]
+      ],
+      'hydra:member': true,
+      '@count': true
     }
   ]
 
@@ -38,7 +44,9 @@ describe('getByPath', () => {
         websites: [
           { url: 'http://example.com', type: 'primary' },
           { url: 'http://other-example.com', type: 'secondary' }
-        ]
+        ],
+        'hydra:member': true,
+        '@count': true
       },
       {
         foo: 'bar-2',
@@ -46,7 +54,9 @@ describe('getByPath', () => {
         websites: [
           { url: 'http://example-2.com', type: 'primary' },
           { url: 'http://other-2-example.com', type: 'secondary' }
-        ]
+        ],
+        'hydra:member': true,
+        '@count': true
       }
     ]
   })
@@ -102,7 +112,9 @@ describe('getByPath', () => {
       websites: [
         { url: 'http://example-2.com', type: 'primary' },
         { url: 'http://other-2-example.com', type: 'secondary' }
-      ]
+      ],
+      'hydra:member': true,
+      '@count': true
     })
   })
 

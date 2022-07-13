@@ -419,6 +419,9 @@ components:
           type: string
           example: '12345'
           readOnly: true
+        "@count":
+          type: string
+          example: '54321'
         owner_id:
           type: string
           example: '54321'

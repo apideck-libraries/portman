@@ -1,4 +1,4 @@
-import { renderChainPath } from './renderChainPath'
+import { renderChainPath, renderSafePath } from './renderChainPath'
 
 describe('renderChainPath', () => {
   it('should return untouched property', () => {
@@ -127,5 +127,26 @@ describe('renderChainPath', () => {
 
     const result = renderChainPath(path, true)
     expect(result).toEqual('foo["hydra:bar"]')
+  })
+
+  it('should render safe object path with special character', () => {
+    const path = '@context'
+
+    const result = renderSafePath(path)
+    expect(result).toEqual('["@context"]')
+  })
+
+  it('should render safe object path with nested special character', () => {
+    const path = 'value["@context"]'
+
+    const result = renderSafePath(path)
+    expect(result).toEqual('value["@context"]')
+  })
+
+  it('should render safe object path with deeply nested special character', () => {
+    const path = 'foo[0].bar[1].marco[2].polo[3]["@context"]'
+
+    const result = renderSafePath(path)
+    expect(result).toEqual('foo[0].bar[1].marco[2].polo[3]["@context"]')
   })
 })
