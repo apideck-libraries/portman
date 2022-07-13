@@ -862,6 +862,9 @@
                         "number"
                       ]
                     },
+                    "notExist": {
+                      "type": "boolean"
+                    },
                     "oneOf": {
                       "items": {
                         "type": "string"
