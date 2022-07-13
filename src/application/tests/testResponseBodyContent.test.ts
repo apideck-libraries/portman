@@ -113,6 +113,42 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content test for property check & result has zero length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        length: 0
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & result has zero minimum length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        minLength: 0
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & result has zero maximum length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        maxLength: 0
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content test for property check & result has minimum length value', async () => {
     const contentTests = [
       {
@@ -268,7 +304,7 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
-  it('should add content test forroot array property check & result has maximum length value', async () => {
+  it('should add content test for root array property check & result has maximum length value', async () => {
     const contentTests = [
       {
         key: '[0].data',
