@@ -1,4 +1,4 @@
-import { testResponseHeader, writeOperationTestScript } from '../../application'
+import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { ResponseHeaderTest } from '../../types'
 
@@ -7,6 +7,7 @@ export const testResponseHeaderContent = (
   pmOperation: PostmanMappedOperation
 ): PostmanMappedOperation => {
   ResponseHeaderTests.map(check => {
+    let pmTestKey = ''
     let pmTestValue = ''
     let pmTestContains = ''
     let pmTestOneOf = ''
@@ -14,7 +15,21 @@ export const testResponseHeaderContent = (
     let pmTestMinLength = ''
     let pmTestMaxLength = ''
 
-    if (check.value) {
+    if (check.hasOwnProperty('key')) {
+      const negate = check.notExist === true ? 'not.have' : 'have'
+      const negateLabel = check.notExist === true ? 'does not exists' : 'is present'
+
+      pmTestKey = [
+        // `// Response header should have "${check.key}"\n`,
+        `// Validate if response header ${negateLabel} \n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Response header ${check.key} ${negateLabel}", function () {\n`,
+        `   pm.response.to.${negate}.header("${check.key}");\n`,
+        `});\n`
+      ].join('')
+    }
+
+    if (check.hasOwnProperty('value')) {
       let checkValue = check.value
       if (typeof check.value === 'string') {
         // Quote string value
@@ -34,7 +49,7 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
-    if (check.contains) {
+    if (check.hasOwnProperty('contains')) {
       let checkContains = check.contains
       if (typeof check.contains === 'string') {
         // Quote string value
@@ -54,7 +69,7 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
-    if (check.oneOf) {
+    if (check.hasOwnProperty('oneOf')) {
       if (Array.isArray(check.oneOf)) {
         // Make items safe to inject into test
         const safeOneOf = check.oneOf.map(item => {
@@ -72,7 +87,7 @@ export const testResponseHeaderContent = (
       }
     }
 
-    if (check.length) {
+    if (check.hasOwnProperty('length')) {
       let checkLength = check.length
       if (typeof check.length === 'string') {
         // Quote string value
@@ -92,7 +107,7 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
-    if (check.minLength) {
+    if (check.hasOwnProperty('minLength')) {
       let checkMinLength = check.minLength
       if (typeof check.minLength === 'string') {
         // Quote string value
@@ -112,7 +127,7 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
-    if (check.maxLength) {
+    if (check.hasOwnProperty('maxLength')) {
       let checkMaxLength = check.maxLength
       if (typeof check.maxLength === 'string') {
         // Quote string value
@@ -132,7 +147,7 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
-    if (check?.key) testResponseHeader(check.key, pmOperation, null)
+    if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
     if (pmTestOneOf !== '') writeOperationTestScript(pmOperation, pmTestOneOf)

@@ -100,6 +100,7 @@ export type ResponseHeaderTest = {
   length?: string | number
   minLength?: string | number
   maxLength?: string | number
+  notExist?: boolean
 }
 
 type OverwriteConfig = {

@@ -60,6 +60,18 @@ describe('testResponseHeaderContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content header test for property check that does not exist', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        notExist: true
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content header test for property check & pm variable value', async () => {
     const contentTests = [
       {
@@ -125,6 +137,54 @@ describe('testResponseHeaderContent', () => {
       {
         key: 'Operation-Location',
         maxLength: 60
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content header test for property check & result has zero length value', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        length: 0
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content header test for property check & result has minimum zero length value', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        minLength: 0
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content header test for property check & result has maximum zero length value', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        maxLength: 0
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content header test for property check empty value', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        value: ''
       }
     ]
     pmOperation = testResponseHeaderContent(contentTests, pmOperation)

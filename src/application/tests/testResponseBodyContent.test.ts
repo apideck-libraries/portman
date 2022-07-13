@@ -54,10 +54,34 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content test for property check & empty value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].monetary_amount',
+        value: ''
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content test for property check without value', async () => {
     const contentTests = [
       {
         key: 'data[0].monetary_amount'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check that does not exist', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].monetary_amount',
+        notExist: true
       }
     ]
     pmOperation = testResponseBodyContent(contentTests, pmOperation)
@@ -347,6 +371,19 @@ describe('testResponseBodyContent', () => {
       {
         key: "[0]['hydra:member']",
         minLength: 1
+      }
+    ]
+
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for array bracket check & result for a value that does not exist', async () => {
+    const contentTests = [
+      {
+        key: "[0]['hydra:member']",
+        notExist: true
       }
     ]
 
