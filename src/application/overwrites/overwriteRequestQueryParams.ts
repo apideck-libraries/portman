@@ -39,7 +39,7 @@ export const overwriteRequestQueryParams = (
         if (overwriteItem.overwrite === false) {
           newValue = orginalValue + newValue
         }
-        pmQueryParam.value = newValue
+        pmQueryParam.value = newValue.toString()
       }
 
       // Test suite - Disable query param

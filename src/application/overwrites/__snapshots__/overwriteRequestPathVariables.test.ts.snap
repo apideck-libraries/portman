@@ -15,6 +15,21 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestPathVariables should overwrite the request path number variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "id",
+    "type": "string",
+    "value": "-1",
+  },
+]
+`;
+
 exports[`overwriteRequestPathVariables should overwrite the request path variable 1`] = `
 Array [
   Object {

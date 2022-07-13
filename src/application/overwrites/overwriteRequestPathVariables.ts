@@ -39,7 +39,7 @@ export const overwriteRequestPathVariables = (
         }
 
         variable.type = 'string' // Set schema as type string dynamic variable
-        variable.value = newValue
+        variable.value = newValue.toString()
       }
     })
   })

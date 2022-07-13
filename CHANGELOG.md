@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Overwrites - Automatically convert values for request query parameters, path variables & headers to string ((#336).
+
 ## v1.17.0 - (2022-06-21)
 
 - Fix missing integrationTests when using "bundleContractTests" (#330)

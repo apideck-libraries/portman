@@ -39,7 +39,7 @@ export const overwriteRequestHeaders = (
         if (overwriteItem.overwrite === false) {
           newValue = originalValue + newValue
         }
-        pmHeader.value = newValue
+        pmHeader.value = newValue.toString()
       }
 
       // Test suite - Disable header
