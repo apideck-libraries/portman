@@ -4,6 +4,8 @@
 - Fix ContentTests with length/minLength/maxLength checks with 0 (zero) as value (#369)
 - Fix ContentTests with empty as value
 - ContentTests - Added "notExist" check for response body & headers (#364)
+- ContentTests - Added support for special characters in request body property names (#365)
+- AssignVariables - Added support for special characters in request body property names (#365)
 
 ## v1.17.0 - (2022-06-21)
 
