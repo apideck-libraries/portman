@@ -137,5 +137,8 @@
         ]
       }
     ]
+  },
+  "globals": {
+    "stripResponseExamples": true
   }
 }
