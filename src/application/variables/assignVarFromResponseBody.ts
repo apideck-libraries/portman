@@ -1,7 +1,7 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { CollectionVariableConfig, PortmanOptions } from '../../types'
-import { renderChainPath } from '../../utils'
+import { renderBracketPath, renderChainPath } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -27,7 +27,6 @@ export const assignVarFromResponseBody = (
       `// Set response object as internal variable\n`,
       `let jsonData = {};\n`,
       `try {jsonData = pm.response.json();}catch(e){}\n`
-      // `let jsonData = pm.response.json();\n`
     ].join('')
     pmOperation.testJsonDataInjected = true
   }
@@ -37,15 +36,14 @@ export const assignVarFromResponseBody = (
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varProp =
-    varSetting.responseBodyProp.charAt(0) !== '['
-      ? '.' + varSetting.responseBodyProp
-      : varSetting.responseBodyProp
+  const varSafeProp = renderBracketPath(varSetting.responseBodyProp)
+  const varProp = varSafeProp.charAt(0) !== '[' ? `.${varSafeProp}` : varSafeProp
   const varName = varSetting.name ? varSetting.name : opsRef + varProp
+  const varPath = `${renderChainPath(`jsonData${varProp}`)}`
 
   pmVarAssign = [
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
-    `if (${renderChainPath(`jsonData${varProp}`)}) {\n`,
+    `if (${varPath}) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
