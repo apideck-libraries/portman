@@ -15,7 +15,10 @@
           },
           {
             "key": "status_code",
-            "oneOf": [200, 201]
+            "oneOf": [
+              200,
+              201
+            ]
           },
           {
             "key": "data[0].monetary_amount",
@@ -36,6 +39,10 @@
           {
             "key": "resource",
             "value": "companies"
+          },
+          {
+            "key": "@count",
+            "notExist": true
           }
         ]
       },
@@ -53,5 +60,8 @@
         ]
       }
     ]
+  },
+  "globals": {
+    "stripResponseExamples": true
   }
 }
