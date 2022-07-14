@@ -36,9 +36,11 @@ export const assignVarFromResponseBody = (
 
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varSafeProp = renderBracketPath(varSetting.responseBodyProp)
-  const varProp = varSafeProp.charAt(0) !== '[' ? `.${varSafeProp}` : varSafeProp
-  const varName = varSetting.name ? varSetting.name : opsRef + varProp
+  const prop = varSetting.responseBodyProp
+  const varSafeProp = renderBracketPath(prop)
+  const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : `.${varSafeProp}`
+  const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
+  const varName = varSetting.name ? varSetting.name : opsRef + nameProp
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
 
   pmVarAssign = [
