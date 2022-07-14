@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   version: 1.3.0
-  title: CRM API
+  title: CRM API - Assign Variables
   description: "Welcome to the CRM API from Apideck."
   contact:
     email: hello@apideck.com
@@ -1225,6 +1225,10 @@ components:
           type: string
           description: Operation performed
           example: one
+        "@count":
+          type: string
+          example: "1.000.000"
+          nullable: true
         data:
           $ref: '#/components/schemas/Lead'
     GetLeadsResponse:

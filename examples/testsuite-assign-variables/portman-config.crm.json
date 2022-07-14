@@ -58,6 +58,9 @@
           "responseBodyProp": "data.company_name"
         },
         {
+          "responseBodyProp": "@count"
+        },
+        {
           "responseHeaderProp": "Operation-Location"
         }
       ]
@@ -112,5 +115,8 @@
         }
       ]
     }
-  ]
+  ],
+  "globals": {
+    "stripResponseExamples": true
+  }
 }
