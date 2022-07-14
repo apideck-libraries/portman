@@ -1,4 +1,4 @@
-import { renderChainPath } from './renderChainPath'
+import { detectUnsafeCharacters, renderBracketPath, renderChainPath } from './renderChainPath'
 
 describe('renderChainPath', () => {
   it('should return untouched property', () => {
@@ -127,5 +127,89 @@ describe('renderChainPath', () => {
 
     const result = renderChainPath(path, true)
     expect(result).toEqual('foo["hydra:bar"]')
+  })
+
+  it('should render safe object path with special character', () => {
+    const path = '@context'
+
+    const result = renderBracketPath(path)
+    expect(result).toEqual('["@context"]')
+  })
+
+  it('should render safe object path with nested special character', () => {
+    const path = 'value["@context"]'
+
+    const result = renderBracketPath(path)
+    expect(result).toEqual('value["@context"]')
+  })
+
+  it('should render safe object path with deeply nested special character', () => {
+    const path = 'foo[0].bar[1].marco[2].polo[3]["@context"]'
+
+    const result = renderBracketPath(path)
+    expect(result).toEqual('foo[0].bar[1].marco[2].polo[3]["@context"]')
+  })
+
+  it('should render safe object path with an unsafe character as root', () => {
+    const path = '@count.bar[1].marco[2].polo[3]["@context"]'
+
+    const result = renderBracketPath(path)
+    expect(result).toEqual('["@count"].bar[1].marco[2].polo[3]["@context"]')
+  })
+
+  it('should render safe object path with an unsafe character as root array', () => {
+    const path = '@count[Ø][1].bar[1].marco[2].polo[3]["@context"]'
+
+    const result = renderBracketPath(path)
+    expect(result).toEqual('["@count"][Ø][1].bar[1].marco[2].polo[3]["@context"]')
+  })
+
+  it('should detect unsafe special character within brackets', () => {
+    const path = '[@context]'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(true)
+  })
+
+  it('should not detect special character within brackets', () => {
+    const path = '["context"]'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(false)
+  })
+
+  it('should not detect safe special character within brackets', () => {
+    const path = '["@context"]'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(false)
+  })
+
+  it('should detect unsafe special character without brackets', () => {
+    const path = '@context'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(true)
+  })
+
+  it('should not detect special character without brackets', () => {
+    const path = 'context'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(false)
+  })
+
+  it('should detect unsafe special character without brackets', () => {
+    const path = '"@context"'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(false)
+  })
+
+  it('should not detect special character without brackets', () => {
+    const path = '"context"'
+
+    const result = detectUnsafeCharacters(path)
+    expect(result).toEqual(false)
   })
 })

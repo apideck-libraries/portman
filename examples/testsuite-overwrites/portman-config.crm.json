@@ -26,6 +26,11 @@
         {
           "key": "social_links[1].url",
           "remove": true
+        },
+        {
+          "key": "@count",
+          "value": false,
+          "overwrite": true
         }
       ]
     },
@@ -82,8 +87,13 @@
     {
       "openApiOperationId": "leadsAll",
       "overwriteRequestSecurity": {
-        "bearer": { "token": "{{managementToken}}" }
+        "bearer": {
+          "token": "{{managementToken}}"
+        }
       }
     }
-  ]
+  ],
+  "globals": {
+    "stripResponseExamples": true
+  }
 }

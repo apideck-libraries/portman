@@ -1,7 +1,7 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { ResponseBodyTest } from '../../types'
-import { renderChainPath } from '../../utils'
+import { renderBracketPath, renderChainPath } from '../../utils'
 
 export const testResponseBodyContent = (
   responseBodyTests: ResponseBodyTest[],
@@ -21,7 +21,12 @@ export const testResponseBodyContent = (
     const isRoot = check.key === '.'
     const isArray = check.key.startsWith('[')
     const keyLabel = isRoot ? `ROOT` : `${check.key}`
-    const keyValue = isRoot ? `` : isArray ? `${check.key}` : `.${check.key}`
+    const keySafeValue = renderBracketPath(check.key)
+    const keyValue = isRoot
+      ? ``
+      : isArray || keySafeValue.startsWith('[')
+      ? `${keySafeValue}`
+      : `.${keySafeValue}`
     const keyPath = `${renderChainPath(`jsonData${keyValue}`)}`
 
     // Only set the jsonData once
