@@ -12,18 +12,75 @@ export const renderChainPath = (path: string, legacyMode = false): string => {
     // Optional chaining is only supported from Node version 14, for lower versions we will return the less safe path
     return renderSafeFullPath(path)
   }
-  // Transform the path to optional chained syntax
+
+  // Convert path to safe path
+  const safePath = renderBracketPath(path)
+
+  // Transform safe path to optional chained path
   // eslint-disable-next-line no-useless-escape
-  return path
+  return safePath
     .replace(/\./g, '?.')
     .replace(/\[+/g, '?.[')
     .replace(/\?\.\?\.+/g, '?.')
 }
 
+export const detectUnsafeCharacters = (path: string): boolean => {
+  // Special characters that require brackets
+  const specialChars = ['`', '@', '^', '-', '?', '*', ')', '/', '>', 'ル']
+
+  // check if an array of characters is present in a string
+  const hasSpecialChars = (str: string, chars: string[]): boolean => {
+    return chars.some(char => str.includes(char))
+  }
+
+  // Get string between brackets
+  const getStringBetweenBrackets = (str: string): string => {
+    const start = str.indexOf('[')
+    const end = str.indexOf(']')
+    return str.slice(start + 1, end)
+  }
+
+  // Detect if the path is within brackets
+  const regexCharacterInBrackets = /\[.*?\]/g
+  const matches = path.match(regexCharacterInBrackets)
+  if (matches) {
+    for (const match of matches) {
+      const str = getStringBetweenBrackets(match)
+      // Detect if the path contains special characters
+      if (hasSpecialChars(str, specialChars)) {
+        // string is within single or double quotes
+        if (
+          (str.startsWith("'") && str.endsWith("'")) ||
+          (str.startsWith('"') && str.endsWith('"'))
+        ) {
+          return false
+        }
+        return true
+      }
+    }
+  }
+
+  // Detect if the path contains special characters
+  if (hasSpecialChars(path, specialChars)) {
+    // Detect unsafe, not within quotes
+    if (path.includes(`'`) || path.includes(`"`)) {
+      return false
+    }
+    return true
+  }
+  return false
+}
+
 export const renderSafeFullPath = (path: string): string => {
-  const s = path.split('.')
+  // Convert path to safe path
+  const safePath = renderBracketPath(path)
+
+  const s = safePath.split('.')
   if (s.length === 1) {
-    return path
+    if (detectUnsafeCharacters(safePath)) {
+      return `['${safePath}']`
+    }
+    return safePath
   }
 
   let newPath = ``
@@ -34,55 +91,51 @@ export const renderSafeFullPath = (path: string): string => {
   return `${newPath.slice(0, -4)}`
 }
 
-export const renderSafePath = (path: string): string => {
-  // Convert JS object with special characters @-^ in key names to bracket notation
-  const specialChars = ['`', '@', '^', '-', '?', '*', ')', '/', '>', 'ル']
+export const renderBracketPath = (path: string): string => {
+  const s = path.split('.')
+  if (s.length === 1) {
+    if (detectUnsafeCharacters(path)) {
+      return `["${path}"]`
+    }
+    return path
+  }
+
   let newPath = ``
+  for (let index = 0; index < s.length; index++) {
+    const nextPath = s[index]
 
-  // Convert dot notation to bracket notation
-  // const rawPath = path.split('.').reduce((fullPath, arg) => {
-  //   fullPath + `['${arg}']`
-  // })
-  const rawPath = path.split('.').forEach(val => {
-    const rawPart = val.split('[').shift()
+    // Split path into parts per brackets
+    const p = nextPath.split('[')
 
-    if (rawPart) {
-      const pathIsSpecial = specialChars.some(char => rawPart.includes(char))
-      if (pathIsSpecial) {
-        return newPath + `["${rawPart}"]`
+    // Single path part (no brackets found)
+    if (p.length === 1) {
+      if (detectUnsafeCharacters(nextPath)) {
+        newPath += `["${nextPath}"].`
+      } else if (nextPath.includes(']')) {
+        newPath += `[${nextPath}.`
+      } else {
+        newPath += `${nextPath}.`
       }
     }
 
-    return newPath + `["${rawPart}"]`
-  })
-  console.log('rawPath', rawPath)
+    // Multiple path parts (split by brackets)
+    let newPart = ``
+    for (let partIndex = 0; partIndex < p.length; partIndex++) {
+      const nextPart = p[partIndex]
 
-  // Replace special characters with brackets
-  // const s = path.split('.')
-  // if (s.length === 1) {
-  //   const pathIsSpecial = specialChars.some(char => path.includes(char))
-  //   if (pathIsSpecial) {
-  //     return `["${path}"]`
-  //   }
-  //   return path
-  // }
+      if (detectUnsafeCharacters(nextPart)) {
+        newPart += `["${nextPart}"]`
+      } else if (nextPart.includes(']')) {
+        newPart += `[${nextPart}`
+      } else {
+        newPart += `${nextPart}`
+      }
+    }
 
-  // for (let index = 0; index < s.length; index++) {
-  //   // Replace special characters with brackets
-  //   const nextPath = s.slice(0, index + 1)
-  //
-  //   // Check if the next path is a special character
-  //   const nextPathIsSpecial = specialChars.some(char => nextPath.includes(char))
-  //
-  //   // If the next path is a special character, we need to wrap it in brackets
-  //   if (nextPathIsSpecial) {
-  //     newPath += `[${nextPath.join('.')}]`
-  //   }
-  // }
-
-  // specialChars.map(specialChar => {
-  //   path = path.replace(new RegExp(specialChar, 'g'), `[${specialChar}]`)
-  // })
-
-  return newPath
+    // Check every nextPath to see if it is unsafe
+    if (p.length > 1) {
+      newPath += `${newPart}.`
+    }
+  }
+  return newPath.slice(0, -1)
 }
