@@ -20,6 +20,20 @@ pm.test(\\"[GET]::/crm/companies - Content check if value of 'ROOT' has a maximu
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for array bracket check & result for a value that does not exist 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0]['hydra:member']\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0]['hydra:member']' not exists\\", function() {
+   pm.expect((typeof jsonData[0]['hydra:member'] === \\"undefined\\")).to.be.true;
+});
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for array bracket check & result has minimum length value 1`] = `
 Array [
   "// Set response object as internal variable
@@ -75,6 +89,26 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data['hydra:member']' e
 if (jsonData?.data?.['hydra:member']) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data['hydra:member']' has a minimum length of '1'\\", function() {
   pm.expect(jsonData.data['hydra:member'].length).is.at.least(1);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & empty value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].monetary_amount !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have value \\"\\" for \\"data[0].monetary_amount\\"
+if (jsonData?.data?.[0]?.monetary_amount) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches ''\\", function() {
+  pm.expect(jsonData.data[0].monetary_amount).to.eql(\\"\\");
 })};
 ",
 ]
@@ -240,6 +274,80 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data' has a mi
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for property check & result has zero length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].description\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].description !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a length of \\"0\\" for \\"data[0].description\\"
+if (jsonData?.data?.[0]?.description) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data[0].description' has a length of '0'\\", function() {
+  pm.expect(jsonData.data[0].description.length).to.equal(0);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & result has zero maximum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].description\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].description !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a maximum length of \\"0\\" for \\"data[0].description\\"
+if (jsonData?.data?.[0]?.description) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data[0].description' has a maximum length of '0'\\", function() {
+  pm.expect(jsonData.data[0].description.length).is.at.most(0);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check & result has zero minimum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].description\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
+   pm.expect((typeof jsonData.data[0].description !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a minimum length of \\"0\\" for \\"data[0].description\\"
+if (jsonData?.data?.[0]?.description) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of 'data[0].description' has a minimum length of '0'\\", function() {
+  pm.expect(jsonData.data[0].description.length).is.at.least(0);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for property check that does not exist 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' not exists\\", function() {
+   pm.expect((typeof jsonData.data[0].monetary_amount === \\"undefined\\")).to.be.true;
+});
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for property check without value 1`] = `
 Array [
   "// Set response object as internal variable
@@ -369,6 +477,26 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.description' e
 if (jsonData?.[0]?.data?.description) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data.description' has a length of '9'\\", function() {
   pm.expect(jsonData[0].data.description.length).to.equal(9);
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for root array property check & result has maximum length value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body should have a maximum length of \\"10\\" for \\"[0].data\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data' has a maximum length of '10'\\", function() {
+  pm.expect(jsonData[0].data.length).is.at.most(10);
 })};
 ",
 ]
@@ -543,26 +671,6 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].company_name' exist
 if (jsonData?.[0]?.company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].company_name' matches 'Spacex'\\", function() {
   pm.expect(jsonData[0].company_name).to.eql(\\"Spacex\\");
-})};
-",
-]
-`;
-
-exports[`testResponseBodyContent should add content test forroot array property check & result has maximum length value 1`] = `
-Array [
-  "// Set response object as internal variable
-let jsonData = {};
-try {jsonData = pm.response.json();}catch(e){}
-",
-  "// Response body should have \\"[0].data\\"
-pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
-   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
-});
-",
-  "// Response body should have a maximum length of \\"10\\" for \\"[0].data\\"
-if (jsonData?.[0]?.data) {
-pm.test(\\"[GET]::/crm/companies/:id - Content check if value of '[0].data' has a maximum length of '10'\\", function() {
-  pm.expect(jsonData[0].data.length).is.at.most(10);
 })};
 ",
 ]

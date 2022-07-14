@@ -90,6 +90,21 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operati
 ]
 `;
 
+exports[`testResponseHeaderContent should add content header test for property check & result has maximum zero length value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have a maximum length of \\"0\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a maximum length of '0'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.most(0);
+});
+",
+]
+`;
+
 exports[`testResponseHeaderContent should add content header test for property check & result has minimum length value 1`] = `
 Array [
   "// Validate if response header is present 
@@ -105,6 +120,36 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operati
 ]
 `;
 
+exports[`testResponseHeaderContent should add content header test for property check & result has minimum zero length value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have a minimum length of \\"0\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a minimum length of '0'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\").length).is.at.least(0);
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check & result has zero length value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have a length of \\"0\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value of 'Operation-Location' has a length of '0'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.have.lengthOf(0);
+});
+",
+]
+`;
+
 exports[`testResponseHeaderContent should add content header test for property check & result matches oneOf values 1`] = `
 Array [
   "// Validate if response header is present 
@@ -115,6 +160,31 @@ pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is pre
   "// Response header should be one of the values \\"Space-X,Tesla\\" for \\"Operation-Location\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' is matching one of: 'Space-X,Tesla'\\", function() {
   pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.be.oneOf([\\"Space-X\\",\\"Tesla\\"]);
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check empty value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have value \\"\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' matches ''\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.eql(\\"\\");
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should add content header test for property check that does not exist 1`] = `
+Array [
+  "// Validate if response header does not exists 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location does not exists\\", function () {
+   pm.response.to.not.have.header(\\"Operation-Location\\");
 });
 ",
 ]

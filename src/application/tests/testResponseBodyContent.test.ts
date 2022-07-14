@@ -54,10 +54,34 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content test for property check & empty value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].monetary_amount',
+        value: ''
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content test for property check without value', async () => {
     const contentTests = [
       {
         key: 'data[0].monetary_amount'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check that does not exist', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].monetary_amount',
+        notExist: true
       }
     ]
     pmOperation = testResponseBodyContent(contentTests, pmOperation)
@@ -106,6 +130,42 @@ describe('testResponseBodyContent', () => {
       {
         key: 'data[0].description',
         length: 9
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & result has zero length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        length: 0
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & result has zero minimum length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        minLength: 0
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for property check & result has zero maximum length value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].description',
+        maxLength: 0
       }
     ]
     pmOperation = testResponseBodyContent(contentTests, pmOperation)
@@ -268,7 +328,7 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
-  it('should add content test forroot array property check & result has maximum length value', async () => {
+  it('should add content test for root array property check & result has maximum length value', async () => {
     const contentTests = [
       {
         key: '[0].data',
@@ -311,6 +371,19 @@ describe('testResponseBodyContent', () => {
       {
         key: "[0]['hydra:member']",
         minLength: 1
+      }
+    ]
+
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for array bracket check & result for a value that does not exist', async () => {
+    const contentTests = [
+      {
+        key: "[0]['hydra:member']",
+        notExist: true
       }
     ]
 
