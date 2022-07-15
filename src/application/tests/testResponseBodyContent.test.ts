@@ -439,4 +439,64 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for a property & custom assert', async () => {
+    const contentTests = [
+      {
+        key: '[0].data',
+        assert: 'should.be.not.null'
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for a property & unclean custom assert', async () => {
+    const contentTests = [
+      {
+        key: '[0].data',
+        assert: '..should.be.not.null.'
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for a property & single quotes custom assert', async () => {
+    const contentTests = [
+      {
+        key: '[0].data',
+        assert: '..to.be.an("array")'
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for a property & unclean single quotes custom assert', async () => {
+    const contentTests = [
+      {
+        key: '[0].data',
+        assert: `..to.be.an('array')`
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not add content test for a property when assert is empty', async () => {
+    const contentTests = [
+      {
+        key: '[0].data',
+        assert: ''
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

@@ -770,6 +770,9 @@
                 "items": {
                   "additionalProperties": false,
                   "properties": {
+                    "assert": {
+                      "type": "string"
+                    },
                     "contains": {
                       "type": "string"
                     },
@@ -838,6 +841,9 @@
                 "items": {
                   "additionalProperties": false,
                   "properties": {
+                    "assert": {
+                      "type": "string"
+                    },
                     "contains": {
                       "type": "string"
                     },

@@ -16,6 +16,7 @@ export const testResponseBodyContent = (
     let pmTestLength = ''
     let pmTestMinLength = ''
     let pmTestMaxLength = ''
+    let pmTestAssert = ''
 
     // Detect if target is ROOT element/array or property
     const isRoot = check.key === '.'
@@ -43,9 +44,10 @@ export const testResponseBodyContent = (
     if (check.hasOwnProperty('key')) {
       const negate = check.notExist === true ? '===' : '!=='
       const negateLabel = check.notExist === true ? 'not exists' : 'exists'
+      const label = check.notExist === true ? 'not have' : 'have'
 
       pmTestKey = [
-        `// Response body should have "${keyLabel}"\n`,
+        `// Response body should ${label} "${keyLabel}"\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if '${keyLabel}' ${negateLabel}", function() {\n`,
         `   pm.expect((typeof jsonData${keyValue} ${negate} "undefined")).to.be.true;\n`,
@@ -180,6 +182,24 @@ export const testResponseBodyContent = (
       ].join('')
     }
 
+    if (check.hasOwnProperty('assert') && check.assert) {
+      // strip . from beginning & end of assert property, remove double .., replace ' with single "
+      const cleanAssert = check.assert
+        .replace(/\.\./g, '.')
+        .replace(/^\.|\.$/g, '')
+        .replace(/'/g, '"')
+      const cleanAssertLabel = cleanAssert.replace(/"/g, "'")
+
+      pmTestAssert = [
+        `// Response body value for "${keyLabel}" "${cleanAssert}"\n`,
+        `if (${keyPath}) {\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if value for '${keyLabel}' '${cleanAssertLabel}'", function() {\n`,
+        `  pm.expect(jsonData${keyValue}).${cleanAssert};\n`,
+        `})};\n`
+      ].join('')
+    }
+
     if (pmJsonData !== '') writeOperationTestScript(pmOperation, pmJsonData)
     if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
@@ -188,6 +208,7 @@ export const testResponseBodyContent = (
     if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
     if (pmTestMinLength !== '') writeOperationTestScript(pmOperation, pmTestMinLength)
     if (pmTestMaxLength !== '') writeOperationTestScript(pmOperation, pmTestMaxLength)
+    if (pmTestAssert !== '') writeOperationTestScript(pmOperation, pmTestAssert)
   })
 
   return pmOperation

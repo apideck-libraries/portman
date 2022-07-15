@@ -414,6 +414,7 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
   - **minLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
   - **maxLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a maximum length of the defined number.
   - **notExist (Boolean)** : The inverse of the key check that verify if the key does not exist in the response body.
+  - **assert (String)** : A custom Postman assertion to check if the value in the response body property matches with the provided assertion (example: `not.to.be.null`).
   
 - **responseHeaderTests (Array)** : Array of key/value pairs of properties & values in the Postman response header.
   - **key (String)** : The header name that will be targeted in the response header to check if it exists.
@@ -424,6 +425,7 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
   - **minLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
   - **maxLength (Number)** : The number that will be used to check if the value of the response header has a maximum length of the defined number of characters.
   - **notExist (Boolean)** : The inverse of the key check that verify if the key does not exist in the response header.
+  - **assert (String)** : A custom Postman assertion to check if the value in the response header matches with the provided assertion (example: `not.to.be.null`).
 
 For more details, review the [content-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-content-tests).
 

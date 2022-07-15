@@ -4,6 +4,7 @@
 - Fix ContentTests with length/minLength/maxLength checks with 0 (zero) as value (#369)
 - Fix ContentTests with empty as value
 - ContentTests - Added "notExist" check for response body & headers (#364)
+- ContentTests - Added "assert" option for response body & headers (#372)
 - ContentTests - Added support for special characters in request body property names (#365)
 - AssignVariables - Added support for special characters in request body property names (#365)
 - Fix syncPostman where POSTMAN_COLLECTION_UID is ignored (#353)

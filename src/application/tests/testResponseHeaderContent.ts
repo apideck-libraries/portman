@@ -14,6 +14,7 @@ export const testResponseHeaderContent = (
     let pmTestLength = ''
     let pmTestMinLength = ''
     let pmTestMaxLength = ''
+    let pmTestAssert = ''
 
     if (check.hasOwnProperty('key')) {
       const negate = check.notExist === true ? 'not.have' : 'have'
@@ -147,6 +148,23 @@ export const testResponseHeaderContent = (
       ].join('')
     }
 
+    if (check.hasOwnProperty('assert') && check.assert) {
+      // strip . from beginning & end of assert property, remove double .., replace ' with single "
+      const cleanAssert = check.assert
+        .replace(/\.\./g, '.')
+        .replace(/^\.|\.$/g, '')
+        .replace(/'/g, '"')
+      const cleanAssertLabel = cleanAssert.replace(/"/g, "'")
+
+      pmTestAssert = [
+        `// Response header value for "${check.key}}" "${cleanAssert}"\n`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        ` - Content check if header value for '${check.key}' '${cleanAssertLabel}'", function() {\n`,
+        `  pm.expect(pm.response.headers.get("${check.key}")).${cleanAssert};\n`,
+        `});\n`
+      ].join('')
+    }
+
     if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)
     if (pmTestContains !== '') writeOperationTestScript(pmOperation, pmTestContains)
@@ -154,6 +172,7 @@ export const testResponseHeaderContent = (
     if (pmTestLength !== '') writeOperationTestScript(pmOperation, pmTestLength)
     if (pmTestMinLength !== '') writeOperationTestScript(pmOperation, pmTestMinLength)
     if (pmTestMaxLength !== '') writeOperationTestScript(pmOperation, pmTestMaxLength)
+    if (pmTestAssert !== '') writeOperationTestScript(pmOperation, pmTestAssert)
   })
 
   return pmOperation

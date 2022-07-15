@@ -229,3 +229,73 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operat
 ",
 ]
 `;
+
+exports[`testResponseHeaderContent should not add content header test for a property & custom assert 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header value for \\"Operation-Location}\\" \\"should.be.not.null\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' 'should.be.not.null'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).should.be.not.null;
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should not add content header test for a property & single quotes custom assert 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header value for \\"Operation-Location}\\" \\"to.be.an(\\"array\\")\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' 'to.be.an('array')'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.be.an(\\"array\\");
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should not add content header test for a property & unclean custom assert 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header value for \\"Operation-Location}\\" \\"should.be.not.null\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' 'should.be.not.null'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).should.be.not.null;
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should not add content header test for a property & unclean single quotes custom assert 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header value for \\"Operation-Location}\\" \\"to.be.an(\\"array\\")\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operation-Location' 'to.be.an('array')'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.be.an(\\"array\\");
+});
+",
+]
+`;
+
+exports[`testResponseHeaderContent should not add content header test for a property when assert is empty 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+]
+`;

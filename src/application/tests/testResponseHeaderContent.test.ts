@@ -203,4 +203,64 @@ describe('testResponseHeaderContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should not add content header test for a property & custom assert', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        assert: 'should.be.not.null'
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not add content header test for a property & unclean custom assert', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        assert: '..should.be.not.null.'
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not add content header test for a property & single quotes custom assert', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        assert: '..to.be.an("array")'
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not add content header test for a property & unclean single quotes custom assert', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        assert: `..to.be.an('array')`
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should not add content header test for a property when assert is empty', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        assert: ''
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })
