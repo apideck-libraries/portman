@@ -147,3 +147,41 @@ describe('writeRawReplacements', () => {
     })
   })
 })
+
+it('should use config with quotes to remove all found values in escaped string', () => {
+  const config = [
+    {
+      searchFor: '"format":"date",',
+      replaceWith: ''
+    }
+  ]
+
+  const obj = {
+    exec: ['... "format":"date", ...']
+  }
+  const string = JSON.stringify(obj, null, 2)
+  const result = writeRawReplacements(string, config)
+  const resultObj = JSON.parse(result)
+  expect(resultObj).toStrictEqual({
+    exec: ['...  ...']
+  })
+})
+
+it('should use config with quotes to replace all found values in escaped string', () => {
+  const config = [
+    {
+      searchFor: '"format":"date"',
+      replaceWith: '"format":"specialDate"'
+    }
+  ]
+
+  const obj = {
+    exec: ['... "format":"date", ...']
+  }
+  const string = JSON.stringify(obj, null, 2)
+  const result = writeRawReplacements(string, config)
+  const resultObj = JSON.parse(result)
+  expect(resultObj).toStrictEqual({
+    exec: ['... "format":"specialDate", ...']
+  })
+})
