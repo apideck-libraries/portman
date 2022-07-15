@@ -33,13 +33,13 @@ export const overwriteRequestQueryParams = (
 
       // Test suite - Overwrite/extend query param value
       if (overwriteItem?.value !== undefined && pmQueryParam?.value) {
-        const orginalValue = pmQueryParam.value
-        let newValue = overwriteItem.value
+        const orgValue = pmQueryParam.value
+        let newValue = overwriteItem.value || null
 
         if (overwriteItem.overwrite === false) {
-          newValue = orginalValue + newValue
+          newValue = orgValue + newValue
         }
-        pmQueryParam.value = newValue.toString()
+        pmQueryParam.value = newValue ? newValue.toString() : ''
       }
 
       // Test suite - Disable query param
