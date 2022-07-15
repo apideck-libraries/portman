@@ -37,7 +37,6 @@ export const overwriteRequestPathVariables = (
         if (overwriteValue.overwrite === false) {
           newValue = orgValue + newValue
         }
-
         variable.type = 'string' // Set schema as type string dynamic variable
         variable.value = newValue ? newValue.toString() : ''
       }
