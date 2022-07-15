@@ -41,6 +41,32 @@ describe('overwriteRequestPathVariables', () => {
     expect(result.item.request.url.variables).toEqual(pmOperation.item.request.url.variables)
   })
 
+  it('should overwrite the request path variable with an empty value', async () => {
+    const overwriteValues = [
+      {
+        key: 'id',
+        value: ''
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    expect(result.item.request.url.variables).toMatchSnapshot()
+  })
+
+  it('should overwrite the request path variable with a null value', async () => {
+    const overwriteValues = [
+      {
+        key: 'id',
+        value: null
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    expect(result.item.request.url.variables).toMatchSnapshot()
+  })
+
   it('should overwrite the request path number variable with string value', async () => {
     const overwriteValues = [
       {
