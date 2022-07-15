@@ -120,6 +120,22 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
+  it('should overwrite the query param variable with a null value', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: null,
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedOperation()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
   it('should overwrite the query param number variable with string value', async () => {
     const overwriteValues = [
       {
