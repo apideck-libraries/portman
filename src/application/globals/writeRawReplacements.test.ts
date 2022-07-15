@@ -164,6 +164,8 @@ it('should remove found values in escaped string for schema validation if replac
           id: 'b7904efa-d19f-424e-88aa-09829bec8643',
           type: 'text/javascript',
           exec: [
+            // prettier-ignore
+            // eslint-disable-next-line no-useless-escape
             '// Response Validation\nconst schema = {\"title\":\"User\",\"type\":\"object\",\"description\":\"\",\"examples\":[{\"id\":142,\"firstName\":\"Alice\",\"dateOfBirth\":\"1997-10-31\",\"signUpDate\":\"2019-08-24\"}],\"properties\":{\"id\":{\"type\":\"integer\"},\"firstName\":{\"type\":\"string\"},\"dateOfBirth\":{\"type\":\"string\",\"format\":\"date\",\"example\":\"1997-10-31\"},\"signUpDate\":{\"type\":\"string\",\"format\":\"date\",\"description\":\"The date that the user was created.\"}},\"required\":[\"id\",\"firstName\"]}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/user - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n'
           ]
         }
@@ -181,6 +183,8 @@ it('should remove found values in escaped string for schema validation if replac
           id: 'b7904efa-d19f-424e-88aa-09829bec8643',
           type: 'text/javascript',
           exec: [
+            // prettier-ignore
+            // eslint-disable-next-line no-useless-escape
             '// Response Validation\nconst schema = {\"title\":\"User\",\"type\":\"object\",\"description\":\"\",\"examples\":[{\"id\":142,\"firstName\":\"Alice\",\"dateOfBirth\":\"1997-10-31\",\"signUpDate\":\"2019-08-24\"}],\"properties\":{\"id\":{\"type\":\"integer\"},\"firstName\":{\"type\":\"string\"},\"dateOfBirth\":{\"type\":\"string\",\"example\":\"1997-10-31\"},\"signUpDate\":{\"type\":\"string\",\"description\":\"The date that the user was created.\"}},\"required\":[\"id\",\"firstName\"]}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/user - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n'
           ]
         }
@@ -205,6 +209,8 @@ it('should replace found values in escaped string for schema validation with cor
           id: 'b7904efa-d19f-424e-88aa-09829bec8643',
           type: 'text/javascript',
           exec: [
+            // prettier-ignore
+            // eslint-disable-next-line no-useless-escape
             '// Response Validation\nconst schema = {\"title\":\"User\",\"type\":\"object\",\"description\":\"\",\"examples\":[{\"id\":142,\"firstName\":\"Alice\",\"dateOfBirth\":\"1997-10-31\",\"signUpDate\":\"2019-08-24\"}],\"properties\":{\"id\":{\"type\":\"integer\"},\"firstName\":{\"type\":\"string\"},\"dateOfBirth\":{\"type\":\"string\",\"format\":\"date\",\"example\":\"1997-10-31\"},\"signUpDate\":{\"type\":\"string\",\"format\":\"date\",\"description\":\"The date that the user was created.\"}},\"required\":[\"id\",\"firstName\"]}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/user - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n'
           ]
         }
@@ -222,6 +228,8 @@ it('should replace found values in escaped string for schema validation with cor
           id: 'b7904efa-d19f-424e-88aa-09829bec8643',
           type: 'text/javascript',
           exec: [
+            // prettier-ignore
+            // eslint-disable-next-line no-useless-escape
             '// Response Validation\nconst schema = {\"title\":\"User\",\"type\":\"object\",\"description\":\"\",\"examples\":[{\"id\":142,\"firstName\":\"Alice\",\"dateOfBirth\":\"1997-10-31\",\"signUpDate\":\"2019-08-24\"}],\"properties\":{\"id\":{\"type\":\"integer\"},\"firstName\":{\"type\":\"string\"},\"dateOfBirth\":{\"type\":\"string\",\"format\":\"specialDate\",\"example\":\"1997-10-31\"},\"signUpDate\":{\"type\":\"string\",\"format\":\"specialDate\",\"description\":\"The date that the user was created.\"}},\"required\":[\"id\",\"firstName\"]}\n\n// Validate if response matches JSON schema \npm.test(\"[POST]::/user - Schema is valid\", function() {\n    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\"int32\", \"int64\", \"float\", \"double\"]});\n});\n'
           ]
         }
