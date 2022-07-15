@@ -57,6 +57,18 @@ describe('overwriteRequestBody', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should overwrite the request body with empty value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: ''
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should add a property to the request body with simple key value', async () => {
     const overwriteValues = [
       {
