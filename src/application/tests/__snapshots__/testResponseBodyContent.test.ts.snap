@@ -20,13 +20,93 @@ pm.test(\\"[GET]::/crm/companies - Content check if value of 'ROOT' has a maximu
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for a property & custom assert 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body value for \\"[0].data\\" \\"should.be.not.null\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data' 'should.be.not.null'\\", function() {
+  pm.expect(jsonData[0].data).should.be.not.null;
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for a property & single quotes custom assert 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body value for \\"[0].data\\" \\"to.be.an(\\"array\\")\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data' 'to.be.an('array')'\\", function() {
+  pm.expect(jsonData[0].data).to.be.an(\\"array\\");
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for a property & unclean custom assert 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body value for \\"[0].data\\" \\"should.be.not.null\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data' 'should.be.not.null'\\", function() {
+  pm.expect(jsonData[0].data).should.be.not.null;
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for a property & unclean single quotes custom assert 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
+",
+  "// Response body value for \\"[0].data\\" \\"to.be.an(\\"array\\")\\"
+if (jsonData?.[0]?.data) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data' 'to.be.an('array')'\\", function() {
+  pm.expect(jsonData[0].data).to.be.an(\\"array\\");
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for array bracket check & result for a value that does not exist 1`] = `
 Array [
   "// Set response object as internal variable
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have \\"[0]['hydra:member']\\"
+  "// Response body should not have \\"[0]['hydra:member']\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0]['hydra:member']' not exists\\", function() {
    pm.expect((typeof jsonData[0]['hydra:member'] === \\"undefined\\")).to.be.true;
 });
@@ -340,7 +420,7 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// Response body should have \\"data[0].monetary_amount\\"
+  "// Response body should not have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' not exists\\", function() {
    pm.expect((typeof jsonData.data[0].monetary_amount === \\"undefined\\")).to.be.true;
 });
@@ -672,6 +752,20 @@ if (jsonData?.[0]?.company_name) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].company_name' matches 'Spacex'\\", function() {
   pm.expect(jsonData[0].company_name).to.eql(\\"Spacex\\");
 })};
+",
+]
+`;
+
+exports[`testResponseBodyContent should not add content test for a property when assert is empty 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Response body should have \\"[0].data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
+   pm.expect((typeof jsonData[0].data !== \\"undefined\\")).to.be.true;
+});
 ",
 ]
 `;

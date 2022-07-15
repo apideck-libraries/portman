@@ -91,6 +91,7 @@ export type ResponseBodyTest = {
   minLength?: string | number
   maxLength?: string | number
   notExist?: boolean
+  assert?: string
 }
 
 export type ResponseHeaderTest = {
@@ -102,6 +103,7 @@ export type ResponseHeaderTest = {
   minLength?: string | number
   maxLength?: string | number
   notExist?: boolean
+  assert?: string
 }
 
 type OverwriteConfig = {
