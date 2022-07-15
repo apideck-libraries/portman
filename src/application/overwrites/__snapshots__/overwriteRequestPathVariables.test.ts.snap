@@ -69,8 +69,8 @@ Array [
     },
     "disabled": false,
     "key": "id",
-    "type": "any",
-    "value": "123456",
+    "type": "string",
+    "value": "",
   },
 ]
 `;
