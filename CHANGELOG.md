@@ -8,7 +8,8 @@
 - ContentTests - Added support for special characters in request body property names (#365)
 - AssignVariables - Added support for special characters in request body property names (#365)
 - Postman Sync - Fix for issue where POSTMAN_COLLECTION_UID was ignored (#353)
-- Postman Sync - Improved the Portman API output for API error. (#367) 
+- Postman Sync - Improved the Portman API output for API error. (#367)
+- overwriteRequestPathVariables - Support empty as value (#382)
 
 ## v1.17.0 - (2022-06-21)
 
