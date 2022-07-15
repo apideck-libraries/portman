@@ -30,10 +30,7 @@
           },
           {
             "key": "data",
-            "minLength": 1
-          },
-          {
-            "key": "data",
+            "minLength": 1,
             "maxLength": 20
           },
           {
@@ -43,6 +40,10 @@
           {
             "key": "@count",
             "notExist": true
+          },
+          {
+            "key": "service",
+            "assert": "not.to.be.undefined"
           }
         ]
       },
@@ -55,7 +56,8 @@
             "contains": "/operations/",
             "length": 15,
             "minLength": 5,
-            "maxLength": 20
+            "maxLength": 20,
+            "assert": "not.to.be.undefined"
           }
         ]
       }

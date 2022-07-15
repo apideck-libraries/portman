@@ -104,7 +104,8 @@ These target options are both supported for defining a target. In case both are 
   - **minLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a minimum length of the defined number.
   - **maxLength (Number)** : The number that will be used to check if the value of the response body property (string/array) has a maximum length of the defined number.
   - **notExist (Boolean)** : The inverse of the key check that verify if the key does not exist in the response body.
-  
+  - **assert (String)** : A custom Postman assertion to check if the value in the response body property matches with the provided assertion (example: `not.to.be.null`).
+
 - **responseHeaderTests (Array)** : Array of key/value pairs of properties & values in the Postman response header.
   - **key (String)** : The header name that will be targeted in the response header to check if it exists.
   - **value (String)** : The value that will be used to check if the value in the response header matches.
@@ -114,7 +115,7 @@ These target options are both supported for defining a target. In case both are 
   - **minLength (Number)** : The number that will be used to check if the value of the response header has a minimum length of the defined number of characters.
   - **maxLength (Number)** : The number that will be used to check if the value of the response header has a maximum length of the defined number of characters.
   - **notExist (Boolean)** : The inverse of the key check that verify if the key does not exist in the response header.
-
+  - **assert (String)** : A custom Postman assertion to check if the value in the response header matches with the provided assertion (example: `not.to.be.null`).
 
 ## Example explained
 
@@ -123,56 +124,72 @@ In this example, we are zooming in on only the content tests usage. For the basi
 file: examples/testsuite-content-tests/portman-config.crm.json >>
 
 ```json
-"contentTests": [
-    {
-      "openApiOperationId": "leadsAll",
-      "responseBodyTests": [
-        {
-          "key": "data[0].company_name",
-          "value": "Spacex"
-        {
-          "key": "data[0].name",
-          "contains": "Musk"
-        },
-        {
-          "key": "status_code",
-          "oneOf": [200, 201]
-        },
-        {
-          "key": "data[0].monetary_amount",
-          "value": 75000
-        },
-        {
-          "key": "data[0].description",
-          "length": 9
-        },
-        {
-          "key": "data",
-          "minLength": 1
-        },
-        {
-          "key": "data",
-          "maxLength": 20
-        },
-        {
-          "key": "resource",
-          "value": "companies"
-        }
-      ]
-    },
-    {
-      "openApiOperationId": "leadsOne",
-      "responseHeaderTests": [
-        {
-          "key": "Operation-Location",
-          "contains": "/operations/",
-          "length": 15,
-          "minLength": 5,
-          "maxLength": 20
-        }
-      ]
-    }
-  ]
+{
+  "version": 1.0,
+  "tests": {
+    "contentTests": [
+      {
+        "openApiOperationId": "leadsAll",
+        "responseBodyTests": [
+          {
+            "key": "data[0].company_name",
+            "value": "Spacex"
+          },
+          {
+            "key": "data[0].name",
+            "contains": "Musk"
+          },
+          {
+            "key": "status_code",
+            "oneOf": [
+              200,
+              201
+            ]
+          },
+          {
+            "key": "data[0].monetary_amount",
+            "value": 75000
+          },
+          {
+            "key": "data[0].description",
+            "length": 9
+          },
+          {
+            "key": "data",
+            "minLength": 1,
+            "maxLength": 20
+          },
+          {
+            "key": "resource",
+            "value": "companies"
+          },
+          {
+            "key": "@count",
+            "notExist": true
+          },
+          {
+            "key": "service",
+            "assert": "not.to.be.undefined"
+          }
+        ]
+      },
+      {
+        "openApiOperationId": "leadsOne",
+        "responseHeaderTests": [
+          {
+            "key": "Operation-Location",
+            "value": "/operations/123",
+            "contains": "/operations/",
+            "length": 15,
+            "minLength": 5,
+            "maxLength": 20,
+            "assert": "not.to.be.undefined"
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
 
 ### responseBodyTests
@@ -231,30 +248,27 @@ Part of Postman Testsuite tests:
 
 ```javascript
 // Set response object as internal variable
-let jsonData = pm.response.json()
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
 
-// Response body should have property "data[0].company_name"
-pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function () {
-  pm.expect(typeof jsonData.data[0].company_name !== 'undefined').to.be.true
-})
+// Response body should have "data[0].company_name"
+pm.test("[GET]::/crm/leads - Content check if 'data[0].company_name' exists", function() {
+  pm.expect((typeof jsonData.data[0].company_name !== "undefined")).to.be.true;
+});
 
 // Response body should have value "Spacex" for "data[0].company_name"
-if (typeof jsonData.data[0].company_name !== 'undefined') {
-  pm.test(
-    "[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'",
-    function () {
-      pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
-    }
-  )
-}
+if (jsonData?.data?.[0]?.company_name) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'", function() {
+    pm.expect(jsonData.data[0].company_name).to.eql("Spacex");
+  })};
 
-// Response body should have property "data[0].name"
-pm.test("[GET]::/crm/leads - Content check if property 'data[0].name' exists", function() {
+// Response body should have "data[0].name"
+pm.test("[GET]::/crm/leads - Content check if 'data[0].name' exists", function() {
   pm.expect((typeof jsonData.data[0].name !== "undefined")).to.be.true;
 });
 
 // Response body should contain value "Musk" for "data[0].name"
-if (jsonData?.data[0].name) {
+if (jsonData?.data?.[0]?.name) {
   pm.test("[GET]::/crm/leads - Content check if value for 'data[0].name' contains 'Musk'", function() {
     pm.expect(jsonData.data[0].name).to.include("Musk");
   })};
@@ -270,48 +284,81 @@ if (jsonData?.status_code) {
     pm.expect(jsonData.status_code).to.be.oneOf([200,201]);
   })};
 
-// Response body should have property "data[0].monetary_amount"
-pm.test(
-  "[GET] /crm/leads - Content check if property 'data[0].monetary_amount' exists",
-  function () {
-    pm.expect(typeof jsonData.data[0].monetary_amount !== 'undefined').to.be.true
-  }
-)
+// Response body should have "data[0].monetary_amount"
+pm.test("[GET]::/crm/leads - Content check if 'data[0].monetary_amount' exists", function() {
+  pm.expect((typeof jsonData.data[0].monetary_amount !== "undefined")).to.be.true;
+});
 
 // Response body should have value "75000" for "data[0].monetary_amount"
-if (typeof jsonData.data[0].monetary_amount !== 'undefined') {
-  pm.test(
-    "[GET] /crm/leads - Content check if value for 'data[0].monetary_amount' matches '75000'",
-    function () {
-      pm.expect(jsonData.data[0].monetary_amount).to.eql(75000)
-    }
-  )
-}
+if (jsonData?.data?.[0]?.monetary_amount) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'data[0].monetary_amount' matches '75000'", function() {
+    pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);
+  })};
 
-// Response body should have property "resource"
-pm.test("[GET] /crm/leads - Content check if property 'resource' exists", function () {
-  pm.expect(typeof jsonData.resource !== 'undefined').to.be.true
-})
+// Response body should have "data[0].description"
+pm.test("[GET]::/crm/leads - Content check if 'data[0].description' exists", function() {
+  pm.expect((typeof jsonData.data[0].description !== "undefined")).to.be.true;
+});
+
+// Response body should have a length of "9" for "data[0].description"
+if (jsonData?.data?.[0]?.description) {
+  pm.test("[GET]::/crm/leads - Content check if value of 'data[0].description' has a length of '9'", function() {
+    pm.expect(jsonData.data[0].description.length).to.equal(9);
+  })};
+
+// Response body should have "data"
+pm.test("[GET]::/crm/leads - Content check if 'data' exists", function() {
+  pm.expect((typeof jsonData.data !== "undefined")).to.be.true;
+});
+
+// Response body should have a minimum length of "1" for "data"
+if (jsonData?.data) {
+  pm.test("[GET]::/crm/leads - Content check if value of 'data' has a minimum length of '1'", function() {
+    pm.expect(jsonData.data.length).is.at.least(1);
+  })};
+
+// Response body should have a maximum length of "20" for "data"
+if (jsonData?.data) {
+  pm.test("[GET]::/crm/leads - Content check if value of 'data' has a maximum length of '20'", function() {
+    pm.expect(jsonData.data.length).is.at.most(20);
+  })};
+
+// Response body should have "resource"
+pm.test("[GET]::/crm/leads - Content check if 'resource' exists", function() {
+  pm.expect((typeof jsonData.resource !== "undefined")).to.be.true;
+});
 
 // Response body should have value "companies" for "resource"
-if (typeof jsonData.resource !== 'undefined') {
-  pm.test(
-    "[GET] /crm/leads - Content check if value for 'resource' matches 'companies'",
-    function () {
-      pm.expect(jsonData.resource).to.eql('companies')
-    }
-  )
-}
+if (jsonData?.resource) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'resource' matches 'companies'", function() {
+    pm.expect(jsonData.resource).to.eql("companies");
+  })};
+
+// Response body should not have "@count"
+pm.test("[GET]::/crm/leads - Content check if '@count' not exists", function() {
+  pm.expect((typeof jsonData["@count"] === "undefined")).to.be.true;
+});
+
+// Response body should have "service"
+pm.test("[GET]::/crm/leads - Content check if 'service' exists", function() {
+  pm.expect((typeof jsonData.service !== "undefined")).to.be.true;
+});
+
+// Response body value for "service" "not.to.be.undefined"
+if (jsonData?.service) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'service' 'not.to.be.undefined'", function() {
+    pm.expect(jsonData.service).not.to.be.undefined;
+  })};
 ```
 
 Per defined "contentTest" item, Portman can generate a number of tests:
 
 `key` example:
 ```js
-// Response body should have property "data[0].company_name"
-pm.test("[GET] /crm/leads - Content check if property 'data[0].company_name' exists", function () {
-  pm.expect(typeof jsonData.data[0].company_name !== 'undefined').to.be.true
-})
+// Response body should have "data[0].company_name"
+pm.test("[GET]::/crm/leads - Content check if 'data[0].company_name' exists", function() {
+  pm.expect((typeof jsonData.data[0].company_name !== "undefined")).to.be.true;
+});
 ```
 
 The first check validates if the response has the property "company_name" in the first item ("[0]") of the "data" array.
@@ -319,14 +366,11 @@ The first check validates if the response has the property "company_name" in the
 `value` example:
 ```js
 // Response body should have value "Spacex" for "data[0].company_name"
-if (typeof jsonData.data[0].company_name !== 'undefined') {
-  pm.test(
-    "[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'",
-    function () {
-      pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
-    }
-  )
-}
+if (jsonData?.data?.[0]?.company_name) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'", function() {
+    pm.expect(jsonData.data[0].company_name).to.eql("Spacex");
+  })};
+
 ```
 
 The `value` check validates if the response has value "Spacex" for the property "company_name", using strict equality.
@@ -335,15 +379,11 @@ When you add a `contains` test, the check validates if the response contains the
 
 `contains` example:
 ```js
-// Response body should have value "Spacex" for "data[0].company_name"
-if (typeof jsonData.data[0].company_name !== 'undefined') {
-  pm.test(
-    "[GET] /crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'",
-    function () {
-      pm.expect(jsonData.data[0].company_name).to.eql('Spacex')
-    }
-  )
-}
+// Response body should contain value "Musk" for "data[0].name"
+if (jsonData?.data?.[0]?.name) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'data[0].name' contains 'Musk'", function() {
+    pm.expect(jsonData.data[0].name).to.include("Musk");
+  })};
 ```
 
 When you add a `oneOf` test, the check validates if the response matches one of the values: "200,201" for the value of the property "status_code".
@@ -351,14 +391,10 @@ When you add a `oneOf` test, the check validates if the response matches one of 
 `oneOf` example:
 ```js
 // Response body should be one of the values "200,201" for "status_code"
-if (typeof jsonData.status_code !== 'undefined') {
-  pm.test(
-    "[GET]::/crm/leads - Content check if value for 'status_code' is matching one of: '200,201'",
-      function() {
-        pm.expect(jsonData.status_code).to.be.oneOf([200, 201]);
-      }
-  )
-}
+if (jsonData?.status_code) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'status_code' is matching one of: '200,201'", function() {
+    pm.expect(jsonData.status_code).to.be.oneOf([200,201]);
+  })};
 ```
 
 When you add a `length` test, the check validates if the response contains the expected number of characters/array items for the defined key.
@@ -366,10 +402,10 @@ When you add a `length` test, the check validates if the response contains the e
 `length` example:
 ```js
 // Response body should have a length of "9" for "data[0].description"
-if (jsonData?.data[0].description) {
+if (jsonData?.data?.[0]?.description) {
   pm.test("[GET]::/crm/leads - Content check if value of 'data[0].description' has a length of '9'", function() {
-  pm.expect(jsonData.data[0].description).to.have.lengthOf(9);
-})};
+    pm.expect(jsonData.data[0].description.length).to.equal(9);
+  })};
 ```
 
 When you add a `minLength` test, the check validates if the response contains at least the number of characters/array items for the targeted property.
@@ -379,8 +415,8 @@ When you add a `minLength` test, the check validates if the response contains at
 // Response body should have a minimum length of "1" for "data"
 if (jsonData?.data) {
   pm.test("[GET]::/crm/leads - Content check if value of 'data' has a minimum length of '1'", function() {
-  pm.expect(jsonData.data.length).is.at.least(1);
-})};
+    pm.expect(jsonData.data.length).is.at.least(1);
+  })};
 ```
 
 When you add a `maxLength` test, the check validates if the response contains at least the number of characters/array items for the targeted property.
@@ -390,13 +426,39 @@ When you add a `maxLength` test, the check validates if the response contains at
 // Response body should have a maximum length of "20" for "data"
 if (jsonData?.data) {
   pm.test("[GET]::/crm/leads - Content check if value of 'data' has a maximum length of '20'", function() {
-  pm.expect(jsonData.data.length).is.at.most(20);
-})};
+    pm.expect(jsonData.data.length).is.at.most(20);
+  })};
 ```
 
 > **REMARK**:
 When using the content tests for `length`, `minLength`, `maxLength`, Portman will add specific content checks as Postman tests. 
 You could also include these types of length validation as part of your [OpenAPI specification](https://spec.openapis.org/oas/v3.0.3#properties), which will include maxLength, minLength, minItems, maxItems as part of the JSON schema validation contract test.
+
+When you add a `notExist` test, the check validates if the response does not contain the targeted property.
+
+`notExist` example:
+```js
+// Response body should not have "@count"
+pm.test("[GET]::/crm/leads - Content check if '@count' not exists", function() {
+  pm.expect((typeof jsonData["@count"] === "undefined")).to.be.true;
+});
+```
+
+The content test options are based on the common use-cases for content test. On the other hand Portman focuses on flexibility and extensibility, so we came up with the "assert" option.
+When using the `assert` setting, you can insert a Postman assertion and Portman will include it in the generated Postman collection.
+This allows you to use any Postman assertion you want like: null, true, false, Nan, ...
+
+> **Note**
+> For a more comprehensive overview of what you can include as Postman assertions, we refer to [Postman assertions docs](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/#common-assertion-examples) and the [Chai Assertion Library docs](https://www.chaijs.com/api/bdd/).
+
+`assert` example:
+```js
+// Response body value for "service" "not.to.be.undefined"
+if (jsonData?.service) {
+  pm.test("[GET]::/crm/leads - Content check if value for 'service' 'not.to.be.undefined'", function() {
+    pm.expect(jsonData.service).not.to.be.undefined;
+  })};
+```
 
 ---
 
@@ -414,14 +476,34 @@ pm.test("[GET]::/crm/leads/:id - Response header Operation-Location is present",
   pm.response.to.have.header("Operation-Location");
 });
 
+// Response header should have value "/operations/123" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' matches '/operations/123'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).to.eql("/operations/123");
+});
+
 // Response header should contain value "/operations/" for "Operation-Location"
 pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' contains '/operations/'", function() {
-  pm.expect(pm.response.headers.get('Operation-Location')).to.include("/operations/");
+  pm.expect(pm.response.headers.get("Operation-Location")).to.include("/operations/");
 });
 
 // Response header should have a length of "15" for "Operation-Location"
 pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a length of '15'", function() {
-  pm.expect(pm.response.headers.get('Operation-Location')).to.have.lengthOf(15);
+  pm.expect(pm.response.headers.get("Operation-Location")).to.have.lengthOf(15);
+});
+
+// Response header should have a minimum length of "5" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a minimum length of '5'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location").length).is.at.least(5);
+});
+
+// Response header should have a maximum length of "20" for "Operation-Location"
+pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a maximum length of '20'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location").length).is.at.most(20);
+});
+
+// Response header value for "Operation-Location}" "not.to.be.undefined"
+pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' 'not.to.be.undefined'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).not.to.be.undefined;
 });
 ```
 
@@ -494,6 +576,21 @@ When you add a `maxLength` test, the check validates if the header value contain
 // Response header should have a maximum length of "20" for "Operation-Location"
 pm.test("[GET]::/crm/leads/:id - Content check if header value of 'Operation-Location' has a maximum length of '20'", function() {
   pm.expect(pm.response.headers.get("Operation-Location").length).is.at.most(20);
+});
+```
+
+Similar like with the `responseBodyTests`, the content test `responseHeaderTests` you can insert a Postman assertion, to validate the content of the header.
+When using the `assert` setting, and Portman will include it in the generated Postman collection.
+This allows you to use any Postman assertion you want like: null, true, false, Nan, ...
+
+> **Note**
+> For a more comprehensive overview of what you can include as Postman assertions, we refer to [Postman assertions docs](https://learning.postman.com/docs/writing-scripts/script-references/test-examples/#common-assertion-examples) and the [Chai Assertion Library docs](https://www.chaijs.com/api/bdd/).
+
+`assert` example:
+```js
+// Response header value for "Operation-Location}" "not.to.be.undefined"
+pm.test("[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' 'not.to.be.undefined'", function() {
+  pm.expect(pm.response.headers.get("Operation-Location")).not.to.be.undefined;
 });
 ```
 
