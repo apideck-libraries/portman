@@ -561,14 +561,20 @@ export class Portman {
     const postmanWorkspaceName = this.options?.postmanWorkspaceName
       ? this.options.postmanWorkspaceName
       : process.env.POSTMAN_WORKSPACE_NAME || ''
+    let postmanRefreshCacheValue = postmanRefreshCache
 
     const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)
+
+    // When specific postmanUid is set, refresh the cache always
+    if (postmanUid !== '') {
+      postmanRefreshCacheValue = true
+    }
 
     this.postmanSyncService = new PostmanSyncService({
       postmanUid,
       postmanWorkspaceName,
       portmanCollection,
-      postmanRefreshCache: postmanRefreshCache,
+      postmanRefreshCache: postmanRefreshCacheValue,
       postmanFastSync: postmanFastSync
     })
 
