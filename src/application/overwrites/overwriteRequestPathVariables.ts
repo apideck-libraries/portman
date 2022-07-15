@@ -29,7 +29,7 @@ export const overwriteRequestPathVariables = (
         overwriteValue.key &&
         variable.key &&
         overwriteValue.key === variable.key &&
-        overwriteValue.hasOwnProperty('value')
+        overwriteValue?.value !== undefined
       ) {
         const orgValue = variable?.value || null
         let newValue = overwriteValue.value || null
