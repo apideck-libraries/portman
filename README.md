@@ -555,7 +555,7 @@ REMARKS:
 
   - **requiredFields (Boolean)** : Removes the properties & values from the request body that are marked as "required" in OpenAPI.
   - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a higher value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
@@ -565,17 +565,17 @@ REMARKS:
 
   - **requiredFields (Boolean)** : Removes the properties & values from the request query params that are marked as "required" in OpenAPI.
   - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a higher value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
-- **requestQueryParams (Array)** :
+- **requestHeaders (Array)** :
 
   An array of fuzzing options for the Postman Request Headers.
 
   - **requiredFields (Boolean)** : Removes the properties & values from the request headers that are marked as "required" in OpenAPI.
   - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+  - **maximumNumberFields (Boolean)** : Changes the value of the numeric fields to a higher value than the defined "maximum" property in the OpenAPI document.
   - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
   - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 

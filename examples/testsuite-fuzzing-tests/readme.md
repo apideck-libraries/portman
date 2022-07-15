@@ -255,7 +255,7 @@ The **requestBody** configuration allows you to define for which fuzzing options
 
 - **requiredFields (Boolean)** : Removes the properties & values from the request body that are marked as "required" in OpenAPI.
 - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a higheer value than the defined "maximum" property in the OpenAPI document.
 - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
 - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
@@ -301,7 +301,7 @@ Like for the **requestBody**, you have full control over which **requestQueryPar
 
 - **requiredFields (Boolean)** : Removes the properties & values from the request query parameters that are marked as "required" in OpenAPI.
 - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a higher value than the defined "maximum" property in the OpenAPI document.
 - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
 - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
@@ -335,13 +335,13 @@ See the screenshot above or the generated [postman collection](./crm.postman.jso
 ```
 
 The **requestHeaders** config is an array of fuzzing options for the Postman Request headers.
-By analysing the OpenAPI request headers, Portman can detects all possible fuzzable properties.
+By analysing the OpenAPI request headers, Portman can detect all possible fuzzable properties.
 
 Like for the **requestBody** & **requestQueryParams** , you have full control over which **requestHeaders** fuzzing configuration you want to generate request variations.
 
 - **requiredFields (Boolean)** : Removes the properties & values from the request headers that are marked as "required" in OpenAPI.
 - **minimumNumberFields (Boolean)** : Changes the values of the numeric fields to a lower value than the defined "minimum" property in the OpenAPI document.
-- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a lower value than the defined "maximum" property in the OpenAPI document.
+- **maximumNumberFields (Boolean)** :  Changes the value of the numeric fields to a higher value than the defined "maximum" property in the OpenAPI document.
 - **minLengthFields (Boolean)** : Changes the length of the value to a lower length than the defined "minLength" property in the OpenAPI document.
 - **maxLengthFields (Boolean)** : Changes the length of the value to a higher length than the defined "maxLength" property in the OpenAPI document.
 
