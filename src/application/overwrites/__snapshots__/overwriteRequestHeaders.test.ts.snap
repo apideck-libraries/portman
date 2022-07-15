@@ -75,6 +75,14 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should overwrite the header variable with a null value 1`] = `
+Object {
+  "x-apideck-app-id": "",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
 exports[`overwriteRequestHeaders should overwrite the request headers number variable with string value 1`] = `
 Object {
   "x-apideck-app-id": "-1",
