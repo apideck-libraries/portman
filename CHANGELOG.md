@@ -6,6 +6,7 @@
 - ContentTests - Added "notExist" check for response body & headers (#364)
 - ContentTests - Added support for special characters in request body property names (#365)
 - AssignVariables - Added support for special characters in request body property names (#365)
+- Fix syncPostman where POSTMAN_COLLECTION_UID is ignored (#353)
 
 ## v1.17.0 - (2022-06-21)
 
