@@ -220,6 +220,7 @@ export class PostmanApiService {
     // Start Spinner
     spinner.start()
     let responseStatusCode
+    let responseStatusMessage
 
     try {
       axios.interceptors.request.use(req => {
@@ -232,6 +233,7 @@ export class PostmanApiService {
           spinner.text = `Response Received: ${response?.status}\n`
 
           responseStatusCode = response.status
+          responseStatusMessage = response.statusText
           return response
         },
         error => {
@@ -240,6 +242,7 @@ export class PostmanApiService {
             error.response = {}
           }
           responseStatusCode = error?.response?.status || error?.code
+          responseStatusMessage = error?.response?.statusText || error?.code
           return error
         }
       )
@@ -260,12 +263,14 @@ export class PostmanApiService {
         spinner.succeed(`Upload to Postman Succeeded`)
       } else {
         spinner.succeed(
-          `Upload to Postman completed with status: ${responseStatusCode}. \n\n Please review your collection within Postman as they can respond with a 5xx but still import your collection`
+          `Upload to Postman completed with status: ${responseStatusCode} - ${responseStatusMessage} \n\n Please review your collection within Postman as they can respond with a 5xx but still import your collection`
         )
       }
       return JSON.stringify({ status: 'success', data: { ...respData, collection } }, null, 2)
     } catch (error) {
-      spinner.fail(chalk.red(`Upload to Postman Failed: ${responseStatusCode}`))
+      spinner.fail(
+        chalk.red(`Upload to Postman Failed: ${responseStatusCode} - ${responseStatusMessage}`)
+      )
       spinner.clear()
       return JSON.stringify(
         {
