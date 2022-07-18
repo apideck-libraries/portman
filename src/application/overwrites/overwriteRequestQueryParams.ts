@@ -67,8 +67,9 @@ export const overwriteRequestQueryParams = (
   // Test suite - Add query param
   insertNewKeys
     .filter(overwriteItem => !(overwriteItem.insert === false))
+    .filter(overwriteItem => !(overwriteItem.remove === true))
     .map(queryToInsert => {
-      // Initialize new Postman Header
+      // Initialize new Postman query param
       const newPmQueryParam = {
         key: queryToInsert.key,
         value: '',
@@ -76,19 +77,18 @@ export const overwriteRequestQueryParams = (
         disabled: false
       } as QueryParam
 
-      // Set header properties based on the OverwriteValues
+      // Set query param properties based on the OverwriteValues
       if (queryToInsert.value) newPmQueryParam.value = queryToInsert.value
       if (queryToInsert.disable === true) newPmQueryParam.disabled = true
       if (queryToInsert.description) newPmQueryParam.description = queryToInsert.description
 
       // Add Postman query param
-      // pmOperation.item.request.addHeader(newPmQueryParam)
       pmOperation.item.request.url.query.upsert(newPmQueryParam)
 
       // Add queryParams
       if (pmOperation?.queryParams && Array.isArray(pmOperation.queryParams)) {
-        const { disabled, ...reqHeader } = newPmQueryParam
-        pmOperation.queryParams.push(reqHeader)
+        const { disabled, ...reqQueryParam } = newPmQueryParam
+        pmOperation.queryParams.push(reqQueryParam)
       }
     })
   return pmOperation

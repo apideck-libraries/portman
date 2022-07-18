@@ -48,6 +48,10 @@
           "key": "id",
           "value": "123456789",
           "overwrite": true
+        },
+        {
+          "key": "id",
+          "remove": true
         }
       ]
     },
@@ -62,6 +66,20 @@
         {
           "key": "x-apideck-consumer-id-additional",
           "value": "portman-id-{{$randomInt}}-additional"
+        }
+      ],
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true,
+          "description": "Lead ID"
+        },
+        {
+          "key": "fake-id",
+          "value": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+          "description": "Fake ID",
+          "insert": true
         }
       ]
     },
