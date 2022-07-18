@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`overwriteRequestQueryParams overwrite overwrite the request query param with an empty when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "id",
+    "value": "",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should append the request query param when overwrite is false 1`] = `
 Array [
   Object {
@@ -10,6 +29,20 @@ Array [
     "disabled": false,
     "key": "raw",
     "value": "truefoo",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should append the request query param when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "foo",
   },
 ]
 `;
@@ -85,6 +118,39 @@ Array [
     "disabled": false,
     "key": "add-a-query-param",
     "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should not insert the query param, if key found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "id",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should not remove any the request query param, when a absent key 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
   },
 ]
 `;
