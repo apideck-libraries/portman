@@ -123,7 +123,12 @@ export type OverwriteRequestBodyConfig = Omit<OverwriteConfig, 'value'> & {
   value?: any
 }
 
-export type OverwritePathVariableConfig = Omit<OverwriteConfig, 'remove'>
+export type OverwritePathVariableConfig = OverwriteConfig & {
+  disable?: boolean
+  insert?: boolean
+  description?: string
+}
+
 export type OverwriteRequestHeadersConfig = OverwriteConfig & {
   disable?: boolean
   insert?: boolean

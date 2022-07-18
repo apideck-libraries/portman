@@ -39,11 +39,62 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
+  it('should append the request query param when overwrite is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: 'foo',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('overwrite overwrite the request query param with an empty when overwrite is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'id',
+        value: '',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
   it('should remove to the query param when remove is true', async () => {
     const overwriteValues = [
       {
         key: 'raw',
         remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should not remove any the request query param, when a absent key', async () => {
+    const overwriteValues = [
+      {
+        key: 'fake-key',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should not insert the query param, if key found', async () => {
+    const overwriteValues = [
+      {
+        key: 'id',
+        value: 'foo-bar-baz',
+        insert: true
       }
     ]
     const pmOperation = await getPostmanMappedOperation()
@@ -58,7 +109,6 @@ describe('overwriteRequestQueryParams', () => {
         value: 'foo-bar-baz'
       }
     ]
-
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
     expect(result.item.request.url.query).toMatchSnapshot()
@@ -72,7 +122,6 @@ describe('overwriteRequestQueryParams', () => {
         insert: true
       }
     ]
-
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
     expect(result.item.request.url.query).toMatchSnapshot()
@@ -100,7 +149,6 @@ describe('overwriteRequestQueryParams', () => {
         description: 'Additional query param'
       }
     ]
-
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
     expect(result.item.request.url.query).toMatchSnapshot()
@@ -128,7 +176,6 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-
     const pmOperation = await getPostmanMappedOperation()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

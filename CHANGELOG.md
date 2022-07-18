@@ -10,6 +10,8 @@
 - Postman Sync - Fix for issue where POSTMAN_COLLECTION_UID was ignored (#353)
 - Postman Sync - Improved the Portman API output for API error. (#367)
 - overwriteRequestPathVariables - Support empty as value (#382)
+- overwriteRequestPathVariables - Added the option to insert new path variables in Postman
+- overwriteRequestPathVariables - Added the option to remove path variables in Postman
 
 ## v1.17.0 - (2022-06-21)
 
