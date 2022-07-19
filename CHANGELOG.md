@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.18.0 - (2022-07-19)
+
 - Overwrites - Automatically convert values for request query parameters, path variables & headers to string (#336, #384)
 - Fix ContentTests with length/minLength/maxLength checks with 0 (zero) as value (#369)
 - Fix ContentTests with empty as value
@@ -12,6 +14,7 @@
 - overwriteRequestPathVariables - Support empty as value (#382)
 - overwriteRequestPathVariables - Added the option to insert new path variables in Postman
 - overwriteRequestPathVariables - Added the option to remove path variables in Postman
+- Bumped dependencies
 
 ## v1.17.0 - (2022-06-21)
 
