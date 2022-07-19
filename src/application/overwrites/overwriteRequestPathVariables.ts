@@ -38,13 +38,13 @@ export const overwriteRequestPathVariables = (
         overwriteValue?.value !== undefined
       ) {
         const orgValue = variable?.value || null
-        let newValue = overwriteValue.value || null
+        let newValue = overwriteValue.value
 
         if (overwriteValue.overwrite === false) {
           newValue = orgValue + newValue
         }
         variable.type = 'string' // Set schema as type string dynamic variable
-        variable.value = newValue ? newValue.toString() : ''
+        variable.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
       }
     })
   })
