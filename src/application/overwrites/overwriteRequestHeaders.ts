@@ -34,12 +34,12 @@ export const overwriteRequestHeaders = (
       // Test suite - Overwrite/extend header value
       if (overwriteItem?.value !== undefined && pmHeader?.value) {
         const orgValue = pmHeader.value
-        let newValue = overwriteItem.value || null
+        let newValue = overwriteItem.value
 
         if (overwriteItem.overwrite === false) {
           newValue = orgValue + newValue
         }
-        pmHeader.value = newValue ? newValue.toString() : ''
+        pmHeader.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
       }
 
       // Test suite - Disable header

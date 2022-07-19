@@ -155,6 +155,20 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestQueryParams should overwrite the query param boolean variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "false",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should overwrite the query param number variable with string value 1`] = `
 Array [
   Object {
