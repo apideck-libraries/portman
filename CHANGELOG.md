@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-- Overwrites - Automatically convert values for request query parameters, path variables & headers to string (#336)
+- Overwrites - Automatically convert values for request query parameters, path variables & headers to string (#336, #384)
 - Fix ContentTests with length/minLength/maxLength checks with 0 (zero) as value (#369)
 - Fix ContentTests with empty as value
 - ContentTests - Added "notExist" check for response body & headers (#364)
