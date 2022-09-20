@@ -98,7 +98,7 @@ describe('injectContractTests', () => {
 
     // Inject response tests
     testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
-    expect(pmOperationOne.item.events).toMatchSnapshot()
+    expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
   })
 
   it('should inject content-type check', async () => {
@@ -121,6 +121,26 @@ describe('injectContractTests', () => {
         enabled: true
       }
     }
+
+    // Inject response tests
+    testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
+    expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
+  })
+
+  it('should not inject JSON body check, when not content-type JSON', async () => {
+    const contractTest = {
+      openApiOperation: path,
+      jsonBody: {
+        enabled: true
+      }
+    }
+
+    // @ts-ignore
+    const schema = oaOperationOne.schema.responses[200].content['application/json']
+    // @ts-ignore
+    oaOperationOne?.schema.responses[200].content['plain/text'] = schema
+    // @ts-ignore
+    delete oaOperationOne.schema.responses[200].content['application/json']
 
     // Inject response tests
     testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
@@ -153,14 +173,50 @@ describe('injectContractTests', () => {
     expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
   })
 
-  it('should inject schemaValidation check, without additionalProperties', async () => {
+  it('should inject schemaValidation check, without additionalProperties set to false', async () => {
     const contractTest = {
       openApiOperation: path,
       schemaValidation: {
         enabled: true,
-        additionalProperties: true
+        additionalProperties: false
       }
     }
+
+    // Inject response tests
+    testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
+    expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
+  })
+
+  it('should not inject schemaValidation check, when not content-type JSON', async () => {
+    const contractTest = {
+      openApiOperation: path,
+      schemaValidation: {
+        enabled: true
+      }
+    }
+
+    // @ts-ignore
+    const schema = oaOperationOne.schema.responses[200].content['application/json']
+    // @ts-ignore
+    oaOperationOne?.schema.responses[200].content['plain/text'] = schema
+    // @ts-ignore
+    delete oaOperationOne.schema.responses[200].content['application/json']
+
+    // Inject response tests
+    testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
+    expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
+  })
+
+  it('should not inject schemaValidation check, when no content-type', async () => {
+    const contractTest = {
+      openApiOperation: path,
+      schemaValidation: {
+        enabled: true
+      }
+    }
+
+    // @ts-ignore
+    delete oaOperationOne.schema.responses[200].content['application/json']
 
     // Inject response tests
     testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
