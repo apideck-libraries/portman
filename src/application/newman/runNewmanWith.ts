@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import newman, { NewmanRunOptions } from 'newman'
 import path from 'path'
+import { camelCase } from 'camel-case'
 
 export const runNewmanWith = async (
   postmanCollectionFile: string,
@@ -26,8 +27,13 @@ export const runNewmanWith = async (
     const iterationData = require(path.resolve(newmanDataFile))
     defaultNewmanOptions['iterationData'] = iterationData
   }
-
-  const newmanOptions = { ...defaultNewmanOptions, ...newmanRunOptions }
+  // camelCase Newman run options
+  const newmanRunOptionsCased = Object.keys(newmanRunOptions).reduce(
+    (a, c) => ((a[`${camelCase(c)}`] = newmanRunOptions[c]), a),
+    {}
+  ) as Partial<NewmanRunOptions>
+  // Merge Newman default and runtime options
+  const newmanOptions = { ...defaultNewmanOptions, ...newmanRunOptionsCased }
 
   return new Promise((resolve, reject) => {
     try {

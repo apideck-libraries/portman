@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fix Newman option not properly formatted (#395)
+
 ## v1.18.0 - (2022-07-19)
 
 - Overwrites - Automatically convert values for request query parameters, path variables & headers to string (#336, #384)
