@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`injectContractTests should inject JSON body check 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate if response has JSON Body 
+pm.test(\\"[GET]::/crm/leads - Response has JSON Body\\", function () {
+    pm.response.to.have.jsonBody();
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject content-type check 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate if response header has matching content-type
+pm.test(\\"[GET]::/crm/leads - Content-Type is application/json\\", function () {
+   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject header check 1`] = `
+Object {
+  "members": Array [],
+}
+`;
+
+exports[`injectContractTests should inject responseTime check, with default response time 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate response time 
+pm.test(\\"[GET]::/crm/leads - Response time is less than 300ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(300);
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject responseTime check, with specific response time 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate response time 
+pm.test(\\"[GET]::/crm/leads - Response time is less than 600ms\\", function () {
+    pm.expect(pm.response.responseTime).to.be.below(600);
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject schemaValidation check 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Response Validation
+const schema = {\\"x-graphql-type-name\\":\\"LeadList\\",\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"name\\",\\"company_name\\"],\\"x-pii\\":[\\"name\\",\\"email\\",\\"first_name\\",\\"last_name\\"],\\"additionalProperties\\":false,\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"12345\\",\\"readOnly\\":true},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"Elon Musk\\",\\"minLength\\":1},\\"company_name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Spacex\\"},\\"owner_id\\":{\\"type\\":\\"string\\",\\"example\\":\\"54321\\"},\\"company_id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"2\\"},\\"contact_id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"2\\"},\\"lead_source\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Cold Call\\"},\\"first_name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Elon\\"},\\"last_name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Musk\\"},\\"description\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"A thinker\\"},\\"prefix\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Sir\\"},\\"title\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"CEO\\"},\\"language\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"EN\\",\\"description\\":\\"language code according to ISO 639-1. For the United States - EN\\"},\\"status\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"New\\"},\\"monetary_amount\\":{\\"type\\":[\\"number\\",\\"null\\"],\\"example\\":75000},\\"currency\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"USD\\"},\\"fax\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"+12129876543\\"},\\"websites\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"url\\"],\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"url\\":{\\"type\\":\\"string\\",\\"example\\":\\"http://example.com\\",\\"minLength\\":1},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"WebsiteType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"work\\",\\"personal\\",\\"other\\"],\\"example\\":\\"primary\\"}}}},\\"addresses\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"123\\"},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"AddressType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"home\\",\\"office\\",\\"shipping\\",\\"billing\\",\\"other\\"],\\"example\\":\\"primary\\"},\\"name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"HQ US\\"},\\"line1\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Main street\\",\\"description\\":\\"Line 1 of the address e.g. number, street, suite, apt #, etc.\\"},\\"line2\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"apt #\\",\\"description\\":\\"Line 2 of the address\\"},\\"city\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"San Francisco\\",\\"description\\":\\"Name of city.\\"},\\"state\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"CA\\",\\"description\\":\\"Name of state\\"},\\"postal_code\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"94104\\",\\"description\\":\\"Zip code or equivalent.\\"},\\"country\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"US\\",\\"description\\":\\"country code according to ISO 3166-1 alpha-2.\\"},\\"latitude\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"40.759211\\"},\\"longitude\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"-73.984638\\"}}}},\\"social_links\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"url\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"url\\":{\\"type\\":\\"string\\",\\"example\\":\\"https://www.twitter.com/apideck-io\\",\\"minLength\\":1},\\"type\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"twitter\\"}}}},\\"phone_numbers\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"number\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"number\\":{\\"type\\":\\"string\\",\\"example\\":\\"111-111-1111\\",\\"minLength\\":1},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"PhoneType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"home\\",\\"office\\",\\"mobile\\",\\"assistant\\",\\"fax\\",\\"other\\"],\\"example\\":\\"primary\\"}}}},\\"emails\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"email\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"123\\"},\\"email\\":{\\"type\\":\\"string\\",\\"format\\":\\"email\\",\\"example\\":\\"elon@musk.com\\",\\"minLength\\":1},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"EmailType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"work\\",\\"personal\\",\\"billing\\",\\"other\\"],\\"example\\":\\"primary\\"}}}},\\"custom_fields\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"id\\"],\\"additionalProperties\\":false,\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"custom_technologies\\"},\\"value\\":{\\"anyOf\\":[{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Uses Salesforce and Marketo\\"},{\\"type\\":[\\"number\\",\\"null\\"],\\"example\\":10},{\\"type\\":[\\"boolean\\",\\"null\\"],\\"example\\":true},{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"string\\"}}]}}}},\\"tags\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"string\\"},\\"example\\":[\\"New\\"]},\\"updated_at\\":{\\"type\\":\\"string\\",\\"example\\":\\"2020-09-30T07:43:32.000Z\\",\\"readOnly\\":true},\\"created_at\\":{\\"type\\":\\"string\\",\\"example\\":\\"2020-09-30T07:43:32.000Z\\",\\"readOnly\\":true}}}},\\"meta\\":{\\"type\\":\\"object\\",\\"description\\":\\"Reponse metadata\\",\\"properties\\":{\\"items_on_page\\":{\\"type\\":\\"integer\\",\\"description\\":\\"Number of items returned in the data property of the response\\",\\"example\\":50},\\"cursors\\":{\\"type\\":\\"object\\",\\"description\\":\\"Cursors to navigate to previous or next pages through the API\\",\\"properties\\":{\\"previous\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the previous page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjE=\\"},\\"current\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the current page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjI=\\"},\\"next\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the next page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjM=\\"}}}}},\\"links\\":{\\"type\\":\\"object\\",\\"description\\":\\"Links to navigate to previous or next pages through the API\\",\\"properties\\":{\\"previous\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Link to navigate to the previous page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D\\"},\\"current\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to navigate to the current page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies\\"},\\"next\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Link to navigate to the previous page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM\\"}}}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/leads - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject schemaValidation check, without additionalProperties set to false 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Response Validation
+const schema = {\\"x-graphql-type-name\\":\\"LeadList\\",\\"type\\":\\"object\\",\\"required\\":[\\"status_code\\",\\"status\\",\\"service\\",\\"resource\\",\\"operation\\",\\"data\\"],\\"properties\\":{\\"status_code\\":{\\"type\\":\\"integer\\",\\"description\\":\\"HTTP Response Status Code\\",\\"example\\":200},\\"status\\":{\\"type\\":\\"string\\",\\"description\\":\\"HTTP Response Status\\",\\"example\\":\\"OK\\"},\\"service\\":{\\"type\\":\\"string\\",\\"description\\":\\"Apideck ID of service provider\\",\\"example\\":\\"zoho-crm\\"},\\"resource\\":{\\"type\\":\\"string\\",\\"description\\":\\"Unified API resource name\\",\\"example\\":\\"companies\\"},\\"operation\\":{\\"type\\":\\"string\\",\\"description\\":\\"Operation performed\\",\\"example\\":\\"one\\"},\\"data\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"name\\",\\"company_name\\"],\\"x-pii\\":[\\"name\\",\\"email\\",\\"first_name\\",\\"last_name\\"],\\"additionalProperties\\":false,\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"12345\\",\\"readOnly\\":true},\\"name\\":{\\"type\\":\\"string\\",\\"example\\":\\"Elon Musk\\",\\"minLength\\":1},\\"company_name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Spacex\\"},\\"owner_id\\":{\\"type\\":\\"string\\",\\"example\\":\\"54321\\"},\\"company_id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"2\\"},\\"contact_id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"2\\"},\\"lead_source\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Cold Call\\"},\\"first_name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Elon\\"},\\"last_name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Musk\\"},\\"description\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"A thinker\\"},\\"prefix\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Sir\\"},\\"title\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"CEO\\"},\\"language\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"EN\\",\\"description\\":\\"language code according to ISO 639-1. For the United States - EN\\"},\\"status\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"New\\"},\\"monetary_amount\\":{\\"type\\":[\\"number\\",\\"null\\"],\\"example\\":75000},\\"currency\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"USD\\"},\\"fax\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"+12129876543\\"},\\"websites\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"url\\"],\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"url\\":{\\"type\\":\\"string\\",\\"example\\":\\"http://example.com\\",\\"minLength\\":1},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"WebsiteType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"work\\",\\"personal\\",\\"other\\"],\\"example\\":\\"primary\\"}},\\"additionalProperties\\":false}},\\"addresses\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"123\\"},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"AddressType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"home\\",\\"office\\",\\"shipping\\",\\"billing\\",\\"other\\"],\\"example\\":\\"primary\\"},\\"name\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"HQ US\\"},\\"line1\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Main street\\",\\"description\\":\\"Line 1 of the address e.g. number, street, suite, apt #, etc.\\"},\\"line2\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"apt #\\",\\"description\\":\\"Line 2 of the address\\"},\\"city\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"San Francisco\\",\\"description\\":\\"Name of city.\\"},\\"state\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"CA\\",\\"description\\":\\"Name of state\\"},\\"postal_code\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"94104\\",\\"description\\":\\"Zip code or equivalent.\\"},\\"country\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"US\\",\\"description\\":\\"country code according to ISO 3166-1 alpha-2.\\"},\\"latitude\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"40.759211\\"},\\"longitude\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"-73.984638\\"}},\\"additionalProperties\\":false}},\\"social_links\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"url\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"url\\":{\\"type\\":\\"string\\",\\"example\\":\\"https://www.twitter.com/apideck-io\\",\\"minLength\\":1},\\"type\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"twitter\\"}},\\"additionalProperties\\":false}},\\"phone_numbers\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"number\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"12345\\"},\\"number\\":{\\"type\\":\\"string\\",\\"example\\":\\"111-111-1111\\",\\"minLength\\":1},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"PhoneType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"home\\",\\"office\\",\\"mobile\\",\\"assistant\\",\\"fax\\",\\"other\\"],\\"example\\":\\"primary\\"}},\\"additionalProperties\\":false}},\\"emails\\":{\\"type\\":\\"array\\",\\"items\\":{\\"required\\":[\\"email\\"],\\"type\\":\\"object\\",\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"123\\"},\\"email\\":{\\"type\\":\\"string\\",\\"format\\":\\"email\\",\\"example\\":\\"elon@musk.com\\",\\"minLength\\":1},\\"type\\":{\\"type\\":\\"string\\",\\"x-graphql-type-name\\":\\"EmailType\\",\\"enum\\":[\\"primary\\",\\"secondary\\",\\"work\\",\\"personal\\",\\"billing\\",\\"other\\"],\\"example\\":\\"primary\\"}},\\"additionalProperties\\":false}},\\"custom_fields\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"object\\",\\"required\\":[\\"id\\"],\\"additionalProperties\\":false,\\"properties\\":{\\"id\\":{\\"type\\":\\"string\\",\\"example\\":\\"custom_technologies\\"},\\"value\\":{\\"anyOf\\":[{\\"type\\":[\\"string\\",\\"null\\"],\\"example\\":\\"Uses Salesforce and Marketo\\"},{\\"type\\":[\\"number\\",\\"null\\"],\\"example\\":10},{\\"type\\":[\\"boolean\\",\\"null\\"],\\"example\\":true},{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"string\\"}}]}}}},\\"tags\\":{\\"type\\":\\"array\\",\\"items\\":{\\"type\\":\\"string\\"},\\"example\\":[\\"New\\"]},\\"updated_at\\":{\\"type\\":\\"string\\",\\"example\\":\\"2020-09-30T07:43:32.000Z\\",\\"readOnly\\":true},\\"created_at\\":{\\"type\\":\\"string\\",\\"example\\":\\"2020-09-30T07:43:32.000Z\\",\\"readOnly\\":true}}}},\\"meta\\":{\\"type\\":\\"object\\",\\"description\\":\\"Reponse metadata\\",\\"properties\\":{\\"items_on_page\\":{\\"type\\":\\"integer\\",\\"description\\":\\"Number of items returned in the data property of the response\\",\\"example\\":50},\\"cursors\\":{\\"type\\":\\"object\\",\\"description\\":\\"Cursors to navigate to previous or next pages through the API\\",\\"properties\\":{\\"previous\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the previous page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjE=\\"},\\"current\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the current page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjI=\\"},\\"next\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Cursor to navigate to the next page of results through the API\\",\\"example\\":\\"em9oby1jcm06OnBhZ2U6OjM=\\"}},\\"additionalProperties\\":false}},\\"additionalProperties\\":false},\\"links\\":{\\"type\\":\\"object\\",\\"description\\":\\"Links to navigate to previous or next pages through the API\\",\\"properties\\":{\\"previous\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Link to navigate to the previous page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D\\"},\\"current\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to navigate to the current page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies\\"},\\"next\\":{\\"type\\":[\\"string\\",\\"null\\"],\\"description\\":\\"Link to navigate to the previous page through the API\\",\\"example\\":\\"https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM\\"}},\\"additionalProperties\\":false}},\\"additionalProperties\\":false}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/crm/leads - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject status check 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate status 2xx 
+pm.test(\\"[GET]::/crm/leads - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should inject status code check 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate response status code 
+pm.test(\\"[GET]::/crm/leads - Response status code is 400\\", function () {
+    pm.expect(pm.response.code).to.equal(400);
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
+exports[`injectContractTests should not inject JSON body check, when not content-type JSON 1`] = `
+Object {
+  "members": Array [],
+}
+`;
+
+exports[`injectContractTests should not inject schemaValidation check, when no content-type 1`] = `
+Object {
+  "members": Array [],
+}
+`;
+
+exports[`injectContractTests should not inject schemaValidation check, when not content-type JSON 1`] = `
+Object {
+  "members": Array [],
+}
+`;
