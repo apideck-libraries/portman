@@ -1,7 +1,10 @@
 ## [Unreleased]
 
+## v1.18.1 - (2022-09-30)
+
 - Fix unwanted schema validation (#392)
 - Fix Newman option not properly formatted (#395)
+- Bumped dependencies
 
 ## v1.18.0 - (2022-07-19)
 
