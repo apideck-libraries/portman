@@ -16,6 +16,25 @@ export const overwriteRequestBody = (
   if (!(overwriteValues instanceof Array)) return pmOperation
 
   // Early exit if request body is not defined
+  if (pmOperation.item?.request?.body?.raw) {
+    // Overwrite JSON values
+    overwriteRequestBodyJson(overwriteValues, pmOperation)
+  }
+
+  return pmOperation
+}
+
+/**
+ * Overwrite JSON values in the request body values
+ * @param overwriteValues
+ * @param pmOperation
+ */
+export const overwriteRequestBodyJson = (
+  overwriteValues: OverwriteRequestBodyConfig[],
+  pmOperation: PostmanMappedOperation
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+): PostmanMappedOperation => {
+  // Early exit if request body is not defined
   if (!pmOperation.item?.request?.body?.raw) return pmOperation
   const requestBody = pmOperation.item.request.body.raw
 
@@ -61,6 +80,11 @@ export const overwriteRequestBody = (
 
   return pmOperation
 }
+
+/**
+ * Encode Dynamic Postman variables for safe processing
+ * @param jsonString
+ */
 export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
   // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from unescaped values to safe values
   const find = [
@@ -87,6 +111,10 @@ export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
   return jsonString
 }
 
+/**
+ * Decode Dynamic Postman variables for safe processing
+ * @param jsonString
+ */
 export const decodeDynamicPmVars = (jsonString: string): string => {
   // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to escaped number/boolean
   const find = [
