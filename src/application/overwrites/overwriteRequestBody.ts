@@ -1,6 +1,7 @@
 import { PostmanMappedOperation } from '../../postman'
 import { OverwriteRequestBodyConfig } from '../../types'
 import { getByPath, isObject, omitByPath, setByPath } from '../../utils'
+import { FormParam, PropertyList } from 'postman-collection'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite
@@ -15,10 +16,13 @@ export const overwriteRequestBody = (
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
-  // Early exit if request body is not defined
   if (pmOperation.item?.request?.body?.raw) {
     // Overwrite JSON values
     overwriteRequestBodyJson(overwriteValues, pmOperation)
+  }
+  if (pmOperation.item?.request?.body?.formdata) {
+    // Overwrite Form values
+    overwriteRequestBodyForm(overwriteValues, pmOperation)
   }
 
   return pmOperation
@@ -82,7 +86,88 @@ export const overwriteRequestBodyJson = (
 }
 
 /**
- * Encode Dynamic Postman variables for safe processing
+ * Overwrite Formdata values in the request body values
+ * @param overwriteValues
+ * @param pmOperation
+ */
+export const overwriteRequestBodyForm = (
+  overwriteValues: OverwriteRequestBodyConfig[],
+  pmOperation: PostmanMappedOperation
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+): PostmanMappedOperation => {
+  // Early exit if request body form data is not defined
+  if (!pmOperation.item?.request?.body?.formdata) return pmOperation
+  const formData = pmOperation.item.request.body.formdata as PropertyList<FormParam>
+
+  // Early exit if request body form data is empty defined
+  if (formData.count() === 0) return pmOperation
+
+  // New form data members
+  const formMembers = [] as FormParam[]
+
+  const formKeys = formData.map(({ key }) => key)
+  // Detect overwrite form params that do not exist in the Postman collection
+  const insertNewKeys = overwriteValues.filter(x => !formKeys.includes(x.key))
+
+  formData.each(pmFormParam => {
+    // Overwrite values for Keys
+    const overwriteItem = overwriteValues.find(obj => {
+      return obj.key === pmFormParam.key
+    })
+
+    // Test suite - Overwrite/extend request body form data param value
+    if (overwriteItem?.value !== undefined && pmFormParam?.value) {
+      const orgValue = pmFormParam.value
+      let newValue = overwriteItem.value
+
+      if (overwriteItem.overwrite === false) {
+        newValue = orgValue + newValue
+      }
+      pmFormParam.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+    }
+
+    // Test suite - Disable form data param
+    if (overwriteItem?.disable === true) {
+      pmFormParam.disabled = true
+    }
+
+    // Set Postman form data param
+    if (!(overwriteItem?.remove === true)) {
+      formMembers.push(pmFormParam)
+    }
+  })
+
+  // Test suite - Add form data param
+  insertNewKeys
+    .filter(overwriteItem => !(overwriteItem.insert === false))
+    .filter(overwriteItem => !(overwriteItem.remove === true))
+    .map(formMember => {
+      // Initialize new Postman query param
+      const pmFormParam = {
+        key: formMember.key,
+        value: '',
+        // description: '',
+        disabled: false
+      } as FormParam
+
+      // Set form param properties based on the OverwriteValues
+      if (formMember.value) pmFormParam.value = formMember.value
+      if (formMember.disable === true) pmFormParam.disabled = true
+      if (formMember.description) pmFormParam.description = formMember.description
+
+      // Add Postman form data
+      formMembers.push(pmFormParam)
+    })
+
+  // Clear existing & add new members
+  formData.clear()
+  formData.assimilate(formMembers, false)
+
+  return pmOperation
+}
+
+/**
+ * Helper - Encode Dynamic Postman variables for safe processing
  * @param jsonString
  */
 export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
@@ -112,7 +197,7 @@ export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
 }
 
 /**
- * Decode Dynamic Postman variables for safe processing
+ * Helper - Decode Dynamic Postman variables for safe processing
  * @param jsonString
  */
 export const decodeDynamicPmVars = (jsonString: string): string => {

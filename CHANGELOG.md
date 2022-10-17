@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- overwriteRequestBody - added support for type "form-data" (#325)
+
 ## v1.18.1 - (2022-09-30)
 
 - Fix unwanted schema validation (#392)

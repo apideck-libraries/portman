@@ -2338,6 +2338,237 @@ exports[`overwriteRequestBody should remove the body prop from a nested element 
 }"
 `;
 
+exports[`overwriteRequestBodyForm overwrite the request form data with an empty when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should append the request form data when overwrite is false 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "barfoo",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should disable the request form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should insert the form data variable with description, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "description": Object {
+      "content": "Additional form data",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should insert the form data variable with true insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should insert the form data variable, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should not append the request form data when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should not insert the form data, if key found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should not remove any the request form data, when a absent key 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should overwrite the form data boolean variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "false",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should overwrite the form data number variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "-1",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should overwrite the form data variable with a blank value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should overwrite the form data variable with a null value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should overwrite the request form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBodyForm should remove to the form data when remove is true 1`] = `Array []`;
+
+exports[`overwriteRequestBodyForm should skip the form data variable with false insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
 exports[`should append a request body array with overwriteValue 1`] = `
 "[
     {

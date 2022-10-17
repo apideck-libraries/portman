@@ -1,6 +1,7 @@
 import {
   getPostmanMappedCreateOperation,
-  getPostmanMappedCreateArrayOperation
+  getPostmanMappedCreateArrayOperation,
+  getPostmanMappedCreateFormData
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import {
   decodeDynamicPmVars,
@@ -436,4 +437,219 @@ xit('should overwrite the body nested array prop with raw {{$randomInt}} instead
   const pmOperation = await getPostmanMappedCreateArrayOperation()
   const result = overwriteRequestBody(overwriteValues, pmOperation)
   expect(result.item.request?.body?.raw).toMatchSnapshot()
+})
+
+describe('overwriteRequestBodyForm', () => {
+  it('should overwrite the request form data', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should disable the request form data', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        disable: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should append the request form data when overwrite is false', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo',
+        overwrite: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should not append the request form data when overwrite is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('overwrite the request form data with an empty when overwrite is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should remove to the form data when remove is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should not remove any the request form data, when a absent key', async () => {
+    const overwriteValues = [
+      {
+        key: 'fake-key',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should not insert the form data, if key found', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo-bar-baz',
+        insert: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should insert the form data variable, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should insert the form data variable with true insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz',
+        insert: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should skip the form data variable with false insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz',
+        insert: false
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should insert the form data variable with description, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz',
+        description: 'Additional form data'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the form data variable with a blank value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '',
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the form data variable with a null value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: null,
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the form data number variable with string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: -1,
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormData()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the form data boolean variable with string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: false,
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormData()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
 })
