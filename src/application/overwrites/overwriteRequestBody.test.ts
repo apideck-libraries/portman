@@ -249,131 +249,130 @@ describe('overwriteRequestBody', () => {
     const result = overwriteRequestBody(overwriteValues, pmOperation)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
-})
 
-it('should append a request body array with overwriteValue', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].websites',
-      value: [
-        {
-          url: 'http://widget.biz',
-          id: '5678',
-          type: 'tertiary'
-        }
-      ],
-      overwrite: false
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should append a request body array with overwriteValue', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].websites',
+        value: [
+          {
+            url: 'http://widget.biz',
+            id: '5678',
+            type: 'tertiary'
+          }
+        ],
+        overwrite: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should append to the body param when overwrite is false', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      value: 'foo-bar-baz',
-      overwrite: false
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should append to the body param when overwrite is false', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        value: 'foo-bar-baz',
+        overwrite: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should append to the body param when remove is true', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].websites',
-      remove: true
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should append to the body param when remove is true', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].websites',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should overwrite the body param with boolean instead of string', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      value: true
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should overwrite the body param with boolean instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        value: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should append to the body param with string {{$randomInt}}', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      value: '--{{$randomInt}}',
-      overwrite: false
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should append to the body param with string {{$randomInt}}', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        value: '--{{$randomInt}}',
+        overwrite: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should overwrite the body param with raw {{$randomInt}} instead of string', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      value: '{{$randomInt}}',
-      overwrite: true
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should overwrite the body param with raw {{$randomInt}} instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        value: '{{$randomInt}}',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should overwrite the body param with string {{variable}}', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      overwrite: true,
-      value: '{{variable_x}}'
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should overwrite the body param with string {{variable}}', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        overwrite: true,
+        value: '{{variable_x}}'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should overwrite the body param with raw {{variable}} instead of string', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      value: '{{{variable_x}}}',
-      overwrite: true
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should overwrite the body param with raw {{variable}} instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        value: '{{{variable_x}}}',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should overwrite the body param with value that contains a {{variable}}', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].name',
-      value: 'Marco Polo {{variable_x}}',
-      overwrite: true
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  it('should overwrite the body param with value that contains a {{variable}}', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].name',
+        value: 'Marco Polo {{variable_x}}',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-it('should convert raw escaped {{}} values to JSON safe values', async () => {
-  const jsonString = `{
+  it('should convert raw escaped {{}} values to JSON safe values', async () => {
+    const jsonString = `{
     "data": [
       {
         "key_1": "{{attributeString}}",
@@ -383,7 +382,7 @@ it('should convert raw escaped {{}} values to JSON safe values', async () => {
       }
     ]
   }`
-  const expected = `{
+    const expected = `{
     "data": [
       {
         "key_1": "{{attributeString}}",
@@ -393,16 +392,16 @@ it('should convert raw escaped {{}} values to JSON safe values', async () => {
       }
     ]
   }`
-  const result = makeJsonSafeDynamicPmVars(jsonString)
-  expect(result).toEqual(expected)
-  const parseJson = () => {
-    JSON.parse(result)
-  }
-  expect(parseJson).not.toThrow()
-})
+    const result = makeJsonSafeDynamicPmVars(jsonString)
+    expect(result).toEqual(expected)
+    const parseJson = () => {
+      JSON.parse(result)
+    }
+    expect(parseJson).not.toThrow()
+  })
 
-it('should convert decode {{}} values to JSON safe values', async () => {
-  const jsonString = `{
+  it('should convert decode {{}} values to JSON safe values', async () => {
+    const jsonString = `{
     "data": [
         {
             "key_1": "{{attributeString}}",
@@ -412,7 +411,7 @@ it('should convert decode {{}} values to JSON safe values', async () => {
         }
     ]
 }`
-  const expected = `{
+    const expected = `{
     "data": [
         {
             "key_1": "{{attributeString}}",
@@ -422,24 +421,23 @@ it('should convert decode {{}} values to JSON safe values', async () => {
         }
     ]
 }`
-  const result = decodeDynamicPmVars(jsonString)
-  expect(result).toEqual(expected)
-})
+    const result = decodeDynamicPmVars(jsonString)
+    expect(result).toEqual(expected)
+  })
 
-xit('should overwrite the body nested array prop with raw {{$randomInt}} instead of string', async () => {
-  const overwriteValues = [
-    {
-      key: '[0].websites[1]',
-      value: '{{$randomInt}}',
-      overwrite: true
-    }
-  ]
-  const pmOperation = await getPostmanMappedCreateArrayOperation()
-  const result = overwriteRequestBody(overwriteValues, pmOperation)
-  expect(result.item.request?.body?.raw).toMatchSnapshot()
-})
+  xit('should overwrite the body nested array prop with raw {{$randomInt}} instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: '[0].websites[1]',
+        value: '{{$randomInt}}',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateArrayOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
 
-describe('overwriteRequestBodyForm', () => {
   it('should overwrite the request form data', async () => {
     const overwriteValues = [
       {
