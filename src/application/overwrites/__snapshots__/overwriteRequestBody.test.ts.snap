@@ -14,6 +14,20 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestBody overwrite the request urlencoded form with an empty when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should add a property to the 1st item of the request body array with simple key value 1`] = `
 "[
     {
@@ -698,6 +712,20 @@ exports[`overwriteRequestBody should append a request body array with overwriteV
 `;
 
 exports[`overwriteRequestBody should append the request form data when overwrite is false 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "barfoo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should append the request urlencoded form when overwrite is false 1`] = `
 Array [
   Object {
     "description": Object {
@@ -1709,6 +1737,20 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestBody should disable the urlencoded form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should extend the root request body 1`] = `
 "{
     \\"name\\": \\"Copper\\",
@@ -1883,7 +1925,82 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestBody should insert the urlencoded form variable with description, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "description": Object {
+      "content": "Additional form data",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the urlencoded form variable with true insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the urlencoded form variable, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should not append the request form data when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not append the request urlencoded form when overwrite is true 1`] = `
 Array [
   Object {
     "description": Object {
@@ -1911,7 +2028,35 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestBody should not insert the urlencoded form, if key found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should not remove any the request form data, when a absent key 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not remove any the request urlencoded form, when a absent key 1`] = `
 Array [
   Object {
     "description": Object {
@@ -4006,6 +4151,76 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestBody should overwrite the urlencoded form boolean variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "false",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form number variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "-1",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form variable with a blank value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form variable with a null value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should remove a item from an array, and not return null 1`] = `
 "{
     \\"name\\": \\"Copper\\",
@@ -4564,7 +4779,23 @@ exports[`overwriteRequestBody should remove the body prop from a nested element 
 
 exports[`overwriteRequestBody should remove to the form data when remove is true 1`] = `Array []`;
 
+exports[`overwriteRequestBody should remove to the urlencoded form when remove is true 1`] = `Array []`;
+
 exports[`overwriteRequestBody should skip the form data variable with false insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should skip the urlencoded form variable with false insert option, if key not found 1`] = `
 Array [
   Object {
     "description": Object {

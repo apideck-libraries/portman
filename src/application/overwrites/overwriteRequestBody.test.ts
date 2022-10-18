@@ -1,7 +1,8 @@
 import {
   getPostmanMappedCreateOperation,
   getPostmanMappedCreateArrayOperation,
-  getPostmanMappedCreateFormData
+  getPostmanMappedCreateFormData,
+  getPostmanMappedCreateFormUrlEncoded
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import {
   decodeDynamicPmVars,
@@ -649,5 +650,218 @@ describe('overwriteRequestBody', () => {
     // @ts-ignore
     const result = overwriteRequestBody(overwriteValues, pmOperation)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the urlencoded form data', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should disable the urlencoded form data', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        disable: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should append the request urlencoded form when overwrite is false', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo',
+        overwrite: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should not append the request urlencoded form when overwrite is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('overwrite the request urlencoded form with an empty when overwrite is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should remove to the urlencoded form when remove is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should not remove any the request urlencoded form, when a absent key', async () => {
+    const overwriteValues = [
+      {
+        key: 'fake-key',
+        remove: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should not insert the urlencoded form, if key found', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'foo-bar-baz',
+        insert: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should insert the urlencoded form variable, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should insert the urlencoded form variable with true insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz',
+        insert: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should skip the urlencoded form variable with false insert option, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz',
+        insert: false
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should insert the urlencoded form variable with description, if key not found', async () => {
+    const overwriteValues = [
+      {
+        key: 'add-a-form-param',
+        value: 'foo-bar-baz',
+        description: 'Additional form data'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should overwrite the urlencoded form variable with a blank value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '',
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should overwrite the urlencoded form variable with a null value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: null,
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should overwrite the urlencoded form number variable with string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: -1,
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should overwrite the urlencoded form boolean variable with string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: false,
+        overwrite: true
+      }
+    ]
+
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 })

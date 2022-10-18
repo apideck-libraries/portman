@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - overwriteRequestBody - added support for type "form-data" (#325)
+- overwriteRequestBody - added support for type "x-www-form-urlencoded" (#325)
 
 ## v1.18.1 - (2022-09-30)
 
