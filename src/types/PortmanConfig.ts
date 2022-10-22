@@ -84,7 +84,7 @@ export type VariationConfig = {
 
 export type ResponseBodyTest = {
   key: string
-  value?: string | number | boolean
+  value?: string | number | boolean | null
   contains?: string
   oneOf?: string[] | number[] | boolean[]
   length?: string | number
