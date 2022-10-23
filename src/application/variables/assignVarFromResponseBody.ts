@@ -2,6 +2,7 @@ import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { CollectionVariableConfig, PortmanOptions } from '../../types'
 import { renderBracketPath, renderChainPath } from '../../utils'
+import { camelCase } from 'camel-case'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -42,10 +43,13 @@ export const assignVarFromResponseBody = (
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
   const varName = varSetting.name ? varSetting.name : opsRef + nameProp
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
+  const pathName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
 
   pmVarAssign = [
+    `// Set property value as variable\n`,
+    `const ${pathName} = ${varPath};\n\n`,
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
-    `if (${varPath}) {\n`,
+    `if (${pathName} !== undefined) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,

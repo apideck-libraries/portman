@@ -51,8 +51,11 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                   "",
-                  "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
-if (jsonData?.data?.[0]?.id) {
+                  "// Set property value as variable
+const _resData0Id = jsonData?.data?.[0]?.id;
+
+// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
+if (_resData0Id !== undefined) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 } else {
@@ -38725,8 +38728,11 @@ pm.test('say hello Portman', function(){
   console.log('Hello Portman')
 });",
                       "",
-                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
-if (jsonData?.data?.[0]?.id) {
+                      "// Set property value as variable
+const _resData0Id = jsonData?.data?.[0]?.id;
+
+// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
+if (_resData0Id !== undefined) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 } else {

@@ -37155,8 +37155,11 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () 
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-                      "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
-if (jsonData?.data?.id) {
+                      "// Set property value as variable
+const _resDataId = jsonData?.data?.id;
+
+// pm.collectionVariables - Set companyId as variable for jsonData.data.id
+if (_resDataId !== undefined) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
 } else {
@@ -38713,8 +38716,11 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' ma
 })};
 ",
                       "",
-                      "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
-if (jsonData?.data?.name) {
+                      "// Set property value as variable
+const _resDataName = jsonData?.data?.name;
+
+// pm.collectionVariables - Set companyName as variable for jsonData.data.name
+if (_resDataName !== undefined) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
 } else {
