@@ -30,7 +30,7 @@ export const testResponseBodyContent = (
       ? `${keySafeValue}`
       : `.${keySafeValue}`
     const keyPath = `${renderChainPath(`jsonData${keyValue}`)}`
-    const pathName = `_${camelCase(`res${keyValue.replace('[', '')}`)}`
+    const pathName = `_${camelCase(`res${keyValue.replace(/\[/g, '')}`)}`
 
     // Only set the jsonData once
     if (!pmOperation.testJsonDataInjected) {
