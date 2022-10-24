@@ -8,8 +8,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res = jsonData;
-
-// Response body should have \\"ROOT\\"
+",
+  "// Response body should have \\"ROOT\\"
 pm.test(\\"[GET]::/crm/companies - Content check if 'ROOT' exists\\", function() {
    pm.expect(_res !== undefined).to.be.true;
 });
@@ -31,8 +31,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });
@@ -54,8 +54,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });
@@ -77,8 +77,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });
@@ -100,8 +100,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });
@@ -123,8 +123,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0HydraMember = jsonData?.[0]?.['hydra:member'];
-
-// Response body should not have \\"[0]['hydra:member']\\"
+",
+  "// Response body should not have \\"[0]['hydra:member']\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0]['hydra:member']' not exists\\", function() {
    pm.expect(_res0HydraMember === undefined).to.be.true;
 });
@@ -140,8 +140,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0HydraMember = jsonData?.[0]?.['hydra:member'];
-
-// Response body should have \\"[0]['hydra:member']\\"
+",
+  "// Response body should have \\"[0]['hydra:member']\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0]['hydra:member']' exists\\", function() {
    pm.expect(_res0HydraMember !== undefined).to.be.true;
 });
@@ -163,8 +163,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0HydraMember = jsonData?.[0]?.['hydra:member'];
-
-// Response body should have \\"[0].['hydra:member']\\"
+",
+  "// Response body should have \\"[0].['hydra:member']\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].['hydra:member']' exists\\", function() {
    pm.expect(_res0HydraMember !== undefined).to.be.true;
 });
@@ -186,8 +186,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resDataHydraMember = jsonData?.data?.['hydra:member'];
-
-// Response body should have \\"data['hydra:member']\\"
+",
+  "// Response body should have \\"data['hydra:member']\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data['hydra:member']' exists\\", function() {
    pm.expect(_resDataHydraMember !== undefined).to.be.true;
 });
@@ -209,8 +209,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;
-
-// Response body should have \\"data[0].monetary_amount\\"
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect(_resData0MonetaryAmount !== undefined).to.be.true;
 });
@@ -232,8 +232,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
-
-// Response body should have \\"data[0].company_name\\"
+",
+  "// Response body should have \\"data[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect(_resData0CompanyName !== undefined).to.be.true;
 });
@@ -255,8 +255,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;
-
-// Response body should have \\"data[0].monetary_amount\\"
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect(_resData0MonetaryAmount !== undefined).to.be.true;
 });
@@ -278,8 +278,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resStatusCode = jsonData?.status_code;
-
-// Response body should have \\"status_code\\"
+",
+  "// Response body should have \\"status_code\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'status_code' exists\\", function() {
    pm.expect(_resStatusCode !== undefined).to.be.true;
 });
@@ -301,8 +301,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;
-
-// Response body should have \\"data[0].monetary_amount\\"
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect(_resData0MonetaryAmount !== undefined).to.be.true;
 });
@@ -324,8 +324,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;
-
-// Response body should have \\"data[0].monetary_amount\\"
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect(_resData0MonetaryAmount !== undefined).to.be.true;
 });
@@ -347,8 +347,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0Name = jsonData?.data?.[0]?.name;
-
-// Response body should have \\"data[0].name\\"
+",
+  "// Response body should have \\"data[0].name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].name' exists\\", function() {
    pm.expect(_resData0Name !== undefined).to.be.true;
 });
@@ -370,8 +370,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0Description = jsonData?.data?.[0]?.description;
-
-// Response body should have \\"data[0].description\\"
+",
+  "// Response body should have \\"data[0].description\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
    pm.expect(_resData0Description !== undefined).to.be.true;
 });
@@ -393,8 +393,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData = jsonData?.data;
-
-// Response body should have \\"data\\"
+",
+  "// Response body should have \\"data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data' exists\\", function() {
    pm.expect(_resData !== undefined).to.be.true;
 });
@@ -416,8 +416,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData = jsonData?.data;
-
-// Response body should have \\"data\\"
+",
+  "// Response body should have \\"data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data' exists\\", function() {
    pm.expect(_resData !== undefined).to.be.true;
 });
@@ -439,8 +439,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0Description = jsonData?.data?.[0]?.description;
-
-// Response body should have \\"data[0].description\\"
+",
+  "// Response body should have \\"data[0].description\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
    pm.expect(_resData0Description !== undefined).to.be.true;
 });
@@ -462,8 +462,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0Description = jsonData?.data?.[0]?.description;
-
-// Response body should have \\"data[0].description\\"
+",
+  "// Response body should have \\"data[0].description\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
    pm.expect(_resData0Description !== undefined).to.be.true;
 });
@@ -485,8 +485,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0Description = jsonData?.data?.[0]?.description;
-
-// Response body should have \\"data[0].description\\"
+",
+  "// Response body should have \\"data[0].description\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].description' exists\\", function() {
    pm.expect(_resData0Description !== undefined).to.be.true;
 });
@@ -508,8 +508,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;
-
-// Response body should not have \\"data[0].monetary_amount\\"
+",
+  "// Response body should not have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' not exists\\", function() {
    pm.expect(_resData0MonetaryAmount === undefined).to.be.true;
 });
@@ -525,8 +525,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;
-
-// Response body should have \\"data[0].monetary_amount\\"
+",
+  "// Response body should have \\"data[0].monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount' exists\\", function() {
    pm.expect(_resData0MonetaryAmount !== undefined).to.be.true;
 });
@@ -542,8 +542,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res = jsonData;
-
-// Response body should have \\"ROOT\\"
+",
+  "// Response body should have \\"ROOT\\"
 pm.test(\\"[GET]::/crm/companies - Content check if 'ROOT' exists\\", function() {
    pm.expect(_res !== undefined).to.be.true;
 });
@@ -565,8 +565,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataMonetaryAmount = jsonData?.[0]?.data?.monetary_amount;
-
-// Response body should have \\"[0].data.monetary_amount\\"
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
    pm.expect(_res0DataMonetaryAmount !== undefined).to.be.true;
 });
@@ -588,8 +588,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataMonetaryAmount = jsonData?.[0]?.data?.monetary_amount;
-
-// Response body should have \\"[0].data.monetary_amount\\"
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
    pm.expect(_res0DataMonetaryAmount !== undefined).to.be.true;
 });
@@ -611,8 +611,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataMonetaryAmount = jsonData?.[0]?.data?.monetary_amount;
-
-// Response body should have \\"[0].data.monetary_amount\\"
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
    pm.expect(_res0DataMonetaryAmount !== undefined).to.be.true;
 });
@@ -634,8 +634,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataName = jsonData?.[0]?.data?.name;
-
-// Response body should have \\"[0].data.name\\"
+",
+  "// Response body should have \\"[0].data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.name' exists\\", function() {
    pm.expect(_res0DataName !== undefined).to.be.true;
 });
@@ -657,8 +657,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataDescription = jsonData?.[0]?.data?.description;
-
-// Response body should have \\"[0].data.description\\"
+",
+  "// Response body should have \\"[0].data.description\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.description' exists\\", function() {
    pm.expect(_res0DataDescription !== undefined).to.be.true;
 });
@@ -680,8 +680,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });
@@ -703,8 +703,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });
@@ -726,8 +726,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataName = jsonData?.[0]?.data?.name;
-
-// Response body should have \\"[0].data.name\\"
+",
+  "// Response body should have \\"[0].data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.name' exists\\", function() {
    pm.expect(_res0DataName !== undefined).to.be.true;
 });
@@ -749,8 +749,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataMonetaryAmount = jsonData?.[0]?.data?.monetary_amount;
-
-// Response body should have \\"[0].data.monetary_amount\\"
+",
+  "// Response body should have \\"[0].data.monetary_amount\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amount' exists\\", function() {
    pm.expect(_res0DataMonetaryAmount !== undefined).to.be.true;
 });
@@ -766,8 +766,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
-
-// Response body should have \\"data[0].company_name\\"
+",
+  "// Response body should have \\"data[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect(_resData0CompanyName !== undefined).to.be.true;
 });
@@ -789,8 +789,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
-
-// Response body should have \\"data[0].company_name\\"
+",
+  "// Response body should have \\"data[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect(_resData0CompanyName !== undefined).to.be.true;
 });
@@ -812,8 +812,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
-
-// Response body should have \\"data[0].company_name\\"
+",
+  "// Response body should have \\"data[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect(_resData0CompanyName !== undefined).to.be.true;
 });
@@ -827,6 +827,40 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].compa
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for string for property check & string value & contains value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
+",
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
+   pm.expect(_resData0CompanyName !== undefined).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
+if (_resData0CompanyName !== undefined) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+})};
+",
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
+   pm.expect(_resData0CompanyName !== undefined).to.be.true;
+});
+",
+  "// Response body should contain value \\"Spacex\\" for \\"data[0].company_name\\"
+if (_resData0CompanyName !== undefined) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' contains 'Spacex'\\", function() {
+  pm.expect(jsonData.data[0].company_name).to.include(\\"Spacex\\");
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for string for property check & string value 1`] = `
 Array [
   "// Set response object as internal variable
@@ -835,8 +869,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
-
-// Response body should have \\"data[0].company_name\\"
+",
+  "// Response body should have \\"data[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
    pm.expect(_resData0CompanyName !== undefined).to.be.true;
 });
@@ -858,8 +892,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0DataCompanyName = jsonData?.[0]?.data?.company_name;
-
-// Response body should have \\"[0].data.company_name\\"
+",
+  "// Response body should have \\"[0].data.company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.company_name' exists\\", function() {
    pm.expect(_res0DataCompanyName !== undefined).to.be.true;
 });
@@ -881,8 +915,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0CompanyName = jsonData?.[0]?.company_name;
-
-// Response body should have \\"[0].company_name\\"
+",
+  "// Response body should have \\"[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].company_name' exists\\", function() {
    pm.expect(_res0CompanyName !== undefined).to.be.true;
 });
@@ -904,8 +938,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Data = jsonData?.[0]?.data;
-
-// Response body should have \\"[0].data\\"
+",
+  "// Response body should have \\"[0].data\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data' exists\\", function() {
    pm.expect(_res0Data !== undefined).to.be.true;
 });

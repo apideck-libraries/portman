@@ -8,8 +8,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resDataId = jsonData?.data?.id;
-
-// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
 if (_resDataId !== undefined) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
@@ -28,8 +28,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _res0Id = jsonData?.[0]?.id;
-
-// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0].id
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0].id
 if (_res0Id !== undefined) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[0].id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[0].id);
@@ -48,8 +48,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resDataId = jsonData?.data?.id;
-
-// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
 if (_resDataId !== undefined) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
    // console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);
@@ -68,8 +68,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
 const _resDataId = jsonData?.data?.id;
-
-// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData.data.id
 if (_resDataId !== undefined) {
    pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData.data.id);
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData.data.id);

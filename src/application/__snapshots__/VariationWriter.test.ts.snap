@@ -34,8 +34,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
                   "// Set property value as variable
 const _resResource = jsonData?.resource;
-
-// Response body should have \\"resource\\"
+",
+                  "// Response body should have \\"resource\\"
 pm.test(\\"[POST]::/crm/leads - Content check if 'resource' exists\\", function() {
    pm.expect(_resResource !== undefined).to.be.true;
 });
@@ -50,11 +50,10 @@ pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'l
 pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')
 });",
-                  "",
                   "// Set property value as variable
 const _resData0Id = jsonData?.data?.[0]?.id;
-
-// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
+",
+                  "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
 if (_resData0Id !== undefined) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
@@ -38711,8 +38710,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// Set property value as variable
 const _resResource = jsonData?.resource;
-
-// Response body should have \\"resource\\"
+",
+                      "// Response body should have \\"resource\\"
 pm.test(\\"[POST]::/crm/leads - Content check if 'resource' exists\\", function() {
    pm.expect(_resResource !== undefined).to.be.true;
 });
@@ -38727,11 +38726,10 @@ pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'l
 pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')
 });",
-                      "",
                       "// Set property value as variable
 const _resData0Id = jsonData?.data?.[0]?.id;
-
-// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
+",
+                      "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
 if (_resData0Id !== undefined) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);

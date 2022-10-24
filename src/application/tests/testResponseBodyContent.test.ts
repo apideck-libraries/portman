@@ -511,4 +511,20 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for string for property check & string value & contains value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        value: 'Spacex'
+      },
+      {
+        key: 'data[0].company_name',
+        contains: 'Spacex'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

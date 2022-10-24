@@ -20,6 +20,7 @@ export const assignVarFromResponseBody = (
   if (!varSetting.responseBodyProp) return pmOperation
 
   let pmJsonData = ''
+  let pmMappedData = ''
   let pmVarAssign = ''
 
   // Only set the jsonData once
@@ -43,13 +44,21 @@ export const assignVarFromResponseBody = (
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
   const varName = varSetting.name ? varSetting.name : opsRef + nameProp
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
-  const pathName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
+  const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
+
+  // Only set the pathVarName once
+  if (!pmOperation.mappedVars.includes(pathVarName)) {
+    // Register Portman request variable name
+    pmOperation.registerVar(pathVarName)
+    pmMappedData = [
+      `// Set property value as variable\n`,
+      `const ${pathVarName} = ${varPath};\n`
+    ].join('')
+  }
 
   pmVarAssign = [
-    `// Set property value as variable\n`,
-    `const ${pathName} = ${varPath};\n\n`,
     `// pm.collectionVariables - Set ${varName} as variable for jsonData${varProp}\n`,
-    `if (${pathName} !== undefined) {\n`,
+    `if (${pathVarName} !== undefined) {\n`,
     `   pm.collectionVariables.set("${varName}", jsonData${varProp});\n`,
     `   ${toggleLog}console.log("- use {{${varName}}} as collection variable for value",`,
     `jsonData${varProp});\n`,
@@ -63,8 +72,9 @@ export const assignVarFromResponseBody = (
     `- Set variable for "${opsRef}" - use {{${varName}}} as variable for "response${varProp}"`
   )
 
-  writeOperationTestScript(pmOperation, pmJsonData)
-  writeOperationTestScript(pmOperation, pmVarAssign)
+  if (pmJsonData !== '') writeOperationTestScript(pmOperation, pmJsonData)
+  if (pmMappedData !== '') writeOperationTestScript(pmOperation, pmMappedData)
+  if (pmVarAssign !== '') writeOperationTestScript(pmOperation, pmVarAssign)
 
   return pmOperation
 }

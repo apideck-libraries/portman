@@ -37157,8 +37157,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// Set property value as variable
 const _resDataId = jsonData?.data?.id;
-
-// pm.collectionVariables - Set companyId as variable for jsonData.data.id
+",
+                      "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
 if (_resDataId !== undefined) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
@@ -38703,8 +38703,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// Set property value as variable
 const _resDataName = jsonData?.data?.name;
-
-// Response body should have \\"data.name\\"
+",
+                      "// Response body should have \\"data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", function() {
    pm.expect(_resDataName !== undefined).to.be.true;
 });
@@ -38715,11 +38715,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' ma
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};
 ",
-                      "",
-                      "// Set property value as variable
-const _resDataName = jsonData?.data?.name;
-
-// pm.collectionVariables - Set companyName as variable for jsonData.data.name
+                      "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
 if (_resDataName !== undefined) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
@@ -41099,8 +41095,8 @@ try {jsonData = pm.response.json();}catch(e){}
 ",
                       "// Set property value as variable
 const _resDataName = jsonData?.data?.name;
-
-// Response body should have \\"data.name\\"
+",
+                      "// Response body should have \\"data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", function() {
    pm.expect(_resDataName !== undefined).to.be.true;
 });
