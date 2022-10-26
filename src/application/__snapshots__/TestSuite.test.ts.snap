@@ -5022,13 +5022,16 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
+                      "// Set property value as variable
+const _resResource = jsonData?.resource;
+",
                       "// Response body should have \\"resource\\"
 pm.test(\\"[POST]::/crm/leads - Content check if 'resource' exists\\", function() {
-   pm.expect((typeof jsonData.resource !== \\"undefined\\")).to.be.true;
+   pm.expect(_resResource !== undefined).to.be.true;
 });
 ",
                       "// Response body should have value \\"leads\\" for \\"resource\\"
-if (jsonData?.resource) {
+if (_resResource !== undefined) {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
   pm.expect(jsonData.resource).to.eql(\\"leads\\");
 })};
@@ -5037,9 +5040,11 @@ pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'l
 pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')
 });",
-                      "",
+                      "// Set property value as variable
+const _resData0Id = jsonData?.data?.[0]?.id;
+",
                       "// pm.collectionVariables - Set createLeadMissingParams.data[0].id as variable for jsonData.data[0].id
-if (jsonData?.data?.[0]?.id) {
+if (_resData0Id !== undefined) {
    pm.collectionVariables.set(\\"createLeadMissingParams.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{createLeadMissingParams.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 } else {
@@ -5294,8 +5299,11 @@ Object {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
+                  "// Set property value as variable
+const _resData0Id = jsonData?.data?.[0]?.id;
+",
                   "// pm.collectionVariables - Set companiesAll.data[0].id as variable for jsonData.data[0].id
-if (jsonData?.data?.[0]?.id) {
+if (_resData0Id !== undefined) {
    pm.collectionVariables.set(\\"companiesAll.data[0].id\\", jsonData.data[0].id);
    console.log(\\"- use {{companiesAll.data[0].id}} as collection variable for value\\",jsonData.data[0].id);
 } else {
@@ -7412,13 +7420,16 @@ Object {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
+                  "// Set property value as variable
+const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
+",
                   "// Response body should have \\"data[0].company_name\\"
 pm.test(\\"[GET]::/crm/companies - Content check if 'data[0].company_name' exists\\", function() {
-   pm.expect((typeof jsonData.data[0].company_name !== \\"undefined\\")).to.be.true;
+   pm.expect(_resData0CompanyName !== undefined).to.be.true;
 });
 ",
                   "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
-if (jsonData?.data?.[0]?.company_name) {
+if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
   pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
 })};

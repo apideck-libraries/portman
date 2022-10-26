@@ -847,7 +847,8 @@
                       "type": [
                         "string",
                         "number",
-                        "boolean"
+                        "boolean",
+                        "null"
                       ]
                     }
                   },

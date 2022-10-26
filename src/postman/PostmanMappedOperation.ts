@@ -17,6 +17,7 @@ export class PostmanMappedOperation {
   public queryParams: Record<string, unknown>
   public pathParams: Record<string, unknown>
   public testJsonDataInjected: boolean
+  public mappedVars: string[]
   public item: Item
   public postmanItemId?: string
 
@@ -50,6 +51,7 @@ export class PostmanMappedOperation {
     this.postmanItemId = item?.id as string
 
     this.testJsonDataInjected = false
+    this.mappedVars = []
   }
 
   public getTests(): Event {
@@ -127,5 +129,13 @@ export class PostmanMappedOperation {
       .join('/')
       .replace(/#|\//g, '-')
     return `${method.toLowerCase()}::${path}`
+  }
+
+  public registerVar(variable: string): boolean {
+    if (!this.mappedVars.includes(variable)) {
+      this.mappedVars.push(variable)
+      return true
+    }
+    return false
   }
 }

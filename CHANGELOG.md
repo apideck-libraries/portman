@@ -2,6 +2,8 @@
 
 - overwriteRequestBody - added support for type "form-data" (#325)
 - overwriteRequestBody - added support for type "x-www-form-urlencoded" (#325)
+- AssignVariables - Added support for null values for response body (#414)
+- ContentTests - Added support for null values for response body (#414)
 
 ## v1.18.1 - (2022-09-30)
 

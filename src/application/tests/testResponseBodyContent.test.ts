@@ -54,6 +54,18 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content test for property check & null value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        value: null
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content test for property check & empty value', async () => {
     const contentTests = [
       {
@@ -497,6 +509,22 @@ describe('testResponseBodyContent', () => {
     ]
     pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
     const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for string for property check & string value & contains value', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        value: 'Spacex'
+      },
+      {
+        key: 'data[0].company_name',
+        contains: 'Spacex'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 })
