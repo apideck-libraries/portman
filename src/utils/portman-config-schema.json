@@ -404,6 +404,15 @@
             "items": {
               "additionalProperties": false,
               "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "disable": {
+                  "type": "boolean"
+                },
+                "insert": {
+                  "type": "boolean"
+                },
                 "key": {
                   "type": "string"
                 },

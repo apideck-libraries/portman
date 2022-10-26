@@ -1,6 +1,7 @@
 import { PostmanMappedOperation } from '../../postman'
 import { OverwriteRequestBodyConfig } from '../../types'
 import { getByPath, isObject, omitByPath, setByPath } from '../../utils'
+import { FormParam, PropertyList, QueryParam } from 'postman-collection'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite
@@ -15,6 +16,35 @@ export const overwriteRequestBody = (
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
+  if (pmOperation.item?.request?.body?.raw) {
+    // Overwrite JSON values
+    overwriteRequestBodyJson(overwriteValues, pmOperation)
+    return pmOperation
+  }
+  if (pmOperation.item?.request?.body?.formdata) {
+    // Overwrite Form data values
+    overwriteRequestBodyFormData(overwriteValues, pmOperation)
+    return pmOperation
+  }
+  if (pmOperation.item?.request?.body?.urlencoded) {
+    // Overwrite Form url encoded values
+    overwriteRequestBodyFormUrlEncoded(overwriteValues, pmOperation)
+    return pmOperation
+  }
+
+  return pmOperation
+}
+
+/**
+ * Overwrite JSON values in the request body values
+ * @param overwriteValues
+ * @param pmOperation
+ */
+export const overwriteRequestBodyJson = (
+  overwriteValues: OverwriteRequestBodyConfig[],
+  pmOperation: PostmanMappedOperation
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+): PostmanMappedOperation => {
   // Early exit if request body is not defined
   if (!pmOperation.item?.request?.body?.raw) return pmOperation
   const requestBody = pmOperation.item.request.body.raw
@@ -61,6 +91,181 @@ export const overwriteRequestBody = (
 
   return pmOperation
 }
+
+/**
+ * Overwrite form-data values in the request body values
+ * @param overwriteValues
+ * @param pmOperation
+ */
+export const overwriteRequestBodyFormData = (
+  overwriteValues: OverwriteRequestBodyConfig[],
+  pmOperation: PostmanMappedOperation
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+): PostmanMappedOperation => {
+  // Early exit if request body form data is not defined
+  if (!pmOperation.item?.request?.body?.formdata) return pmOperation
+  const formData = pmOperation.item.request.body.formdata as PropertyList<FormParam>
+
+  // Early exit if request body form data is empty defined
+  if (formData.count() === 0) return pmOperation
+
+  // New form data members
+  const formMembers = [] as FormParam[]
+
+  const formKeys = formData.map(({ key }) => key)
+  // Detect overwrite form params that do not exist in the Postman collection
+  const insertNewKeys = overwriteValues.filter(x => !formKeys.includes(x.key))
+
+  formData.each(pmFormParam => {
+    // Overwrite values for Keys
+    const overwriteItem = overwriteValues.find(obj => {
+      return obj.key === pmFormParam.key
+    })
+
+    // Test suite - Overwrite/extend request body form data param value
+    if (overwriteItem?.value !== undefined && pmFormParam?.value) {
+      const orgValue = pmFormParam.value
+      let newValue = overwriteItem.value
+
+      if (overwriteItem.overwrite === false) {
+        newValue = orgValue + newValue
+      }
+      pmFormParam.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+    }
+
+    // Test suite - Disable form data param
+    if (overwriteItem?.disable === true) {
+      pmFormParam.disabled = true
+    }
+
+    if (overwriteItem?.description !== undefined && pmFormParam?.description) {
+      pmFormParam.description = overwriteItem.description
+    }
+
+    // Set Postman form data param
+    if (!(overwriteItem?.remove === true)) {
+      formMembers.push(pmFormParam)
+    }
+  })
+
+  // Test suite - Add form data param
+  insertNewKeys
+    .filter(overwriteItem => !(overwriteItem.insert === false))
+    .filter(overwriteItem => !(overwriteItem.remove === true))
+    .map(formMember => {
+      // Initialize new Postman query param
+      const pmFormParam = {
+        key: formMember.key,
+        value: '',
+        // description: '',
+        disabled: false
+      } as FormParam
+
+      // Set form param properties based on the OverwriteValues
+      if (formMember.value) pmFormParam.value = formMember.value
+      if (formMember.disable === true) pmFormParam.disabled = true
+      if (formMember.description) pmFormParam.description = formMember.description
+
+      // Add Postman form data
+      formMembers.push(pmFormParam)
+    })
+
+  // Clear existing & add new members
+  formData.clear()
+  formData.assimilate(formMembers, false)
+
+  return pmOperation
+}
+
+/**
+ * Overwrite x-www-form-urlencoded values in the request body values
+ * @param overwriteValues
+ * @param pmOperation
+ */
+export const overwriteRequestBodyFormUrlEncoded = (
+  overwriteValues: OverwriteRequestBodyConfig[],
+  pmOperation: PostmanMappedOperation
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+): PostmanMappedOperation => {
+  // Early exit if request body form url encoded is not defined
+  if (!pmOperation.item?.request?.body?.urlencoded) return pmOperation
+  const formEncoded = pmOperation.item.request.body.urlencoded as PropertyList<QueryParam>
+
+  // Early exit if request body form data is empty defined
+  if (formEncoded.count() === 0) return pmOperation
+
+  // New form encoded members
+  const formMembers = [] as QueryParam[]
+
+  const formKeys = formEncoded.map(({ key }) => key)
+  // Detect overwrite form params that do not exist in the Postman collection
+  const insertNewKeys = overwriteValues.filter(x => !formKeys.includes(x.key))
+
+  formEncoded.each(pmFormParam => {
+    // Overwrite values for Keys
+    const overwriteItem = overwriteValues.find(obj => {
+      return obj.key === pmFormParam.key
+    })
+
+    // Test suite - Overwrite/extend request body form encoded param value
+    if (overwriteItem?.value !== undefined && pmFormParam?.value) {
+      const orgValue = pmFormParam.value
+      let newValue = overwriteItem.value
+
+      if (overwriteItem.overwrite === false) {
+        newValue = orgValue + newValue
+      }
+      pmFormParam.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+    }
+
+    // Test suite - Disable form encoded param
+    if (overwriteItem?.disable === true) {
+      pmFormParam.disabled = true
+    }
+
+    if (overwriteItem?.description !== undefined && pmFormParam?.description) {
+      pmFormParam.description = overwriteItem.description
+    }
+
+    // Set Postman form encoded param
+    if (!(overwriteItem?.remove === true)) {
+      formMembers.push(pmFormParam)
+    }
+  })
+
+  // Test suite - Add form data param
+  insertNewKeys
+    .filter(overwriteItem => !(overwriteItem.insert === false))
+    .filter(overwriteItem => !(overwriteItem.remove === true))
+    .map(formMember => {
+      // Initialize new Postman query param
+      const pmFormParam = {
+        key: formMember.key,
+        value: '',
+        // description: '',
+        disabled: false
+      } as QueryParam
+
+      // Set form param properties based on the OverwriteValues
+      if (formMember.value) pmFormParam.value = formMember.value
+      if (formMember.disable === true) pmFormParam.disabled = true
+      if (formMember.description) pmFormParam.description = formMember.description
+
+      // Add Postman form encoded param
+      formMembers.push(pmFormParam)
+    })
+
+  // Clear existing & add new members
+  formEncoded.clear()
+  formEncoded.assimilate(formMembers, false)
+
+  return pmOperation
+}
+
+/**
+ * Helper - Encode Dynamic Postman variables for safe processing
+ * @param jsonString
+ */
 export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
   // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from unescaped values to safe values
   const find = [
@@ -87,6 +292,10 @@ export const makeJsonSafeDynamicPmVars = (jsonString: string): string => {
   return jsonString
 }
 
+/**
+ * Helper - Decode Dynamic Postman variables for safe processing
+ * @param jsonString
+ */
 export const decodeDynamicPmVars = (jsonString: string): string => {
   // Handle {{$randomInt}},{{$randomCreditCardMask}} conversion from string to escaped number/boolean
   const find = [

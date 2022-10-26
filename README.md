@@ -511,18 +511,23 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **key (String)** : The key that will be targeted in the request Headers to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attaches the value to the original request header value.
-  - **remove (Boolean true/false | Default: false)** : Removes the targeted request headers from Postman.
-  - **insert (Boolean true/false | Default: true)** : Insert additional the request headers in Postman that are not present in OpenAPI.
+  - **remove (Boolean true/false | Default: false)** : Removes the targeted request header from Postman.
+  - **insert (Boolean true/false | Default: true)** : Insert the additional request header in Postman that are not present in OpenAPI.
   - **description (String)** : Overwrites the request header description in Postman.
 
 - **overwriteRequestBody (Array)** :
 
   Array of key/value pairs to overwrite in the Postman Request Body.
 
+  **Applicable for request body types: JSON/form-data/x-www-form-urlencoded**
   - **key (String)** : The key that will be targeted in the request body to overwrite/extend.
   - **value (Any)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. The value can be a text/number/boolean/array/object or Postman variable (to pass the Postman variable as type boolean or number, use `{{{variableName}}}` surrounded by 3x {{{ and 3x }}}).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attaches the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
+
+  **Applicable for request body types: form-data/x-www-form-urlencoded**
+  - **insert (Boolean true/false | Default: true)** : Insert the additional request form key/value in Postman that are not present in OpenAPI.
+  - **description (String)** : Overwrites the request form data description in Postman.
 
 - **overwriteRequestSecurity (Object)** :
 

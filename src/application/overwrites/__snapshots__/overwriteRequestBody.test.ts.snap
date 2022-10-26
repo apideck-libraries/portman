@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`overwriteRequestBody overwrite the request form data with an empty when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBody overwrite the request urlencoded form with an empty when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should add a property to the 1st item of the request body array with simple key value 1`] = `
 "[
     {
@@ -454,6 +482,263 @@ exports[`overwriteRequestBody should append a request body array with overwriteV
 }"
 `;
 
+exports[`overwriteRequestBody should append a request body array with overwriteValue 2`] = `
+"[
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://widget.biz\\",
+                \\"id\\": \\"5678\\",
+                \\"type\\": \\"tertiary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
+exports[`overwriteRequestBody should append the request form data when overwrite is false 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "barfoo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should append the request urlencoded form when overwrite is false 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "barfoo",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should append to the body param when overwrite is false 1`] = `
 "{
     \\"name\\": \\"Copperfoo-bar-baz\\",
@@ -566,6 +851,230 @@ exports[`overwriteRequestBody should append to the body param when overwrite is 
 }"
 `;
 
+exports[`overwriteRequestBody should append to the body param when overwrite is false 2`] = `
+"[
+    {
+        \\"name\\": \\"Copperfoo-bar-baz\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
 exports[`overwriteRequestBody should append to the body param when remove is true 1`] = `
 "{
     \\"name\\": \\"Copper\\",
@@ -664,6 +1173,218 @@ exports[`overwriteRequestBody should append to the body param when remove is tru
         \\"New\\"
     ]
 }"
+`;
+
+exports[`overwriteRequestBody should append to the body param when remove is true 2`] = `
+"[
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
 `;
 
 exports[`overwriteRequestBody should append to the body param with string {{$randomInt}} 1`] = `
@@ -776,6 +1497,258 @@ exports[`overwriteRequestBody should append to the body param with string {{$ran
         \\"New\\"
     ]
 }"
+`;
+
+exports[`overwriteRequestBody should append to the body param with string {{$randomInt}} 2`] = `
+"[
+    {
+        \\"name\\": \\"Copper--{{$randomInt}}\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
+exports[`overwriteRequestBody should disable the request form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should disable the urlencoded form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "name",
+    "value": "bar",
+  },
+]
 `;
 
 exports[`overwriteRequestBody should extend the root request body 1`] = `
@@ -891,6 +1864,212 @@ exports[`overwriteRequestBody should extend the root request body 1`] = `
 }"
 `;
 
+exports[`overwriteRequestBody should insert the form data variable with description, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "description": Object {
+      "content": "Additional form data",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the form data variable with true insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the form data variable, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the urlencoded form variable with description, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "description": Object {
+      "content": "Additional form data",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the urlencoded form variable with true insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should insert the urlencoded form variable, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+  Object {
+    "disabled": false,
+    "key": "add-a-form-param",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not append the request form data when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not append the request urlencoded form when overwrite is true 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not insert the form data, if key found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not insert the urlencoded form, if key found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo-bar-baz",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not remove any the request form data, when a absent key 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should not remove any the request urlencoded form, when a absent key 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should overwrite the body param with boolean instead of string 1`] = `
 "{
     \\"name\\": true,
@@ -1003,6 +2182,230 @@ exports[`overwriteRequestBody should overwrite the body param with boolean inste
 }"
 `;
 
+exports[`overwriteRequestBody should overwrite the body param with boolean instead of string 2`] = `
+"[
+    {
+        \\"name\\": true,
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
 exports[`overwriteRequestBody should overwrite the body param with raw {{$randomInt}} instead of string 1`] = `
 "{
     \\"name\\": {{$randomInt}},
@@ -1113,6 +2516,958 @@ exports[`overwriteRequestBody should overwrite the body param with raw {{$random
         \\"New\\"
     ]
 }"
+`;
+
+exports[`overwriteRequestBody should overwrite the body param with raw {{$randomInt}} instead of string 2`] = `
+"[
+    {
+        \\"name\\": {{$randomInt}},
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
+exports[`overwriteRequestBody should overwrite the body param with raw {{variable}} instead of string 1`] = `
+"[
+    {
+        \\"name\\": {{variable_x}},
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
+exports[`overwriteRequestBody should overwrite the body param with string {{variable}} 1`] = `
+"[
+    {
+        \\"name\\": \\"{{variable_x}}\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
+exports[`overwriteRequestBody should overwrite the body param with value that contains a {{variable}} 1`] = `
+"[
+    {
+        \\"name\\": \\"Marco Polo {{variable_x}}\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ],
+        \\"owner\\": \\"Integration Test: Create Company\\"
+    },
+    {
+        \\"name\\": \\"Copper\\",
+        \\"owner_id\\": \\"12345\\",
+        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
+        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
+        \\"vat_number\\": \\"BE0689615164\\",
+        \\"currency\\": \\"USD\\",
+        \\"status\\": \\"Open\\",
+        \\"fax\\": \\"+12129876543\\",
+        \\"bank_accounts\\": [
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            },
+            {
+                \\"iban\\": \\"CH2989144532982975332\\",
+                \\"bic\\": \\"AUDSCHGGXXX\\"
+            }
+        ],
+        \\"websites\\": [
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"url\\": \\"http://example.com\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"addresses\\": [
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            },
+            {
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\",
+                \\"name\\": \\"HQ US\\",
+                \\"line1\\": \\"Main street\\",
+                \\"line2\\": \\"apt #\\",
+                \\"city\\": \\"San Francisco\\",
+                \\"state\\": \\"CA\\",
+                \\"postal_code\\": \\"94104\\",
+                \\"country\\": \\"US\\",
+                \\"latitude\\": \\"40.759211\\",
+                \\"longitude\\": \\"-73.984638\\"
+            }
+        ],
+        \\"social_links\\": [
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            },
+            {
+                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"twitter\\"
+            }
+        ],
+        \\"phone_numbers\\": [
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"number\\": \\"111-111-1111\\",
+                \\"id\\": \\"12345\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"emails\\": [
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            },
+            {
+                \\"email\\": \\"elon@musk.com\\",
+                \\"id\\": \\"123\\",
+                \\"type\\": \\"primary\\"
+            }
+        ],
+        \\"custom_fields\\": [
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            },
+            {
+                \\"id\\": \\"custom_technologies\\",
+                \\"value\\": \\"Uses Salesforce and Marketo\\"
+            }
+        ],
+        \\"tags\\": [
+            \\"New\\"
+        ]
+    }
+]"
+`;
+
+exports[`overwriteRequestBody should overwrite the form data boolean variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "false",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the form data number variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "-1",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the form data variable with a blank value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the form data variable with a null value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
 `;
 
 exports[`overwriteRequestBody should overwrite the request body with boolean value 1`] = `
@@ -1782,6 +4137,90 @@ exports[`overwriteRequestBody should overwrite the request body with simple key 
 }"
 `;
 
+exports[`overwriteRequestBody should overwrite the request form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form boolean variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "false",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form data 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form number variable with string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "-1",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form variable with a blank value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
+exports[`overwriteRequestBody should overwrite the urlencoded form variable with a null value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "name",
+    "value": "",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should remove a item from an array, and not return null 1`] = `
 "{
     \\"name\\": \\"Copper\\",
@@ -2338,2236 +4777,34 @@ exports[`overwriteRequestBody should remove the body prop from a nested element 
 }"
 `;
 
-exports[`should append a request body array with overwriteValue 1`] = `
-"[
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://widget.biz\\",
-                \\"id\\": \\"5678\\",
-                \\"type\\": \\"tertiary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
+exports[`overwriteRequestBody should remove to the form data when remove is true 1`] = `Array []`;
+
+exports[`overwriteRequestBody should remove to the urlencoded form when remove is true 1`] = `Array []`;
+
+exports[`overwriteRequestBody should skip the form data variable with false insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
     },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
 `;
 
-exports[`should append to the body param when overwrite is false 1`] = `
-"[
-    {
-        \\"name\\": \\"Copperfoo-bar-baz\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
+exports[`overwriteRequestBody should skip the urlencoded form variable with false insert option, if key not found 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "form foo description",
+      "type": "text/plain",
     },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should append to the body param when remove is true 1`] = `
-"[
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should append to the body param with string {{$randomInt}} 1`] = `
-"[
-    {
-        \\"name\\": \\"Copper--{{$randomInt}}\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should overwrite the body nested array prop with raw {{$randomInt}} instead of string 1`] = `
-"[
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\",
-        \\"websites[1]\\": {{$randomInt}}
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should overwrite the body param with boolean instead of string 1`] = `
-"[
-    {
-        \\"name\\": true,
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should overwrite the body param with raw {{$randomInt}} instead of string 1`] = `
-"[
-    {
-        \\"name\\": {{$randomInt}},
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should overwrite the body param with raw {{variable}} instead of string 1`] = `
-"[
-    {
-        \\"name\\": {{variable_x}},
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should overwrite the body param with string {{variable}} 1`] = `
-"[
-    {
-        \\"name\\": \\"{{variable_x}}\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
-`;
-
-exports[`should overwrite the body param with value that contains a {{variable}} 1`] = `
-"[
-    {
-        \\"name\\": \\"Marco Polo {{variable_x}}\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ],
-        \\"owner\\": \\"Integration Test: Create Company\\"
-    },
-    {
-        \\"name\\": \\"Copper\\",
-        \\"owner_id\\": \\"12345\\",
-        \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
-        \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
-        \\"vat_number\\": \\"BE0689615164\\",
-        \\"currency\\": \\"USD\\",
-        \\"status\\": \\"Open\\",
-        \\"fax\\": \\"+12129876543\\",
-        \\"bank_accounts\\": [
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            },
-            {
-                \\"iban\\": \\"CH2989144532982975332\\",
-                \\"bic\\": \\"AUDSCHGGXXX\\"
-            }
-        ],
-        \\"websites\\": [
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"url\\": \\"http://example.com\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"addresses\\": [
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            },
-            {
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\",
-                \\"name\\": \\"HQ US\\",
-                \\"line1\\": \\"Main street\\",
-                \\"line2\\": \\"apt #\\",
-                \\"city\\": \\"San Francisco\\",
-                \\"state\\": \\"CA\\",
-                \\"postal_code\\": \\"94104\\",
-                \\"country\\": \\"US\\",
-                \\"latitude\\": \\"40.759211\\",
-                \\"longitude\\": \\"-73.984638\\"
-            }
-        ],
-        \\"social_links\\": [
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            },
-            {
-                \\"url\\": \\"https://www.twitter.com/apideck-io\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"twitter\\"
-            }
-        ],
-        \\"phone_numbers\\": [
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"number\\": \\"111-111-1111\\",
-                \\"id\\": \\"12345\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"emails\\": [
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            },
-            {
-                \\"email\\": \\"elon@musk.com\\",
-                \\"id\\": \\"123\\",
-                \\"type\\": \\"primary\\"
-            }
-        ],
-        \\"custom_fields\\": [
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            },
-            {
-                \\"id\\": \\"custom_technologies\\",
-                \\"value\\": \\"Uses Salesforce and Marketo\\"
-            }
-        ],
-        \\"tags\\": [
-            \\"New\\"
-        ]
-    }
-]"
+    "disabled": false,
+    "key": "name",
+    "value": "bar",
+  },
+]
 `;

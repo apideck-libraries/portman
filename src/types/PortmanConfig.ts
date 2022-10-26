@@ -121,6 +121,9 @@ export type OverwriteQueryParamConfig = OverwriteConfig & {
 
 export type OverwriteRequestBodyConfig = Omit<OverwriteConfig, 'value'> & {
   value?: any
+  disable?: boolean
+  insert?: boolean
+  description?: string
 }
 
 export type OverwritePathVariableConfig = OverwriteConfig & {
