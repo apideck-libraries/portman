@@ -37155,8 +37155,11 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () 
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
+                      "// Set property value as variable
+const _resDataId = jsonData?.data?.id;
+",
                       "// pm.collectionVariables - Set companyId as variable for jsonData.data.id
-if (jsonData?.data?.id) {
+if (_resDataId !== undefined) {
    pm.collectionVariables.set(\\"companyId\\", jsonData.data.id);
    console.log(\\"- use {{companyId}} as collection variable for value\\",jsonData.data.id);
 } else {
@@ -38698,20 +38701,22 @@ pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
+                      "// Set property value as variable
+const _resDataName = jsonData?.data?.name;
+",
                       "// Response body should have \\"data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", function() {
-   pm.expect((typeof jsonData.data.name !== \\"undefined\\")).to.be.true;
+   pm.expect(_resDataName !== undefined).to.be.true;
 });
 ",
                       "// Response body should have value \\"Integration Test: Create Company\\" for \\"data.name\\"
-if (jsonData?.data?.name) {
+if (_resDataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
 })};
 ",
-                      "",
                       "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
-if (jsonData?.data?.name) {
+if (_resDataName !== undefined) {
    pm.collectionVariables.set(\\"companyName\\", jsonData.data.name);
    console.log(\\"- use {{companyName}} as collection variable for value\\",jsonData.data.name);
 } else {
@@ -41088,13 +41093,16 @@ pm.test(\\"[PATCH]::/crm/companies/:id - Status code is 2xx\\", function () {
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
+                      "// Set property value as variable
+const _resDataName = jsonData?.data?.name;
+",
                       "// Response body should have \\"data.name\\"
 pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", function() {
-   pm.expect((typeof jsonData.data.name !== \\"undefined\\")).to.be.true;
+   pm.expect(_resDataName !== undefined).to.be.true;
 });
 ",
                       "// Response body should have value \\"Integration Test: Update Company\\" for \\"data.name\\"
-if (jsonData?.data?.name) {
+if (_resDataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Update Company'\\", function() {
   pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Update Company\\");
 })};

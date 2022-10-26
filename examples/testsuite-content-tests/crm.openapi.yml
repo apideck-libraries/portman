@@ -1134,6 +1134,8 @@ components:
       name: id
       schema:
         type: string
+        example: "1234567890ABC"
+        default: "1234567890ABC"
       required: true
       description: ID of the record you are acting upon.
     limit:
