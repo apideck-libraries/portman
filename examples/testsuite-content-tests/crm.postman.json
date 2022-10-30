@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "90901a91-1bf4-43bb-90f7-b82d7e4a57e2"
+    "postman_id": "a8e9f231-ed5a-4d51-99fd-da4c44f1b13d"
   },
   "item": [
     {
-      "id": "94439758-4807-426f-b9ba-46e1d849aff1",
+      "id": "e224c8c9-412b-4fd8-bcd4-3e730d05b397",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "eb2676d8-28bd-43f3-b094-f504aecf6ba1",
+          "id": "0adfe9c4-9e59-4b46-b783-d54be47b53cc",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -109,13 +109,13 @@
             {
               "listen": "test",
               "script": {
-                "id": "d0d29e5c-5ee6-44ac-817d-cda2b5d53db0",
+                "id": "97df24e8-5ec8-40f2-a261-1b732a827c79",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
                   "// Set property value as variable\nconst _resData0CompanyName = jsonData?.data?.[0]?.company_name;\n",
                   "// Response body should have \"data[0].company_name\"\npm.test(\"[GET]::/crm/leads - Content check if 'data[0].company_name' exists\", function() {\n   pm.expect(_resData0CompanyName !== undefined).to.be.true;\n});\n",
-                  "// Response body should have value \"Spacex\" for \"data[0].company_name\"\nif (_resData0CompanyName !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'\", function() {\n  pm.expect(jsonData.data[0].company_name).to.eql(\"Spacex\");\n})};\n",
+                  "// Response body should have value \"Spacex\" for \"data[0].company_name\"\nif (_resData0CompanyName !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'data[0].company_name' matches 'Spacex'\", function() {\n  pm.expect(_resData0CompanyName).to.eql(\"Spacex\");\n})};\n",
                   "// Set property value as variable\nconst _resData0Name = jsonData?.data?.[0]?.name;\n",
                   "// Response body should have \"data[0].name\"\npm.test(\"[GET]::/crm/leads - Content check if 'data[0].name' exists\", function() {\n   pm.expect(_resData0Name !== undefined).to.be.true;\n});\n",
                   "// Response body should contain value \"Musk\" for \"data[0].name\"\nif (_resData0Name !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'data[0].name' contains 'Musk'\", function() {\n  pm.expect(jsonData.data[0].name).to.include(\"Musk\");\n})};\n",
@@ -124,7 +124,7 @@
                   "// Response body should be one of the values \"200,201\" for \"status_code\"\nif (_resStatusCode !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'status_code' is matching one of: '200,201'\", function() {\n  pm.expect(jsonData.status_code).to.be.oneOf([200,201]);\n})};\n",
                   "// Set property value as variable\nconst _resData0MonetaryAmount = jsonData?.data?.[0]?.monetary_amount;\n",
                   "// Response body should have \"data[0].monetary_amount\"\npm.test(\"[GET]::/crm/leads - Content check if 'data[0].monetary_amount' exists\", function() {\n   pm.expect(_resData0MonetaryAmount !== undefined).to.be.true;\n});\n",
-                  "// Response body should have value \"75000\" for \"data[0].monetary_amount\"\nif (_resData0MonetaryAmount !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'data[0].monetary_amount' matches '75000'\", function() {\n  pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);\n})};\n",
+                  "// Response body should have value \"75000\" for \"data[0].monetary_amount\"\nif (_resData0MonetaryAmount !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'data[0].monetary_amount' matches '75000'\", function() {\n  pm.expect(_resData0MonetaryAmount).to.eql(75000);\n})};\n",
                   "// Set property value as variable\nconst _resData0Description = jsonData?.data?.[0]?.description;\n",
                   "// Response body should have \"data[0].description\"\npm.test(\"[GET]::/crm/leads - Content check if 'data[0].description' exists\", function() {\n   pm.expect(_resData0Description !== undefined).to.be.true;\n});\n",
                   "// Response body should have a length of \"9\" for \"data[0].description\"\nif (_resData0Description !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value of 'data[0].description' has a length of '9'\", function() {\n  pm.expect(jsonData.data[0].description.length).to.equal(9);\n})};\n",
@@ -134,7 +134,7 @@
                   "// Response body should have a maximum length of \"20\" for \"data\"\nif (_resData !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value of 'data' has a maximum length of '20'\", function() {\n  pm.expect(jsonData.data.length).is.at.most(20);\n})};\n",
                   "// Set property value as variable\nconst _resResource = jsonData?.resource;\n",
                   "// Response body should have \"resource\"\npm.test(\"[GET]::/crm/leads - Content check if 'resource' exists\", function() {\n   pm.expect(_resResource !== undefined).to.be.true;\n});\n",
-                  "// Response body should have value \"companies\" for \"resource\"\nif (_resResource !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'resource' matches 'companies'\", function() {\n  pm.expect(jsonData.resource).to.eql(\"companies\");\n})};\n",
+                  "// Response body should have value \"companies\" for \"resource\"\nif (_resResource !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'resource' matches 'companies'\", function() {\n  pm.expect(_resResource).to.eql(\"companies\");\n})};\n",
                   "// Set property value as variable\nconst _resCount = jsonData?.[\"@count\"];\n",
                   "// Response body should not have \"@count\"\npm.test(\"[GET]::/crm/leads - Content check if '@count' not exists\", function() {\n   pm.expect(_resCount === undefined).to.be.true;\n});\n",
                   "// Set property value as variable\nconst _resService = jsonData?.service;\n",
@@ -146,7 +146,7 @@
           ]
         },
         {
-          "id": "61b29e87-d63f-40dd-a0c6-ca3ea9c20035",
+          "id": "3c6966d8-d7c1-4a23-aea3-ba9b9afaccb2",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -240,7 +240,7 @@
           }
         },
         {
-          "id": "7f4d4a96-f288-4a87-8c10-b3b103269a45",
+          "id": "13d3e328-fc6d-434e-999e-c1090a37d04b",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -331,9 +331,14 @@
             {
               "listen": "test",
               "script": {
-                "id": "21dab425-5167-48df-9db1-eb3137db4d4c",
+                "id": "3a36f1c9-6232-4664-9015-3b0c59634b3d",
                 "type": "text/javascript",
                 "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "const _resArrayDataWebsites = jsonData?.data?.websites;\nconst _resArrayDataWebsitesUrl = _resArrayDataWebsites.find(c => c.url === \"http://example.com\");\n",
+                  "// Set property value as variable\nconst _resUrl = _resArrayDataWebsitesUrl?.url;\n",
+                  "// Response body should have \"url\"\npm.test(\"[GET]::/crm/leads/:id - Content check if 'url' exists\", function() {\n   pm.expect(_resUrl !== undefined).to.be.true;\n});\n",
+                  "// Response body should have value \"http://example.com\" for \"url\"\nif (_resUrl !== undefined) {\npm.test(\"[GET]::/crm/leads/:id - Content check if value for 'url' matches 'http://example.com'\", function() {\n  pm.expect(_resUrl).to.eql(\"http://example.com\");\n})};\n",
                   "// Validate if response header is present \npm.test(\"[GET]::/crm/leads/:id - Response header Operation-Location is present\", function () {\n   pm.response.to.have.header(\"Operation-Location\");\n});\n",
                   "// Response header should have value \"/operations/123\" for \"Operation-Location\"\npm.test(\"[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' matches '/operations/123'\", function() {\n  pm.expect(pm.response.headers.get(\"Operation-Location\")).to.eql(\"/operations/123\");\n});\n",
                   "// Response header should contain value \"/operations/\" for \"Operation-Location\"\npm.test(\"[GET]::/crm/leads/:id - Content check if header value for 'Operation-Location' contains '/operations/'\", function() {\n  pm.expect(pm.response.headers.get(\"Operation-Location\")).to.include(\"/operations/\");\n});\n",
@@ -347,7 +352,7 @@
           ]
         },
         {
-          "id": "b2027282-acd1-4db2-a08b-e7744cf7f83c",
+          "id": "72562486-74c2-4f1c-913f-f21472031f8d",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -453,7 +458,7 @@
           }
         },
         {
-          "id": "8fcc19f2-0f54-4fe8-b34f-49a70c1bc7e1",
+          "id": "88a70856-48de-4ec8-98d3-e8cb83525412",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -590,7 +595,7 @@
     }
   ],
   "info": {
-    "_postman_id": "90901a91-1bf4-43bb-90f7-b82d7e4a57e2",
+    "_postman_id": "a8e9f231-ed5a-4d51-99fd-da4c44f1b13d",
     "name": "CRM API - Content Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

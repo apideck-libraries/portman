@@ -49,6 +49,12 @@
       },
       {
         "openApiOperationId": "leadsOne",
+        "responseBodyTests": [
+          {
+            "key": "data.websites[*].url",
+            "value": "http://example.com"
+          }
+        ],
         "responseHeaderTests": [
           {
             "key": "Operation-Location",
