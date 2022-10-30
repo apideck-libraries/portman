@@ -164,6 +164,13 @@ describe('renderChainPath', () => {
     expect(result).toEqual('["@count"][Ø][1].bar[1].marco[2].polo[3]["@context"]')
   })
 
+  it('should render safe object path without . at end', () => {
+    const path = 'jsonData.'
+
+    const result = renderBracketPath(path)
+    expect(result).toEqual('jsonData')
+  })
+
   it('should detect unsafe special character within brackets', () => {
     const path = '[@context]'
 

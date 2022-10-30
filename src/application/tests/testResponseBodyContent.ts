@@ -2,7 +2,7 @@ import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { ResponseBodyTest } from '../../types'
 import { renderBracketPath, renderChainPath } from '../../utils'
-import { camelCase } from 'camel-case'
+import { camelCase, pascalCase } from 'case-anything'
 
 export const testResponseBodyContent = (
   responseBodyTests: ResponseBodyTest[],
@@ -11,6 +11,7 @@ export const testResponseBodyContent = (
   responseBodyTests.map(check => {
     let pmJsonData = ''
     let pmMappedData = ''
+    let pmHelperContains = ''
     let pmTestKey = ''
     let pmTestValue = ''
     let pmTestContains = ''
@@ -20,18 +21,7 @@ export const testResponseBodyContent = (
     let pmTestMaxLength = ''
     let pmTestAssert = ''
 
-    // Detect if target is ROOT element/array or property
-    const isRoot = check.key === '.'
-    const isArray = check.key.startsWith('[')
-    const keyLabel = isRoot ? `ROOT` : `${check.key}`
-    const keySafeValue = renderBracketPath(check.key)
-    const keyValue = isRoot
-      ? ``
-      : isArray || keySafeValue.startsWith('[')
-      ? `${keySafeValue}`
-      : `.${keySafeValue}`
-    const keyPath = `${renderChainPath(`jsonData${keyValue}`)}`
-    const pathVarName = `_${camelCase(`res${keyValue.replace(/\[/g, '')}`)}`
+    let checkKey = check.key
 
     // Only set the jsonData once
     if (!pmOperation.testJsonDataInjected) {
@@ -43,6 +33,48 @@ export const testResponseBodyContent = (
       // sets pmResponseJsonVarInjected on TestSuite
       pmOperation.testJsonDataInjected = true
     }
+
+    // Detect if key contains a *
+    let sourceVarName = ''
+    if (check.key.includes('[*]') && check.value) {
+      const keyPaths = check.key.split('[*].')
+
+      if (keyPaths.length === 2) {
+        // const keyArraySafeValue =renderBracketPath(`jsonData.${keyPaths[0]}`)
+        const keyArrayPath = `${renderChainPath(`jsonData.${keyPaths[0]}`)}`
+        const pathArrayVarName = `_resArray${pascalCase(`${keyPaths[0].replace(/\[/g, '')}`)}`
+        sourceVarName = `_resArray${pascalCase(`${check.key.replace(/\[/g, '')}`)}`
+
+        // Only set the pathArrayVarName once
+        if (!pmOperation.mappedVars.includes(pathArrayVarName)) {
+          // Register Portman request variable name
+          pmOperation.registerVar(pathArrayVarName)
+          pmOperation.registerVar(sourceVarName)
+
+          pmHelperContains = [
+            `const ${pathArrayVarName} = ${keyArrayPath};\n`,
+            `const ${sourceVarName} = ${pathArrayVarName}.find(c => c.${keyPaths[1]} === "${check.value}");\n`
+          ].join('')
+
+          // Set last part as key
+          checkKey = keyPaths[1]
+        }
+      }
+    }
+
+    // Detect if target is ROOT element/array or property
+    const isRoot = checkKey === '.'
+    const isArray = checkKey.startsWith('[')
+    const sourceData = sourceVarName ? `${sourceVarName}` : `jsonData`
+    const keyLabel = isRoot ? `ROOT` : `${checkKey}`
+    const keySafeValue = renderBracketPath(checkKey)
+    const keyValue = isRoot
+      ? ``
+      : isArray || keySafeValue.startsWith('[')
+      ? `${keySafeValue}`
+      : `.${keySafeValue}`
+    const keyPath = `${renderChainPath(`${sourceData}${keyValue}`)}`
+    const pathVarName = `_${camelCase(`res${keyValue.replace(/\[/g, '')}`)}`
 
     if (check.hasOwnProperty('key')) {
       // Only set the pathVarName once
@@ -84,7 +116,7 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' matches '${check.value}'", function() {\n`,
-        `  pm.expect(jsonData${keyValue}).to.eql(${checkValue});\n`,
+        `  pm.expect(${pathVarName}).to.eql(${checkValue});\n`,
         `})};\n`
       ].join('')
     }
@@ -105,7 +137,7 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' contains '${check.contains}'", function() {\n`,
-        `  pm.expect(jsonData${keyValue}).to.include(${checkContains});\n`,
+        `  pm.expect(${sourceData}${keyValue}).to.include(${checkContains});\n`,
         `})};\n`
       ].join('')
     }
@@ -126,7 +158,7 @@ export const testResponseBodyContent = (
           `if (${pathVarName} !== undefined) {\n`,
           `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
           ` - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'", function() {\n`,
-          `  pm.expect(jsonData${keyValue}).to.be.oneOf([${safeOneOf}]);\n`,
+          `  pm.expect(${sourceData}${keyValue}).to.be.oneOf([${safeOneOf}]);\n`,
           `})};\n`
         ].join('')
       }
@@ -148,7 +180,7 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a length of '${check.length}'", function() {\n`,
-        `  pm.expect(jsonData${keyValue}.length).to.equal(${checkLength});\n`,
+        `  pm.expect(${sourceData}${keyValue}.length).to.equal(${checkLength});\n`,
         `})};\n`
       ].join('')
     }
@@ -169,7 +201,7 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a minimum length of '${check.minLength}'", function() {\n`,
-        `  pm.expect(jsonData${keyValue}.length).is.at.least(${checkMinLength});\n`,
+        `  pm.expect(${sourceData}${keyValue}.length).is.at.least(${checkMinLength});\n`,
         `})};\n`
       ].join('')
     }
@@ -190,7 +222,7 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a maximum length of '${check.maxLength}'", function() {\n`,
-        `  pm.expect(jsonData${keyValue}.length).is.at.most(${checkMaxLength});\n`,
+        `  pm.expect(${sourceData}${keyValue}.length).is.at.most(${checkMaxLength});\n`,
         `})};\n`
       ].join('')
     }
@@ -208,12 +240,13 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' '${cleanAssertLabel}'", function() {\n`,
-        `  pm.expect(jsonData${keyValue}).${cleanAssert};\n`,
+        `  pm.expect(${sourceData}${keyValue}).${cleanAssert};\n`,
         `})};\n`
       ].join('')
     }
 
     if (pmJsonData !== '') writeOperationTestScript(pmOperation, pmJsonData)
+    if (pmHelperContains !== '') writeOperationTestScript(pmOperation, pmHelperContains)
     if (pmMappedData !== '') writeOperationTestScript(pmOperation, pmMappedData)
     if (pmTestKey !== '') writeOperationTestScript(pmOperation, pmTestKey)
     if (pmTestValue !== '') writeOperationTestScript(pmOperation, pmTestValue)

@@ -5033,7 +5033,7 @@ pm.test(\\"[POST]::/crm/leads - Content check if 'resource' exists\\", function(
                       "// Response body should have value \\"leads\\" for \\"resource\\"
 if (_resResource !== undefined) {
 pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'leads'\\", function() {
-  pm.expect(jsonData.resource).to.eql(\\"leads\\");
+  pm.expect(_resResource).to.eql(\\"leads\\");
 })};
 ",
                       "
@@ -7431,7 +7431,7 @@ pm.test(\\"[GET]::/crm/companies - Content check if 'data[0].company_name' exist
                   "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+  pm.expect(_resData0CompanyName).to.eql(\\"Spacex\\");
 })};
 ",
                 ],
