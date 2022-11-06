@@ -10,7 +10,7 @@ _use-case_: execute Postman requests in a certain order typically linked to test
 portman -l ./examples/postman-ordering/crm.yml -t false -c ./examples/postman-ordering/portman-config.ordering.json
 ```
 
-This is a very simple example where we just take the the `crm.yml` OpenAPI and convert it with ordering in place.
+This is a very simple example where we just take the `crm.yml` OpenAPI and convert it with ordering in place.
 
 ## Portman settings
 
