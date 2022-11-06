@@ -65,6 +65,12 @@ file: examples/testsuite-content-tests/portman-config.crm.json
     },
     {
       "openApiOperationId": "leadsOne",
+      "responseBodyTests": [
+        {
+          "key": "data.websites[*].url",
+          "value": "http://example.com"
+        }
+      ],
       "responseHeaderTests": [
         {
           "key": "Operation-Location",
@@ -96,8 +102,7 @@ These target options are both supported for defining a target. In case both are 
 ##### Content check options:
 
 - **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
-  - **key (String)** : The key that will be targeted in the response body to check if it exists.
-  - **value (String)** : The value that will be used to check if the value in the response body property matches.
+- **key (String)** : The key that will be targeted in the response body to check if it exists. To look up a key within in array of objects, you can use an array index (example `data.websites[0].url`) or a * wildcard (example: `data.websites[*].url`) which uses the `value` to match an object in an array.  - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
   - **oneOf (String[],Number[],Boolean[])** : The value that will be used to check one of the values is matching the response body property.
   - **length (Number)** : The number that will be used to check if the value of the response body property (string/array) has a length of the defined number.
