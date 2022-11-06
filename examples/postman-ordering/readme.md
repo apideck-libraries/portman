@@ -54,7 +54,7 @@ paths:
       post:
         operationId: leadsAdd
         summary: Create lead
-      '/crm/leads/{id}':
+    '/crm/leads/{id}':
         get:
           operationId: leadsOne
           summary: Get lead
