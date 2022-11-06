@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.19.0 - (2022-11-06)
+
 - overwriteRequestBody - added support for type "form-data" (#325)
 - overwriteRequestBody - added support for type "x-www-form-urlencoded" (#325)
 - AssignVariables - Added support for null values for response body (#414)
