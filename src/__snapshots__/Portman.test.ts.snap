@@ -75,7 +75,7 @@ pm.test(\\"[GET]::/crm/companies - Content check if 'data[0].company_name' exist
                       "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+  pm.expect(_resData0CompanyName).to.eql(\\"Spacex\\");
 })};
 ",
                       "pm.test('[GET] /crm/companies - Unify pagination limit', function(){pm.expect(pm.response.json().data.length).to.eql(3);});",
@@ -10089,7 +10089,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", f
                       "// Response body should have value \\"Integration Test: Create Company\\" for \\"data.name\\"
 if (_resDataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
-  pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
+  pm.expect(_resDataName).to.eql(\\"Integration Test: Create Company\\");
 })};
 ",
                       "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
@@ -10441,7 +10441,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", f
                       "// Response body should have value \\"Integration Test: Update Company\\" for \\"data.name\\"
 if (_resDataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Update Company'\\", function() {
-  pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Update Company\\");
+  pm.expect(_resDataName).to.eql(\\"Integration Test: Update Company\\");
 })};
 ",
                     ],

@@ -527,4 +527,28 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test for a property in root array of objects', async () => {
+    const contentTests = [
+      {
+        key: '[*].data',
+        value: 'Spacex'
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test for a property in array of objects', async () => {
+    const contentTests = [
+      {
+        key: 'data.supported_fields[*].unified_property',
+        value: 'first_name'
+      }
+    ]
+    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

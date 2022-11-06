@@ -38712,7 +38712,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", f
                       "// Response body should have value \\"Integration Test: Create Company\\" for \\"data.name\\"
 if (_resDataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Create Company'\\", function() {
-  pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Create Company\\");
+  pm.expect(_resDataName).to.eql(\\"Integration Test: Create Company\\");
 })};
 ",
                       "// pm.collectionVariables - Set companyName as variable for jsonData.data.name
@@ -41104,7 +41104,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data.name' exists\\", f
                       "// Response body should have value \\"Integration Test: Update Company\\" for \\"data.name\\"
 if (_resDataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' matches 'Integration Test: Update Company'\\", function() {
-  pm.expect(jsonData.data.name).to.eql(\\"Integration Test: Update Company\\");
+  pm.expect(_resDataName).to.eql(\\"Integration Test: Update Company\\");
 })};
 ",
                     ],

@@ -115,6 +115,58 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data' 'to
 ]
 `;
 
+exports[`testResponseBodyContent should add content test for a property in array of objects 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "const _resArrayDataSupportedFields = jsonData?.data?.supported_fields;
+const _resArrayDataSupportedFieldsUnifiedProperty = _resArrayDataSupportedFields.find(c => c.unified_property === \\"first_name\\");
+",
+  "// Set property value as variable
+const _resUnifiedProperty = _resArrayDataSupportedFieldsUnifiedProperty?.unified_property;
+",
+  "// Response body should have \\"unified_property\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'unified_property' exists\\", function() {
+   pm.expect(_resUnifiedProperty !== undefined).to.be.true;
+});
+",
+  "// Response body should have value \\"first_name\\" for \\"unified_property\\"
+if (_resUnifiedProperty !== undefined) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'unified_property' matches 'first_name'\\", function() {
+  pm.expect(_resUnifiedProperty).to.eql(\\"first_name\\");
+})};
+",
+]
+`;
+
+exports[`testResponseBodyContent should add content test for a property in root array of objects 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "const _resArray = jsonData;
+const _resArrayData = _resArray.find(c => c.data === \\"Spacex\\");
+",
+  "// Set property value as variable
+const _resData = _resArrayData?.data;
+",
+  "// Response body should have \\"data\\"
+pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data' exists\\", function() {
+   pm.expect(_resData !== undefined).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"data\\"
+if (_resData !== undefined) {
+pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data' matches 'Spacex'\\", function() {
+  pm.expect(_resData).to.eql(\\"Spacex\\");
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test for array bracket check & result for a value that does not exist 1`] = `
 Array [
   "// Set response object as internal variable
@@ -218,7 +270,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount
   "// Response body should have value \\"\\" for \\"data[0].monetary_amount\\"
 if (_resData0MonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches ''\\", function() {
-  pm.expect(jsonData.data[0].monetary_amount).to.eql(\\"\\");
+  pm.expect(_resData0MonetaryAmount).to.eql(\\"\\");
 })};
 ",
 ]
@@ -241,7 +293,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should have value \\"null\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'null'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql(null);
+  pm.expect(_resData0CompanyName).to.eql(null);
 })};
 ",
 ]
@@ -264,7 +316,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount
   "// Response body should have value \\"75000\\" for \\"data[0].monetary_amount\\"
 if (_resData0MonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '75000'\\", function() {
-  pm.expect(jsonData.data[0].monetary_amount).to.eql(75000);
+  pm.expect(_resData0MonetaryAmount).to.eql(75000);
 })};
 ",
 ]
@@ -310,7 +362,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount
   "// Response body should have value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
 if (_resData0MonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' matches '{{postman_env_variable}}'\\", function() {
-  pm.expect(jsonData.data[0].monetary_amount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
+  pm.expect(_resData0MonetaryAmount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};
 ",
 ]
@@ -574,7 +626,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amoun
   "// Response body should have value \\"75000\\" for \\"[0].data.monetary_amount\\"
 if (_res0DataMonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.monetary_amount' matches '75000'\\", function() {
-  pm.expect(jsonData[0].data.monetary_amount).to.eql(75000);
+  pm.expect(_res0DataMonetaryAmount).to.eql(75000);
 })};
 ",
 ]
@@ -597,7 +649,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amoun
   "// Response body should have value \\"{{postman_env_variable}}\\" for \\"[0].data.monetary_amount\\"
 if (_res0DataMonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.monetary_amount' matches '{{postman_env_variable}}'\\", function() {
-  pm.expect(jsonData[0].data.monetary_amount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
+  pm.expect(_res0DataMonetaryAmount).to.eql(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};
 ",
 ]
@@ -775,7 +827,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should have value \\"true\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'true'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql(true);
+  pm.expect(_resData0CompanyName).to.eql(true);
 })};
 ",
 ]
@@ -844,7 +896,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+  pm.expect(_resData0CompanyName).to.eql(\\"Spacex\\");
 })};
 ",
   "// Response body should have \\"data[0].company_name\\"
@@ -878,7 +930,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.eql(\\"Spacex\\");
+  pm.expect(_resData0CompanyName).to.eql(\\"Spacex\\");
 })};
 ",
 ]
@@ -901,7 +953,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.company_name' 
   "// Response body should have value \\"true\\" for \\"[0].data.company_name\\"
 if (_res0DataCompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.company_name' matches 'true'\\", function() {
-  pm.expect(jsonData[0].data.company_name).to.eql(true);
+  pm.expect(_res0DataCompanyName).to.eql(true);
 })};
 ",
 ]
@@ -924,7 +976,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].company_name' exist
   "// Response body should have value \\"Spacex\\" for \\"[0].company_name\\"
 if (_res0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].company_name' matches 'Spacex'\\", function() {
-  pm.expect(jsonData[0].company_name).to.eql(\\"Spacex\\");
+  pm.expect(_res0CompanyName).to.eql(\\"Spacex\\");
 })};
 ",
 ]

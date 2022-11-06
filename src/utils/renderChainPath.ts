@@ -137,5 +137,5 @@ export const renderBracketPath = (path: string): string => {
       newPath += `${newPart}.`
     }
   }
-  return newPath.slice(0, -1)
+  return newPath.slice(0, -1).replace(/\.$/, '')
 }
