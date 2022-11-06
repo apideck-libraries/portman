@@ -20,12 +20,15 @@ desired order.
 The OpenAPI operation is the unique combination of the OpenAPI method & path, with a `::` separator symbol.
 The example: `"GET::/crm/leads"` will target only the "GET" method and the specific path "/crm/leads".
 
+> **Warning**
+> Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
+
 ## Example explained
 
 In our example we want to run the execution of the CRM leads operations in specific order in Postman.
 
 So in our Portman configuration file , we have defined the `orderOfOperations` with the desired order for the "leads"
-endpoints. REMARK: Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
+endpoints. 
 
 ./examples/postman-ordering/portman-config.ordering.json >>
 
