@@ -5,7 +5,7 @@
 - AssignVariables - Added support for null values for response body (#414)
 - ContentTests - Added support for null values for response body (#414)
 - ContentTests - Added support to look up a key within an array of objects by using a * wildcard (#417)
-- Documentation - Updated the ordering example (#418)
+- Documentation - Updated the ordering example (#418,#423)
 
 ## v1.18.1 - (2022-09-30)
 
