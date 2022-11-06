@@ -106,6 +106,8 @@ will be converted in a Postman Collection that is order like this:
 
 **End result**
 
+![](./images/ordering-without.png)
+
 Original order for items as defined in OpenAPI:
 1) List leads - GET
 2) Create lead - POST
@@ -114,6 +116,9 @@ Original order for items as defined in OpenAPI:
 5) Delete lead - DELETE
 
 Ordered items in Postman after conversion as defined in the Portman configuration:
+
+![](./images/ordering-with.png)
+
 1) Create lead - POST
 2) Get lead - GET
 3) Update lead - PATCH
