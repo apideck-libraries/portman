@@ -10,7 +10,7 @@ _use-case_: execute Postman requests in a certain order typically linked to test
 portman -l ./examples/postman-ordering/crm.yml -t false -c ./examples/postman-ordering/portman-config.ordering.json
 ```
 
-This is a very simple example where we just take the the `crm.yml` OpenAPI and convert it with ordering in place.
+This is a very simple example where we just take the `crm.yml` OpenAPI and convert it with ordering in place.
 
 ## Portman settings
 
@@ -54,7 +54,7 @@ paths:
       post:
         operationId: leadsAdd
         summary: Create lead
-      '/crm/leads/{id}':
+    '/crm/leads/{id}':
         get:
           operationId: leadsOne
           summary: Get lead
@@ -106,6 +106,8 @@ will be converted in a Postman Collection that is order like this:
 
 **End result**
 
+![](./images/ordering-without.png)
+
 Original order for items as defined in OpenAPI:
 1) List leads - GET
 2) Create lead - POST
@@ -114,6 +116,9 @@ Original order for items as defined in OpenAPI:
 5) Delete lead - DELETE
 
 Ordered items in Postman after conversion as defined in the Portman configuration:
+
+![](./images/ordering-with.png)
+
 1) Create lead - POST
 2) Get lead - GET
 3) Update lead - PATCH
