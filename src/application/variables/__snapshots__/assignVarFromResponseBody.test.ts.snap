@@ -40,6 +40,46 @@ if (_res0Id !== undefined) {
 ]
 `;
 
+exports[`assignVarFromResponseBody should add postman collection var with name and response body value for root array 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _res0 = jsonData?.[0];
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[0]
+if (_res0 !== undefined) {
+   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[0]);
+   console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[0]);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData[0] is undefined.');
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseBody should add postman collection var with name and root response body value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _res = jsonData;
+",
+  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData
+if (_res !== undefined) {
+   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData);
+   console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData is undefined.');
+};
+",
+]
+`;
+
 exports[`assignVarFromResponseBody should not show the log output for a postman collection var with name and response body value 1`] = `
 Array [
   "// Set response object as internal variable

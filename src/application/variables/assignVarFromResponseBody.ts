@@ -37,10 +37,11 @@ export const assignVarFromResponseBody = (
   const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Set variable name
+  const root = varSetting.responseBodyProp === '.'
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const prop = varSetting.responseBodyProp
   const varSafeProp = renderBracketPath(prop)
-  const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : `.${varSafeProp}`
+  const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : root ? '' : `.${varSafeProp}`
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
   const varName = varSetting.name ? varSetting.name : opsRef + nameProp
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`

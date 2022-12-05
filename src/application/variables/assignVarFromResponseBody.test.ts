@@ -56,4 +56,26 @@ describe('assignVarFromResponseBody', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add postman collection var with name and root response body value', async () => {
+    const varSetting = {
+      responseBodyProp: '.',
+      name: 'leadsAdd.id'
+    }
+
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add postman collection var with name and response body value for root array', async () => {
+    const varSetting = {
+      responseBodyProp: '[0]',
+      name: 'leadsAdd.id'
+    }
+
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })
