@@ -158,6 +158,7 @@ export type OverwriteRequestConfig = {
   overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
   overwriteRequestBody?: OverwriteRequestBodyConfig[]
   overwriteRequestHeaders?: OverwriteRequestHeadersConfig[]
+  overwriteRequestBaseUrl?: OverwriteRequestBaseUrlConfig
   overwriteRequestSecurity?: OverwriteRequestSecurityConfig
 }
 
