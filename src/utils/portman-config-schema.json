@@ -400,6 +400,21 @@
             },
             "type": "array"
           },
+          "overwriteRequestBaseUrl": {
+            "additionalProperties": false,
+            "properties": {
+              "overwrite": {
+                "type": "boolean"
+              },
+              "remove": {
+                "type": "boolean"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
           "overwriteRequestBody": {
             "items": {
               "additionalProperties": false,
