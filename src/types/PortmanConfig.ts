@@ -113,6 +113,12 @@ type OverwriteConfig = {
   remove?: boolean
 }
 
+export type OverwriteRequestBaseUrlConfig = {
+  value?: string
+  remove?: boolean
+  overwrite?: boolean
+}
+
 export type OverwriteQueryParamConfig = OverwriteConfig & {
   disable?: boolean
   insert?: boolean
