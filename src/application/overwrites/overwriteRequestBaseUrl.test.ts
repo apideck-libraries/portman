@@ -45,7 +45,7 @@ describe('overwriteRequestBaseUrl', () => {
     expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
   })
 
-  it('should append to the request base URL when overwrite is false', async () => {
+  it('should append to the request base url when overwrite is false', async () => {
     const overwriteValue = {
       value: '.example.com',
       overwrite: false
@@ -57,7 +57,7 @@ describe('overwriteRequestBaseUrl', () => {
     expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
   })
 
-  it('should remove the request base URL when remove is true', async () => {
+  it('should remove the request base url when remove is true', async () => {
     const overwriteValue = {
       remove: true
     }
@@ -68,7 +68,7 @@ describe('overwriteRequestBaseUrl', () => {
     expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
   })
 
-  it('should overwrite the request base URL with a blank value', async () => {
+  it('should overwrite the request base url with a blank value', async () => {
     const overwriteValue = {
       value: '',
       overwrite: true

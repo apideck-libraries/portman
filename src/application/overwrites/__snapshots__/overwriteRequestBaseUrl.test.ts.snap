@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`overwriteRequestBaseUrl should append to the request base URL when overwrite is false 1`] = `
+exports[`overwriteRequestBaseUrl should append to the request base url when overwrite is false 1`] = `
 Object {
   "auth": undefined,
   "hash": undefined,
@@ -32,7 +32,7 @@ Object {
 }
 `;
 
-exports[`overwriteRequestBaseUrl should overwrite the request base URL with a blank value 1`] = `
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a blank value 1`] = `
 Object {
   "auth": undefined,
   "hash": undefined,
@@ -85,7 +85,7 @@ Object {
 }
 `;
 
-exports[`overwriteRequestBaseUrl should remove the request base URL when remove is true 1`] = `
+exports[`overwriteRequestBaseUrl should remove the request base url when remove is true 1`] = `
 Object {
   "auth": undefined,
   "hash": undefined,
