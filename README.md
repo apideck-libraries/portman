@@ -483,9 +483,9 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
 - **overwriteRequestBaseUrl (Object)** :
 
-  Key/value pair to overwrite the Postman Request base Url.
+  Key/value pair to overwrite the Postman Request Base URL.
 
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request base Url. (example: `https://example.com` or `{{baseUrl}}`)
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request base URL. (example: `https://example.com` or `{{baseUrl}}`)
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request base URL value OR attach the value to the original request base URL value.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request base URL from Postman.
   - 
