@@ -2,23 +2,44 @@
 
 exports[`overwriteRequestBaseUrl should append to the request base url when overwrite is false 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
   "host": Array [
     "{{baseUrl}}",
     "example",
     "com",
   ],
-  "path": undefined,
-  "port": undefined,
-  "protocol": undefined,
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
 
 exports[`overwriteRequestBaseUrl should not overwrite the request base url 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
   "host": Array [
     "{{baseUrl}}",
   ],
@@ -27,71 +48,246 @@ Object {
     "companies",
     ":id",
   ],
-  "port": undefined,
-  "protocol": undefined,
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a blank value 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
-  "host": undefined,
-  "path": undefined,
-  "port": undefined,
-  "protocol": undefined,
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a domain name 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
   "host": Array [
     "example",
     "com",
   ],
-  "path": undefined,
-  "port": undefined,
-  "protocol": undefined,
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a full domain name 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
   "host": Array [
     "www",
     "example",
     "com",
   ],
-  "path": undefined,
-  "port": undefined,
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
   "protocol": "https",
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
+}
+`;
+
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a full domain name with port 1`] = `
+Object {
+  "host": Array [
+    "www",
+    "example",
+    "com",
+  ],
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "port": "3000",
+  "protocol": "https",
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a variable 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
   "host": Array [
     "{{foo-bar-baz}}",
   ],
-  "path": undefined,
-  "port": undefined,
-  "protocol": undefined,
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
 
 exports[`overwriteRequestBaseUrl should remove the request base url when remove is true 1`] = `
 Object {
-  "auth": undefined,
-  "hash": undefined,
-  "host": undefined,
-  "path": undefined,
-  "port": undefined,
-  "protocol": undefined,
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
 }
 `;
