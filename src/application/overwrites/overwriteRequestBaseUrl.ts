@@ -31,7 +31,7 @@ export const overwriteRequestBaseUrl = (
     newPm.item.request.url.update('')
   }
 
-  // Update url.protocol
+  // Update protocol, host & port
   pmOperation.item.request.url.protocol = newPm.item.request.url.protocol
   pmOperation.item.request.url.port = newPm.item.request.url.port
   pmOperation.item.request.url.host = newPm.item.request.url.host
