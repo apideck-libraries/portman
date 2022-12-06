@@ -1,6 +1,10 @@
 ## [Unreleased]
 
+## v1.20.0 - (2022-12-06)
+
+- AssignVariables - Added support to assign the root of the request body as variable (#429)
 - Overwrites - added "overwriteRequestBaseUrl" to overwrite the request base url
+- Bumped dependencies
 
 ## v1.19.0 - (2022-11-06)
 
