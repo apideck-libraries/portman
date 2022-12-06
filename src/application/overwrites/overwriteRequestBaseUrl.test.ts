@@ -1,6 +1,5 @@
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { overwriteRequestBaseUrl } from '../../application'
-import { omitKeys } from '../../utils'
 
 describe('overwriteRequestBaseUrl', () => {
   it('should not overwrite the request base url', async () => {
@@ -9,7 +8,7 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('{{baseUrl}}')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
   })
 
   it('should overwrite the request base url with a variable', async () => {
@@ -20,7 +19,7 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('{{foo-bar-baz}}')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
   })
 
   it('should overwrite the request base url with a domain name', async () => {
@@ -31,7 +30,7 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('example.com')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
   })
 
   it('should overwrite the request base url with a full domain name', async () => {
@@ -42,7 +41,18 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('www.example.com')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
+  })
+
+  it('should overwrite the request base url with a full domain name with port', async () => {
+    const overwriteValue = {
+      value: 'https://www.example.com:3000'
+    }
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
+    expect(result.item.request.url.getHost()).toBe('www.example.com')
+    expect(result.item.request.url).toMatchSnapshot()
   })
 
   it('should append to the request base url when overwrite is false', async () => {
@@ -54,7 +64,7 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('{{baseUrl}}.example.com')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
   })
 
   it('should remove the request base url when remove is true', async () => {
@@ -65,7 +75,7 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
   })
 
   it('should overwrite the request base url with a blank value', async () => {
@@ -77,6 +87,6 @@ describe('overwriteRequestBaseUrl', () => {
     const pmOperation = await getPostmanMappedOperation()
     const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
     expect(result.item.request.url.getHost()).toBe('')
-    expect(omitKeys(result.item.request.url, ['query', 'variables'])).toMatchSnapshot()
+    expect(result.item.request.url).toMatchSnapshot()
   })
 })

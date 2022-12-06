@@ -14,18 +14,27 @@ export const overwriteRequestBaseUrl = (
   // Early exit if overwrite values are not defined
   if (!(overwriteItem !== undefined)) return pmOperation
 
+  // Clone the pmOperation to not mutate the original object
+  const newPm = pmOperation.clone({ newId: `${Math.random()}`, name: `${Math.random()}` })
+
   if (overwriteItem?.value !== undefined) {
     const orgValue = pmOperation.item.request.url.getHost()
     let newValue = overwriteItem.value
     if (overwriteItem.overwrite === false) {
       newValue = orgValue + newValue
     }
-    pmOperation.item.request.url.update(newValue)
+    // Overwrite host & protocol
+    newPm.item.request.url.update(newValue)
   }
 
   if (overwriteItem?.remove === true) {
-    pmOperation.item.request.url.update('')
+    newPm.item.request.url.update('')
   }
+
+  // Update protocol, host & port
+  pmOperation.item.request.url.protocol = newPm.item.request.url.protocol
+  pmOperation.item.request.url.port = newPm.item.request.url.port
+  pmOperation.item.request.url.host = newPm.item.request.url.host
 
   return pmOperation
 }

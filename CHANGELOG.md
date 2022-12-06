@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Bugfix "overwriteRequestBaseUrl" to keep the path parameters (#434)
+
 ## v1.20.0 - (2022-12-06)
 
 - AssignVariables - Added support to assign the root of the request body as variable (#429)
