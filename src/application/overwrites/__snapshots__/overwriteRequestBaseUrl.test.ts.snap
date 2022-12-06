@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`overwriteRequestBaseUrl should append to the request base url when overwrite is false 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": Array [
+    "{{baseUrl}}",
+    "example",
+    "com",
+  ],
+  "path": undefined,
+  "port": undefined,
+  "protocol": undefined,
+}
+`;
+
+exports[`overwriteRequestBaseUrl should not overwrite the request base url 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": Array [
+    "{{baseUrl}}",
+  ],
+  "path": Array [
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "port": undefined,
+  "protocol": undefined,
+}
+`;
+
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a blank value 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": undefined,
+  "path": undefined,
+  "port": undefined,
+  "protocol": undefined,
+}
+`;
+
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a domain name 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": Array [
+    "example",
+    "com",
+  ],
+  "path": undefined,
+  "port": undefined,
+  "protocol": undefined,
+}
+`;
+
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a full domain name 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": Array [
+    "www",
+    "example",
+    "com",
+  ],
+  "path": undefined,
+  "port": undefined,
+  "protocol": "https",
+}
+`;
+
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a variable 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": Array [
+    "{{foo-bar-baz}}",
+  ],
+  "path": undefined,
+  "port": undefined,
+  "protocol": undefined,
+}
+`;
+
+exports[`overwriteRequestBaseUrl should remove the request base url when remove is true 1`] = `
+Object {
+  "auth": undefined,
+  "hash": undefined,
+  "host": undefined,
+  "path": undefined,
+  "port": undefined,
+  "protocol": undefined,
+}
+`;

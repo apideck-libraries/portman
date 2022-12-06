@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Overwrites - added "overwriteRequestBaseUrl" to overwrite the request base url
+
 ## v1.19.0 - (2022-11-06)
 
 - overwriteRequestBody - added support for type "form-data" (#325)

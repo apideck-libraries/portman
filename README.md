@@ -481,6 +481,14 @@ To facilitate automation, you might want to modify properties with "randomized" 
 - **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request will be overwritten or extended (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting. (example: `["leadsAdd", "GET::/crm/leads/{id}"]`)
 
+- **overwriteRequestBaseUrl (Object)** :
+
+  Key/value pair to overwrite the Postman Request Base URL.
+
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request base URL. (example: `https://example.com` or `{{baseUrl}}`)
+  - **overwrite (Boolean true/false | Default: true)** : Overwrites the request base URL value OR attach the value to the original request base URL value.
+  - **remove (Boolean true/false | Default: false)** : Removes the targeted request base URL from Postman.
+  - 
 - **overwriteRequestQueryParams (Array)** :
 
   Array of key/value pairs to overwrite in the Postman Request Query params.
