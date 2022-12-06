@@ -58,6 +58,10 @@
           "responseBodyProp": "data.company_name"
         },
         {
+          "responseBodyProp": ".",
+          "name": "leadResponse"
+        },
+        {
           "responseBodyProp": "@count"
         },
         {

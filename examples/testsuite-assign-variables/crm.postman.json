@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "f7171d03-51a4-4d38-a637-25a59a828a0f"
+    "postman_id": "df4fb7a9-549a-462b-966b-6731b85947cf"
   },
   "item": [
     {
-      "id": "4a0d1e99-1c4f-470b-8f83-4ba6c444a0d0",
+      "id": "c2e2ec2d-6bb6-4409-be7b-aa393a938414",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "7c40c8b8-d6df-4484-9519-a68985be9c78",
+          "id": "795be23b-ceaa-43e8-a014-5e56a38c5a6c",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -109,7 +109,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "b1927622-db8c-4a8a-ae98-58e4560062b3",
+                "id": "cad3c8a2-740c-4fe3-ad40-7e4e00ed0429",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -123,7 +123,7 @@
           ]
         },
         {
-          "id": "f37ac2a3-3183-49c1-a27e-7c9fd1392497",
+          "id": "417d94c1-84c8-4806-b072-c21a1bd08060",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -215,7 +215,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "49b3d565-b7ec-488b-a9a4-b022c343fddd",
+                "id": "74789f6e-82b7-48ad-9958-b62aa2a02eb2",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[POST]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -236,7 +236,7 @@
           }
         },
         {
-          "id": "ff2b407f-4521-4464-a6ba-6b0b3e8f0a22",
+          "id": "90ea20df-f731-45ac-82de-5fc95fd767dd",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -327,7 +327,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "fda1f0c4-f7e5-46df-acea-b1173961c02b",
+                "id": "e1882fc3-b766-4621-85bb-741dbb90beda",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -340,6 +340,8 @@
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
                   "// Set property value as variable\nconst _resDataCompanyName = jsonData?.data?.company_name;\n",
                   "// pm.collectionVariables - Set leadsOne.data.company_name as variable for jsonData.data.company_name\nif (_resDataCompanyName !== undefined) {\n   pm.collectionVariables.set(\"leadsOne.data.company_name\", jsonData.data.company_name);\n   // console.log(\"- use {{leadsOne.data.company_name}} as collection variable for value\",jsonData.data.company_name);\n} else {\n   console.log('INFO - Unable to assign variable {{leadsOne.data.company_name}}, as jsonData.data.company_name is undefined.');\n};\n",
+                  "// Set property value as variable\nconst _res = jsonData;\n",
+                  "// pm.collectionVariables - Set leadResponse as variable for jsonData\nif (_res !== undefined) {\n   pm.collectionVariables.set(\"leadResponse\", jsonData);\n   // console.log(\"- use {{leadResponse}} as collection variable for value\",jsonData);\n} else {\n   console.log('INFO - Unable to assign variable {{leadResponse}}, as jsonData is undefined.');\n};\n",
                   "// Set property value as variable\nconst _resCount = jsonData?.[\"@count\"];\n",
                   "// pm.collectionVariables - Set leadsOne.@count as variable for jsonData[\"@count\"]\nif (_resCount !== undefined) {\n   pm.collectionVariables.set(\"leadsOne.@count\", jsonData[\"@count\"]);\n   // console.log(\"- use {{leadsOne.@count}} as collection variable for value\",jsonData[\"@count\"]);\n} else {\n   console.log('INFO - Unable to assign variable {{leadsOne.@count}}, as jsonData[\"@count\"] is undefined.');\n};\n",
                   "",
@@ -350,7 +352,7 @@
           ]
         },
         {
-          "id": "6ae9aabf-d805-4ce0-850f-1b5950cf3783",
+          "id": "36c61cf2-bf8a-42ab-8ddb-3dbda40f7707",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -454,7 +456,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "e109c6c4-07fe-44e6-bacc-98cc605d76f7",
+                "id": "572dd5f8-1aa3-4a0b-be9c-333c3647ca5b",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[PATCH]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -471,7 +473,7 @@
           }
         },
         {
-          "id": "6e8f8fbb-5868-4939-baa6-33927333e934",
+          "id": "66dc1d90-8a9e-4b09-95ee-2f4fd43027f8",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -562,7 +564,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "bc8a02a0-3a0a-44b4-b0a7-bbca48f72347",
+                "id": "808c75df-48df-49a6-9e76-181ca2247c3b",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[DELETE]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -623,7 +625,7 @@
     }
   ],
   "info": {
-    "_postman_id": "f7171d03-51a4-4d38-a637-25a59a828a0f",
+    "_postman_id": "df4fb7a9-549a-462b-966b-6731b85947cf",
     "name": "CRM API - Assign Variables",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
