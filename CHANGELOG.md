@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.20.1 - (2022-12-06)
+
 - Bugfix "overwriteRequestBaseUrl" to keep the path parameters (#434)
 
 ## v1.20.0 - (2022-12-06)
