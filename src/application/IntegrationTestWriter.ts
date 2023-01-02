@@ -41,7 +41,7 @@ export class IntegrationTestWriter {
 
       if (!pmOperation) return
 
-      const folderId = pmOperation.getParentFolderId()
+      const folderId = variationWriter.variationFolder.id
       // const folderName = pmOperation.getParentFolderName()
 
       const oaOperation = testSuite.oasParser.getOperationByPath(pmOperation.pathRef)
