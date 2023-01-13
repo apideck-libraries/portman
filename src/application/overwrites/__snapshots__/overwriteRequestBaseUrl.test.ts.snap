@@ -259,6 +259,43 @@ Object {
 }
 `;
 
+exports[`overwriteRequestBaseUrl should overwrite the request base url with a variable and path 1`] = `
+Object {
+  "host": Array [
+    "{{foo-bar-baz}}",
+  ],
+  "path": Array [
+    "path",
+    "crm",
+    "companies",
+    ":id",
+  ],
+  "query": Array [
+    Object {
+      "description": Object {
+        "content": "Include raw response. Mostly used for debugging purposes",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "raw",
+      "value": "true",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "description": Object {
+        "content": "(Required) ID of the record you are acting upon.",
+        "type": "text/plain",
+      },
+      "disabled": false,
+      "key": "id",
+      "type": "any",
+      "value": "123456",
+    },
+  ],
+}
+`;
+
 exports[`overwriteRequestBaseUrl should remove the request base url when remove is true 1`] = `
 Object {
   "path": Array [
