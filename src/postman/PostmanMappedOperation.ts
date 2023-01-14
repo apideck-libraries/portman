@@ -100,7 +100,7 @@ export class PostmanMappedOperation {
     })
   }
 
-  private normalizedPathRef(method: string): string {
+  public normalizedPathRef(method: string): string {
     const {
       item: {
         request: { url }
@@ -110,6 +110,9 @@ export class PostmanMappedOperation {
     const path = url?.path
       ?.map(segment => {
         return segment.includes(':') ? `{${segment}}`.replace(':', '') : segment
+      })
+      ?.map(segment => {
+        return segment.includes('{{') ? segment.replace('{{', '{').replace('}}', '}') : segment
       })
       .join('/')
     return `${method}::/${path}`
