@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Bugfix for handling variable injection of the baseUrl & server variables (#408, #437)
+- Bumped openapi-to-postman to 4.6.0
+
 ## v1.20.1 - (2022-12-06)
 
 - Bugfix "overwriteRequestBaseUrl" to keep the path parameters (#434)
