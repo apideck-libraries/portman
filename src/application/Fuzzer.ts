@@ -821,7 +821,7 @@ export class Fuzzer {
       let requiredPath = ``
 
       // Merge anyOf, oneOf, allOf OpenAPI schema objects into a simplified schema object
-      if (node.allOf || node.oneOf || node.anyOf) {
+      if (node?.allOf || node?.oneOf || node?.anyOf) {
         const SchemaObject = traverse(node).clone()
         // const newObject: OpenAPIV3.SchemaObject = {}
         const modelType = SchemaObject.anyOf ? 'anyOf' : SchemaObject.oneOf ? 'oneOf' : 'allOf'
