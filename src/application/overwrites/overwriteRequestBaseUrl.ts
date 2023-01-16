@@ -1,5 +1,6 @@
 import { PostmanMappedOperation } from '../../postman'
 import { OverwriteRequestBaseUrlConfig } from '../../types'
+import { isEqual } from 'lodash'
 // import { Header } from 'postman-collection'
 
 /**
@@ -31,10 +32,17 @@ export const overwriteRequestBaseUrl = (
     newPm.item.request.url.update('')
   }
 
-  // Update protocol, host & port
+  // Update protocol, host, port & path
   pmOperation.item.request.url.protocol = newPm.item.request.url.protocol
   pmOperation.item.request.url.port = newPm.item.request.url.port
   pmOperation.item.request.url.host = newPm.item.request.url.host
+  // if they are equal then no path was provided in the overwrite value
+  if (!isEqual(pmOperation.item.request.url.path, newPm.item.request.url.path)) {
+    pmOperation.item.request.url.path = [
+      ...(newPm.item.request.url.path ?? []),
+      ...(pmOperation.item.request.url.path ?? [])
+    ]
+  }
 
   return pmOperation
 }

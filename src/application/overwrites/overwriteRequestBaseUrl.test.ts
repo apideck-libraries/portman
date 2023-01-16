@@ -89,4 +89,20 @@ describe('overwriteRequestBaseUrl', () => {
     expect(result.item.request.url.getHost()).toBe('')
     expect(result.item.request.url).toMatchSnapshot()
   })
+
+  it('should overwrite the request base url with a variable and path', async () => {
+    const overwriteValue = {
+      value: '{{foo-bar-baz}}/path'
+    }
+
+    const pmOperation = await getPostmanMappedOperation()
+    const result = overwriteRequestBaseUrl(overwriteValue, pmOperation)
+    expect(result.item.request.url.getHost()).toBe('{{foo-bar-baz}}')
+    expect(result.item.request.url.path).toBeDefined()
+    expect(result.item.request.url.path?.length).toEqual(4)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(result.item.request.url.path[0]).toEqual('path')
+    expect(result.item.request.url).toMatchSnapshot()
+  })
 })
