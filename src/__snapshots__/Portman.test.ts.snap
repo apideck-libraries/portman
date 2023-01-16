@@ -85,6 +85,9 @@ pm.test(\\"[GET]::/crm/companies - Content check if value for 'data[0].company_n
                 },
               ],
               "name": "List companies",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -501,6 +504,9 @@ pm.test(\\"[GET]::/crm/companies/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get company",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -878,6 +884,9 @@ pm.test(\\"[DELETE]::/crm/companies/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete company",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -1013,6 +1022,9 @@ pm.test(\\"[GET]::/crm/contacts - Schema is valid\\", function() {
                 },
               ],
               "name": "List contacts",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -1458,6 +1470,9 @@ pm.test(\\"[GET]::/crm/contacts/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get contact",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -1837,6 +1852,9 @@ pm.test(\\"[DELETE]::/crm/contacts/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete contact",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -1972,6 +1990,9 @@ pm.test(\\"[GET]::/crm/opportunities - Schema is valid\\", function() {
                 },
               ],
               "name": "List opportunities",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -2343,6 +2364,9 @@ pm.test(\\"[GET]::/crm/opportunities/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get opportunity",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -2648,6 +2672,9 @@ pm.test(\\"[DELETE]::/crm/opportunities/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete opportunity",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -2783,6 +2810,9 @@ pm.test(\\"[GET]::/crm/leads - Schema is valid\\", function() {
                 },
               ],
               "name": "List leads",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -3251,6 +3281,9 @@ if (leadsOneOperationLocation !== undefined) {
                     },
                   ],
                   "name": "Get lead",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -3626,6 +3659,9 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete lead",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -3761,6 +3797,9 @@ pm.test(\\"[GET]::/crm/pipelines - Schema is valid\\", function() {
                 },
               ],
               "name": "List pipelines",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -4041,6 +4080,9 @@ pm.test(\\"[GET]::/crm/pipelines/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get pipeline",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -4327,6 +4369,9 @@ pm.test(\\"[DELETE]::/crm/pipelines/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete pipeline",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -4462,6 +4507,9 @@ pm.test(\\"[GET]::/crm/notes - Schema is valid\\", function() {
                 },
               ],
               "name": "List notes",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -4746,6 +4794,9 @@ pm.test(\\"[GET]::/crm/notes/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get note",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -5018,6 +5069,9 @@ pm.test(\\"[DELETE]::/crm/notes/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete note",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -5153,6 +5207,9 @@ pm.test(\\"[GET]::/crm/users - Schema is valid\\", function() {
                 },
               ],
               "name": "List users",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -5443,6 +5500,9 @@ pm.test(\\"[GET]::/crm/users/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get user",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -5721,6 +5781,9 @@ pm.test(\\"[DELETE]::/crm/users/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete user",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -5856,6 +5919,9 @@ pm.test(\\"[GET]::/crm/activities - Schema is valid\\", function() {
                 },
               ],
               "name": "List activities",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -6183,6 +6249,9 @@ pm.test(\\"[GET]::/crm/activities/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Get activity",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -6498,6 +6567,9 @@ pm.test(\\"[DELETE]::/crm/activities/:id - Schema is valid\\", function() {
                     },
                   ],
                   "name": "Delete activity",
+                  "protocolProfileBehavior": Object {
+                    "disableBodyPruning": true,
+                  },
                   "request": Object {
                     "auth": Object {
                       "bearer": Array [
@@ -10106,6 +10178,9 @@ if (_resDataName !== undefined) {
                 },
               ],
               "name": "Fetch Company",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -10450,6 +10525,9 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data.name' ma
                 },
               ],
               "name": "Verify Company Updated",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -10553,6 +10631,9 @@ pm.test(\\"[DELETE]::/crm/companies/:id - Status code is 2xx\\", function () {
                 },
               ],
               "name": "Delete Company",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [
@@ -10656,6 +10737,9 @@ pm.test(\\"[GET]::/crm/companies/:id - Response status code is 404\\", function 
                 },
               ],
               "name": "Verify Company Deleted",
+              "protocolProfileBehavior": Object {
+                "disableBodyPruning": true,
+              },
               "request": Object {
                 "auth": Object {
                   "bearer": Array [

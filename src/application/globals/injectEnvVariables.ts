@@ -10,7 +10,7 @@ const upsertEnvVariable = (
   type: string
 ) => {
   const toInject = { key, value, type }
-  const updateIndex = variables.findIndex(variable => variable['id'] === key)
+  const updateIndex = variables.findIndex(variable => variable['key'] === key)
 
   if (updateIndex > -1) {
     variables[updateIndex] = toInject
@@ -28,7 +28,7 @@ export const injectEnvVariables = (
 ): CollectionDefinition => {
   let variables = (obj.variable as VariableDefinition[]) || []
   const baseUrlFromSpec = variables.find(item => {
-    return (item.id = 'baseUrl')
+    return item.id === 'baseUrl'
   })?.value
 
   envFile && config({ path: path.resolve(envFile) })
@@ -41,7 +41,9 @@ export const injectEnvVariables = (
     }
   }
 
-  variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
+  if (baseUrl || baseUrlFromSpec) {
+    variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
+  }
   const uniqueVariables = Array.from(new Set(variables))
 
   const collection = JSON.parse(JSON.stringify(obj))
