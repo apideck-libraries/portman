@@ -41,4 +41,18 @@ describe('PostmanMappedOperation', () => {
       expect(clone.item.request).toMatchSnapshot()
     })
   })
+
+  describe('normalizedPathRef()', () => {
+    it('should return a normalized PathRef ', () => {
+      mappedOperation.item.request.url.path = ['crm', 'companies', ':id']
+      const pathRef = mappedOperation.normalizedPathRef('GET')
+      expect(pathRef).toEqual('GET::/crm/companies/{id}')
+    })
+
+    it('should return a normalized PathRef with postman variables', () => {
+      mappedOperation.item.request.url.path = ['crm', 'companies({{id}})']
+      const pathRef = mappedOperation.normalizedPathRef('GET')
+      expect(pathRef).toEqual('GET::/crm/companies({id})')
+    })
+  })
 })
