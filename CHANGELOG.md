@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Bugfix for handling null values safer for analyzeFuzzJsonSchema (#443)
 - Bugfix for handling variable injection of the baseUrl & server variables (#408, #437)
 - Bumped openapi-to-postman to 4.6.0
 
