@@ -217,7 +217,6 @@ export class PostmanSyncService {
   }
 
   async synchronizeCollectionId(postmanUid: string) {
-    return new Promise(async (resolve, reject) => {
       const collectionResult = await this.postmanApi.getCollection(postmanUid);
 
       if (Either.isLeft(collectionResult)) {
@@ -226,31 +225,38 @@ export class PostmanSyncService {
 
       let postmanCollection: CollectionDefinition = collectionResult.right
 
-      if (this.portmanCollection.item && ("item" in this.portmanCollection && postmanCollection && this.portmanCollection.item && postmanCollection.item)) {
-        postmanCollection.item.forEach(postmanItem => {
+      const portmanCollection =  this.portmanCollection
 
-          // @ts-ignore
-          let commonItem:(ItemGroupDefinition | ItemDefinition | undefined) = this.portmanCollection.item.find(portmanItem => portmanItem.name === postmanItem.name)
-
-          if (commonItem && "item" in commonItem) {
-            commonItem.id = postmanItem.id
-
-            if("item" in postmanItem && postmanItem.item && commonItem.item) {
-              postmanItem.item.forEach(postmanSubRequest => {
-                // @ts-ignore
-                let commonSubItem = commonItem.item.find(portmanSubRequest => postmanSubRequest.name === portmanSubRequest.name)
-                commonSubItem.id = postmanSubRequest.id
-              })
-            }
-          }
-        })
-        resolve(postmanCollection)
-      } else {
-        reject(`Portman/Postman collection does not contain any items.`)
+      if (!portmanCollection) {
+        throw new Error(`Portman Collection doesn't exist.`);
       }
 
+      if (!("item" in portmanCollection && postmanCollection && portmanCollection.item && postmanCollection.item)) {
+        throw new Error(`Portman/Postman Collection doesn't contains any items.`)
+      }
 
-    })
+      postmanCollection.item.forEach(postmanItem => {
+        let commonItem:(ItemGroupDefinition | ItemDefinition | undefined) = portmanCollection?.item?.find(portmanItem => portmanItem.name === postmanItem.name)
 
+        if (commonItem && "item" in commonItem) {
+          commonItem.id = postmanItem.id
+
+          if("item" in postmanItem && postmanItem.item) {
+
+            postmanItem.item.forEach(postmanSubRequest => {
+
+              if(commonItem && "item" in commonItem && commonItem.item){
+
+                let commonSubItem = commonItem.item.find(portmanSubRequest => postmanSubRequest.name === portmanSubRequest.name)
+
+                if(commonSubItem) {
+                  commonSubItem.id = postmanSubRequest.id
+                }
+              }
+            })
+          }
+        }
+      })
+      return postmanCollection
   }
 }
