@@ -1,6 +1,7 @@
-import { CollectionDefinition } from 'postman-collection'
+import {CollectionDefinition, ItemDefinition, ItemGroupDefinition} from 'postman-collection'
 import { PostmanApiCollectionResult, PostmanApiService, PostmanApiWorkspaceResult } from './'
 import { PostmanRepo } from './PostmanRepo'
+import * as Either from "fp-ts/Either";
 
 type PostmanCache = {
   collections: PostmanApiCollectionResult[]
@@ -202,6 +203,9 @@ export class PostmanSyncService {
       state: { postmanUid, workspaceId },
       portmanCollection
     } = this
+    console.log('update')
+    await this.synchronizeCollectionId(postmanUid)
+    console.log(this.portmanCollection)
     return this.postmanApi.updateCollection(portmanCollection, postmanUid, workspaceId)
   }
 
@@ -210,5 +214,43 @@ export class PostmanSyncService {
       state: { postmanUid }
     } = this
     return this.postmanApi.deleteCollection(postmanUid)
+  }
+
+  async synchronizeCollectionId(postmanUid: string) {
+    return new Promise(async (resolve, reject) => {
+      const collectionResult = await this.postmanApi.getCollection(postmanUid);
+
+      if (Either.isLeft(collectionResult)) {
+        throw collectionResult.left
+      }
+
+      let postmanCollection: CollectionDefinition = collectionResult.right
+
+      if (this.portmanCollection.item && ("item" in this.portmanCollection && postmanCollection && this.portmanCollection.item && postmanCollection.item)) {
+        postmanCollection.item.forEach(postmanItem => {
+
+          // @ts-ignore
+          let commonItem:(ItemGroupDefinition | ItemDefinition | undefined) = this.portmanCollection.item.find(portmanItem => portmanItem.name === postmanItem.name)
+
+          if (commonItem && "item" in commonItem) {
+            commonItem.id = postmanItem.id
+
+            if("item" in postmanItem && postmanItem.item && commonItem.item) {
+              postmanItem.item.forEach(postmanSubRequest => {
+                // @ts-ignore
+                let commonSubItem = commonItem.item.find(portmanSubRequest => postmanSubRequest.name === portmanSubRequest.name)
+                commonSubItem.id = postmanSubRequest.id
+              })
+            }
+          }
+        })
+        resolve(postmanCollection)
+      } else {
+        reject(`Portman/Postman collection does not contain any items.`)
+      }
+
+
+    })
+
   }
 }
