@@ -14,6 +14,23 @@ describe('overwriteRequestHeaders', () => {
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
+  it('should overwrite the request headers variable even if the existing header has an empty string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar-baz'
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+
+    // Force value to empty string for the existing header
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '' })
+
+    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
   it('should disable the request headers variable', async () => {
     const overwriteValues = [
       {
