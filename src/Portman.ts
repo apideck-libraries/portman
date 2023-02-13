@@ -550,7 +550,7 @@ export class Portman {
     // --- Portman - Upload Postman collection to Postman app
     const {
       portmanCollection,
-      options: { syncPostman, postmanRefreshCache, postmanFastSync }
+      options: { syncPostman, postmanRefreshCache, postmanFastSync, syncPostmanCollectionIds }
     } = this
 
     if (!syncPostman) return
@@ -575,7 +575,8 @@ export class Portman {
       postmanWorkspaceName,
       portmanCollection,
       postmanRefreshCache: postmanRefreshCacheValue,
-      postmanFastSync: postmanFastSync
+      postmanFastSync: postmanFastSync,
+      syncPostmanCollectionIds
     })
 
     let response: unknown
