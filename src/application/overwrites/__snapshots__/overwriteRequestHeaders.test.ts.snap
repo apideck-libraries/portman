@@ -107,7 +107,7 @@ Object {
 }
 `;
 
-exports[`overwriteRequestHeaders should overwrite the request headers variable even if the exising header has an empty string value 1`] = `
+exports[`overwriteRequestHeaders should overwrite the request headers variable even if the existing header has an empty string value 1`] = `
 Object {
   "x-apideck-app-id": "foo-bar-baz",
   "x-apideck-consumer-id": "test_consumer",
