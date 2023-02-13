@@ -107,6 +107,8 @@ Options:
  --newmanIterationData, -d  Iteration data to run Newman with newly created collection                       [string]
  --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
  --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
+ --syncPostmanCollectionIds Synchronises the IDs of newly created postman collections with those already
+                            on Postman, useful when you want to use Postman pull request (default: false)    [boolean]
  --postmanFastSync          Postman sync creates new collection (new UID),instead of update (default: false) [boolean]
  --postmanRefreshCache      Postman sync will refresh all local cached Postman API data (default: false)     [boolean]
  --postmanUid, -p           Postman collection UID to upload with the generated Postman collection           [string]
