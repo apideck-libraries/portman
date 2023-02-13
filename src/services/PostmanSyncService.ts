@@ -226,7 +226,7 @@ export class PostmanSyncService {
     return this.postmanApi.deleteCollection(postmanUid)
   }
 
-  async synchronizeCollectionIds() {
+  async synchronizeCollectionIds(): Promise<void> {
     if (!this.postmanUid) {
       throw new Error('Postman uid must be filled in.')
     }
@@ -247,13 +247,13 @@ export class PostmanSyncService {
     postmanCollection.item.forEach(postmanItem => {
       this.replaceCollectionId(postmanItem, portmanCollection)
     })
-    return postmanCollection
+    return
   }
 
   replaceCollectionId(
     postmanItem: ItemGroupDefinition | ItemDefinition,
     portmanItems: ItemGroupDefinition
-  ) {
+  ): void {
     const portmanItemCommon: ItemGroupDefinition | ItemDefinition | undefined =
       portmanItems.item?.find(portmanItem => portmanItem.name === postmanItem.name)
 
@@ -280,7 +280,7 @@ export class PostmanSyncService {
   replaceResponsesId(
     postmanResponseItems: ResponseDefinition[],
     portmanResponseItems: ResponseDefinition[]
-  ) {
+  ): void {
     postmanResponseItems.forEach(postmanResponseItem => {
       const portmanResponseCommon = portmanResponseItems.find(
         portmanResponseItem => portmanResponseItem.name === postmanResponseItem.name
