@@ -118,7 +118,7 @@ export class PostmanApiService {
     }
   }
 
-  async getCollection(collectionId: String): Promise<Either.Either<string, CollectionDefinition>> {
+  async getCollection(collectionId: string): Promise<Either.Either<string, CollectionDefinition>> {
     const config = {
       method: 'get',
       url: `${this.baseUrl}/collections/${collectionId}`,

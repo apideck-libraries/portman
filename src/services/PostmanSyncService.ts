@@ -6,7 +6,7 @@ import {
 } from 'postman-collection'
 import { PostmanApiCollectionResult, PostmanApiService, PostmanApiWorkspaceResult } from './'
 import { PostmanRepo } from './PostmanRepo'
-import * as Either from "fp-ts/Either";
+import * as Either from 'fp-ts/Either'
 
 type PostmanCache = {
   collections: PostmanApiCollectionResult[]
@@ -231,16 +231,16 @@ export class PostmanSyncService {
       throw new Error('Postman uid must be filled in.')
     }
 
-    const collectionResult = await this.postmanApi.getCollection(this.postmanUid);
+    const collectionResult = await this.postmanApi.getCollection(this.postmanUid)
 
     if (Either.isLeft(collectionResult)) {
       throw collectionResult.left
     }
 
-    let postmanCollection: CollectionDefinition = collectionResult.right
-    const portmanCollection =  this.portmanCollection
+    const postmanCollection: CollectionDefinition = collectionResult.right
+    const portmanCollection = this.portmanCollection
 
-    if (!("item" in portmanCollection && postmanCollection && postmanCollection.item)) {
+    if (!('item' in portmanCollection && postmanCollection && postmanCollection.item)) {
       throw new Error(`Portman/Postman Collection doesn't contains any items.`)
     }
 
@@ -250,22 +250,26 @@ export class PostmanSyncService {
     return postmanCollection
   }
 
-  replaceCollectionId(postmanItem: ItemGroupDefinition|ItemDefinition, portmanItems: ItemGroupDefinition) {
-    const portmanItemCommon: (ItemGroupDefinition | ItemDefinition | undefined) = portmanItems.item?.find(portmanItem => portmanItem.name === postmanItem.name)
+  replaceCollectionId(
+    postmanItem: ItemGroupDefinition | ItemDefinition,
+    portmanItems: ItemGroupDefinition
+  ) {
+    const portmanItemCommon: ItemGroupDefinition | ItemDefinition | undefined =
+      portmanItems.item?.find(portmanItem => portmanItem.name === postmanItem.name)
 
     if (portmanItemCommon) {
       portmanItemCommon.id = postmanItem.id
 
       if (
-          "response" in postmanItem &&
-          "response" in portmanItemCommon &&
-          postmanItem.response &&
-          portmanItemCommon.response
+        'response' in postmanItem &&
+        'response' in portmanItemCommon &&
+        postmanItem.response &&
+        portmanItemCommon.response
       ) {
         this.replaceResponsesId(postmanItem.response, portmanItemCommon.response)
-      } else if ("item" in postmanItem && postmanItem.item) {
+      } else if ('item' in postmanItem && postmanItem.item) {
         postmanItem.item.forEach(item => {
-          if(portmanItemCommon && ("item" in portmanItemCommon && postmanItem)) {
+          if (portmanItemCommon && 'item' in portmanItemCommon && postmanItem) {
             this.replaceCollectionId(item, portmanItemCommon)
           }
         })
@@ -273,11 +277,16 @@ export class PostmanSyncService {
     }
   }
 
-  replaceResponsesId(postmanResponseItems: ResponseDefinition[], portmanResponseItems: ResponseDefinition[]) {
+  replaceResponsesId(
+    postmanResponseItems: ResponseDefinition[],
+    portmanResponseItems: ResponseDefinition[]
+  ) {
     postmanResponseItems.forEach(postmanResponseItem => {
-      const portmanResponseCommon = portmanResponseItems.find(portmanResponseItem => portmanResponseItem.name === postmanResponseItem.name)
+      const portmanResponseCommon = portmanResponseItems.find(
+        portmanResponseItem => portmanResponseItem.name === postmanResponseItem.name
+      )
       if (portmanResponseCommon) {
-          portmanResponseCommon.id = postmanResponseItem.id
+        portmanResponseCommon.id = postmanResponseItem.id
       }
     })
   }
