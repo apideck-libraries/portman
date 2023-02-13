@@ -1,6 +1,12 @@
-import { CollectionDefinition } from 'postman-collection'
+import {
+  CollectionDefinition,
+  ItemDefinition,
+  ItemGroupDefinition,
+  ResponseDefinition
+} from 'postman-collection'
 import { PostmanApiCollectionResult, PostmanApiService, PostmanApiWorkspaceResult } from './'
 import { PostmanRepo } from './PostmanRepo'
+import * as Either from "fp-ts/Either";
 
 type PostmanCache = {
   collections: PostmanApiCollectionResult[]
@@ -22,6 +28,7 @@ export class PostmanSyncService {
   cache: PostmanCache
   postmanFastSync: boolean
   postmanRefreshCache: boolean
+  syncPostmanCollectionIds: boolean
 
   constructor({
     postmanApi = new PostmanApiService(),
@@ -31,7 +38,8 @@ export class PostmanSyncService {
     collectionName,
     cacheFile,
     postmanFastSync,
-    postmanRefreshCache
+    postmanRefreshCache,
+    syncPostmanCollectionIds
   }: {
     portmanCollection: CollectionDefinition
     postmanApi?: PostmanApiService
@@ -41,6 +49,7 @@ export class PostmanSyncService {
     cacheFile?: string
     postmanFastSync?: boolean
     postmanRefreshCache?: boolean
+    syncPostmanCollectionIds?: boolean
   }) {
     this.postmanApi = postmanApi
     this.postmanUid = postmanUid
@@ -54,6 +63,7 @@ export class PostmanSyncService {
 
     this.postmanFastSync = postmanFastSync ?? false
     this.postmanRefreshCache = postmanRefreshCache ?? false
+    this.syncPostmanCollectionIds = syncPostmanCollectionIds ?? false
 
     // Prevent collection delete, when postmanUid is set
     if (this.postmanUid) {
@@ -87,6 +97,10 @@ export class PostmanSyncService {
       const collCreate = await this.createCollection()
       await this.postmanRepo.initCache(true, false)
       return collCreate
+    }
+
+    if (this.syncPostmanCollectionIds && shouldUpdate) {
+      await this.synchronizeCollectionIds()
     }
 
     return await this.updateCollection()
@@ -210,5 +224,61 @@ export class PostmanSyncService {
       state: { postmanUid }
     } = this
     return this.postmanApi.deleteCollection(postmanUid)
+  }
+
+  async synchronizeCollectionIds() {
+    if (!this.postmanUid) {
+      throw new Error('Postman uid must be filled in.')
+    }
+
+    const collectionResult = await this.postmanApi.getCollection(this.postmanUid);
+
+    if (Either.isLeft(collectionResult)) {
+      throw collectionResult.left
+    }
+
+    let postmanCollection: CollectionDefinition = collectionResult.right
+    const portmanCollection =  this.portmanCollection
+
+    if (!("item" in portmanCollection && postmanCollection && postmanCollection.item)) {
+      throw new Error(`Portman/Postman Collection doesn't contains any items.`)
+    }
+
+    postmanCollection.item.forEach(postmanItem => {
+      this.replaceCollectionId(postmanItem, portmanCollection)
+    })
+    return postmanCollection
+  }
+
+  replaceCollectionId(postmanItem: ItemGroupDefinition|ItemDefinition, portmanItems: ItemGroupDefinition) {
+    const portmanItemCommon: (ItemGroupDefinition | ItemDefinition | undefined) = portmanItems.item?.find(portmanItem => portmanItem.name === postmanItem.name)
+
+    if (portmanItemCommon) {
+      portmanItemCommon.id = postmanItem.id
+
+      if (
+          "response" in postmanItem &&
+          "response" in portmanItemCommon &&
+          postmanItem.response &&
+          portmanItemCommon.response
+      ) {
+        this.replaceResponsesId(postmanItem.response, portmanItemCommon.response)
+      } else if ("item" in postmanItem && postmanItem.item) {
+        postmanItem.item.forEach(item => {
+          if(portmanItemCommon && ("item" in portmanItemCommon && postmanItem)) {
+            this.replaceCollectionId(item, portmanItemCommon)
+          }
+        })
+      }
+    }
+  }
+
+  replaceResponsesId(postmanResponseItems: ResponseDefinition[], portmanResponseItems: ResponseDefinition[]) {
+    postmanResponseItems.forEach(postmanResponseItem => {
+      const portmanResponseCommon = portmanResponseItems.find(portmanResponseItem => portmanResponseItem.name === postmanResponseItem.name)
+      if (portmanResponseCommon) {
+          portmanResponseCommon.id = postmanResponseItem.id
+      }
+    })
   }
 }
