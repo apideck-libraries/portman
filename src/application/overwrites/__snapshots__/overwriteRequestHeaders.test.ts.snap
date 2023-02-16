@@ -107,6 +107,14 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should overwrite the request headers variable even if the existing header has an empty string value 1`] = `
+Object {
+  "x-apideck-app-id": "foo-bar-baz",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
 exports[`overwriteRequestHeaders should remove to the header when remove is true 1`] = `
 Object {
   "x-apideck-consumer-id": "test_consumer",
