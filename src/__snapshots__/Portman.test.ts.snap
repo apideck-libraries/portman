@@ -10129,12 +10129,6 @@ if (_resDataId !== undefined) {
               },
               "response": Array [],
             },
-          ],
-          "name": "companies",
-        },
-        Object {
-          "event": Array [],
-          "item": Array [
             Object {
               "event": Array [
                 Object {

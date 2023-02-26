@@ -59,4 +59,48 @@ describe('IntegrationTestWriter', () => {
     integrationTestWriter.mergeToCollection(testSuite.collection)
     expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
+
+  it(`should create multiple folders`, async () => {
+    const portmanConfigFile = '__tests__/fixtures/portman-config.integration-tests.json'
+
+    // await oasParser.convert({ inputFile: oasYml })
+    const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+    const configResult = await getConfig(portmanConfigFile)
+
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+
+    const config = configResult.right
+
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
+
+    testSuite = new TestSuite({ oasParser, postmanParser, config })
+
+    integrationTestWriter = new IntegrationTestWriter({
+      testSuite: testSuite,
+      integrationTestFolderName: 'Integration Tests'
+    })
+
+    integrationTests = config?.tests?.integrationTests
+    integrationTestWriter.add(integrationTests[0])
+    integrationTestWriter.add(integrationTests[1])
+    integrationTestWriter.mergeToCollection(testSuite.collection)
+
+    const finalCollection = testSuite.collection.toJSON()
+    const integrationTestFolder = finalCollection?.item?.find(
+      item => item.name === 'Integration Tests'
+    )
+
+    if (integrationTestFolder && 'item' in integrationTestFolder) {
+      expect(integrationTestFolder?.item?.length).toBe(2)
+      expect(integrationTestFolder?.item?.[0].name).toBe('suites_no1')
+      expect(integrationTestFolder?.item?.[1].name).toBe('suites_no2')
+    } else {
+      expect(true).toBe(false)
+    }
+  })
 })
