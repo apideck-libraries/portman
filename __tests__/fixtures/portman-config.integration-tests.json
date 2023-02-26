@@ -1,0 +1,94 @@
+{
+  "version": 1.0,
+  "tests": {
+    "integrationTests": [
+      {
+        "name": "suites_no1",
+        "operations": [
+          {
+            "openApiOperationId": "leadsAdd",
+            "variations": [
+              {
+                "name": "Add in SUITE 01",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    },
+                    {
+                      "responseTime": {
+                        "enabled": true,
+                        "maxMs": 1000
+                      }
+                    },
+                    {
+                      "schemaValidation": {
+                        "enabled": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "suites_no2",
+        "operations": [
+          {
+            "openApiOperationId": "leadsAll",
+            "variations": [
+              {
+                "name": "All in SUITE 02",
+                "tests": {
+                  "contractTests": [
+                    {
+                      "statusSuccess": {
+                        "enabled": true
+                      }
+                    },
+                    {
+                      "responseTime": {
+                        "enabled": true,
+                        "maxMs": 1000
+                      }
+                    },
+                    {
+                      "schemaValidation": {
+                        "enabled": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "globals": {
+    "stripResponseExamples": true,
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "collectionTestScripts": [
+      "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111');"
+    ],
+    "keyValueReplacements": {
+      "x-apideck-app-id": "{{applicationId}}"
+    },
+    "valueReplacements": {
+      "<Bearer Token>": "{{bearerToken}}"
+    },
+    "rawReplacements": [
+      {
+        "searchFor": "Unify",
+        "replaceWith": "Unify ApiDeck"
+      }
+    ]
+  }
+}
