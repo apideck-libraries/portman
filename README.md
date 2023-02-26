@@ -26,7 +26,7 @@ With Portman, you can:
 
 - [x] Convert an OpenAPI document to a Postman collection
   - [x] Support for OpenAPI 3.0
-  - [ ] Support for OpenAPI 3.1
+  - [x] Support for OpenAPI 3.1 (beta)
 - Extend the Postman collection with capabilities
   - [x] Assign collection variables
   - [x] Inject Postman Contract Tests
