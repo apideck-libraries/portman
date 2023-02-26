@@ -785,12 +785,6 @@ components:
           type: string
           description: A human-readable message providing more details about the error.
           example: Unauthorized Request
-        detail:
-          anyOf:
-            - type: string
-            - type: object
-          description: Contains parameter or domain specific information related to the error and why it occured.
-          example: Failed to generate valid JWT Session. Verify applicationId is correct
         ref:
           type: string
           description: Link to documentation of error type
@@ -839,14 +833,6 @@ components:
           type: string
           description: A human-readable message providing more details about the error.
           example: Invalid Params
-        detail:
-          anyOf:
-            - type: string
-            - type: object
-          description: Contains parameter or domain specific information related to the error and why it occured.
-          example:
-            missing:
-              - - foobar: required
         ref:
           type: string
           description: Link to documentation of error type
@@ -923,12 +909,6 @@ components:
           type: string
           description: A human-readable message providing more details about the error.
           example: Invalid Params
-        detail:
-          anyOf:
-            - type: string
-            - type: object
-          description: Contains parameter or domain specific information related to the error and why it occured.
-          example: 'Missing Header: x-apideck-consumer-id'
         ref:
           type: string
           description: Link to documentation of error type
@@ -1645,12 +1625,14 @@ components:
       description: The ID of your Unify application
       schema:
         type: string
+        example: 1234567890
     serviceId:
       name: x-apideck-service-id
       in: header
       description: 'Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.'
       schema:
         type: string
+        example: salesforce
     consumerId:
       name: x-apideck-consumer-id
       in: header
@@ -1658,6 +1640,7 @@ components:
       description: ID of the consumer which you want to get or push data from
       schema:
         type: string
+        example: test-consumer
     raw:
       name: raw
       in: query
