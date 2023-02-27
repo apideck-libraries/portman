@@ -1,7 +1,10 @@
 ## [Unreleased]
 
+## v1.21.0 - (2023-02-27)
+
 - Bumped openapi-to-postman to 4.9.0 which support OpenAPI 3.1
 - Bugfix for integrationTests - merge folders/suites into one (#361)
+- Bugfix to overwrite request headers with empty values (#459)
 - Bugfix for overwriteRequestBaseUrl - overwrite value with path parameters excludes parameters (#446)
 - Bugfix for handling Postman variables in the path when targeting (#445)
 - Bugfix for handling null values safer for analyzeFuzzJsonSchema (#443)
