@@ -13,55 +13,73 @@ export const overwriteCollectionSecurityValues = (
   }
 
   // Handle OAS securitySchemes type apiKey
-  if (
-    collectionJson?.auth?.apikey &&
-    Array.isArray(collectionJson.auth.apikey) &&
-    apiKey?.value &&
-    defaultSecurity
-  ) {
-    collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
-      el.key === 'value' ? { ...el, value: apiKey.value } : el
-    )
+  if (apiKey?.value && defaultSecurity) {
+    if (collectionJson?.auth?.apikey && Array.isArray(collectionJson.auth.apikey)) {
+      collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
+        el.key === 'value' ? { ...el, value: apiKey.value } : el
+      )
 
-    if (apiKey?.key) {
-      collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
-        el.key === 'key' ? { ...el, value: apiKey.key } : el
-      )
-    }
-    const apikeyInOptions = ['header', 'query']
-    if (apiKey?.in && apikeyInOptions.includes(apiKey?.in)) {
-      collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
-        el.key === 'in' ? { ...el, value: apiKey.in } : el
-      )
+      if (apiKey?.key) {
+        collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
+          el.key === 'key' ? { ...el, value: apiKey.key } : el
+        )
+      }
+      const apikeyInOptions = ['header', 'query']
+      if (apiKey?.in && apikeyInOptions.includes(apiKey?.in)) {
+        collectionJson.auth.apikey = collectionJson.auth.apikey.map(el =>
+          el.key === 'in' ? { ...el, value: apiKey.in } : el
+        )
+      }
+    } else {
+      // Build auth object using AuthAttributes
+      const authAttributes = Object.entries(apiKey).map(([key, value]) => ({
+        key,
+        value,
+        type: 'string'
+      })) as AuthAttribute[]
+      collectionJson.auth = { type: 'apikey' }
+      collectionJson.auth['apikey'] = authAttributes
     }
   }
 
   // Handle OAS securitySchemes type:http, schema: basic
-  if (
-    collectionJson?.auth?.basic &&
-    Array.isArray(collectionJson.auth.basic) &&
-    basic?.username &&
-    basic?.password &&
-    defaultSecurity
-  ) {
-    collectionJson.auth.basic = collectionJson.auth.basic.map(el =>
-      el.key === 'username' ? { ...el, value: basic?.username } : el
-    )
-    collectionJson.auth.basic = collectionJson.auth.basic.map(el =>
-      el.key === 'password' ? { ...el, value: basic?.password } : el
-    )
+  if (basic?.username && basic?.password && defaultSecurity) {
+    if (collectionJson?.auth?.basic && Array.isArray(collectionJson.auth.basic)) {
+      collectionJson.auth.basic = collectionJson.auth.basic.map(el =>
+        el.key === 'username' ? { ...el, value: basic?.username } : el
+      )
+      collectionJson.auth.basic = collectionJson.auth.basic.map(el =>
+        el.key === 'password' ? { ...el, value: basic?.password } : el
+      )
+    } else {
+      // Build basic auth object using AuthAttributes
+      const authAttributes = Object.entries(basic).map(([key, value]) => ({
+        key,
+        value,
+        type: 'string'
+      })) as AuthAttribute[]
+      collectionJson.auth = { type: 'basic' }
+      collectionJson.auth['basic'] = authAttributes
+    }
   }
 
   // Handle OAS securitySchemes type:http, schema: bearer
-  if (
-    collectionJson?.auth?.bearer &&
-    Array.isArray(collectionJson.auth.bearer) &&
-    bearer?.token &&
-    defaultSecurity
-  ) {
-    collectionJson.auth.bearer = collectionJson.auth.bearer.map(el =>
-      el.key === 'token' ? { ...el, value: bearer?.token } : el
-    )
+  if (bearer?.token && defaultSecurity) {
+    if (collectionJson?.auth?.bearer && Array.isArray(collectionJson.auth.bearer)) {
+      collectionJson.auth.bearer = collectionJson.auth.bearer.map(el =>
+        el.key === 'token' ? { ...el, value: bearer?.token } : el
+      )
+    } else {
+      // Build auth object using AuthAttributes
+      collectionJson.auth = { type: 'bearer' }
+      collectionJson.auth['bearer'] = [
+        {
+          key: 'token',
+          value: bearer?.token,
+          type: 'string'
+        }
+      ] as AuthAttribute[]
+    }
   }
 
   // Handle Postman securitySchemes types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2
