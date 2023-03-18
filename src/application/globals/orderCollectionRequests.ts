@@ -13,8 +13,9 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
       if (pmFolder.item[0]?.item) return //skip nested folders for now
       // Go into Postman folder
       pmFolder.item.map(request => {
+        if (!request?.request?.url?.path) return //skip nested folders for now (no path
         //Normalize Postman request url paths for sorting
-        const postmanPath = request.request.url.path.join('/')
+        const postmanPath = request?.request?.url?.path.join('/')
         // let postmanPath = request.request.url.path.join('/').replace(/:([^\s]+)/g,'{$1}')
         const postmanMethod = request.request.method
         request._portman_operation = postmanMethod + '::/' + postmanPath
