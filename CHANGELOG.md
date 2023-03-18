@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- overwriteRequestSecurity - Keep API key when no key is provided (#468)
+- orderOfOperations - Prevent error (#467)
+
 ## v1.21.0 - (2023-02-27)
 
 - Bumped openapi-to-postman to 4.9.0 which support OpenAPI 3.1
