@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- securityOverwrites - Set auth settings when no auth is defined (#472)
 - overwriteRequestSecurity - Keep API key when no key is provided (#468)
 - orderOfOperations - Prevent error (#467)
 
