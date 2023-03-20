@@ -38,6 +38,8 @@ describe('overwriteSecurityValues()', () => {
     }
   }
 
+  const noAuthSample = {}
+
   const oauth1Sample = {
     oauth1: [
       {
@@ -147,6 +149,38 @@ describe('overwriteSecurityValues()', () => {
     })
   })
 
+  it('apiKey method should should return {{apiKey}} for no auth collection', () => {
+    const dictionary = {
+      apiKey: { key: '{{key}}', value: '{{apiKey}}', in: 'query' }
+    } as Record<string, unknown>
+
+    const collection = noAuthSample as CollectionDefinition
+
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'apikey',
+        apikey: [
+          {
+            key: 'key',
+            value: '{{key}}',
+            type: 'string'
+          },
+          {
+            key: 'value',
+            value: '{{apiKey}}',
+            type: 'string'
+          },
+          {
+            key: 'in',
+            value: 'query',
+            type: 'string'
+          }
+        ]
+      }
+    })
+  })
+
   it('basic auth method should return {{username}} {{password}}', () => {
     const dictionary = {
       basic: { username: '{{username}}', password: '{{password}}' }
@@ -190,12 +224,61 @@ describe('overwriteSecurityValues()', () => {
     })
   })
 
+  it('basic auth method should return {{username}} {{password}} for no auth collection', () => {
+    const dictionary = {
+      basic: { username: '{{username}}', password: '{{password}}' }
+    } as Record<string, unknown>
+
+    const collection = noAuthSample as CollectionDefinition
+
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'basic',
+        basic: [
+          {
+            key: 'username',
+            value: '{{username}}',
+            type: 'string'
+          },
+          {
+            key: 'password',
+            value: '{{password}}',
+            type: 'string'
+          }
+        ]
+      }
+    })
+  })
+
   it('bearer method should return {{bearerToken}}', () => {
     const dictionary = {
       bearer: { token: '{{bearerToken}}' }
     } as Record<string, unknown>
 
     const collection = bearerSample as CollectionDefinition
+
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'bearer',
+        bearer: [
+          {
+            key: 'token',
+            value: '{{bearerToken}}',
+            type: 'string'
+          }
+        ]
+      }
+    })
+  })
+
+  it('bearer method should return {{bearerToken}} for no auth collection', () => {
+    const dictionary = {
+      bearer: { token: '{{bearerToken}}' }
+    } as Record<string, unknown>
+
+    const collection = noAuthSample as CollectionDefinition
 
     const replaced = overwriteCollectionSecurityValues(collection, dictionary)
     expect(replaced).toStrictEqual({
