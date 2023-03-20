@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`overwriteRequestSecurity should overwrite only the request apiKey value 1`] = `
+Object {
+  "apikey": Array [
+    Object {
+      "key": "key",
+      "type": "any",
+      "value": "x-apideck-app-id",
+    },
+    Object {
+      "key": "value",
+      "type": "any",
+      "value": "foo-bar",
+    },
+  ],
+  "bearer": Array [
+    Object {
+      "key": "token",
+      "type": "any",
+      "value": "<Bearer Token>",
+    },
+  ],
+  "type": "apikey",
+}
+`;
+
 exports[`overwriteRequestSecurity should overwrite the request apiKey definition 1`] = `
 Object {
   "apikey": Array [
