@@ -6,6 +6,7 @@ postmanConfigFile: ./examples/cli-options/postman-config.crm.json
 envFile: ./examples/cli-options/.lead.env
 includeTests: true
 syncPostman: false
+syncPostmanCollectionIds: false
 runNewman: false
 oaRename: 'CRM API - Test suite'
 

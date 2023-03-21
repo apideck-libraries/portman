@@ -118,6 +118,32 @@ export class PostmanApiService {
     }
   }
 
+  async getCollection(collectionId: string): Promise<Either.Either<string, CollectionDefinition>> {
+    const config = {
+      method: 'get',
+      url: `${this.baseUrl}/collections/${collectionId}`,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': this.apiKey
+      }
+    } as AxiosRequestConfig
+
+    try {
+      const res = await axios(config)
+      const data = res.data
+
+      collectionId = collectionId.replace(`${collectionId.split('-')[0]}-`, '')
+
+      if (data?.collection?.info?._postman_id === collectionId) {
+        return Either.right(data.collection)
+      } else {
+        return Either.left(`The collection with the id "${collectionId}" was not found.`)
+      }
+    } catch (error) {
+      return Either.left(`Postman API Get Collections ${error.toString()}`)
+    }
+  }
+
   async createCollection(collection: CollectionDefinition, workspaceId?: string): Promise<string> {
     const data = JSON.stringify({
       collection: collection

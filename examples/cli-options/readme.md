@@ -30,6 +30,7 @@ portman --cliOptionsFile ./examples/cli-options/portman-cli-options.yaml
   "envFile": "./examples/cli-options/.lead.env",
   "includeTests": true,
   "syncPostman": false,
+  "syncPostmanCollectionIds": false,
   "runNewman": false,
   "oaRename": "CRM API - Test suite"
 }
@@ -46,6 +47,7 @@ postmanConfigFile: ./examples/cli-options/postman-config.crm.json
 envFile: ./examples/cli-options/.lead.env
 includeTests: true
 syncPostman: false
+syncPostmanCollectionIds: false
 runNewman: false
 oaRename: 'CRM API - Test suite'
 ```
@@ -66,8 +68,20 @@ pipeline
 - **includeTests**: a toggle to generate Postman tests based on the OpenAPI specification
 - **postmanUid**: refers to the collection ID to upload the generated collection to your postman app
 - **syncPostman**: a toggle to upload the newly created collection to the Postman app
+- **syncPostmanCollectionIds**: Synchronises the IDs of newly created postman collections with those already on Postman, useful when you want to use Postman pull request.  
+:warning: ***If you have not specified example in some properties in your OpenApi schemas***, the ids of the response examples will be kept but the property values will be generated again by the faker when using `openapi-to-postman` and you will still have a lot of changes in your pull request.
+  To avoid this, you need to add the exampleParametersResolution option with the value "Schema" which will set the type of the property instead of a fake example
+  (This could be resolved when the schemaFaker option is [available](https://github.com/postmanlabs/openapi-to-postman/blob/b2669837a9ee8c855b161ac3154905253d14c3d2/lib/schemapack.js#L60) on `openapi-to-postman`).
 - **runNewman**: a toggle to run Newman on a newly created collection
 - **oaRename**: Change the OpenAPI title & Postman collection name to 'CRM API - Test suite'. This might be handy if you want to have your original Postman collection and your Portman generated Postman collection as separate collections.
+
+### syncPostmanCollectionIds  
+
+BEFORE
+![](./images/postman-sync-postman-collection-ids-disabled.png)
+
+AFTER
+![](./images/postman-sync-postman-collection-ids-enabled.png)
 
 ## Portman Newman CLI options
 

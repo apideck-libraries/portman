@@ -33,4 +33,5 @@ export interface PortmanOptions {
   init?: boolean
   logAssignVariables?: boolean
   extraUnknownFormats?: string[]
+  syncPostmanCollectionIds?: boolean
 }

@@ -138,6 +138,11 @@ require('dotenv').config()
     .option('extraUnknownFormats', {
       describe: 'Add extra unknown formats to json schema tests',
       type: 'array'
+    })
+    .option('syncPostmanCollectionIds', {
+      describe: `Synchronises the IDs of newly created postman collections with those already on Postman, 
+        useful when you want to use Postman pull request (default: false)`,
+      type: 'boolean'
     }).argv as PortmanOptions
 
   let cliOptions: Partial<PortmanOptions> = {}
@@ -229,6 +234,7 @@ require('dotenv').config()
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
   const extraUnknownFormats = options?.extraUnknownFormats || []
+  const syncPostmanCollectionIds = options?.syncPostmanCollectionIds || false
 
   const portman = new Portman({
     ...options,
@@ -249,7 +255,8 @@ require('dotenv').config()
     oaOutput,
     collectionName,
     logAssignVariables,
-    extraUnknownFormats
+    extraUnknownFormats,
+    syncPostmanCollectionIds
   })
 
   if (options.uploadOnly) {
