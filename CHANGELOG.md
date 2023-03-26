@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+## v1.22.0 - (2023-03-26)
+
+- syncPostmanCollectionIds - Synchronises the IDs of newly created postman collections (#457)
 - securityOverwrites - Set auth settings when no auth is defined (#472)
 - overwriteRequestSecurity - Keep API key when no key is provided (#468)
 - orderOfOperations - Prevent error (#467)
