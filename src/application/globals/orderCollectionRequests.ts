@@ -3,9 +3,13 @@ export const orderCollectionRequests = (obj: any, orderOfOperations: any = []): 
   // Normalize orderOfOperations ({id}) to match with Postman format (:id)
   const regStart = new RegExp('{', 'g')
   const regEnd = new RegExp('}', 'g')
-  const orderOfOperationsNorm = orderOfOperations.map(item =>
-    item.replace(regStart, ':').replace(regEnd, '')
-  )
+  const regEx = new RegExp('/', 'g')
+  const orderOfOperationsNorm = orderOfOperations.map(item => {
+    item = item.replace(regStart, ':').replace(regEnd, '').replace(regEx, '/')
+
+    // Add string terminator for exact match if not wildcarded
+    return item.endsWith('*') ? item : `${item}$`
+  })
 
   // Sort requests in folders
   obj.item.map(pmFolder => {
@@ -61,9 +65,8 @@ const propComparatorPortmanOperation = (priorityArr: any): any => {
     if (!Array.isArray(priorityArr)) {
       return 0
     }
-    const regEx = new RegExp('/', 'g')
-    const ia = priorityArr.findIndex(pri => a['_portman_operation'].match(pri.replace(regEx, '/')))
-    const ib = priorityArr.findIndex(pri => b['_portman_operation'].match(pri.replace(regEx, '/')))
+    const ia = priorityArr.findIndex(pri => a['_portman_operation'].match(pri))
+    const ib = priorityArr.findIndex(pri => b['_portman_operation'].match(pri))
     if (ia !== -1) {
       return ib !== -1 ? ia - ib : -1
     }

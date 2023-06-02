@@ -303,6 +303,28 @@ Object {
       },
     },
     Object {
+      "_portman_operation": "POST::/crm/:id/status",
+      "request": Object {
+        "method": "POST",
+        "url": Object {
+          "path": Array [
+            "crm",
+            ":id",
+            "status",
+          ],
+          "variable": Array [
+            Object {
+              "description": "(Required) ID of the monkey you are acting upon.",
+              "disabled": false,
+              "key": "id",
+              "type": "any",
+              "value": "<string>",
+            },
+          ],
+        },
+      },
+    },
+    Object {
       "_portman_operation": "GET::/crm/monkies/:id",
       "request": Object {
         "method": "GET",
