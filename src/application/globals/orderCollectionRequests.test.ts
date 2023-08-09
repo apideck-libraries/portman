@@ -118,6 +118,7 @@ describe('orderCollectionRequests()', () => {
       'POST::/crm/{id}',
       'POST::/crm/monkies/{id}',
       'GET::/crm/{crmId}/monkies/{id}',
+      'POST::/crm/{id}/status',
       'GET::/crm/monkies/{id}'
     ]
     const obj = {
@@ -137,6 +138,23 @@ describe('orderCollectionRequests()', () => {
               ]
             },
             method: 'GET'
+          }
+        },
+        {
+          request: {
+            url: {
+              path: ['crm', ':id', 'status'],
+              variable: [
+                {
+                  disabled: false,
+                  type: 'any',
+                  value: '<string>',
+                  key: 'id',
+                  description: '(Required) ID of the monkey you are acting upon.'
+                }
+              ]
+            },
+            method: 'POST'
           }
         },
         {
