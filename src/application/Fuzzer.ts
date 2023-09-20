@@ -884,9 +884,12 @@ export class Fuzzer {
         if (node?.type === 'object' && this.key && !skipSchemaKeys.includes(this.key)) {
           requiredPath += `${this.key}.`
         }
-        // Register fuzz-able required fields
-        const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
-        fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
+
+        // Register fuzz-able required fields from the 'required' element on an object; exclude properties named 'required'.
+        if (this.key !== 'properties') {
+          const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
+          fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
+        }
       }
 
       // Unregister fuzz-able nullable required fields
@@ -896,34 +899,36 @@ export class Fuzzer {
         )
       }
 
-      // Register all fuzz-able items
-      if (node?.minimum) {
-        fuzzItems?.minimumNumberFields?.push({
-          path: `${path}${this.key}`,
-          field: this.key,
-          value: node.minimum
-        })
-      }
-      if (node?.maximum) {
-        fuzzItems?.maximumNumberFields?.push({
-          path: `${path}${this.key}`,
-          field: this.key,
-          value: node.maximum
-        })
-      }
-      if (node?.minLength && !node?.type?.includes('object')) {
-        fuzzItems?.minLengthFields?.push({
-          path: `${path}${this.key}`,
-          field: this.key,
-          value: node.minLength
-        })
-      }
-      if (node?.maxLength && !node?.type?.includes('object')) {
-        fuzzItems?.maxLengthFields?.push({
-          path: `${path}${this.key}`,
-          field: this.key,
-          value: node.maxLength
-        })
+      // Register all fuzz-able items, excluding properties that are named after reserved words.
+      if (this.key !== 'properties') {
+        if (node?.minimum) {
+          fuzzItems?.minimumNumberFields?.push({
+            path: `${path}${this.key}`,
+            field: this.key,
+            value: node.minimum
+          })
+        }
+        if (node?.maximum) {
+          fuzzItems?.maximumNumberFields?.push({
+            path: `${path}${this.key}`,
+            field: this.key,
+            value: node.maximum
+          })
+        }
+        if (node?.minLength && !node?.type?.includes('object')) {
+          fuzzItems?.minLengthFields?.push({
+            path: `${path}${this.key}`,
+            field: this.key,
+            value: node.minLength
+          })
+        }
+        if (node?.maxLength && !node?.type?.includes('object')) {
+          fuzzItems?.maxLengthFields?.push({
+            path: `${path}${this.key}`,
+            field: this.key,
+            value: node.maxLength
+          })
+        }
       }
     })
 

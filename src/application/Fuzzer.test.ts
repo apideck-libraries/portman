@@ -1739,6 +1739,72 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it('should analyse JSON schema of request body with properties named after reserved words for fuzz detection', async () => {
+    // Analyse JSON schema with properties that use reserved words
+    const schema = {
+      properties: {
+        nullable: {
+          type: 'object',
+          properties: {
+            nullable: {
+              type: 'boolean',
+              example: true
+            }
+          }
+        },
+        required: {
+          type: 'object',
+          properties: {
+            nullable: {
+              type: 'boolean',
+              example: true
+            }
+          }
+        },
+        maximum: {
+          type: 'object',
+          properties: {
+            nullable: {
+              type: 'boolean',
+              example: true
+            }
+          }
+        },
+        minimum: {
+          type: 'object',
+          properties: {
+            nullable: {
+              type: 'boolean',
+              example: true
+            }
+          }
+        },
+        maxLength: {
+          type: 'object',
+          properties: {
+            nullable: {
+              type: 'boolean',
+              example: true
+            }
+          }
+        },
+        minLength: {
+          type: 'object',
+          properties: {
+            nullable: {
+              type: 'boolean',
+              example: true
+            }
+          }
+        }
+      },
+      required: ['nullable', 'required', 'maximum', 'minimum', 'maxLength', 'minLength']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
   it('should analyse the request query param for fuzz detection', async () => {
     // Analyse query param
     const reqQueryParams = oaOpQuery?.queryParams as unknown as OpenAPIV3.ParameterObject[]

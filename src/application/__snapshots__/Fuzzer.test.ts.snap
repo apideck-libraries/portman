@@ -543,6 +543,24 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body with properties named after reserved words for fuzz detection 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "nullable",
+    "required",
+    "maximum",
+    "minimum",
+    "maxLength",
+    "minLength",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse allOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
 Object {
   "fuzzType": "requestBody",
