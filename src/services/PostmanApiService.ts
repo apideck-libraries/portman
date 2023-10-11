@@ -231,6 +231,8 @@ export class PostmanApiService {
     const config = {
       method: 'put',
       url: `${this.baseUrl}/collections/${postmanUid}${workspaceIdParam}`,
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
