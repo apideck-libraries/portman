@@ -147,8 +147,12 @@ export const testResponseBodyContent = (
         // Make items safe to inject into test
         const safeOneOf = check.oneOf.map(item => {
           if (typeof item === 'string') {
+            let checkOneOfItem = item
+            if (checkOneOfItem.includes('{{') && checkOneOfItem.includes('}}')) {
+              checkOneOfItem = `pm.collectionVariables.get("${checkOneOfItem.replace(/{{|}}/g, '')}")`
+            }
             // Quote string value
-            return `"${item}"`
+            return `"${checkOneOfItem}"`
           }
           return item
         })

@@ -428,6 +428,18 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content test for string for property check & oneOf pm variable values', async () => {
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        oneOf: ['{{postman_env_variable}}', '{{postman_env_variable_two}}']
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content test for string for property check & oneOf boolean values', async () => {
     const contentTests = [
       {
