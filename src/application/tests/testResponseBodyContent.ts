@@ -149,7 +149,10 @@ export const testResponseBodyContent = (
           if (typeof item === 'string') {
             let checkOneOfItem = item
             if (checkOneOfItem.includes('{{') && checkOneOfItem.includes('}}')) {
-              checkOneOfItem = `pm.collectionVariables.get("${checkOneOfItem.replace(/{{|}}/g, '')}")`
+              checkOneOfItem = `pm.collectionVariables.get("${checkOneOfItem.replace(
+                /{{|}}/g,
+                ''
+              )}")`
             }
             // Quote string value
             return `"${checkOneOfItem}"`
