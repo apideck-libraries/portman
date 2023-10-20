@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+- orderOfOperations - Adjusted ordering string matching to be exact when wildcard is not present (#490)
+- ContentTests - Add pm variable support for oneOf assertions in content tests (#520)
+- Postman Sync - Set no limit to the body size on collection update (#517)
+- Bumped dependencies
+
 ## v1.22.0 - (2023-03-26)
 
 - syncPostmanCollectionIds - Synchronises the IDs of newly created postman collections (#457)
