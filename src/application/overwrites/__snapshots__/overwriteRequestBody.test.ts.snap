@@ -1751,7 +1751,7 @@ Array [
 ]
 `;
 
-exports[`overwriteRequestBody should extend the root request body 1`] = `
+exports[`overwriteRequestBody should extend the root request body when overwrite is false 1`] = `
 "{
     \\"name\\": \\"Copper\\",
     \\"owner_id\\": \\"12345\\",
@@ -4149,6 +4149,12 @@ Array [
     "value": "foo",
   },
 ]
+`;
+
+exports[`overwriteRequestBody should overwrite the root request body when overwrite is true 1`] = `
+"{
+    \\"foo\\": \\"foo-bar-baz\\"
+}"
 `;
 
 exports[`overwriteRequestBody should overwrite the urlencoded form boolean variable with string value 1`] = `

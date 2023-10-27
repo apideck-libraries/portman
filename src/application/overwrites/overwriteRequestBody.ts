@@ -65,15 +65,17 @@ export const overwriteRequestBodyJson = (
         if (Array.isArray(originalValue) && Array.isArray(newValue)) {
           newValue = originalValue.concat(newValue)
         } else if (isObject(originalValue)) {
-          newValue = { ...(originalValue as Record<string, unknown>), newValue }
+          newValue = { ...(originalValue as Record<string, unknown>), ...newValue }
         } else {
           newValue = originalValue + newValue
         }
       }
 
-      bodyData = root
-        ? { ...bodyData, ...newValue }
-        : setByPath(bodyData, overwriteValue.key, newValue)
+      if (root) {
+        bodyData = overwriteValue.overwrite ? newValue : { ...bodyData, ...newValue }
+      } else {
+        bodyData = setByPath(bodyData, overwriteValue.key, newValue)
+      }
     }
 
     if (overwriteValue.key && overwriteValue.remove === true) {
