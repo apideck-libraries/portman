@@ -9,7 +9,7 @@ export class DownloadService {
         url: url,
         responseType: 'stream'
       })
-      const fileName = url.replace(/\/$/, '').split('/').pop()
+      const fileName = url.replace(/\/$/, '').split('?')[0].split('/').pop();
       const filePath = `./tmp/${fileName}`
 
       return await new Promise((resolve, reject) => {
