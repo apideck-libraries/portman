@@ -55,13 +55,13 @@ export const overwriteRequestBodyJson = (
   // Overwrite values for Keys
   let bodyData = JSON.parse(requestBodySafe)
   overwriteValues.map(overwriteValue => {
-    if (overwriteValue.key && typeof overwriteValue.value !== 'undefined') {
+    if (overwriteValue?.key && typeof overwriteValue?.value !== 'undefined') {
       const root = overwriteValue.key === '.'
       const originalValue = root ? bodyData : getByPath(bodyData, overwriteValue.key)
 
       let newValue = overwriteValue.value
 
-      if (overwriteValue.overwrite === false) {
+      if (overwriteValue?.overwrite === false) {
         if (Array.isArray(originalValue) && Array.isArray(newValue)) {
           newValue = originalValue.concat(newValue)
         } else if (isObject(originalValue)) {

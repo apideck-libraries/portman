@@ -22,7 +22,7 @@ export const overwriteRequestSecurity = (
   const authConfig = pmOperation.item.getAuth()
 
   // Check if the current auth method matches the type we want to overwrite
-  if (authConfig.type === authDefinition.type) {
+  if (authConfig?.type === authDefinition?.type) {
     const members = authConfig[authDefinition.type]?.members?.reduce((acc, member) => {
       acc[member.key] = member.value
       return acc

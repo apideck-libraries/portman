@@ -27,7 +27,7 @@ export const overwriteRequestQueryParams = (
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteItem => {
       // Skip keys when no overwrite is defined
-      if (!(overwriteItem.key && pmQueryParam.key && overwriteItem.key === pmQueryParam.key)) {
+      if (!(overwriteItem?.key && pmQueryParam?.key && overwriteItem.key === pmQueryParam.key)) {
         return
       }
 
@@ -36,7 +36,7 @@ export const overwriteRequestQueryParams = (
         const orgValue = pmQueryParam.value
         let newValue = overwriteItem.value
 
-        if (overwriteItem.overwrite === false) {
+        if (overwriteItem?.overwrite === false) {
           newValue = orgValue + newValue
         }
         pmQueryParam.value =
