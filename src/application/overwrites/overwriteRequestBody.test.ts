@@ -11,11 +11,25 @@ import {
 } from '../../application'
 
 describe('overwriteRequestBody', () => {
-  it('should extend the root request body', async () => {
+  it('should overwrite the root request body when overwrite is true', async () => {
     const overwriteValues = [
       {
         key: '.',
-        value: { foo: 'foo-bar-baz' }
+        value: { foo: 'foo-bar-baz' },
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateOperation()
+    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should extend the root request body when overwrite is false', async () => {
+    const overwriteValues = [
+      {
+        key: '.',
+        value: { foo: 'foo-bar-baz' },
+        overwrite: false
       }
     ]
     const pmOperation = await getPostmanMappedCreateOperation()
