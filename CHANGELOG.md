@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+## v1.23.1 - (2023-10-28)
+
+- overwriteRequestSecurity - Handle missing auth config (#509)
 - overwriteRequestQueryParams - Enable disabled query params (#484)
 
 ## v1.23.0 - (2023-10-28)
