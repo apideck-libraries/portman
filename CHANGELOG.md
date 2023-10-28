@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- overwriteRequestQueryParams - Enable disabled query params (#484)
+
 ## v1.23.0 - (2023-10-28)
 
 - orderOfOperations - Adjusted ordering string matching to be exact when wildcard is not present (#490)

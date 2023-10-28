@@ -61,6 +61,20 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestQueryParams should enable the request query param 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should insert the query param variable with description, if key not found 1`] = `
 Array [
   Object {
