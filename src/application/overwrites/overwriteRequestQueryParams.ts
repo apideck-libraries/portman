@@ -48,6 +48,10 @@ export const overwriteRequestQueryParams = (
         pmQueryParam.disabled = true
       }
 
+      if (overwriteItem?.disable === false) {
+        pmQueryParam.disabled = false
+      }
+
       // Test suite - Overwrite query param description
       if (overwriteItem?.description) {
         pmQueryParam.description = overwriteItem.description

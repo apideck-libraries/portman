@@ -26,6 +26,27 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
+  it('should enable the request query param', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        disable: false
+      }
+    ]
+    const pmOperation = await getPostmanMappedOperation()
+
+    const queryParams = pmOperation.item.request.url.query.all()
+    const firstQueryParamKey = queryParams[0]
+    firstQueryParamKey.disabled = true
+
+    // Set the updated query parameters in the request
+    pmOperation.item.request.url.query.clear()
+    pmOperation.item.request.url.query.add(firstQueryParamKey)
+
+    const result = overwriteRequestQueryParams(overwriteValues, pmOperation)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
   it('should append the request query param when overwrite is false', async () => {
     const overwriteValues = [
       {
