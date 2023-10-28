@@ -1,11 +1,13 @@
 ## [Unreleased]
 
-## v1.23.0 - (2023-10-23)
+## v1.23.0 - (2023-10-28)
 
 - orderOfOperations - Adjusted ordering string matching to be exact when wildcard is not present (#490)
 - ContentTests - Add pm variable support for oneOf assertions in content tests (#520)
 - Postman Sync - Set no limit to the body size on collection update (#517)
+- Postman Sync - Removes extra query params from url for the file name (#525)
 - Fuzzing - Exclude properties with reserved names from fuzzing (#514)
+- Bugfix for overwriteRequestBody - should root overwrite (#524)
 - Bumped dependencies
 
 ## v1.22.0 - (2023-03-26)
