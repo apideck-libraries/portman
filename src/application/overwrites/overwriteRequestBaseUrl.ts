@@ -5,7 +5,7 @@ import { isEqual } from 'lodash'
 
 /**
  * Overwrite Postman request headers with values defined by the portman testsuite
- * @param overwriteValues
+ * @param overwriteItem
  * @param pmOperation
  */
 export const overwriteRequestBaseUrl = (
@@ -21,7 +21,7 @@ export const overwriteRequestBaseUrl = (
   if (overwriteItem?.value !== undefined) {
     const orgValue = pmOperation.item.request.url.getHost()
     let newValue = overwriteItem.value
-    if (overwriteItem.overwrite === false) {
+    if (overwriteItem?.overwrite === false) {
       newValue = orgValue + newValue
     }
     // Overwrite host & protocol

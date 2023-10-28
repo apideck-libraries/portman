@@ -25,7 +25,7 @@ export const overwriteRequestHeaders = (
     overwriteValues.forEach(overwriteItem => {
       // Skip keys when no overwrite is defined
       if (
-        !(overwriteItem.key && pmHeader.key && overwriteItem.key === pmHeader.key) ||
+        !(overwriteItem?.key && pmHeader?.key && overwriteItem.key === pmHeader.key) ||
         overwriteItem.insert === false
       ) {
         return
@@ -36,14 +36,14 @@ export const overwriteRequestHeaders = (
         const orgValue = pmHeader.value
         let newValue = overwriteItem.value
 
-        if (overwriteItem.overwrite === false && orgValue) {
+        if (overwriteItem?.overwrite === false && orgValue) {
           newValue = orgValue + newValue
         }
         pmHeader.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
       }
 
       // Test suite - Disable header
-      if (overwriteItem.disable === true) {
+      if (overwriteItem?.disable === true) {
         pmHeader.disabled = true
       }
 
