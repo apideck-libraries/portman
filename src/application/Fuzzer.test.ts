@@ -1243,9 +1243,9 @@ describe('Fuzzer', () => {
           type: 'array',
           items: {
             type: 'object',
-            required: ['properties'],
+            required: ['nestedProperties'],
             properties: {
-              properties: {
+              nestedProperties: {
                 type: 'number',
                 example: 1,
                 minimum: 1,
@@ -1271,9 +1271,9 @@ describe('Fuzzer', () => {
           type: 'array',
           items: {
             type: 'object',
-            required: ['properties'],
+            required: ['nestedProperties'],
             properties: {
-              properties: {
+              nestedProperties: {
                 type: 'number',
                 example: 1,
                 minimum: 1,

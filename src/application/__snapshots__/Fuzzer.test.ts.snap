@@ -393,34 +393,34 @@ Object {
   "fuzzType": "requestBody",
   "maxLengthFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 5,
     },
   ],
   "maximumNumberFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 100,
     },
   ],
   "minLengthFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 1,
     },
   ],
   "minimumNumberFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 1,
     },
   ],
   "requiredFields": Array [
-    "nestedArray[0].properties",
+    "nestedArray[0].nestedProperties",
   ],
 }
 `;
@@ -430,29 +430,29 @@ Object {
   "fuzzType": "requestBody",
   "maxLengthFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 5,
     },
   ],
   "maximumNumberFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 100,
     },
   ],
   "minLengthFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 1,
     },
   ],
   "minimumNumberFields": Array [
     Object {
-      "field": "properties",
-      "path": "nestedArray[0].properties",
+      "field": "nestedProperties",
+      "path": "nestedArray[0].nestedProperties",
       "value": 1,
     },
   ],

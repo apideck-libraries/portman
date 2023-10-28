@@ -1,8 +1,11 @@
 ## [Unreleased]
 
+## v1.23.0 - (2023-10-23)
+
 - orderOfOperations - Adjusted ordering string matching to be exact when wildcard is not present (#490)
 - ContentTests - Add pm variable support for oneOf assertions in content tests (#520)
 - Postman Sync - Set no limit to the body size on collection update (#517)
+- Fuzzing - Exclude properties with reserved names from fuzzing (#514)
 - Bumped dependencies
 
 ## v1.22.0 - (2023-03-26)
