@@ -35,11 +35,18 @@ export const runNewmanWith = async (
   // Merge Newman default and runtime options
   const newmanOptions = { ...defaultNewmanOptions, ...newmanRunOptionsCased }
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     try {
       newman.run(newmanOptions).on('done', (err: Error, summary) => {
         if (err || summary.error) {
-          reject(err || summary.error)
+          console.error(chalk.red('Collection run encountered an error.'))
+          if (err) {
+            console.error(chalk.red(err.message))
+          }
+          if (summary.error) {
+            console.error(chalk.red(summary.error.message))
+          }
+          process.exit(1)
         } else {
           console.log(chalk.green('Collection run completed.'))
           resolve()
