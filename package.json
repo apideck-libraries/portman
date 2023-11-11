@@ -71,7 +71,7 @@
     "@apideck/better-ajv-errors": "^0.3.6",
     "@apidevtools/swagger-parser": "^10.1.0",
     "ajv": "^8.11.2",
-    "axios": "^0.26.1",
+    "axios": "^1.6.0",
     "camel-case": "^4.1.2",
     "chalk": "^4.1.2",
     "dot-object": "^2.1.4",
