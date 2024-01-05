@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Added $schema to the Portman JSON Schema for auto-completion
+
 ## v1.23.1 - (2023-10-28)
 
 - overwriteRequestSecurity - Handle missing auth config (#509)

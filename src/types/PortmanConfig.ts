@@ -331,6 +331,7 @@ export type fuzzingConfig = {
  */
 export interface PortmanConfig {
   version?: number
+  $schema?: string
   globals?: GlobalConfig
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
