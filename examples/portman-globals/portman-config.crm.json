@@ -1,6 +1,5 @@
 {
   "version": 1.0,
-  "$schema": "../../src/utils/portman-config-schema.json",
   "globals": {
     "stripResponseExamples": true,
     "collectionPreRequestScripts": [
