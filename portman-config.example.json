@@ -1,5 +1,6 @@
 {
   "version": 1.0,
+  "$schema": "https://raw.githubusercontent.com/apideck-libraries/portman/main/src/utils/portman-config-schema.json",
   "tests": {
     "contractTests": [
       {
