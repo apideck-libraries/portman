@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - Added $schema to the Portman JSON Schema for auto-completion
+- Bumped dependencies: openapi-to-postmanv2 4.18.0, newman 6.1.0, postman-collection 4.3.0, openapi-format 1.15.2, axios 1.6.4
 
 ## v1.23.1 - (2023-10-28)
 

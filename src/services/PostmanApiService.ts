@@ -192,7 +192,7 @@ export class PostmanApiService {
       )
 
       let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError | undefined
+      let error: AxiosError<Readable> | undefined
 
       try {
         response = await axios.request(config)
@@ -276,7 +276,7 @@ export class PostmanApiService {
       )
 
       let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError | undefined
+      let error: AxiosError<Readable> | undefined
 
       try {
         response = await axios.request(config)
@@ -354,7 +354,7 @@ export class PostmanApiService {
       )
 
       let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError | undefined
+      let error: AxiosError<Readable> | undefined
 
       try {
         response = await axios.request(config)
