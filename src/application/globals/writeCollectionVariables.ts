@@ -1,5 +1,5 @@
 import { CollectionDefinition, VariableDefinition } from 'postman-collection'
-import { upsertVariable } from 'application'
+import { upsertVariable } from '../../application'
 
 export const writeCollectionVariables = (
   obj: CollectionDefinition,

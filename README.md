@@ -627,6 +627,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 - **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will be executed by Postman before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts will be executed by Postman after every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
+- **collectionVariables**: A map of key value pairs that will inserted as Postman collection variables.
 - **keyValueReplacements** : A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements** : A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
