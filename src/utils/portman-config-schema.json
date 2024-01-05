@@ -75,6 +75,10 @@
           },
           "type": "array"
         },
+        "collectionVariables": {
+          "additionalProperties": {},
+          "type": "object"
+        },
         "keyValueReplacements": {
           "additionalProperties": {},
           "type": "object"

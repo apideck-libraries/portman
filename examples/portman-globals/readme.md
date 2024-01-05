@@ -1,11 +1,15 @@
 # Portman - Globals
 
-This example focuses on the `globals` settings of Portman. It is contains some very powerful options, to manipulate or replace keys/values/strings, in the full Postman collection.
+This example focuses on the `globals` settings of Portman. It contains some very powerful options, to manipulate the Postman collection.
 
-_use-case_: 
+_use-cases_: 
 
 - Mass replace certain keys
 - Mass replace certain values/strings/objects
+- Set Postman collection variables
+- Insert pre-request scripts (from files)
+- Insert test scripts (from files)
+- Overwrite the OpenAPI security schema
 
 ## CLI usage
 
@@ -32,6 +36,17 @@ file: examples/portman-globals/portman-config.crm.json
 {
   "version": 1.0,
   "globals": {
+    "stripResponseExamples": true,
+    "collectionPreRequestScripts": [
+      "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
+    ],
+    "collectionTestScripts": [
+      "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111');"
+    ],
+    "collectionVariables": {
+      "name": "portman",
+      "version": "1"
+    },
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
     },
@@ -62,6 +77,7 @@ Version 1.0
 
 - **collectionPreRequestScripts**: Array of scripts that will be injected as Postman Collection Pre-request Scripts that will execute before every request in this collection.
 - **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts that will execute after every request in this collection.
+- **collectionVariables**: A map of key value pairs that will inserted as Postman collection variables.
 - **keyValueReplacements**: A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements**: A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
@@ -79,12 +95,17 @@ file: examples/portman-globals/postman.crm.json >>
 
 ```json
 "globals": {
+    "stripResponseExamples": true,
     "collectionPreRequestScripts": [
       "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
     ],
     "collectionTestScripts": [
       "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111');"
     ],
+    "collectionVariables": {
+      "name": "portman",
+      "version": "1"
+    },
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
     },
@@ -99,6 +120,51 @@ file: examples/portman-globals/postman.crm.json >>
     ]
   }
 ```
+
+### stripResponseExamples
+
+As part of the conversion from OpenAPI to Postman, all requests will get response examples in Postman. When generating variations, the number of examples can grow quickly.
+To keep the Postman collection compact, you can use the CLI option `--stripResponseExamples`. This option will strip response examples from the final generated collection.
+
+Example:
+```json
+{
+  "version": 1.0,
+  "globals": {
+    "stripResponseExamples": true
+  }
+}
+```
+
+BEFORE
+
+<img src="./images/globals-strip-response-examples-before.png" width="400" >
+
+AFTER
+
+<img src="./images/globals-strip-response-examples-after.png" width="400" >
+
+### collectionVariables
+
+You can set Postman variables by defining them in an `.env` file (see [Environment variables as Postman variables](#environment-variables-as-postman-variables)).
+Or you can set them in the globals as `collectionVariables`. The result will be that set in your Postman collection as collection variables. 
+
+Example:
+```json
+{
+  "version": 1.0,
+  "globals": {
+    "collectionVariables": {
+      "name": "portman",
+      "version": "1"
+    }
+  }
+}
+```
+
+AFTER
+
+<img src="./images/globals-collection-variables.png" >
 
 ### collectionPreRequestScripts
 
@@ -189,29 +255,6 @@ AFTER
 
 ![](./images/globals-portman-after.png)
 
-
-### stripResponseExamples
-
-As part of the conversion from OpenAPI to Postman, all requests will get response examples in Postman. When generating variations, the number of examples can grow quickly.
-To keep the Postman collection compact, you can use the CLI option `--stripResponseExamples`. This option will strip response examples from the final generated collection.
-
-Example:
-```json
-{
-  "version": 1.0,
-  "globals": {
-    "stripResponseExamples": true
-  }
-}
-```
-
-BEFORE
-
-<img src="./images/globals-strip-response-examples-before.png" width="400" >
-
-AFTER
-
-<img src="./images/globals-strip-response-examples-after.png" width="400" >
 
 ### securityOverwrites
 
