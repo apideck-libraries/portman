@@ -147,6 +147,8 @@ This is useful if you have Portman managing multiple specs that have unique envi
 
 By default, Portman will leverage any ENVIRONMENT variable that is defined that starts with `PORTMAN_`.
 
+Another option to set variables is by configuring them as `collectionVariables` in the [globals section](#portman---globals-property) of your Portman configuration.
+
 ### CLI Options
 
 ###### Initialize Portman CLI configuration
@@ -625,6 +627,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 #### globals options
 
+- **stripResponseExamples (Boolean | optional)** : Strip the response examples from the generated Postman collection.
 - **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will be executed by Postman before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts will be executed by Postman after every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **collectionVariables**: A map of key value pairs that will inserted as Postman collection variables.
@@ -635,7 +638,6 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/...
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. The ordering from `orderOfOperations` is performed per folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
-- **stripResponseExamples (Boolean | optional)** : Strip the response examples from the generated Postman collection.
 - **securityOverwrites** : Overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token") or inject a Postman authorization option (supported types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2) on a collection level. 
 
 The security overwrites provides a number of security types:
