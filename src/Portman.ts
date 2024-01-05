@@ -17,8 +17,8 @@ import {
   writeNewmanEnv,
   writeRawReplacements
 } from './application'
-import { clearTmpDirectory, execShellCommand, getConfig } from './lib'
-import { OpenApiParser } from './oas'
+import { clearTmpDirectory, getConfig } from './lib'
+import { OpenApiFormatter, OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
 import {
   DownloadService,
@@ -252,9 +252,16 @@ export class Portman {
       // Create oaOutput file if it doesn't exist
       fs.outputFileSync(openApiSpecPath, '', 'utf8')
 
-      await execShellCommand(
-        `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
-      )
+      // await execShellCommand(
+      //   `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
+      // )
+      const oasFormatter = new OpenApiFormatter()
+      await oasFormatter.filter({
+        inputFile: openApiSpec,
+        filterFile: filterFile,
+        outputFile: openApiSpecPath
+      })
+
       openApiSpec = openApiSpecPath
     }
 
