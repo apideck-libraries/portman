@@ -1,7 +1,5 @@
 // openapi-format.d.ts
 
-import { OpenAPIV3 } from 'openapi-types'
-
 declare module 'openapi-format' {
   import { OpenAPIV3 } from 'openapi-types'
 
