@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.24 - (2024-01-05)
+
 - Globals - Added the option set 'collectionVariables' for setting variables on collection level
 
 ## v1.23.2 - (2024-01-05)
