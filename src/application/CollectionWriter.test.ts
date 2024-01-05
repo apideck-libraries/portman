@@ -155,6 +155,36 @@ describe('CollectionWriter.execute()', () => {
     })
   })
 
+  describe('writeCollectionVariables', () => {
+    const spy = jest.spyOn(globals, 'writeCollectionPreRequestScripts')
+
+    it('should call with collectionPreRequestScripts', () => {
+      const config = {
+        globals: {
+          collectionVariables: {
+            foo:
+          }
+        }
+      } as PortmanConfig
+
+      const collectionWriter = new CollectionWriter(config, {}, {})
+      collectionWriter.execute()
+
+      expect(spy).toHaveBeenCalled()
+    })
+
+    it('should not call without collectionPreRequestScripts', () => {
+      const config = {
+        globals: {}
+      } as PortmanConfig
+
+      const collectionWriter = new CollectionWriter(config, {}, {})
+      collectionWriter.execute()
+
+      expect(spy).not.toHaveBeenCalled()
+    })
+  })
+
   describe('injectEnvVariables', () => {
     const spy = jest.spyOn(globals, 'injectEnvVariables')
 

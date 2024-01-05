@@ -6,6 +6,7 @@ import {
   overwriteCollectionValues,
   overwriteCollectionSecurityValues,
   writeCollectionPreRequestScripts,
+  writeCollectionVariables,
   writeRawReplacements
 } from '.'
 import { GlobalConfig, PortmanConfig, PortmanOptions } from '../types'
@@ -30,6 +31,7 @@ export class CollectionWriter {
     const {
       collectionPreRequestScripts = [],
       collectionTestScripts = [],
+      collectionVariables = {},
       securityOverwrites = {},
       keyValueReplacements = {},
       valueReplacements = {},
@@ -38,6 +40,11 @@ export class CollectionWriter {
     } = globals as GlobalConfig
 
     let collection = this.collection
+
+    // --- Portman - Set Postman collection variables
+    if (collectionVariables && Object.keys(collectionVariables).length > 0) {
+      collection = writeCollectionVariables(collection, collectionVariables)
+    }
 
     // --- Portman - Set Security values for Postman
     if (securityOverwrites && !isEmptyObject(securityOverwrites)) {

@@ -244,6 +244,7 @@ export type GlobalReplacement = {
 export type GlobalConfig = {
   collectionPreRequestScripts?: string[]
   collectionTestScripts?: string[]
+  collectionVariables?: Record<string, unknown>
   securityOverwrites?: SecurityOverwrite
   keyValueReplacements?: Record<string, unknown>
   valueReplacements?: Record<string, unknown>

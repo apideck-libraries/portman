@@ -3,12 +3,12 @@ import { config } from 'dotenv'
 import path from 'path'
 import { CollectionDefinition, VariableDefinition } from 'postman-collection'
 
-const upsertEnvVariable = (
+export const upsertVariable = (
   variables: VariableDefinition[],
   key: string,
   value: unknown,
   type: string
-) => {
+): VariableDefinition[] => {
   const toInject = { key, value, type }
   const updateIndex = variables.findIndex(variable => variable['key'] === key)
 
@@ -37,12 +37,12 @@ export const injectEnvVariables = (
   for (const [key, val] of Object.entries(parsed)) {
     if (key.startsWith('PORTMAN_')) {
       const id = key.replace('PORTMAN_', '')
-      variables = upsertEnvVariable(variables, camelCase(id), val, 'string')
+      variables = upsertVariable(variables, camelCase(id), val, 'string')
     }
   }
 
   if (baseUrl || baseUrlFromSpec) {
-    variables = upsertEnvVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
+    variables = upsertVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
   }
   const uniqueVariables = Array.from(new Set(variables))
 

@@ -1,7 +1,7 @@
 import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import { Collection } from 'postman-collection'
-import { injectEnvVariables, TestSuite } from '../../application'
+import { injectEnvVariables, TestSuite, upsertVariable } from '../../application'
 import { getConfig } from '../../lib'
 import { OpenApiParser } from '../../oas'
 import { PostmanParser } from '../../postman'
@@ -84,5 +84,49 @@ describe('injectEnvVariables', () => {
     ]
     const collection = injectEnvVariables(coll, envFile, 'https://api.foo.bar')
     expect(collection?.variable).toMatchSnapshot()
+  })
+})
+
+describe('upsertVariable', () => {
+  test('should add a new variable to the list', () => {
+    const variables = []
+    const key = 'testKey'
+    const value = 'testValue'
+    const type = 'testType'
+
+    const result = upsertVariable(variables, key, value, type)
+
+    expect(result).toHaveLength(1)
+    expect(result[0]).toEqual({ key, value, type })
+  })
+
+  test('should update an existing variable in the list', () => {
+    const existingKey = 'existingKey'
+    const existingValue = 'existingValue'
+    const existingType = 'existingType'
+    const variables = [{ key: existingKey, value: existingValue, type: existingType }]
+    const updatedValue = 'updatedValue'
+
+    const result = upsertVariable(variables, existingKey, updatedValue, existingType)
+
+    expect(result).toHaveLength(1)
+    expect(result[0]).toEqual({ key: existingKey, value: updatedValue, type: existingType })
+  })
+
+  test('should handle multiple variables', () => {
+    const existingKey = 'existingKey'
+    const existingValue = 'existingValue'
+    const existingType = 'existingType'
+    const variables = [
+      { key: 'anotherKey', value: 'anotherValue', type: 'anotherType' },
+      { key: existingKey, value: existingValue, type: existingType }
+    ]
+    const updatedValue = 'updatedValue'
+
+    const result = upsertVariable(variables, existingKey, updatedValue, existingType)
+
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ key: 'anotherKey', value: 'anotherValue', type: 'anotherType' })
+    expect(result[1]).toEqual({ key: existingKey, value: updatedValue, type: existingType })
   })
 })
