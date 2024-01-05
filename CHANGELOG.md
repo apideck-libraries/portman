@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Globals - Added the option set 'collectionVariables' for setting variables on collection level
+
 ## v1.23.2 - (2024-01-05)
 
 - Added $schema to the Portman JSON Schema for auto-completion
