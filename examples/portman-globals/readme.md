@@ -164,7 +164,7 @@ Example:
 
 AFTER
 
-<img src="./images/globals-collection-variables.png" width="400" >
+<img src="./images/globals-collection-variables.png" >
 
 ### collectionPreRequestScripts
 
