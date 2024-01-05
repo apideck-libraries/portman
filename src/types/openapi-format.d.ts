@@ -2,6 +2,7 @@
 
 declare module 'openapi-format' {
   import { OpenAPIV3 } from 'openapi-types'
+  import { OpenApiFormatOptions } from 'oas'
 
   interface OpenAPIFilterOptions {
     // Define your OpenAPI options structure here
@@ -27,6 +28,6 @@ declare module 'openapi-format' {
    */
   export function openapiFilter(
     oaObj: OpenAPIV3.Document,
-    options: OpenAPIFilterOptions
+    options: OpenApiFormatOptions
   ): Promise<OpenAPIResult>
 }
