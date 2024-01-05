@@ -1,11 +1,15 @@
 # Portman - Globals
 
-This example focuses on the `globals` settings of Portman. It is contains some very powerful options, to manipulate or replace keys/values/strings, in the full Postman collection.
+This example focuses on the `globals` settings of Portman. It contains some very powerful options, to manipulate the Postman collection.
 
-_use-case_: 
+_use-cases_: 
 
 - Mass replace certain keys
 - Mass replace certain values/strings/objects
+- Set Postman collection variables
+- Insert pre-request scripts (from files)
+- Insert test scripts (from files)
+- Overwrite the OpenAPI security schema
 
 ## CLI usage
 
