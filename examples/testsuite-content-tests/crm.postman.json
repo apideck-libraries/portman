@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "a8e9f231-ed5a-4d51-99fd-da4c44f1b13d"
+    "postman_id": "d2163ef4-32f2-4668-ade5-9876d4d0f023"
   },
   "item": [
     {
-      "id": "e224c8c9-412b-4fd8-bcd4-3e730d05b397",
+      "id": "51d0799a-1f04-4399-8ff6-120b1ba7f46d",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "0adfe9c4-9e59-4b46-b783-d54be47b53cc",
+          "id": "2e6b4725-f571-4988-8959-80a0bbfc0b6f",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -98,7 +98,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -109,7 +109,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "97df24e8-5ec8-40f2-a261-1b732a827c79",
+                "id": "085d0c5a-cfad-4885-8fac-2fefb24f0b06",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -135,18 +135,21 @@
                   "// Set property value as variable\nconst _resResource = jsonData?.resource;\n",
                   "// Response body should have \"resource\"\npm.test(\"[GET]::/crm/leads - Content check if 'resource' exists\", function() {\n   pm.expect(_resResource !== undefined).to.be.true;\n});\n",
                   "// Response body should have value \"companies\" for \"resource\"\nif (_resResource !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'resource' matches 'companies'\", function() {\n  pm.expect(_resResource).to.eql(\"companies\");\n})};\n",
-                  "// Set property value as variable\nconst _resCount = jsonData?.[\"@count\"];\n",
-                  "// Response body should not have \"@count\"\npm.test(\"[GET]::/crm/leads - Content check if '@count' not exists\", function() {\n   pm.expect(_resCount === undefined).to.be.true;\n});\n",
+                  "// Set property value as variable\nconst _res@count = jsonData?.[\"@count\"];\n",
+                  "// Response body should not have \"@count\"\npm.test(\"[GET]::/crm/leads - Content check if '@count' not exists\", function() {\n   pm.expect(_res@count === undefined).to.be.true;\n});\n",
                   "// Set property value as variable\nconst _resService = jsonData?.service;\n",
                   "// Response body should have \"service\"\npm.test(\"[GET]::/crm/leads - Content check if 'service' exists\", function() {\n   pm.expect(_resService !== undefined).to.be.true;\n});\n",
                   "// Response body value for \"service\" \"not.to.be.undefined\"\nif (_resService !== undefined) {\npm.test(\"[GET]::/crm/leads - Content check if value for 'service' 'not.to.be.undefined'\", function() {\n  pm.expect(jsonData.service).not.to.be.undefined;\n})};\n"
                 ]
               }
             }
-          ]
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "id": "3c6966d8-d7c1-4a23-aea3-ba9b9afaccb2",
+          "id": "cffc622b-a59f-49b3-8580-7ae3321d53f3",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -227,7 +230,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -240,7 +243,7 @@
           }
         },
         {
-          "id": "13d3e328-fc6d-434e-999e-c1090a37d04b",
+          "id": "13e14e4c-6667-4f82-9bf5-eb21edf9cdb5",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -320,7 +323,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -331,7 +334,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "3a36f1c9-6232-4664-9015-3b0c59634b3d",
+                "id": "8bbbc1f0-4473-4dc5-8825-e0eca1d470fa",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -349,10 +352,13 @@
                 ]
               }
             }
-          ]
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "id": "72562486-74c2-4f1c-913f-f21472031f8d",
+          "id": "5c0fd325-01d2-401e-a77e-efb3894b1080",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -445,7 +451,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -458,7 +464,7 @@
           }
         },
         {
-          "id": "88a70856-48de-4ec8-98d3-e8cb83525412",
+          "id": "eccc39fd-44dd-4d57-93db-80caff5a2973",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -538,14 +544,17 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
       "event": []
@@ -556,7 +565,7 @@
     "bearer": [
       {
         "type": "any",
-        "value": "<Bearer Token>",
+        "value": "{{bearerToken}}",
         "key": "token"
       }
     ]
@@ -595,7 +604,7 @@
     }
   ],
   "info": {
-    "_postman_id": "a8e9f231-ed5a-4d51-99fd-da4c44f1b13d",
+    "_postman_id": "d2163ef4-32f2-4668-ade5-9876d4d0f023",
     "name": "CRM API - Content Tests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
