@@ -17,4 +17,19 @@ describe('OpenApiFormat', () => {
       expect(oas).toMatchSnapshot()
     })
   })
+
+  describe('changeCase', () => {
+    it('should change the case for a string', () => {
+      const valueAsString = 'marcoPolo'
+      const caseType = 'snakeCase'
+      const result = oasFormatter.changeCase(valueAsString, caseType)
+      expect(result).toEqual('marco_polo')
+    })
+    it('should change the case for a string with a dot', () => {
+      const valueAsString = 'marco.polo'
+      const caseType = 'snakeCase'
+      const result = oasFormatter.changeCase(valueAsString, caseType)
+      expect(result).toEqual('marco_polo')
+    })
+  })
 })

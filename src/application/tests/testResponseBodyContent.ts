@@ -2,7 +2,7 @@ import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { ResponseBodyTest } from '../../types'
 import { renderBracketPath, renderChainPath } from '../../utils'
-import { camelCase, pascalCase } from 'case-anything'
+import { changeCase } from 'openapi-format'
 
 export const testResponseBodyContent = (
   responseBodyTests: ResponseBodyTest[],
@@ -42,8 +42,11 @@ export const testResponseBodyContent = (
       if (keyPaths.length === 2) {
         // const keyArraySafeValue =renderBracketPath(`jsonData.${keyPaths[0]}`)
         const keyArrayPath = `${renderChainPath(`jsonData.${keyPaths[0]}`)}`
-        const pathArrayVarName = `_resArray${pascalCase(`${keyPaths[0].replace(/\[/g, '')}`)}`
-        sourceVarName = `_resArray${pascalCase(`${check.key.replace(/\[/g, '')}`)}`
+        const pathArrayVarName = `_resArray${changeCase(
+          `${keyPaths[0].replace(/\[/g, '')}`,
+          'pascalCase'
+        )}`
+        sourceVarName = `_resArray${changeCase(`${check.key.replace(/\[/g, '')}`, 'pascalCase')}`
 
         // Only set the pathArrayVarName once
         if (!pmOperation.mappedVars.includes(pathArrayVarName)) {
@@ -74,7 +77,7 @@ export const testResponseBodyContent = (
       ? `${keySafeValue}`
       : `.${keySafeValue}`
     const keyPath = `${renderChainPath(`${sourceData}${keyValue}`)}`
-    const pathVarName = `_${camelCase(`res${keyValue.replace(/\[/g, '')}`)}`
+    const pathVarName = `_${changeCase(`res${keyValue.replace(/\[/g, '')}`, 'camelCase')}`
 
     if (check.hasOwnProperty('key')) {
       // Only set the pathVarName once
