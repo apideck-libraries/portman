@@ -3,6 +3,7 @@ import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostm
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { testResponseBodyEmpty } from './testResponseBodyEmpty'
+import { GlobalConfig } from '../../types'
 
 describe('testResponseBodyEmpty', () => {
   let oasOperation: OasMappedOperation
@@ -20,7 +21,8 @@ describe('testResponseBodyEmpty', () => {
   })
 
   it('should add test with separator symbol for empty body', async () => {
-    pmOperation = testResponseBodyEmpty(pmOperation, oasOperation)
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    pmOperation = testResponseBodyEmpty(pmOperation, oasOperation, globalConfig)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
