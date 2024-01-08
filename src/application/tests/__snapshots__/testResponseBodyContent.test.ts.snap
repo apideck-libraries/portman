@@ -1005,6 +1005,29 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].company_n
 ]
 `;
 
+exports[`testResponseBodyContent should add content test with separator symbol  for string for property check & string value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resData0CompanyName = jsonData?.data?.[0]?.company_name;
+",
+  "// Response body should have \\"data[0].company_name\\"
+pm.test(\\"[GET]==/crm/companies/:id - Content check if 'data[0].company_name' exists\\", function() {
+   pm.expect(_resData0CompanyName !== undefined).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"data[0].company_name\\"
+if (_resData0CompanyName !== undefined) {
+pm.test(\\"[GET]==/crm/companies/:id - Content check if value for 'data[0].company_name' matches 'Spacex'\\", function() {
+  pm.expect(_resData0CompanyName).to.eql(\\"Spacex\\");
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should not add content test for a property when assert is empty 1`] = `
 Array [
   "// Set response object as internal variable
