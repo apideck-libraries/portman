@@ -9,3 +9,13 @@ pm.test(\\"[GET]::/crm/companies/:id - Response has empty Body\\", function () {
 ",
 ]
 `;
+
+exports[`testResponseBodyEmpty should add test with separator symbol for empty body 1`] = `
+Array [
+  "// Validate if response has empty Body 
+pm.test(\\"[GET]==/crm/companies/:id - Response has empty Body\\", function () {
+    pm.response.to.not.be.withBody;
+});
+",
+]
+`;
