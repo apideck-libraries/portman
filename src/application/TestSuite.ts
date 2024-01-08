@@ -234,7 +234,7 @@ export class TestSuite {
       optStatusSuccess.enabled &&
       !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)
     ) {
-      pmOperation = testResponseStatusSuccess(pmOperation)
+      pmOperation = testResponseStatusSuccess(pmOperation, this.config?.globals)
     }
 
     // Add status code check
@@ -256,7 +256,11 @@ export class TestSuite {
       optResponseTime.enabled &&
       !inOperations(pmOperation, optResponseTime?.excludeForOperations)
     ) {
-      pmOperation = testResponseTime(optResponseTime as ResponseTime, pmOperation)
+      pmOperation = testResponseTime(
+        optResponseTime as ResponseTime,
+        pmOperation,
+        this.config?.globals
+      )
     }
 
     // Add empty body check for 204 HTTP response
@@ -290,7 +294,12 @@ export class TestSuite {
           optContentType.enabled &&
           !inOperations(pmOperation, optContentType?.excludeForOperations)
         ) {
-          pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
+          pmOperation = testResponseContentType(
+            contentType,
+            pmOperation,
+            oaOperation,
+            this.config?.globals
+          )
         }
 
         // Add json body check
@@ -300,7 +309,7 @@ export class TestSuite {
           (contentType === 'application/json' || contentType.includes('json')) &&
           !inOperations(pmOperation, optJsonBody?.excludeForOperations)
         ) {
-          pmOperation = testResponseJsonBody(pmOperation, oaOperation)
+          pmOperation = testResponseJsonBody(pmOperation, this.config?.globals)
         }
 
         // Add json schema check
@@ -316,7 +325,8 @@ export class TestSuite {
             content.schema,
             pmOperation,
             oaOperation,
-            this.options?.extraUnknownFormats ?? []
+            this.options?.extraUnknownFormats ?? [],
+            this.config?.globals
           )
         }
 
@@ -335,7 +345,12 @@ export class TestSuite {
           optHeadersPresent.enabled &&
           !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
         ) {
-          pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
+          pmOperation = testResponseHeader(
+            headerName,
+            pmOperation,
+            oaOperation,
+            this.config?.globals
+          )
         }
       }
     }
@@ -359,7 +374,7 @@ export class TestSuite {
         // check content of response body
         if (contentTest?.responseBodyTests) {
           // Insert response body content check
-          testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
+          testResponseBodyContent(contentTest.responseBodyTests, pmOperation, this.config?.globals)
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
@@ -367,7 +382,11 @@ export class TestSuite {
         // check content of response header
         if (contentTest?.responseHeaderTests) {
           // Insert response header content check
-          testResponseHeaderContent(contentTest.responseHeaderTests, pmOperation)
+          testResponseHeaderContent(
+            contentTest.responseHeaderTests,
+            pmOperation,
+            this.config?.globals
+          )
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
@@ -398,7 +417,7 @@ export class TestSuite {
           assignVarSetting,
           fixedValueCounter,
           this.options,
-          this.config.globals
+          this.config?.globals
         ) as number
       })
     })

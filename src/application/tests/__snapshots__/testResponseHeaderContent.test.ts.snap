@@ -230,6 +230,21 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if header value for 'Operat
 ]
 `;
 
+exports[`testResponseHeaderContent should add content header test with separator symbol for string for property check & string value 1`] = `
+Array [
+  "// Validate if response header is present 
+pm.test(\\"[GET]==/crm/companies/:id - Response header Operation-Location is present\\", function () {
+   pm.response.to.have.header(\\"Operation-Location\\");
+});
+",
+  "// Response header should have value \\"Spacex\\" for \\"Operation-Location\\"
+pm.test(\\"[GET]==/crm/companies/:id - Content check if header value for 'Operation-Location' matches 'Spacex'\\", function() {
+  pm.expect(pm.response.headers.get(\\"Operation-Location\\")).to.eql(\\"Spacex\\");
+});
+",
+]
+`;
+
 exports[`testResponseHeaderContent should not add content header test for a property & custom assert 1`] = `
 Array [
   "// Validate if response header is present 

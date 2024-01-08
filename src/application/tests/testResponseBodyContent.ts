@@ -1,12 +1,13 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { ResponseBodyTest } from '../../types'
+import { GlobalConfig, ResponseBodyTest } from '../../types'
 import { renderBracketPath, renderChainPath } from '../../utils'
 import { OpenApiFormatter } from '../../oas'
 
 export const testResponseBodyContent = (
   responseBodyTests: ResponseBodyTest[],
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  config?: GlobalConfig
 ): PostmanMappedOperation => {
   responseBodyTests.map(check => {
     let pmJsonData = ''
@@ -20,6 +21,9 @@ export const testResponseBodyContent = (
     let pmTestMinLength = ''
     let pmTestMaxLength = ''
     let pmTestAssert = ''
+
+    // Separator
+    const split = config?.separatorSymbol || '::'
 
     const oaf = new OpenApiFormatter()
     let checkKey = check.key
@@ -100,7 +104,7 @@ export const testResponseBodyContent = (
 
       pmTestKey = [
         `// Response body should ${label} "${keyLabel}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if '${keyLabel}' ${negateLabel}", function() {\n`,
         `   pm.expect(${pathVarName} ${negate} undefined).to.be.true;\n`,
         `});\n`
@@ -121,7 +125,7 @@ export const testResponseBodyContent = (
       pmTestValue = [
         `// Response body should have value "${check.value}" for "${keyLabel}"\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' matches '${check.value}'", function() {\n`,
         `  pm.expect(${pathVarName}).to.eql(${checkValue});\n`,
         `})};\n`
@@ -142,7 +146,7 @@ export const testResponseBodyContent = (
       pmTestContains = [
         `// Response body should contain value "${check.contains}" for "${keyLabel}"\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' contains '${check.contains}'", function() {\n`,
         `  pm.expect(${sourceData}${keyValue}).to.include(${checkContains});\n`,
         `})};\n`
@@ -170,7 +174,7 @@ export const testResponseBodyContent = (
         pmTestOneOf = [
           `// Response body should be one of the values "${check.oneOf}" for "${keyLabel}"\n`,
           `if (${pathVarName} !== undefined) {\n`,
-          `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+          `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
           ` - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'", function() {\n`,
           `  pm.expect(${sourceData}${keyValue}).to.be.oneOf([${safeOneOf}]);\n`,
           `})};\n`
@@ -192,7 +196,7 @@ export const testResponseBodyContent = (
       pmTestLength = [
         `// Response body should have a length of "${check.length}" for "${keyLabel}"\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a length of '${check.length}'", function() {\n`,
         `  pm.expect(${sourceData}${keyValue}.length).to.equal(${checkLength});\n`,
         `})};\n`
@@ -213,7 +217,7 @@ export const testResponseBodyContent = (
       pmTestMinLength = [
         `// Response body should have a minimum length of "${check.minLength}" for "${keyLabel}"\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a minimum length of '${check.minLength}'", function() {\n`,
         `  pm.expect(${sourceData}${keyValue}.length).is.at.least(${checkMinLength});\n`,
         `})};\n`
@@ -234,7 +238,7 @@ export const testResponseBodyContent = (
       pmTestMaxLength = [
         `// Response body should have a maximum length of "${check.maxLength}" for "${keyLabel}"\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value of '${keyLabel}' has a maximum length of '${check.maxLength}'", function() {\n`,
         `  pm.expect(${sourceData}${keyValue}.length).is.at.most(${checkMaxLength});\n`,
         `})};\n`
@@ -252,7 +256,7 @@ export const testResponseBodyContent = (
       pmTestAssert = [
         `// Response body value for "${keyLabel}" "${cleanAssert}"\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' '${cleanAssertLabel}'", function() {\n`,
         `  pm.expect(${sourceData}${keyValue}).${cleanAssert};\n`,
         `})};\n`

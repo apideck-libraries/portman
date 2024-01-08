@@ -1,7 +1,7 @@
 import { writeOperationTestScript } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
-import { additionalProperties, ContractTestConfig } from 'types'
+import { additionalProperties, ContractTestConfig, GlobalConfig } from 'types'
 import traverse from 'traverse'
 import { OpenAPIV3 } from 'openapi-types'
 
@@ -11,7 +11,8 @@ export const testResponseJsonSchema = (
   jsonSchema: any,
   pmOperation: PostmanMappedOperation,
   oaOperation: OasMappedOperation,
-  extraUnknownFormats: string[] = []
+  extraUnknownFormats: string[] = [],
+  config?: GlobalConfig
 ): PostmanMappedOperation => {
   // overwrite JSON schema validation for additionalProperties
   if (schemaValidation.additionalProperties || schemaValidation.additionalProperties === false) {
@@ -23,6 +24,8 @@ export const testResponseJsonSchema = (
 
   // deletes nullable and adds "null" to type array if nullable is true
   jsonSchema = convertUnsupportedJsonSchemaProperties(jsonSchema)
+
+  const split = config?.separatorSymbol || '::'
 
   const jsonSchemaString = JSON.stringify(jsonSchema)
   const containsRef = jsonSchemaString.includes('$ref')
@@ -41,7 +44,7 @@ export const testResponseJsonSchema = (
     `// Response Validation\n`,
     `const schema = ${jsonSchemaString}\n\n`,
     `// Validate if response matches JSON schema \n`,
-    `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+    `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
     ` - Schema is valid", function() {\n`,
     `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ${unknownFormats}});\n`,
     `});\n`

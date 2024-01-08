@@ -4,7 +4,7 @@ import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostm
 import { testResponseJsonSchema } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
-import { ContractTestConfig } from '../../types'
+import { ContractTestConfig, GlobalConfig } from '../../types'
 
 describe('testResponseJsonSchema', () => {
   let oasOperation: OasMappedOperation
@@ -22,6 +22,21 @@ describe('testResponseJsonSchema', () => {
       schema,
       pmOperation,
       oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add test with separator symbol for valid json schema', async () => {
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    const schema = (oasOperation.schema?.responses?.['200'] as OpenAPIV3.ResponseObject)?.content
+    pmOperation = testResponseJsonSchema(
+      { enabled: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation,
+      [],
+      globalConfig
     )
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()

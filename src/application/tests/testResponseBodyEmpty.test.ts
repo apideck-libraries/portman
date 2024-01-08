@@ -18,4 +18,10 @@ describe('testResponseBodyEmpty', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add test with separator symbol for empty body', async () => {
+    pmOperation = testResponseBodyEmpty(pmOperation, oasOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })
