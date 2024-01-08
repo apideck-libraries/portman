@@ -1671,6 +1671,8 @@ components:
       name: id
       schema:
         type: string
+        default: 123
+        example: 123
       required: true
       description: ID of the record you are acting upon.
     limit:

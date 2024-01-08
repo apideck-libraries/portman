@@ -1,18 +1,18 @@
 {
   "_": {
-    "postman_id": "0f1d34b1-d54a-4b27-93e8-f7ac9de564ef"
+    "postman_id": "1330526a-5faa-4d01-9ba4-fe3700f6c15b"
   },
   "item": [
     {
-      "id": "bdf1e9ed-e4a2-4d24-8630-5748b15d8f0a",
+      "id": "3f87c9bf-f878-432c-a944-5ab6a6ce4305",
       "name": "Contract Tests",
       "item": [
         {
-          "id": "c71263a1-113c-4a18-b85a-fb8329c6c1a6",
+          "id": "89e43edf-f0c1-414b-93d2-65d6dc6acb0c",
           "name": "Leads",
           "item": [
             {
-              "id": "053f68db-6aa7-470e-b3aa-94dace5bfeae",
+              "id": "8d081f73-983c-4506-8349-5c853a42ac70",
               "name": "List leads",
               "request": {
                 "name": "List leads",
@@ -98,7 +98,7 @@
                   "bearer": [
                     {
                       "type": "any",
-                      "value": "<Bearer Token>",
+                      "value": "{{bearerToken}}",
                       "key": "token"
                     }
                   ]
@@ -109,7 +109,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "6dc61db5-5323-4ae3-881a-f944144b3ff2",
+                    "id": "a125b8fa-37cc-4c8e-879e-0f4592731f55",
                     "type": "text/javascript",
                     "exec": [
                       "// Validate status 2xx \npm.test(\"[GET]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -120,10 +120,13 @@
                     ]
                   }
                 }
-              ]
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
             },
             {
-              "id": "4958e380-541a-47e7-8d43-2eab876e8bc7",
+              "id": "adfc6f38-2dd6-4e06-8bf3-5be2afdbbf36",
               "name": "Create lead",
               "request": {
                 "name": "Create lead",
@@ -204,7 +207,7 @@
                   "bearer": [
                     {
                       "type": "any",
-                      "value": "<Bearer Token>",
+                      "value": "{{bearerToken}}",
                       "key": "token"
                     }
                   ]
@@ -215,7 +218,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "06e70fda-c151-4a15-a1aa-eec9768b0f70",
+                    "id": "37d72f45-0f5f-412e-8a86-09a7afadcf0c",
                     "type": "text/javascript",
                     "exec": [
                       "// Validate status 2xx \npm.test(\"[POST]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -231,7 +234,7 @@
               }
             },
             {
-              "id": "71613ede-582d-41f0-ad4a-3cc8d0c295cc",
+              "id": "6316a836-3512-4e81-bc1c-f92148207c6e",
               "name": "Get lead",
               "request": {
                 "name": "Get lead",
@@ -267,7 +270,7 @@
                         "type": "text/plain"
                       },
                       "type": "any",
-                      "value": "sit ad",
+                      "value": "123",
                       "key": "id"
                     }
                   ]
@@ -311,7 +314,7 @@
                   "bearer": [
                     {
                       "type": "any",
-                      "value": "<Bearer Token>",
+                      "value": "{{bearerToken}}",
                       "key": "token"
                     }
                   ]
@@ -322,7 +325,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "dcbf8be7-18f0-436e-876d-2f1bc9c4b53c",
+                    "id": "f0440ff6-167a-4364-affe-b3eb390f7f7c",
                     "type": "text/javascript",
                     "exec": [
                       "// Validate status 2xx \npm.test(\"[GET]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -334,10 +337,13 @@
                     ]
                   }
                 }
-              ]
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
             },
             {
-              "id": "0a887a0b-21a6-455d-ac95-9c25ec8d7b90",
+              "id": "6dd37de4-b722-4714-96e9-1ce46889e9bd",
               "name": "Update lead",
               "request": {
                 "name": "Update lead",
@@ -373,7 +379,7 @@
                         "type": "text/plain"
                       },
                       "type": "any",
-                      "value": "sit ad",
+                      "value": "123",
                       "key": "id"
                     }
                   ]
@@ -430,7 +436,7 @@
                   "bearer": [
                     {
                       "type": "any",
-                      "value": "<Bearer Token>",
+                      "value": "{{bearerToken}}",
                       "key": "token"
                     }
                   ]
@@ -441,7 +447,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "e29b6062-0cd6-46d0-9137-2c37aef673e3",
+                    "id": "0c6443b3-3f00-4454-be60-46f0b83deefd",
                     "type": "text/javascript",
                     "exec": [
                       "// Validate status 2xx \npm.test(\"[PATCH]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -458,7 +464,7 @@
               }
             },
             {
-              "id": "e4950344-e053-4aa1-a8af-28b21718cf76",
+              "id": "93c206ec-baf6-4057-9947-60542ce9064b",
               "name": "Delete lead",
               "request": {
                 "name": "Delete lead",
@@ -494,7 +500,7 @@
                         "type": "text/plain"
                       },
                       "type": "any",
-                      "value": "sit ad",
+                      "value": "123",
                       "key": "id"
                     }
                   ]
@@ -538,7 +544,7 @@
                   "bearer": [
                     {
                       "type": "any",
-                      "value": "<Bearer Token>",
+                      "value": "{{bearerToken}}",
                       "key": "token"
                     }
                   ]
@@ -549,7 +555,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "b596ea12-d2b2-4f9c-8f5c-aa6a66feb797",
+                    "id": "84d118c3-e306-4f8f-9144-d8c95de94bf7",
                     "type": "text/javascript",
                     "exec": [
                       "// Validate status 2xx \npm.test(\"[DELETE]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -560,7 +566,10 @@
                     ]
                   }
                 }
-              ]
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
             }
           ],
           "event": []
@@ -574,7 +583,7 @@
     "bearer": [
       {
         "type": "any",
-        "value": "<Bearer Token>",
+        "value": "{{bearerToken}}",
         "key": "token"
       }
     ]
@@ -613,7 +622,7 @@
     }
   ],
   "info": {
-    "_postman_id": "0f1d34b1-d54a-4b27-93e8-f7ac9de564ef",
+    "_postman_id": "1330526a-5faa-4d01-9ba4-fe3700f6c15b",
     "name": "CRM API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
