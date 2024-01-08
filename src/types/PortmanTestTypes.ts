@@ -4,4 +4,4 @@ export const PortmanTestTypes = {
   contract: 'contract'
 } as const
 
-export type PortmanTestType = typeof PortmanTestTypes[keyof typeof PortmanTestTypes]
+export type PortmanTestType = (typeof PortmanTestTypes)[keyof typeof PortmanTestTypes]

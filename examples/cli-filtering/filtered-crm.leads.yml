@@ -13,540 +13,33 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   x-apideck-api: crm
   x-apideck-sdk-support: true
+externalDocs:
+  description: Apideck Developer Docs
+  url: 'https://developers.apideck.com'
 servers:
   - url: 'https://unify.apideck.com'
     description: Production
-paths:
-  /crm/leads:
-    get:
-      operationId: leadsAll
-      summary: List leads
-      description: List leads
-      parameters:
-        - $ref: '#/components/parameters/raw'
-        - $ref: '#/components/parameters/consumerId'
-        - $ref: '#/components/parameters/applicationId'
-        - $ref: '#/components/parameters/serviceId'
-        - $ref: '#/components/parameters/cursor'
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/leadsFilter'
-        - $ref: '#/components/parameters/leadsSort'
-      responses:
-        '200':
-          $ref: '#/components/responses/GetLeads'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/PaymentRequired'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
-        default:
-          $ref: '#/components/responses/UnexpectedError'
-      security:
-        - apiKey: []
-      tags:
-        - Leads
-      x-apideck-api: crm
-      x-codeSamples:
-        - lang: TypeScript
-          label: Node
-          source: |
-            import { Apideck } from '@apideck/node'
-
-            const apideck = new Apideck({
-              apiKey: 'REPLACE_WITH_API_KEY',
-              appId: 'REPLACE_WITH_APP_ID',
-              consumerId: 'REPLACE_WITH_CONSUMER_ID'
-            })
-
-            try {
-              const { data } = await apideck.crm.leadsAll({})
-              console.log('API called successfully', data)
-            } catch (error) {
-              console.error(error)
-            }
-      x-graphql-field-name: leads
-    post:
-      operationId: leadsAdd
-      summary: Create lead
-      description: Create lead
-      parameters:
-        - $ref: '#/components/parameters/raw'
-        - $ref: '#/components/parameters/consumerId'
-        - $ref: '#/components/parameters/applicationId'
-        - $ref: '#/components/parameters/serviceId'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Lead'
-        required: true
-      responses:
-        '201':
-          $ref: '#/components/responses/CreateLead'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/PaymentRequired'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
-        default:
-          $ref: '#/components/responses/UnexpectedError'
-      security:
-        - apiKey: []
-      tags:
-        - Leads
-      x-apideck-api: crm
-      x-codeSamples:
-        - lang: TypeScript
-          label: Node
-          source: |
-            import { Apideck } from '@apideck/node'
-
-            const apideck = new Apideck({
-              apiKey: 'REPLACE_WITH_API_KEY',
-              appId: 'REPLACE_WITH_APP_ID',
-              consumerId: 'REPLACE_WITH_CONSUMER_ID'
-            })
-
-            const params = {
-              lead: {
-                name: 'Elon Musk',
-                company_name: 'Spacex',
-                owner_id: '54321',
-                company_id: '2',
-                contact_id: '2',
-                lead_source: 'Cold Call',
-                first_name: 'Elon',
-                last_name: 'Musk',
-                description: 'A thinker',
-                prefix: 'Sir',
-                title: 'CEO',
-                language: 'EN',
-                status: 'New',
-                monetary_amount: 75000,
-                currency: 'USD',
-                fax: '+12129876543',
-                websites: [
-                  {
-                    id: '12345',
-                    url: 'http://example.com',
-                    type: 'primary'
-                  }
-                ],
-                addresses: [
-                  {
-                    id: '123',
-                    type: 'primary',
-                    string: '25 Spring Street, Blackburn, VIC 3130',
-                    name: 'HQ US',
-                    line1: 'Main street',
-                    line2: 'apt #',
-                    city: 'San Francisco',
-                    state: 'CA',
-                    postal_code: '94104',
-                    country: 'US',
-                    latitude: '40.759211',
-                    longitude: '-73.984638'
-                  }
-                ],
-                social_links: [
-                  {
-                    id: '12345',
-                    url: 'https://www.twitter.com/apideck-io',
-                    type: 'twitter'
-                  }
-                ],
-                phone_numbers: [
-                  {
-                    id: '12345',
-                    number: '111-111-1111',
-                    type: 'primary'
-                  }
-                ],
-                emails: [
-                  {
-                    id: '123',
-                    email: 'elon@musk.com',
-                    type: 'primary'
-                  }
-                ],
-                custom_fields: [
-                  {
-                    id: 'custom_technologies',
-                    value: 'Uses Salesforce and Marketo'
-                  }
-                ],
-                tags: ['New']
-              }
-            }
-
-            try {
-              const { data } = await apideck.crm.leadsAdd(params)
-              console.log('API called successfully', data)
-            } catch (error) {
-              console.error(error)
-            }
-  '/crm/leads/{id}':
-    get:
-      operationId: leadsOne
-      summary: Get lead
-      description: Get lead
-      parameters:
-        - $ref: '#/components/parameters/id'
-        - $ref: '#/components/parameters/consumerId'
-        - $ref: '#/components/parameters/applicationId'
-        - $ref: '#/components/parameters/serviceId'
-        - $ref: '#/components/parameters/raw'
-      responses:
-        '200':
-          $ref: '#/components/responses/GetLead'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/PaymentRequired'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
-        default:
-          $ref: '#/components/responses/UnexpectedError'
-      security:
-        - apiKey: []
-      tags:
-        - Leads
-      x-apideck-api: crm
-      x-codeSamples:
-        - lang: TypeScript
-          label: Node
-          source: |
-            import { Apideck } from '@apideck/node'
-
-            const apideck = new Apideck({
-              apiKey: 'REPLACE_WITH_API_KEY',
-              appId: 'REPLACE_WITH_APP_ID',
-              consumerId: 'REPLACE_WITH_CONSUMER_ID'
-            })
-
-            try {
-              const { data } = await apideck.crm.leadsOne({
-                id: 'id_example'
-              })
-              console.log('API called successfully', data)
-            } catch (error) {
-              console.error(error)
-            }
-    patch:
-      operationId: leadsUpdate
-      summary: Update lead
-      description: Update lead
-      parameters:
-        - $ref: '#/components/parameters/id'
-        - $ref: '#/components/parameters/consumerId'
-        - $ref: '#/components/parameters/applicationId'
-        - $ref: '#/components/parameters/serviceId'
-        - $ref: '#/components/parameters/raw'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Lead'
-        required: true
-      responses:
-        '200':
-          $ref: '#/components/responses/UpdateLead'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/PaymentRequired'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
-        default:
-          $ref: '#/components/responses/UnexpectedError'
-      security:
-        - apiKey: []
-      tags:
-        - Leads
-      x-apideck-api: crm
-      x-codeSamples:
-        - lang: TypeScript
-          label: Node
-          source: |
-            import { Apideck } from '@apideck/node'
-
-            const apideck = new Apideck({
-              apiKey: 'REPLACE_WITH_API_KEY',
-              appId: 'REPLACE_WITH_APP_ID',
-              consumerId: 'REPLACE_WITH_CONSUMER_ID'
-            })
-
-            const params = {
-              id: 'id_example',
-              lead: {
-                name: 'Elon Musk',
-                company_name: 'Spacex',
-                owner_id: '54321',
-                company_id: '2',
-                contact_id: '2',
-                lead_source: 'Cold Call',
-                first_name: 'Elon',
-                last_name: 'Musk',
-                description: 'A thinker',
-                prefix: 'Sir',
-                title: 'CEO',
-                language: 'EN',
-                status: 'New',
-                monetary_amount: 75000,
-                currency: 'USD',
-                fax: '+12129876543',
-                websites: [
-                  {
-                    id: '12345',
-                    url: 'http://example.com',
-                    type: 'primary'
-                  }
-                ],
-                addresses: [
-                  {
-                    id: '123',
-                    type: 'primary',
-                    string: '25 Spring Street, Blackburn, VIC 3130',
-                    name: 'HQ US',
-                    line1: 'Main street',
-                    line2: 'apt #',
-                    city: 'San Francisco',
-                    state: 'CA',
-                    postal_code: '94104',
-                    country: 'US',
-                    latitude: '40.759211',
-                    longitude: '-73.984638'
-                  }
-                ],
-                social_links: [
-                  {
-                    id: '12345',
-                    url: 'https://www.twitter.com/apideck-io',
-                    type: 'twitter'
-                  }
-                ],
-                phone_numbers: [
-                  {
-                    id: '12345',
-                    number: '111-111-1111',
-                    type: 'primary'
-                  }
-                ],
-                emails: [
-                  {
-                    id: '123',
-                    email: 'elon@musk.com',
-                    type: 'primary'
-                  }
-                ],
-                custom_fields: [
-                  {
-                    id: 'custom_technologies',
-                    value: 'Uses Salesforce and Marketo'
-                  }
-                ],
-                tags: ['New']
-              }
-            }
-
-            try {
-              const { data } = await apideck.crm.leadsUpdate(params)
-              console.log('API called successfully', data)
-            } catch (error) {
-              console.error(error)
-            }
-    delete:
-      operationId: leadsDelete
-      summary: Delete lead
-      description: Delete lead
-      parameters:
-        - $ref: '#/components/parameters/id'
-        - $ref: '#/components/parameters/consumerId'
-        - $ref: '#/components/parameters/applicationId'
-        - $ref: '#/components/parameters/serviceId'
-        - $ref: '#/components/parameters/raw'
-      responses:
-        '200':
-          $ref: '#/components/responses/DeleteLead'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '402':
-          $ref: '#/components/responses/PaymentRequired'
-        '404':
-          $ref: '#/components/responses/NotFound'
-        '422':
-          $ref: '#/components/responses/Unprocessable'
-        default:
-          $ref: '#/components/responses/UnexpectedError'
-      security:
-        - apiKey: []
-      tags:
-        - Leads
-      x-apideck-api: crm
-      x-codeSamples:
-        - lang: TypeScript
-          label: Node
-          source: |
-            import { Apideck } from '@apideck/node'
-
-            const apideck = new Apideck({
-              apiKey: 'REPLACE_WITH_API_KEY',
-              appId: 'REPLACE_WITH_APP_ID',
-              consumerId: 'REPLACE_WITH_CONSUMER_ID'
-            })
-
-            try {
-              const { data } = await apideck.crm.leadsDelete({
-                id: 'id_example'
-              })
-              console.log('API called successfully', data)
-            } catch (error) {
-              console.error(error)
-            }
+security:
+  - apiKey: []
+    applicationId: []
+    consumerId: []
+tags:
+  - name: Leads
+    description: ''
+    x-apideck-model:
+      $ref: '#/components/schemas/Lead'
 components:
-  parameters:
-    applicationId:
-      name: x-apideck-app-id
-      in: header
-      required: true
-      description: The ID of your Unify application
-      schema:
-        type: string
-    companiesFilter:
-      name: filter
-      in: query
-      description: Apply filters (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/CompaniesFilter'
-    companiesSort:
-      name: sort
-      in: query
-      description: Apply sorting (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/CompaniesSort'
-    consumerId:
-      name: x-apideck-consumer-id
-      in: header
-      required: true
-      description: ID of the consumer which you want to get or push data from
-      schema:
-        type: string
-    contactsFilter:
-      name: filter
-      in: query
-      description: Apply filters (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/ContactsFilter'
-    contactsSort:
-      name: sort
-      in: query
-      description: Apply sorting (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/ContactsSort'
-    cursor:
-      name: cursor
-      in: query
-      description: Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
-      schema:
-        type: string
-        nullable: true
-    id:
-      in: path
-      name: id
-      schema:
-        type: string
-      required: true
-      description: ID of the record you are acting upon.
-    leadsFilter:
-      name: filter
-      in: query
-      description: Apply filters (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/LeadsFilter'
-    leadsSort:
-      name: sort
-      in: query
-      description: Apply sorting (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/LeadsSort'
-    limit:
-      name: limit
-      in: query
-      description: Number of records to return
-      schema:
-        type: integer
-        default: 20
-        maximum: 200
-        minimum: 1
-    opportunitiesFilter:
-      name: filter
-      in: query
-      description: Apply filters (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/OpportunitiesFilter'
-    opportunitiesSort:
-      name: sort
-      in: query
-      description: Apply sorting (beta)
-      style: deepObject
-      explode: true
-      schema:
-        $ref: '#/components/schemas/OpportunitiesSort'
-    raw:
-      name: raw
-      in: query
-      description: Include raw response. Mostly used for debugging purposes
-      schema:
-        type: boolean
-        default: true
-    serviceId:
-      name: x-apideck-service-id
-      in: header
-      description: 'Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.'
-      schema:
-        type: string
   schemas:
     Activity:
       type: object
+      additionalProperties: false
+      required:
+        - type
       properties:
         id:
           type: string
-          example: '12345'
           readOnly: true
+          example: '12345'
         activity_datetime:
           type: string
           example: '2021-05-01T12:00:00.000Z'
@@ -611,7 +104,6 @@ components:
           nullable: true
         type:
           type: string
-          example: meeting
           enum:
             - call
             - meeting
@@ -621,6 +113,7 @@ components:
             - send-letter
             - send-quote
             - other
+          example: meeting
           x-graphql-type-name: ActivityType
         title:
           type: string
@@ -662,10 +155,10 @@ components:
           example: false
         show_as:
           type: string
-          example: busy
           enum:
             - free
             - busy
+          example: busy
         activity_date:
           type: string
           example: '2021-05-01'
@@ -705,13 +198,13 @@ components:
         updated_by:
           type: string
           example: '12345'
-          nullable: true
           readOnly: true
+          nullable: true
         created_by:
           type: string
           example: '12345'
-          nullable: true
           readOnly: true
+          nullable: true
         updated_at:
           type: string
           example: '2020-09-30T07:43:32.000Z'
@@ -720,9 +213,6 @@ components:
           type: string
           example: '2020-09-30T07:43:32.000Z'
           readOnly: true
-      additionalProperties: false
-      required:
-        - type
     Address:
       type: object
       properties:
@@ -732,7 +222,7 @@ components:
           nullable: true
         type:
           type: string
-          example: primary
+          x-graphql-type-name: AddressType
           enum:
             - primary
             - secondary
@@ -741,45 +231,45 @@ components:
             - shipping
             - billing
             - other
-          x-graphql-type-name: AddressType
+          example: primary
         string:
           type: string
+          title: The address string. Some APIs don't provide structured address data.
           example: '25 Spring Street, Blackburn, VIC 3130'
           nullable: true
-          title: The address string. Some APIs don't provide structured address data.
         name:
           type: string
           example: HQ US
           nullable: true
         line1:
-          description: 'Line 1 of the address e.g. number, street, suite, apt #, etc.'
           type: string
           example: Main street
+          description: 'Line 1 of the address e.g. number, street, suite, apt #, etc.'
           nullable: true
         line2:
-          description: Line 2 of the address
           type: string
           example: 'apt #'
+          description: Line 2 of the address
           nullable: true
         city:
-          description: Name of city.
           type: string
           example: San Francisco
+          description: Name of city.
           nullable: true
         state:
-          description: Name of state
           type: string
           example: CA
+          description: Name of state
           nullable: true
         postal_code:
-          description: Zip code or equivalent.
           type: string
           example: '94104'
+          description: Zip code or equivalent.
           nullable: true
         country:
-          description: country code according to ISO 3166-1 alpha-2.
           type: string
           example: US
+          description: country code according to ISO 3166-1 alpha-2.
           nullable: true
         latitude:
           type: string
@@ -792,23 +282,22 @@ components:
     BadRequest:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 400
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Bad Request
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: RequestHeadersValidationError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Invalid Params
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           anyOf:
             - type: string
               example: Missing property foobar
@@ -816,9 +305,10 @@ components:
               example:
                 missing:
                   - foobar: required
+          description: Contains parameter or domain specific information related to the error and why it occured.
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#requestbodyvalidationerror'
     BankAccount:
       type: object
@@ -832,68 +322,71 @@ components:
           example: AUDSCHGGXXX
           nullable: true
         bsb_number:
-          description: A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
           type: string
+          title: BSB Number
+          description: A BSB is a 6 digit numeric code used for identifying the branch of an Australian or New Zealand bank or financial institution.
           example: 062-001
           nullable: true
-          title: BSB Number
         bank_code:
-          description: 'A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.'
           type: string
+          title: Bank Code
+          description: 'A bank code is a code assigned by a central bank, a bank supervisory body or a Bankers Association in a country to all its licensed member banks or financial institutions.'
           example: BNH
           nullable: true
-          title: Bank Code
         account_number:
-          description: 'A bank account number is a number that is tied to your bank account. If you have several bank accounts, such as personal, joint, business (and so on), each account will have a different account number.'
           type: string
+          title: Bank Account Number
+          description: 'A bank account number is a number that is tied to your bank account. If you have several bank accounts, such as personal, joint, business (and so on), each account will have a different account number.'
           example: '123456789'
           nullable: true
-          title: Bank Account Number
         account_name:
-          description: The name which you used in opening your bank account.
           type: string
+          title: Bank Account Name
+          description: The name which you used in opening your bank account.
           example: SPACEX LLC
           nullable: true
-          title: Bank Account Name
     CompaniesFilter:
       type: object
-      properties:
-        name:
-          description: Name of the company to filter on
-          type: string
-          example: SpaceX
+      x-graphql-type-name: CompaniesFilter
       example:
         name: SpaceX
+      properties:
+        name:
+          type: string
+          description: Name of the company to filter on
+          example: SpaceX
       additionalProperties: false
-      x-graphql-type-name: CompaniesFilter
     CompaniesSort:
       type: object
+      x-graphql-type-name: CompaniesSort
+      example:
+        by: created_at
+        direction: desc
       properties:
         by:
-          description: The field on which to sort the Companies
           type: string
-          example: created_at
+          x-graphql-type-name: CompaniesSortBy
+          description: The field on which to sort the Companies
           enum:
             - created_at
             - updated_at
             - name
-          x-graphql-type-name: CompaniesSortBy
+          example: created_at
         direction:
           $ref: '#/components/schemas/SortDirection'
-      example:
-        by: created_at
-        direction: desc
-      additionalProperties: false
       required:
         - by
-      x-graphql-type-name: CompaniesSort
+      additionalProperties: false
     Company:
       type: object
+      required:
+        - name
+      additionalProperties: false
       properties:
         id:
           type: string
-          example: '12345'
           readOnly: true
+          example: '12345'
         name:
           type: string
           example: SpaceX
@@ -901,8 +394,8 @@ components:
         interaction_count:
           type: integer
           example: 1
-          nullable: true
           readOnly: true
+          nullable: true
         owner_id:
           type: string
           example: '12345'
@@ -925,8 +418,8 @@ components:
           nullable: true
         status:
           type: string
-          example: Open
           minLength: 1
+          example: Open
           nullable: true
         fax:
           type: string
@@ -953,38 +446,38 @@ components:
           example: Public
           nullable: true
         sales_tax_number:
+          title: Sales tax number
           type: string
           example: 12456EN
           nullable: true
-          title: Sales tax number
         payee_number:
+          title: Payee number
           type: string
           example: 78932EN
           nullable: true
-          title: Payee number
         abn_or_tfn:
+          title: ABN or TFN
           description: 'An ABN is necessary for operating a business, while a TFN (Tax File Number) is required for any person working in Australia.'
           type: string
           example: 46 115 614 695
           nullable: true
-          title: ABN or TFN
         abn_branch:
+          title: ABN Branch
           description: An ABN Branch (also known as a GST Branch) is used if part of your business needs to account for GST separately from its parent entity.
           type: string
           example: '123'
           nullable: true
-          title: ABN Branch
         acn:
+          title: ACN
           description: 'The Australian Company Number (ACN) is a nine digit number with the last digit being a check digit calculated using a modified modulus 10 calculation. ASIC has adopted a convention of always printing and displaying the ACN in the format XXX XXX XXX; three blocks of three characters, each block separated by a blank.'
           type: string
           example: XXX XXX XXX
           nullable: true
-          title: ACN
         parent_id:
           description: Parent ID
           type: string
-          example: '22345'
           readOnly: true
+          example: '22345'
         bank_accounts:
           type: array
           items:
@@ -1017,15 +510,15 @@ components:
           $ref: '#/components/schemas/Tags'
         read_only:
           type: boolean
+          title: Read-only
           example: false
           nullable: true
-          title: Read-only
         last_activity_at:
           type: string
           format: date-time
           example: '2020-09-30T07:43:32.000Z'
-          nullable: true
           readOnly: true
+          nullable: true
         deleted:
           type: boolean
           example: false
@@ -1033,13 +526,13 @@ components:
         updated_by:
           type: string
           example: '12345'
-          nullable: true
           readOnly: true
+          nullable: true
         created_by:
           type: string
           example: '12345'
-          nullable: true
           readOnly: true
+          nullable: true
         updated_at:
           type: string
           format: date-time
@@ -1050,10 +543,15 @@ components:
           format: date-time
           example: '2020-09-30T07:43:32.000Z'
           readOnly: true
-      additionalProperties: false
+    Contact:
       required:
         - name
-    Contact:
+      x-pii:
+        - name
+        - first_name
+        - middle_name
+        - last_name
+        - email
       properties:
         id:
           type: string
@@ -1117,17 +615,17 @@ components:
           example: Engineering
           nullable: true
         language:
-          description: language code according to ISO 639-1. For the United States - EN
           type: string
           example: EN
+          description: language code according to ISO 639-1. For the United States - EN
           nullable: true
         gender:
           type: string
-          example: female
           enum:
             - male
             - female
             - unisex
+          example: female
           nullable: true
         birthday:
           type: string
@@ -1139,8 +637,8 @@ components:
           nullable: true
         lead_source:
           type: string
-          example: Cold Call
           minLength: 1
+          example: Cold Call
           nullable: true
         fax:
           type: string
@@ -1148,14 +646,14 @@ components:
           nullable: true
         description:
           type: string
+          title: Description
           example: Internal champion
           nullable: true
-          title: Description
         current_balance:
           type: number
+          title: Current Balance
           example: 10.5
           nullable: true
-          title: Current Balance
         status:
           type: string
           example: open
@@ -1194,20 +692,20 @@ components:
           type: string
           format: date-time
           example: '2020-09-30T07:43:32.000Z'
-          nullable: true
           readOnly: true
+          nullable: true
         first_email_at:
           type: string
           format: date-time
           example: '2020-09-30T07:43:32.000Z'
-          nullable: true
           readOnly: true
+          nullable: true
         last_activity_at:
           type: string
           format: date-time
           example: '2020-09-30T07:43:32.000Z'
-          nullable: true
           readOnly: true
+          nullable: true
         updated_at:
           type: string
           format: date-time
@@ -1219,46 +717,42 @@ components:
           example: '2017-08-12T20:43:21.291Z'
           readOnly: true
       additionalProperties: false
-      required:
-        - name
-      x-pii:
-        - name
-        - first_name
-        - middle_name
-        - last_name
-        - email
     ContactsFilter:
       type: object
-      properties:
-        name:
-          description: Name of the contact to filter on
-          type: string
-          example: Elon Musk
-        first_name:
-          description: First name of the contact to filter on
-          type: string
-          example: Elon
-        last_name:
-          description: Last name of the contact to filter on
-          type: string
-          example: Musk
-        email:
-          description: E-mail of the contact to filter on
-          type: string
-          example: elon@tesla.com
+      x-graphql-type-name: ContactsFilter
       example:
         first_name: Elon
         last_name: Musk
         email: elon@tesla.com
+      properties:
+        name:
+          type: string
+          description: Name of the contact to filter on
+          example: Elon Musk
+        first_name:
+          type: string
+          description: First name of the contact to filter on
+          example: Elon
+        last_name:
+          type: string
+          description: Last name of the contact to filter on
+          example: Musk
+        email:
+          type: string
+          description: E-mail of the contact to filter on
+          example: elon@tesla.com
       additionalProperties: false
-      x-graphql-type-name: ContactsFilter
     ContactsSort:
       type: object
+      x-graphql-type-name: ContactsSort
+      example:
+        by: created_at
+        direction: desc
       properties:
         by:
-          description: The field on which to sort the Contacts
           type: string
-          example: created_at
+          x-graphql-type-name: ContactsSortBy
+          description: The field on which to sort the Contacts
           enum:
             - created_at
             - updated_at
@@ -1266,73 +760,46 @@ components:
             - first_name
             - last_name
             - email
-          x-graphql-type-name: ContactsSortBy
+          example: created_at
         direction:
           $ref: '#/components/schemas/SortDirection'
-      example:
-        by: created_at
-        direction: desc
-      additionalProperties: false
       required:
         - by
-      x-graphql-type-name: ContactsSort
+      additionalProperties: false
     CreateActivityResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: activities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     CreateCompanyResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1340,31 +807,31 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     CreateContactResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1372,159 +839,159 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     CreateLeadResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     CreateNoteResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: notes
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     CreateOpportunityResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: opportunities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     CreatePipelineResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: pipelines
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     CreateUserResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: users
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1532,8 +999,34 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: users
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     CustomField:
       type: object
+      required:
+        - id
+      additionalProperties: false
       properties:
         id:
           type: string
@@ -1552,66 +1045,40 @@ components:
             - type: array
               items:
                 type: string
-      additionalProperties: false
-      required:
-        - id
     DeleteActivityResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: activities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     DeleteCompanyResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1619,31 +1086,31 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     DeleteContactResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1651,31 +1118,31 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     DeleteLeadResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1683,63 +1150,63 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     DeleteNoteResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: notes
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     DeleteOpportunityResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1747,63 +1214,63 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     DeletePipelineResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     DeleteUserResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: users
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -1811,7 +1278,32 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: users
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     Email:
+      required:
+        - email
       type: object
       properties:
         id:
@@ -1824,7 +1316,7 @@ components:
           minLength: 1
         type:
           type: string
-          example: primary
+          x-graphql-type-name: EmailType
           enum:
             - primary
             - secondary
@@ -1832,31 +1324,37 @@ components:
             - personal
             - billing
             - other
-          x-graphql-type-name: EmailType
-      required:
-        - email
+          example: primary
     GetActivitiesResponse:
+      x-graphql-type-name: ActivityList
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: activities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -1866,6 +1364,9 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetActivityResponse:
+      x-graphql-type-name: activity
+      type: object
       required:
         - status_code
         - status
@@ -1873,32 +1374,32 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: ActivityList
-    GetActivityResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: activities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Activity'
+    GetCompaniesResponse:
+      x-graphql-type-name: CompanyList
+      type: object
       required:
         - status_code
         - status
@@ -1906,29 +1407,26 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: activity
-    GetCompaniesResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -1938,6 +1436,9 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetCompanyResponse:
+      x-graphql-type-name: company
+      type: object
       required:
         - status_code
         - status
@@ -1945,32 +1446,31 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: CompanyList
-    GetCompanyResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Company'
+    GetContactResponse:
+      type: object
       required:
         - status_code
         - status
@@ -1978,32 +1478,32 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: company
-    GetContactResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Contact'
+    GetContactsResponse:
+      x-graphql-type-name: ContactList
+      type: object
       required:
         - status_code
         - status
@@ -2011,28 +1511,26 @@ components:
         - resource
         - operation
         - data
-    GetContactsResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -2042,6 +1540,8 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetLeadResponse:
+      type: object
       required:
         - status_code
         - status
@@ -2049,32 +1549,32 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: ContactList
-    GetLeadResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Lead'
+    GetLeadsResponse:
+      x-graphql-type-name: LeadList
+      type: object
       required:
         - status_code
         - status
@@ -2082,28 +1582,26 @@ components:
         - resource
         - operation
         - data
-    GetLeadsResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -2113,6 +1611,9 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetNoteResponse:
+      x-graphql-type-name: note
+      type: object
       required:
         - status_code
         - status
@@ -2120,32 +1621,32 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: LeadList
-    GetNoteResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: notes
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Note'
+    GetNotesResponse:
+      x-graphql-type-name: NoteList
+      type: object
       required:
         - status_code
         - status
@@ -2153,29 +1654,26 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: note
-    GetNotesResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: notes
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -2185,6 +1683,9 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetOpportunitiesResponse:
+      x-graphql-type-name: OpportunityList
+      type: object
       required:
         - status_code
         - status
@@ -2192,29 +1693,26 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: NoteList
-    GetOpportunitiesResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: opportunities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -2224,6 +1722,8 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetOpportunityResponse:
+      type: object
       required:
         - status_code
         - status
@@ -2231,32 +1731,31 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: OpportunityList
-    GetOpportunityResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: opportunities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Opportunity'
+    GetPipelineResponse:
+      type: object
       required:
         - status_code
         - status
@@ -2264,31 +1763,32 @@ components:
         - resource
         - operation
         - data
-    GetPipelineResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: pipelines
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/Pipeline'
+    GetPipelinesResponse:
+      x-graphql-type-name: PipelinesList
+      type: object
       required:
         - status_code
         - status
@@ -2296,28 +1796,26 @@ components:
         - resource
         - operation
         - data
-    GetPipelinesResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: pipelines
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -2327,6 +1825,8 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    GetUserResponse:
+      type: object
       required:
         - status_code
         - status
@@ -2334,32 +1834,32 @@ components:
         - resource
         - operation
         - data
-      x-graphql-type-name: PipelinesList
-    GetUserResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: companies
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/User'
+    GetUsersResponse:
+      x-graphql-type-name: UserList
+      type: object
       required:
         - status_code
         - status
@@ -2367,28 +1867,26 @@ components:
         - resource
         - operation
         - data
-    GetUsersResponse:
-      type: object
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: users
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           type: array
@@ -2398,15 +1896,16 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
-      x-graphql-type-name: UserList
     Lead:
+      required:
+        - name
+        - company_name
+      x-pii:
+        - name
+        - email
+        - first_name
+        - last_name
+      additionalProperties: false
       properties:
         id:
           type: string
@@ -2456,9 +1955,9 @@ components:
           example: CEO
           nullable: true
         language:
-          description: language code according to ISO 639-1. For the United States - EN
           type: string
           example: EN
+          description: language code according to ISO 639-1. For the United States - EN
           nullable: true
         status:
           type: string
@@ -2510,47 +2009,42 @@ components:
           type: string
           example: '2020-09-30T07:43:32.000Z'
           readOnly: true
-      additionalProperties: false
-      required:
-        - name
-        - company_name
-      x-pii:
-        - name
-        - email
-        - first_name
-        - last_name
     LeadsFilter:
       type: object
-      properties:
-        name:
-          description: Name of the lead to filter on
-          type: string
-          example: Elon Musk
-        first_name:
-          description: First name of the lead to filter on
-          type: string
-          example: Elon
-        last_name:
-          description: Last name of the lead to filter on
-          type: string
-          example: Musk
-        email:
-          description: E-mail of the lead to filter on
-          type: string
-          example: elon@tesla.com
+      x-graphql-type-name: LeadsFilter
       example:
         first_name: Elon
         last_name: Musk
         email: elon@tesla.com
+      properties:
+        name:
+          type: string
+          description: Name of the lead to filter on
+          example: Elon Musk
+        first_name:
+          type: string
+          description: First name of the lead to filter on
+          example: Elon
+        last_name:
+          type: string
+          description: Last name of the lead to filter on
+          example: Musk
+        email:
+          type: string
+          description: E-mail of the lead to filter on
+          example: elon@tesla.com
       additionalProperties: false
-      x-graphql-type-name: LeadsFilter
     LeadsSort:
       type: object
+      x-graphql-type-name: LeadsSort
+      example:
+        by: created_at
+        direction: desc
       properties:
         by:
-          description: The field on which to sort the Leads
           type: string
-          example: created_at
+          x-graphql-type-name: LeadsSortBy
+          description: The field on which to sort the Leads
           enum:
             - created_at
             - updated_at
@@ -2558,88 +2052,83 @@ components:
             - first_name
             - last_name
             - email
-          x-graphql-type-name: LeadsSortBy
+          example: created_at
         direction:
           $ref: '#/components/schemas/SortDirection'
-      example:
-        by: created_at
-        direction: desc
-      additionalProperties: false
       required:
         - by
-      x-graphql-type-name: LeadsSort
+      additionalProperties: false
     Links:
-      description: Links to navigate to previous or next pages through the API
       type: object
+      description: Links to navigate to previous or next pages through the API
       properties:
         previous:
-          description: Link to navigate to the previous page through the API
           type: string
+          description: Link to navigate to the previous page through the API
           example: 'https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D'
           nullable: true
         current:
-          description: Link to navigate to the current page through the API
           type: string
+          description: Link to navigate to the current page through the API
           example: 'https://unify.apideck.com/crm/companies'
         next:
-          description: Link to navigate to the previous page through the API
           type: string
+          description: Link to navigate to the previous page through the API
           example: 'https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM'
           nullable: true
     Meta:
-      description: Reponse metadata
       type: object
+      description: Reponse metadata
       properties:
         items_on_page:
-          description: Number of items returned in the data property of the response
           type: integer
+          description: Number of items returned in the data property of the response
           example: 50
         cursors:
-          description: Cursors to navigate to previous or next pages through the API
           type: object
+          description: Cursors to navigate to previous or next pages through the API
           properties:
             previous:
-              description: Cursor to navigate to the previous page of results through the API
               type: string
+              description: Cursor to navigate to the previous page of results through the API
               example: em9oby1jcm06OnBhZ2U6OjE=
               nullable: true
             current:
-              description: Cursor to navigate to the current page of results through the API
               type: string
+              description: Cursor to navigate to the current page of results through the API
               example: em9oby1jcm06OnBhZ2U6OjI=
               nullable: true
             next:
-              description: Cursor to navigate to the next page of results through the API
               type: string
+              description: Cursor to navigate to the next page of results through the API
               example: em9oby1jcm06OnBhZ2U6OjM=
               nullable: true
     SortDirection:
-      description: The direction in which to sort the results
       type: string
-      default: asc
+      description: The direction in which to sort the results
       enum:
         - asc
         - desc
+      default: asc
     NotFoundResponse:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 404
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Not Found
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: EntityNotFoundError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Unknown Widget
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           anyOf:
             - type: string
               example: 'Could not find widget with id: ''123'''
@@ -2648,51 +2137,53 @@ components:
                 not_found:
                   entity: widget
                   id: '123'
+          description: Contains parameter or domain specific information related to the error and why it occured.
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#entitynotfounderror'
     NotImplemented:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 501
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Not Implemented
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: MappingError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Unmapped Attribute
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           anyOf:
             - type: string
               example: Failed to retrieve Widget tokenUrl from 'components.securitySchemes.oauth2.flows'
             - type: object
+          description: Contains parameter or domain specific information related to the error and why it occured.
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#mappingerror'
     Note:
       type: object
+      additionalProperties: false
       properties:
         id:
           type: string
-          example: '12345'
           readOnly: true
+          example: '12345'
         title:
           type: string
           example: Meeting Notes
         content:
-          example: Office hours are 9AM-6PM
           type: string
+          example: Office hours are 9AM-6PM
         owner_id:
           type: string
           example: '12345'
@@ -2719,13 +2210,13 @@ components:
         updated_by:
           type: string
           example: '12345'
-          nullable: true
           readOnly: true
+          nullable: true
         created_by:
           type: string
           example: '12345'
-          nullable: true
           readOnly: true
+          nullable: true
         updated_at:
           type: string
           example: '2020-09-30T07:43:32.000Z'
@@ -2734,38 +2225,41 @@ components:
           type: string
           example: '2020-09-30T07:43:32.000Z'
           readOnly: true
-      additionalProperties: false
     OpportunitiesFilter:
       type: object
-      properties:
-        title:
-          description: Title of the opportunity to filter on
-          type: string
-          example: Tesla deal
-        status:
-          description: Status to filter on
-          type: string
-          example: Completed
-        monetary_amount:
-          description: Monetary amount to filter on
-          type: number
-          example: 75000
-        win_probability:
-          description: Win probability to filter on
-          type: number
-          example: 50
+      x-graphql-type-name: OpportunitiesFilter
       example:
         status: Completed
         monetary_amount: 75000
+      properties:
+        title:
+          type: string
+          description: Title of the opportunity to filter on
+          example: Tesla deal
+        status:
+          type: string
+          description: Status to filter on
+          example: Completed
+        monetary_amount:
+          type: number
+          description: Monetary amount to filter on
+          example: 75000
+        win_probability:
+          type: number
+          description: Win probability to filter on
+          example: 50
       additionalProperties: false
-      x-graphql-type-name: OpportunitiesFilter
     OpportunitiesSort:
       type: object
+      x-graphql-type-name: OpportunitiesSort
+      example:
+        by: created_at
+        direction: desc
       properties:
         by:
-          description: The field on which to sort the Opportunities
           type: string
-          example: created_at
+          x-graphql-type-name: OpportunitiesSortBy
+          description: The field on which to sort the Opportunities
           enum:
             - created_at
             - updated_at
@@ -2773,18 +2267,18 @@ components:
             - win_probability
             - monetary_amount
             - status
-          x-graphql-type-name: OpportunitiesSortBy
+          example: created_at
         direction:
           $ref: '#/components/schemas/SortDirection'
-      example:
-        by: created_at
-        direction: desc
-      additionalProperties: false
       required:
         - by
-      x-graphql-type-name: OpportunitiesSort
+      additionalProperties: false
     Opportunity:
       type: object
+      required:
+        - title
+        - primary_contact_id
+      additionalProperties: false
       properties:
         id:
           type: string
@@ -2800,13 +2294,13 @@ components:
           nullable: true
         description:
           type: string
-          example: Opportunities are created for People and Companies that are interested in buying your products or services. Create Opportunities for People and Companies to move them through one of your Pipelines.
           minLength: 1
+          example: Opportunities are created for People and Companies that are interested in buying your products or services. Create Opportunities for People and Companies to move them through one of your Pipelines.
           nullable: true
         type:
           type: string
-          example: Existing Customer - Upgrade
           minLength: 1
+          example: Existing Customer - Upgrade
           nullable: true
         monetary_amount:
           type: number
@@ -2828,8 +2322,8 @@ components:
           readOnly: true
         close_date:
           type: string
-          format: date
           example: '2020-10-30'
+          format: date
           nullable: true
         loss_reason_id:
           type: string
@@ -2886,13 +2380,13 @@ components:
           nullable: true
         priority:
           type: string
-          example: None
           minLength: 1
+          example: None
           nullable: true
         status:
           type: string
-          example: Open
           minLength: 1
+          example: Open
           nullable: true
         status_id:
           type: string
@@ -2903,42 +2397,42 @@ components:
         interaction_count:
           type: number
           example: 0
-          nullable: true
           readOnly: true
+          nullable: true
         custom_fields:
           type: array
           items:
             $ref: '#/components/schemas/CustomField'
         stage_last_changed_at:
           type: string
-          format: date-time
           example: '2020-09-30T07:43:32.000Z'
+          format: date-time
           nullable: true
         last_activity_at:
           type: string
           example: '2020-09-30T07:43:32.000Z'
-          nullable: true
           readOnly: true
+          nullable: true
         deleted:
           type: boolean
           example: false
           readOnly: true
         date_stage_changed:
           type: string
-          format: date-time
           example: '2020-09-30T00:00:00.000Z'
+          format: date-time
           nullable: true
           readOnly: true
         date_last_contacted:
           type: string
-          format: date-time
           example: '2020-09-30T00:00:00.000Z'
+          format: date-time
           nullable: true
           readOnly: true
         date_lead_created:
           type: string
-          format: date-time
           example: '2020-09-30T00:00:00.000Z'
+          format: date-time
           nullable: true
           readOnly: true
         updated_by:
@@ -2953,45 +2447,43 @@ components:
           readOnly: true
         updated_at:
           type: string
-          format: date-time
           example: '2020-09-30T07:43:32.000Z'
+          format: date-time
           readOnly: true
         created_at:
           type: string
-          format: date-time
           example: '2020-09-30T07:43:32.000Z'
+          format: date-time
           readOnly: true
-      additionalProperties: false
-      required:
-        - title
-        - primary_contact_id
     PaymentRequired:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 402
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Payment Required
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: RequestLimitError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Request Limit Reached
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
           example: You have reached your limit of 2000
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#requestlimiterror'
     PhoneNumber:
+      required:
+        - number
       type: object
       properties:
         id:
@@ -3004,7 +2496,7 @@ components:
           minLength: 1
         type:
           type: string
-          example: primary
+          x-graphql-type-name: PhoneType
           enum:
             - primary
             - secondary
@@ -3014,10 +2506,11 @@ components:
             - assistant
             - fax
             - other
-          x-graphql-type-name: PhoneType
-      required:
-        - number
+          example: primary
     Pipeline:
+      required:
+        - name
+      x-pii: []
       properties:
         id:
           type: string
@@ -3062,10 +2555,9 @@ components:
           example: '2017-08-12T20:43:21.291Z'
           readOnly: true
       additionalProperties: false
-      required:
-        - name
-      x-pii: []
     SocialLink:
+      required:
+        - url
       type: object
       properties:
         id:
@@ -3080,8 +2572,6 @@ components:
           type: string
           example: twitter
           nullable: true
-      required:
-        - url
     Tags:
       type: array
       items:
@@ -3089,6 +2579,13 @@ components:
       example:
         - New
     User:
+      required:
+        - email
+      x-pii:
+        - username
+        - first_name
+        - last_name
+        - email
       properties:
         id:
           type: string
@@ -3139,59 +2636,51 @@ components:
           type: string
           example: '2017-08-12T20:43:21.291Z'
           readOnly: true
-      required:
-        - email
-      x-pii:
-        - username
-        - first_name
-        - last_name
-        - email
     Unauthorized:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 401
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Unauthorized
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: UnauthorizedError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Unauthorized Request
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
           example: Failed to generate valid JWT Session. Verify applicationId is correct
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#unauthorizederror'
     UnexpectedError:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 400
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Bad Request
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: RequestHeadersValidationError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Invalid Params
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           anyOf:
             - type: string
               example: 'Missing Header: x-apideck-consumer-id'
@@ -3199,102 +2688,80 @@ components:
               example:
                 missing:
                   - x-apideck-consumer-id: required
+          description: Contains parameter or domain specific information related to the error and why it occured.
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#unauthorizederror'
     UnifiedId:
+      title: UnifiedId
+      required:
+        - id
       properties:
         id:
           type: string
-          example: '12345'
           readOnly: true
-      required:
-        - id
-      title: UnifiedId
+          example: '12345'
     Unprocessable:
       properties:
         status_code:
-          description: HTTP status code
           type: number
+          description: HTTP status code
           example: 422
         error:
-          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           type: string
+          description: Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)
           example: Unprocessable Entity
         type_name:
-          description: The type of error returned
           type: string
+          description: The type of error returned
           example: InvalidStateError
         message:
-          description: A human-readable message providing more details about the error.
           type: string
+          description: A human-readable message providing more details about the error.
           example: Invalid State
         detail:
-          description: Contains parameter or domain specific information related to the error and why it occured.
           type: string
+          description: Contains parameter or domain specific information related to the error and why it occured.
           example: State did not include unified_api
         ref:
-          description: Link to documentation of error type
           type: string
+          description: Link to documentation of error type
           example: 'https://developers.apideck.com/errors#invalidstateerror'
     UpdateActivityResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: activities
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     UpdateCompanyResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -3302,31 +2769,31 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     UpdateContactResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -3334,31 +2801,31 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     UpdateLeadResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -3366,63 +2833,63 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     UpdateNoteResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: notes
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     UpdateOpportunityResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -3430,63 +2897,63 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     UpdatePipelineResponse:
       type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
       properties:
         status_code:
-          description: HTTP Response Status Code
           type: integer
+          description: HTTP Response Status Code
           example: 200
         status:
-          description: HTTP Response Status
           type: string
+          description: HTTP Response Status
           example: OK
         service:
-          description: Apideck ID of service provider
           type: string
+          description: Apideck ID of service provider
           example: zoho-crm
         resource:
-          description: Unified API resource name
           type: string
+          description: Unified API resource name
           example: pipelines
         operation:
-          description: Operation performed
           type: string
+          description: Operation performed
           example: one
         data:
           $ref: '#/components/schemas/UnifiedId'
-      required:
-        - status_code
-        - status
-        - service
-        - resource
-        - operation
-        - data
     UpdateUserResponse:
       type: object
-      properties:
-        status_code:
-          description: HTTP Response Status Code
-          type: integer
-          example: 200
-        status:
-          description: HTTP Response Status
-          type: string
-          example: OK
-        service:
-          description: Apideck ID of service provider
-          type: string
-          example: zoho-crm
-        resource:
-          description: Unified API resource name
-          type: string
-          example: companies
-        operation:
-          description: Operation performed
-          type: string
-          example: one
-        data:
-          $ref: '#/components/schemas/UnifiedId'
       required:
         - status_code
         - status
@@ -3494,8 +2961,33 @@ components:
         - resource
         - operation
         - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
     Website:
       type: object
+      required:
+        - url
       properties:
         id:
           type: string
@@ -3507,16 +2999,133 @@ components:
           minLength: 1
         type:
           type: string
-          example: primary
+          x-graphql-type-name: WebsiteType
           enum:
             - primary
             - secondary
             - work
             - personal
             - other
-          x-graphql-type-name: WebsiteType
-      required:
-        - url
+          example: primary
+  parameters:
+    applicationId:
+      name: x-apideck-app-id
+      in: header
+      required: true
+      description: The ID of your Unify application
+      schema:
+        type: string
+        default: '12345'
+    serviceId:
+      name: x-apideck-service-id
+      in: header
+      description: 'Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.'
+      schema:
+        type: string
+        default: pipedrive
+    consumerId:
+      name: x-apideck-consumer-id
+      in: header
+      required: true
+      description: ID of the consumer which you want to get or push data from
+      schema:
+        type: string
+        default: test-consumer
+    raw:
+      name: raw
+      in: query
+      description: Include raw response. Mostly used for debugging purposes
+      schema:
+        type: boolean
+        default: true
+    id:
+      in: path
+      name: id
+      schema:
+        type: string
+      required: true
+      description: ID of the record you are acting upon.
+    limit:
+      name: limit
+      in: query
+      description: Number of records to return
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 20
+    cursor:
+      name: cursor
+      in: query
+      description: Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.
+      schema:
+        type: string
+        nullable: true
+        default: abcdefg1234567
+    contactsFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/ContactsFilter'
+    contactsSort:
+      name: sort
+      in: query
+      description: Apply sorting (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/ContactsSort'
+    opportunitiesFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/OpportunitiesFilter'
+    opportunitiesSort:
+      name: sort
+      in: query
+      description: Apply sorting (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/OpportunitiesSort'
+    companiesFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/CompaniesFilter'
+    companiesSort:
+      name: sort
+      in: query
+      description: Apply sorting (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/CompaniesSort'
+    leadsFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/LeadsFilter'
+    leadsSort:
+      name: sort
+      in: query
+      description: Apply sorting (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/LeadsSort'
   responses:
     BadRequest:
       description: Bad Request
@@ -3832,15 +3441,410 @@ components:
       in: header
       name: x-apideck-consumer-id
       description: The ID of the consumer which you want to get or push data from
-tags:
-  - name: Leads
-    description: ''
-    x-apideck-model:
-      $ref: '#/components/schemas/Lead'
-externalDocs:
-  description: Apideck Developer Docs
-  url: 'https://developers.apideck.com'
-security:
-  - apiKey: []
-    applicationId: []
-    consumerId: []
+paths:
+  /crm/leads:
+    get:
+      tags:
+        - Leads
+      x-graphql-field-name: leads
+      operationId: leadsAll
+      summary: List leads
+      description: List leads
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/leadsFilter'
+        - $ref: '#/components/parameters/leadsSort'
+      security:
+        - apiKey: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetLeads'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+      x-apideck-api: crm
+      x-codeSamples:
+        - lang: TypeScript
+          label: Node
+          source: |
+            import { Apideck } from '@apideck/node'
+
+            const apideck = new Apideck({
+              apiKey: 'REPLACE_WITH_API_KEY',
+              appId: 'REPLACE_WITH_APP_ID',
+              consumerId: 'REPLACE_WITH_CONSUMER_ID'
+            })
+
+            try {
+              const { data } = await apideck.crm.leadsAll({})
+              console.log('API called successfully', data)
+            } catch (error) {
+              console.error(error)
+            }
+    post:
+      tags:
+        - Leads
+      operationId: leadsAdd
+      summary: Create lead
+      description: Create lead
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+      x-apideck-api: crm
+      x-codeSamples:
+        - lang: TypeScript
+          label: Node
+          source: |
+            import { Apideck } from '@apideck/node'
+
+            const apideck = new Apideck({
+              apiKey: 'REPLACE_WITH_API_KEY',
+              appId: 'REPLACE_WITH_APP_ID',
+              consumerId: 'REPLACE_WITH_CONSUMER_ID'
+            })
+
+            const params = {
+              lead: {
+                name: 'Elon Musk',
+                company_name: 'Spacex',
+                owner_id: '54321',
+                company_id: '2',
+                contact_id: '2',
+                lead_source: 'Cold Call',
+                first_name: 'Elon',
+                last_name: 'Musk',
+                description: 'A thinker',
+                prefix: 'Sir',
+                title: 'CEO',
+                language: 'EN',
+                status: 'New',
+                monetary_amount: 75000,
+                currency: 'USD',
+                fax: '+12129876543',
+                websites: [
+                  {
+                    id: '12345',
+                    url: 'http://example.com',
+                    type: 'primary'
+                  }
+                ],
+                addresses: [
+                  {
+                    id: '123',
+                    type: 'primary',
+                    string: '25 Spring Street, Blackburn, VIC 3130',
+                    name: 'HQ US',
+                    line1: 'Main street',
+                    line2: 'apt #',
+                    city: 'San Francisco',
+                    state: 'CA',
+                    postal_code: '94104',
+                    country: 'US',
+                    latitude: '40.759211',
+                    longitude: '-73.984638'
+                  }
+                ],
+                social_links: [
+                  {
+                    id: '12345',
+                    url: 'https://www.twitter.com/apideck-io',
+                    type: 'twitter'
+                  }
+                ],
+                phone_numbers: [
+                  {
+                    id: '12345',
+                    number: '111-111-1111',
+                    type: 'primary'
+                  }
+                ],
+                emails: [
+                  {
+                    id: '123',
+                    email: 'elon@musk.com',
+                    type: 'primary'
+                  }
+                ],
+                custom_fields: [
+                  {
+                    id: 'custom_technologies',
+                    value: 'Uses Salesforce and Marketo'
+                  }
+                ],
+                tags: ['New']
+              }
+            }
+
+            try {
+              const { data } = await apideck.crm.leadsAdd(params)
+              console.log('API called successfully', data)
+            } catch (error) {
+              console.error(error)
+            }
+  '/crm/leads/{id}':
+    get:
+      tags:
+        - Leads
+      operationId: leadsOne
+      summary: Get lead
+      description: Get lead
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: []
+      responses:
+        '200':
+          $ref: '#/components/responses/GetLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+      x-apideck-api: crm
+      x-codeSamples:
+        - lang: TypeScript
+          label: Node
+          source: |
+            import { Apideck } from '@apideck/node'
+
+            const apideck = new Apideck({
+              apiKey: 'REPLACE_WITH_API_KEY',
+              appId: 'REPLACE_WITH_APP_ID',
+              consumerId: 'REPLACE_WITH_CONSUMER_ID'
+            })
+
+            try {
+              const { data } = await apideck.crm.leadsOne({
+                id: 'id_example'
+              })
+              console.log('API called successfully', data)
+            } catch (error) {
+              console.error(error)
+            }
+    patch:
+      tags:
+        - Leads
+      operationId: leadsUpdate
+      summary: Update lead
+      description: Update lead
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Lead'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+      x-apideck-api: crm
+      x-codeSamples:
+        - lang: TypeScript
+          label: Node
+          source: |
+            import { Apideck } from '@apideck/node'
+
+            const apideck = new Apideck({
+              apiKey: 'REPLACE_WITH_API_KEY',
+              appId: 'REPLACE_WITH_APP_ID',
+              consumerId: 'REPLACE_WITH_CONSUMER_ID'
+            })
+
+            const params = {
+              id: 'id_example',
+              lead: {
+                name: 'Elon Musk',
+                company_name: 'Spacex',
+                owner_id: '54321',
+                company_id: '2',
+                contact_id: '2',
+                lead_source: 'Cold Call',
+                first_name: 'Elon',
+                last_name: 'Musk',
+                description: 'A thinker',
+                prefix: 'Sir',
+                title: 'CEO',
+                language: 'EN',
+                status: 'New',
+                monetary_amount: 75000,
+                currency: 'USD',
+                fax: '+12129876543',
+                websites: [
+                  {
+                    id: '12345',
+                    url: 'http://example.com',
+                    type: 'primary'
+                  }
+                ],
+                addresses: [
+                  {
+                    id: '123',
+                    type: 'primary',
+                    string: '25 Spring Street, Blackburn, VIC 3130',
+                    name: 'HQ US',
+                    line1: 'Main street',
+                    line2: 'apt #',
+                    city: 'San Francisco',
+                    state: 'CA',
+                    postal_code: '94104',
+                    country: 'US',
+                    latitude: '40.759211',
+                    longitude: '-73.984638'
+                  }
+                ],
+                social_links: [
+                  {
+                    id: '12345',
+                    url: 'https://www.twitter.com/apideck-io',
+                    type: 'twitter'
+                  }
+                ],
+                phone_numbers: [
+                  {
+                    id: '12345',
+                    number: '111-111-1111',
+                    type: 'primary'
+                  }
+                ],
+                emails: [
+                  {
+                    id: '123',
+                    email: 'elon@musk.com',
+                    type: 'primary'
+                  }
+                ],
+                custom_fields: [
+                  {
+                    id: 'custom_technologies',
+                    value: 'Uses Salesforce and Marketo'
+                  }
+                ],
+                tags: ['New']
+              }
+            }
+
+            try {
+              const { data } = await apideck.crm.leadsUpdate(params)
+              console.log('API called successfully', data)
+            } catch (error) {
+              console.error(error)
+            }
+    delete:
+      tags:
+        - Leads
+      operationId: leadsDelete
+      summary: Delete lead
+      description: Delete lead
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: []
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteLead'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+      x-apideck-api: crm
+      x-codeSamples:
+        - lang: TypeScript
+          label: Node
+          source: |
+            import { Apideck } from '@apideck/node'
+
+            const apideck = new Apideck({
+              apiKey: 'REPLACE_WITH_API_KEY',
+              appId: 'REPLACE_WITH_APP_ID',
+              consumerId: 'REPLACE_WITH_CONSUMER_ID'
+            })
+
+            try {
+              const { data } = await apideck.crm.leadsDelete({
+                id: 'id_example'
+              })
+              console.log('API called successfully', data)
+            } catch (error) {
+              console.error(error)
+            }

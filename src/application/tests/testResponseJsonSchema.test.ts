@@ -447,7 +447,7 @@ describe('testResponseJsonSchema', () => {
       }
     }
     pmOperation = testResponseJsonSchema(
-      { additionalProperties: false } as ContractTestConfig,
+      { additionalProperties: false } as unknown as ContractTestConfig,
       schema,
       pmOperation,
       oasOperation
@@ -499,7 +499,7 @@ describe('testResponseJsonSchema', () => {
       }
     }
     pmOperation = testResponseJsonSchema(
-      { additionalProperties: true } as ContractTestConfig,
+      { additionalProperties: true } as unknown as ContractTestConfig,
       schema,
       pmOperation,
       oasOperation

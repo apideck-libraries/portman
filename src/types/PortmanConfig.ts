@@ -281,7 +281,7 @@ export const PortmanFuzzTypes = {
   requestHeader: 'requestHeader'
 } as const
 
-export type PortmanFuzzType = typeof PortmanFuzzTypes[keyof typeof PortmanFuzzTypes]
+export type PortmanFuzzType = (typeof PortmanFuzzTypes)[keyof typeof PortmanFuzzTypes]
 
 export type FuzzingSchemaItems = {
   fuzzType: PortmanFuzzType
