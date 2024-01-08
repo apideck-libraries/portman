@@ -252,9 +252,6 @@ export class Portman {
       // Create oaOutput file if it doesn't exist
       fs.outputFileSync(openApiSpecPath, '', 'utf8')
 
-      // await execShellCommand(
-      //   `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
-      // )
       const oasFormatter = new OpenApiFormatter()
       await oasFormatter.filter({
         inputFile: openApiSpec,
