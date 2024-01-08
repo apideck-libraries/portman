@@ -16,6 +16,38 @@ if (leadsAddheader !== undefined) {
 ]
 `;
 
+exports[`assignVarFromResponseHeader should generate a variable for the response header and convert the casing for the variable name 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companies_one_portman as variable for header 
+let companiesoneportman = pm.response.headers.get(\\"portman\\");
+if (companiesoneportman !== undefined) {
+   pm.collectionVariables.set(\\"companies_one_portman\\", companiesoneportman);
+   console.log(\\"- use {{companies_one_portman}} as collection variable for value\\", companiesoneportman);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header and not convert the casing for the variable name 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companiesOne.portman as variable for header 
+let companiesOneportman = pm.response.headers.get(\\"portman\\");
+if (companiesOneportman !== undefined) {
+   pm.collectionVariables.set(\\"companiesOne.portman\\", companiesOneportman);
+   console.log(\\"- use {{companiesOne.portman}} as collection variable for value\\", companiesOneportman);
+};
+",
+]
+`;
+
 exports[`assignVarFromResponseHeader should not show the log output for add postman collection var with name and response header value 1`] = `
 Array [
   "// Set response object as internal variable

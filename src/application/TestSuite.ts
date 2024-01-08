@@ -397,7 +397,8 @@ export class TestSuite {
           pmOperation,
           assignVarSetting,
           fixedValueCounter,
-          this.options
+          this.options,
+          this.config.globals
         ) as number
       })
     })

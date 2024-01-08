@@ -1,6 +1,7 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, PortmanOptions } from '../../types'
+import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
+import { changeCase } from 'openapi-format'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config
@@ -8,12 +9,14 @@ import { CollectionVariableConfig, PortmanOptions } from '../../types'
  * @param pmOperation
  * @param fixedValueCounter
  * @param options
+ * @param settings
  */
 export const assignVarFromValue = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
   fixedValueCounter: number | string,
-  options?: PortmanOptions
+  options?: PortmanOptions,
+  settings?: GlobalConfig
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if request body is not defined
@@ -27,7 +30,11 @@ export const assignVarFromValue = (
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = `-var-` + fixedValueCounter
-  const varName = varSetting.name ? varSetting.name : opsRef + '.' + varProp
+  const defaultVarName = `${opsRef}.${varProp}`
+  const casedVarName = settings?.variableCasing
+    ? changeCase(defaultVarName, settings.variableCasing)
+    : defaultVarName
+  const varName = varSetting.name || casedVarName
   const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
 
   pmVarAssign = [

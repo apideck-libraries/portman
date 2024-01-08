@@ -1,6 +1,7 @@
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromValue } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('assignVarFromValue', () => {
   let pmOperation: PostmanMappedOperation
@@ -66,6 +67,26 @@ describe('assignVarFromValue', () => {
       value: 'portman'
     }
     pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: false })
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and convert the casing for the variable name', async () => {
+    const varSetting = {
+      value: 'portman'
+    }
+    const settings = { variableCasing: 'snakeCase' } as GlobalConfig
+    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, {}, settings)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and not convert the casing for the variable name', async () => {
+    const varSetting = {
+      value: 'portman'
+    }
+    const settings = {} as GlobalConfig
+    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, {}, settings)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

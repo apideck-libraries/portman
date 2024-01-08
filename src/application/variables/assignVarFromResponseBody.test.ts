@@ -1,6 +1,7 @@
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromResponseBody } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('assignVarFromResponseBody', () => {
   let pmOperation: PostmanMappedOperation
@@ -75,6 +76,26 @@ describe('assignVarFromResponseBody', () => {
     }
 
     pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response body and convert the casing for the variable name', async () => {
+    const varSetting = {
+      responseBodyProp: 'data.id'
+    }
+    const global = { variableCasing: 'snakeCase' } as GlobalConfig
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, {}, global)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response body and not convert the casing for the variable name', async () => {
+    const varSetting = {
+      responseBodyProp: 'data.id'
+    }
+    const global = {} as GlobalConfig
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, {}, global)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

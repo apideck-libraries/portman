@@ -1,19 +1,22 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, PortmanOptions } from '../../types'
+import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
 import { renderBracketPath, renderChainPath } from '../../utils'
 import { camelCase } from 'camel-case'
+import { changeCase } from 'openapi-format'
 
 /**
  * Assign PM variables with values defined by the request body
  * @param varSetting
  * @param pmOperation
  * @param options
+ * @param settings
  */
 export const assignVarFromResponseBody = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
-  options?: PortmanOptions
+  options?: PortmanOptions,
+  settings?: GlobalConfig
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if response body is not defined
@@ -43,7 +46,11 @@ export const assignVarFromResponseBody = (
   const varSafeProp = renderBracketPath(prop)
   const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : root ? '' : `.${varSafeProp}`
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
-  const varName = varSetting.name ? varSetting.name : opsRef + nameProp
+  const defaultVarName = opsRef + nameProp
+  const casedVarName = settings?.variableCasing
+    ? changeCase(defaultVarName, settings.variableCasing)
+    : defaultVarName
+  const varName = varSetting.name || casedVarName
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
   const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
 

@@ -339,12 +339,31 @@
           },
           "type": "object"
         },
+        "separatorSymbol": {
+          "type": "string"
+        },
         "stripResponseExamples": {
           "type": "boolean"
         },
         "valueReplacements": {
           "additionalProperties": {},
           "type": "object"
+        },
+        "variableCasing": {
+          "enum": [
+            "camelCase",
+            "pascalCase",
+            "kebabCase",
+            "trainCase",
+            "snakeCase",
+            "adaCase",
+            "constantCase",
+            "cobolCase",
+            "dotNotation",
+            "lowerCase",
+            "upperCase"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
