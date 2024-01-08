@@ -36,6 +36,24 @@ console.log(\\"- use {{companiesOne.-var-1}} as collection variable for value\\"
 ]
 `;
 
+exports[`assignVarFromValue should generate a variable and convert the casing for the variable name 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for companies_one_var_1 variable 
+pm.collectionVariables.set(\\"companies_one_var_1\\", \\"portman\\");
+console.log(\\"- use {{companies_one_var_1}} as collection variable for value\\", \\"portman\\");
+",
+]
+`;
+
+exports[`assignVarFromValue should generate a variable and not convert the casing for the variable name 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for companiesOne.-var-1 variable 
+pm.collectionVariables.set(\\"companiesOne.-var-1\\", \\"portman\\");
+console.log(\\"- use {{companiesOne.-var-1}} as collection variable for value\\", \\"portman\\");
+",
+]
+`;
+
 exports[`assignVarFromValue should not show the log output for add postman collection var without name for string value 1`] = `
 Array [
   "// pm.collectionVariables - Set fixed value for companiesOne.-var-1 variable 

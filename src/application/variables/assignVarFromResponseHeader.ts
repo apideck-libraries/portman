@@ -1,17 +1,20 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, PortmanOptions } from '../../types'
+import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
+import { changeCase } from 'openapi-format'
 
 /**
  * Assign PM variables with values defined by the request body
  * @param varSetting
  * @param pmOperation
  * @param options
+ * @param settings
  */
 export const assignVarFromResponseHeader = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
-  options?: PortmanOptions
+  options?: PortmanOptions,
+  settings?: GlobalConfig
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if response header is not defined
@@ -37,7 +40,11 @@ export const assignVarFromResponseHeader = (
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = varSetting.responseHeaderProp
-  const varName = varSetting.name ? varSetting.name : opsRef + '.' + varProp
+  const defaultVarName = `${opsRef}.${varProp}`
+  const casedVarName = settings?.variableCasing
+    ? changeCase(defaultVarName, settings.variableCasing)
+    : defaultVarName
+  const varName = varSetting.name || casedVarName
 
   // Safe variable name
   const safeVarName = varName

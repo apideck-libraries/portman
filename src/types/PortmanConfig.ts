@@ -252,6 +252,19 @@ export type GlobalConfig = {
   portmanReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
   stripResponseExamples?: boolean
+  variableCasing?:
+    | 'camelCase'
+    | 'pascalCase'
+    | 'kebabCase'
+    | 'trainCase'
+    | 'snakeCase'
+    | 'adaCase'
+    | 'constantCase'
+    | 'cobolCase'
+    | 'dotNotation'
+    | 'lowerCase'
+    | 'upperCase'
+  separatorSymbol?: string | '::'
 }
 
 export interface TestSuiteOptions {

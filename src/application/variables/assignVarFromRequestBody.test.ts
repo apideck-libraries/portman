@@ -4,6 +4,7 @@ import {
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromRequestBody } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('assignVarFromRequestBody', () => {
   let pmOperation: PostmanMappedOperation
@@ -156,6 +157,26 @@ describe('assignVarFromRequestBody', () => {
       logAssignVariables: false
     })
     const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body and convert the casing for the variable name', async () => {
+    const varSetting = {
+      requestBodyProp: 'name'
+    }
+    const global = { variableCasing: 'snakeCase' } as GlobalConfig
+    pmOperation = assignVarFromRequestBody(varSetting, pmOperation, {}, global)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body and not convert the casing for the variable name', async () => {
+    const varSetting = {
+      requestBodyProp: 'name'
+    }
+    const global = {} as GlobalConfig
+    pmOperation = assignVarFromRequestBody(varSetting, pmOperation, {}, global)
+    const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 })
