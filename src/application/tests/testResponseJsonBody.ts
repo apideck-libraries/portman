@@ -7,7 +7,7 @@ export const testResponseJsonBody = (
   config?: GlobalConfig
 ): PostmanMappedOperation => {
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
   // Check - Response json body check
   const pmTest: string = [
     `// Validate if response has JSON Body \n`,

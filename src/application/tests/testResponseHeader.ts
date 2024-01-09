@@ -10,7 +10,7 @@ export const testResponseHeader = (
   config?: GlobalConfig
 ): PostmanMappedOperation => {
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
   // Check - Response header check
   const pmTest: string = [
     `// Validate if response header is present \n`,

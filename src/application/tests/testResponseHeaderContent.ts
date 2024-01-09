@@ -18,7 +18,7 @@ export const testResponseHeaderContent = (
     let pmTestAssert = ''
 
     // Separator
-    const split = config?.separatorSymbol || '::'
+    const split = config?.separatorSymbol ?? '::'
 
     if (check.hasOwnProperty('key')) {
       const negate = check.notExist === true ? 'not.have' : 'have'

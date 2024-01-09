@@ -14,7 +14,7 @@ export const testResponseStatusCode = (
   const { code } = statusCode
 
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
 
   // Check - Response time
   const pmTest: string = [
