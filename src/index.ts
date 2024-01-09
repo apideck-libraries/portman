@@ -7,7 +7,7 @@ import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
 import { promptInit } from './utils/promptInit'
-import { OpenApiFormatter } from 'oas'
+import { OpenApiFormatter } from './oas'
 
 require('dotenv').config()
 ;(async () => {

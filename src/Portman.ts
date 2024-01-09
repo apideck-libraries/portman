@@ -237,29 +237,23 @@ export class Portman {
       throw new Error(`${openApiSpec} doesn't exist. `)
     }
 
-    let filterFileExists = false
     if (filterFile) {
-      const filterFileCheck = await fs.pathExists(filterFile)
-      if (!filterFileCheck) {
+      try {
+        const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
+
+        // Create oaOutput file if it doesn't exist
+        fs.outputFileSync(openApiSpecPath, '', 'utf8')
+
+        const oasFormatter = new OpenApiFormatter()
+        await oasFormatter.filter({
+          inputFile: openApiSpec,
+          filterFile: filterFile,
+          outputFile: openApiSpecPath
+        })
+        openApiSpec = openApiSpecPath
+      } catch (err) {
         throw new Error(`Filter file error - ${filterFile} doesn't exist. `)
       }
-      filterFileExists = true
-    }
-
-    if (filterFile && filterFileExists) {
-      const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
-
-      // Create oaOutput file if it doesn't exist
-      fs.outputFileSync(openApiSpecPath, '', 'utf8')
-
-      const oasFormatter = new OpenApiFormatter()
-      await oasFormatter.filter({
-        inputFile: openApiSpec,
-        filterFile: filterFile,
-        outputFile: openApiSpecPath
-      })
-
-      openApiSpec = openApiSpecPath
     }
 
     const oasParser = new OpenApiParser()

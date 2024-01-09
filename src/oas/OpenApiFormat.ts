@@ -1,5 +1,4 @@
 import { OpenAPIV3 } from 'openapi-types'
-import path from 'path'
 import openapiFormat, { OpenAPIFilterOptions, OpenAPIFilterSet } from 'openapi-format'
 
 export interface IOpenApiFormatterConfig {
@@ -12,8 +11,8 @@ export class OpenApiFormatter {
   public oas: OpenAPIV3.Document
 
   async filter(options: IOpenApiFormatterConfig): Promise<OpenAPIV3.Document> {
-    const inputFilePath = path.resolve(options.inputFile)
-    const filterFilePath = path.resolve(options.filterFile)
+    const inputFilePath = options.inputFile
+    const filterFilePath = options.filterFile
     const filterOptions = {} as OpenAPIFilterOptions
 
     // Load OpenAPI file

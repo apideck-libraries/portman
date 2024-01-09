@@ -4,7 +4,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import { PortmanConfig } from '../types'
 import { parsePortmanConfig } from '../utils/PortmanConfig.parse'
-import { OpenApiFormatter } from 'oas'
+import { OpenApiFormatter } from '../oas'
 
 export const getConfig = async (
   configPath: string | undefined
