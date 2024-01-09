@@ -12,7 +12,7 @@ export const testResponseTime = (
   if (!responseTime?.maxMs) return pmOperation
 
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
 
   const { maxMs } = responseTime
 

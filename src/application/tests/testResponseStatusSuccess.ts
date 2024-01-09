@@ -7,7 +7,7 @@ export const testResponseStatusSuccess = (
   config?: GlobalConfig
 ): PostmanMappedOperation => {
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
 
   // Check - Success 2xx response checks
   const pmTest: string = [

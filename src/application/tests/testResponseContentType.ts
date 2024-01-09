@@ -10,7 +10,7 @@ export const testResponseContentType = (
   config?: GlobalConfig
 ): PostmanMappedOperation => {
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
   // Check - Response content-type check
   const pmTest: string = [
     `// Validate if response header has matching content-type\n`,

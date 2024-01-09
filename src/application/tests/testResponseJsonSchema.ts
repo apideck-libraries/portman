@@ -25,7 +25,7 @@ export const testResponseJsonSchema = (
   // deletes nullable and adds "null" to type array if nullable is true
   jsonSchema = convertUnsupportedJsonSchemaProperties(jsonSchema)
 
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
 
   const jsonSchemaString = JSON.stringify(jsonSchema)
   const containsRef = jsonSchemaString.includes('$ref')

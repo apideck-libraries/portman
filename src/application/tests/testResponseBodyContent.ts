@@ -23,7 +23,7 @@ export const testResponseBodyContent = (
     let pmTestAssert = ''
 
     // Separator
-    const split = config?.separatorSymbol || '::'
+    const split = config?.separatorSymbol ?? '::'
 
     const oaf = new OpenApiFormatter()
     let checkKey = check.key

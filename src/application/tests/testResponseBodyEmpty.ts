@@ -9,7 +9,7 @@ export const testResponseBodyEmpty = (
   config?: GlobalConfig
 ): PostmanMappedOperation => {
   // Separator
-  const split = config?.separatorSymbol || '::'
+  const split = config?.separatorSymbol ?? '::'
   // Check - Response empty body check
   const pmTest: string = [
     `// Validate if response has empty Body \n`,
