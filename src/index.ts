@@ -224,10 +224,10 @@ require('dotenv').config()
   const syncToPostman = options?.syncPostman || false
   const portmanConfigFile = options?.portmanConfigFile
   const portmanConfigPath =
-    options?.portmanConfigFile || __dirname + '/../portman-config.default.json'
+    options?.portmanConfigFile ?? __dirname + '/../portman-config.default.json'
   const postmanConfigFile = options?.postmanConfigFile
   const postmanConfigPath =
-    options?.postmanConfigFile || __dirname + '/../postman-config.default.json'
+    options?.postmanConfigFile ?? __dirname + '/../postman-config.default.json'
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
   const oaOutput = options.oaOutput || ''
