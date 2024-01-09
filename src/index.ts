@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires*/
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
-import fs from 'fs-extra'
 import { NewmanRunOptions } from 'newman'
 import path from 'path'
 import { PortmanOptions } from 'types'
-import yaml from 'yaml'
 import yargs from 'yargs'
 import { Portman } from './Portman'
 import { promptInit } from './utils/promptInit'
+import { OpenApiFormatter } from 'oas'
 
 require('dotenv').config()
 ;(async () => {
@@ -164,15 +163,14 @@ require('dotenv').config()
     process.exit()
   }
 
+  // Initialize
+  const oaf = new OpenApiFormatter()
+
+  // Load CLI options file
   if (options.cliOptionsFile) {
     try {
       const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
-      // Check if cliOptionsFile is YAML file
-      if (cliOptionsFilePath.includes('.yaml') || cliOptionsFilePath.includes('.yml')) {
-        cliOptions = yaml.parse(fs.readFileSync(cliOptionsFilePath, 'utf8'))
-      } else {
-        cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
-      }
+      cliOptions = (await oaf.parseFile(cliOptionsFilePath)) as PortmanOptions
     } catch (err) {
       console.error(
         '\x1b[31m',
@@ -188,7 +186,9 @@ require('dotenv').config()
   if (cliOptions.newmanOptionsFile) {
     try {
       const newmanOptionsFilePath = path.resolve(cliOptions.newmanOptionsFile)
-      cliOptions.newmanRunOptions = JSON.parse(await fs.readFile(newmanOptionsFilePath, 'utf8'))
+      cliOptions.newmanRunOptions = (await oaf.parseFile(
+        newmanOptionsFilePath
+      )) as unknown as NewmanRunOptions
     } catch (err) {
       console.error(
         '\x1b[31m',

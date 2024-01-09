@@ -48,7 +48,7 @@ declare module 'openapi-format' {
   export async function parseFile(
     filePath: string,
     options: Record<string, unknown> = {}
-  ): Promise<Record<string, unknown> | OpenAPIV3.Document | OpenAPIFilterSet>
+  ): Promise<Record<string, unknown>>
 
   /**
    * OpenAPI-format write function for JSON/YAML
