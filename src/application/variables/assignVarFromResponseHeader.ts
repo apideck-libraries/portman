@@ -44,7 +44,7 @@ export const assignVarFromResponseHeader = (
   const casedVarName = settings?.variableCasing
     ? changeCase(defaultVarName, settings.variableCasing)
     : defaultVarName
-  const varName = varSetting.name || casedVarName
+  const varName = varSetting?.name ?? casedVarName
 
   // Safe variable name
   const safeVarName = varName

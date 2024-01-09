@@ -34,7 +34,7 @@ export const assignVarFromValue = (
   const casedVarName = settings?.variableCasing
     ? changeCase(defaultVarName, settings.variableCasing)
     : defaultVarName
-  const varName = varSetting.name || casedVarName
+  const varName = varSetting?.name ?? casedVarName
   const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
 
   pmVarAssign = [
