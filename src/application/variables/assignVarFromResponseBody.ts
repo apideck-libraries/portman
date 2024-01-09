@@ -50,7 +50,7 @@ export const assignVarFromResponseBody = (
   const casedVarName = settings?.variableCasing
     ? changeCase(defaultVarName, settings.variableCasing)
     : defaultVarName
-  const varName = varSetting.name || casedVarName
+  const varName = varSetting?.name ?? casedVarName
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
   const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
 

@@ -37,7 +37,7 @@ export const assignVarFromRequestBody = (
   const casedVarName = settings?.variableCasing
     ? changeCase(defaultVarName, settings.variableCasing)
     : defaultVarName
-  const varName = varSetting.name || casedVarName
+  const varName = varSetting?.name ?? casedVarName
 
   // Set variable value
   const reqBodyObj = JSON.parse(pmOperation.item.request.body.raw)
