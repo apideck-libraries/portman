@@ -3071,6 +3071,8 @@ components:
       name: id
       schema:
         type: string
+        default: '12345'
+        example: '12345'
       required: true
       description: ID of the record you are acting upon.
     limit:
