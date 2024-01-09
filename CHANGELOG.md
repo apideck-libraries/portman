@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+- Globals: Define the casing of the generated variable names (#541)
+- Globals: Define the separatorSymbol used in the Postman test names (#541)
+- Implement openapi-format as module (#539)
+- Fix includeTests parameter behaviour (#544)
+
 ## v1.24 - (2024-01-05)
 
 - Globals - Added the option set 'collectionVariables' for setting variables on collection level
