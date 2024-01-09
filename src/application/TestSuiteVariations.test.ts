@@ -33,7 +33,9 @@ describe('TestSuite Variations', () => {
       oasParser: oasParser
     })
 
-    testSuite = new TestSuite({ oasParser, postmanParser, config })
+    const options = { includeTests: true }
+
+    testSuite = new TestSuite({ oasParser, postmanParser, config, options })
     testSuite.variationWriter = new VariationWriter({
       testSuite: testSuite,
       variationFolderName: 'Variation Tests'
