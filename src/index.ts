@@ -2,7 +2,6 @@
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
 import { NewmanRunOptions } from 'newman'
-import path from 'path'
 import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
@@ -43,7 +42,7 @@ require('dotenv').config()
       type: 'string'
     })
     .option('newmanOptionsFile', {
-      describe: 'Path to Newman options file to pass options for configuring Newman',
+      describe: 'Path/URL to Newman options file to pass options for configuring Newman',
       type: 'string'
     })
     .option('d', {
@@ -98,7 +97,7 @@ require('dotenv').config()
     })
     .option('c', {
       alias: 'portmanConfigFile',
-      describe: 'Path to Portman settings config file (portman-config.json)n',
+      describe: 'Path/URL to Portman settings config file (portman-config.json)',
       type: 'string'
     })
     .option('s', {
@@ -107,7 +106,7 @@ require('dotenv').config()
       type: 'string'
     })
     .option('filterFile', {
-      describe: 'Path to openapi-format config file (oas-format-filter.json)',
+      describe: 'Path/URL to openapi-format config file (oas-format-filter.json)',
       type: 'string'
     })
     .option('oaOutput', {
@@ -169,7 +168,7 @@ require('dotenv').config()
   // Load CLI options file
   if (options.cliOptionsFile) {
     try {
-      const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
+      const cliOptionsFilePath = options.cliOptionsFile
       cliOptions = (await oaf.parseFile(cliOptionsFilePath)) as PortmanOptions
     } catch (err) {
       console.error(
@@ -185,7 +184,7 @@ require('dotenv').config()
     : cliOptions.newmanOptionsFile
   if (cliOptions.newmanOptionsFile) {
     try {
-      const newmanOptionsFilePath = path.resolve(cliOptions.newmanOptionsFile)
+      const newmanOptionsFilePath = cliOptions.newmanOptionsFile
       cliOptions.newmanRunOptions = (await oaf.parseFile(
         newmanOptionsFilePath
       )) as unknown as NewmanRunOptions

@@ -59,7 +59,7 @@ declare module 'openapi-format' {
    */
   export async function writeFile(
     filePath: string,
-    data: OpenAPIV3.Document,
+    data: Record<string, unknown> | OpenAPIV3.Document,
     options: WriteFileOptions = {}
   ): Promise<void>
 

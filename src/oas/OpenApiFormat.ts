@@ -38,6 +38,10 @@ export class OpenApiFormatter {
     return await openapiFormat.parseFile(filePath)
   }
 
+  async writeFile(filePath: string, data = {}, options = {}): Promise<void> {
+    return await openapiFormat.writeFile(filePath, data, options)
+  }
+
   changeCase(valueAsString: string, caseType: string): string {
     return openapiFormat.changeCase(valueAsString, caseType)
   }
