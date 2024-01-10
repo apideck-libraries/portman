@@ -1,12 +1,14 @@
 import { writeOperationTestScript } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
-import { changeCase } from 'openapi-format'
+import { generateVarName } from '../../utils'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config
  * @param varSetting
  * @param pmOperation
+ * @param oaOperation
  * @param fixedValueCounter
  * @param options
  * @param settings
@@ -14,6 +16,7 @@ import { changeCase } from 'openapi-format'
 export const assignVarFromValue = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null,
   fixedValueCounter: number | string,
   options?: PortmanOptions,
   settings?: GlobalConfig
@@ -30,10 +33,23 @@ export const assignVarFromValue = (
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = `-var-` + fixedValueCounter
-  const defaultVarName = `${opsRef}.${varProp}`
-  const casedVarName = settings?.variableCasing
-    ? changeCase(defaultVarName, settings.variableCasing)
-    : defaultVarName
+  // const defaultVarName = `${opsRef}.${varProp}`
+  // const casedVarName = settings?.variableCasing
+  //   ? changeCase(defaultVarName, settings.variableCasing)
+  //   : defaultVarName
+
+  // Generate dynamic variable name
+  const casedVarName = generateVarName({
+    oaOperation,
+    dynamicValues: {
+      varProp: varProp,
+      opsRef: opsRef
+    },
+    options: {
+      casing: settings?.variableCasing
+    }
+  })
+
   const varName = varSetting?.name ?? casedVarName
   const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
 

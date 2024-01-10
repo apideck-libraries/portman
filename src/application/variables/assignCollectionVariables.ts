@@ -4,11 +4,13 @@ import {
   assignVarFromResponseHeader,
   assignVarFromValue
 } from '..'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { AssignVariablesConfig, GlobalConfig, PortmanOptions } from '../../types'
 
 export const assignCollectionVariables = (
   pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null,
   assignVariableConfig: AssignVariablesConfig,
   fixedValueCounter: number | string,
   options?: PortmanOptions,
@@ -21,22 +23,22 @@ export const assignCollectionVariables = (
   assignVariableConfig.collectionVariables.map(varSetting => {
     // Assign Postman collection variable with a request body value
     varSetting?.requestBodyProp &&
-      assignVarFromRequestBody(varSetting, pmOperation, options, settings)
+      assignVarFromRequestBody(varSetting, pmOperation, oaOperation, options, settings)
 
     // Assign Postman collection variable with a response body value
     varSetting?.responseBodyProp &&
-      assignVarFromResponseBody(varSetting, pmOperation, options, settings)
+      assignVarFromResponseBody(varSetting, pmOperation, oaOperation, options, settings)
 
     // Assign Postman collection variable with a response header value
     varSetting?.responseHeaderProp &&
-      assignVarFromResponseHeader(varSetting, pmOperation, options, settings)
+      assignVarFromResponseHeader(varSetting, pmOperation, oaOperation, options, settings)
 
     // Assign Postman collection variable with a fixed value
     if (varSetting.value) {
       if (typeof counter === 'number') {
         counter++
       }
-      assignVarFromValue(varSetting, pmOperation, counter, options, settings)
+      assignVarFromValue(varSetting, pmOperation, oaOperation, counter, options, settings)
     }
   })
   return counter

@@ -1,13 +1,17 @@
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromValue } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
 
 describe('assignVarFromValue', () => {
+  let oasOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
+    oasOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -18,7 +22,7 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1)
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -28,7 +32,7 @@ describe('assignVarFromValue', () => {
       value: 'portman',
       name: 'portman_string'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1)
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -38,7 +42,7 @@ describe('assignVarFromValue', () => {
       value: true,
       name: 'portman_boolean'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 2)
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 2)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -48,7 +52,7 @@ describe('assignVarFromValue', () => {
       value: 12345,
       name: 'portman_number'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 3)
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 3)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -57,7 +61,9 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: true })
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {
+      logAssignVariables: true
+    })
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -66,7 +72,9 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: false })
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {
+      logAssignVariables: false
+    })
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -76,7 +84,7 @@ describe('assignVarFromValue', () => {
       value: 'portman'
     }
     const settings = { variableCasing: 'snakeCase' } as GlobalConfig
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, {}, settings)
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {}, settings)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -86,7 +94,7 @@ describe('assignVarFromValue', () => {
       value: 'portman'
     }
     const settings = {} as GlobalConfig
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, {}, settings)
+    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {}, settings)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

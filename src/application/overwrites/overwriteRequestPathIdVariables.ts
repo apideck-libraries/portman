@@ -1,15 +1,19 @@
 import pluralize from 'pluralize'
 import { PostmanMappedOperation } from '../../postman'
+import { OasMappedOperation } from '../../oas'
 import { OverwritePathIdVariableConfig } from '../../types'
+import { generateVarName } from '../../utils'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite
  * @param overwriteValues
  * @param pmOperation
+ * @param oaOperation
  */
 export const overwriteRequestPathIdVariables = (
   overwriteValues: OverwritePathIdVariableConfig[],
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
   // Early exit if overwrite values are not defined
@@ -35,9 +39,18 @@ export const overwriteRequestPathIdVariables = (
   const singular = pluralize.singular(name.toLowerCase())
   const variableName = `{{${singular}Id}}`
 
+  const generatedName = generateVarName({
+    template: name,
+    oaOperation: oaOperation
+    // options: {
+    //   casing: settings?.variableCasing
+    // }
+  })
+  const overwriteValue = name && /<|>/.test(name) ? generatedName : variableName
+
   pmOperation.item.request.url.variables.map(item => {
     if (item.key === 'id') {
-      item.value = variableName
+      item.value = overwriteValue
     }
   })
 

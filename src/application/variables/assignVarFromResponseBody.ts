@@ -1,20 +1,22 @@
 import { writeOperationTestScript } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
-import { renderBracketPath, renderChainPath } from '../../utils'
+import { generateVarName, renderBracketPath, renderChainPath } from '../../utils'
 import { camelCase } from 'camel-case'
-import { changeCase } from 'openapi-format'
 
 /**
  * Assign PM variables with values defined by the request body
  * @param varSetting
  * @param pmOperation
+ * @param oaOperation
  * @param options
  * @param settings
  */
 export const assignVarFromResponseBody = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null,
   options?: PortmanOptions,
   settings?: GlobalConfig
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -46,10 +48,20 @@ export const assignVarFromResponseBody = (
   const varSafeProp = renderBracketPath(prop)
   const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : root ? '' : `.${varSafeProp}`
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
-  const defaultVarName = opsRef + nameProp
-  const casedVarName = settings?.variableCasing
-    ? changeCase(defaultVarName, settings.variableCasing)
-    : defaultVarName
+
+  // Generate dynamic variable name
+  const casedVarName = generateVarName({
+    template: '<opsRef><nameProp>',
+    oaOperation,
+    dynamicValues: {
+      nameProp: nameProp,
+      opsRef: opsRef
+    },
+    options: {
+      casing: settings?.variableCasing
+    }
+  })
+
   const varName = varSetting?.name ?? casedVarName
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
   const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`

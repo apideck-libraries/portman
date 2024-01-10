@@ -1,15 +1,19 @@
 import { PostmanMappedOperation } from '../../postman'
+import { OasMappedOperation } from '../../oas'
 import { OverwriteRequestHeadersConfig } from '../../types'
 import { Header } from 'postman-collection'
+import { generateVarName } from '../../utils'
 
 /**
  * Overwrite Postman request headers with values defined by the portman testsuite
  * @param overwriteValues
  * @param pmOperation
+ * @param oaOperation
  */
 export const overwriteRequestHeaders = (
   overwriteValues: OverwriteRequestHeadersConfig[],
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null
 ): PostmanMappedOperation => {
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
@@ -31,10 +35,20 @@ export const overwriteRequestHeaders = (
         return
       }
 
+      // Generate dynamic variable name
+      const generatedName = generateVarName({
+        template: overwriteItem.value,
+        oaOperation: oaOperation
+        // options: {
+        //   casing: settings?.variableCasing
+        // }
+      })
+      const overwriteValue = overwriteItem?.value ?? generatedName
+
       // Test suite - Overwrite/extend header value
-      if (overwriteItem?.value !== undefined) {
+      if (overwriteValue !== undefined) {
         const orgValue = pmHeader.value
-        let newValue = overwriteItem.value
+        let newValue = overwriteValue
 
         if (overwriteItem?.overwrite === false && orgValue) {
           newValue = orgValue + newValue

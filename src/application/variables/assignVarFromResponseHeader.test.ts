@@ -1,13 +1,17 @@
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromResponseHeader } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
 
 describe('assignVarFromResponseHeader', () => {
+  let oasOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
+    oasOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -20,7 +24,7 @@ describe('assignVarFromResponseHeader', () => {
       name: 'leadsAdd.header'
     }
 
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation)
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -31,7 +35,7 @@ describe('assignVarFromResponseHeader', () => {
       name: 'leadsAdd.header'
     }
 
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, oasOperation, {
       logAssignVariables: true
     })
     const pmTest = pmOperation.getTests()
@@ -44,7 +48,7 @@ describe('assignVarFromResponseHeader', () => {
       name: 'leadsAdd.header'
     }
 
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, oasOperation, {
       logAssignVariables: false
     })
     const pmTest = pmOperation.getTests()
@@ -56,7 +60,7 @@ describe('assignVarFromResponseHeader', () => {
       responseHeaderProp: 'portman'
     }
     const global = { variableCasing: 'snakeCase' } as GlobalConfig
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {}, global)
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, oasOperation, {}, global)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -66,7 +70,7 @@ describe('assignVarFromResponseHeader', () => {
       responseHeaderProp: 'portman'
     }
     const global = {} as GlobalConfig
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {}, global)
+    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, oasOperation, {}, global)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

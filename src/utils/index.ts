@@ -1,3 +1,4 @@
+export * from './generateVarName'
 export * from './getByPath'
 export * from './getJsonContentType'
 export * from './inRange'

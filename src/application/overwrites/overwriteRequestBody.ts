@@ -1,4 +1,5 @@
 import { PostmanMappedOperation } from '../../postman'
+import { OasMappedOperation } from '../../oas'
 import { OverwriteRequestBodyConfig } from '../../types'
 import { getByPath, isObject, omitByPath, setByPath } from '../../utils'
 import { FormParam, PropertyList, QueryParam } from 'postman-collection'
@@ -10,9 +11,11 @@ import { FormParam, PropertyList, QueryParam } from 'postman-collection'
  */
 export const overwriteRequestBody = (
   overwriteValues: OverwriteRequestBodyConfig[],
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
 ): PostmanMappedOperation => {
+  console.log(oaOperation)
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 

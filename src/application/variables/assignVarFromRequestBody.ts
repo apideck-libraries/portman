@@ -1,19 +1,21 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
+import { OasMappedOperation } from '../../oas'
 import { CollectionVariableConfig, PortmanOptions, GlobalConfig } from '../../types'
-import { getByPath } from '../../utils'
-import { changeCase } from 'openapi-format'
+import { generateVarName, getByPath } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
  * @param varSetting
  * @param pmOperation
+ * @param oaOperation
  * @param options
  * @param settings
  */
 export const assignVarFromRequestBody = (
   varSetting: CollectionVariableConfig,
   pmOperation: PostmanMappedOperation,
+  oaOperation: OasMappedOperation | null,
   options?: PortmanOptions,
   settings?: GlobalConfig
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -33,10 +35,21 @@ export const assignVarFromRequestBody = (
   // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = varSetting.requestBodyProp
-  const defaultVarName = `${opsRef}.${varProp}`
-  const casedVarName = settings?.variableCasing
-    ? changeCase(defaultVarName, settings.variableCasing)
-    : defaultVarName
+  // const defaultVarName = `${opsRef}.${varProp}`
+  // const casedVarName = settings?.variableCasing
+  //   ? changeCase(defaultVarName, settings.variableCasing)
+  //   : defaultVarName
+
+  // Generate dynamic variable name
+  const casedVarName = generateVarName({
+    oaOperation,
+    dynamicValues: {
+      varProp: varProp
+    },
+    options: {
+      casing: settings?.variableCasing
+    }
+  })
   const varName = varSetting?.name ?? casedVarName
 
   // Set variable value

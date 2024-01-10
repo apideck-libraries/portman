@@ -1,5 +1,6 @@
 import { OpenAPI } from 'openapi-types'
 import { OpenApiFormatter } from './OpenApiFormat'
+import { changeCase } from 'openapi-format'
 
 describe('OpenApiFormat', () => {
   let oas: OpenAPI.Document
@@ -22,13 +23,13 @@ describe('OpenApiFormat', () => {
     it('should change the case for a string', () => {
       const valueAsString = 'marcoPolo'
       const caseType = 'snakeCase'
-      const result = oasFormatter.changeCase(valueAsString, caseType)
+      const result = changeCase(valueAsString, caseType)
       expect(result).toEqual('marco_polo')
     })
     it('should change the case for a string with a dot', () => {
       const valueAsString = 'marco.polo'
       const caseType = 'snakeCase'
-      const result = oasFormatter.changeCase(valueAsString, caseType)
+      const result = changeCase(valueAsString, caseType)
       expect(result).toEqual('marco_polo')
     })
   })

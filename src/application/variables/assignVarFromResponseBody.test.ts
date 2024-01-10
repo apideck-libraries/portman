@@ -1,13 +1,17 @@
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromResponseBody } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
 
 describe('assignVarFromResponseBody', () => {
+  let oasOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
+    oasOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -20,7 +24,7 @@ describe('assignVarFromResponseBody', () => {
       name: 'leadsAdd.id'
     }
 
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -31,7 +35,7 @@ describe('assignVarFromResponseBody', () => {
       name: 'leadsAdd.id'
     }
 
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -42,7 +46,9 @@ describe('assignVarFromResponseBody', () => {
       name: 'leadsAdd.id'
     }
 
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, { logAssignVariables: true })
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {
+      logAssignVariables: true
+    })
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -53,7 +59,9 @@ describe('assignVarFromResponseBody', () => {
       name: 'leadsAdd.id'
     }
 
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, { logAssignVariables: false })
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {
+      logAssignVariables: false
+    })
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -64,7 +72,7 @@ describe('assignVarFromResponseBody', () => {
       name: 'leadsAdd.id'
     }
 
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -75,7 +83,7 @@ describe('assignVarFromResponseBody', () => {
       name: 'leadsAdd.id'
     }
 
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation)
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -85,7 +93,7 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: 'data.id'
     }
     const global = { variableCasing: 'snakeCase' } as GlobalConfig
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, {}, global)
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {}, global)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -95,7 +103,7 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: 'data.id'
     }
     const global = {} as GlobalConfig
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, {}, global)
+    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {}, global)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
