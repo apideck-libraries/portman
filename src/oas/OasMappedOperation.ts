@@ -5,6 +5,7 @@ export interface IOasMappedOperation {
   path: string
   method: string
   pathRef: string
+  tags: string[]
   schema: OpenAPIV3.OperationObject
   requestHeaders: OpenAPIV3.ParameterObject[]
   pathParams: OpenAPIV3.ParameterObject[]
@@ -19,6 +20,7 @@ export class OasMappedOperation implements IOasMappedOperation {
   public path: string
   public method: string
   public pathRef: string
+  public tags: string[]
   public requestHeaders: OpenAPIV3.ParameterObject[]
   public pathParams: OpenAPIV3.ParameterObject[]
   public queryParams: OpenAPIV3.ParameterObject[]
@@ -37,6 +39,7 @@ export class OasMappedOperation implements IOasMappedOperation {
     this.queryParams = this.mapParameters('query')
     this.cookieParams = this.mapParameters('cookie')
     this.responseCodes = this.mapResponseCodes()
+    this.tags = this.schema?.tags as string[]
   }
 
   private mapParameters(paramIn: string): OpenAPIV3.ParameterObject[] {

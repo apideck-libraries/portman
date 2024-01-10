@@ -1,20 +1,14 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OasMappedOperation } from '../../oas'
-import { OverwriteRequestHeadersConfig } from '../../types'
 import { Header } from 'postman-collection'
 import { generateVarName } from '../../utils'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request headers with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
- * @param oaOperation
+ * @param dto
  */
-export const overwriteRequestHeaders = (
-  overwriteValues: OverwriteRequestHeadersConfig[],
-  pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation | null
-): PostmanMappedOperation => {
+export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation } = dto
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 

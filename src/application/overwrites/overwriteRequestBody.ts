@@ -1,20 +1,15 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OasMappedOperation } from '../../oas'
 import { OverwriteRequestBodyConfig } from '../../types'
 import { getByPath, isObject, omitByPath, setByPath } from '../../utils'
 import { FormParam, PropertyList, QueryParam } from 'postman-collection'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestBody = (
-  overwriteValues: OverwriteRequestBodyConfig[],
-  pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation | null
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestBody = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation } = dto
   console.log(oaOperation)
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation

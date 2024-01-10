@@ -1,4 +1,4 @@
-import { generateVarName } from './generateVarName'
+import { generateVarName, hasTpl } from './generateVarName'
 import { PostmanMappedOperation, PostmanParser } from '../postman'
 import { OasMappedOperation, OpenApiParser } from '../oas'
 
@@ -62,13 +62,16 @@ describe('generateVarName', () => {
 
   test('generates variable name with all expressions with casing', () => {
     const dto = {
-      template: '<operationId>_<path>_<pathRef>_<method>_<opsRef>_<responseProp>',
+      template:
+        '<operationId>_<path>_<pathPart1>_<pathPart2>_<pathRef>_<method>_<opsRef>_<responseProp>_<tag>_<tag1>_<tag2>',
       oaOperation: oaOperationOne,
       dynamicValues: { responseProp: 'id' },
       options: { casing: 'kebabCase' }
     }
     const result = generateVarName(dto)
-    expect(result).toBe('leads-add-crm-leads-post-crm-leads-post-leads-add-id')
+    expect(result).toBe(
+      'leads-add-crm-leads-crm-leads-post-crm-leads-post-leads-add-id-leads-leads'
+    )
   })
 
   test('generates variable name with casing and prefix', () => {
@@ -89,7 +92,7 @@ describe('generateVarName', () => {
       dynamicValues: {}
     }
     const result = generateVarName(dto)
-    expect(result).toBe('leadsAdd_<missingProp>')
+    expect(result).toBe('leadsAdd_')
   })
 
   test('applies default casing if not provided', () => {
@@ -156,5 +159,31 @@ describe('generateVarName', () => {
     }
     const result = generateVarName(dto)
     expect(result).toBe('STATIC_LEADS_ADD_ID_STATIC_NAME')
+  })
+})
+
+describe('hasTpl', () => {
+  test('returns true if template contains template tags', () => {
+    const templateWithAngleBrackets = '<example>'
+    const result = hasTpl(templateWithAngleBrackets)
+    expect(result).toBe(true)
+  })
+
+  test('returns false if template does not contain template tags', () => {
+    const templateWithoutAngleBrackets = 'example'
+    const result = hasTpl(templateWithoutAngleBrackets)
+    expect(result).toBe(false)
+  })
+
+  test('returns true if template contains either < or >', () => {
+    const templateWithEitherBracket = 'a < b'
+    const result = hasTpl(templateWithEitherBracket)
+    expect(result).toBe(true)
+  })
+
+  test('returns true if template has multiple template tags', () => {
+    const templateWithMultipleTags = '<example> <example>'
+    const result = hasTpl(templateWithMultipleTags)
+    expect(result).toBe(true)
   })
 })

@@ -1,6 +1,13 @@
 import { PostmanMappedOperation } from 'src/postman'
 import { OasMappedOperation, OpenApiParser } from 'src/oas'
-import { OverwriteRequestConfig } from 'src/types'
+import {
+  OverwritePathIdVariableConfig,
+  OverwritePathVariableConfig,
+  OverwriteQueryParamConfig,
+  OverwriteRequestBodyConfig,
+  OverwriteRequestConfig,
+  OverwriteRequestHeadersConfig
+} from 'src/types'
 import {
   overwriteRequestBody,
   overwriteRequestHeaders,
@@ -10,6 +17,17 @@ import {
   overwriteRequestBaseUrl,
   overwriteRequestSecurity
 } from '.'
+
+export interface OverwriteRequestDTO {
+  overwriteValues?:
+    | OverwriteQueryParamConfig[]
+    | OverwriteRequestHeadersConfig[]
+    | OverwritePathVariableConfig[]
+    | OverwriteRequestBodyConfig[]
+    | OverwritePathIdVariableConfig
+  pmOperation: PostmanMappedOperation
+  oaOperation?: OasMappedOperation | null
+}
 
 export const applyOverwrites = (
   pmOperations: PostmanMappedOperation[],
@@ -21,16 +39,21 @@ export const applyOverwrites = (
     const oaOperation = oasParser.getOperationByPath(pmOperation.pathRef) as OasMappedOperation
 
     // overwrite request body
-    overwriteSetting?.overwriteRequestBody &&
-      overwriteRequestBody(overwriteSetting.overwriteRequestBody, pmOperation, oaOperation)
+    const overwriteRequestBodyDto = {
+      overwriteValues: overwriteSetting?.overwriteRequestBody || [],
+      pmOperation,
+      oaOperation
+    }
+    overwriteSetting?.overwriteRequestBody && overwriteRequestBody(overwriteRequestBodyDto)
 
     // overwrite request query params
+    const overwriteRequestQueryParamsDto = {
+      overwriteValues: overwriteSetting?.overwriteRequestQueryParams || [],
+      pmOperation,
+      oaOperation
+    }
     overwriteSetting?.overwriteRequestQueryParams &&
-      overwriteRequestQueryParams(
-        overwriteSetting.overwriteRequestQueryParams,
-        pmOperation,
-        oaOperation
-      )
+      overwriteRequestQueryParams(overwriteRequestQueryParamsDto)
 
     // overwrite request path id variables
     overwriteSetting?.overwriteRequestPathIdVariables &&
@@ -41,16 +64,21 @@ export const applyOverwrites = (
       )
 
     // overwrite request path variables
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues: overwriteSetting?.overwriteRequestPathVariables || [],
+      pmOperation,
+      oaOperation
+    }
     overwriteSetting?.overwriteRequestPathVariables &&
-      overwriteRequestPathVariables(
-        overwriteSetting.overwriteRequestPathVariables,
-        pmOperation,
-        oaOperation
-      )
+      overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
 
     // overwrite request headers
-    overwriteSetting?.overwriteRequestHeaders &&
-      overwriteRequestHeaders(overwriteSetting.overwriteRequestHeaders, pmOperation, oaOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues: overwriteSetting?.overwriteRequestHeaders || [],
+      pmOperation,
+      oaOperation
+    }
+    overwriteSetting?.overwriteRequestHeaders && overwriteRequestHeaders(overwriteRequestHeadersDto)
 
     // overwrite request base url
     overwriteSetting?.overwriteRequestBaseUrl &&

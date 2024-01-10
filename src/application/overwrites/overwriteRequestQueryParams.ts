@@ -1,21 +1,15 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OasMappedOperation } from '../../oas'
-import { OverwriteQueryParamConfig } from '../../types'
 import { QueryParam } from 'postman-collection'
-import { generateVarName } from 'utils'
+import { generateVarName, hasTpl } from '../../utils'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request query params with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
- * @param oaOperation
+ * @param dto
  */
-export const overwriteRequestQueryParams = (
-  overwriteValues: OverwriteQueryParamConfig[],
-  pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation | null
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation } = dto
+
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
@@ -44,9 +38,7 @@ export const overwriteRequestQueryParams = (
         // }
       })
       const overwriteValue =
-        overwriteItem?.value && /<|>/.test(overwriteItem.value)
-          ? generatedName
-          : overwriteItem?.value
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
       // Test suite - Overwrite/extend query param value
       if (overwriteValue !== undefined && pmQueryParam?.value) {

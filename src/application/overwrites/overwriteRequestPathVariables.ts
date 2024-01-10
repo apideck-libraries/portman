@@ -1,20 +1,15 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OasMappedOperation } from '../../oas'
-import { OverwritePathVariableConfig } from '../../types'
 import { Variable } from 'postman-collection'
 import { generateVarName } from '../../utils'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestPathVariables = (
-  overwriteValues: OverwritePathVariableConfig[],
-  pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation | null
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation } = dto
+
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 

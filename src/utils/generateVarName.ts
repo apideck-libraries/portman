@@ -1,4 +1,4 @@
-import { OasMappedOperation } from 'oas'
+import { OasMappedOperation } from '../oas'
 import { changeCase } from 'openapi-format'
 
 export type GenerateVarNameOptions = {
@@ -32,6 +32,24 @@ export const generateVarName = ({
 
   let varName = template
 
+  // Get path parts from OpenAPI path, and build up a object with incremental variable names partPart1, pathPart2, etc.
+  let partsCounter = 0
+  const pathParts = oaOperation?.path?.split('/') ?? []
+  const pathPartsObj = pathParts.reduce((acc, pathPart) => {
+    if (pathPart.trim() !== '') {
+      partsCounter++
+      acc[`pathPart${partsCounter}`] = pathPart
+    }
+    return acc
+  }, {})
+
+  // Get all OpenAPI tags, and build up a object with incremental variable names tag1, tag2, etc.
+  const tags = oaOperation?.tags ?? []
+  const tagsObj = tags.reduce((acc, tag, index) => {
+    acc[`tag${index + 1}`] = tag
+    return acc
+  }, {})
+
   // Get the OpenAPI info object
   const openApiInfo =
     {
@@ -39,11 +57,15 @@ export const generateVarName = ({
       path: oaOperation?.path,
       pathRef: oaOperation?.pathRef,
       method: oaOperation?.method,
-      opsRef: oaOperation?.id ?? oaOperation?.pathRef
+      opsRef: oaOperation?.id ?? oaOperation?.pathRef,
+      tag: oaOperation?.tags?.[0]
     } || {}
 
   // Merge dynamic values with OpenAPI info into the template values object
-  const tplValues = { ...openApiInfo, ...dynamicValues } as Record<string, string>
+  const tplValues = { ...pathPartsObj, ...tagsObj, ...openApiInfo, ...dynamicValues } as Record<
+    string,
+    string
+  >
 
   // Define symbols for start and end of placeholders
   const startSymbol = '<'
@@ -57,9 +79,10 @@ export const generateVarName = ({
     // Trim any extra spaces around the placeholder
     placeholder = placeholder.trim()
 
-    // Use dynamic value if available, otherwise keep the placeholder
+    // Use dynamic value if available, otherwise keep the remove the placeholder
     const tplValue = tplValues[placeholder]
-    return tplValue !== undefined ? tplValue : `<${placeholder}>`
+    return tplValue ? tplValue : ''
+    // return tplValue !== undefined ? tplValue : `<${placeholder}>`
   })
 
   // Add prefix and suffix
@@ -77,4 +100,9 @@ export const generateVarName = ({
   }
 
   return varName
+}
+
+export const hasTpl = (template: string): boolean => {
+  const angleBracketRegex = /<|>/
+  return angleBracketRegex.test(template)
 }
