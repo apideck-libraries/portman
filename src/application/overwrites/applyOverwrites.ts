@@ -1,6 +1,7 @@
 import { PostmanMappedOperation } from 'src/postman'
 import { OasMappedOperation, OpenApiParser } from 'src/oas'
 import {
+  GlobalConfig,
   OverwritePathIdVariableConfig,
   OverwritePathVariableConfig,
   OverwriteQueryParamConfig,
@@ -27,12 +28,14 @@ export interface OverwriteRequestDTO {
     | OverwritePathIdVariableConfig
   pmOperation: PostmanMappedOperation
   oaOperation?: OasMappedOperation | null
+  settings?: GlobalConfig
 }
 
 export const applyOverwrites = (
   pmOperations: PostmanMappedOperation[],
   overwriteSetting: OverwriteRequestConfig,
-  oasParser: OpenApiParser
+  oasParser: OpenApiParser,
+  settings?: GlobalConfig
 ): PostmanMappedOperation[] => {
   return pmOperations.map(pmOperation => {
     // Get OpenApi operation
@@ -42,7 +45,8 @@ export const applyOverwrites = (
     const overwriteRequestBodyDto = {
       overwriteValues: overwriteSetting?.overwriteRequestBody || [],
       pmOperation,
-      oaOperation
+      oaOperation,
+      settings
     }
     overwriteSetting?.overwriteRequestBody && overwriteRequestBody(overwriteRequestBodyDto)
 
@@ -50,7 +54,8 @@ export const applyOverwrites = (
     const overwriteRequestQueryParamsDto = {
       overwriteValues: overwriteSetting?.overwriteRequestQueryParams || [],
       pmOperation,
-      oaOperation
+      oaOperation,
+      settings
     }
     overwriteSetting?.overwriteRequestQueryParams &&
       overwriteRequestQueryParams(overwriteRequestQueryParamsDto)
@@ -67,7 +72,8 @@ export const applyOverwrites = (
     const overwriteRequestPathVariablesDto = {
       overwriteValues: overwriteSetting?.overwriteRequestPathVariables || [],
       pmOperation,
-      oaOperation
+      oaOperation,
+      settings
     }
     overwriteSetting?.overwriteRequestPathVariables &&
       overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
@@ -76,7 +82,8 @@ export const applyOverwrites = (
     const overwriteRequestHeadersDto = {
       overwriteValues: overwriteSetting?.overwriteRequestHeaders || [],
       pmOperation,
-      oaOperation
+      oaOperation,
+      settings
     }
     overwriteSetting?.overwriteRequestHeaders && overwriteRequestHeaders(overwriteRequestHeadersDto)
 

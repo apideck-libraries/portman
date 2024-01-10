@@ -1,7 +1,22 @@
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
 import { overwriteRequestPathVariables } from '../../application'
 
 describe('overwriteRequestPathVariables', () => {
+  let oaOperation: OasMappedOperation
+  let pmOperation: PostmanMappedOperation
+
+  beforeEach(async () => {
+    pmOperation = await getPostmanMappedOperation()
+    oaOperation = await getOasMappedOperation()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should overwrite the request path variable', async () => {
     const overwriteValues = [
       {
@@ -9,8 +24,12 @@ describe('overwriteRequestPathVariables', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -22,8 +41,12 @@ describe('overwriteRequestPathVariables', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -35,8 +58,12 @@ describe('overwriteRequestPathVariables', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -48,8 +75,12 @@ describe('overwriteRequestPathVariables', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -60,8 +91,12 @@ describe('overwriteRequestPathVariables', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toEqual(pmOperation.item.request.url.variables)
   })
 
@@ -72,8 +107,12 @@ describe('overwriteRequestPathVariables', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url).toMatchSnapshot()
   })
 
@@ -84,8 +123,12 @@ describe('overwriteRequestPathVariables', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url).toMatchSnapshot()
   })
 
@@ -97,8 +140,12 @@ describe('overwriteRequestPathVariables', () => {
         insert: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -109,8 +156,12 @@ describe('overwriteRequestPathVariables', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -122,8 +173,12 @@ describe('overwriteRequestPathVariables', () => {
         insert: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -136,8 +191,12 @@ describe('overwriteRequestPathVariables', () => {
       }
     ]
 
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -149,8 +208,12 @@ describe('overwriteRequestPathVariables', () => {
         description: 'Additional path param'
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -161,8 +224,12 @@ describe('overwriteRequestPathVariables', () => {
         value: ''
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -173,10 +240,14 @@ describe('overwriteRequestPathVariables', () => {
         value: null
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -187,11 +258,14 @@ describe('overwriteRequestPathVariables', () => {
         value: -1
       }
     ]
-
-    const pmOperation = await getPostmanMappedOperation()
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -203,10 +277,14 @@ describe('overwriteRequestPathVariables', () => {
       }
     ]
 
-    const pmOperation = await getPostmanMappedOperation()
+    const overwriteRequestPathVariablesDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestPathVariables(overwriteValues, pmOperation)
+    const result = overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 })

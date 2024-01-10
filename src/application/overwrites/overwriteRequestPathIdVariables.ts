@@ -2,7 +2,7 @@ import pluralize from 'pluralize'
 import { PostmanMappedOperation } from '../../postman'
 import { OasMappedOperation } from '../../oas'
 import { OverwritePathIdVariableConfig } from '../../types'
-import { generateVarName } from '../../utils'
+import { generateVarName, hasTpl } from '../../utils'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite
@@ -46,7 +46,7 @@ export const overwriteRequestPathIdVariables = (
     //   casing: settings?.variableCasing
     // }
   })
-  const overwriteValue = name && /<|>/.test(name) ? generatedName : variableName
+  const overwriteValue = name && hasTpl(name) ? generatedName : variableName
 
   pmOperation.item.request.url.variables.map(item => {
     if (item.key === 'id') {

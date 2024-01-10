@@ -8,7 +8,7 @@ import { OverwriteRequestDTO } from './applyOverwrites'
  * @param dto
  */
 export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
-  const { overwriteValues, pmOperation, oaOperation } = dto
+  const { overwriteValues, pmOperation, oaOperation, settings } = dto
 
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
@@ -32,10 +32,10 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       // Generate dynamic variable name
       const generatedName = generateVarName({
         template: overwriteItem.value,
-        oaOperation: oaOperation
-        // options: {
-        //   casing: settings?.variableCasing
-        // }
+        oaOperation: oaOperation,
+        options: {
+          casing: settings?.variableCasing
+        }
       })
       const overwriteValue =
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value

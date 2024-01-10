@@ -83,6 +83,22 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should overwrite the request header variable with generated cased string value 1`] = `
+Object {
+  "x-apideck-app-id": "CompaniesOneCompanies",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request header variable with generated string value 1`] = `
+Object {
+  "x-apideck-app-id": "companiesOne_companies",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
 exports[`overwriteRequestHeaders should overwrite the request headers boolean variable with string value 1`] = `
 Object {
   "x-apideck-app-id": "false",

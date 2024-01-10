@@ -1,4 +1,4 @@
-import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
+import { getOasMappedCreateOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import {
   getPostmanMappedCreateArrayOperation,
   getPostmanMappedCreateOperation
@@ -14,7 +14,7 @@ describe('assignVarFromRequestBody', () => {
   let pmArrayOperation: PostmanMappedOperation
 
   beforeEach(async () => {
-    oasOperation = await getOasMappedOperation()
+    oasOperation = await getOasMappedCreateOperation()
     pmOperation = await getPostmanMappedCreateOperation()
     pmArrayOperation = await getPostmanMappedCreateArrayOperation()
   })

@@ -3,6 +3,7 @@ import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMapped
 import { overwriteRequestQueryParams } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('overwriteRequestQueryParams', () => {
   let oaOperation: OasMappedOperation
@@ -327,8 +328,6 @@ describe('overwriteRequestQueryParams', () => {
       pmOperation,
       oaOperation
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const result = overwriteRequestQueryParams(dtoObject)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
@@ -346,8 +345,26 @@ describe('overwriteRequestQueryParams', () => {
       pmOperation,
       oaOperation
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    const result = overwriteRequestQueryParams(dtoObject)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should overwrite the query param variable with generated cased string variable', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: '{{<operationId>}}',
+        overwrite: true
+      }
+    ]
+    const dtoObject = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      settings: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
     const result = overwriteRequestQueryParams(dtoObject)
     expect(result.item.request.url.query).toMatchSnapshot()
   })

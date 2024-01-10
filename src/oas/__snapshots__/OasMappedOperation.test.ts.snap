@@ -1183,5 +1183,8 @@ OasMappedOperation {
       "Companies",
     ],
   },
+  "tags": Array [
+    "Companies",
+  ],
 }
 `;

@@ -2,6 +2,10 @@ import {
   getPostmanMappedCreateOperation,
   getPostmanMappedOperation
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
+import {
+  getOasMappedCreateOperation,
+  getOasMappedOperation
+} from '../../../__tests__/testUtils/getOasMappedOperation'
 import { overwriteRequestPathIdVariables } from './overwriteRequestPathIdVariables'
 
 describe('overwriteRequestPathIdVariables', () => {
@@ -12,7 +16,8 @@ describe('overwriteRequestPathIdVariables', () => {
       }
     ]
     const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestPathIdVariables(overwriteValues, pmOperation)
+    const oaOperation = await getOasMappedOperation()
+    const result = overwriteRequestPathIdVariables(overwriteValues, pmOperation, oaOperation)
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
@@ -24,7 +29,8 @@ describe('overwriteRequestPathIdVariables', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestPathIdVariables(overwriteValues, pmOperation)
+    const oaOperation = await getOasMappedCreateOperation()
+    const result = overwriteRequestPathIdVariables(overwriteValues, pmOperation, oaOperation)
 
     expect(result.item.request.url.variables).toEqual(pmOperation.item.request.url.variables)
   })

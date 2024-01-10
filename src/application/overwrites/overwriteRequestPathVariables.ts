@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from '../../postman'
 import { Variable } from 'postman-collection'
-import { generateVarName } from '../../utils'
+import { generateVarName, hasTpl } from '../../utils'
 import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
@@ -8,7 +8,7 @@ import { OverwriteRequestDTO } from './applyOverwrites'
  * @param dto
  */
 export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
-  const { overwriteValues, pmOperation, oaOperation } = dto
+  const { overwriteValues, pmOperation, oaOperation, settings } = dto
 
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
@@ -32,15 +32,14 @@ export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): Postman
       // Generate dynamic variable name
       const generatedName = generateVarName({
         template: overwriteItem?.value,
-        oaOperation: oaOperation
-        // options: {
-        //   casing: settings?.variableCasing
-        // }
+        oaOperation: oaOperation,
+        options: {
+          casing: settings?.variableCasing
+        }
       })
+
       const overwriteValue =
-        overwriteItem?.value && /<|>/.test(overwriteItem.value)
-          ? generatedName
-          : overwriteItem?.value
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
       if (
         overwriteItem.key &&
