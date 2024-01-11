@@ -20,12 +20,7 @@ import {
 import { clearTmpDirectory, getConfig } from './lib'
 import { OpenApiFormatter, OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
-import {
-  DownloadService,
-  IOpenApiToPostmanConfig,
-  OpenApiToPostmanService,
-  PostmanSyncService
-} from './services'
+import { IOpenApiToPostmanConfig, OpenApiToPostmanService, PostmanSyncService } from './services'
 import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
@@ -213,8 +208,22 @@ export class Portman {
     // --- OpenApi - Get OpenApi file locally or remote
     const { oaLocal, oaUrl, filterFile, oaOutput, ignoreCircularRefs, collectionName } =
       this.options
+    const oasFormatter = new OpenApiFormatter()
 
-    let openApiSpec = oaUrl && (await new DownloadService().get(oaUrl))
+    let openApiSpec: string | undefined
+
+    if (oaUrl) {
+      try {
+        const openApiObj = await oasFormatter.parseFile(oaUrl as string)
+        const fileName = oaUrl.replace(/\/$/, '').split('?')[0].split('/').pop()
+        openApiSpec = `./tmp/${fileName}`
+        await oasFormatter.writeFile(openApiSpec, openApiObj, { format: 'yaml' })
+      } catch (err) {
+        console.error('\x1b[31m', `OAS URL error - There is a problem with the url: "${oaUrl}"`)
+        console.error('\x1b[31m', err)
+        process.exit(1)
+      }
+    }
 
     if (oaLocal) {
       try {
@@ -237,29 +246,22 @@ export class Portman {
       throw new Error(`${openApiSpec} doesn't exist. `)
     }
 
-    let filterFileExists = false
     if (filterFile) {
-      const filterFileCheck = await fs.pathExists(filterFile)
-      if (!filterFileCheck) {
+      try {
+        const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
+
+        // Create oaOutput file if it doesn't exist
+        fs.outputFileSync(openApiSpecPath, '', 'utf8')
+
+        await oasFormatter.filter({
+          inputFile: openApiSpec,
+          filterFile: filterFile,
+          outputFile: openApiSpecPath
+        })
+        openApiSpec = openApiSpecPath
+      } catch (err) {
         throw new Error(`Filter file error - ${filterFile} doesn't exist. `)
       }
-      filterFileExists = true
-    }
-
-    if (filterFile && filterFileExists) {
-      const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
-
-      // Create oaOutput file if it doesn't exist
-      fs.outputFileSync(openApiSpecPath, '', 'utf8')
-
-      const oasFormatter = new OpenApiFormatter()
-      await oasFormatter.filter({
-        inputFile: openApiSpec,
-        filterFile: filterFile,
-        outputFile: openApiSpecPath
-      })
-
-      openApiSpec = openApiSpecPath
     }
 
     const oasParser = new OpenApiParser()
