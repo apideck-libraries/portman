@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "7a452078-9bc0-4c17-b0af-262d6915e082"
+    "postman_id": "e62df9b2-148d-4d82-a6ca-b52887e0d246"
   },
   "item": [
     {
-      "id": "d324700d-7435-459a-ad2c-d0ac91cacaa7",
+      "id": "414411ab-662d-4986-a065-e37b4d2e1f58",
       "name": "Leads",
       "description": {
         "content": "",
@@ -15,7 +15,7 @@
           "_": {
             "portman_operation": "POST::/crm/leads"
           },
-          "id": "3e2a4994-f2f3-4cb9-a67a-4305a58641ce",
+          "id": "862503ce-b61f-4a44-8cbe-da2d0da6a4c9",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -112,7 +112,7 @@
           "_": {
             "portman_operation": "GET::/crm/leads/:id"
           },
-          "id": "2d1e9c03-f58d-410b-b25c-620c2b29af58",
+          "id": "66eefed7-bb26-4bc5-84fa-db6bfaad2c3e",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -199,13 +199,16 @@
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
           "_": {
             "portman_operation": "PATCH::/crm/leads/:id"
           },
-          "id": "2f1d0f11-62f6-45bf-b3cb-5d2e984872a4",
+          "id": "0b825c8c-d5ea-4442-9adf-401e1819c727",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -314,7 +317,7 @@
           "_": {
             "portman_operation": "DELETE::/crm/leads/:id"
           },
-          "id": "28c08b30-0ec2-4194-94ff-3cfa561b00c9",
+          "id": "1e698a4d-512b-4afe-9880-c2641be630d3",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -401,13 +404,16 @@
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
           "_": {
             "portman_operation": "GET::/crm/leads"
           },
-          "id": "7d67801e-59a4-4ea0-b02b-15e2d1055ee1",
+          "id": "eeb21b45-097c-42e9-9134-c7c033e0d4a6",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -500,7 +506,10 @@
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
       "event": []
@@ -520,7 +529,7 @@
     {
       "listen": "prerequest",
       "script": {
-        "id": "ed17c00b-b5b1-4edd-9235-fe97699a640e",
+        "id": "99b548cb-5566-40bb-afa4-9f6ec9677ee1",
         "type": "text/javascript",
         "exec": [
           "pm.collectionVariables.set('status', pm.iterationData.get('status') || 'open')"
@@ -561,7 +570,7 @@
     }
   ],
   "info": {
-    "_postman_id": "7a452078-9bc0-4c17-b0af-262d6915e082",
+    "_postman_id": "e62df9b2-148d-4d82-a6ca-b52887e0d246",
     "name": "CRM API - Ordered",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
