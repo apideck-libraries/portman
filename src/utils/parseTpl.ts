@@ -1,7 +1,7 @@
 import { OasMappedOperation } from '../oas'
 import { changeCase } from 'openapi-format'
 
-export type GenerateVarNameOptions = {
+export type parseTplOptions = {
   casing?: string
   prefix?: string
   suffix?: string
@@ -11,7 +11,7 @@ export type GenerateVarNameDTO = {
   template?: string
   oaOperation?: OasMappedOperation | null
   dynamicValues?: Record<string, string>
-  options?: GenerateVarNameOptions
+  options?: parseTplOptions
 }
 
 /**
@@ -88,8 +88,17 @@ export const parseTpl = (dto: GenerateVarNameDTO): string => {
   }
 
   // Apply casing
-  if (options?.casing) {
-    varName = changeCase(varName.trim(), options.casing)
+  if (options?.casing && varName) {
+    const placeholderRegex = new RegExp(`{{(.*?)}}`, 'g')
+    varName = varName.replace(placeholderRegex, (_, placeholder) => {
+      if (options.casing) {
+        return `{{${changeCase(placeholder.trim(), options.casing)}}}`
+      }
+      return `{{${placeholder}}}`
+    })
+    if (!varName.includes('{{') && !varName.includes('}}')) {
+      varName = changeCase(varName, options.casing)
+    }
   }
 
   return varName

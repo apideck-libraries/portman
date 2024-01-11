@@ -160,6 +160,49 @@ describe('parseTpl', () => {
     const result = parseTpl(dto)
     expect(result).toBe('STATIC_LEADS_ADD_ID_STATIC_NAME')
   })
+
+  test('generates variable name with {{', () => {
+    const dto = {
+      template: '{{<tag>Id}}',
+      oaOperation: oaOperationOne,
+      dynamicValues: { responseProp: 'id' }
+    }
+    const result = parseTpl(dto)
+    expect(result).toBe('{{LeadsId}}')
+  })
+
+  test('generates variable name with casing, keeping the {{}}', () => {
+    const dto = {
+      template: '{{<tag>Id}}',
+      oaOperation: oaOperationOne,
+      dynamicValues: { responseProp: 'id' },
+      options: { casing: 'camelCase' }
+    }
+    const result = parseTpl(dto)
+    expect(result).toBe('{{leadsId}}')
+  })
+
+  test('generates multiple variable names with casing, keeping the outer {{}}', () => {
+    const dto = {
+      template: '{{<tag>Id_<operationId>}} ',
+      oaOperation: oaOperationOne,
+      dynamicValues: { responseProp: 'id' },
+      options: { casing: 'camelCase' }
+    }
+    const result = parseTpl(dto)
+    expect(result).toBe('{{leadsIdLeadsAdd}} ')
+  })
+
+  test('generates multiple variable names with casing, keeping the {{}}', () => {
+    const dto = {
+      template: '{{<tag>Id}}_{{<operationId>}} ',
+      oaOperation: oaOperationOne,
+      dynamicValues: { responseProp: 'id' },
+      options: { casing: 'camelCase' }
+    }
+    const result = parseTpl(dto)
+    expect(result).toBe('{{leadsId}}_{{leadsAdd}} ')
+  })
 })
 
 describe('hasTpl', () => {
