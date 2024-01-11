@@ -8,7 +8,7 @@ import { OverwriteRequestDTO } from './applyOverwrites'
  * @param dto
  */
 export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
-  const { overwriteValues, pmOperation, oaOperation, settings } = dto
+  const { overwriteValues, pmOperation, oaOperation, globals } = dto
 
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
@@ -33,7 +33,7 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         template: overwriteItem.value,
         oaOperation: oaOperation,
         options: {
-          casing: settings?.variableCasing
+          casing: globals?.variableCasing
         }
       })
       const overwriteValue =

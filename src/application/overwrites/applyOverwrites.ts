@@ -25,7 +25,7 @@ export interface OverwriteRequestDTO {
     | OverwriteRequestBodyConfig[]
   pmOperation: PostmanMappedOperation
   oaOperation?: OasMappedOperation | null
-  settings?: GlobalConfig
+  globals?: GlobalConfig
 }
 
 export const applyOverwrites = (

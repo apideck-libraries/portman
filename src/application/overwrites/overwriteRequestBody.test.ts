@@ -574,7 +574,44 @@ describe('overwriteRequestBody', () => {
       overwriteValues,
       pmOperation,
       oaOperation,
-      settings: {
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with generated string value with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with generated cased string value with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }
@@ -702,7 +739,7 @@ describe('overwriteRequestBody', () => {
       overwriteValues,
       pmOperation,
       oaOperation,
-      settings: {
+      globals: {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }
@@ -1048,7 +1085,7 @@ describe('overwriteRequestBody', () => {
       overwriteValues,
       pmOperation,
       oaOperation,
-      settings: {
+      globals: {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }

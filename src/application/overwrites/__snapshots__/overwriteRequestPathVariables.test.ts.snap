@@ -253,6 +253,21 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestPathVariables should overwrite the request path variable with generated cased string value with {{}} 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "id",
+    "type": "string",
+    "value": "{{CompaniesOneCompanies}}",
+  },
+]
+`;
+
 exports[`overwriteRequestPathVariables should overwrite the request path variable with generated string value 1`] = `
 Array [
   Object {
@@ -264,6 +279,21 @@ Array [
     "key": "id",
     "type": "string",
     "value": "companiesOne_companies",
+  },
+]
+`;
+
+exports[`overwriteRequestPathVariables should overwrite the request path variable with generated string value with {{}} 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the record you are acting upon.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "id",
+    "type": "string",
+    "value": "{{companiesOne_companies}}",
   },
 ]
 `;

@@ -275,7 +275,44 @@ describe('overwriteRequestHeaders', () => {
       overwriteValues,
       pmOperation,
       oaOperation,
-      settings: {
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestHeaders(dto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite the request header variable with generated string value with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(dto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite the request header variable with generated cased string value  with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }

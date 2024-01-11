@@ -336,7 +336,7 @@ describe('overwriteRequestQueryParams', () => {
     const overwriteValues = [
       {
         key: 'raw',
-        value: '{{<operationId>}}',
+        value: '<operationId>_<pathPart2>',
         overwrite: true
       }
     ]
@@ -353,6 +353,43 @@ describe('overwriteRequestQueryParams', () => {
     const overwriteValues = [
       {
         key: 'raw',
+        value: '<operationId>_<pathPart2>',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestQueryParams(dto)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should overwrite the query param variable with generated string variable with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: '{{<operationId>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestQueryParams(dto)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should overwrite the query param variable with generated cased string variable with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
         value: '{{<operationId>}}',
         overwrite: true
       }
@@ -361,7 +398,7 @@ describe('overwriteRequestQueryParams', () => {
       overwriteValues,
       pmOperation,
       oaOperation,
-      settings: {
+      globals: {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }
