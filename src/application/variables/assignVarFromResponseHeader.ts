@@ -1,6 +1,6 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { generateVarName } from '../../utils'
+import { hasTpl, parseTpl } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -10,11 +10,13 @@ export const assignVarFromResponseHeader = (
   dto: assignCollectionVariablesDTO
 ): PostmanMappedOperation => {
   const { pmOperation, oaOperation, varSetting, options, globals } = dto
+
   // Early exit if response header is not defined
   if (!varSetting.responseHeaderProp) return pmOperation
 
   let pmJsonData = ''
   let pmVarAssign = ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Only set the jsonData once
   if (!pmOperation.testJsonDataInjected) {
@@ -27,19 +29,12 @@ export const assignVarFromResponseHeader = (
     pmOperation.testJsonDataInjected = true
   }
 
-  // Toggle log output
-  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
-
-  // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = varSetting.responseHeaderProp
-  // const defaultVarName = `${opsRef}.${varProp}`
-  // const casedVarName = settings?.variableCasing
-  //   ? changeCase(defaultVarName, settings.variableCasing)
-  //   : defaultVarName
 
-  // Generate dynamic variable name
-  const casedVarName = generateVarName({
+  // Generate variable name from template
+  const casedVarName = parseTpl({
+    template: varSetting?.name,
     oaOperation,
     dynamicValues: {
       varProp: varProp
@@ -48,7 +43,14 @@ export const assignVarFromResponseHeader = (
       casing: globals?.variableCasing
     }
   })
-  const varName = varSetting?.name ?? casedVarName
+
+  // Set variable name
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
 
   // Safe variable name
   const safeVarName = varName

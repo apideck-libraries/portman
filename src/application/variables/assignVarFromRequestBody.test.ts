@@ -255,4 +255,21 @@ describe('assignVarFromRequestBody', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should generate a variable for the request body and convert the casing for the templated name', async () => {
+    const varSetting = {
+      requestBodyProp: 'name',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

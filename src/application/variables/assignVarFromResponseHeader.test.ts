@@ -100,4 +100,21 @@ describe('assignVarFromResponseHeader', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should generate a variable for the response header and convert the casing for the templated name', async () => {
+    const varSetting = {
+      responseHeaderProp: 'portman',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

@@ -1,6 +1,6 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { generateVarName, renderBracketPath, renderChainPath } from '../../utils'
+import { parseTpl, hasTpl, renderBracketPath, renderChainPath } from '../../utils'
 import { camelCase } from 'camel-case'
 
 /**
@@ -18,6 +18,7 @@ export const assignVarFromResponseBody = (
   let pmJsonData = ''
   let pmMappedData = ''
   let pmVarAssign = ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Only set the jsonData once
   if (!pmOperation.testJsonDataInjected) {
@@ -29,10 +30,6 @@ export const assignVarFromResponseBody = (
     pmOperation.testJsonDataInjected = true
   }
 
-  // Toggle log output
-  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
-
-  // Set variable name
   const root = varSetting.responseBodyProp === '.'
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const prop = varSetting.responseBodyProp
@@ -40,9 +37,10 @@ export const assignVarFromResponseBody = (
   const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : root ? '' : `.${varSafeProp}`
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
 
-  // Generate dynamic variable name
-  const casedVarName = generateVarName({
-    template: '<opsRef><nameProp>',
+  // Generate variable name from template
+  const tpl = varSetting?.name || hasTpl(varSetting?.name) ? varSetting?.name : '<opsRef><nameProp>'
+  const casedVarName = parseTpl({
+    template: tpl,
     oaOperation,
     dynamicValues: {
       nameProp: nameProp,
@@ -53,7 +51,14 @@ export const assignVarFromResponseBody = (
     }
   })
 
-  const varName = varSetting?.name ?? casedVarName
+  // Set variable name
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
+
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
   const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
 

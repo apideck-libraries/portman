@@ -1,6 +1,6 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { generateVarName, getByPath } from '../../utils'
+import { parseTpl, getByPath, hasTpl } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -17,22 +17,15 @@ export const assignVarFromRequestBody = (
   // Early exit if request body prop is not defined
   if (!varSetting.requestBodyProp) return pmOperation
 
-  // const requestBody = pmOperation.item.request.body.raw
   let pmVarAssign = ''
-
-  // Toggle log output
   const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
-  // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = varSetting.requestBodyProp
-  // const defaultVarName = `${opsRef}.${varProp}`
-  // const casedVarName = settings?.variableCasing
-  //   ? changeCase(defaultVarName, settings.variableCasing)
-  //   : defaultVarName
 
-  // Generate dynamic variable name
-  const casedVarName = generateVarName({
+  // Generate variable name from template
+  const casedVarName = parseTpl({
+    template: varSetting?.name,
     oaOperation,
     dynamicValues: {
       varProp: varProp
@@ -41,7 +34,14 @@ export const assignVarFromRequestBody = (
       casing: globals?.variableCasing
     }
   })
-  const varName = varSetting?.name ?? casedVarName
+
+  // Set variable name
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
 
   // Set variable value
   const reqBodyObj = JSON.parse(pmOperation.item.request.body.raw)

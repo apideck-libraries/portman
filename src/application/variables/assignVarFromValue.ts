@@ -1,6 +1,6 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { generateVarName } from '../../utils'
+import { hasTpl, parseTpl } from '../../utils'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config
@@ -17,20 +17,14 @@ export const assignVarFromValue = (
   if (!varSetting.value) return pmOperation
 
   let pmVarAssign = ''
-
-  // Toggle log output
   const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
-  // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = `-var-` + fixedValueCounter
-  // const defaultVarName = `${opsRef}.${varProp}`
-  // const casedVarName = settings?.variableCasing
-  //   ? changeCase(defaultVarName, settings.variableCasing)
-  //   : defaultVarName
 
-  // Generate dynamic variable name
-  const casedVarName = generateVarName({
+  // Generate variable name from template
+  const casedVarName = parseTpl({
+    template: varSetting?.name,
     oaOperation,
     dynamicValues: {
       varProp: varProp,
@@ -41,7 +35,15 @@ export const assignVarFromValue = (
     }
   })
 
-  const varName = varSetting?.name ?? casedVarName
+  // Set variable name
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
+
+  // Set variable value
   const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
 
   pmVarAssign = [
