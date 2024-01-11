@@ -322,29 +322,30 @@ export class Portman {
   injectTestSuite(): void {
     const { config, options, oasParser, postmanParser } = this
 
+    const testSuite = new TestSuite({ oasParser, postmanParser, config, options })
+
     if (options?.includeTests) {
-      const testSuite = new TestSuite({ oasParser, postmanParser, config, options })
       // Inject automated tests
       testSuite.generateContractTests()
 
       // Inject content tests
       testSuite.injectContentTests()
-
-      // Inject variable assignment
-      testSuite.injectAssignVariables()
-
-      // Inject postman extended tests
-      testSuite.injectExtendedTests()
-
-      // Inject overwrites
-      testSuite.injectOverwrites()
-
-      // Inject PreRequestScripts
-      testSuite.injectPreRequestScripts()
-
-      this.testSuite = testSuite
-      this.portmanCollection = testSuite.collection.toJSON()
     }
+
+    // Inject variable assignment
+    testSuite.injectAssignVariables()
+
+    // Inject postman extended tests
+    testSuite.injectExtendedTests()
+
+    // Inject overwrites
+    testSuite.injectOverwrites()
+
+    // Inject PreRequestScripts
+    testSuite.injectPreRequestScripts()
+
+    this.testSuite = testSuite
+    this.portmanCollection = testSuite.collection.toJSON()
   }
 
   injectVariationTests(): void {

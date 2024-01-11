@@ -93,7 +93,7 @@ export class TestSuite {
     openApiResponseCode?: string
   ): void => {
     const tests = contractTests || this.contractTests
-    if (!tests) return
+    if (!tests || this.options?.includeTests === false) return
 
     tests.map(contractTest => {
       const operations = pmOperations || this.getOperationsFromSetting(contractTest)
