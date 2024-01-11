@@ -140,26 +140,6 @@ if (_resDataId !== undefined) {
 ]
 `;
 
-exports[`assignVarFromResponseBody should generate a variable for the response body and not convert the casing for the variable name 2`] = `
-Array [
-  "// Set response object as internal variable
-let jsonData = {};
-try {jsonData = pm.response.json();}catch(e){}
-",
-  "// Set property value as variable
-const _resDataId = jsonData?.data?.id;
-",
-  "// pm.collectionVariables - Set <tagId as variable for jsonData.data.id
-if (_resDataId !== undefined) {
-   pm.collectionVariables.set(\\"<tagId\\", jsonData.data.id);
-   console.log(\\"- use {{<tagId}} as collection variable for value\\",jsonData.data.id);
-} else {
-   console.log('INFO - Unable to assign variable {{<tagId}}, as jsonData.data.id is undefined.');
-};
-",
-]
-`;
-
 exports[`assignVarFromResponseBody should not show the log output for a postman collection var with name and response body value 1`] = `
 Array [
   "// Set response object as internal variable
