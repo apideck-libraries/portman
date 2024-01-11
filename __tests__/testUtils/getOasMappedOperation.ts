@@ -1,7 +1,4 @@
 import { OasMappedOperation, OpenApiParser } from '../../src/oas'
-import { PostmanMappedOperation, PostmanParser } from '../../src/postman'
-import fs from 'fs-extra'
-import { Collection } from 'postman-collection'
 
 export const getOasMappedOperation = async (): Promise<OasMappedOperation> => {
   const oasYml = '__tests__/fixtures/crm.yml'
