@@ -29,7 +29,6 @@ export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): Postman
         return
       }
 
-      // Generate dynamic variable name
       const generatedName = generateVarName({
         template: overwriteItem?.value,
         oaOperation: oaOperation,
@@ -37,7 +36,6 @@ export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): Postman
           casing: settings?.variableCasing
         }
       })
-
       const overwriteValue =
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 

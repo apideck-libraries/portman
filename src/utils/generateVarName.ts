@@ -103,6 +103,6 @@ export const generateVarName = ({
 }
 
 export const hasTpl = (template: string): boolean => {
-  const angleBracketRegex = /<|>/
-  return angleBracketRegex.test(template)
+  const symbolsRegex = /<|>/
+  return symbolsRegex.test(template)
 }

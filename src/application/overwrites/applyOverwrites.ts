@@ -2,7 +2,6 @@ import { PostmanMappedOperation } from 'src/postman'
 import { OasMappedOperation, OpenApiParser } from 'src/oas'
 import {
   GlobalConfig,
-  OverwritePathIdVariableConfig,
   OverwritePathVariableConfig,
   OverwriteQueryParamConfig,
   OverwriteRequestBodyConfig,
@@ -12,7 +11,6 @@ import {
 import {
   overwriteRequestBody,
   overwriteRequestHeaders,
-  overwriteRequestPathIdVariables,
   overwriteRequestPathVariables,
   overwriteRequestQueryParams,
   overwriteRequestBaseUrl,
@@ -25,7 +23,6 @@ export interface OverwriteRequestDTO {
     | OverwriteRequestHeadersConfig[]
     | OverwritePathVariableConfig[]
     | OverwriteRequestBodyConfig[]
-    | OverwritePathIdVariableConfig
   pmOperation: PostmanMappedOperation
   oaOperation?: OasMappedOperation | null
   settings?: GlobalConfig
@@ -61,12 +58,14 @@ export const applyOverwrites = (
       overwriteRequestQueryParams(overwriteRequestQueryParamsDto)
 
     // overwrite request path id variables
-    overwriteSetting?.overwriteRequestPathIdVariables &&
-      overwriteRequestPathIdVariables(
-        overwriteSetting.overwriteRequestPathIdVariables,
-        pmOperation,
-        oaOperation
-      )
+    // const overwriteRequestPathIdDto = {
+    //   overwriteValues: overwriteSetting.overwriteRequestPathIdVariables || [],
+    //   pmOperation,
+    //   oaOperation,
+    //   settings
+    // }
+    // overwriteSetting?.overwriteRequestPathIdVariables &&
+    //   overwriteRequestPathIdVariables(overwriteRequestPathIdDto)
 
     // overwrite request path variables
     const overwriteRequestPathVariablesDto = {

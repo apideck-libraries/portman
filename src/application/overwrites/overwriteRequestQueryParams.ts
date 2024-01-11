@@ -29,7 +29,6 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         return
       }
 
-      // Generate dynamic variable name
       const generatedName = generateVarName({
         template: overwriteItem.value,
         oaOperation: oaOperation,

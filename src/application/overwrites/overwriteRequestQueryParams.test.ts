@@ -25,12 +25,12 @@ describe('overwriteRequestQueryParams', () => {
         value: 'foo'
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -41,12 +41,12 @@ describe('overwriteRequestQueryParams', () => {
         disable: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -65,12 +65,12 @@ describe('overwriteRequestQueryParams', () => {
     // Set the updated query parameters in the request
     pmOperation.item.request.url.query.clear()
     pmOperation.item.request.url.query.add(firstQueryParamKey)
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -82,12 +82,12 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: false
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -99,12 +99,12 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -116,12 +116,12 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -132,12 +132,12 @@ describe('overwriteRequestQueryParams', () => {
         remove: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -148,12 +148,12 @@ describe('overwriteRequestQueryParams', () => {
         remove: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -165,12 +165,12 @@ describe('overwriteRequestQueryParams', () => {
         insert: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -181,12 +181,12 @@ describe('overwriteRequestQueryParams', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -198,12 +198,12 @@ describe('overwriteRequestQueryParams', () => {
         insert: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -215,12 +215,12 @@ describe('overwriteRequestQueryParams', () => {
         insert: false
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -232,12 +232,12 @@ describe('overwriteRequestQueryParams', () => {
         description: 'Additional query param'
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -249,12 +249,12 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -266,14 +266,14 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -285,14 +285,14 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -304,14 +304,14 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -319,16 +319,16 @@ describe('overwriteRequestQueryParams', () => {
     const overwriteValues = [
       {
         key: 'raw',
-        value: '<operationId>',
+        value: '<operationId>_<pathPart2>',
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -340,12 +340,12 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
@@ -357,7 +357,7 @@ describe('overwriteRequestQueryParams', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation,
@@ -365,7 +365,7 @@ describe('overwriteRequestQueryParams', () => {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }
-    const result = overwriteRequestQueryParams(dtoObject)
+    const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 })

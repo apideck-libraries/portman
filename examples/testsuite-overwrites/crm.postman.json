@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "966ac159-0e01-417f-8b30-12bd428f6817"
+    "postman_id": "1d2ef0b1-bcc8-4ebb-8a50-03bca9b40b5c"
   },
   "item": [
     {
-      "id": "a8909103-9bc1-4c41-ab3d-c273d82a4877",
+      "id": "1fb0aabb-fe7d-4c59-91f6-eb1d96670618",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "1ae8b5fb-db17-49ce-a84d-765b26b33e9f",
+          "id": "0226f1bb-787b-4176-89a5-bc9cd3056c87",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -105,10 +105,13 @@
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "id": "00ca5fa7-0620-4020-aac1-8739af72a0d2",
+          "id": "fdc9f0dc-59d2-44f0-b7c4-5d204981cb2d",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -189,7 +192,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -202,7 +205,7 @@
           }
         },
         {
-          "id": "6a9fe33d-5770-4aaf-ae61-4c76bfb186d5",
+          "id": "37d1983a-5912-4d3b-b55f-cfcc2af5c201",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -237,8 +240,8 @@
                     "content": "(Required) ID of the record you are acting upon.",
                     "type": "text/plain"
                   },
-                  "type": "any",
-                  "value": "minim Duis ipsum Lorem eu",
+                  "type": "string",
+                  "value": "leadsOne_crm",
                   "key": "id"
                 }
               ]
@@ -282,17 +285,20 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "id": "e06f1f5f-e014-40f2-898e-b6be48ae28fa",
+          "id": "fbdfb5df-ebb9-4bc2-982d-2949c4555b3b",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -401,7 +407,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -414,7 +420,7 @@
           }
         },
         {
-          "id": "44f0ee08-9e8a-43e3-a6f7-8189cff51144",
+          "id": "a2078a7a-fa0a-4b50-bdd7-5f8b2aa92f63",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -482,14 +488,17 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
             }
           },
           "response": [],
-          "event": []
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
       "event": []
@@ -500,7 +509,7 @@
     "bearer": [
       {
         "type": "any",
-        "value": "<Bearer Token>",
+        "value": "{{bearerToken}}",
         "key": "token"
       }
     ]
@@ -539,7 +548,7 @@
     }
   ],
   "info": {
-    "_postman_id": "966ac159-0e01-417f-8b30-12bd428f6817",
+    "_postman_id": "1d2ef0b1-bcc8-4ebb-8a50-03bca9b40b5c",
     "name": "CRM API - Overwrites",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {

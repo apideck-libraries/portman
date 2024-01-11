@@ -254,12 +254,12 @@ describe('overwriteRequestHeaders', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation
     }
-    const result = overwriteRequestHeaders(dtoObject)
+    const result = overwriteRequestHeaders(dto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -271,7 +271,7 @@ describe('overwriteRequestHeaders', () => {
         overwrite: true
       }
     ]
-    const dtoObject = {
+    const dto = {
       overwriteValues,
       pmOperation,
       oaOperation,
@@ -279,7 +279,7 @@ describe('overwriteRequestHeaders', () => {
         variableCasing: 'pascalCase'
       } as GlobalConfig
     }
-    const result = overwriteRequestHeaders(dtoObject)
+    const result = overwriteRequestHeaders(dto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 })
