@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from '../../postman'
 import { Header } from 'postman-collection'
-import { generateVarName, hasTpl } from '../../utils'
+import { parseTpl, hasTpl } from '../../utils'
 import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
@@ -29,7 +29,7 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
         return
       }
 
-      const generatedName = generateVarName({
+      const generatedName = parseTpl({
         template: overwriteItem.value,
         oaOperation: oaOperation,
         options: {

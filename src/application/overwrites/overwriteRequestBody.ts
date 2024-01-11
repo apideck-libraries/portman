@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from '../../postman'
-import { generateVarName, getByPath, hasTpl, isObject, omitByPath, setByPath } from '../../utils'
+import { parseTpl, getByPath, hasTpl, isObject, omitByPath, setByPath } from '../../utils'
 import { FormParam, PropertyList, QueryParam } from 'postman-collection'
 import { OverwriteRequestDTO } from './applyOverwrites'
 
@@ -54,7 +54,7 @@ export const overwriteRequestBodyJson = (dto: OverwriteRequestDTO): PostmanMappe
     if (overwriteItem?.key && typeof overwriteItem?.value !== 'undefined') {
       const root = overwriteItem.key === '.'
       const originalValue = root ? bodyData : getByPath(bodyData, overwriteItem.key)
-      const generatedName = generateVarName({
+      const generatedName = parseTpl({
         template: overwriteItem.value,
         oaOperation: oaOperation,
         options: {
@@ -130,7 +130,7 @@ export const overwriteRequestBodyFormData = (dto: OverwriteRequestDTO): PostmanM
     // Test suite - Overwrite/extend request body form data param value
     if (overwriteItem?.value !== undefined && pmFormParam?.value) {
       const orgValue = pmFormParam.value
-      const generatedName = generateVarName({
+      const generatedName = parseTpl({
         template: overwriteItem.value,
         oaOperation: oaOperation,
         options: {
@@ -224,7 +224,7 @@ export const overwriteRequestBodyFormUrlEncoded = (
     // Test suite - Overwrite/extend request body form encoded param value
     if (overwriteItem?.value !== undefined && pmFormParam?.value) {
       const orgValue = pmFormParam.value
-      const generatedName = generateVarName({
+      const generatedName = parseTpl({
         template: overwriteItem.value,
         oaOperation: oaOperation,
         options: {
