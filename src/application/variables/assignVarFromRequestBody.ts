@@ -1,25 +1,16 @@
-import { writeOperationTestScript } from '../../application'
+import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { OasMappedOperation } from '../../oas'
-import { CollectionVariableConfig, PortmanOptions, GlobalConfig } from '../../types'
 import { generateVarName, getByPath } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
- * @param varSetting
- * @param pmOperation
- * @param oaOperation
- * @param options
- * @param settings
+ * @param dto
  */
 export const assignVarFromRequestBody = (
-  varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation | null,
-  options?: PortmanOptions,
-  settings?: GlobalConfig
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  dto: assignCollectionVariablesDTO
 ): PostmanMappedOperation => {
+  const { pmOperation, oaOperation, varSetting, options, globals } = dto
+
   // Early exit if request body is not defined
   if (!pmOperation.item?.request?.body?.raw) return pmOperation
 
@@ -47,7 +38,7 @@ export const assignVarFromRequestBody = (
       varProp: varProp
     },
     options: {
-      casing: settings?.variableCasing
+      casing: globals?.variableCasing
     }
   })
   const varName = varSetting?.name ?? casedVarName

@@ -6,12 +6,12 @@ import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
 
 describe('assignVarFromValue', () => {
-  let oasOperation: OasMappedOperation
+  let oaOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
-    oasOperation = await getOasMappedOperation()
+    oaOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -22,7 +22,12 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -32,7 +37,12 @@ describe('assignVarFromValue', () => {
       value: 'portman',
       name: 'portman_string'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -42,7 +52,12 @@ describe('assignVarFromValue', () => {
       value: true,
       name: 'portman_boolean'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 2)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 2)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -52,7 +67,12 @@ describe('assignVarFromValue', () => {
       value: 12345,
       name: 'portman_number'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 3)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 3)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -61,9 +81,15 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {
-      logAssignVariables: true
-    })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: true
+      }
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -72,9 +98,15 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {
-      logAssignVariables: false
-    })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: false
+      }
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -83,8 +115,14 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    const settings = { variableCasing: 'snakeCase' } as GlobalConfig
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {}, settings)
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -93,8 +131,14 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    const settings = {} as GlobalConfig
-    pmOperation = assignVarFromValue(varSetting, pmOperation, oasOperation, 1, {}, settings)
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

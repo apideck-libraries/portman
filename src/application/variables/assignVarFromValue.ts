@@ -1,27 +1,18 @@
-import { writeOperationTestScript } from '../../application'
-import { OasMappedOperation } from '../../oas'
+import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
 import { generateVarName } from '../../utils'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config
- * @param varSetting
- * @param pmOperation
- * @param oaOperation
+ * @param dto
  * @param fixedValueCounter
- * @param options
- * @param settings
  */
 export const assignVarFromValue = (
-  varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation | null,
-  fixedValueCounter: number | string,
-  options?: PortmanOptions,
-  settings?: GlobalConfig
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  dto: assignCollectionVariablesDTO,
+  fixedValueCounter: number | string
 ): PostmanMappedOperation => {
+  const { pmOperation, oaOperation, varSetting, options, globals } = dto
+
   // Early exit if request body is not defined
   if (!varSetting.value) return pmOperation
 
@@ -46,7 +37,7 @@ export const assignVarFromValue = (
       opsRef: opsRef
     },
     options: {
-      casing: settings?.variableCasing
+      casing: globals?.variableCasing
     }
   })
 

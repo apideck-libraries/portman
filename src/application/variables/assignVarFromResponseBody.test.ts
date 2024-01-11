@@ -6,12 +6,12 @@ import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
 
 describe('assignVarFromResponseBody', () => {
-  let oasOperation: OasMappedOperation
+  let oaOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
-    oasOperation = await getOasMappedOperation()
+    oaOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -23,8 +23,12 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: 'data.id',
       name: 'leadsAdd.id'
     }
-
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -34,8 +38,12 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: '[0].id',
       name: 'leadsAdd.id'
     }
-
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -45,10 +53,15 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: 'data.id',
       name: 'leadsAdd.id'
     }
-
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {
-      logAssignVariables: true
-    })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: true
+      }
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -58,10 +71,15 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: 'data.id',
       name: 'leadsAdd.id'
     }
-
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {
-      logAssignVariables: false
-    })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: false
+      }
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -71,8 +89,12 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: '.',
       name: 'leadsAdd.id'
     }
-
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -82,8 +104,12 @@ describe('assignVarFromResponseBody', () => {
       responseBodyProp: '[0]',
       name: 'leadsAdd.id'
     }
-
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -92,8 +118,14 @@ describe('assignVarFromResponseBody', () => {
     const varSetting = {
       responseBodyProp: 'data.id'
     }
-    const global = { variableCasing: 'snakeCase' } as GlobalConfig
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {}, global)
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -102,8 +134,14 @@ describe('assignVarFromResponseBody', () => {
     const varSetting = {
       responseBodyProp: 'data.id'
     }
-    const global = {} as GlobalConfig
-    pmOperation = assignVarFromResponseBody(varSetting, pmOperation, oasOperation, {}, global)
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
