@@ -2,6 +2,7 @@
 
 - Globals: Define the casing of the generated variable names (#541)
 - Globals: Define the separatorSymbol used in the Postman test names (#541)
+- Support for loading local or remote JSON/YAML config files (#547)
 - Implement openapi-format as module (#539)
 - Fix includeTests parameter behaviour (#544)
 
