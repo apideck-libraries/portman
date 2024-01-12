@@ -42,6 +42,16 @@ describe('injectEnvVariables', () => {
     expect(collection?.variable).toMatchSnapshot()
   })
 
+  it('should add environment variables to collection variables with casing', async () => {
+    const collection = injectEnvVariables(
+      testSuiteService.collection.toJSON(),
+      envFile,
+      undefined,
+      { variableCasing: 'constantCase' }
+    )
+    expect(collection?.variable).toMatchSnapshot()
+  })
+
   it('should add environment variables to collection variables without overwriting original baseUrl', async () => {
     const coll = testSuiteService.collection.toJSON()
     coll.variable = [

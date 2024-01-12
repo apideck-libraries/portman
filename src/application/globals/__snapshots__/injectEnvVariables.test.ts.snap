@@ -45,6 +45,51 @@ Array [
 ]
 `;
 
+exports[`injectEnvVariables should add environment variables to collection variables with casing 1`] = `
+Array [
+  Object {
+    "key": "baseUrl",
+    "type": "string",
+    "value": "https://unify.apideck.com",
+  },
+  Object {
+    "key": "BEARER_TOKEN",
+    "type": "string",
+    "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48",
+  },
+  Object {
+    "key": "UNIFIED_API",
+    "type": "string",
+    "value": "crm",
+  },
+  Object {
+    "key": "APPLICATION_ID",
+    "type": "string",
+    "value": "2222",
+  },
+  Object {
+    "key": "SERVICE_ID",
+    "type": "string",
+    "value": "activecampaign",
+  },
+  Object {
+    "key": "CONSUMER_ID",
+    "type": "string",
+    "value": "testing_user_id",
+  },
+  Object {
+    "key": "RESOURCE",
+    "type": "string",
+    "value": "lead",
+  },
+  Object {
+    "key": "CONNECTOR_API_KEY",
+    "type": "string",
+    "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",
+  },
+]
+`;
+
 exports[`injectEnvVariables should add environment variables to collection variables with overwriting original baseUrl 1`] = `
 Array [
   Object {
