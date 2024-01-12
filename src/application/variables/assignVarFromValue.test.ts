@@ -142,6 +142,7 @@ describe('assignVarFromValue', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
   it('should generate a variable and convert the casing for the templated name', async () => {
     const varSetting = {
       value: 'portman',
