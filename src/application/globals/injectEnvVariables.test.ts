@@ -47,7 +47,7 @@ describe('injectEnvVariables', () => {
       testSuiteService.collection.toJSON(),
       envFile,
       undefined,
-      { variableCasing: 'constantCase' }
+      { variableCasing: 'snakeCase' }
     )
     expect(collection?.variable).toMatchSnapshot()
   })
@@ -93,6 +93,30 @@ describe('injectEnvVariables', () => {
       }
     ]
     const collection = injectEnvVariables(coll, envFile, 'https://api.foo.bar')
+    expect(collection?.variable).toMatchSnapshot()
+  })
+
+  it('should add environment variables to collection variables with overwriting cased original baseUrl', async () => {
+    const coll = testSuiteService.collection.toJSON()
+    coll.variable = [
+      {
+        description: {
+          content: 'the API URL',
+          type: 'text/plain'
+        },
+        type: 'any',
+        value: 'https://api.example.com',
+        key: 'url'
+      },
+      {
+        type: 'string',
+        value: '{{url}}/content',
+        key: 'baseUrl'
+      }
+    ]
+    const collection = injectEnvVariables(coll, envFile, 'https://api.foo.bar', {
+      variableCasing: 'snakeCase'
+    })
     expect(collection?.variable).toMatchSnapshot()
   })
 })

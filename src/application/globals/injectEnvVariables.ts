@@ -49,7 +49,14 @@ export const injectEnvVariables = (
   }
 
   if (baseUrl || baseUrlFromSpec) {
-    variables = upsertVariable(variables, 'baseUrl', baseUrl || baseUrlFromSpec, 'string')
+    variables = upsertVariable(
+      variables,
+      'baseUrl',
+      // TODO: fix casing
+      // changeCase('baseUrl', globals?.variableCasing ?? 'camelCase'),
+      baseUrl || baseUrlFromSpec,
+      'string'
+    )
   }
   const uniqueVariables = Array.from(new Set(variables))
 
