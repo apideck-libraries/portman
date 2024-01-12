@@ -32,7 +32,17 @@ export const assignVarFromResponseBody = (
 
   const root = varSetting.responseBodyProp === '.'
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const prop = varSetting.responseBodyProp
+
+  // Generate property path from template
+  const casedProp = parseTpl({
+    template: varSetting.responseBodyProp,
+    oaOperation
+    // options: {
+    // casing: globals?.variableCasing
+    // }
+  })
+  const prop = hasTpl(varSetting?.responseBodyProp) ? casedProp : varSetting.responseBodyProp
+
   const varSafeProp = renderBracketPath(prop)
   const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : root ? '' : `.${varSafeProp}`
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop

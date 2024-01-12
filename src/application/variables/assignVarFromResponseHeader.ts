@@ -30,7 +30,16 @@ export const assignVarFromResponseHeader = (
   }
 
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varProp = varSetting.responseHeaderProp
+
+  // Generate property path from template
+  const casedProp = parseTpl({
+    template: varSetting.responseHeaderProp,
+    oaOperation
+    // options: {
+    // casing: globals?.variableCasing
+    // }
+  })
+  const varProp = hasTpl(varSetting?.responseHeaderProp) ? casedProp : varSetting.responseHeaderProp
 
   // Generate variable name from template
   const casedVarName = parseTpl({

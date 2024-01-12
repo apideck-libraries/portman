@@ -64,6 +64,38 @@ if (companiesOneportman !== undefined) {
 ]
 `;
 
+exports[`assignVarFromResponseHeader should generate a variable for the response header property with the cased templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set CompaniesId as variable for header 
+let CompaniesId = pm.response.headers.get(\\"Companies.id\\");
+if (CompaniesId !== undefined) {
+   pm.collectionVariables.set(\\"CompaniesId\\", CompaniesId);
+   console.log(\\"- use {{CompaniesId}} as collection variable for value\\", CompaniesId);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header property with the templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companiesOne.crm.id as variable for header 
+let companiesOnecrmid = pm.response.headers.get(\\"crm.id\\");
+if (companiesOnecrmid !== undefined) {
+   pm.collectionVariables.set(\\"companiesOne.crm.id\\", companiesOnecrmid);
+   console.log(\\"- use {{companiesOne.crm.id}} as collection variable for value\\", companiesOnecrmid);
+};
+",
+]
+`;
+
 exports[`assignVarFromResponseHeader should not show the log output for add postman collection var with name and response header value 1`] = `
 Array [
   "// Set response object as internal variable

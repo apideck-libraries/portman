@@ -21,7 +21,16 @@ export const assignVarFromRequestBody = (
   const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varProp = varSetting.requestBodyProp
+
+  // Generate property path from template
+  const casedProp = parseTpl({
+    template: varSetting.requestBodyProp,
+    oaOperation
+    // options: {
+    // casing: globals?.variableCasing
+    // }
+  })
+  const varProp = hasTpl(varSetting?.requestBodyProp) ? casedProp : varSetting.requestBodyProp
 
   // Generate variable name from template
   const casedVarName = parseTpl({

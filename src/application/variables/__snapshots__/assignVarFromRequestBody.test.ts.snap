@@ -165,6 +165,18 @@ console.log(\\"- use {{companiesAdd.name}} as collection variable for value\\", 
 ]
 `;
 
+exports[`assignVarFromRequestBody should generate a variable for the request body property with the cased templated expression 1`] = `
+Array [
+  "",
+]
+`;
+
+exports[`assignVarFromRequestBody should generate a variable for the request body property with the templated expression 1`] = `
+Array [
+  "",
+]
+`;
+
 exports[`assignVarFromRequestBody should not fail when on unexisting request body value 1`] = `
 Array [
   "",

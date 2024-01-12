@@ -117,4 +117,37 @@ describe('assignVarFromResponseHeader', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should generate a variable for the response header property with the templated expression', async () => {
+    const varSetting = {
+      responseHeaderProp: '<pathPart1>.id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response header property with the cased templated expression', async () => {
+    const varSetting = {
+      responseHeaderProp: '<tag>.id',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

@@ -272,4 +272,37 @@ describe('assignVarFromRequestBody', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should generate a variable for the request body property with the templated expression', async () => {
+    const varSetting = {
+      requestBodyProp: '<pathPart2>.id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body property with the cased templated expression', async () => {
+    const varSetting = {
+      requestBodyProp: '<tag>.id',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

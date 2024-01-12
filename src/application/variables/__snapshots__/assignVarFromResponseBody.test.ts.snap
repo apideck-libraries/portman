@@ -140,6 +140,46 @@ if (_resDataId !== undefined) {
 ]
 `;
 
+exports[`assignVarFromResponseBody should generate a variable for the response body property with the cased templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resCompaniesId = jsonData?.Companies?.id;
+",
+  "// pm.collectionVariables - Set CompaniesId as variable for jsonData.Companies.id
+if (_resCompaniesId !== undefined) {
+   pm.collectionVariables.set(\\"CompaniesId\\", jsonData.Companies.id);
+   console.log(\\"- use {{CompaniesId}} as collection variable for value\\",jsonData.Companies.id);
+} else {
+   console.log('INFO - Unable to assign variable {{CompaniesId}}, as jsonData.Companies.id is undefined.');
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseBody should generate a variable for the response body property with the templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resCompaniesId = jsonData?.companies?.id;
+",
+  "// pm.collectionVariables - Set CompaniesId as variable for jsonData.companies.id
+if (_resCompaniesId !== undefined) {
+   pm.collectionVariables.set(\\"CompaniesId\\", jsonData.companies.id);
+   console.log(\\"- use {{CompaniesId}} as collection variable for value\\",jsonData.companies.id);
+} else {
+   console.log('INFO - Unable to assign variable {{CompaniesId}}, as jsonData.companies.id is undefined.');
+};
+",
+]
+`;
+
 exports[`assignVarFromResponseBody should not show the log output for a postman collection var with name and response body value 1`] = `
 Array [
   "// Set response object as internal variable
