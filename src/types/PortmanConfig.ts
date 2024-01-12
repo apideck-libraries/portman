@@ -165,7 +165,6 @@ export type CollectionVariableConfig = {
   responseHeaderProp?: string
   name?: string
   value?: any
-  variableTemplate?: string
 }
 
 export type AssignVariablesConfig = {
