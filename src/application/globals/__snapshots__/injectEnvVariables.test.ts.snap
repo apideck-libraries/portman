@@ -104,7 +104,7 @@ Array [
   Object {
     "key": "baseUrl",
     "type": "string",
-    "value": "{{url}}/content",
+    "value": "https://api.foo.bar",
   },
   Object {
     "key": "bearer_token",
@@ -140,11 +140,6 @@ Array [
     "key": "connector_api_key",
     "type": "string",
     "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",
-  },
-  Object {
-    "key": "base_url",
-    "type": "string",
-    "value": "https://api.foo.bar",
   },
 ]
 `;
