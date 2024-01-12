@@ -37,7 +37,8 @@ export const assignVarFromResponseHeader = (
     template: varSetting?.name,
     oaOperation,
     dynamicValues: {
-      varProp: varProp
+      varProp: varProp,
+      opsRef: opsRef
     },
     options: {
       casing: globals?.variableCasing

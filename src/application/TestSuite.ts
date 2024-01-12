@@ -465,7 +465,7 @@ export class TestSuite {
     settings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
       const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
-      applyOverwrites(operations, overwriteSetting, this.oasParser)
+      applyOverwrites(operations, overwriteSetting, this.oasParser, this.config?.globals)
     })
 
     return this.postmanParser.mappedOperations

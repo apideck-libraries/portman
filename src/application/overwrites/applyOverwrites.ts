@@ -32,7 +32,7 @@ export const applyOverwrites = (
   pmOperations: PostmanMappedOperation[],
   overwriteSetting: OverwriteRequestConfig,
   oasParser: OpenApiParser,
-  settings?: GlobalConfig
+  globals?: GlobalConfig
 ): PostmanMappedOperation[] => {
   return pmOperations.map(pmOperation => {
     // Get OpenApi operation
@@ -43,7 +43,7 @@ export const applyOverwrites = (
       overwriteValues: overwriteSetting?.overwriteRequestBody || [],
       pmOperation,
       oaOperation,
-      settings
+      globals
     }
     overwriteSetting?.overwriteRequestBody && overwriteRequestBody(overwriteRequestBodyDto)
 
@@ -52,27 +52,17 @@ export const applyOverwrites = (
       overwriteValues: overwriteSetting?.overwriteRequestQueryParams || [],
       pmOperation,
       oaOperation,
-      settings
+      globals
     }
     overwriteSetting?.overwriteRequestQueryParams &&
       overwriteRequestQueryParams(overwriteRequestQueryParamsDto)
-
-    // overwrite request path id variables
-    // const overwriteRequestPathIdDto = {
-    //   overwriteValues: overwriteSetting.overwriteRequestPathIdVariables || [],
-    //   pmOperation,
-    //   oaOperation,
-    //   settings
-    // }
-    // overwriteSetting?.overwriteRequestPathIdVariables &&
-    //   overwriteRequestPathIdVariables(overwriteRequestPathIdDto)
 
     // overwrite request path variables
     const overwriteRequestPathVariablesDto = {
       overwriteValues: overwriteSetting?.overwriteRequestPathVariables || [],
       pmOperation,
       oaOperation,
-      settings
+      globals
     }
     overwriteSetting?.overwriteRequestPathVariables &&
       overwriteRequestPathVariables(overwriteRequestPathVariablesDto)
@@ -82,7 +72,7 @@ export const applyOverwrites = (
       overwriteValues: overwriteSetting?.overwriteRequestHeaders || [],
       pmOperation,
       oaOperation,
-      settings
+      globals
     }
     overwriteSetting?.overwriteRequestHeaders && overwriteRequestHeaders(overwriteRequestHeadersDto)
 
