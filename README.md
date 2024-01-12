@@ -629,7 +629,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 #### globals options
 
 - **stripResponseExamples (Default: false)** : Strip the response examples from the generated Postman collection.
-- **variableCasing** : Change the casing of the auto-generated Postman variables. Supported values are: `camelCase`, `pascalCase`, `kebabCase`, `trainCase`, `snakeCase`, `adaCase`, `constantCase`, `cobolCase`, `dotNotation`, `CONSTANT_CASE`
+- **variableCasing** : Change the casing of the auto-generated Postman variables. Supported values are: `camelCase`, `pascalCase`, `kebabCase`, `trainCase`, `snakeCase`, `adaCase`, `constantCase`, `cobolCase`, `dotNotation`
 - **separatorSymbol (Default: "::")** : Change the separator symbol for the auto-generated Postman testName description (Example: `[GET]::/crm/leads - Status code is 2xx`). Helpful when using the [postman-to-k6](https://github.com/apideck-libraries/postman-to-k6) converter.
 - **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will be executed by Postman before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts will be executed by Postman after every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).

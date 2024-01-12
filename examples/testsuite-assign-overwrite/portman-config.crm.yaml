@@ -1,0 +1,24 @@
+$schema: https://raw.githubusercontent.com/apideck-libraries/portman/main/src/utils/portman-config-schema.json
+version: 1
+globals:
+  stripResponseExamples: true
+  variableCasing: snakeCase
+assignVariables:
+  - openApiOperation: POST::*
+    collectionVariables:
+      - responseBodyProp: data.id
+        name: "<tag>Id"
+  - openApiOperationIds:
+      - contactsAll
+      - leadsAll
+    collectionVariables:
+      - responseBodyProp: data[0].id
+        name: "<tag>Id"
+overwrites:
+  - openApiOperation: "*::/crm/*/{id}"
+    excludeForOperations:
+      - POST::*
+    overwriteRequestPathVariables:
+      - key: id
+        value: "{{<tag>Id}}"
+        overwrite: true

@@ -1,0 +1,10 @@
+{
+  "local": "./examples/testsuite-assign-overwrite/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/testsuite-assign-overwrite/crm.postman.json",
+  "collectionName": "CRM API - Assign & Overwrite variables",
+  "portmanConfigFile": "./examples/testsuite-assign-overwrite/portman-config.crm.yaml",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": false
+}
