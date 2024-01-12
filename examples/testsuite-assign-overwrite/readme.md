@@ -221,7 +221,7 @@ The following template expressions are supported:
 
 ## assignVariables with usage in overwriteRequestQueryParams
 
-In combination with the `overwrites` option, you can then chain the Creation operation with the Read/Update/Delete operations. 
+In combination with the `overwrites` option, you can then chain the creation operation with the read/update/delete operations. 
 You can use the same template expressions to target the Postman variables.
 
 ```yaml
@@ -235,10 +235,9 @@ overwrites:
         overwrite: true
 ```
 
-This will target all ( GET/PUT/PATCH/DELETE) methods that contain the path `/crm/*/{id}`  and will overwrite the request query param `id` with the value of the Postman variable, using the `<tag>Id` template expression.
-The `excludeForOperations` is used to exclude the overwrite for the POST operations, as the POST operation does not contain the `id` query param.
+This targets all (GET/PUT/PATCH/DELETE) methods that contain the path `/crm/*/{id}`  and overwrites the request query parameter `id` with the value of the Postman variable, using the `<tag>Id` template expression.
+The `excludeForOperations` is used to exclude the overwrite for the POST operations, as the POST operation does not contain the `id` query parameter.
 
-The handy thing is that you can use the same template expression to target the Postman variable, as you used to assign the Postman variable.
-So no need to configure Portman to overwrite with specific Postman variables per operation, as you can use the same template expression to assign the Postman variable.
+The handy thing is that you can use the same template expression to target the Postman variable, as you used to assign the Postman variable. So, there is no need to configure Portman to overwrite with specific Postman variables per operation, as you can use the same template expression to assign the Postman variable.
 
 This will allow you to keep the configuration as minimal as possible.
