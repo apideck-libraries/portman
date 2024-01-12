@@ -8,12 +8,12 @@ assignVariables:
     collectionVariables:
       - responseBodyProp: data.id
         name: "<tag>Id"
-  - openApiOperationIds:
-      - contactsAll
-      - leadsAll
+  - openApiOperation: GET::*
+    excludeForOperations:
+      - "GET::/*/{id}"
     collectionVariables:
       - responseBodyProp: data[0].id
-        name: "<tag>Id"
+        name: <tag>Id
 overwrites:
   - openApiOperation: "*::/crm/*/{id}"
     excludeForOperations:

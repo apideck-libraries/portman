@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "dc669a98-ba97-4c55-ba24-cf94eecaf567"
+    "postman_id": "56801bfc-f0c5-453a-a9f5-912f0d6d44a5"
   },
   "item": [
     {
-      "id": "34fadf9e-b19e-4e72-986e-f6948b7e555f",
+      "id": "7dc61966-1da0-4668-a9f9-c790d841bf98",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "074f29e3-aff9-4618-9635-cc52c8b03f9d",
+          "id": "f2a57126-67f4-4aae-aafb-aab95244e52e",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -109,7 +109,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "38d64cc7-1bd0-4de0-b811-5fcf27916b3e",
+                "id": "ed3cb120-6e1c-420e-ab4d-6396a98b32e2",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -124,7 +124,7 @@
           }
         },
         {
-          "id": "e66ce01f-0a3b-4aec-b666-ba5ba68126b4",
+          "id": "d161d4ac-e7dd-4b77-a660-27892efe2193",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -216,7 +216,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "96c50796-137e-401b-acae-800ebaa98c7e",
+                "id": "4c140edb-830c-4fa9-8668-bb65d0b1b821",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -231,7 +231,7 @@
           }
         },
         {
-          "id": "b6277a2b-ac6b-40fb-a26e-77f34658d9b4",
+          "id": "3428e4e6-49ca-438d-af57-0f7054a3d0f4",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -318,13 +318,26 @@
             }
           },
           "response": [],
-          "event": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "f2d22063-1ea1-4acb-9566-e9e48a378aa5",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resData0Id = jsonData?.data?.[0]?.id;\n",
+                  "// pm.collectionVariables - Set leads_id as variable for jsonData.data[0].id\nif (_resData0Id !== undefined) {\n   pm.collectionVariables.set(\"leads_id\", jsonData.data[0].id);\n   // console.log(\"- use {{leads_id}} as collection variable for value\",jsonData.data[0].id);\n} else {\n   console.log('INFO - Unable to assign variable {{leads_id}}, as jsonData.data[0].id is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           }
         },
         {
-          "id": "46fbbc3b-e6e2-4844-9eba-85081f12f1ee",
+          "id": "427b46da-aaa2-4097-9df3-8fa7cb393aa7",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -430,7 +443,7 @@
           }
         },
         {
-          "id": "22a986fa-579f-4658-9583-9022499895c9",
+          "id": "df3d3d2a-46a9-4ab9-8cef-08b10b6d0bb1",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -526,7 +539,7 @@
       "event": []
     },
     {
-      "id": "0a9e23f2-dab0-4114-a61c-98915e247bb1",
+      "id": "bbb436df-771e-4295-9ee5-15dc9d599ff6",
       "name": "Contacts",
       "description": {
         "content": "",
@@ -534,7 +547,7 @@
       },
       "item": [
         {
-          "id": "44d00dd0-0892-41f6-8fdf-23c9de3a6ebc",
+          "id": "c3d4c410-2e56-43ba-8e1e-5d34d8e65cc3",
           "name": "List contacts",
           "request": {
             "name": "List contacts",
@@ -649,7 +662,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "645c5c88-e2e7-40db-bc7a-321900b0a702",
+                "id": "091bf45e-9d94-4c6f-aa85-4fcb84c5a4be",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -664,7 +677,7 @@
           }
         },
         {
-          "id": "aa2b920b-264b-4827-a401-eb6ff8caeccb",
+          "id": "c7a92606-9938-4e0c-a4c0-e3f3bab91a67",
           "name": "Create contact",
           "request": {
             "name": "Create contact",
@@ -756,7 +769,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "db32c643-20e6-493a-973b-ed52efad19dd",
+                "id": "a06e39c1-decf-4374-8365-ca436d1023d0",
                 "type": "text/javascript",
                 "exec": [
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
@@ -771,7 +784,7 @@
           }
         },
         {
-          "id": "4fc383a5-b1d7-4404-8507-ef87a92122ff",
+          "id": "73d0268c-6716-4ea8-a380-92da96c10c6a",
           "name": "Get contact",
           "request": {
             "name": "Get contact",
@@ -858,13 +871,26 @@
             }
           },
           "response": [],
-          "event": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "22c4f44e-8d1c-4795-9834-07434a06e7dd",
+                "type": "text/javascript",
+                "exec": [
+                  "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
+                  "// Set property value as variable\nconst _resData0Id = jsonData?.data?.[0]?.id;\n",
+                  "// pm.collectionVariables - Set contacts_id as variable for jsonData.data[0].id\nif (_resData0Id !== undefined) {\n   pm.collectionVariables.set(\"contacts_id\", jsonData.data[0].id);\n   // console.log(\"- use {{contacts_id}} as collection variable for value\",jsonData.data[0].id);\n} else {\n   console.log('INFO - Unable to assign variable {{contacts_id}}, as jsonData.data[0].id is undefined.');\n};\n"
+                ]
+              }
+            }
+          ],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           }
         },
         {
-          "id": "9ad749ec-56bf-4030-a5b9-d00708cb5a78",
+          "id": "4ad24bd2-b336-4e0b-b8bc-785bdd06f85e",
           "name": "Update contact",
           "request": {
             "name": "Update contact",
@@ -970,7 +996,7 @@
           }
         },
         {
-          "id": "d6f06ce9-c5a3-4f54-a048-571540463ad5",
+          "id": "5e597ec8-dfb6-499c-8bec-acdf29c4b643",
           "name": "Delete contact",
           "request": {
             "name": "Delete contact",
@@ -1110,7 +1136,7 @@
     }
   ],
   "info": {
-    "_postman_id": "dc669a98-ba97-4c55-ba24-cf94eecaf567",
+    "_postman_id": "56801bfc-f0c5-453a-a9f5-912f0d6d44a5",
     "name": "CRM API - Assign & Overwrite variables",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
