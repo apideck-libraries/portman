@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - AssignVariables: Option to use template expressions for variable names (#548)
+- AssignVariables: Option to use template expressions for variable properties for Request body, Response body & header (#548)
 - Overwrites: Option to use template expressions for values (#548)
 - Globals: Define the casing of the generated variable names (#541)
 - Globals: Apply variableCasing for injected .ENV variables (#548)
