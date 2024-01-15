@@ -1,10 +1,15 @@
 ## [Unreleased]
 
+- AssignVariables: Option to use template expressions for variable names (#548)
+- AssignVariables: Option to use template expressions for variable properties for Request body, Response body & header (#548)
+- Overwrites: Option to use template expressions for values (#548)
 - Globals: Define the casing of the generated variable names (#541)
+- Globals: Apply variableCasing for injected .ENV variables (#548)
 - Globals: Define the separatorSymbol used in the Postman test names (#541)
 - Support for loading local or remote JSON/YAML config files (#547)
 - Implement openapi-format as module (#539)
 - Fix includeTests parameter behaviour (#544)
+- Updated examples
 
 ## v1.24 - (2024-01-05)
 

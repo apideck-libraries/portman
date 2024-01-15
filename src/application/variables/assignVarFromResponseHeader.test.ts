@@ -1,13 +1,17 @@
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromResponseHeader } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
 
 describe('assignVarFromResponseHeader', () => {
+  let oaOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
+    oaOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -19,8 +23,12 @@ describe('assignVarFromResponseHeader', () => {
       responseHeaderProp: 'operation-location',
       name: 'leadsAdd.header'
     }
-
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -30,10 +38,15 @@ describe('assignVarFromResponseHeader', () => {
       responseHeaderProp: 'operation-location',
       name: 'leadsAdd.header'
     }
-
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {
-      logAssignVariables: true
-    })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: true
+      }
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -43,10 +56,15 @@ describe('assignVarFromResponseHeader', () => {
       responseHeaderProp: 'operation-location',
       name: 'leadsAdd.header'
     }
-
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {
-      logAssignVariables: false
-    })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: false
+      }
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -55,8 +73,14 @@ describe('assignVarFromResponseHeader', () => {
     const varSetting = {
       responseHeaderProp: 'portman'
     }
-    const global = { variableCasing: 'snakeCase' } as GlobalConfig
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {}, global)
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -65,8 +89,64 @@ describe('assignVarFromResponseHeader', () => {
     const varSetting = {
       responseHeaderProp: 'portman'
     }
-    const global = {} as GlobalConfig
-    pmOperation = assignVarFromResponseHeader(varSetting, pmOperation, {}, global)
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response header and convert the casing for the templated name', async () => {
+    const varSetting = {
+      responseHeaderProp: 'portman',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response header property with the templated expression', async () => {
+    const varSetting = {
+      responseHeaderProp: '<pathPart1>.id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response header property with the cased templated expression', async () => {
+    const varSetting = {
+      responseHeaderProp: '<tag>.id',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

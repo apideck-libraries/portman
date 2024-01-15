@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PortmanOptions } from './PortmanOptions'
 import { OpenApiParser } from '../oas'
 import { PostmanParser } from '../postman'
-import { PortmanOptions } from './PortmanOptions'
 
 type ContractTest = {
   enabled: boolean
@@ -144,10 +144,6 @@ export type OverwriteRequestHeadersConfig = OverwriteConfig & {
   description?: string
 }
 
-export type OverwritePathIdVariableConfig = {
-  enabled: boolean
-}
-
 export type OverwriteRequestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
@@ -155,7 +151,6 @@ export type OverwriteRequestConfig = {
   excludeForOperations?: string[]
   overwriteRequestQueryParams?: OverwriteQueryParamConfig[]
   overwriteRequestPathVariables?: OverwritePathVariableConfig[]
-  overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
   overwriteRequestBody?: OverwriteRequestBodyConfig[]
   overwriteRequestHeaders?: OverwriteRequestHeadersConfig[]
   overwriteRequestBaseUrl?: OverwriteRequestBaseUrlConfig

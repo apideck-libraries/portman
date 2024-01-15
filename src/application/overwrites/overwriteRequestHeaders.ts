@@ -1,16 +1,14 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OverwriteRequestHeadersConfig } from '../../types'
 import { Header } from 'postman-collection'
+import { parseTpl, hasTpl } from '../../utils'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request headers with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestHeaders = (
-  overwriteValues: OverwriteRequestHeadersConfig[],
-  pmOperation: PostmanMappedOperation
-): PostmanMappedOperation => {
+export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation, globals } = dto
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
@@ -31,10 +29,20 @@ export const overwriteRequestHeaders = (
         return
       }
 
+      const generatedName = parseTpl({
+        template: overwriteItem.value,
+        oaOperation: oaOperation,
+        options: {
+          casing: globals?.variableCasing
+        }
+      })
+      const overwriteValue =
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
+
       // Test suite - Overwrite/extend header value
-      if (overwriteItem?.value !== undefined) {
+      if (overwriteValue !== undefined) {
         const orgValue = pmHeader.value
-        let newValue = overwriteItem.value
+        let newValue = overwriteValue
 
         if (overwriteItem?.overwrite === false && orgValue) {
           newValue = orgValue + newValue

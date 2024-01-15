@@ -411,9 +411,13 @@ export class TestSuite {
       let fixedValueCounter = 0
 
       operations.map(pmOperation => {
+        // Get OpenApi operation
+        const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
+
         // Loop over all defined variable value sources
         fixedValueCounter = assignCollectionVariables(
           pmOperation,
+          oaOperation,
           assignVarSetting,
           fixedValueCounter,
           this.options,
@@ -461,7 +465,7 @@ export class TestSuite {
     settings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
       const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
-      applyOverwrites(operations, overwriteSetting)
+      applyOverwrites(operations, overwriteSetting, this.oasParser, this.config?.globals)
     })
 
     return this.postmanParser.mappedOperations

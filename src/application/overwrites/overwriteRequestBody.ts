@@ -1,34 +1,31 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OverwriteRequestBodyConfig } from '../../types'
-import { getByPath, isObject, omitByPath, setByPath } from '../../utils'
+import { parseTpl, getByPath, hasTpl, isObject, omitByPath, setByPath } from '../../utils'
 import { FormParam, PropertyList, QueryParam } from 'postman-collection'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request body with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestBody = (
-  overwriteValues: OverwriteRequestBodyConfig[],
-  pmOperation: PostmanMappedOperation
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestBody = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation } = dto
+
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
   if (pmOperation.item?.request?.body?.raw) {
     // Overwrite JSON values
-    overwriteRequestBodyJson(overwriteValues, pmOperation)
+    overwriteRequestBodyJson(dto)
     return pmOperation
   }
   if (pmOperation.item?.request?.body?.formdata) {
     // Overwrite Form data values
-    overwriteRequestBodyFormData(overwriteValues, pmOperation)
+    overwriteRequestBodyFormData(dto)
     return pmOperation
   }
   if (pmOperation.item?.request?.body?.urlencoded) {
     // Overwrite Form url encoded values
-    overwriteRequestBodyFormUrlEncoded(overwriteValues, pmOperation)
+    overwriteRequestBodyFormUrlEncoded(dto)
     return pmOperation
   }
 
@@ -37,14 +34,13 @@ export const overwriteRequestBody = (
 
 /**
  * Overwrite JSON values in the request body values
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestBodyJson = (
-  overwriteValues: OverwriteRequestBodyConfig[],
-  pmOperation: PostmanMappedOperation
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestBodyJson = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation, globals } = dto
+  // Early exit if overwrite values are not defined
+  if (!(overwriteValues instanceof Array)) return pmOperation
+
   // Early exit if request body is not defined
   if (!pmOperation.item?.request?.body?.raw) return pmOperation
   const requestBody = pmOperation.item.request.body.raw
@@ -54,14 +50,22 @@ export const overwriteRequestBodyJson = (
 
   // Overwrite values for Keys
   let bodyData = JSON.parse(requestBodySafe)
-  overwriteValues.map(overwriteValue => {
-    if (overwriteValue?.key && typeof overwriteValue?.value !== 'undefined') {
-      const root = overwriteValue.key === '.'
-      const originalValue = root ? bodyData : getByPath(bodyData, overwriteValue.key)
+  overwriteValues.map(overwriteItem => {
+    if (overwriteItem?.key && typeof overwriteItem?.value !== 'undefined') {
+      const root = overwriteItem.key === '.'
+      const originalValue = root ? bodyData : getByPath(bodyData, overwriteItem.key)
+      const generatedName = parseTpl({
+        template: overwriteItem.value,
+        oaOperation: oaOperation,
+        options: {
+          casing: globals?.variableCasing
+        }
+      })
 
-      let newValue = overwriteValue.value
+      let newValue =
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
-      if (overwriteValue?.overwrite === false) {
+      if (overwriteItem?.overwrite === false) {
         if (Array.isArray(originalValue) && Array.isArray(newValue)) {
           newValue = originalValue.concat(newValue)
         } else if (isObject(originalValue)) {
@@ -72,14 +76,14 @@ export const overwriteRequestBodyJson = (
       }
 
       if (root) {
-        bodyData = overwriteValue.overwrite ? newValue : { ...bodyData, ...newValue }
+        bodyData = overwriteItem.overwrite ? newValue : { ...bodyData, ...newValue }
       } else {
-        bodyData = setByPath(bodyData, overwriteValue.key, newValue)
+        bodyData = setByPath(bodyData, overwriteItem.key, newValue)
       }
     }
 
-    if (overwriteValue.key && overwriteValue.remove === true) {
-      bodyData = omitByPath(bodyData, overwriteValue.key)
+    if (overwriteItem.key && overwriteItem.remove === true) {
+      bodyData = omitByPath(bodyData, overwriteItem.key)
     }
   })
 
@@ -96,14 +100,13 @@ export const overwriteRequestBodyJson = (
 
 /**
  * Overwrite form-data values in the request body values
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestBodyFormData = (
-  overwriteValues: OverwriteRequestBodyConfig[],
-  pmOperation: PostmanMappedOperation
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestBodyFormData = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation, globals } = dto
+  // Early exit if overwrite values are not defined
+  if (!(overwriteValues instanceof Array)) return pmOperation
+
   // Early exit if request body form data is not defined
   if (!pmOperation.item?.request?.body?.formdata) return pmOperation
   const formData = pmOperation.item.request.body.formdata as PropertyList<FormParam>
@@ -127,7 +130,15 @@ export const overwriteRequestBodyFormData = (
     // Test suite - Overwrite/extend request body form data param value
     if (overwriteItem?.value !== undefined && pmFormParam?.value) {
       const orgValue = pmFormParam.value
-      let newValue = overwriteItem.value
+      const generatedName = parseTpl({
+        template: overwriteItem.value,
+        oaOperation: oaOperation,
+        options: {
+          casing: globals?.variableCasing
+        }
+      })
+      let newValue =
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
       if (overwriteItem.overwrite === false) {
         newValue = orgValue + newValue
@@ -181,14 +192,15 @@ export const overwriteRequestBodyFormData = (
 
 /**
  * Overwrite x-www-form-urlencoded values in the request body values
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
 export const overwriteRequestBodyFormUrlEncoded = (
-  overwriteValues: OverwriteRequestBodyConfig[],
-  pmOperation: PostmanMappedOperation
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  dto: OverwriteRequestDTO
 ): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation, globals } = dto
+  // Early exit if overwrite values are not defined
+  if (!(overwriteValues instanceof Array)) return pmOperation
+
   // Early exit if request body form url encoded is not defined
   if (!pmOperation.item?.request?.body?.urlencoded) return pmOperation
   const formEncoded = pmOperation.item.request.body.urlencoded as PropertyList<QueryParam>
@@ -212,7 +224,15 @@ export const overwriteRequestBodyFormUrlEncoded = (
     // Test suite - Overwrite/extend request body form encoded param value
     if (overwriteItem?.value !== undefined && pmFormParam?.value) {
       const orgValue = pmFormParam.value
-      let newValue = overwriteItem.value
+      const generatedName = parseTpl({
+        template: overwriteItem.value,
+        oaOperation: oaOperation,
+        options: {
+          casing: globals?.variableCasing
+        }
+      })
+      let newValue =
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
       if (overwriteItem.overwrite === false) {
         newValue = orgValue + newValue

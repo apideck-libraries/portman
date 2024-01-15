@@ -1,0 +1,7 @@
+{
+  "folderStrategy": "Tags",
+  "requestParametersResolution": "Example",
+  "exampleParametersResolution": "Example",
+  "keepImplicitHeaders": true,
+  "enableOptionalParameters": false
+}

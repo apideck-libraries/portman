@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
   version: 1.3.0
-  title: CRM API - Fuzzing tests
-  description: "Welcome to the CRM API from Apideck."
+  title: CRM API - Assign Variables
+  description: "Welcome to the CRM API."
   contact:
     email: hello@apideck.com
     url: 'https://developers.apideck.com'
@@ -21,6 +21,8 @@ security:
 tags:
   - name: Leads
     description: ''
+  - name: Contacts
+    description: ''
 components:
   schemas:
     UnifiedId:
@@ -32,6 +34,140 @@ components:
           type: string
           readOnly: true
           example: '12345'
+    Contact:
+      required:
+        - name
+      x-pii:
+        - name
+        - first_name
+        - middle_name
+        - last_name
+        - email
+      properties:
+        id:
+          type: string
+          example: '12345'
+          readOnly: true
+        owner_id:
+          type: string
+          example: '54321'
+          nullable: true
+        company_id:
+          type: string
+          example: '23456'
+          nullable: true
+        company_name:
+          type: string
+          example: '23456'
+          nullable: true
+        lead_id:
+          type: string
+          example: '34567'
+          nullable: true
+        name:
+          type: string
+          example: Elon Musk
+        first_name:
+          type: string
+          example: Elon
+          nullable: true
+        middle_name:
+          type: string
+          example: D.
+          nullable: true
+        last_name:
+          type: string
+          example: Musk
+          nullable: true
+        prefix:
+          type: string
+          example: Mr.
+          nullable: true
+        suffix:
+          type: string
+          example: PhD
+          nullable: true
+        title:
+          type: string
+          example: CEO
+          nullable: true
+        department:
+          type: string
+          example: Engineering
+          nullable: true
+        language:
+          type: string
+          example: EN
+          description: language code according to ISO 639-1. For the United States - EN
+          nullable: true
+        gender:
+          type: string
+          enum:
+            - male
+            - female
+            - unisex
+          example: female
+          nullable: true
+        birthday:
+          type: string
+          example: '2000-08-12'
+          nullable: true
+        image:
+          type: string
+          example: 'https://logo.clearbit.com/spacex.com?s=128'
+          nullable: true
+        lead_source:
+          type: string
+          minLength: 1
+          example: Cold Call
+          nullable: true
+        fax:
+          type: string
+          example: '+12129876543'
+          nullable: true
+        description:
+          type: string
+          example: Internal champion
+          nullable: true
+        status:
+          type: string
+          example: open
+          nullable: true
+        websites:
+          type: array
+          items:
+            $ref: '#/components/schemas/Website'
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        social_links:
+          type: array
+          items:
+            $ref: '#/components/schemas/SocialLink'
+        phone_numbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneNumber'
+        emails:
+          type: array
+          items:
+            $ref: '#/components/schemas/Email'
+        custom_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomField'
+        tags:
+          $ref: '#/components/schemas/Tags'
+        updated_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+        created_at:
+          type: string
+          example: '2017-08-12T20:43:21.291Z'
+          readOnly: true
+      additionalProperties: false
     Lead:
       required:
         - name
@@ -57,8 +193,6 @@ components:
           type: string
           example: Spacex
           nullable: true
-          minLength: 3
-          maxLength: 10
         contact_id:
           type: string
           example: '2'
@@ -92,11 +226,8 @@ components:
           nullable: true
         monetary_amount:
           type: number
-          example: 250
-          default: 250
+          example: 75000
           nullable: true
-          minimum: 100
-          maximum: 300
         currency:
           type: string
           example: USD
@@ -241,12 +372,6 @@ components:
         id:
           type: string
           example: '12345'
-          nullable: true
-        code:
-          type: number
-          example: 1
-          minimum: 1
-          maximum: 100
           nullable: true
         url:
           type: string
@@ -695,6 +820,10 @@ components:
           type: string
           description: Operation performed
           example: one
+        "@count":
+          type: string
+          example: "1.000.000"
+          nullable: true
         data:
           $ref: '#/components/schemas/Lead'
     GetLeadsResponse:
@@ -736,17 +865,217 @@ components:
           $ref: '#/components/schemas/Meta'
         links:
           $ref: '#/components/schemas/Links'
+    CreateContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    UpdateContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    DeleteContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/UnifiedId'
+    GetContactResponse:
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          $ref: '#/components/schemas/Contact'
+    GetContactsResponse:
+      x-graphql-type-name: ContactList
+      type: object
+      required:
+        - status_code
+        - status
+        - service
+        - resource
+        - operation
+        - data
+      properties:
+        status_code:
+          type: integer
+          description: HTTP Response Status Code
+          example: 200
+        status:
+          type: string
+          description: HTTP Response Status
+          example: OK
+        service:
+          type: string
+          description: Apideck ID of service provider
+          example: zoho-crm
+        resource:
+          type: string
+          description: Unified API resource name
+          example: companies
+        operation:
+          type: string
+          description: Operation performed
+          example: one
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
+        meta:
+          $ref: '#/components/schemas/Meta'
+        links:
+          $ref: '#/components/schemas/Links'
+    ContactsFilter:
+      type: object
+      x-graphql-type-name: ContactsFilter
+      example:
+        first_name: Elon
+        last_name: Musk
+      properties:
+        name:
+          type: string
+          description: Name of the contact to filter on
+          example: Elon Musk
+        first_name:
+          type: string
+          description: First name of the contact to filter on
+          example: Elon
+        last_name:
+          type: string
+          description: Last name of the contact to filter on
+          example: Musk
+        email:
+          type: string
+          description: E-mail of the contact to filter on
+          example: elon@tesla.com
+      additionalProperties: false
+    OpportunitiesFilter:
+      type: object
+      x-graphql-type-name: OpportunitiesFilter
+      example:
+        name: Alex
+      properties:
+        name:
+          type: string
+          description: Name to filter on
+          example: Alex
+      additionalProperties: false
   parameters:
     applicationId:
       name: x-apideck-app-id
       in: header
       required: true
       description: The ID of your Unify application
-      example: Foo Bar
       schema:
         type: string
-        minLength: 2
-        maxLength: 15
+        example: my-app-id
     serviceId:
       name: x-apideck-service-id
       in: header
@@ -759,11 +1088,9 @@ components:
       in: header
       required: true
       description: ID of the consumer which you want to get or push data from
-      example: 10
       schema:
-        type: number
-        minimum: 10
-        maximum: 100
+        type: string
+        example: my-consumer-id
     raw:
       name: raw
       in: query
@@ -776,8 +1103,8 @@ components:
       name: id
       schema:
         type: string
-        example: 12345
-        default: 12345
+        default: 123
+        example: 123
       required: true
       description: ID of the record you are acting upon.
     limit:
@@ -797,7 +1124,45 @@ components:
         type: string
         nullable: true
         default: null
+    contactsFilter:
+      name: filter
+      in: query
+      description: Apply filters (beta)
+      style: deepObject
+      explode: true
+      schema:
+        $ref: '#/components/schemas/ContactsFilter'
   responses:
+    GetContacts:
+      description: Contacts
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetContactsResponse'
+    GetContact:
+      description: Contact
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetContactResponse'
+    CreateContact:
+      description: Contact created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateContactResponse'
+    UpdateContact:
+      description: Contact updated
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateContactResponse'
+    DeleteContact:
+      description: Contact deleted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteContactResponse'
     GetLeads:
       description: Leads
       content:
@@ -913,6 +1278,167 @@ components:
       name: x-apideck-consumer-id
       description: The ID of the consumer which you want to get or push data from
 paths:
+  /crm/contacts:
+    get:
+      tags:
+        - Contacts
+      x-graphql-field-name: contacts
+      operationId: contactsAll
+      summary: List contacts
+      description: List contacts
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/cursor'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/contactsFilter'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetContacts'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    post:
+      tags:
+        - Contacts
+      operationId: contactsAdd
+      summary: Create contact
+      description: Create contact
+      parameters:
+        - $ref: '#/components/parameters/raw'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  '/crm/contacts/{id}':
+    get:
+      tags:
+        - Contacts
+      operationId: contactsOne
+      summary: Get contact
+      description: Get contact
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/GetContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    patch:
+      tags:
+        - Contacts
+      operationId: contactsUpdate
+      summary: Update contact
+      description: Update contact
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    delete:
+      tags:
+        - Contacts
+      operationId: contactsDelete
+      summary: Delete contact
+      description: Delete contact
+      parameters:
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/consumerId'
+        - $ref: '#/components/parameters/applicationId'
+        - $ref: '#/components/parameters/serviceId'
+        - $ref: '#/components/parameters/raw'
+      security:
+        - apiKey: [ ]
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteContact'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/Unprocessable'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
   /crm/leads:
     get:
       tags:

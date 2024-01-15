@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "97ecdd41-5911-4794-b5a4-5a53d4b9682a"
+    "postman_id": "66a387eb-7f82-483f-a402-79d8ba103131"
   },
   "item": [
     {
-      "id": "1e0ffb52-50a7-4857-bbfb-479836a16177",
+      "id": "65c98f84-5308-4a82-8540-c9a26fcb1360",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "5ad7e219-9642-4690-801d-78eb12f2bdb4",
+          "id": "b5306807-9772-46a7-bc55-9acf67328480",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -109,7 +109,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "ef2e5bdb-e377-4949-ac46-a95df44e4039",
+                "id": "3f9b2bcb-f7a4-43f5-8325-167296f5bfba",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -126,7 +126,7 @@
           }
         },
         {
-          "id": "a5c76bf6-c0d0-4202-a14b-11443d2d8858",
+          "id": "e21a2d3f-0f5d-4dbb-ad9a-906a55b491c8",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -218,7 +218,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "cf51b8f3-50dc-44c1-b063-c19c7ce08ef7",
+                "id": "305a93da-e391-400e-a63b-b16519a1451a",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[POST]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -239,7 +239,7 @@
           }
         },
         {
-          "id": "7d90d3c4-b6d7-4f6e-aef4-1c97683a83a5",
+          "id": "4b631b39-1f9e-49ef-9248-2564eb45f402",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -330,7 +330,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "047896c7-3267-402d-b2d2-9b7e22e9a5e8",
+                "id": "fe4bdd73-d451-4c6b-baa5-edbad8b9a3a8",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -358,7 +358,7 @@
           }
         },
         {
-          "id": "090f624f-8b77-443b-a2ea-cfafea67aa7d",
+          "id": "31a46638-7e4f-4268-a3c0-4e6e9a64d664",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -462,7 +462,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "b21f4ece-059f-4ced-bd2f-f2928d69b1f2",
+                "id": "1258b391-97aa-4552-ae70-d6af20bfd227",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[PATCH]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -479,7 +479,7 @@
           }
         },
         {
-          "id": "0abe3038-28ac-4941-ae73-8e22f3b71073",
+          "id": "e86e9d4d-8bdd-4424-ba04-6fc29fa48b7f",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -570,7 +570,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "9fecb50d-47be-4e37-a288-17a3449bd1b9",
+                "id": "9df7333d-e793-456d-9957-dcec0c9909ef",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[DELETE]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -634,11 +634,11 @@
     }
   ],
   "info": {
-    "_postman_id": "97ecdd41-5911-4794-b5a4-5a53d4b9682a",
+    "_postman_id": "66a387eb-7f82-483f-a402-79d8ba103131",
     "name": "CRM API - Assign Variables",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Welcome to the CRM API from Apideck.\n\nContact Support:\n Email: hello@apideck.com",
+      "content": "Welcome to the CRM API.\n\nContact Support:\n Email: hello@apideck.com",
       "type": "text/plain"
     }
   }

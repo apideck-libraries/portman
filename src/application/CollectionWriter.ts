@@ -63,7 +63,7 @@ export class CollectionWriter {
 
     // --- Portman - Use .env to inject variables on Collection
     if (envFile) {
-      collection = injectEnvVariables(collection, envFile, baseUrl)
+      collection = injectEnvVariables(collection, envFile, baseUrl, globals)
     }
 
     // --- Portman - Set manually order Postman requests

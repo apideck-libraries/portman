@@ -1,27 +1,22 @@
-import { writeOperationTestScript } from '../../application'
+import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, GlobalConfig, PortmanOptions } from '../../types'
-import { changeCase } from 'openapi-format'
+import { hasTpl, parseTpl } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
- * @param varSetting
- * @param pmOperation
- * @param options
- * @param settings
+ * @param dto
  */
 export const assignVarFromResponseHeader = (
-  varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation,
-  options?: PortmanOptions,
-  settings?: GlobalConfig
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  dto: assignCollectionVariablesDTO
 ): PostmanMappedOperation => {
+  const { pmOperation, oaOperation, varSetting, options, globals } = dto
+
   // Early exit if response header is not defined
   if (!varSetting.responseHeaderProp) return pmOperation
 
   let pmJsonData = ''
   let pmVarAssign = ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Only set the jsonData once
   if (!pmOperation.testJsonDataInjected) {
@@ -34,17 +29,38 @@ export const assignVarFromResponseHeader = (
     pmOperation.testJsonDataInjected = true
   }
 
-  // Toggle log output
-  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
+  const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
+
+  // Generate property path from template
+  const casedProp = parseTpl({
+    template: varSetting.responseHeaderProp,
+    oaOperation,
+    options: {
+      casing: globals?.variableCasing
+    }
+  })
+  const varProp = hasTpl(varSetting?.responseHeaderProp) ? casedProp : varSetting.responseHeaderProp
+
+  // Generate variable name from template
+  const casedVarName = parseTpl({
+    template: varSetting?.name,
+    oaOperation,
+    dynamicValues: {
+      varProp: varProp,
+      opsRef: opsRef
+    },
+    options: {
+      casing: globals?.variableCasing
+    }
+  })
 
   // Set variable name
-  const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const varProp = varSetting.responseHeaderProp
-  const defaultVarName = `${opsRef}.${varProp}`
-  const casedVarName = settings?.variableCasing
-    ? changeCase(defaultVarName, settings.variableCasing)
-    : defaultVarName
-  const varName = varSetting?.name ?? casedVarName
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
 
   // Safe variable name
   const safeVarName = varName

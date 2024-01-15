@@ -56,6 +56,15 @@
       ]
     },
     {
+      "openApiOperationId": "leadsOne",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "<operationId>_<pathPart1>"
+        }
+      ]
+    },
+    {
       "openApiOperationId": "leadsUpdate",
       "overwriteRequestHeaders": [
         {

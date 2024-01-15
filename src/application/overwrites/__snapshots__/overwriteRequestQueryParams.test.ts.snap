@@ -225,6 +225,76 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestQueryParams should overwrite the query param variable with generated cased string variable 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "CompaniesOneCompanies",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite the query param variable with generated cased string variable with {{}} 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "{{CompaniesOne}}",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite the query param variable with generated string value 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "companiesOne_companies",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite the query param variable with generated string variable 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "companiesOne_companies",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite the query param variable with generated string variable with {{}} 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "{{companiesOne}}",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should overwrite the request query param 1`] = `
 Array [
   Object {

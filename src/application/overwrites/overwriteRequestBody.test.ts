@@ -5,12 +5,31 @@ import {
   getPostmanMappedCreateFormUrlEncoded
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import {
+  getOasMappedCreateArrayOperation,
+  getOasMappedCreateOperation
+} from '../../../__tests__/testUtils/getOasMappedOperation'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
+import {
   decodeDynamicPmVars,
   makeJsonSafeDynamicPmVars,
   overwriteRequestBody
 } from '../../application'
+import { GlobalConfig } from '../../types'
 
 describe('overwriteRequestBody', () => {
+  let oaOperation: OasMappedOperation
+  let pmOperation: PostmanMappedOperation
+
+  beforeEach(async () => {
+    pmOperation = await getPostmanMappedCreateOperation()
+    oaOperation = await getOasMappedCreateOperation()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should overwrite the root request body when overwrite is true', async () => {
     const overwriteValues = [
       {
@@ -19,8 +38,12 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -32,8 +55,12 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -44,8 +71,12 @@ describe('overwriteRequestBody', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -56,8 +87,12 @@ describe('overwriteRequestBody', () => {
         value: 987654321
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -68,8 +103,12 @@ describe('overwriteRequestBody', () => {
         value: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -80,8 +119,12 @@ describe('overwriteRequestBody', () => {
         value: ''
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -92,8 +135,12 @@ describe('overwriteRequestBody', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -104,8 +151,12 @@ describe('overwriteRequestBody', () => {
         value: 'secondary'
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -123,8 +174,12 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -142,8 +197,12 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -155,8 +214,12 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -167,8 +230,12 @@ describe('overwriteRequestBody', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -179,8 +246,12 @@ describe('overwriteRequestBody', () => {
         value: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -192,8 +263,12 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -205,8 +280,12 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -217,8 +296,12 @@ describe('overwriteRequestBody', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -229,15 +312,25 @@ describe('overwriteRequestBody', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
   it('should remove nothing from the request body array', async () => {
     const overwriteValues = []
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -248,8 +341,14 @@ describe('overwriteRequestBody', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -260,8 +359,14 @@ describe('overwriteRequestBody', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -279,8 +384,14 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -292,8 +403,14 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -304,8 +421,14 @@ describe('overwriteRequestBody', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -316,8 +439,14 @@ describe('overwriteRequestBody', () => {
         value: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -329,8 +458,14 @@ describe('overwriteRequestBody', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -342,8 +477,14 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -355,8 +496,14 @@ describe('overwriteRequestBody', () => {
         value: '{{variable_x}}'
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -368,8 +515,14 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -381,8 +534,88 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with generated string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '<operationId>_<pathPart2>',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with generated cased string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '<operationId>_<pathPart2>',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with generated string value with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should overwrite the body param with generated cased string value with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -448,8 +681,14 @@ describe('overwriteRequestBody', () => {
         overwrite: true
       }
     ]
-    const pmOperation = await getPostmanMappedCreateArrayOperation()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    pmOperation = await getPostmanMappedCreateArrayOperation()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
@@ -461,7 +700,50 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the request form data with generated string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '<operationId>_<pathPart2>'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the request form data with generated cased string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '<operationId>_<pathPart2>',
+        overwrite: true
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormData()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -473,7 +755,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -486,7 +774,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -499,7 +793,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -512,7 +812,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -524,7 +830,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -536,7 +848,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -549,7 +867,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -561,7 +885,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -574,7 +904,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -588,7 +924,13 @@ describe('overwriteRequestBody', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -601,7 +943,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -615,7 +963,13 @@ describe('overwriteRequestBody', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateFormData()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -628,9 +982,15 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormData()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -644,9 +1004,15 @@ describe('overwriteRequestBody', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateFormData()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -660,9 +1026,15 @@ describe('overwriteRequestBody', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateFormData()
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })
 
@@ -674,7 +1046,50 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should overwrite the request urlencoded form data with generated string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '<operationId>_<pathPart2>'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
+  })
+
+  it('should overwrite the request urlencoded form data with generated cased string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '<operationId>_<pathPart2>'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -686,7 +1101,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -699,7 +1120,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -712,7 +1139,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -725,7 +1158,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -737,7 +1176,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -749,7 +1194,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -762,7 +1213,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -774,7 +1231,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -787,7 +1250,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -801,7 +1270,13 @@ describe('overwriteRequestBody', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -814,7 +1289,13 @@ describe('overwriteRequestBody', () => {
       }
     ]
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -828,7 +1309,13 @@ describe('overwriteRequestBody', () => {
     ]
 
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -843,7 +1330,13 @@ describe('overwriteRequestBody', () => {
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -859,7 +1352,13 @@ describe('overwriteRequestBody', () => {
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 
@@ -875,7 +1374,13 @@ describe('overwriteRequestBody', () => {
     const pmOperation = await getPostmanMappedCreateFormUrlEncoded()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestBody(overwriteValues, pmOperation)
+    oaOperation = await getOasMappedCreateArrayOperation()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.urlencoded).toMatchSnapshot()
   })
 })
