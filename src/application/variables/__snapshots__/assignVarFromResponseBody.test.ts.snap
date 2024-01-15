@@ -147,14 +147,14 @@ let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
-const _resCompaniesId = jsonData?.Companies?.id;
+const _resCompanies0Id = jsonData?.companies?.[0]?.id;
 ",
-  "// pm.collectionVariables - Set CompaniesId as variable for jsonData.Companies.id
-if (_resCompaniesId !== undefined) {
-   pm.collectionVariables.set(\\"CompaniesId\\", jsonData.Companies.id);
-   console.log(\\"- use {{CompaniesId}} as collection variable for value\\",jsonData.Companies.id);
+  "// pm.collectionVariables - Set companies_id as variable for jsonData.companies[0].id
+if (_resCompanies0Id !== undefined) {
+   pm.collectionVariables.set(\\"companies_id\\", jsonData.companies[0].id);
+   console.log(\\"- use {{companies_id}} as collection variable for value\\",jsonData.companies[0].id);
 } else {
-   console.log('INFO - Unable to assign variable {{CompaniesId}}, as jsonData.Companies.id is undefined.');
+   console.log('INFO - Unable to assign variable {{companies_id}}, as jsonData.companies[0].id is undefined.');
 };
 ",
 ]
@@ -167,14 +167,14 @@ let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
   "// Set property value as variable
-const _resCompaniesId = jsonData?.companies?.id;
+const _resCompanies0Id = jsonData?.Companies?.[0]?.id;
 ",
-  "// pm.collectionVariables - Set CompaniesId as variable for jsonData.companies.id
-if (_resCompaniesId !== undefined) {
-   pm.collectionVariables.set(\\"CompaniesId\\", jsonData.companies.id);
-   console.log(\\"- use {{CompaniesId}} as collection variable for value\\",jsonData.companies.id);
+  "// pm.collectionVariables - Set CompaniesId as variable for jsonData.Companies[0].id
+if (_resCompanies0Id !== undefined) {
+   pm.collectionVariables.set(\\"CompaniesId\\", jsonData.Companies[0].id);
+   console.log(\\"- use {{CompaniesId}} as collection variable for value\\",jsonData.Companies[0].id);
 } else {
-   console.log('INFO - Unable to assign variable {{CompaniesId}}, as jsonData.companies.id is undefined.');
+   console.log('INFO - Unable to assign variable {{CompaniesId}}, as jsonData.Companies[0].id is undefined.');
 };
 ",
 ]

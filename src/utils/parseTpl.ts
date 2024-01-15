@@ -5,6 +5,7 @@ export type parseTplOptions = {
   casing?: string
   prefix?: string
   suffix?: string
+  caseOnlyExpressions?: boolean
 }
 
 export type GenerateVarNameDTO = {
@@ -74,8 +75,11 @@ export const parseTpl = (dto: GenerateVarNameDTO): string => {
 
     // Use dynamic value if available, otherwise keep the remove the placeholder
     const tplValue = tplValues[placeholder]
-    return tplValue ? tplValue : ''
-    // return tplValue !== undefined ? tplValue : `<${placeholder}>`
+    const casedTplValue =
+      options?.caseOnlyExpressions === true && options?.casing
+        ? changeCase(tplValue, options?.casing)
+        : tplValue
+    return casedTplValue ? casedTplValue : ''
   })
 
   // Add prefix and suffix
@@ -88,7 +92,7 @@ export const parseTpl = (dto: GenerateVarNameDTO): string => {
   }
 
   // Apply casing
-  if (options?.casing && varName) {
+  if (options?.casing && varName && options?.caseOnlyExpressions !== true) {
     const placeholderRegex = new RegExp(`{{(.*?)}}`, 'g')
     varName = varName.replace(placeholderRegex, (_, placeholder) => {
       if (options.casing) {

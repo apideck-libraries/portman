@@ -27,7 +27,8 @@ export const assignVarFromRequestBody = (
     template: varSetting.requestBodyProp,
     oaOperation,
     options: {
-      casing: globals?.variableCasing
+      casing: globals?.variableCasing,
+      caseOnlyExpressions: true
     }
   })
   const varProp = hasTpl(varSetting?.requestBodyProp) ? casedProp : varSetting.requestBodyProp
