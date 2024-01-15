@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.25.0 - (2024-01-15)
+
 - AssignVariables: Option to use template expressions for variable names (#548)
 - AssignVariables: Option to use template expressions for variable properties for Request body, Response body & header (#548)
 - Overwrites: Option to use template expressions for values (#548)
@@ -11,7 +13,7 @@
 - Fix includeTests parameter behaviour (#544)
 - Updated examples
 
-## v1.24 - (2024-01-05)
+## v1.24.0 - (2024-01-05)
 
 - Globals - Added the option set 'collectionVariables' for setting variables on collection level
 
