@@ -25,10 +25,10 @@ export const assignVarFromRequestBody = (
   // Generate property path from template
   const casedProp = parseTpl({
     template: varSetting.requestBodyProp,
-    oaOperation
-    // options: {
-    // casing: globals?.variableCasing
-    // }
+    oaOperation,
+    options: {
+      casing: globals?.variableCasing
+    }
   })
   const varProp = hasTpl(varSetting?.requestBodyProp) ? casedProp : varSetting.requestBodyProp
 

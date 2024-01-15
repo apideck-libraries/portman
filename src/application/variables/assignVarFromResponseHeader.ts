@@ -34,10 +34,10 @@ export const assignVarFromResponseHeader = (
   // Generate property path from template
   const casedProp = parseTpl({
     template: varSetting.responseHeaderProp,
-    oaOperation
-    // options: {
-    // casing: globals?.variableCasing
-    // }
+    oaOperation,
+    options: {
+      casing: globals?.variableCasing
+    }
   })
   const varProp = hasTpl(varSetting?.responseHeaderProp) ? casedProp : varSetting.responseHeaderProp
 
