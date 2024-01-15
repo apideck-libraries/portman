@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.25.1 - (2024-01-15)
+
+- AssignVariables: Fix casing for template expressions for variable props (#549)
+
 ## v1.25.0 - (2024-01-15)
 
 - AssignVariables: Option to use template expressions for variable names (#548)

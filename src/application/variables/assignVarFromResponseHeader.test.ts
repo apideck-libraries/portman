@@ -120,7 +120,7 @@ describe('assignVarFromResponseHeader', () => {
 
   it('should generate a variable for the response header property with the templated expression', async () => {
     const varSetting = {
-      responseHeaderProp: '<pathPart1>.id'
+      responseHeaderProp: '<tag>-id'
     }
     const globals = {} as GlobalConfig
     const dto = {
@@ -136,10 +136,10 @@ describe('assignVarFromResponseHeader', () => {
 
   it('should generate a variable for the response header property with the cased templated expression', async () => {
     const varSetting = {
-      responseHeaderProp: '<tag>.id',
+      responseHeaderProp: '<tag>-id',
       name: '<tag>Id'
     }
-    const globals = {} as GlobalConfig
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
     const dto = {
       varSetting,
       pmOperation,

@@ -36,7 +36,8 @@ export const assignVarFromResponseHeader = (
     template: varSetting.responseHeaderProp,
     oaOperation,
     options: {
-      casing: globals?.variableCasing
+      casing: globals?.variableCasing,
+      caseOnlyExpressions: true
     }
   })
   const varProp = hasTpl(varSetting?.responseHeaderProp) ? casedProp : varSetting.responseHeaderProp

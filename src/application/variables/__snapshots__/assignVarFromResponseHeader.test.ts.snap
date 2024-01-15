@@ -70,11 +70,11 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// pm.collectionVariables - Set CompaniesId as variable for header 
-let CompaniesId = pm.response.headers.get(\\"Companies.id\\");
-if (CompaniesId !== undefined) {
-   pm.collectionVariables.set(\\"CompaniesId\\", CompaniesId);
-   console.log(\\"- use {{CompaniesId}} as collection variable for value\\", CompaniesId);
+  "// pm.collectionVariables - Set companies_id as variable for header 
+let companiesid = pm.response.headers.get(\\"companies-id\\");
+if (companiesid !== undefined) {
+   pm.collectionVariables.set(\\"companies_id\\", companiesid);
+   console.log(\\"- use {{companies_id}} as collection variable for value\\", companiesid);
 };
 ",
 ]
@@ -86,11 +86,11 @@ Array [
 let jsonData = {};
 try {jsonData = pm.response.json();}catch(e){}
 ",
-  "// pm.collectionVariables - Set companiesOne.crm.id as variable for header 
-let companiesOnecrmid = pm.response.headers.get(\\"crm.id\\");
-if (companiesOnecrmid !== undefined) {
-   pm.collectionVariables.set(\\"companiesOne.crm.id\\", companiesOnecrmid);
-   console.log(\\"- use {{companiesOne.crm.id}} as collection variable for value\\", companiesOnecrmid);
+  "// pm.collectionVariables - Set companiesOne.Companies-id as variable for header 
+let companiesOneCompaniesid = pm.response.headers.get(\\"Companies-id\\");
+if (companiesOneCompaniesid !== undefined) {
+   pm.collectionVariables.set(\\"companiesOne.Companies-id\\", companiesOneCompaniesid);
+   console.log(\\"- use {{companiesOne.Companies-id}} as collection variable for value\\", companiesOneCompaniesid);
 };
 ",
 ]

@@ -43,6 +43,8 @@ export class OpenApiFormatter {
   }
 
   changeCase(valueAsString: string, caseType: string): string {
+    if (caseType === 'lowerCase') return valueAsString.toLowerCase()
+    if (caseType === 'upperCase') return valueAsString.toUpperCase()
     return openapiFormat.changeCase(valueAsString, caseType)
   }
 }

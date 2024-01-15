@@ -275,7 +275,7 @@ describe('assignVarFromRequestBody', () => {
 
   it('should generate a variable for the request body property with the templated expression', async () => {
     const varSetting = {
-      requestBodyProp: '<pathPart2>.id'
+      requestBodyProp: '<tag>[0].id'
     }
     const globals = {} as GlobalConfig
     const dto = {
@@ -291,10 +291,10 @@ describe('assignVarFromRequestBody', () => {
 
   it('should generate a variable for the request body property with the cased templated expression', async () => {
     const varSetting = {
-      requestBodyProp: '<tag>.id',
+      requestBodyProp: '<tag>[0].id',
       name: '<tag>Id'
     }
-    const globals = {} as GlobalConfig
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
     const dto = {
       varSetting,
       pmOperation,
