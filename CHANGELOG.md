@@ -1,6 +1,8 @@
 ## [Unreleased]
 
-- AssignVariables: Option to set template expressions for variable props for Request body, Response body & header (#549)
+## v1.25.1 - (2024-01-15)
+
+- AssignVariables: Fix casing for template expressions for variable props (#549)
 
 ## v1.25.0 - (2024-01-15)
 
