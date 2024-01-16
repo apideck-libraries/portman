@@ -1,6 +1,5 @@
 ## [Unreleased]
 
-
 ## v1.26.0 - (2024-01-16)
 
 - Portman - Change default enableOptionalParameters setting to false (#550)
