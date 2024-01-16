@@ -22,11 +22,15 @@ OpenAPI:
 ```
 
 **BEFORE**
+
 All the query parameters are enabled in the Postman collection.
+
 <img src="./examples/postman-to-k6/images/enable-optional-parameters-before.png" width="400" >
 
 **AFTER**
+
 Only the required query parameters are enabled in the Postman collection.
+
 <img src="./examples/postman-to-k6/images/enable-optional-parameters-after.png" width="400" >
 
 You can modify this default behaviour by using `--postmanConfigFile` parameters.
