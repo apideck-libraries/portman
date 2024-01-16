@@ -6,7 +6,7 @@
 - Portman - Change default enableOptionalParameters setting to false (#550)
 
 > [!IMPORTANT]  
-> The default behaviour of the Query parameters is changed since version 1.26.0. Non-required query parameters will be disabled in Postman by default.
+> The default behaviour of the Query parameters is changed since version 1.26.0. Optional query parameters will be disabled in Postman by default.
 
 This will reduce the need for extra Portman config to disable the optional query parameters in the Postman collection and provide a more expected result in Postman.
 
