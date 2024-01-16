@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/apideck-libraries/portman/main/src/utils/portman-config-schema.json",
+  "version": 1.0,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/*",
+        "statusSuccess": {
+          "enabled": true
+        }
+      }
+    ]
+  },
+  "assignVariables": [],
+  "overwrites": [],
+  "globals": {
+    "stripResponseExamples": true,
+    "separatorSymbol": "=="
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "local": "./examples/postman-to-k6/crm.openapi.yml",
+  "output": "./examples/postman-to-k6/crm.postman.json",
+  "portmanConfigFile": "./examples/postman-to-k6/portman-config.json",
+  "postmanConfigFile": "./examples/postman-to-k6/openapi-postman-config.json",
+  "syncPostman": false
+}
