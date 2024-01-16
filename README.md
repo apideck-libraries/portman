@@ -14,7 +14,7 @@ Let Portman do all the work and inject contract & variation tests with a minimum
 Customize the Postman requests & variables with a wide range of options to assign & overwrite variables.
 
 > [!CAUTION]  
-> **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0. Optional query parameters will be disabled in Postman by default. More details can be found in the [CHANGELOG.md](CHANGELOG.md).
+> **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0.<br>Optional query parameters will be disabled in Postman by default. More details can be found in the [CHANGELOG.md](CHANGELOG.md).
 
 ## Why use Portman?
 
