@@ -25,13 +25,13 @@ OpenAPI:
 
 All the query parameters are enabled in the Postman collection.
 
-<img src="./examples/postman-to-k6/images/enable-optional-parameters-before.png" width="400" >
+<img src="./examples/postman-to-k6/images/enable-optional-parameters-before.png" width="1021" >
 
 **AFTER**
 
 Only the required query parameters are enabled in the Postman collection.
 
-<img src="./examples/postman-to-k6/images/enable-optional-parameters-after.png" width="400" >
+<img src="./examples/postman-to-k6/images/enable-optional-parameters-after.png" width="1018" >
 
 You can modify this default behaviour by using `--postmanConfigFile` parameters.
 This will allow you to provide a specific configuration file that will be used for converting the OpenAPI specification to Postman.
