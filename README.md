@@ -13,8 +13,8 @@ Portman leverages OpenAPI documents, with all its defined API request/response p
 Let Portman do all the work and inject contract & variation tests with a minimum of configuration.
 Customize the Postman requests & variables with a wide range of options to assign & overwrite variables.
 
-> [!IMPORTANT]  
-> The default behaviour of the Query parameters is changed since version 1.26.0. Optional query parameters will be disabled in Postman by default. More info can be found in the ([CHANGELOG.md](CHANGELOG.md).
+> [!CAUTION]  
+> **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0. Optional query parameters will be disabled in Postman by default. More details can be found in the [CHANGELOG.md](CHANGELOG.md).
 
 ## Why use Portman?
 
