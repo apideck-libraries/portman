@@ -3,7 +3,7 @@
 
 ## v1.26.0 - (2024-01-16)
 
--Portman - Change default enableOptionalParameters setting to false (#)
+- Portman - Change default enableOptionalParameters setting to false (#550)
 
 Important change in the default results of the OpenAPI to Postman conversion.
 The default behaviour of the Query parameters is changed since version 1.26.0, to be disabled in the Postman collection for non-required parameters.
