@@ -1,6 +1,43 @@
 ## [Unreleased]
 
-## v1.25.1 - (2024-01-15)
+## v1.26.0 - (2024-01-16)
+
+- Portman - Change default enableOptionalParameters setting to false (#550)
+
+> [!CAUTION]  
+> **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0.<br>Optional query parameters will be disabled in Postman by default.
+
+This will reduce the need for extra Portman config to disable the optional query parameters in the Postman collection and provide a more expected result in Postman.
+
+OpenAPI:
+```yaml
+    limitParam:
+      name: limit
+      in: query
+      description: (Required) Number of records to return
+      required: true # <----------
+      schema:
+        type: string
+```
+
+**BEFORE**
+
+All the query parameters are enabled in the Postman collection.
+
+<img src="./examples/postman-to-k6/images/enable-optional-parameters-before.png" width="1021" >
+
+**AFTER**
+
+Only the required query parameters are enabled in the Postman collection.
+
+<img src="./examples/postman-to-k6/images/enable-optional-parameters-after.png" width="1018" >
+
+You can modify this default behaviour by using `--postmanConfigFile` parameters.
+This will allow you to provide a specific configuration file that will be used for converting the OpenAPI specification to Postman.
+
+See [postmanConfigFile](https://github.com/apideck-libraries/portman?tab=readme-ov-file#pass-custom-paths-for-config-files) example for more info.
+
+## v1.25.1 - (2024-01-16)
 
 - AssignVariables: Fix casing for template expressions for variable props (#549)
 
