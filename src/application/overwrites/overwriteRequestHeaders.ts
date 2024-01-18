@@ -54,6 +54,10 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
       if (overwriteItem?.disable === true) {
         pmHeader.disabled = true
       }
+      // Test suite - Enable header
+      if (overwriteItem?.disable === false) {
+        pmHeader.disabled = false
+      }
 
       // Test suite - Overwrite header description
       if (overwriteItem?.description) {

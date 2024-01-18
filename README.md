@@ -495,7 +495,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **value (String)** : The value that will be used to overwrite/extend the value in the request base URL. (example: `https://example.com` or `{{baseUrl}}`).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request base URL value OR attach the value to the original request base URL value.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request base URL from Postman.
-  - 
+
 - **overwriteRequestQueryParams (Array)** :
 
   Array of key/value pairs to overwrite in the Postman Request Query params.
@@ -526,6 +526,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **key (String)** : The key that will be targeted in the request Headers to overwrite/extend.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. Supports also templating to generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attaches the value to the original request header value.
+  - **disable (Boolean true/false | Default: false)** : Disables the request header in Postman.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request header from Postman.
   - **insert (Boolean true/false | Default: true)** : Insert the additional request header in Postman that are not present in OpenAPI.
   - **description (String)** : Overwrites the request header description in Postman.

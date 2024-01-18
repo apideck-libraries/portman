@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- overwriteRequestHeaders: Added disable false option (#551)
+- Bumped dependencies: openapi-to-postman 4.19.0 (#551)
+
 ## v1.26.0 - (2024-01-16)
 
 - Portman - Change default enableOptionalParameters setting to false (#550)

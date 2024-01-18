@@ -71,6 +71,27 @@ describe('overwriteRequestHeaders', () => {
     expect(result.item.request.headers).toMatchSnapshot()
   })
 
+  it('should enable the disabled request headers variable', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        disable: false
+      }
+    ]
+
+    pmOperation.item.request.headers
+      .one('x-apideck-app-id')
+      .update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers).toMatchSnapshot()
+  })
+
   it('should append to the header when overwrite is false', async () => {
     const overwriteValues = [
       {
