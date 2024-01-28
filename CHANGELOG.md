@@ -2,7 +2,7 @@
 
 ## v1.26.2 - (2024-01-28)
 
-- Fuzzing - Enable query parameters and headers for fuzzed values (#)
+- Fuzzing - Enable query parameters and headers for fuzzed values (#554)
 
 ## v1.26.1 - (2024-01-18)
 
