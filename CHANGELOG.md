@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.26.2 - (2024-01-28)
+
+- Fuzzing - Enable query parameters and headers for fuzzed values (#)
+
 ## v1.26.1 - (2024-01-18)
 
 - overwriteRequestHeaders: Added disable false option (#551)
