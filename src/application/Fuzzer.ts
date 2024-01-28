@@ -402,7 +402,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: numberVal.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as unknown as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -411,7 +412,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: numberVal.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -484,7 +486,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: numberVal.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as unknown as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -493,7 +496,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: numberVal.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -629,7 +633,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: newLenVal.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -638,7 +643,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: newLenVal.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -773,7 +779,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: field.value.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -782,7 +789,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: field.value.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
