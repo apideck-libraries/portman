@@ -315,6 +315,59 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query).toMatchSnapshot()
   })
 
+  it('should overwrite & auto-enable the query param variable', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: 'foo',
+        overwrite: true
+      }
+    ]
+
+    const queryParams = pmOperation.item.request.url.query.all()
+    const firstQueryParamKey = queryParams[0]
+    firstQueryParamKey.disabled = true
+    pmOperation.item.request.url.query.clear()
+    pmOperation.item.request.url.query.add(firstQueryParamKey)
+
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestQueryParams(dto)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should overwrite but keep the query param variable disabled', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: 'foo',
+        overwrite: true,
+        disable: true
+      }
+    ]
+
+    const queryParams = pmOperation.item.request.url.query.all()
+    const firstQueryParamKey = queryParams[0]
+    firstQueryParamKey.disabled = false
+    pmOperation.item.request.url.query.clear()
+    pmOperation.item.request.url.query.add(firstQueryParamKey)
+
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestQueryParams(dto)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
   it('should overwrite the query param variable with generated string value', async () => {
     const overwriteValues = [
       {

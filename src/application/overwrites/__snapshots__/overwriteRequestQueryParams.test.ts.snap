@@ -169,6 +169,34 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestQueryParams should overwrite & auto-enable the query param variable 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite but keep the query param variable disabled 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": true,
+    "key": "raw",
+    "value": "foo",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should overwrite the query param boolean variable with string value 1`] = `
 Array [
   Object {
