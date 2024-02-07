@@ -99,6 +99,42 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should overwrite & auto-enable the request headers 1`] = `
+Object {
+  "description": Object {
+    "content": "(Required) The ID of your Unify application",
+    "type": "text/plain",
+  },
+  "disabled": false,
+  "key": "x-apideck-app-id",
+  "value": "foo-bar",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite but keep the request headers disabled 1`] = `
+Object {
+  "description": Object {
+    "content": "(Required) The ID of your Unify application",
+    "type": "text/plain",
+  },
+  "disabled": true,
+  "key": "x-apideck-app-id",
+  "value": "foo-bar",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite but keep the request headers enabled 1`] = `
+Object {
+  "description": Object {
+    "content": "(Required) The ID of your Unify application",
+    "type": "text/plain",
+  },
+  "disabled": false,
+  "key": "x-apideck-app-id",
+  "value": "foo-bar",
+}
+`;
+
 exports[`overwriteRequestHeaders should overwrite the header variable with a blank value 1`] = `
 Object {
   "x-apideck-app-id": "",

@@ -40,7 +40,9 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
       // Test suite - Overwrite/extend header value
+      let hasValue = false
       if (overwriteValue !== undefined) {
+        hasValue = true
         const orgValue = pmHeader.value
         let newValue = overwriteValue
 
@@ -50,13 +52,13 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
         pmHeader.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
       }
 
+      // Test suite - Enable header
+      if (overwriteItem?.disable === false || hasValue) {
+        pmHeader.disabled = false
+      }
       // Test suite - Disable header
       if (overwriteItem?.disable === true) {
         pmHeader.disabled = true
-      }
-      // Test suite - Enable header
-      if (overwriteItem?.disable === false) {
-        pmHeader.disabled = false
       }
 
       // Test suite - Overwrite header description
