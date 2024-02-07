@@ -1,7 +1,10 @@
 ## [Unreleased]
 
+## v1.26.3 - (2024-02-07)
+
 - overwriteRequestQueryParams - Auto-enable query parameters when overwrite value is set (#559)
 - overwriteRequestHeaders - Auto-enable headers when overwrite value is set (#559)
+- normalizedPathRef: Improve handling colon character (#556)
 
 ## v1.26.2 - (2024-01-28)
 
