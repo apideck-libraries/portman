@@ -43,7 +43,7 @@ describe('PostmanMappedOperation', () => {
   })
 
   describe('normalizedPathRef()', () => {
-    it('should return a normalized PathRef ', () => {
+    it('should return a normalized PathRef', () => {
       mappedOperation.item.request.url.path = ['crm', 'companies', ':id']
       const pathRef = mappedOperation.normalizedPathRef('GET')
       expect(pathRef).toEqual('GET::/crm/companies/{id}')
@@ -53,6 +53,12 @@ describe('PostmanMappedOperation', () => {
       mappedOperation.item.request.url.path = ['crm', 'companies({{id}})']
       const pathRef = mappedOperation.normalizedPathRef('GET')
       expect(pathRef).toEqual('GET::/crm/companies({id})')
+    })
+
+    it('should return a normalized PathRef, with colon in url', () => {
+      mappedOperation.item.request.url.path = ['api', 'v1', 'configs:batch-delete']
+      const pathRef = mappedOperation.normalizedPathRef('GET')
+      expect(pathRef).toEqual('GET::/api/v1/configs:batch-delete')
     })
   })
 })
