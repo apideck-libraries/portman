@@ -109,7 +109,7 @@ export class PostmanMappedOperation {
 
     const path = url?.path
       ?.map(segment => {
-        return segment.includes(':') ? `{${segment}}`.replace(':', '') : segment
+        return segment.startsWith(':') ? `{${segment}}`.replace(':', '') : segment
       })
       ?.map(segment => {
         return segment.includes('{{') ? segment.replace('{{', '{').replace('}}', '}') : segment
