@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- overwriteRequestQueryParams - Auto-enable query parameters when overwrite value is set (#559)
+- overwriteRequestHeaders - Auto-enable headers when overwrite value is set (#559)
+
 ## v1.26.2 - (2024-01-28)
 
 - Fuzzing - Enable query parameters and headers for fuzzed values (#554)

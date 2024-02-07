@@ -40,7 +40,9 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
       // Test suite - Overwrite/extend query param value
+      let hasValue = false
       if (overwriteValue !== undefined && pmQueryParam?.value) {
+        hasValue = true
         const orgValue = pmQueryParam.value
         let newValue = overwriteValue
 
@@ -51,13 +53,13 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
           newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
       }
 
+      // Test suite - Enable query param
+      if (overwriteItem?.disable === false || hasValue) {
+        pmQueryParam.disabled = false
+      }
       // Test suite - Disable query param
       if (overwriteItem?.disable === true) {
         pmQueryParam.disabled = true
-      }
-      // Test suite - Enable query param
-      if (overwriteItem?.disable === false) {
-        pmQueryParam.disabled = false
       }
 
       // Test suite - Overwrite query param description

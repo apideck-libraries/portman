@@ -267,6 +267,74 @@ describe('overwriteRequestHeaders', () => {
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
+  it('should overwrite & auto-enable the request headers', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar'
+      }
+    ]
+    // Set request header to disabled
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers.one('x-apideck-app-id')).toMatchSnapshot()
+  })
+
+  it('should overwrite but keep the request headers disabled', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar',
+        disable: true
+      }
+    ]
+    // Set request header to disabled
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers.one('x-apideck-app-id')).toMatchSnapshot()
+  })
+
+  it('should overwrite but keep the request headers enabled', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar',
+        disable: false
+      }
+    ]
+    // Set request header to disabled
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers.one('x-apideck-app-id')).toMatchSnapshot()
+  })
+
   it('should overwrite the request header variable with generated string value', async () => {
     const overwriteValues = [
       {
