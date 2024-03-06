@@ -1,6 +1,8 @@
 ## [Unreleased]
 
-- Support http & https remote files (#562)
+## v1.26.4 - (2024-03-06)
+
+- Bugfix to support http & https remote files (#562)
 
 ## v1.26.3 - (2024-02-07)
 
