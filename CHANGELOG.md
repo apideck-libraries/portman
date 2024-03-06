@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Support http & https remote files (#562)
+
 ## v1.26.3 - (2024-02-07)
 
 - overwriteRequestQueryParams - Auto-enable query parameters when overwrite value is set (#559)
