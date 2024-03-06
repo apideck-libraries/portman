@@ -36,7 +36,7 @@ describe('testResponseHeader', () => {
 
   it('should add test with separator symbol for response header', async () => {
     const globalConfig = { separatorSymbol: '==' } as GlobalConfig
-    pmOperation = testResponseHeader('x-unify-request-id', pmOperation, oasOperation, globalConfig)
+    pmOperation = testResponseHeader('x-apideck-app-id', pmOperation, oasOperation, globalConfig)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
