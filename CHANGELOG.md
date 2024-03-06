@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- headersPresent: Add check only for required headers (#566)
+
 ## v1.26.4 - (2024-03-06)
 
 - Bugfix to support http & https remote files (#562)
