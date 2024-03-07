@@ -805,5 +805,5 @@ A collection of blog posts and resources about Portman
 - https://www.andmore.dev/blog/getting-started-portman/ by [andmoredev](https://github.com/andmoredev)
 - https://itnext.io/automating-api-testing-with-portman-postman-and-newman-ec1a869cbc99 by Tyler Owen
 - https://www.codecentric.de/wissens-hub/blog/charge-your-apis-volume-3-optimizing-api-testing-with-contract-testing by [Daniel Kocot](https://github.com/danielkocot)
-- https://blog.apideck.com/portman-api-testing by [Chris Wood](Chris Wood)
+- https://blog.apideck.com/portman-api-testing by [Chris Wood](https://www.linkedin.com/in/sensiblewood/)
 - https://dev.to/oneadvanced/api-provider-contract-testing-for-all-with-portman-openapi-and-postman-4ll1 by [Alex Savage](https://github.com/savage-alex)
