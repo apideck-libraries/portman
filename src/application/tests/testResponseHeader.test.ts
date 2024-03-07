@@ -15,28 +15,14 @@ describe('testResponseHeader', () => {
   })
 
   it('should add test for response header', async () => {
-    pmOperation = testResponseHeader('x-apideck-app-id', pmOperation, oasOperation)
     pmOperation = testResponseHeader('x-unify-request-id', pmOperation, oasOperation)
-    pmOperation = testResponseHeader('x-apideck-service-id', pmOperation, oasOperation)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
-  })
-
-  it('should add test for required response header', async () => {
-    pmOperation = testResponseHeader('x-apideck-app-id', pmOperation, oasOperation)
-    const pmTest = pmOperation.getTests()
-    expect(pmTest.script.exec).toMatchSnapshot()
-  })
-
-  it('should skip test for non-required response header', async () => {
-    pmOperation = testResponseHeader('x-apideck-service-id', pmOperation, oasOperation)
-    const pmTest = pmOperation.getTests()
-    expect(pmTest).toBeUndefined()
   })
 
   it('should add test with separator symbol for response header', async () => {
     const globalConfig = { separatorSymbol: '==' } as GlobalConfig
-    pmOperation = testResponseHeader('x-apideck-app-id', pmOperation, oasOperation, globalConfig)
+    pmOperation = testResponseHeader('x-unify-request-id', pmOperation, oasOperation, globalConfig)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

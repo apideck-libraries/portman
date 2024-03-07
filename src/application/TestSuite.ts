@@ -335,14 +335,20 @@ export class TestSuite {
     }
 
     if (responseObject.headers) {
-      // Process all response headers
-      for (const [headerName] of Object.entries(responseObject.headers)) {
+      // Loop over all defined response headers
+      for (const headerKey in responseObject.headers) {
         // Early skip if no schema defined
-        if (!headerName) continue
+        if (!headerKey) continue
+
+        const header = responseObject.headers[headerKey] as OpenAPIV3.HeaderObject
+        const headerRequired = header.required || false
+        const headerName = headerKey as string
+
         // Add response header checks headersPresent
         if (
           optHeadersPresent &&
           optHeadersPresent.enabled &&
+          headerRequired &&
           !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
         ) {
           pmOperation = testResponseHeader(
