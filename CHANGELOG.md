@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.26.5 - (2024-03-08)
+
 - headersPresent: Add check only for required headers (#566)
 
 ## v1.26.4 - (2024-03-06)
