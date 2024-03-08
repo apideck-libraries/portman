@@ -38,7 +38,19 @@ pm.test(\\"[GET]::/crm/leads - Content-Type is application/json\\", function () 
 
 exports[`injectContractTests should inject header check 1`] = `
 Object {
-  "members": Array [],
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Validate if response header is present 
+pm.test(\\"[GET]::/crm/leads - Response header x-unify-request-id is present\\", function () {
+   pm.response.to.have.header(\\"x-unify-request-id\\");
+});
+",
+        ],
+      },
+    },
+  ],
 }
 `;
 
@@ -169,6 +181,12 @@ Object {
 `;
 
 exports[`injectContractTests should not inject schemaValidation check, when not content-type JSON 1`] = `
+Object {
+  "members": Array [],
+}
+`;
+
+exports[`injectContractTests should skip non-required header check 1`] = `
 Object {
   "members": Array [],
 }

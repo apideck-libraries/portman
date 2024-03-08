@@ -8,6 +8,7 @@ import { PostmanMappedOperation, PostmanParser } from '../postman'
 import { PortmanError } from '../utils/PortmanError'
 import { PortmanConfig } from '../types'
 import { omitKeys } from '../utils'
+import { OpenAPIV3 } from 'openapi-types'
 
 describe('injectContractTests', () => {
   let postmanParser: PostmanParser
@@ -155,6 +156,49 @@ describe('injectContractTests', () => {
       openApiOperation: path,
       headersPresent: {
         enabled: true
+      }
+    }
+
+    // Add required response header to OAS
+    const responses = oaOperationOne.schema.responses
+    if (responses) {
+      const response = responses[200] as OpenAPIV3.ResponseObject
+      response.headers = {
+        'x-unify-request-id': {
+          description: 'Request ID',
+          schema: {
+            type: 'string'
+          },
+          required: true
+        }
+      }
+    }
+
+    // Inject response tests
+    testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
+    expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
+  })
+
+  it('should skip non-required header check', async () => {
+    const contractTest = {
+      openApiOperation: path,
+      headersPresent: {
+        enabled: true
+      }
+    }
+
+    // Add required response header to OAS
+    const responses = oaOperationOne.schema.responses
+    if (responses) {
+      const response = responses[200] as OpenAPIV3.ResponseObject
+      response.headers = {
+        'x-unify-request-id': {
+          description: 'Request ID',
+          schema: {
+            type: 'string'
+          },
+          required: false
+        }
       }
     }
 
