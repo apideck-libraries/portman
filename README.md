@@ -808,3 +808,4 @@ A collection of blog posts and resources about Portman
 - https://blog.apideck.com/portman-api-testing by [Chris Wood](https://www.linkedin.com/in/sensiblewood/)
 - https://dev.to/oneadvanced/api-provider-contract-testing-for-all-with-portman-openapi-and-postman-4ll1 by [Alex Savage](https://github.com/savage-alex)
 - https://github.com/thim81/spec-driven-openapi-contract-performance-testing by [Tim Haselaars](https://github.com/thim81)
+- https://www.codecentric.de/wissens-hub/blog/charge-your-apis-volume-25-contract-testing by Pasquale Brunelli
