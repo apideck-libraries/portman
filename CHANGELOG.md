@@ -2,7 +2,7 @@
 
 ## v1.26.6 - (2024-06-05)
 
-- Add OpenAPI version as Postman Collection version (handy for usage in Microcks)
+- Add OpenAPI version conversion to Postman Collection version (handy for usage in Microcks) (#577)
 - Bumped dependencies: openapi-to-postman 4.21.0
 
 ## v1.26.5 - (2024-03-08)
