@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.26.6 - (2024-06-05)
+
+- Add OpenAPI version as Postman Collection version (handy for usage in Microcks)
+- Bumped dependencies: openapi-to-postman 4.21.0
+
 ## v1.26.5 - (2024-03-08)
 
 - headersPresent: Add check only for required headers (#566)

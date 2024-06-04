@@ -5,7 +5,7 @@ import fs from 'fs-extra'
 import { NewmanRunOptions } from 'newman'
 import emoji from 'node-emoji'
 import path from 'path'
-import { Collection, CollectionDefinition, Item, ItemGroup } from 'postman-collection'
+import { Collection, CollectionDefinition, Item, ItemGroup, Version } from 'postman-collection'
 import {
   CollectionWriter,
   IntegrationTestWriter,
@@ -25,6 +25,7 @@ import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
+// import { convertVersion } from 'utils'
 
 export class Portman {
   config: PortmanConfig
@@ -496,6 +497,12 @@ export class Portman {
     }
 
     try {
+      // --- Portman - Set Postman Version from OpenAPI version
+      if (this.oasParser?.oas?.info?.version && this.postmanParser?.collection) {
+        this.postmanParser.collection.version = new Version(this.oasParser?.oas?.info?.version)
+        this.portmanCollection = this.postmanParser.collection.toJSON()
+      }
+
       // --- Portman - Strip Response Examples
       if (globals?.stripResponseExamples) {
         this.portmanCollection = stripResponseExamples(this.portmanCollection)
