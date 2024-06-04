@@ -498,7 +498,7 @@ export class Portman {
     try {
       // --- Portman - Set Postman Version from OpenAPI version
       if (this.oasParser?.oas?.info?.version && this.postmanParser?.collection) {
-        this.postmanParser.collection.version = new Version(this.oasParser?.oas?.info?.version)
+        this.postmanParser.collection.version = new Version(this.oasParser.oas.info.version)
         this.portmanCollection = this.postmanParser.collection.toJSON()
       }
 
