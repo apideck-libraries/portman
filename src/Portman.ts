@@ -25,7 +25,6 @@ import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
-// import { convertVersion } from 'utils'
 
 export class Portman {
   config: PortmanConfig
