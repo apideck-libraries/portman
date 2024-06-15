@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-- overwrites - Support the removal of Authorization
+- overwrites - Added the removal of Authorization using overwriteRequestHeaders,overwriteRequestSecurity, securityOverwrites
 - Bumped dependencies
 
 ## v1.26.6 - (2024-06-05)
