@@ -498,9 +498,20 @@ export class Portman {
     try {
       // --- Portman - Set Postman Version from OpenAPI version
       if (this.oasParser?.oas?.info?.version && this.postmanParser?.collection) {
-        this.postmanParser.collection.version = new Version(this.oasParser.oas.info.version)
-        this.portmanCollection = this.postmanParser.collection.toJSON()
+        const postmanVersion = new Version(this.oasParser.oas.info.version)
+
+        if (
+          postmanVersion.major !== undefined &&
+          postmanVersion.minor !== undefined &&
+          postmanVersion.patch !== undefined
+        ) {
+          // Set the version object
+          this.postmanParser.collection.version = postmanVersion
+        }
       }
+
+      // Set portman collection
+      this.portmanCollection = this.postmanParser.collection.toJSON()
 
       // --- Portman - Strip Response Examples
       if (globals?.stripResponseExamples) {
