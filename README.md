@@ -339,15 +339,15 @@ the methods & path definitions.
 REMARK: Be sure to put quotes around the target definition.
 
 - **Strict matching** example: `"openApiOperation": "GET::/crm/leads",`
-  This will target only the "GET" method and the specific path "/pets"
+  This will target only the "GET" method and the specific path "/crm/leads"
 
 - **Method wildcard matching** example: `"openApiOperation": "*::/crm/leads",`
   This will target all methods ('get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace') and the specific
-  path "/pets"
+  path "/crm/leads"
 
 - **Path wildcard matching** example: `"openApiOperation": "GET::/crm/*"`
-  This will target only the "GET" method and any path matching any folder behind the "/pets", like "/pets/123" and
-  "/pets/123/buy".
+  This will target only the "GET" method and any path matching any folder behind the "/crm", like "/crm/companies" and
+  "/crm/leads".
 
 - **Method & Path wildcard matching** example: `"openApiOperation": "*::/crm/*",`
   A combination of wildcards for the method and path parts is even possible.

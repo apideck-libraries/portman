@@ -36,9 +36,9 @@ To facilitate automation, we provide the option to set Postman collection variab
 ### Target options:
 
 - **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables variable
-  will be set. (example: `listPets`)
+  will be set. (example: `leadsAll`)
 - **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman
-  pm.collectionVariables will be set. (example: `GET::/pets`)
+  pm.collectionVariables will be set. (example: `GET::/crm/leads`)
 
 These target options are both supported for defining a target. In case both are set for the same target, only the `openApiOperationId` will be used for overwrites.
 
