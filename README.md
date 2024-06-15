@@ -549,7 +549,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
   A Postman RequestAuthDefinition object that will be applied to the request.The security overwrites provides a number of security types:
 
-  - **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
+  - **remove (Boolean true/false | Default: false)** : Unsets the Authorization type in Postman.
 
   - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
     - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
@@ -691,7 +691,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 The security overwrites provides a number of security types:
 
-  - **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
+  - **remove (Boolean true/false | Default: false)** : Unsets the Authorization type in Postman.
   
     - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
       - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
