@@ -71,6 +71,16 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
     })
   })
 
+  const authorizationType = ['basic', 'bearer', 'apikey']
+  const authConfig = pmOperation.item.getAuth()
+  const authType = authConfig.type || null
+  if (overwriteValues.some(obj => obj.key && obj.key.toLowerCase() === 'authorization')) {
+    if (authType && authorizationType.includes(authType)) {
+      pmOperation.item.request.auth?.clear(authType)
+      pmOperation.item.request.authorizeUsing('noauth')
+    }
+  }
+
   // Test suite - Remove headers
   overwriteValues
     .filter(({ remove }) => remove)
@@ -82,7 +92,7 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
 
   // Test suite - Add headers
   insertNewKeys
-    .filter(overwriteItem => !(overwriteItem.insert === false))
+    .filter(overwriteItem => !(overwriteItem.insert === false || overwriteItem.remove === true))
     .map(headerToInsert => {
       // Initialize new Postman Header
       const newPmHeader = {

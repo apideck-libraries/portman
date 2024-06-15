@@ -214,6 +214,7 @@ export type SecurityOverwrite = {
     type: string
     [key: string]: unknown | unknown[]
   }
+  remove?: boolean
 }
 
 export type SecurityApiKey = {

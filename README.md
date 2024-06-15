@@ -56,7 +56,7 @@ OR
 4. Start converting your OpenAPI document to Postman
 
 All configuration options to convert from OpenAPI to Postman can be found in the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
-All configuration options to filter flags/tags/methods/operations/... from OpenAPI can be found in the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package documentation.
+All configuration options to filter flags/tags/methods/operations/... from OpenAPI can be found in the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package documentation or using the online [openapi-format playground](https://openapi-format-playground.vercel.app/).
 
 ## Installation
 
@@ -547,7 +547,50 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
 - **overwriteRequestSecurity (Object)** :
 
-  A Postman RequestAuthDefinition object that will be applied to the request.
+  A Postman RequestAuthDefinition object that will be applied to the request.The security overwrites provides a number of security types:
+
+- **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
+
+- **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+  - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+  - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+
+```json
+"overwriteRequestSecurity": {
+      "apiKey": {
+        "value": "{{apiKey}}"
+      }
+    }
+```
+
+- **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+  - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+
+```json
+"overwriteRequestSecurity": {
+      "bearer": {
+        "token": "{{bearerToken}}"
+      }
+    }
+```
+
+- **basic**: Basic authentication involves sending a verified username and password with your request.
+  - **username (String)** : The username that will be inserted as the basic authentication username value
+  - **password (String)** : The password that will be inserted as the basic authentication password value
+
+```json
+"overwriteRequestSecurity": {
+      "basic": {
+        "username": "{{username}}",
+        "password": "{{password}}",
+      }
+    }
+```
+
+- **Postman security options**: Overwrite/Insert Postman authorization settings.
+  - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+    - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file).
 
 For more details, review the [Overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites) and [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
 
@@ -647,6 +690,8 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **securityOverwrites** : Overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token") or inject a Postman authorization option (supported types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2) on a collection level. 
 
 The security overwrites provides a number of security types:
+
+- **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
 
 - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
   - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.

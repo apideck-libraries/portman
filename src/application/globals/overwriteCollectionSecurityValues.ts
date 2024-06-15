@@ -3,13 +3,30 @@ import { AuthAttribute, SecurityOverwrite } from 'types'
 
 export const overwriteCollectionSecurityValues = (
   collectionJson: CollectionDefinition | Partial<CollectionDefinition>,
-  { apiKey, basic, bearer, awsv4, digest, edgegrid, ntlm, oauth1, oauth2 }: SecurityOverwrite
+  {
+    apiKey,
+    basic,
+    bearer,
+    awsv4,
+    digest,
+    edgegrid,
+    ntlm,
+    oauth1,
+    oauth2,
+    remove
+  }: SecurityOverwrite
 ): CollectionDefinition => {
   let defaultSecurity = false
 
   // Check default security types
   if (apiKey !== undefined || basic !== undefined || bearer !== undefined) {
     defaultSecurity = true
+  }
+
+  // Handle remove property
+  if (remove) {
+    collectionJson.auth = { type: 'noauth' }
+    return collectionJson
   }
 
   // Handle OAS securitySchemes type apiKey
