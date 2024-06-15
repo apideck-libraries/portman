@@ -95,3 +95,11 @@ Object {
   "type": "noauth",
 }
 `;
+
+exports[`overwriteRequestSecurity should remove the request bearer token auth 2`] = `
+Object {
+  "bearer": Array [],
+  "noauth": Array [],
+  "type": "noauth",
+}
+`;
