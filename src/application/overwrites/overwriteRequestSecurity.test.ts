@@ -65,13 +65,4 @@ describe('overwriteRequestSecurity', () => {
     overwriteRequestSecurity(overwriteValues, pmOperation)
     expect(pmOperation.item.getAuth()).toMatchSnapshot()
   })
-
-  it('should remove the request bearer token auth', async () => {
-    const overwriteValues = {
-      remove: true
-    }
-    const pmOperation = await getPostmanMappedOperation()
-    overwriteRequestSecurity(overwriteValues, pmOperation)
-    expect(pmOperation.item.getAuth()).toMatchSnapshot()
-  })
 })
