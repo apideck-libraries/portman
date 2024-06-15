@@ -549,23 +549,23 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
   A Postman RequestAuthDefinition object that will be applied to the request.The security overwrites provides a number of security types:
 
-- **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
+  - **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
 
-- **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
-  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
-  - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
-  - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+  - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+    - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+    - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+    - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
 
-```json
-"overwriteRequestSecurity": {
-      "apiKey": {
-        "value": "{{apiKey}}"
+  ```json
+  "overwriteRequestSecurity": {
+        "apiKey": {
+          "value": "{{apiKey}}"
+        }
       }
-    }
-```
+  ```
 
-- **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
-  - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+  - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+    - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
 
 ```json
 "overwriteRequestSecurity": {
@@ -575,22 +575,22 @@ To facilitate automation, you might want to modify properties with "randomized" 
     }
 ```
 
-- **basic**: Basic authentication involves sending a verified username and password with your request.
-  - **username (String)** : The username that will be inserted as the basic authentication username value
-  - **password (String)** : The password that will be inserted as the basic authentication password value
-
-```json
-"overwriteRequestSecurity": {
-      "basic": {
-        "username": "{{username}}",
-        "password": "{{password}}",
+  - **basic**: Basic authentication involves sending a verified username and password with your request.
+    - **username (String)** : The username that will be inserted as the basic authentication username value
+    - **password (String)** : The password that will be inserted as the basic authentication password value
+  
+  ```json
+  "overwriteRequestSecurity": {
+        "basic": {
+          "username": "{{username}}",
+          "password": "{{password}}",
+        }
       }
-    }
-```
-
-- **Postman security options**: Overwrite/Insert Postman authorization settings.
-  - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
-    - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file).
+  ```
+  
+  - **Postman security options**: Overwrite/Insert Postman authorization settings.
+    - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+      - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file).
 
 For more details, review the [Overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites) and [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
 
@@ -691,99 +691,99 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 The security overwrites provides a number of security types:
 
-- **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
-
-- **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
-  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
-  - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
-  - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
-
-```json
-"securityOverwrites": {
-      "apiKey": {
-        "value": "{{apiKey}}"
-      }
-    }
-```
-
-- **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
-  - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
-
-```json
-"securityOverwrites": {
-      "bearer": {
-        "token": "{{bearerToken}}"
-      }
-    }
-```
-
-- **basic**: Basic authentication involves sending a verified username and password with your request.
-  - **username (String)** : The username that will be inserted as the basic authentication username value
-  - **password (String)** : The password that will be inserted as the basic authentication password value
-
-```json
-"securityOverwrites": {
-      "basic": {
-        "username": "{{username}}",
-        "password": "{{password}}",
-      }
-    }
-```
-
-- **Postman security options**: Overwrite/Insert Postman authorization settings.
-  - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
-    - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file). 
-
-```json
-{
-  "globals": {
-    "securityOverwrites": {
-      "oauth1": [
-        {
-          "key": "addEmptyParamsToSign",
-          "value": true,
-          "type": "boolean"
-        },
-        {
-          "key": "timestamp",
-          "value": "1461319769",
-          "type": "string"
-        },
-        {
-          "key": "nonce",
-          "value": "ik3oT5",
-          "type": "string"
-        },
-        {
-          "key": "consumerSecret",
-          "value": "D+EdQ-gs$-%@2Nu7",
-          "type": "string"
-        },
-        {
-          "key": "consumerKey",
-          "value": "RKCGzna7bv9YD57c",
-          "type": "string"
-        },
-        {
-          "key": "signatureMethod",
-          "value": "HMAC-SHA1",
-          "type": "string"
-        },
-        {
-          "key": "version",
-          "value": "1.0",
-          "type": "string"
-        },
-        {
-          "key": "addParamsToHeader",
-          "value": false,
-          "type": "boolean"
+  - **remove (Boolean true/false | Default: false)** : Removes the Postman authorization option.
+  
+    - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+      - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+      - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+      - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+  
+  ```json
+  "securityOverwrites": {
+        "apiKey": {
+          "value": "{{apiKey}}"
         }
-      ]
+      }
+  ```
+  
+  - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+    - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+  
+  ```json
+  "securityOverwrites": {
+        "bearer": {
+          "token": "{{bearerToken}}"
+        }
+      }
+  ```
+  
+  - **basic**: Basic authentication involves sending a verified username and password with your request.
+    - **username (String)** : The username that will be inserted as the basic authentication username value
+    - **password (String)** : The password that will be inserted as the basic authentication password value
+  
+  ```json
+  "securityOverwrites": {
+        "basic": {
+          "username": "{{username}}",
+          "password": "{{password}}",
+        }
+      }
+  ```
+  
+  - **Postman security options**: Overwrite/Insert Postman authorization settings.
+    - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+      - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file). 
+  
+  ```json
+  {
+    "globals": {
+      "securityOverwrites": {
+        "oauth1": [
+          {
+            "key": "addEmptyParamsToSign",
+            "value": true,
+            "type": "boolean"
+          },
+          {
+            "key": "timestamp",
+            "value": "1461319769",
+            "type": "string"
+          },
+          {
+            "key": "nonce",
+            "value": "ik3oT5",
+            "type": "string"
+          },
+          {
+            "key": "consumerSecret",
+            "value": "D+EdQ-gs$-%@2Nu7",
+            "type": "string"
+          },
+          {
+            "key": "consumerKey",
+            "value": "RKCGzna7bv9YD57c",
+            "type": "string"
+          },
+          {
+            "key": "signatureMethod",
+            "value": "HMAC-SHA1",
+            "type": "string"
+          },
+          {
+            "key": "version",
+            "value": "1.0",
+            "type": "string"
+          },
+          {
+            "key": "addParamsToHeader",
+            "value": false,
+            "type": "boolean"
+          }
+        ]
+      }
     }
   }
-}
-```
+  ```
 
 For more details on the `globals` configuration options , review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)
 
