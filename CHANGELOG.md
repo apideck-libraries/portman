@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- overwrites - Support the removal of Authorization
+- Bumped dependencies
+
 ## v1.26.6 - (2024-06-05)
 
 - Add OpenAPI version conversion to Postman Collection version (handy for usage in Microcks) (#577)
