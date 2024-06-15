@@ -689,14 +689,14 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. The ordering from `orderOfOperations` is performed per folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
 - **securityOverwrites** : Overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token") or inject a Postman authorization option (supported types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2) on a collection level. 
 
-The security overwrites provides a number of security types:
+  The security overwrites provides a number of security types:
 
   - **remove (Boolean true/false | Default: false)** : Unsets the Authorization type in Postman.
   
-    - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
-      - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
-      - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
-      - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+  - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+    - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+    - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+    - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
   
   ```json
   "securityOverwrites": {
