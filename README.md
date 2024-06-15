@@ -567,13 +567,13 @@ To facilitate automation, you might want to modify properties with "randomized" 
   - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
     - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
 
-```json
-"overwriteRequestSecurity": {
-      "bearer": {
-        "token": "{{bearerToken}}"
+  ```json
+  "overwriteRequestSecurity": {
+        "bearer": {
+          "token": "{{bearerToken}}"
+        }
       }
-    }
-```
+  ```
 
   - **basic**: Basic authentication involves sending a verified username and password with your request.
     - **username (String)** : The username that will be inserted as the basic authentication username value
