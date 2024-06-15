@@ -9,7 +9,7 @@ export const overwriteRequestSecurity = (
   let authDefinition: any
 
   // Handle remove property
-  if (overwrite?.remove || overwrite?.noauth) {
+  if (overwrite?.remove) {
     const authType = pmOperation.item.request.auth?.type
     if (authType) {
       pmOperation.item.request.auth?.clear(authType)
