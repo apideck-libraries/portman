@@ -295,6 +295,21 @@ describe('overwriteSecurityValues()', () => {
     })
   })
 
+  it('remove option should not return {{bearerToken}} ', () => {
+    const dictionary = {
+      remove: true
+    } as Record<string, unknown>
+
+    const collection = bearerSample as CollectionDefinition
+
+    const replaced = overwriteCollectionSecurityValues(collection, dictionary)
+    expect(replaced).toStrictEqual({
+      auth: {
+        type: 'noauth'
+      }
+    })
+  })
+
   it('oauth1 method should be injected', () => {
     const dictionary = oauth1Sample as Record<string, unknown>
 

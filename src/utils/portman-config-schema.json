@@ -335,6 +335,9 @@
                 "type"
               ],
               "type": "object"
+            },
+            "remove": {
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -794,6 +797,9 @@
                   "type"
                 ],
                 "type": "object"
+              },
+              "remove": {
+                "type": "boolean"
               }
             },
             "type": "object"

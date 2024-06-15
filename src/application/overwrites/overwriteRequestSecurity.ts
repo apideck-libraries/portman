@@ -8,6 +8,16 @@ export const overwriteRequestSecurity = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let authDefinition: any
 
+  // Handle remove property
+  if (overwrite?.remove) {
+    const authType = pmOperation.item.request.auth?.type
+    if (authType) {
+      pmOperation.item.request.auth?.clear(authType)
+      pmOperation.item.request.authorizeUsing('noauth')
+    }
+    return pmOperation
+  }
+
   if (overwrite?.apiKey) {
     authDefinition = { ...overwrite.apiKey, type: 'apikey' }
   } else if (overwrite?.basic) {

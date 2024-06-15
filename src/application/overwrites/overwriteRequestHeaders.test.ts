@@ -4,6 +4,7 @@ import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { overwriteRequestHeaders } from './overwriteRequestHeaders'
 import { GlobalConfig } from '../../types'
+import { Header } from 'postman-collection'
 
 describe('overwriteRequestHeaders', () => {
   let oaOperation: OasMappedOperation
@@ -124,6 +125,28 @@ describe('overwriteRequestHeaders', () => {
     }
     const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should remove to the Authorization header when remove is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'Authorization',
+        remove: true
+      }
+    ]
+    const newPmHeader = {
+      key: 'Authorization',
+      value: 'to-be-removed',
+      disabled: false
+    } as Header
+    pmOperation.item.request.headers.add(newPmHeader)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(Object.assign(result.item.request.getHeaders(), result.item.getAuth())).toMatchSnapshot()
   })
 
   it('should insert the request headers variable, if key not found', async () => {
