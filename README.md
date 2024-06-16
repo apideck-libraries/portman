@@ -32,28 +32,42 @@ With Portman, you can:
   - [x] Support for OpenAPI 3.1 (beta)
 - Extend the Postman collection with capabilities
   - [x] Assign collection variables
-  - [x] Inject Postman Contract Tests
-  - [x] Inject Postman Variation Tests
+  - [x] Inject Postman Contract Tests - [learn more](./examples/testsuite-contract-tests/readme.md)
+  - [x] Inject Postman Variation Tests - [learn more](./examples/testsuite-variation-tests/readme.md)
   - [x] Inject Postman Integration Tests
   - [x] Inject Postman with Pre-request & Tests scripts on a collection or operation level
-  - [x] Modify Postman requests
-  - [x] Fuzz Postman requests
-- [x] Upload the Postman collection to your Postman app
-- [x] Test the Postman collection with Newman
+  - [x] Modify Postman requests - learn more [here](./examples/testsuite-assign-variables/readme.md) and [here](./examples/testsuite-overwrites/readme.md)
+  - [x] Fuzz Postman requests - [learn more](./examples/testsuite-fuzzing-tests/readme.md)
+- [x] Upload the Postman collection to your Postman app - [learn more](#configure-automatic-upload-to-postman-app)
+- [x] Test the Postman collection with Newman - [learn more](#run-newman-with-newman-options)
 - [x] Split the configuration into multiple files using $ref
-- [x] Manage everything in config file for easy local or CI/CD usage
+- [x] Manage everything in config file for easy local or CI/CD usage - [learn more](#pass-all-cli-options-as-jsonyaml-file)
 
 ## Getting started
 
-1. Install Portman
+1. [Install Portman](#installation)
 2. Initialize Portman CLI configuration by running: `$ portman --init`
 
 OR
 
-1. Install Portman
+1. [Install Portman](#installation)
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection
 3. Copy/rename and customize each of the \_\_\_\_.default.json config files in the root directory to suit your needs
 4. Start converting your OpenAPI document to Postman
+
+OR
+
+If you have an existing OpenaAPI specification, try running Portman without any special setup to see how it can generate a Postman collection with contract tests with it's default configuration.
+
+1. [Install Portman](#installation)
+2. Run portman on your OpenAPI spec, ie: 
+- `npx portman -l my-openapi-spec.yaml` 
+- (if your spec is hosted use the `-u` parameter, ie:
+  - `npx portman -u https://petstore3.swagger.io/api/v3/openapi.json`
+
+This will generate a postman collection that contains a request for every method:endpoint combination defined in your spec, and include a set of "Contract Tests" for each one.  You can learn more about contract tests, and how to examine the generated collection [here](./examples/testsuite-contract-tests/readme.md).
+
+(Running portman with no explicit configuration is the same as running it with [this configuration file](./examples/testsuite-contract-tests/default-portman-config.json))
 
 All configuration options to convert from OpenAPI to Postman can be found in the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
 All configuration options to filter flags/tags/methods/operations/... from OpenAPI can be found in the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package documentation.
