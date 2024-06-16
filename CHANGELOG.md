@@ -1,6 +1,10 @@
 ## [Unreleased]
 
-- overwrites - Added the removal of Authorization using overwriteRequestHeaders,overwriteRequestSecurity, securityOverwrites
+## v1.27.0 - (2024-06-16)
+
+- overwrites - Added the removal of Authorization using overwriteRequestHeaders,overwriteRequestSecurity, securityOverwrites (#580)
+- Improved OpenAPI version to Postman version conversion (#578)
+- Updated readme & examples by @jpjpjp 
 - Bumped dependencies
 
 ## v1.26.6 - (2024-06-05)
