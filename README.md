@@ -57,7 +57,7 @@ OR
 
 OR
 
-If you have an existing OpenaAPI specification, try running Portman without any special setup to see how it can generate a Postman collection with contract tests with it's default configuration.
+If you have an existing OpenAPI specification, try running Portman without any special setup to see how it can generate a Postman collection with contract tests with it's default configuration.
 
 1. [Install Portman](#installation)
 2. Run portman on your OpenAPI spec, ie: 
