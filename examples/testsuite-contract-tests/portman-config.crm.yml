@@ -1,0 +1,34 @@
+version: 1
+tests:
+  contractTests:
+  # Specify the endpoint to apply the tests to: *::/crm/*
+  # The first * means match any request type, ie: GET, POST, etc..
+  # The second * means match any endpoint in the /crm/ path
+  - openApiOperation: "*::/crm/*"
+    # Check that the API returned a 2XX response
+    statusSuccess:
+      enabled: true
+    # Exclude the next test from the POST /leads and GET /crm/leads/{id} endpoint
+    excludeForOperations:
+    - leadsAdd
+    - GET::/crm/leads/{id}
+    # For all other endpoints check if response time is 300msec or less
+    responseTime:
+      enabled: true
+      maxMs: 300
+    # Check if the response contains a Content-Type header with application/json
+    contentType:
+      enabled: true
+    # Check if the response contaisn a JSON response body
+    jsonBody:
+      enabled: true
+    # Check if the response body attributes match the schema defined in the spec
+    schemaValidation:
+      enabled: true
+    # Check if the response body has any other headers that are defined in the spec
+    headersPresent:
+      enabled: true
+globals:
+  # For every request generated omit the Postman examples
+  # This helps keep the generated test collection leaner
+  stripResponseExamples: true
