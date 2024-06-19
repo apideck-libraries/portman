@@ -289,6 +289,23 @@ describe('overwriteRequestBody', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should overwrite the body param with a numeric {{variable}} instead of string', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: '{{{123}}}', // Set the variable name, surrounded by {{{ at the start and }}} at the end, with quotes around it.
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should remove the body prop from a nested element', async () => {
     const overwriteValues = [
       {
