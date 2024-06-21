@@ -54,13 +54,9 @@ export class Portman {
       await this.parseOpenApiSpec()
     } catch (err) {
       const message = err.toString()
-      const circularRef = message.includes('Circular $ref')
-      console.log(chalk.red(message))
-      if (circularRef) {
-        const docLink = 'https://github.com/apideck-libraries/portman/tree/main/docs/ERRORS.md'
-        console.log(chalk.red(`\nPlease see ${docLink} for more information about this error.`))
-      }
-      console.log(chalk.red(this.consoleLine))
+      console.error('\x1b[31m', `OAS File Error - Unable to process the OpenAPI file.`)
+      console.error('\x1b[31m', message)
+      console.error('\x1b[31m', this.consoleLine)
       process.exit(1)
     }
 
@@ -265,10 +261,26 @@ export class Portman {
     }
 
     const oasParser = new OpenApiParser()
-    await oasParser.convert({
-      inputFile: openApiSpec,
-      ignoreCircularRefs
-    })
+    try {
+      await oasParser.convert({
+        inputFile: openApiSpec,
+        ignoreCircularRefs
+      })
+    } catch (err) {
+      const message = err.toString()
+      const circularRef = message.includes('Circular $ref')
+      console.error(
+        '\x1b[31m',
+        `OAS File Error - There is an issue with the OpenAPI file, preventing it from being parsed properly.`
+      )
+      console.error('\x1b[31m', message)
+      if (circularRef) {
+        const docLink = 'https://github.com/apideck-libraries/portman/tree/main/docs/ERRORS.md'
+        console.error('\x1b[31m', `\nPlease see ${docLink} for more information about this error.`)
+      }
+      console.error('\x1b[31m', this.consoleLine)
+      process.exit(1)
+    }
 
     // Assign oasParser entity
     this.oasParser = oasParser
