@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Replaced faker with @faker-js
+
 ## v1.27.0 - (2024-06-16)
 
 - overwrites - Added the removal of Authorization using overwriteRequestHeaders,overwriteRequestSecurity, securityOverwrites (#580)
