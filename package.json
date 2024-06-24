@@ -76,7 +76,7 @@
     "chalk": "^4.1.2",
     "dot-object": "^2.1.5",
     "dotenv": "^10.0.0",
-    "faker": "^5.5.3",
+    "@faker-js/faker": "5.5.3",
     "fp-ts": "^2.12.3",
     "fs-extra": "^10.1.0",
     "lodash": "^4.17.21",
