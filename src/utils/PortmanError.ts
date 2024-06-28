@@ -14,6 +14,6 @@ export class PortmanError extends Error {
     error?.detail && console.log(chalk.red(error.detail))
     console.log(chalk.red(consoleLine))
 
-    process.exit(0)
+    process.exit(1)
   }
 }
