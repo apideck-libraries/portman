@@ -1,0 +1,25 @@
+$schema: https://raw.githubusercontent.com/apideck-libraries/portman/main/src/utils/portman-config-schema.json
+version: 1
+globals:
+  stripResponseExamples: true
+assignVariables:
+  # After getting a lead object, save it's monetary_amount in a postman collection variable
+  - openApiOperation: GET::/crm/leads/{id}
+    collectionVariables:
+      - responseBodyProp: data.monetary_amount
+        name: "<tag>_monetary_amount"
+
+operationPreRequestScripts:
+  # Before updating a lead using the postman variable, update
+  # it's value in a pre-request script
+  - openApiOperation: "PATCH::/crm/leads/{id}"
+    scripts:
+      - file:increaseMonetaryAmount.js
+
+overwrites:
+  # When updating a lead use the Monetary Amount environment variable
+  - openApiOperation: "PATCH::/crm/leads/{id}"
+    overwriteRequestBody:
+      - key: monetary_amount
+        value: '{{{<tag>_monetary_amount}}}'
+        overwrite: true

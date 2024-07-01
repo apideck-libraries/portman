@@ -31,12 +31,12 @@ With Portman, you can:
   - [x] Support for OpenAPI 3.0
   - [x] Support for OpenAPI 3.1 (beta)
 - Extend the Postman collection with capabilities
-  - [x] Assign collection variables
   - [x] Inject Postman Contract Tests - [learn more](./examples/testsuite-contract-tests/readme.md)
+  - [x] Assign collection variables - [learn more](./examples/testsuite-assign-variables/readme.md)
   - [x] Inject Postman Variation Tests - [learn more](./examples/testsuite-variation-tests/readme.md)
   - [x] Inject Postman Integration Tests
-  - [x] Inject Postman with Pre-request & Tests scripts on a collection or operation level
-  - [x] Modify Postman requests - learn more [here](./examples/testsuite-assign-variables/readme.md) and [here](./examples/testsuite-overwrites/readme.md)
+  - [x] Inject Postman with Pre-request & Tests scripts on a collection or operation level - [learn more](./examples/testsuite-pre-request-scripts/readme.md)
+  - [x] Modify Postman requests - learn more [here](./examples/testsuite-overwrites/readme.md) and [here](./examples/testsuite-assign-overwrite/readme.md)
   - [x] Fuzz Postman requests - [learn more](./examples/testsuite-fuzzing-tests/readme.md)
 - [x] Upload the Postman collection to your Postman app - [learn more](#configure-automatic-upload-to-postman-app)
 - [x] Test the Postman collection with Newman - [learn more](#run-newman-with-newman-options)

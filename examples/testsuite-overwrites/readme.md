@@ -181,7 +181,7 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
   "overwriteRequestBody": [
     {
       "key": "name",
-      "value": "--{{$randomInt}}",
+      "value": "{{$randomName}}",
       "overwrite": false
     },
     {
@@ -190,7 +190,7 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
       "overwrite": true
     },{
       "key": "monetary_amount",
-      "value": "{{$randomInt}}",
+      "value": "{{{$randomInt}}}",
       "overwrite": true
     },
     {
@@ -207,9 +207,9 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
 
 This will target the OpenAPI `"openApiOperationId": "leadsAdd"` and will overwrite the request body.
 
-1. the `name` property will be **extended** (because overwrite:false) with `--{{$randomInt}}`
+1. the `name` property will be **extended** (because overwrite:false) with `{{$randomName}}`
 2. the `company_name`property will be **overwritten** (because overwrite:true) with `{{randomCompanyName}} {{randomColor}}`
-3. the `monetary_amount` property will be **overwritten** (because overwrite:true) with `{{$randomInt}}` which will be a number (not a string).
+3. the `monetary_amount` property will be **overwritten** (because overwrite:true) with `{{{$randomInt}}}` which will be a number (not a string), because of the use of 3 curly braces instead of two.  This instructs portman not to encapsulate the value of the property in quotes.   The 3 curly brace syntax is also helpful when setting a property to a Postman collection variable which is an array or boolean value.
 4. the `"websites[0]` item will be **removed** (because remove:true), which will results in the 1st item in the `websites` array to be removed. The index of the array will be reset.
 5. the `social_links[1].url` property will be **removed** (because remove:true) with the nested `url` property from the 2nd item of the `social_links` array removed.
 
