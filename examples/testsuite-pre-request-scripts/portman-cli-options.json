@@ -1,0 +1,11 @@
+{
+  "local": "./examples/testsuite-pre-request-scripts/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/testsuite-overwrites/crm.postman.json",
+  "collectionName": "CRM API - PreRequestScript",
+  "portmanConfigFile": "./examples/testsuite-pre-request-scripts/portman-config.crm.yml",
+  "postmanConfigFile": "./examples/testsuite-pre-request-scripts/postman-config.crm.json",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": false
+}

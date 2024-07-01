@@ -1,8 +1,10 @@
 # OpenAPI Postman test suite generation - assignVariables & overwriteRequestQueryParams example
 
-This example focuses on assigning Postman variables based on the response of an API request, with the goal to be able to reuse them in other requests with as minimal configuration as possible.
-The difference is that we will be using template expressions to set the Postman variables and while overwriting the request values.
-We will not be using any contract tests in this example, to keep the example as simple as possible.
+In the [assignVariables example](../testsuite-assign-variables/readme.md) we used the **overwrites** directive to set a request path parameter to Postman collection variables that had been set to a value based on the response body of a previous request.
+
+In this example, we will dive more deeply into some of the syntax of using the **overwrites** directive, including how to use Template Expressions when determining which Postman variable to update or use for an assignment.
+
+At the end of this Readme, we'll also include an example explaining how to overwrite request body attributes using both Postman collection variables and Template Expresssions.
 
 _use-cases_:
 
@@ -10,19 +12,28 @@ _use-cases_:
 
 - Reference a created entity to be used in Read/Update/Delete flows by setting the ID reference as query parameter
 
-## CLI usage
+## Try this example yourself using the portman CLI
+You can run this example yourself by downloading the following two files:
+- [Download Sample CRM API Spec](./crm.openapi.yml)
+- [Download Overwrite Example Config](./portman-config.crm.yml)
+
+This example assumes you are running portman from the same directory that you download these file to, and have [installed portman locally](../../README.md#local-installation-recommended) and are running the command from the top level directory in your project. If you [installed portman globally](../../README.md#global-installation) remove the `npx` from the beginning of the command.  
+
+The example command ignores any existing portman configuration you may have setup, but if you are familiar with portman configuration you can include other parameters, for example those to automatically push the collection to Postman.
+
+
 
 ```ssh
-portman --cliOptionsFile ./examples/testsuite-assign-overwrite/portman-cli-options.json
+npx portman -l ./crm.openapi.yml  -c ./portman-config.crm.yml
 ```
 
-Configured by using the portman-cli config.
+In this example we take the OpenAPI defined in `crm.yml`, with only 2 entities (leads & contacts) and convert to Postman, with Postman variables set from response that can be used when execution Postman requests.
 
-This is an example where we take the OpenAPI defined in `crm.yml`, with only 2 entities (leads & contacts) and convert to Postman, with Postman variables set from response that can be used when execution Postman requests.
+We will not be using any contract tests in this example, to keep the example as simple as possible.   
 
 ## Portman settings
 
-The portman settings (in JSON format) consists out of multiple parts.
+The portman settings (in YAML format) consists out of multiple parts.
 In this example we focus on the **assignVariables**  and **overwrites** sections, using a configuration in YAML format.
 
 file: examples/testsuite-assign-overwrite/portman-config.crm.yaml
@@ -35,6 +46,8 @@ To facilitate automation, we provide the option to set Postman collection variab
 
 ### Target options:
 
+Specify the types of requests which should generate tests that will assign Postman Environment variables:
+
 - **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman pm.collectionVariables variable
   will be set. (example: `contactsAll`)
 - **openApiOperation (String)** : Reference to the combination of the OpenAPI method & path, for which the Postman
@@ -44,15 +57,22 @@ These target options are both supported for defining a target. In case both are 
 
 ### collectionVariables options:
 
+Specify the names of the Postman environment variables which should be set, and the values they should be set to.
+
 - **collectionVariables (Array)** :
 
-  Array of key/value pairs to set the Postman collection variables.
+  Array of key/value pairs to set the Postman collection variables.   Each entry will include:
 
-  - **responseBodyProp (String)** : The property for which the value will be taken in the response body and set the value as the pm.collectionVariables value.
-  - **responseHeaderProp (String)** : The property for which the value will be taken in the response header and set the value as the pm.collectionVariables value.
-  - **requestBodyProp (String)** : The property for which the value will be taken in the request body and set the value as the pm.collectionVariables value.
-  - **value (String)** : The defined value that will be set as the pm.collectionVariables value.
-  - **name (string OPTIONAL |  Default: <operationId>.<varProp>)** : The desired name that will be used to as the Postman variable name. If the `name` is not provided, Portman will generate a variable name, using the `<operationId>.<varProp>`. You can pass your own template expressions, to dynamically generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
+  - **name (string OPTIONAL |  Default: <operationId>.<varProp>)** : The name of the Postman environment variable to be set. 
+    - This can be a static string with the name of the variable.
+    - You may instead use a template expression to dynamically generate variable names. For the full list of dynamic expressions, see [Template Expressions](#template-expressions).
+    - If the `name` is not provided, Portman will generate a variable name, using the Template Expression: `<operationId>.<varProp>`.
+
+  - The value for the environment variable is specified by using one of:
+    - **responseBodyProp (String)** : The response body property whose value the environment variable will be set to.
+    - **responseHeaderProp (String)** : The response header whose value the environment variable will be set to.
+    - **requestBodyProp (String)** : The request body property whose value the environment variable will be set to.
+    - **value (String)** : A static defined value that the environment variable will be set to.
 
 ## Portman - "overwrites" properties
 
@@ -62,6 +82,8 @@ To facilitate automation, you might want to modify property values with "randomi
 
 ### Target options:
 
+Specify the types of requests which should have elements of the default request overwritten:
+
 - **openApiOperationId (String)** : Reference to the OpenAPI operationId for which the Postman request body will be extended. (example: `leadsAll`)
 - **openApiOperation (String)** : Reference to combination of the OpenAPI method & path, for which the Postman request body will be extended (example: `GET::/crm/leads`)
 
@@ -69,18 +91,24 @@ These target options are both supported for defining a target. In case both are 
 
 ### Overwrite options:
 
+Specify the aspects of the request to be overwritten, and the values they should be set to.
+
 - **overwriteRequestPathVariables (Array)** :
 
   Array of key/value pairs to overwrite in the Postman Request Path Variables.
 
   - **key (String)** : The key that will be targeted in the request Path variables to overwrite/extend.
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.  Supports also templating to generate variable names.
-  - **overwrite (Boolean true/false | Default: true)** : Overwrites the request path variable value OR attach the value to the original request Path variable value.
+  - **value (String)** : The value that specified Path variable should be set to. May be:
+  will be used to overwrite/extend the value in the request path variable OR 
+    - a [Postman Dynamic Variable](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/), such as `{{$guid}}` or `{{{$randomInt}}}`.  
+    - a Postman Environment variable name specified using [Template Expressions](#template-expressions), such as '{{\<tag>Id}}'.
+    - a static string variable such as "foobar"
+  - **overwrite (Boolean true/false | Default: true)** : Overwrites the default request path variable as specified in examples defined in the OpenAPI specification, OR if no example was provided, attach the value to the original request Path variable value.  
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request path variable from Postman.
   - **insert (Boolean true/false | Default: true)** : Insert additional the request path variable in Postman that are not present in OpenAPI.
   - **description (String)** : Optional, Overwrites the request path variable description in Postman.
 
-You also the options to "overwriteRequestQueryParams", "overwriteRequestBody", "overwriteRequestHeaders", see the [Portman readme](https://github.com/apideck-libraries/portman) for more details.
+The "overwriteRequestQueryParams", "overwriteRequestBody", "overwriteRequestHeaders", see the [Portman readme](https://github.com/apideck-libraries/portman) or the [Overwrite Request Body example](#overwriterequestbody-syntax) for more details.
 
 ## Example explained
 
@@ -93,11 +121,13 @@ globals:
   stripResponseExamples: true
   variableCasing: snakeCase
 assignVariables:
+  # After creating a new object, save it's ID in a postman env. var
   - openApiOperation: POST::*
     collectionVariables:
       - responseBodyProp: data.id
         name: "<tag>Id"
 overwrites:
+  # Set the ID of the object to fetch based on the ID from the previous POST
   - openApiOperation: "*::/crm/*/{id}"
     excludeForOperations:
       - POST::*
@@ -140,10 +170,10 @@ assignVariables:
         name: "<tag>Id"
 ```
 
-This will target all POST responses and where it will take the value of the  `data.id` property from the response body, and set that safe that as a Postman collection variable.
-The name of the variable is dynamically build by using a the Portman template expressions. In this case we use the `<tag>` template expression, which will be replaced with the tag name of the OpenAPI operation.
+This will target all POST requests, and will generate scripts that will take the value of the  `data.id` property from the response body, and set that to the appropriate Postman collection variable.
+The name of the variable is dynamically build by using a the Portman [Template Expressions](#template-expressions). In this case we use the `<tag>` template expression, which will be replaced with the tag name of the OpenAPI operation.
 
-The API response of the create operation will contain:
+For example, the API response to a `POST /crm/leads` request will contain:
 
 ```json
 {
@@ -158,7 +188,7 @@ The API response of the create operation will contain:
 }
 ```
 
-After the conversion, in the "leadsAdd" request (POST::/crm/leads) in the Postman app, you can find the following result in the test tab.
+After Portman generates the test collection, in the "leadsAdd" request (POST::/crm/leads) in the Postman app, you can find the following result in the test or scripts tab:
 
 file: examples/testsuite-assign-overwrite/crm.postman.json >>
 
@@ -181,8 +211,13 @@ if (_resDataId !== undefined) {
 };
 ```
 
-Each time the request is executed in Postman, the `{{$leads_id}}` variables will be updated with the `data.id` from the API response.
+Note that the collection variable "leads_id" was dynamically generated first by evaluating the Template Expression: `\<tag>Id`, and then using the `variableCasing` style "snakeCase".
+
+Each time the `POST /crm/leads` request is executed in Postman, the `{{$leads_id}}` variables will be updated with the `data.id` from the API response.
+
 This allows you to capture the ID of the newly created entity.
+
+Similarly when a `POST /crm/contacts` request is executed, a variable "contacts_id" is set.
 
 For easier usage, the Postman variable name is shown in the console log of Portman & Postman.
 
@@ -238,6 +273,52 @@ overwrites:
 This targets all (GET/PUT/PATCH/DELETE) methods that contain the path `/crm/*/{id}`  and overwrites the request query parameter `id` with the value of the Postman variable, using the `<tag>Id` template expression.
 The `excludeForOperations` is used to exclude the overwrite for the POST operations, as the POST operation does not contain the `id` query parameter.
 
-The handy thing is that you can use the same template expression to target the Postman variable, as you used to assign the Postman variable. So, there is no need to configure Portman to overwrite with specific Postman variables per operation, as you can use the same template expression to assign the Postman variable.
+The handy thing is that you can use the same template expression syntax you used to assign a value to the Postman variable in the `assignVariables` section, when using the `overwrites` to overwrite someting in the request based on the the value of a dynamically evaluated Postman variable.  
 
-This will allow you to keep the configuration as minimal as possible.
+With template expressions you can configure Portman to overwrite different requests with different Postman variables per operation using a single set of directives.  This will allow you to keep the configuration as minimal as possible.
+
+## overwriteRequestBody syntax
+
+The `overwrites` directive can also be used to overwrite properties in a request body to strings, numbers, booleans and arrays using static values or Postman collection variables.
+
+Here is a somewhat nonsensical example that demonstrate the syntax.  Certain postman collection variables are assumed to exist for the purposes of this example:   
+
+```yaml
+    overwrites:
+    - openApiOperation: "PUT::/xxxtypes/{id}"
+      - overwriteRequestBody:
+          - key: stringAttribute
+            value: '{{postmanStringVar}}'
+            overwrite: true
+          - key: numberAttribute
+            value: '{{{postmanIntVar}}}'
+            overwrite: true
+          - key: booleanAttribute
+            value: '{{{postmanBoolVar}}}'
+            overwrite: false
+          - key: arrayAttribute
+            value: '{{{postmanArrayVar}}}'
+            overwrite: true
+          - key: anotherStringAttribute
+            value: <tag>.<operationId>
+
+```
+
+In this example we specify that when making a PUT request to a hypothetical "xxxtypes" endpoint we will overwrite some of the properties in the request body with the value in hypothetical Postman collection variables.
+
+`overwriteRequestBody` takes an array of objects that describe the properties in the request body to overwritten.  The properties for each object are:
+- **key** - Required.  The name of the property in the request body to ovewrite.
+- **value** - Required. The new value to assign.  May be:
+  - a static string
+  - a static number
+  - a static array
+  - a static boolean (ie: `true` or `false`)
+  - a reference to a postman collection variable.  
+    - If encapsulated by 2 curly braces the value of the variable will be enclosed in double quote (ie: treated like a string).
+    - If encapsulated by 3 curly braces the value of the variabled will not be enclosed in quotes and will be interpreted as a number, boolean, or array as appropriate.
+    - Note that the braces **must** be enclosed by single or double quotes.
+  - A [Template Expression](#template-expressions), or combination of Template Expressions
+- **overwrite** - Optional.   If set to true the value specified will be used in the Request Body, even if the spec includes an example value.  This is the default behavior if `overwrite` is not specified.   If set to `false` the specified `value` will only be used if there is no example specified in the spec.
+
+For a more concrete example see the [operationPreRequestScripts example](../testsuite-pre-request-scripts/readme.md).
+

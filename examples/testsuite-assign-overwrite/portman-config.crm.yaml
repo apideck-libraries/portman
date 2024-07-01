@@ -4,12 +4,15 @@ globals:
   stripResponseExamples: true
   variableCasing: snakeCase
 assignVariables:
+  # After creating a new object, save it's ID in a postman env. var
   - openApiOperation: POST::*
     collectionVariables:
       - responseBodyProp: data.id
         name: "<tag>Id"
+  # After getting a list of objects, save the ID of the first object returned
+  # in a postman environment variable
   - openApiOperation: GET::*
-    excludeForOperations:
+    excludeForOperations:  # don't update env. var on a GET request for one object
       - "GET::/*/{id}"
     collectionVariables:
       - responseBodyProp: data[0].id
