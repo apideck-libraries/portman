@@ -909,28 +909,28 @@ export class Fuzzer {
 
       // Register all fuzz-able items, excluding properties that are named after reserved words.
       if (this.key !== 'properties') {
-        if (node?.minimum) {
+        if (node && node.hasOwnProperty('minimum')) {
           fuzzItems?.minimumNumberFields?.push({
             path: `${path}${this.key}`,
             field: this.key,
             value: node.minimum
           })
         }
-        if (node?.maximum) {
+        if (node && node.hasOwnProperty('maximum')) {
           fuzzItems?.maximumNumberFields?.push({
             path: `${path}${this.key}`,
             field: this.key,
             value: node.maximum
           })
         }
-        if (node?.minLength && !node?.type?.includes('object')) {
+        if (node && node.hasOwnProperty('minLength') && !node?.type?.includes('object')) {
           fuzzItems?.minLengthFields?.push({
             path: `${path}${this.key}`,
             field: this.key,
             value: node.minLength
           })
         }
-        if (node?.maxLength && !node?.type?.includes('object')) {
+        if (node && node.hasOwnProperty('maxLength') && !node?.type?.includes('object')) {
           fuzzItems?.maxLengthFields?.push({
             path: `${path}${this.key}`,
             field: this.key,

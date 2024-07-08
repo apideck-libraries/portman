@@ -132,12 +132,60 @@ describe('Fuzzer', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should fuzz the value of a prop of the request body to zero minimum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 1 }],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request body to a negative minimum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 0 }],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMinimumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should fuzz the value of a prop of the request body above the defined maximum', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
       requiredFields: [],
       minimumNumberFields: [],
       maximumNumberFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: 300 }],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
+
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz the value of a prop of the request body to zero maximum', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: [],
+      minimumNumberFields: [],
+      maximumNumberFields: [{ path: 'monetary_amount', field: 'monetary_amount', value: -1 }],
       minLengthFields: [],
       maxLengthFields: []
     } as FuzzingSchemaItems
