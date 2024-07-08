@@ -1019,6 +1019,32 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it('should analyse JSON schema of request body for fuzz detection with zero values', async () => {
+    // Analyse JSON schema
+    // const reqBody = oaOpBody?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
+    // const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
+
+    const schema = {
+      type: 'object',
+      properties: {
+        numberField: {
+          type: 'number',
+          minimum: 0,
+          maximum: 0
+        },
+        stringField: {
+          type: 'string',
+          minLength: 0,
+          maxLength: 0
+        }
+      },
+      required: ['numberField', 'stringField']
+    } as OpenAPIV3.SchemaObject
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toMatchSnapshot()
+  })
+
   it.skip('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
     // Analyse JSON schema with nested properties
     const schema = {
@@ -1861,11 +1887,87 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it('should analyse the request query param for fuzz detection with zero values for number', async () => {
+    // Analyse query param
+    const queryParam = {
+      name: 'testParam',
+      in: 'query',
+      required: true,
+      schema: {
+        type: 'number',
+        minimum: 0,
+        maximum: 0
+      }
+    }
+    const reqQueryParams = [queryParam] as unknown as OpenAPIV3.ParameterObject[]
+
+    const result = fuzzer.analyzeQuerySchema(reqQueryParams[0])
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse the request query param for fuzz detection with zero values for string', async () => {
+    // Analyse query param
+    const queryParam = {
+      name: 'testParam',
+      in: 'query',
+      required: true,
+      schema: {
+        type: 'string',
+        minLength: 0,
+        maxLength: 0
+      }
+    }
+    const reqQueryParams = [queryParam] as unknown as OpenAPIV3.ParameterObject[]
+
+    const result = fuzzer.analyzeQuerySchema(reqQueryParams[0])
+    expect(result).toMatchSnapshot()
+  })
+
   it('should analyse the request header for fuzz detection', async () => {
     // Analyse query param
     const reqHeaders = oaOpHeader?.requestHeaders as unknown as OpenAPIV3.ParameterObject[]
 
     const result = fuzzer.analyzeHeaderSchema(reqHeaders[1])
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse the request header for fuzz detection with zero values for number', async () => {
+    // Analyse query param
+    const headerParamSchema = {
+      name: 'testHeader',
+      in: 'header',
+      required: true,
+      schema: {
+        type: 'number',
+        minimum: 0,
+        maximum: 0
+      }
+    }
+
+    // Mock the request headers
+    const reqHeaders = [headerParamSchema] as unknown as OpenAPIV3.ParameterObject[]
+
+    const result = fuzzer.analyzeHeaderSchema(reqHeaders[0])
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should analyse the request header for fuzz detection with zero values for string', async () => {
+    // Analyse query param
+    const headerParamSchema = {
+      name: 'testHeader',
+      in: 'header',
+      required: true,
+      schema: {
+        type: 'string',
+        minLength: 0,
+        maxLength: 0
+      }
+    }
+
+    // Mock the request headers
+    const reqHeaders = [headerParamSchema] as unknown as OpenAPIV3.ParameterObject[]
+
+    const result = fuzzer.analyzeHeaderSchema(reqHeaders[0])
     expect(result).toMatchSnapshot()
   })
 })

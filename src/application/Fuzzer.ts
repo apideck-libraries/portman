@@ -963,28 +963,28 @@ export class Fuzzer {
     if (queryParam?.required) {
       fuzzItems?.requiredFields?.push(queryParam.name)
     }
-    if (schema?.minimum) {
+    if (schema && schema.hasOwnProperty('minimum')) {
       fuzzItems?.minimumNumberFields?.push({
         path: queryParam.name,
         field: queryParam.name,
         value: schema.minimum
       })
     }
-    if (schema?.maximum) {
+    if (schema && schema.hasOwnProperty('maximum')) {
       fuzzItems?.maximumNumberFields?.push({
         path: queryParam.name,
         field: queryParam.name,
         value: schema.maximum
       })
     }
-    if (schema?.minLength) {
+    if (schema && schema.hasOwnProperty('minLength')) {
       fuzzItems?.minLengthFields?.push({
         path: queryParam.name,
         field: queryParam.name,
         value: schema.minLength
       })
     }
-    if (schema?.maxLength) {
+    if (schema && schema.hasOwnProperty('maxLength')) {
       fuzzItems?.maxLengthFields?.push({
         path: queryParam.name,
         field: queryParam.name,
@@ -1015,28 +1015,28 @@ export class Fuzzer {
     if (header?.required) {
       fuzzItems?.requiredFields?.push(header.name)
     }
-    if (schema?.minimum) {
+    if (schema && schema.hasOwnProperty('minimum')) {
       fuzzItems?.minimumNumberFields?.push({
         path: header.name,
         field: header.name,
         value: schema.minimum
       })
     }
-    if (schema?.maximum) {
+    if (schema && schema.hasOwnProperty('maximum')) {
       fuzzItems?.maximumNumberFields?.push({
         path: header.name,
         field: header.name,
         value: schema.maximum
       })
     }
-    if (schema?.minLength) {
+    if (schema && schema.hasOwnProperty('minLength')) {
       fuzzItems?.minLengthFields?.push({
         path: header.name,
         field: header.name,
         value: schema.minLength
       })
     }
-    if (schema?.maxLength) {
+    if (schema && schema.hasOwnProperty('maxLength')) {
       fuzzItems?.maxLengthFields?.push({
         path: header.name,
         field: header.name,
