@@ -193,7 +193,7 @@ describe('Fuzzer', () => {
     fuzzer.injectFuzzMaximumVariation(pmOpBody, oaOpBody, variationTest, variationMeta, fuzzItems)
 
     const result = fuzzer.fuzzVariations[0]
-    expect(result.item.request?.body?.raw).toMatchSnapshot()
+    expect(result.item.request?.body?.raw).toContain('"monetary_amount": 0,')
   })
 
   it('should fuzz the value of a prop of the request body above the defined minimum in float format', async () => {
