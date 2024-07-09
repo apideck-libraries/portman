@@ -50,7 +50,9 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
           newValue = orgValue + newValue
         }
         pmQueryParam.value =
-          newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+          (newValue !== undefined && newValue !== null) || 'boolean' === typeof newValue
+            ? `${newValue}`.toString()
+            : ''
       }
 
       // Test suite - Enable query param
