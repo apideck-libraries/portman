@@ -3,7 +3,9 @@
 - overwriteRequestHeaders - Allow zero value
 - overwriteRequestPathVariables - Allow zero value
 - overwriteRequestQueryParams - Allow zero value (#603)
-- Replaced faker with @faker-js
+- Fuzzing - Improve fuzzing with zero values (#599)
+- Improved OpenAPI parsing error reporting (#591)
+- Replaced faker with @faker-js (#593)
 
 ## v1.27.0 - (2024-06-16)
 

@@ -56,6 +56,44 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse JSON schema of request body for fuzz detection with zero values 1`] = `
+Object {
+  "fuzzType": "requestBody",
+  "maxLengthFields": Array [
+    Object {
+      "field": "stringField",
+      "path": "stringField",
+      "value": 0,
+    },
+  ],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "numberField",
+      "path": "numberField",
+      "value": 0,
+    },
+  ],
+  "minLengthFields": Array [
+    Object {
+      "field": "stringField",
+      "path": "stringField",
+      "value": 0,
+    },
+  ],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "numberField",
+      "path": "numberField",
+      "value": 0,
+    },
+  ],
+  "requiredFields": Array [
+    "numberField",
+    "stringField",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse JSON schema of request body with a mix of nested items for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestBody",
@@ -814,6 +852,56 @@ Object {
 }
 `;
 
+exports[`Fuzzer should analyse the request header for fuzz detection with zero values for number 1`] = `
+Object {
+  "fuzzType": "requestHeader",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "testHeader",
+      "path": "testHeader",
+      "value": 0,
+    },
+  ],
+  "minLengthFields": Array [],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "testHeader",
+      "path": "testHeader",
+      "value": 0,
+    },
+  ],
+  "requiredFields": Array [
+    "testHeader",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse the request header for fuzz detection with zero values for string 1`] = `
+Object {
+  "fuzzType": "requestHeader",
+  "maxLengthFields": Array [
+    Object {
+      "field": "testHeader",
+      "path": "testHeader",
+      "value": 0,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "testHeader",
+      "path": "testHeader",
+      "value": 0,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "testHeader",
+  ],
+}
+`;
+
 exports[`Fuzzer should analyse the request query param for fuzz detection 1`] = `
 Object {
   "fuzzType": "requestQueryParam",
@@ -822,6 +910,56 @@ Object {
   "minLengthFields": Array [],
   "minimumNumberFields": Array [],
   "requiredFields": Array [],
+}
+`;
+
+exports[`Fuzzer should analyse the request query param for fuzz detection with zero values for number 1`] = `
+Object {
+  "fuzzType": "requestQueryParam",
+  "maxLengthFields": Array [],
+  "maximumNumberFields": Array [
+    Object {
+      "field": "testParam",
+      "path": "testParam",
+      "value": 0,
+    },
+  ],
+  "minLengthFields": Array [],
+  "minimumNumberFields": Array [
+    Object {
+      "field": "testParam",
+      "path": "testParam",
+      "value": 0,
+    },
+  ],
+  "requiredFields": Array [
+    "testParam",
+  ],
+}
+`;
+
+exports[`Fuzzer should analyse the request query param for fuzz detection with zero values for string 1`] = `
+Object {
+  "fuzzType": "requestQueryParam",
+  "maxLengthFields": Array [
+    Object {
+      "field": "testParam",
+      "path": "testParam",
+      "value": 0,
+    },
+  ],
+  "maximumNumberFields": Array [],
+  "minLengthFields": Array [
+    Object {
+      "field": "testParam",
+      "path": "testParam",
+      "value": 0,
+    },
+  ],
+  "minimumNumberFields": Array [],
+  "requiredFields": Array [
+    "testParam",
+  ],
 }
 `;
 
