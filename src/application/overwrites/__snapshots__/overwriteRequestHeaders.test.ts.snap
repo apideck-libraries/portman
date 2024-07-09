@@ -215,6 +215,14 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should overwrite the request headers variable with zero value 1`] = `
+Object {
+  "x-apideck-app-id": "0",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
 exports[`overwriteRequestHeaders should remove to the Authorization header when remove is true 1`] = `
 Object {
   "bearer": Array [],
