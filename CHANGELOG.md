@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- overwriteRequestHeaders - Allow zero value
+- overwriteRequestPathVariables - Allow zero value
+- overwriteRequestQueryParams - Allow zero value (#603)
 - Replaced faker with @faker-js
 
 ## v1.27.0 - (2024-06-16)
