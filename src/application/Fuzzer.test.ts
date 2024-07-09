@@ -1021,9 +1021,6 @@ describe('Fuzzer', () => {
 
   it('should analyse JSON schema of request body for fuzz detection with zero values', async () => {
     // Analyse JSON schema
-    // const reqBody = oaOpBody?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
-    // const schema = reqBody?.content?.['application/json']?.schema as OpenAPIV3.SchemaObject
-
     const schema = {
       type: 'object',
       properties: {
