@@ -52,7 +52,10 @@ export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): Postman
           newValue = orgValue + newValue
         }
         variable.type = 'string' // Set schema as type string dynamic variable
-        variable.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+        variable.value =
+          (newValue !== undefined && newValue !== null) || 'boolean' === typeof newValue
+            ? `${newValue}`.toString()
+            : ''
       }
     })
   })

@@ -49,7 +49,10 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
         if (overwriteItem?.overwrite === false && orgValue) {
           newValue = orgValue + newValue
         }
-        pmHeader.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+        pmHeader.value =
+          (newValue !== undefined && newValue !== null) || 'boolean' === typeof newValue
+            ? `${newValue}`.toString()
+            : ''
       }
 
       // Test suite - Enable header

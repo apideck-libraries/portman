@@ -270,6 +270,24 @@ describe('overwriteRequestPathVariables', () => {
     expect(result.item.request.url.variables).toMatchSnapshot()
   })
 
+  it('should overwrite the request path variable with zero value', async () => {
+    const overwriteValues = [
+      {
+        key: 'id',
+        value: 0
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestPathVariables(dto)
+    expect(result.item.request.url.variables).toMatchSnapshot()
+  })
+
   it('should overwrite the request path boolean variable with string value', async () => {
     const overwriteValues = [
       {

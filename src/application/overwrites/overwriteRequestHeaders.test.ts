@@ -272,6 +272,24 @@ describe('overwriteRequestHeaders', () => {
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
+  it('should overwrite the request headers variable with zero value', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 0
+      }
+    ]
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
   it('should overwrite the request headers boolean variable with string value', async () => {
     const overwriteValues = [
       {
