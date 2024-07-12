@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- Template expression: Fix to handle double/triple curly braces (#597)
 - overwriteRequestHeaders - Allow zero value
 - overwriteRequestPathVariables - Allow zero value
 - overwriteRequestQueryParams - Allow zero value (#603)
