@@ -203,6 +203,17 @@ describe('parseTpl', () => {
     const result = parseTpl(dto)
     expect(result).toBe('{{leadsId}}_{{leadsAdd}} ')
   })
+
+  test('generates variable name with casing, keeping the {{{}}}', () => {
+    const dto = {
+      template: '{{{<tag>MonetaryAmount}}}',
+      oaOperation: oaOperationOne,
+      dynamicValues: { responseProp: 'id' },
+      options: { casing: 'camelCase' }
+    }
+    const result = parseTpl(dto)
+    expect(result).toBe('{{{leadsMonetaryAmount}}}')
+  })
 })
 
 describe('hasTpl', () => {

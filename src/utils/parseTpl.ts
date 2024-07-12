@@ -93,12 +93,12 @@ export const parseTpl = (dto: GenerateVarNameDTO): string => {
 
   // Apply casing
   if (options?.casing && varName && options?.caseOnlyExpressions !== true) {
-    const placeholderRegex = new RegExp(`{{(.*?)}}`, 'g')
-    varName = varName.replace(placeholderRegex, (_, placeholder) => {
+    const placeholderRegex = new RegExp(`({{{?|{{)(.*?)(}}}?|}})`, 'g')
+    varName = varName.replace(placeholderRegex, (_, openingBraces, placeholder, closingBraces) => {
       if (options.casing) {
-        return `{{${changeCase(placeholder.trim(), options.casing)}}}`
+        return `${openingBraces}${changeCase(placeholder.trim(), options.casing)}${closingBraces}`
       }
-      return `{{${placeholder}}}`
+      return `${openingBraces}${placeholder}${closingBraces}`
     })
     if (!varName.includes('{{') && !varName.includes('}}')) {
       varName = changeCase(varName, options.casing)
