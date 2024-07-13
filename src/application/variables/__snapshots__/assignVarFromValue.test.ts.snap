@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`assignVarFromValue should add postman collection var with name and a template as value 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for portman_number variable 
+pm.collectionVariables.set(\\"portman_number\\", Companies);
+console.log(\\"- use {{portman_number}} as collection variable for value\\", Companies);
+",
+]
+`;
+
 exports[`assignVarFromValue should add postman collection var with name for boolean value 1`] = `
 Array [
   "// pm.collectionVariables - Set fixed value for portman_boolean variable 
@@ -59,6 +68,15 @@ Array [
   "// pm.collectionVariables - Set fixed value for companiesOne.-var-1 variable 
 pm.collectionVariables.set(\\"companiesOne.-var-1\\", \\"portman\\");
 console.log(\\"- use {{companiesOne.-var-1}} as collection variable for value\\", \\"portman\\");
+",
+]
+`;
+
+exports[`assignVarFromValue should generate a variable and value and convert the casing for the templated name and value 1`] = `
+Array [
+  "// pm.collectionVariables - Set fixed value for CompaniesId variable 
+pm.collectionVariables.set(\\"CompaniesId\\", CompaniesId);
+console.log(\\"- use {{CompaniesId}} as collection variable for value\\", CompaniesId);
 ",
 ]
 `;
