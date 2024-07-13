@@ -51,13 +51,8 @@ export const assignVarFromValue = (
       casing: globals?.variableCasing
     }
   })
-  const varValue =
-    varSetting?.value && hasTpl(varSetting.value)
-      ? generatedValue
-      : typeof varSetting.value === 'string'
-      ? `"${varSetting.value}"`
-      : varSetting.value
-  // const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
+  const convVal = varSetting?.value && hasTpl(varSetting.value) ? generatedValue : varSetting.value
+  const varValue = typeof convVal === 'string' ? `"${convVal}"` : convVal
 
   pmVarAssign = [
     `// pm.collectionVariables - Set fixed value for ${varName} variable \n`,
