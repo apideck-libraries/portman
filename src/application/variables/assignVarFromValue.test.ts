@@ -159,4 +159,60 @@ describe('assignVarFromValue', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add postman collection var with name and a template as value', async () => {
+    const varSetting = {
+      value: '<tag>',
+      name: 'portman_number'
+    }
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 3)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and value and convert the casing for the templated name and value', async () => {
+    const varSetting = {
+      value: '<tag>Id',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should skip postman variable assigning when no value is defined', async () => {
+    const varSetting = {}
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest).toBeUndefined()
+  })
+
+  it('should skip postman variable assigning when no value is defined', async () => {
+    const varSetting = {}
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest).toBeUndefined()
+  })
 })

@@ -13,7 +13,7 @@ export const assignVarFromValue = (
 ): PostmanMappedOperation => {
   const { pmOperation, oaOperation, varSetting, options, globals } = dto
 
-  // Early exit if request body is not defined
+  // Early exit if value is not defined
   if (!varSetting.value) return pmOperation
 
   let pmVarAssign = ''
@@ -44,7 +44,16 @@ export const assignVarFromValue = (
   }
 
   // Set variable value
-  const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
+  const generatedValue = parseTpl({
+    template: varSetting.value,
+    oaOperation: oaOperation,
+    options: {
+      casing: globals?.variableCasing
+    }
+  })
+  const processedValue =
+    varSetting?.value && hasTpl(varSetting.value) ? generatedValue : varSetting.value
+  const varValue = typeof processedValue === 'string' ? `"${processedValue}"` : processedValue
 
   pmVarAssign = [
     `// pm.collectionVariables - Set fixed value for ${varName} variable \n`,
