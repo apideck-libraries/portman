@@ -1,13 +1,14 @@
 ## [Unreleased]
 
 - overwriteRequestHeaders - Fix missing request auth (#600)
+- assignVarFromValue - Add template expressions as value (#595)
 - Template expression: Fix to handle double/triple curly braces (#597)
 - overwriteRequestHeaders - Allow zero value
 - overwriteRequestPathVariables - Allow zero value
 - overwriteRequestQueryParams - Allow zero value (#603)
 - Fuzzing - Improve fuzzing with zero values (#599)
 - Improved OpenAPI parsing error reporting (#591)
-- Replaced faker with @faker-js (#593)
+- Dependencies - Replaced faker with @faker-js (#593)
 
 ## v1.27.0 - (2024-06-16)
 
