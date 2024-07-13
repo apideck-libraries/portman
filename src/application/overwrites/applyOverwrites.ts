@@ -80,6 +80,7 @@ export const applyOverwrites = (
     overwriteSetting?.overwriteRequestBaseUrl &&
       overwriteRequestBaseUrl(overwriteSetting.overwriteRequestBaseUrl, pmOperation)
 
+    // overwrite request security
     overwriteSetting?.overwriteRequestSecurity &&
       overwriteRequestSecurity(overwriteSetting.overwriteRequestSecurity, pmOperation)
 

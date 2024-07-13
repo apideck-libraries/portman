@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- overwriteRequestHeaders - Fix missing request auth (#600)
 - Template expression: Fix to handle double/triple curly braces (#597)
 - overwriteRequestHeaders - Allow zero value
 - overwriteRequestPathVariables - Allow zero value
