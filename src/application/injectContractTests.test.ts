@@ -16,7 +16,7 @@ describe('injectContractTests', () => {
   let testSuite: TestSuite
   let config: PortmanConfig
   let postmanObj: CollectionDefinition
-  const exclKeys = ['id', 'type', 'listen', 'reference', 'Type']
+  const exclKeys = ['id', 'type', 'listen', 'reference', 'Type', 'packages']
 
   const path = 'GET::/crm/leads'
   let pmOperationOne: PostmanMappedOperation
