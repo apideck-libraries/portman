@@ -78,7 +78,7 @@ export const overwriteRequestHeaders = (dto: OverwriteRequestDTO): PostmanMapped
   const authorizationType = ['basic', 'bearer', 'apikey']
   const authConfig = pmOperation.item.getAuth()
   const authType = authConfig?.type || null
-  if (authType && authorizationType.includes(authType)) {
+  if ((authType && authorizationType.includes(authType)) || authConfig === undefined) {
     if (overwriteValues.some(obj => obj.key && obj.key.toLowerCase() === 'authorization')) {
       pmOperation.item.request.auth?.clear(authType)
       pmOperation.item.request.authorizeUsing('noauth')

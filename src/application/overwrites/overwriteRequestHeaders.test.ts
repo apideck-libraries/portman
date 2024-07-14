@@ -149,6 +149,25 @@ describe('overwriteRequestHeaders', () => {
     expect(Object.assign(result.item.request.getHeaders(), result.item.getAuth())).toMatchSnapshot()
   })
 
+  it('should remove to the Authorization header when remove is true even when auth is not set', async () => {
+    const overwriteValues = [
+      {
+        key: 'Authorization',
+        remove: true
+      }
+    ]
+    pmOperation.item.request.auth?.clear('bearer')
+    pmOperation.item.request.authorizeUsing('noauth')
+    delete pmOperation.item.request.auth
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(Object.assign(result.item.request.getHeaders(), result.item.getAuth())).toMatchSnapshot()
+  })
+
   it('should insert the request headers variable, if key not found', async () => {
     const overwriteValues = [
       {

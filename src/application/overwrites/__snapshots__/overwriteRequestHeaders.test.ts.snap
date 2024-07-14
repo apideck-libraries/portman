@@ -234,6 +234,16 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should remove to the Authorization header when remove is true even when auth is not set 1`] = `
+Object {
+  "noauth": Array [],
+  "type": "noauth",
+  "x-apideck-app-id": "2222",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
 exports[`overwriteRequestHeaders should remove to the header when remove is true 1`] = `
 Object {
   "x-apideck-consumer-id": "test_consumer",
