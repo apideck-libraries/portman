@@ -46,7 +46,7 @@ export const overwriteRequestSecurity = (
   }
 
   // Add overwrite members to the map (overwriting if keys are the same)
-  Object.entries(overwrite).forEach(([authKeyRaw, authValue]) => {
+  Object.entries(overwrite).forEach(([authKeyRaw]) => {
     const authKey = authKeyRaw.toLowerCase()
     if (!authTypes.includes(authType)) {
       return // Skip this authKey
