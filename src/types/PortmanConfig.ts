@@ -200,7 +200,8 @@ export interface AuthAttribute {
 }
 
 export type SecurityOverwrite = {
-  apiKey?: SecurityApiKey
+  apikey?: SecurityApiKey
+  apiKey?: SecurityApiKey // fallback
   bearer?: SecurityBearer
   basic?: SecurityBasicAuth
   awsv4?: AuthAttribute[]
