@@ -33,8 +33,6 @@ export const overwriteRequestSecurity = (
     undefined
   ]
 
-  // Check if the current auth method matches the type we want to overwrite
-  // if (overwrite[authConfig.type]) {
   const authType = authConfig.type
   const newAuthDefinition: RequestAuthDefinition = {}
   const authMap = {}
