@@ -43,7 +43,6 @@ export const overwriteRequestSecurity = (
     pmOperation.item.request.auth?.clear(authType)
   }
 
-  // Add overwrite members to the map (overwriting if keys are the same)
   Object.entries(overwrite).forEach(([authKeyRaw]) => {
     const authKey = authKeyRaw.toLowerCase()
     if (!authTypes.includes(authType)) {
@@ -53,7 +52,7 @@ export const overwriteRequestSecurity = (
     // Initiate new mapping for overwrite auth type
     authMap[authKey] = new Map()
 
-    // Add existing authDefinition members to the map
+    // Add existing auth type props to the map
     if (authConfig[authKey]) {
       const authParams = authConfig[authKey].toJSON()
       authParams.forEach(member => {
@@ -61,21 +60,23 @@ export const overwriteRequestSecurity = (
       })
     }
 
+    // Add overwrite auth type props to the map
     if (Array.isArray(overwrite[authKeyRaw])) {
-      // Handle array of {key, value} objects
       overwrite[authKeyRaw].forEach(member => {
         authMap[authKey].set(member.key, member.value)
       })
     } else if (typeof overwrite[authKeyRaw] === 'object') {
-      // Handle object with multiple key:value pairs
       Object.entries(overwrite[authKeyRaw]).forEach(([key, value]) => {
         authMap[authKey].set(key, value)
       })
     }
 
+    // Create Postman Auth definition
     newAuthDefinition.type = authKey as RequestAuthDefinition['type']
     newAuthDefinition[authKey] = Array.from(authMap[authKey], ([key, value]) => ({ key, value }))
     const requestAuth = new RequestAuth(newAuthDefinition)
+
+    // Set the new Postman Auth to the request
     pmOperation.item.request.auth?.clear(authType)
     pmOperation.item.request.auth = requestAuth
   })
