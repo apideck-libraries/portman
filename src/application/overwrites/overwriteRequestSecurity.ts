@@ -63,7 +63,6 @@ export const overwriteRequestSecurity = (
       })
     }
 
-    console.log(authKey, authValue)
     if (Array.isArray(overwrite[authKeyRaw])) {
       // Handle array of {key, value} objects
       overwrite[authKeyRaw].forEach(member => {
