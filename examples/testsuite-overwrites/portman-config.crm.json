@@ -77,18 +77,24 @@
           "value": "portman-id-{{$randomInt}}-additional"
         }
       ],
+      "overwriteRequestBody": [
+        {
+          "key": "description",
+          "value": "{{newDescription}}",
+          "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{{newMonetaryAmount}}}",
+          "overwrite": true
+        }
+      ],
       "overwriteRequestPathVariables": [
         {
           "key": "id",
           "value": "123456789",
           "overwrite": true,
           "description": "Lead ID"
-        },
-        {
-          "key": "fake-id",
-          "value": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-          "description": "Fake ID",
-          "insert": true
         }
       ]
     },
@@ -121,6 +127,10 @@
     }
   ],
   "globals": {
-    "stripResponseExamples": true
+    "stripResponseExamples": true,
+    "collectionVariables": {
+      "newDescription": "a spaceman",
+      "newMonetaryAmount": 150000
+    }
   }
 }
