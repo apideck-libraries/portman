@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-- overwriteRequestQueryParams - Added wildcard matching for query param keys
+- overwriteRequestQueryParams - Added wildcard matching for query param keys (#612)
 - overwriteRequestSecurity - Improved logic to handle OAuth2
 - overwriteRequestHeaders - Fix missing request auth (#600)
 - assignVarFromValue - Add template expressions as value (#595)
