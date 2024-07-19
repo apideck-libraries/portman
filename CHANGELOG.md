@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- OpenAPI conversion - Use the first-listed content-type as request body (#601)
 - overwriteRequestSecurity - Improved logic to handle OAuth2
 - overwriteRequestHeaders - Fix missing request auth (#600)
 - assignVarFromValue - Add template expressions as value (#595)
