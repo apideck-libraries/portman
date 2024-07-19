@@ -1,27 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`overwriteRequestSecurity should overwrite only the request apiKey value 1`] = `
+exports[`overwriteRequestSecurity should overwrite the request Oauth2 auth 1`] = `
 Object {
-  "apikey": Array [
+  "oauth2": Array [
     Object {
-      "key": "key",
+      "key": "scope",
       "type": "any",
-      "value": "x-apideck-app-id",
+      "value": "{{PC_SCOPE}}",
     },
     Object {
-      "key": "value",
+      "key": "password",
       "type": "any",
-      "value": "foo-bar",
+      "value": "{{PC_PASSWORD}}",
+    },
+    Object {
+      "key": "username",
+      "type": "any",
+      "value": "{{PC_USERNAME}}",
+    },
+    Object {
+      "key": "clientSecret",
+      "type": "any",
+      "value": "{{PC_CLIENT_SECRET}}",
+    },
+    Object {
+      "key": "clientId",
+      "type": "any",
+      "value": "{{PC_CLIENT_ID}}",
+    },
+    Object {
+      "key": "accessTokenUrl",
+      "type": "any",
+      "value": "{{PC_ACCESS_TOKEN__URL}}",
+    },
+    Object {
+      "key": "tokenName",
+      "type": "any",
+      "value": "{{PC_TOKEN_NAME}}",
+    },
+    Object {
+      "key": "grant_type",
+      "type": "any",
+      "value": "password_credentials",
+    },
+    Object {
+      "key": "refreshRequestParams",
+      "type": "any",
+      "value": Array [],
+    },
+    Object {
+      "key": "tokenRequestParams",
+      "type": "any",
+      "value": Array [],
+    },
+    Object {
+      "key": "authRequestParams",
+      "type": "any",
+      "value": Array [],
+    },
+    Object {
+      "key": "challengeAlgorithm",
+      "type": "any",
+      "value": "S256",
+    },
+    Object {
+      "key": "addTokenTo",
+      "type": "any",
+      "value": "header",
+    },
+    Object {
+      "key": "client_authentication",
+      "type": "any",
+      "value": "body",
     },
   ],
-  "bearer": Array [
-    Object {
-      "key": "token",
-      "type": "any",
-      "value": "<Bearer Token>",
-    },
-  ],
-  "type": "apikey",
+  "type": "oauth2",
 }
 `;
 
@@ -37,13 +90,6 @@ Object {
       "key": "value",
       "type": "any",
       "value": "foo-bar-baz",
-    },
-  ],
-  "bearer": Array [
-    Object {
-      "key": "token",
-      "type": "any",
-      "value": "<Bearer Token>",
     },
   ],
   "type": "apikey",
@@ -62,13 +108,6 @@ Object {
       "key": "password",
       "type": "any",
       "value": "bar",
-    },
-  ],
-  "bearer": Array [
-    Object {
-      "key": "token",
-      "type": "any",
-      "value": "<Bearer Token>",
     },
   ],
   "type": "basic",

@@ -1,5 +1,6 @@
 ## [Unreleased]
 
+- overwriteRequestSecurity - Improved logic to handle OAuth2
 - overwriteRequestHeaders - Fix missing request auth (#600)
 - assignVarFromValue - Add template expressions as value (#595)
 - Template expression: Fix to handle double/triple curly braces (#597)

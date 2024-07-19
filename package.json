@@ -46,7 +46,7 @@
     "@types/newman": "^5.3.6",
     "@types/node-emoji": "^1.8.1",
     "@types/postman-collection": "^3.5.10",
-    "@types/traverse": "^0.6.36",
+    "@types/traverse": "^0.6.37",
     "@types/uuid": "^8.3.4",
     "@types/yargs": "^17.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
