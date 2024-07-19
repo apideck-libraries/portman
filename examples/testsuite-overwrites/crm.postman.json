@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "d04bcf00-9e8c-4f3e-89f8-30498423f613"
+    "postman_id": "13d1482f-ead7-47d7-a22e-01c0ef1cf8ad"
   },
   "item": [
     {
-      "id": "55dede7c-c18e-44a4-9b6b-4209c763561a",
+      "id": "faf6e383-1793-4c30-a886-68e08c76e2dd",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "baf16bc6-dbda-4ceb-b8c5-96533e93dcc0",
+          "id": "2cac7f2d-2d46-496c-a8bb-8e649bdee8a4",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -111,7 +111,7 @@
           }
         },
         {
-          "id": "08d5793f-0c96-49fc-b1a7-955f031b3070",
+          "id": "7b221c0f-a1b7-4e4b-8585-dcaca765f77e",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -205,7 +205,7 @@
           }
         },
         {
-          "id": "5e164c20-bc0b-4407-ad5f-07ba19d568f3",
+          "id": "90b4e212-6e0a-4a8d-9949-de85e7811e88",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -298,7 +298,7 @@
           }
         },
         {
-          "id": "f46967f9-84bf-4173-bae3-253c4414ae18",
+          "id": "edc7be11-c33e-496a-8e0c-f89d3cb02e41",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -310,8 +310,7 @@
               "path": [
                 "crm",
                 "leads",
-                ":id",
-                ":fake-id"
+                ":id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -337,16 +336,6 @@
                   "type": "string",
                   "value": "123456789",
                   "key": "id"
-                },
-                {
-                  "disabled": false,
-                  "description": {
-                    "content": "Fake ID",
-                    "type": "text/plain"
-                  },
-                  "type": "any",
-                  "value": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                  "key": "fake-id"
                 }
               ]
             },
@@ -395,7 +384,7 @@
             "method": "PATCH",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Elon Musk\",\n  \"company_name\": \"Spacex\",\n  \"@count\": \"54321\",\n  \"owner_id\": \"54321\",\n  \"company_id\": \"2\",\n  \"contact_id\": \"2\",\n  \"first_name\": \"Elon\",\n  \"last_name\": \"Musk\",\n  \"description\": \"A thinker\",\n  \"prefix\": \"Sir\",\n  \"title\": \"CEO\",\n  \"status\": \"New\",\n  \"monetary_amount\": 75000,\n  \"currency\": \"USD\",\n  \"fax\": \"+12129876543\",\n  \"websites\": [\n    {\n      \"url\": \"http://example.com\",\n      \"id\": \"12345\",\n      \"type\": \"primary\"\n    },\n    {\n      \"url\": \"http://example.com\",\n      \"id\": \"12345\",\n      \"type\": \"primary\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"id\": \"123\",\n      \"type\": \"primary\",\n      \"name\": \"HQ US\",\n      \"line1\": \"Main street\",\n      \"line2\": \"apt #\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"postal_code\": \"94104\",\n      \"country\": \"US\",\n      \"latitude\": \"40.759211\",\n      \"longitude\": \"-73.984638\"\n    },\n    {\n      \"id\": \"123\",\n      \"type\": \"primary\",\n      \"name\": \"HQ US\",\n      \"line1\": \"Main street\",\n      \"line2\": \"apt #\",\n      \"city\": \"San Francisco\",\n      \"state\": \"CA\",\n      \"postal_code\": \"94104\",\n      \"country\": \"US\",\n      \"latitude\": \"40.759211\",\n      \"longitude\": \"-73.984638\"\n    }\n  ],\n  \"social_links\": [\n    {\n      \"url\": \"https://www.twitter.com/apideck-io\",\n      \"id\": \"12345\",\n      \"type\": \"twitter\"\n    },\n    {\n      \"url\": \"https://www.twitter.com/apideck-io\",\n      \"id\": \"12345\",\n      \"type\": \"twitter\"\n    }\n  ],\n  \"phone_numbers\": [\n    {\n      \"number\": \"111-111-1111\",\n      \"id\": \"12345\",\n      \"type\": \"primary\"\n    },\n    {\n      \"number\": \"111-111-1111\",\n      \"id\": \"12345\",\n      \"type\": \"primary\"\n    }\n  ],\n  \"emails\": [\n    {\n      \"email\": \"elon@musk.com\",\n      \"id\": \"123\",\n      \"type\": \"primary\"\n    },\n    {\n      \"email\": \"elon@musk.com\",\n      \"id\": \"123\",\n      \"type\": \"primary\"\n    }\n  ],\n  \"custom_fields\": [\n    {\n      \"id\": \"custom_technologies\",\n      \"value\": \"Uses Salesforce and Marketo\"\n    },\n    {\n      \"id\": \"custom_technologies\",\n      \"value\": \"Uses Salesforce and Marketo\"\n    }\n  ],\n  \"tags\": [\n    \"New\"\n  ]\n}",
+              "raw": "{\n    \"name\": \"Elon Musk\",\n    \"company_name\": \"Spacex\",\n    \"@count\": \"54321\",\n    \"owner_id\": \"54321\",\n    \"company_id\": \"2\",\n    \"contact_id\": \"2\",\n    \"first_name\": \"Elon\",\n    \"last_name\": \"Musk\",\n    \"description\": \"{{newDescription}}\",\n    \"prefix\": \"Sir\",\n    \"title\": \"CEO\",\n    \"status\": \"New\",\n    \"monetary_amount\": {{newMonetaryAmount}},\n    \"currency\": \"USD\",\n    \"fax\": \"+12129876543\",\n    \"websites\": [\n        {\n            \"url\": \"http://example.com\",\n            \"id\": \"12345\",\n            \"type\": \"primary\"\n        },\n        {\n            \"url\": \"http://example.com\",\n            \"id\": \"12345\",\n            \"type\": \"primary\"\n        }\n    ],\n    \"addresses\": [\n        {\n            \"id\": \"123\",\n            \"type\": \"primary\",\n            \"name\": \"HQ US\",\n            \"line1\": \"Main street\",\n            \"line2\": \"apt #\",\n            \"city\": \"San Francisco\",\n            \"state\": \"CA\",\n            \"postal_code\": \"94104\",\n            \"country\": \"US\",\n            \"latitude\": \"40.759211\",\n            \"longitude\": \"-73.984638\"\n        },\n        {\n            \"id\": \"123\",\n            \"type\": \"primary\",\n            \"name\": \"HQ US\",\n            \"line1\": \"Main street\",\n            \"line2\": \"apt #\",\n            \"city\": \"San Francisco\",\n            \"state\": \"CA\",\n            \"postal_code\": \"94104\",\n            \"country\": \"US\",\n            \"latitude\": \"40.759211\",\n            \"longitude\": \"-73.984638\"\n        }\n    ],\n    \"social_links\": [\n        {\n            \"url\": \"https://www.twitter.com/apideck-io\",\n            \"id\": \"12345\",\n            \"type\": \"twitter\"\n        },\n        {\n            \"url\": \"https://www.twitter.com/apideck-io\",\n            \"id\": \"12345\",\n            \"type\": \"twitter\"\n        }\n    ],\n    \"phone_numbers\": [\n        {\n            \"number\": \"111-111-1111\",\n            \"id\": \"12345\",\n            \"type\": \"primary\"\n        },\n        {\n            \"number\": \"111-111-1111\",\n            \"id\": \"12345\",\n            \"type\": \"primary\"\n        }\n    ],\n    \"emails\": [\n        {\n            \"email\": \"elon@musk.com\",\n            \"id\": \"123\",\n            \"type\": \"primary\"\n        },\n        {\n            \"email\": \"elon@musk.com\",\n            \"id\": \"123\",\n            \"type\": \"primary\"\n        }\n    ],\n    \"custom_fields\": [\n        {\n            \"id\": \"custom_technologies\",\n            \"value\": \"Uses Salesforce and Marketo\"\n        },\n        {\n            \"id\": \"custom_technologies\",\n            \"value\": \"Uses Salesforce and Marketo\"\n        }\n    ],\n    \"tags\": [\n        \"New\"\n    ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -420,7 +409,7 @@
           }
         },
         {
-          "id": "2435a4b3-0d69-489c-92a1-079ddc1030bc",
+          "id": "5332a9c4-86a8-4d5e-abd2-7dd0d230a754",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -523,33 +512,27 @@
     },
     {
       "type": "string",
-      "value": "",
-      "key": "managementApiKey"
+      "value": "a spaceman",
+      "key": "newDescription"
     },
     {
-      "type": "string",
-      "value": "[replace with valid token]",
-      "key": "bearerToken"
-    },
-    {
-      "type": "string",
-      "value": "1111",
-      "key": "applicationId"
-    },
-    {
-      "type": "string",
-      "value": "zoho-crm",
-      "key": "serviceId"
-    },
-    {
-      "type": "string",
-      "value": "test_user_id",
-      "key": "consumerId"
+      "type": "number",
+      "value": 150000,
+      "key": "newMonetaryAmount"
     }
   ],
   "info": {
-    "_postman_id": "d04bcf00-9e8c-4f3e-89f8-30498423f613",
+    "_postman_id": "13d1482f-ead7-47d7-a22e-01c0ef1cf8ad",
     "name": "CRM API - Overwrites",
+    "version": {
+      "raw": "1.3.0",
+      "major": 1,
+      "minor": 3,
+      "patch": 0,
+      "prerelease": [],
+      "build": [],
+      "string": "1.3.0"
+    },
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "Welcome to the CRM API from Apideck.\n\nContact Support:\n Email: hello@apideck.com",
