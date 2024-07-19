@@ -1,6 +1,6 @@
 import { PostmanMappedOperation } from '../../postman'
 import { QueryParam } from 'postman-collection'
-import { parseTpl, hasTpl } from '../../utils'
+import { parseTpl, hasTpl, matchWildcard } from '../../utils'
 import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
@@ -25,7 +25,19 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteItem => {
       // Skip keys when no overwrite is defined
-      if (!(overwriteItem?.key && pmQueryParam?.key && overwriteItem.key === pmQueryParam.key)) {
+      if (
+        !(overwriteItem?.key && pmQueryParam?.key && overwriteItem.key === pmQueryParam.key) &&
+        !overwriteItem.key.includes('*')
+      ) {
+        return
+      }
+
+      // Check wildcard match
+      if (
+        overwriteItem.key.includes('*') &&
+        pmQueryParam.key &&
+        !matchWildcard(pmQueryParam.key, overwriteItem.key)
+      ) {
         return
       }
 

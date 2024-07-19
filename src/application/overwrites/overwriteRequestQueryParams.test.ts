@@ -4,6 +4,7 @@ import { overwriteRequestQueryParams } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { GlobalConfig } from '../../types'
+import { QueryParam } from 'postman-collection'
 
 describe('overwriteRequestQueryParams', () => {
   let oaOperation: OasMappedOperation
@@ -96,6 +97,24 @@ describe('overwriteRequestQueryParams', () => {
       {
         key: 'raw',
         value: 'foo',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestQueryParams(dto)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should overwrite the request query param description', async () => {
+    const overwriteValues = [
+      {
+        key: 'raw',
+        value: 'foo',
+        description: 'foo bar',
         overwrite: true
       }
     ]
@@ -473,6 +492,38 @@ describe('overwriteRequestQueryParams', () => {
       globals: {
         variableCasing: 'pascalCase'
       } as GlobalConfig
+    }
+    const result = overwriteRequestQueryParams(dto)
+    expect(result.item.request.url.query).toMatchSnapshot()
+  })
+
+  it('should overwrite the query param variable that matches the wildcard', async () => {
+    const overwriteValues = [
+      {
+        key: 'filter[*]',
+        value: '123',
+        overwrite: true
+      }
+    ]
+
+    const newPmQueryParam = {
+      key: 'filter[abc]',
+      value: '1',
+      disabled: false
+    } as QueryParam
+    pmOperation.item.request.url.query.upsert(newPmQueryParam)
+
+    const newPmQueryParam2 = {
+      key: 'filter[foo-bar]',
+      value: '2',
+      disabled: false
+    } as QueryParam
+    pmOperation.item.request.url.query.upsert(newPmQueryParam2)
+
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
     }
     const result = overwriteRequestQueryParams(dto)
     expect(result.item.request.url.query).toMatchSnapshot()
