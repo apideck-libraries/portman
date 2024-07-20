@@ -2,7 +2,7 @@ import { writeOperationTestScript } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { additionalProperties, ContractTestConfig, GlobalConfig } from 'types'
-import traverse from 'traverse'
+import traverse from 'neotraverse/legacy'
 import { OpenAPIV3 } from 'openapi-types'
 
 export const testResponseJsonSchema = (

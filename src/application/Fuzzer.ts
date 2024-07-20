@@ -16,7 +16,7 @@ import {
   VariationConfig,
   VariationTestConfig
 } from '../types'
-import traverse from 'traverse'
+import traverse from 'neotraverse/legacy'
 import { TestSuite, VariationWriter } from './'
 import { OpenAPIV3 } from 'openapi-types'
 import { getByPath, getJsonContentType } from '../utils'
