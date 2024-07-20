@@ -827,6 +827,7 @@ export class Fuzzer {
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
       let requiredPath = ``
+      const key = this.key as string
 
       // Merge anyOf, oneOf, allOf OpenAPI schema objects into a simplified schema object
       if (node?.allOf || node?.oneOf || node?.anyOf) {
@@ -855,7 +856,7 @@ export class Fuzzer {
       }
 
       // Remove unwanted anyOf, oneOf, allOf
-      if (this.key === 'anyOf' || this.key === 'oneOf' || this.key === 'allOf') {
+      if (key === 'anyOf' || key === 'oneOf' || key === 'allOf') {
         this.delete()
       }
 
@@ -869,13 +870,14 @@ export class Fuzzer {
       ) {
         // Build up fuzzing prop schema path from parents array
         this.parents.forEach(item => {
+          const itemKey = item.key as string
           // Handle object
-          if (item?.key && item?.node?.type === 'object' && !skipSchemaKeys.includes(item?.key)) {
-            path += `${item.key}.`
+          if (itemKey && item?.node?.type === 'object' && !skipSchemaKeys.includes(itemKey)) {
+            path += `${itemKey}.`
           }
           // Handle array
           if (item?.key && item?.node?.type === 'array') {
-            path += `${item.key}[0].`
+            path += `${itemKey}[0].`
           }
           // Handle root array
           if (item?.isRoot && item?.node?.type === 'array') {
@@ -889,12 +891,12 @@ export class Fuzzer {
 
       if (node?.required) {
         // Build path for nested required properties
-        if (node?.type === 'object' && this.key && !skipSchemaKeys.includes(this.key)) {
-          requiredPath += `${this.key}.`
+        if (node?.type === 'object' && key && !skipSchemaKeys.includes(key)) {
+          requiredPath += `${key}.`
         }
 
         // Register fuzz-able required fields from the 'required' element on an object; exclude properties named 'required'.
-        if (this.key !== 'properties') {
+        if (key !== 'properties') {
           const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
           fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
         }
@@ -903,37 +905,37 @@ export class Fuzzer {
       // Unregister fuzz-able nullable required fields
       if (node?.nullable === true && fuzzItems.requiredFields.length > 0) {
         fuzzItems.requiredFields = fuzzItems.requiredFields.filter(
-          item => item !== `${requiredPath}${this.key}`
+          item => item !== `${requiredPath}${key}`
         )
       }
 
       // Register all fuzz-able items, excluding properties that are named after reserved words.
-      if (this.key !== 'properties') {
+      if (key !== 'properties') {
         if (node && node.hasOwnProperty('minimum')) {
           fuzzItems?.minimumNumberFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${path}${key}`,
+            field: key,
             value: node.minimum
           })
         }
         if (node && node.hasOwnProperty('maximum')) {
           fuzzItems?.maximumNumberFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${path}${key}`,
+            field: key,
             value: node.maximum
           })
         }
         if (node && node.hasOwnProperty('minLength') && !node?.type?.includes('object')) {
           fuzzItems?.minLengthFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${path}${key}`,
+            field: key,
             value: node.minLength
           })
         }
         if (node && node.hasOwnProperty('maxLength') && !node?.type?.includes('object')) {
           fuzzItems?.maxLengthFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${path}${key}`,
+            field: key,
             value: node.maxLength
           })
         }
