@@ -1,4 +1,3 @@
-import { camelCase } from 'camel-case'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import {
@@ -22,6 +21,7 @@ import { OpenAPIV3 } from 'openapi-types'
 import { getByPath, getJsonContentType } from '../utils'
 import { QueryParam } from 'postman-collection'
 import { PostmanDynamicVarGenerator } from '../services/PostmanDynamicVarGenerator'
+import { changeCase } from 'openapi-format'
 
 export type FuzzerOptions = {
   testSuite: TestSuite
@@ -298,7 +298,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -374,7 +374,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -458,7 +458,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -605,7 +605,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -751,7 +751,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 

@@ -1,7 +1,7 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
 import { parseTpl, hasTpl, renderBracketPath, renderChainPath } from '../../utils'
-import { camelCase } from 'camel-case'
+import { changeCase } from 'openapi-format'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -71,7 +71,7 @@ export const assignVarFromResponseBody = (
   }
 
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
-  const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
+  const pathVarName = `_${changeCase(`res${varProp.replace(/\[/g, '')}`, 'camelCase')}`
 
   // Only set the pathVarName once
   if (!pmOperation.mappedVars.includes(pathVarName)) {

@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import newman, { NewmanRunOptions } from 'newman'
 import path from 'path'
-import { camelCase } from 'camel-case'
+import { changeCase } from 'openapi-format'
 
 export const runNewmanWith = async (
   postmanCollectionFile: string,
@@ -29,7 +29,7 @@ export const runNewmanWith = async (
   }
   // camelCase Newman run options
   const newmanRunOptionsCased = Object.keys(newmanRunOptions).reduce(
-    (a, c) => ((a[`${camelCase(c)}`] = newmanRunOptions[c]), a),
+    (a, c) => ((a[`${changeCase(c, 'camelCase')}`] = newmanRunOptions[c]), a),
     {}
   ) as Partial<NewmanRunOptions>
   // Merge Newman default and runtime options
