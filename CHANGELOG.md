@@ -11,7 +11,7 @@
 - Fuzzing - Improve fuzzing with zero values (#599)
 - Improved OpenAPI parsing error reporting (#591)
 - Dependencies - Replaced faker with @faker-js (#593)
-- Bumped dependencies: openapi-to-postman 4.22.0, replaced traverse with neotraverse
+- Bumped dependencies: openapi-to-postman 4.22.0, replaced traverse with neotraverse, removed camelCase
 
 ## v1.27.0 - (2024-06-16)
 

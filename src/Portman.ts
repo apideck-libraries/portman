@@ -1,4 +1,3 @@
-import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
@@ -25,6 +24,7 @@ import { PortmanConfig, PortmanTestTypes } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
+import { changeCase } from 'openapi-format'
 
 export class Portman {
   config: PortmanConfig
@@ -495,7 +495,7 @@ export class Portman {
     const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
-    let postmanCollectionFile = `./tmp/converted/${camelCase(fileName)}.json`
+    let postmanCollectionFile = `./tmp/converted/${changeCase(fileName, 'camelCase')}.json`
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {

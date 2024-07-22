@@ -1,4 +1,3 @@
-import { camelCase } from 'camel-case'
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
@@ -11,6 +10,7 @@ import {
 } from '../types'
 import { TestSuite } from './'
 import { Fuzzer } from './Fuzzer'
+import { changeCase } from 'openapi-format'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -86,7 +86,7 @@ export class VariationWriter {
       } else {
         // Normal variation
         const operationVariation = pmOperation.clone({
-          newId: camelCase(variationName),
+          newId: changeCase(variationName, 'camelCase'),
           name: variationName
         })
 
