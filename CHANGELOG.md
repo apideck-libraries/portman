@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - overwriteRequestQueryParams - Added wildcard matching for query param keys (#612)
+- OpenAPI conversion - Use the first-listed content-type as request body (#601)
 - overwriteRequestSecurity - Improved logic to handle OAuth2
 - overwriteRequestHeaders - Fix missing request auth (#600)
 - assignVarFromValue - Add template expressions as value (#595)
@@ -11,7 +12,8 @@
 - Fuzzing - Improve fuzzing with zero values (#599)
 - Improved OpenAPI parsing error reporting (#591)
 - Dependencies - Replaced faker with @faker-js (#593)
-- Bumped dependencies: openapi-to-postman 4.22.0, replaced traverse with neotraverse, removed camelCase
+- Updated overwrite examples and added preRequestScripts example by @jpjpjp (#598)
+- Bumped dependencies: openapi-to-postman 4.23.0, replaced traverse with neotraverse, removed camelCase
 
 ## v1.27.0 - (2024-06-16)
 
