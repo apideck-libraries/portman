@@ -503,6 +503,11 @@ describe('overwriteRequestQueryParams', () => {
         key: 'filter[*]',
         value: '123',
         overwrite: true
+      },
+      {
+        key: 'filter[bar-foo]',
+        value: 'ABC',
+        overwrite: true
       }
     ]
 
@@ -519,6 +524,13 @@ describe('overwriteRequestQueryParams', () => {
       disabled: false
     } as QueryParam
     pmOperation.item.request.url.query.upsert(newPmQueryParam2)
+
+    const newPmQueryParam3 = {
+      key: 'filter[bar-foo]',
+      value: '3',
+      disabled: false
+    } as QueryParam
+    pmOperation.item.request.url.query.upsert(newPmQueryParam3)
 
     const dto = {
       overwriteValues,

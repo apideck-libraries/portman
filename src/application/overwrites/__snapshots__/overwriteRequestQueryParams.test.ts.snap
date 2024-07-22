@@ -248,6 +248,11 @@ Array [
   },
   Object {
     "disabled": false,
+    "key": "filter[bar-foo]",
+    "value": "ABC",
+  },
+  Object {
+    "disabled": false,
     "key": "filter[*]",
     "value": "123",
   },
