@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.28.0 - (2024-07-22)
+
 - overwriteRequestQueryParams - Added wildcard matching for query param keys (#612)
 - OpenAPI conversion - Use the first-listed content-type as request body (#601)
 - overwriteRequestSecurity - Improved logic to handle OAuth2
