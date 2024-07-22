@@ -514,7 +514,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
   Array of key/value pairs to overwrite in the Postman Request Query params.
 
-  - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend.
+  - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend. Supports wildcard * to match any sequence of characters. For example, `filter[*]` matches `filter[0]`, `filter[1]`, etc.
   - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. Supports also templating to generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
   - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman.
