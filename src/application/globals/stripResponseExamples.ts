@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import traverse from 'traverse'
+import traverse from 'neotraverse/legacy'
 import { CollectionDefinition } from 'postman-collection'
 
 /**
