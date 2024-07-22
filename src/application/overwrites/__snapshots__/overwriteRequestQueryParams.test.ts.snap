@@ -225,6 +225,40 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestQueryParams should overwrite the query param variable that matches the wildcard 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "Include raw response. Mostly used for debugging purposes",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "raw",
+    "value": "true",
+  },
+  Object {
+    "disabled": false,
+    "key": "filter[abc]",
+    "value": "123",
+  },
+  Object {
+    "disabled": false,
+    "key": "filter[foo-bar]",
+    "value": "123",
+  },
+  Object {
+    "disabled": false,
+    "key": "filter[bar-foo]",
+    "value": "ABC",
+  },
+  Object {
+    "disabled": false,
+    "key": "filter[*]",
+    "value": "123",
+  },
+]
+`;
+
 exports[`overwriteRequestQueryParams should overwrite the query param variable with a blank value 1`] = `
 Array [
   Object {
@@ -344,6 +378,17 @@ Array [
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
+    "disabled": false,
+    "key": "raw",
+    "value": "foo",
+  },
+]
+`;
+
+exports[`overwriteRequestQueryParams should overwrite the request query param description 1`] = `
+Array [
+  Object {
+    "description": "foo bar",
     "disabled": false,
     "key": "raw",
     "value": "foo",
