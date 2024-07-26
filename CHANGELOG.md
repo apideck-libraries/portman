@@ -1,7 +1,7 @@
 ## [Unreleased]
 
-> [!CAUTION]  
-> **Important Change:** If you are using a custom Postman config file by `--postmanConfigFile`,verify that the option `parametersResolution` is set to "Example"/"Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated.
+> [!IMPORTANT]  
+> **Important Change:** If you are using a custom Postman config file with the --postmanConfigFile flag, please ensure that the parametersResolution option is set to either "Example" or "Schema". The options requestParametersResolution and exampleParametersResolution are now deprecated.
 
 - Conversion - Use convertV2 from openapi-to-postman
 
