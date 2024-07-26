@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+> [!CAUTION]  
+> **Important Change:** If you are using a custom Postman config file by `--postmanConfigFile`,verify that the option `parametersResolution` is set to "Example"/"Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated.
+
+- Conversion - Use convertV2 from openapi-to-postman
+
 ## v1.28.0 - (2024-07-22)
 
 - overwriteRequestQueryParams - Added wildcard matching for query param keys (#612)
