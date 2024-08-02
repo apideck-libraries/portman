@@ -16,6 +16,9 @@ Customize the Postman requests & variables with a wide range of options to assig
 > [!CAUTION]  
 > **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0.<br>Optional query parameters will be disabled in Postman by default. More details can be found in the [CHANGELOG.md](CHANGELOG.md).
 
+> [!IMPORTANT]  
+> **Important Change:** If you are using version 1.28.0 with a custom Postman config file specified by the `--postmanConfigFile` flag, please ensure that the `parametersResolution` option is set to either "Example" or "Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated openapi-to-postman options.
+
 ## Why use Portman?
 
 Convert your OpenAPI spec to Postman, generate contract & variation tests, upload the Postman collection & run the tests through Newman.

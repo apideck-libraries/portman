@@ -38,7 +38,7 @@ export class OpenApiToPostmanService {
       }).start()
 
       // Convert OpenApi to Postman collection
-      oaConverter.convert(
+      oaConverter.convertV2(
         {
           type: 'json',
           data: this.openApiObj

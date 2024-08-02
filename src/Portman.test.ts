@@ -20,8 +20,9 @@ describe('Portman', () => {
 
     const portman = new Portman({
       postmanUid: 'eb1ffad6-eece-456b-ad32-3f2a3f605537',
-      oaLocal: './__tests__/fixtures/crm.yml',
-      postmanConfigFile: './__tests__/fixtures/postman-config.json',
+      oaLocal: './__tests__/fixtures/crm-run.yml',
+      postmanConfigFile: './__tests__/fixtures/postman-config.run.json',
+      postmanConfigPath: './__tests__/fixtures/postman-config.run.json',
       portmanConfigFile: './__tests__/fixtures/portman.kitchensink.json',
       portmanConfigPath: './__tests__/fixtures/portman.kitchensink.json',
       envFile: './__tests__/fixtures/.crm.env',
