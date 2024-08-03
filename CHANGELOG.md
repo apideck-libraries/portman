@@ -4,6 +4,7 @@
 > **Important Change:** If you are using version 1.28.0 with a custom Postman config file specified by the `--postmanConfigFile` flag, please ensure that the `parametersResolution` option is set to either "Example" or "Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated openapi-to-postman options.
 
 - Conversion - Use convertV2 from openapi-to-postman
+- overwriteRequestSecurity - handle missing auth (#622)
 
 ## v1.28.0 - (2024-07-22)
 

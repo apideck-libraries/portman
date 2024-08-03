@@ -33,7 +33,7 @@ export const overwriteRequestSecurity = (
     undefined
   ]
 
-  const authType = authConfig.type
+  const authType = authConfig?.type || undefined
   const newAuthDefinition: RequestAuthDefinition = {}
   const authMap = {}
 
@@ -53,7 +53,7 @@ export const overwriteRequestSecurity = (
     authMap[authKey] = new Map()
 
     // Add existing auth type props to the map
-    if (authConfig[authKey]) {
+    if (authConfig && authConfig[authKey]) {
       const authParams = authConfig[authKey].toJSON()
       authParams.forEach(member => {
         authMap[authKey].set(member.key, member.value)
