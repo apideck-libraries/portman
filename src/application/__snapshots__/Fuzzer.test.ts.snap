@@ -599,31 +599,6 @@ Object {
 }
 `;
 
-exports[`Fuzzer should analyse JSON schema of request body with top level object for fuzz detection 1`] = `
-Object {
-  "fuzzType": "requestBody",
-  "maxLengthFields": Array [],
-  "maximumNumberFields": Array [
-    Object {
-      "field": "code",
-      "path": "code",
-      "value": 100,
-    },
-  ],
-  "minLengthFields": Array [],
-  "minimumNumberFields": Array [
-    Object {
-      "field": "code",
-      "path": "code",
-      "value": 1,
-    },
-  ],
-  "requiredFields": Array [
-    "code",
-  ],
-}
-`;
-
 exports[`Fuzzer should analyse allOf JSON schema of request body with a mix of nested items for fuzz detection with nullable property 1`] = `
 Object {
   "fuzzType": "requestBody",

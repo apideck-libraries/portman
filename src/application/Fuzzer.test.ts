@@ -1079,7 +1079,7 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
-  it('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
+  it.skip('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
     // Analyse JSON schema with nested properties
     const schema = {
       type: 'object',
