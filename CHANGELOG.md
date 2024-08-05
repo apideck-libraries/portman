@@ -5,6 +5,7 @@
 
 - Conversion - Use convertV2 from openapi-to-postman
 - overwriteRequestSecurity - handle missing auth (#622)
+- Fuzzing - Fix nested path handling (#624)
 
 ## v1.28.0 - (2024-07-22)
 
