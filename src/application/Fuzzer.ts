@@ -861,12 +861,13 @@ export class Fuzzer {
       }
 
       if (
-        node?.minimum ||
-        node?.maximum ||
-        node?.minLength ||
-        node?.maxLength ||
-        node?.required ||
-        node?.nullable
+        node &&
+        (node.hasOwnProperty('minimum') ||
+          node.hasOwnProperty('maximum') ||
+          node.hasOwnProperty('minLength') ||
+          node.hasOwnProperty('maxLength') ||
+          node?.required ||
+          node?.nullable)
       ) {
         // Build up fuzzing prop schema path from parents array
         this.parents.forEach(item => {
