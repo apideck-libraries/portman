@@ -1019,6 +1019,43 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
+  it('should analyse JSON nested schema fuzz detection', async () => {
+    // Analyse JSON schema
+    const schema = {
+      properties: {
+        container: {
+          properties: {
+            value: {
+              minimum: 0,
+              type: 'number'
+            }
+          },
+          required: ['value'],
+          type: 'object'
+        }
+      },
+      required: ['container'],
+      type: 'object'
+    } as OpenAPIV3.SchemaObject
+    const expected = {
+      fuzzType: 'requestBody',
+      requiredFields: ['container', 'container.value'],
+      minimumNumberFields: [
+        {
+          path: 'container.value',
+          field: 'value',
+          value: 0
+        }
+      ],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    }
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).toEqual(expected)
+  })
+
   it('should analyse JSON schema of request body for fuzz detection with zero values', async () => {
     // Analyse JSON schema
     const schema = {
@@ -1042,7 +1079,7 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
-  it.skip('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
+  it('should analyse JSON schema of request body with top level object for fuzz detection', async () => {
     // Analyse JSON schema with nested properties
     const schema = {
       type: 'object',
