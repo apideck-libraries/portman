@@ -12,10 +12,11 @@ export const stripResponseExamples = (
   if (!portmanCollection?.item) return portmanCollection
 
   traverse(portmanCollection.item).forEach(function (node) {
+    // Request in a folder
     if (this?.parent?.key === 'item' && node?.response) {
       node.response = []
     }
-    // Check if the current node is a direct child of the root item array
+    // Request on the root
     if (this.parent?.isRoot === true && node?.response) {
       node.response = []
     }
