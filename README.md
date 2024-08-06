@@ -13,9 +13,6 @@ Portman leverages OpenAPI documents, with all its defined API request/response p
 Let Portman do all the work and inject contract & variation tests with a minimum of configuration.
 Customize the Postman requests & variables with a wide range of options to assign & overwrite variables.
 
-> [!CAUTION]  
-> **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0.<br>Optional query parameters will be disabled in Postman by default. More details can be found in the [CHANGELOG.md](CHANGELOG.md).
-
 > [!IMPORTANT]  
 > **Important Change:** If you are using version 1.28.0 with a custom Postman config file specified by the `--postmanConfigFile` flag, please ensure that the `parametersResolution` option is set to either "Example" or "Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated openapi-to-postman options.
 

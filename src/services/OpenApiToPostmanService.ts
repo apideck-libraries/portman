@@ -16,7 +16,11 @@ export class OpenApiToPostmanService {
 
   async convert(options: IOpenApiToPostmanConfig): Promise<Record<string, unknown>> {
     return await new Promise((resolve, reject) => {
-      let converterOptions = {}
+      let converterOptions = {
+        parametersResolution: undefined as string | undefined,
+        requestParametersResolution: undefined as string | undefined,
+        exampleParametersResolution: undefined as string | undefined
+      }
       const { inputFile, openApiObj, configFile, outputFile } = options
 
       if (openApiObj) {
@@ -30,6 +34,16 @@ export class OpenApiToPostmanService {
       // apply options from config file if present
       if (configFile) {
         converterOptions = JSON.parse(fs.readFileSync(path.resolve(configFile), 'utf8'))
+
+        // Fallback parametersResolution
+        if (!converterOptions?.parametersResolution) {
+          if (converterOptions?.requestParametersResolution) {
+            converterOptions.parametersResolution = converterOptions.requestParametersResolution
+          }
+          if (converterOptions?.exampleParametersResolution) {
+            converterOptions.parametersResolution = converterOptions.exampleParametersResolution
+          }
+        }
       }
 
       const spinner = ora({
