@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.29.0 - (2024-08-06)
+
 > [!IMPORTANT]  
 > **Important Change:** If you are using version 1.28.0 with a custom Postman config file specified by the `--postmanConfigFile` flag, please ensure that the `parametersResolution` option is set to either "Example" or "Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated openapi-to-postman options.
 
