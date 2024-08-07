@@ -912,31 +912,42 @@ export class Fuzzer {
 
       // Register all fuzz-able items, excluding properties that are named after reserved words.
       if (key !== 'properties') {
+        let pathBase = path
+        let pathKey = key
+        let fieldKey = key
+
+        if (key === 'items' && this?.parent?.node?.type === 'array' && node.type !== 'object') {
+          // Set first array item for plain array values
+          pathBase = path.slice(0, path.length - 1)
+          pathKey = ''
+          fieldKey = '[0]'
+        }
+
         if (node && node.hasOwnProperty('minimum')) {
           fuzzItems?.minimumNumberFields?.push({
-            path: `${path}${key}`,
-            field: key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.minimum
           })
         }
         if (node && node.hasOwnProperty('maximum')) {
           fuzzItems?.maximumNumberFields?.push({
-            path: `${path}${key}`,
-            field: key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.maximum
           })
         }
         if (node && node.hasOwnProperty('minLength') && !node?.type?.includes('object')) {
           fuzzItems?.minLengthFields?.push({
-            path: `${path}${key}`,
-            field: key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.minLength
           })
         }
         if (node && node.hasOwnProperty('maxLength') && !node?.type?.includes('object')) {
           fuzzItems?.maxLengthFields?.push({
-            path: `${path}${key}`,
-            field: key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.maxLength
           })
         }

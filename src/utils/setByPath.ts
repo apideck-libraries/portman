@@ -50,6 +50,12 @@ export const setByPath = (
     }
   }
 
+  // If the path is an array index, handle it separately
+  if (path.match(/\[\d+\]/)) {
+    const arrayPath = path.replace(/\[(\d+)\]/g, '.$1')
+    return dot.str(arrayPath, newValue, objectOrArray)
+  }
+
   // Update property from object
   return dot.str(path, newValue, objectOrArray)
 }
