@@ -350,10 +350,10 @@ describe('setByPath', () => {
       numbers: [98618922, 34457779]
     }
 
-    const result = setByPath(bodyData, 'numbers[0]', -367)
+    const result = setByPath(bodyData, 'numbers[1]', -367)
 
     expect(result).toEqual({
-      numbers: [-367, 34457779]
+      numbers: [98618922, -367]
     })
   })
 })
