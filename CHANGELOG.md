@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Fuzzing - Handle nested plain array values (#629)
+
 ## v1.29.0 - (2024-08-06)
 
 > [!IMPORTANT]  

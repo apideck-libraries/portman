@@ -1019,7 +1019,7 @@ describe('Fuzzer', () => {
     expect(result).toMatchSnapshot()
   })
 
-  it('should analyse JSON nested schema fuzz detection', async () => {
+  it('should analyse JSON nested schema for fuzz detection', async () => {
     // Analyse JSON schema
     const schema = {
       properties: {
@@ -1054,6 +1054,34 @@ describe('Fuzzer', () => {
 
     const result = fuzzer.analyzeFuzzJsonSchema(schema)
     expect(result).toEqual(expected)
+  })
+
+  it('should analyse an array of numbers for fuzz detection', async () => {
+    // Analyse JSON schema
+    const schema = {
+      description: 'Holds an array of numbers.',
+      properties: {
+        numbers: {
+          description: 'An array of numbers.',
+          items: {
+            minimum: -366,
+            type: 'integer'
+          },
+          type: 'array'
+        }
+      },
+      type: 'object'
+    } as OpenAPIV3.SchemaObject
+    const expected = [
+      {
+        path: 'numbers[0]',
+        field: '[0]',
+        value: -366
+      }
+    ]
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result?.minimumNumberFields).toEqual(expected)
   })
 
   it('should analyse JSON schema of request body for fuzz detection with zero values', async () => {
