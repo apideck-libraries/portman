@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Portman - Make OpenAPI data immutable (#630)
+
 ## v1.29.2 - (2024-08-19)
 
 - Skip read-only properties from request body (#628)
