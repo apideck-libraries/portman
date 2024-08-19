@@ -25,6 +25,7 @@ import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
 import { changeCase } from 'openapi-format'
+import _ from 'lodash'
 
 export class Portman {
   config: PortmanConfig
@@ -294,13 +295,13 @@ export class Portman {
   async convertToPostmanCollection(): Promise<void> {
     // --- openapi-to-postman - Transform OpenApi to Postman collection
     const { postmanConfigPath, localPostman } = this.options
-
     const oaToPostman = new OpenApiToPostmanService()
-    // TODO investigate better way to keep oasParser untouched
-    // Clone oasParser to prevent altering with added minItems maxItems
-    const { oas } = this.oasParser
+
+    // Clone oasParser to prevent altering with added minItems, maxItems and JSON schema
+    const oasCopy = _.cloneDeep(this.oasParser.oas)
+
     const oaToPostmanConfig: IOpenApiToPostmanConfig = {
-      openApiObj: { ...oas },
+      openApiObj: oasCopy,
       outputFile: `${process.cwd()}/tmp/working/tmpCollection.json`,
       configFile: postmanConfigPath as string
     }
