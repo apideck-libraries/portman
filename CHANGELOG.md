@@ -1,6 +1,10 @@
 ## [Unreleased]
 
+## v1.29.3 - (2024-08-19)
+
 - Portman - Make OpenAPI data immutable (#630)
+- Bumped dependency openapi-format
+- Removed unused yaml package 
 
 ## v1.29.2 - (2024-08-19)
 
