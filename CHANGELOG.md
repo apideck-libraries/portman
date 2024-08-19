@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## v1.29.2 - (2024-08-19)
+
+- Skip read-only properties from request body (#628)
+- YAML error fix using latest openapi-format (#631)
+- Bumped dependencies: openapi-to-postman 4.24.0, newman, openapi-format
+
 ## v1.29.1 - (2024-08-08)
 
 - Fuzzing - Handle nested plain array values (#629)
