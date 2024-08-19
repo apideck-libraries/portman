@@ -64,7 +64,13 @@ describe('Portman', () => {
     expect(await fs.pathExists(outputFilePath)).toBe(true)
 
     const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
-    expect(finalCollection.item[0].item[0].event[0].script).toMatchSnapshot()
+    if (finalCollection?.item?.[0]?.event?.[0]?.script?.exec) {
+      const result = finalCollection.item[0].event[0].script.exec // Convert V1
+      expect(result).toMatchSnapshot()
+    } else {
+      const result = finalCollection.item[0].item[0].event[0].script.exec // Convert V2
+      expect(result).toMatchSnapshot()
+    }
   }, 30000)
 })
 
