@@ -295,8 +295,6 @@ if (_resDataId !== undefined) {
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -402,11 +400,7 @@ if (_resDataId !== undefined) {
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -677,8 +671,6 @@ pm.test(\\"[PATCH]::/crm/companies/:id - Schema is valid\\", function() {
                       },
                       "raw": "{
   \\"name\\": \\"Copper\\",
-  \\"id\\": \\"12345\\",
-  \\"interaction_count\\": 1,
   \\"owner_id\\": \\"12345\\",
   \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
   \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -784,11 +776,7 @@ pm.test(\\"[PATCH]::/crm/companies/:id - Schema is valid\\", function() {
   ],
   \\"tags\\": [
     \\"New\\"
-  ],
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                     },
                     "description": Object {
@@ -1273,7 +1261,6 @@ if (_resDataId !== undefined) {
                   },
                   "raw": "{
   \\"name\\": \\"Elon Musk\\",
-  \\"id\\": \\"12345\\",
   \\"owner_id\\": \\"54321\\",
   \\"company_id\\": \\"23456\\",
   \\"company_name\\": \\"23456\\",
@@ -1381,9 +1368,7 @@ if (_resDataId !== undefined) {
   ],
   \\"tags\\": [
     \\"New\\"
-  ],
-  \\"updated_at\\": \\"2017-08-12T20:43:21.291Z\\",
-  \\"created_at\\": \\"2017-08-12T20:43:21.291Z\\"
+  ]
 }",
                 },
                 "description": Object {
@@ -1654,7 +1639,6 @@ pm.test(\\"[PATCH]::/crm/contacts/:id - Schema is valid\\", function() {
                       },
                       "raw": "{
   \\"name\\": \\"Elon Musk\\",
-  \\"id\\": \\"12345\\",
   \\"owner_id\\": \\"54321\\",
   \\"company_id\\": \\"23456\\",
   \\"company_name\\": \\"23456\\",
@@ -1762,9 +1746,7 @@ pm.test(\\"[PATCH]::/crm/contacts/:id - Schema is valid\\", function() {
   ],
   \\"tags\\": [
     \\"New\\"
-  ],
-  \\"updated_at\\": \\"2017-08-12T20:43:21.291Z\\",
-  \\"created_at\\": \\"2017-08-12T20:43:21.291Z\\"
+  ]
 }",
                     },
                     "description": Object {
@@ -2241,7 +2223,6 @@ if (_resDataId !== undefined) {
                   "raw": "{
   \\"title\\": \\"New Rocket\\",
   \\"primary_contact_id\\": \\"12345\\",
-  \\"id\\": \\"12345\\",
   \\"description\\": \\"Opportunities are created for People and Companies that are interested in buying your products or services. Create Opportunities for People and Companies to move them through one of your Pipelines.\\",
   \\"monetary_amount\\": 75000,
   \\"currency\\": \\"USD\\",
@@ -2265,7 +2246,6 @@ if (_resDataId !== undefined) {
   \\"tags\\": [
     \\"New\\"
   ],
-  \\"interaction_count\\": 0,
   \\"custom_fields\\": [
     {
       \\"id\\": \\"custom_technologies\\",
@@ -2275,14 +2255,7 @@ if (_resDataId !== undefined) {
       \\"id\\": \\"custom_technologies\\",
       \\"value\\": \\"Uses Salesforce and Marketo\\"
     }
-  ],
-  \\"date_stage_changed\\": \\"2020-09-30T00:00:00.000Z\\",
-  \\"date_last_contacted\\": \\"2020-09-30T00:00:00.000Z\\",
-  \\"date_lead_created\\": \\"2020-09-30T00:00:00.000Z\\",
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                 },
                 "description": Object {
@@ -2554,7 +2527,6 @@ pm.test(\\"[PATCH]::/crm/opportunities/:id - Schema is valid\\", function() {
                       "raw": "{
   \\"title\\": \\"New Rocket\\",
   \\"primary_contact_id\\": \\"12345\\",
-  \\"id\\": \\"12345\\",
   \\"description\\": \\"Opportunities are created for People and Companies that are interested in buying your products or services. Create Opportunities for People and Companies to move them through one of your Pipelines.\\",
   \\"monetary_amount\\": 75000,
   \\"currency\\": \\"USD\\",
@@ -2578,7 +2550,6 @@ pm.test(\\"[PATCH]::/crm/opportunities/:id - Schema is valid\\", function() {
   \\"tags\\": [
     \\"New\\"
   ],
-  \\"interaction_count\\": 0,
   \\"custom_fields\\": [
     {
       \\"id\\": \\"custom_technologies\\",
@@ -2588,14 +2559,7 @@ pm.test(\\"[PATCH]::/crm/opportunities/:id - Schema is valid\\", function() {
       \\"id\\": \\"custom_technologies\\",
       \\"value\\": \\"Uses Salesforce and Marketo\\"
     }
-  ],
-  \\"date_stage_changed\\": \\"2020-09-30T00:00:00.000Z\\",
-  \\"date_last_contacted\\": \\"2020-09-30T00:00:00.000Z\\",
-  \\"date_lead_created\\": \\"2020-09-30T00:00:00.000Z\\",
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                     },
                     "description": Object {
@@ -3085,7 +3049,6 @@ console.log(\\"- use {{leadsAdd.company_name}} as collection variable for value\
                   "raw": "{
   \\"name\\": \\"Elon Musk\\",
   \\"company_name\\": \\"Spacex\\",
-  \\"id\\": \\"12345\\",
   \\"owner_id\\": \\"54321\\",
   \\"company_id\\": \\"2\\",
   \\"contact_id\\": \\"2\\",
@@ -3188,9 +3151,7 @@ console.log(\\"- use {{leadsAdd.company_name}} as collection variable for value\
   ],
   \\"tags\\": [
     \\"New\\"
-  ],
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                 },
                 "description": Object {
@@ -3485,7 +3446,6 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "raw": "{
   \\"name\\": \\"Elon Musk\\",
   \\"company_name\\": \\"Spacex\\",
-  \\"id\\": \\"12345\\",
   \\"owner_id\\": \\"54321\\",
   \\"company_id\\": \\"2\\",
   \\"contact_id\\": \\"2\\",
@@ -3588,9 +3548,7 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
   ],
   \\"tags\\": [
     \\"New\\"
-  ],
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                     },
                     "description": Object {
@@ -4018,20 +3976,16 @@ if (_resDataId !== undefined) {
   \\"display_order\\": 1,
   \\"stages\\": [
     {
-      \\"id\\": \\"contractsent\\",
       \\"name\\": \\"Contract Sent\\",
       \\"value\\": \\"CONTRACT_SENT\\",
       \\"display_order\\": 1
     },
     {
-      \\"id\\": \\"contractsent\\",
       \\"name\\": \\"Contract Sent\\",
       \\"value\\": \\"CONTRACT_SENT\\",
       \\"display_order\\": 1
     }
-  ],
-  \\"updated_at\\": \\"2017-08-12T20:43:21.291Z\\",
-  \\"created_at\\": \\"2017-08-12T20:43:21.291Z\\"
+  ]
 }",
                 },
                 "description": Object {
@@ -4308,20 +4262,16 @@ pm.test(\\"[PATCH]::/crm/pipelines/:id - Schema is valid\\", function() {
   \\"display_order\\": 1,
   \\"stages\\": [
     {
-      \\"id\\": \\"contractsent\\",
       \\"name\\": \\"Contract Sent\\",
       \\"value\\": \\"CONTRACT_SENT\\",
       \\"display_order\\": 1
     },
     {
-      \\"id\\": \\"contractsent\\",
       \\"name\\": \\"Contract Sent\\",
       \\"value\\": \\"CONTRACT_SENT\\",
       \\"display_order\\": 1
     }
-  ],
-  \\"updated_at\\": \\"2017-08-12T20:43:21.291Z\\",
-  \\"created_at\\": \\"2017-08-12T20:43:21.291Z\\"
+  ]
 }",
                     },
                     "description": Object {
@@ -4760,14 +4710,9 @@ if (_resDataId !== undefined) {
                     },
                   },
                   "raw": "{
-  \\"id\\": \\"12345\\",
   \\"title\\": \\"Meeting Notes\\",
   \\"content\\": \\"Office hours are 9AM-6PM\\",
-  \\"owner_id\\": \\"12345\\",
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  \\"owner_id\\": \\"12345\\"
 }",
                 },
                 "description": Object {
@@ -5037,14 +4982,9 @@ pm.test(\\"[PATCH]::/crm/notes/:id - Schema is valid\\", function() {
                         },
                       },
                       "raw": "{
-  \\"id\\": \\"12345\\",
   \\"title\\": \\"Meeting Notes\\",
   \\"content\\": \\"Office hours are 9AM-6PM\\",
-  \\"owner_id\\": \\"12345\\",
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  \\"owner_id\\": \\"12345\\"
 }",
                     },
                     "description": Object {
@@ -5484,7 +5424,6 @@ if (_resDataId !== undefined) {
                   },
                   "raw": "{
   \\"email\\": \\"elon@musk.com\\",
-  \\"id\\": \\"12345\\",
   \\"parent_id\\": \\"54321\\",
   \\"username\\": \\"masterofcoin\\",
   \\"first_name\\": \\"Elon\\",
@@ -5492,9 +5431,7 @@ if (_resDataId !== undefined) {
   \\"image\\": \\"https://logo.clearbit.com/spacex.com?s=128\\",
   \\"language\\": \\"EN\\",
   \\"status\\": \\"active\\",
-  \\"password\\": \\"supersecretpassword\\",
-  \\"updated_at\\": \\"2017-08-12T20:43:21.291Z\\",
-  \\"created_at\\": \\"2017-08-12T20:43:21.291Z\\"
+  \\"password\\": \\"supersecretpassword\\"
 }",
                 },
                 "description": Object {
@@ -5765,7 +5702,6 @@ pm.test(\\"[PATCH]::/crm/users/:id - Schema is valid\\", function() {
                       },
                       "raw": "{
   \\"email\\": \\"elon@musk.com\\",
-  \\"id\\": \\"12345\\",
   \\"parent_id\\": \\"54321\\",
   \\"username\\": \\"masterofcoin\\",
   \\"first_name\\": \\"Elon\\",
@@ -5773,9 +5709,7 @@ pm.test(\\"[PATCH]::/crm/users/:id - Schema is valid\\", function() {
   \\"image\\": \\"https://logo.clearbit.com/spacex.com?s=128\\",
   \\"language\\": \\"EN\\",
   \\"status\\": \\"active\\",
-  \\"password\\": \\"supersecretpassword\\",
-  \\"updated_at\\": \\"2017-08-12T20:43:21.291Z\\",
-  \\"created_at\\": \\"2017-08-12T20:43:21.291Z\\"
+  \\"password\\": \\"supersecretpassword\\"
 }",
                     },
                     "description": Object {
@@ -6215,7 +6149,6 @@ if (_resDataId !== undefined) {
                   },
                   "raw": "{
   \\"type\\": \\"meeting\\",
-  \\"id\\": \\"12345\\",
   \\"activity_datetime\\": \\"2021-05-01T12:00:00.000Z\\",
   \\"duration_seconds\\": 1800,
   \\"account_id\\": \\"12345\\",
@@ -6260,11 +6193,7 @@ if (_resDataId !== undefined) {
       \\"id\\": \\"custom_technologies\\",
       \\"value\\": \\"Uses Salesforce and Marketo\\"
     }
-  ],
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                 },
                 "description": Object {
@@ -6535,7 +6464,6 @@ pm.test(\\"[PATCH]::/crm/activities/:id - Schema is valid\\", function() {
                       },
                       "raw": "{
   \\"type\\": \\"meeting\\",
-  \\"id\\": \\"12345\\",
   \\"activity_datetime\\": \\"2021-05-01T12:00:00.000Z\\",
   \\"duration_seconds\\": 1800,
   \\"account_id\\": \\"12345\\",
@@ -6580,11 +6508,7 @@ pm.test(\\"[PATCH]::/crm/activities/:id - Schema is valid\\", function() {
       \\"id\\": \\"custom_technologies\\",
       \\"value\\": \\"Uses Salesforce and Marketo\\"
     }
-  ],
-  \\"updated_by\\": \\"12345\\",
-  \\"created_by\\": \\"12345\\",
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                     },
                     "description": Object {
@@ -6839,7 +6763,6 @@ pm.test(\\"[DELETE]::/crm/activities/:id - Schema is valid\\", function() {
                   "raw": "{
   \\"name\\": \\"Elon Musk\\",
   \\"company_name\\": \\"Spacex\\",
-  \\"id\\": \\"12345\\",
   \\"owner_id\\": \\"54321\\",
   \\"company_id\\": \\"2\\",
   \\"contact_id\\": \\"2\\",
@@ -6942,9 +6865,7 @@ pm.test(\\"[DELETE]::/crm/activities/:id - Schema is valid\\", function() {
   ],
   \\"tags\\": [
     \\"New\\"
-  ],
-  \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-  \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+  ]
 }",
                 },
                 "description": Object {
@@ -7060,8 +6981,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                     },
                   },
                   "raw": "{
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -7167,11 +7086,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -7282,8 +7197,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -7388,11 +7301,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -7503,8 +7412,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -7609,11 +7516,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -7724,8 +7627,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -7830,11 +7731,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -7945,8 +7842,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -8051,11 +7946,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -8166,8 +8057,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -8272,11 +8161,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -8387,8 +8272,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -8494,11 +8377,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -8609,8 +8488,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -8716,11 +8593,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -8831,8 +8704,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -8938,11 +8809,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -9053,8 +8920,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -9160,11 +9025,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -9275,8 +9136,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -9382,11 +9241,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -9497,8 +9352,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -9604,11 +9457,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -9719,8 +9568,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -9826,11 +9673,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -9932,8 +9775,6 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
                   },
                   "raw": "{
     \\"name\\": \\"Foo Inc. --{{$randomInt}}\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -10039,11 +9880,7 @@ pm.test(\\"[POST]::/crm/companies - Response status code is 422\\", function () 
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -10181,8 +10018,6 @@ if (_resDataId !== undefined) {
                   },
                   "raw": "{
     \\"name\\": \\"Integration Test: Create Company\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -10288,11 +10123,7 @@ if (_resDataId !== undefined) {
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
@@ -10536,8 +10367,6 @@ pm.test(\\"[PATCH]::/crm/companies/:id - Status code is 2xx\\", function () {
                   },
                   "raw": "{
     \\"name\\": \\"Integration Test: Update Company\\",
-    \\"id\\": \\"12345\\",
-    \\"interaction_count\\": 1,
     \\"owner_id\\": \\"12345\\",
     \\"image_url\\": \\"https://www.spacex.com/static/images/share.jpg\\",
     \\"description\\": \\"A crm that works for you, so you can spend time on relationships instead of data.\\",
@@ -10643,11 +10472,7 @@ pm.test(\\"[PATCH]::/crm/companies/:id - Status code is 2xx\\", function () {
     ],
     \\"tags\\": [
         \\"New\\"
-    ],
-    \\"updated_by\\": \\"12345\\",
-    \\"created_by\\": \\"12345\\",
-    \\"updated_at\\": \\"2020-09-30T07:43:32.000Z\\",
-    \\"created_at\\": \\"2020-09-30T07:43:32.000Z\\"
+    ]
 }",
                 },
                 "description": Object {
