@@ -41,6 +41,31 @@ describe('Portman', () => {
     const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
     expect(omitKeys(finalCollection, ['id', '_postman_id', 'postman_id', 'info'])).toMatchSnapshot()
   }, 30000)
+
+  it('convert oneOf OAS, verify schema', async () => {
+    const outputFile = `./tmp/converted/crmApi.${uuidv4()}.json`
+
+    const portman = new Portman({
+      oaLocal: './__tests__/fixtures/oas-oneof.yaml',
+      portmanConfigFile: 'portman-config.default.json',
+      portmanConfigPath: 'portman-config.default.json',
+      postmanConfigFile: './__tests__/fixtures/postman-config.run.json',
+      postmanConfigPath: './__tests__/fixtures/postman-config.run.json',
+      baseUrl: 'http://localhost:3050',
+      output: outputFile,
+      syncPostman: false,
+      includeTests: true,
+      runNewman: false
+    })
+
+    await portman.run()
+
+    const outputFilePath = path.resolve(outputFile)
+    expect(await fs.pathExists(outputFilePath)).toBe(true)
+
+    const finalCollection = JSON.parse(await fs.readFile(outputFilePath, 'utf8'))
+    expect(finalCollection.item[0].item[0].event[0].script).toMatchSnapshot()
+  }, 30000)
 })
 
 describe('Portman version', () => {
