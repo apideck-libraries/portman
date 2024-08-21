@@ -1,4 +1,5 @@
 export * from './injectEnvVariables'
+export * from './orderCollectionFolders'
 export * from './orderCollectionRequests'
 export * from './overwriteCollectionKeyValues'
 export * from './overwriteCollectionSecurityValues'

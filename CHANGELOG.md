@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Portman - sort Postman folders based on the "orderOfFolders" configuration
+
 ## v1.29.3 - (2024-08-19)
 
 - Portman - Make OpenAPI data immutable (#630)
