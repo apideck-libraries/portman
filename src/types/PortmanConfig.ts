@@ -248,6 +248,7 @@ export type GlobalConfig = {
   rawReplacements?: GlobalReplacement[]
   portmanReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
+  orderOfFolders?: string[]
   stripResponseExamples?: boolean
   variableCasing?:
     | 'camelCase'

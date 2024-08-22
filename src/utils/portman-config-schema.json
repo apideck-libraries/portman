@@ -89,6 +89,12 @@
           },
           "type": "array"
         },
+        "orderOfFolders": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "portmanReplacements": {
           "items": {
             "additionalProperties": false,

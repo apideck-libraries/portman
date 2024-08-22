@@ -7,7 +7,8 @@ import {
   overwriteCollectionSecurityValues,
   writeCollectionPreRequestScripts,
   writeCollectionVariables,
-  writeRawReplacements
+  writeRawReplacements,
+  orderCollectionFolders
 } from '.'
 import { GlobalConfig, PortmanConfig, PortmanOptions } from '../types'
 import { isEmptyObject } from '../utils'
@@ -36,7 +37,8 @@ export class CollectionWriter {
       keyValueReplacements = {},
       valueReplacements = {},
       rawReplacements = [],
-      orderOfOperations = []
+      orderOfOperations = [],
+      orderOfFolders = []
     } = globals as GlobalConfig
 
     let collection = this.collection
@@ -69,6 +71,11 @@ export class CollectionWriter {
     // --- Portman - Set manually order Postman requests
     if (orderOfOperations && orderOfOperations.length > 0) {
       collection = orderCollectionRequests(collection, orderOfOperations)
+    }
+
+    // --- Portman - Set manually order Postman folders
+    if (orderOfFolders && orderOfFolders.length > 0) {
+      collection = orderCollectionFolders(collection, orderOfFolders)
     }
 
     // --- Portman - Set Postman collection pre-requests scripts

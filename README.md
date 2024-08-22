@@ -701,6 +701,7 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/...
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. The ordering from `orderOfOperations` is performed per folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
+- **orderOfFolders** : The `orderOfFolders` is a list of Postman folder names, which is used by Portman to sort the Postman folders in the desired order. Folders that are **not** defined in the `orderOfFolders` list will remain at their current order, after the re-order folders.
 - **securityOverwrites** : Overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token") or inject a Postman authorization option (supported types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2) on a collection level. 
 
   The security overwrites provides a number of security types:
