@@ -21,15 +21,34 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
   // Detect overwrite query params that do not exist in the Postman collection
   const insertNewKeys = overwriteValues.filter(x => !queryKeys.includes(x.key))
 
+  // Initialize a map to track occurrences of each query key
+  const keyPositionMap = new Map<string, number>()
+
   pmOperation.item.request.url.query.each(pmQueryParam => {
     // Overwrite values for Keys
     overwriteValues.forEach(overwriteItem => {
+      // Track the current position of this key
+      const keyCount = keyPositionMap.get(overwriteItem.key) || 0
+      keyPositionMap.set(overwriteItem.key, keyCount + 1)
+
       // Skip keys when no overwrite is defined
       if (
         !(overwriteItem?.key && pmQueryParam?.key && overwriteItem.key === pmQueryParam.key) &&
         !overwriteItem.key.includes('*')
       ) {
         return
+      }
+
+      // Handle positional logic
+      if (overwriteItem.key === pmQueryParam.key) {
+        const currentKeyCount = keyPositionMap.get(overwriteItem.key)
+        const matchingOverwriteItems = overwriteValues.filter(
+          item => item.key === overwriteItem.key
+        )
+        if (currentKeyCount && currentKeyCount > matchingOverwriteItems.length) {
+          return
+        }
+        overwriteItem = matchingOverwriteItems[currentKeyCount - 1] || overwriteItem
       }
 
       // Check wildcard match
