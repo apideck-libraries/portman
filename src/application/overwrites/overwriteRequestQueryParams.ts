@@ -2,6 +2,7 @@ import { PostmanMappedOperation } from '../../postman'
 import { QueryParam } from 'postman-collection'
 import { parseTpl, hasTpl, matchWildcard } from '../../utils'
 import { OverwriteRequestDTO } from './applyOverwrites'
+import _ from 'lodash'
 
 /**
  * Overwrite Postman request query params with values defined by the portman testsuite
@@ -13,23 +14,45 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
-  // Early exit if request url query is not defined
-  // if (!pmOperation.item?.request?.url?.query) return pmOperation
-
   // Get all Postman query params
   const queryKeys = pmOperation.item.request.url.query.map(({ key }) => key)
+
   // Detect overwrite query params that do not exist in the Postman collection
   const insertNewKeys = overwriteValues.filter(x => !queryKeys.includes(x.key))
 
+  // Extract duplicate query params
+  const duplicateKeys = _(queryKeys)
+    .countBy()
+    .pickBy((count: number) => count > 1)
+    .keys()
+    .value()
+
+  // Initialize counters for tracking
+  const queryKeyCounters = {}
+  const overwriteKeyCounters = {}
+  const duplicateKeyCounters = {}
+
+  // Util function to get the count of key
+  const getKeyCount = (key, counter) => counter[key] || 0
+
+  // Util function to increment the key count
+  const incrementKeyCount = (key, counter) => {
+    counter[key] = getKeyCount(key, counter) + 1
+    return counter[key]
+  }
+
   pmOperation.item.request.url.query.each(pmQueryParam => {
+    // Increment counter for query param
+    const queryKeyIndex = incrementKeyCount(pmQueryParam.key, queryKeyCounters)
+
     // Overwrite values for Keys
-    overwriteValues.forEach(overwriteItem => {
+    for (const overwriteItem of overwriteValues) {
       // Skip keys when no overwrite is defined
       if (
         !(overwriteItem?.key && pmQueryParam?.key && overwriteItem.key === pmQueryParam.key) &&
         !overwriteItem.key.includes('*')
       ) {
-        return
+        continue
       }
 
       // Check wildcard match
@@ -38,8 +61,11 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         pmQueryParam.key &&
         !matchWildcard(pmQueryParam.key, overwriteItem.key)
       ) {
-        return
+        continue
       }
+
+      // Increment counter for overwrite key
+      const overwriteKeyIndex = incrementKeyCount(overwriteItem.key, overwriteKeyCounters)
 
       const generatedName = parseTpl({
         template: overwriteItem.value,
@@ -48,8 +74,27 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
           casing: globals?.variableCasing
         }
       })
-      const overwriteValue =
+      let overwriteValue =
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
+
+      // Handle duplicated query params
+      let duplicateFound = false
+      if (
+        duplicateKeys.length > 0 &&
+        duplicateKeys.includes(pmQueryParam.key) &&
+        overwriteItem.key === pmQueryParam.key &&
+        queryKeyIndex === overwriteKeyIndex
+      ) {
+        const duplicateKeyIndex = getKeyCount(overwriteItem.key, duplicateKeyCounters)
+        const matchingOverwriteItems = overwriteValues.filter(item => item.key === pmQueryParam.key)
+
+        const overwriteObj = matchingOverwriteItems[duplicateKeyIndex]
+        if (overwriteObj.value) {
+          overwriteValue = overwriteObj.value
+          incrementKeyCount(overwriteItem.key, duplicateKeyCounters)
+          duplicateFound = true
+        }
+      }
 
       // Test suite - Overwrite/extend query param value
       let hasValue = false
@@ -83,7 +128,12 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
 
       // Set Postman query param
       pmOperation.item.request.url.query.upsert(pmQueryParam)
-    })
+
+      // Break the loop once a matching overwrite is applied
+      if (duplicateFound) {
+        break
+      }
+    }
   })
 
   // Test suite - Remove query param
