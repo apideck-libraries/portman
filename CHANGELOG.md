@@ -1,6 +1,9 @@
 ## [Unreleased]
 
-- Portman - sort Postman folders based on the "orderOfFolders" configuration
+## v1.30.0 - (2024-08-23)
+
+- Portman - sort Postman folders based on the "orderOfFolders" configuration (#621)
+- overwriteRequestQueryParams - Handle form encoded array query params (#640)
 
 ## v1.29.3 - (2024-08-19)
 
