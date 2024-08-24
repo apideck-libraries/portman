@@ -4,13 +4,15 @@ import { PostmanMappedOperation } from '../../postman'
 import { additionalProperties, ContractTestConfig, GlobalConfig } from 'types'
 import traverse from 'neotraverse/legacy'
 import { OpenAPIV3 } from 'openapi-types'
+import Ajv from 'ajv'
+import chalk from 'chalk'
 
 export const testResponseJsonSchema = (
   schemaValidation: ContractTestConfig,
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
   jsonSchema: any,
   pmOperation: PostmanMappedOperation,
-  oaOperation: OasMappedOperation,
+  _oaOperation: OasMappedOperation,
   extraUnknownFormats: string[] = [],
   config?: GlobalConfig
 ): PostmanMappedOperation => {
@@ -25,7 +27,26 @@ export const testResponseJsonSchema = (
   // deletes nullable and adds "null" to type array if nullable is true
   jsonSchema = convertUnsupportedJsonSchemaProperties(jsonSchema)
 
+  // convert types
+
   const split = config?.separatorSymbol ?? '::'
+  const targetName = `${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`
+
+  // Validate jsonSchema
+  let validJsonSchema = true
+  try {
+    const ajv = new Ajv({ allErrors: true, strict: false, logger: false })
+    ajv.compile(jsonSchema)
+  } catch (e) {
+    validJsonSchema = false
+    console.log(
+      chalk.red(
+        `schemaValidation skipped for[${pmOperation.method.toUpperCase()}]${split}${
+          pmOperation.path
+        }  ` + `${e.message}`
+      )
+    )
+  }
 
   const jsonSchemaString = JSON.stringify(jsonSchema)
   const containsRef = jsonSchemaString.includes('$ref')
@@ -44,16 +65,23 @@ export const testResponseJsonSchema = (
     `// Response Validation\n`,
     `const schema = ${jsonSchemaString}\n\n`,
     `// Validate if response matches JSON schema \n`,
-    `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
+    `pm.test("[${targetName}`,
     ` - Schema is valid", function() {\n`,
     `    pm.response.to.have.jsonSchema(schema,{unknownFormats: ${unknownFormats}});\n`,
     `});\n`
   ].join('')
 
+  if (!validJsonSchema) {
+    pmTest = [
+      `// Response Validation - Disabled due to Invalid JSON Schema\n`,
+      `console.log('${targetName} response is not being validated against your spec!');\n`
+    ].join('')
+  }
+
   if (containsRef) {
     pmTest = [
-      `// Response Validation Disabled due to Circular Reference\n`,
-      `console.log('${oaOperation.id} response is not being validated against your spec!');\n`
+      `// Response Validation - Disabled due to Circular Reference\n`,
+      `console.log('${targetName} response is not being validated against your spec!');\n`
     ].join('')
   }
 
@@ -70,55 +98,52 @@ export const testResponseJsonSchema = (
 export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
   const jsonSchema = JSON.parse(JSON.stringify(oaSchema)) // Deep copy of the schema object
 
-  // Convert unsupported OpenAPI(3.0) properties to valid JSON schema properties
-  // let jsonSchemaNotSupported = ['nullable', 'discriminator', 'readOnly', 'writeOnly', 'xml',
-  //   'externalDocs', 'example', 'deprecated'];
-
-  if (
-    jsonSchema?.maxItems === 2 &&
-    (jsonSchema?.type === 'array' || jsonSchema?.type.includes('array'))
-  ) {
-    // deletes maxItems on the root level of the jsonSchema, which is added unwanted by oaToPostman.convert
-    // TODO find another way to respect the maxItems that might be passed by OpenAPI
-    delete jsonSchema.maxItems
-  }
-  if (
-    jsonSchema?.minItems === 2 &&
-    (jsonSchema?.type === 'array' || jsonSchema?.type.includes('array'))
-  ) {
-    // deletes minItems on the root level of the jsonSchema, which is added unwanted by oaToPostman.convert
-    // TODO find another way to respect the minItems that might be passed by OpenAPI
-    delete jsonSchema.minItems
-  }
+  // OpenAPI-specific fields to remove, since not relevant for the response validation
+  const openApiSpecificFields = [
+    'discriminator',
+    'readOnly',
+    'writeOnly',
+    'xml',
+    'externalDocs',
+    'example',
+    'deprecated'
+  ]
 
   // Recurse through OpenAPI Schema
   const traverse = obj => {
     for (const k in obj) {
-      if (typeof obj[k] === 'object') {
+      if (typeof obj[k] === 'object' && obj[k] !== null) {
+        // Convert 'types' to 'type' if found
+        if (obj[k]?.types) {
+          obj[k].type = obj[k].types
+          delete obj[k].types
+        }
+
+        // Handle nullable: add 'null' to type and remove nullable
         if (obj[k]?.nullable === true) {
-          // deletes nullable and adds "null" to type array if nullable is true
-          const jsonTypes: string[] = []
-          jsonTypes.push(obj[k].type)
-          jsonTypes.push('null')
-          obj[k].type = jsonTypes
+          // Merge the existing type(s) with "null" correctly
+          if (Array.isArray(obj[k].type)) {
+            if (!obj[k].type.includes('null')) {
+              obj[k].type.push('null')
+            }
+          } else {
+            // deletes nullable and adds "null" to type array if nullable is true
+            const jsonTypes: string[] = []
+            jsonTypes.push(obj[k].type)
+            jsonTypes.push('null')
+            obj[k].type = jsonTypes
+          }
           delete obj[k].nullable
         }
-        if (
-          obj[k]?.maxItems === 2 &&
-          (obj[k]?.type === 'array' || obj[k]?.type.includes('array'))
-        ) {
-          // deletes maxItems, which is added unwanted by oaToPostman.convert
-          // TODO find another way to respect the maxItems that might be passed by OpenAPI
-          delete obj[k].maxItems
-        }
-        if (
-          obj[k]?.minItems === 2 &&
-          (obj[k]?.type === 'array' || obj[k]?.type.includes('array'))
-        ) {
-          // deletes minItems, which is added unwanted by oaToPostman.convert
-          // TODO find another way to respect the minItems that might be passed by OpenAPI
-          delete obj[k].minItems
-        }
+
+        // Remove OpenAPI-specific fields
+        openApiSpecificFields.forEach(field => {
+          if (field in obj[k]) {
+            delete obj[k][field]
+          }
+        })
+
+        // Recursively traverse the object
         traverse(obj[k])
       }
     }
