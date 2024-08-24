@@ -27,18 +27,17 @@ export const testResponseJsonSchema = (
   // deletes nullable and adds "null" to type array if nullable is true
   jsonSchema = convertUnsupportedJsonSchemaProperties(jsonSchema)
 
-  // convert types
-
   const split = config?.separatorSymbol ?? '::'
   const targetName = `${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`
 
-  // Validate jsonSchema
+  // Validate jsonSchema with AJV
   let validJsonSchema = true
   try {
     const ajv = new Ajv({ allErrors: true, strict: false, logger: false })
     ajv.compile(jsonSchema)
   } catch (e) {
     validJsonSchema = false
+    // When invalid JSON schema, show a warning during conversion
     console.log(
       chalk.red(
         `schemaValidation skipped for[${pmOperation.method.toUpperCase()}]${split}${
