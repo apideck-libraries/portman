@@ -87,10 +87,7 @@ Array [
     "value": "true",
   },
   Object {
-    "description": Object {
-      "content": "Additional query param",
-      "type": "text/plain",
-    },
+    "description": "Additional query param",
     "disabled": false,
     "key": "add-a-query-param",
     "value": "foo-bar-baz",

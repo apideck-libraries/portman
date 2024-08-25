@@ -17,8 +17,29 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
   // Get all Postman query params
   const queryKeys = pmOperation.item.request.url.query.map(({ key }) => key)
 
+  // Util function to get the count of key
+  const getKeyCount = (key, counter) => counter[key] || 0
+
+  // Util function to increment the key count
+  const incrementKeyCount = (key, counter) => {
+    counter[key] = getKeyCount(key, counter) + 1
+    return counter[key]
+  }
+
+  // Create a counter for each key in queryKeys to track their usage
+  const queryKeyUsage = {}
+  queryKeys.forEach(key => incrementKeyCount(key, queryKeyUsage))
+
   // Detect overwrite query params that do not exist in the Postman collection
-  const insertNewKeys = overwriteValues.filter(x => !queryKeys.includes(x.key))
+  const insertNewKeys = overwriteValues.filter(({ key }) => {
+    if (queryKeyUsage[key]) {
+      // If there's an unused key in queryKeys, decrement the counter
+      queryKeyUsage[key]--
+      return false // This key does not need to be inserted
+    }
+    // If no matching key left in queryKeys, this overwriteValue key should be inserted
+    return true
+  })
 
   // Extract duplicate query params
   const duplicateKeys = _(queryKeys)
@@ -31,15 +52,6 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
   const queryKeyCounters = {}
   const overwriteKeyCounters = {}
   const duplicateKeyCounters = {}
-
-  // Util function to get the count of key
-  const getKeyCount = (key, counter) => counter[key] || 0
-
-  // Util function to increment the key count
-  const incrementKeyCount = (key, counter) => {
-    counter[key] = getKeyCount(key, counter) + 1
-    return counter[key]
-  }
 
   pmOperation.item.request.url.query.each(pmQueryParam => {
     // Increment counter for query param
@@ -89,10 +101,11 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         const matchingOverwriteItems = overwriteValues.filter(item => item.key === pmQueryParam.key)
 
         const overwriteObj = matchingOverwriteItems[duplicateKeyIndex]
-        if (overwriteObj.value) {
+        if (overwriteObj?.value) {
           overwriteValue = overwriteObj.value
           incrementKeyCount(overwriteItem.key, duplicateKeyCounters)
           duplicateFound = true
+        } else {
         }
       }
 
@@ -162,7 +175,7 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       if (queryToInsert.description) newPmQueryParam.description = queryToInsert.description
 
       // Add Postman query param
-      pmOperation.item.request.url.query.upsert(newPmQueryParam)
+      pmOperation.item.request.url.query.append(newPmQueryParam)
 
       // Add queryParams
       if (pmOperation?.queryParams && Array.isArray(pmOperation.queryParams)) {
