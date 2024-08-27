@@ -87,10 +87,7 @@ Array [
     "value": "true",
   },
   Object {
-    "description": Object {
-      "content": "Additional query param",
-      "type": "text/plain",
-    },
+    "description": "Additional query param",
     "disabled": false,
     "key": "add-a-query-param",
     "value": "foo-bar-baz",
@@ -388,7 +385,10 @@ Array [
 exports[`overwriteRequestQueryParams should overwrite the request query param description 1`] = `
 Array [
   Object {
-    "description": "foo bar",
+    "description": Object {
+      "content": "foo bar",
+      "type": "text/plain",
+    },
     "disabled": false,
     "key": "raw",
     "value": "foo",
