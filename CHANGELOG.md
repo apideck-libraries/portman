@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+- Improved OpenAPI to JSON schema conversion to handle OpenAPI-specific properties (#642 #494)
+- strip unneeded OpenAPI-specific properties ('discriminator', 'readOnly', 'writeOnly', 'xml', 'externalDocs', 'example','deprecated') for more compact JSON schemas.
+- Added JSON schema validation warning during conversion, to inform the users. (#644)
+- Fix for unwanted minItems, maxItems addition in the JSON schema
+- overwriteRequestQueryParams - Remove form encoded array query params ((#640))
+- overwriteRequestQueryParams - Insert additional form encoded array query params (#640)
+- Bumped dependencies: newman
+
 ## v1.30.0 - (2024-08-23)
 
 - Portman - sort Postman folders based on the "orderOfFolders" configuration (#621)
