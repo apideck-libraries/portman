@@ -861,7 +861,7 @@ describe('overwriteRequestQueryParams', () => {
     ])
   })
 
-  it.skip('should remove all items when multiple duplicate query params', async () => {
+  it('should remove specific items when multiple duplicate query params', async () => {
     const overwriteValues = [
       {
         key: 'name',
@@ -880,113 +880,7 @@ describe('overwriteRequestQueryParams', () => {
       },
       {
         key: 'ids',
-        value: 'newId2',
         remove: true
-      },
-      {
-        key: 'ids',
-        value: 'newId3',
-        overwrite: true
-      },
-      {
-        key: 'number',
-        value: 'newNumber1',
-        overwrite: true
-      },
-      {
-        key: 'number',
-        value: 'newNumber2',
-        overwrite: true
-      },
-      {
-        key: 'word',
-        value: 'newWord',
-        overwrite: true
-      }
-    ]
-
-    // Set up initial query params
-    const pmQueryParams = [
-      {
-        key: 'name',
-        value: 'oldName',
-        disabled: false
-      },
-      {
-        key: 'first',
-        value: 'oldFirst',
-        disabled: false
-      },
-      {
-        key: 'last',
-        value: 'oldLast',
-        disabled: false
-      },
-      {
-        key: 'number',
-        value: 'oldNumber1',
-        disabled: false
-      },
-      {
-        key: 'word',
-        value: 'oldWord',
-        disabled: false
-      },
-      {
-        key: 'number',
-        value: 'oldNumber2',
-        disabled: false
-      }
-    ]
-
-    // Add the query params to the pmOperation
-    // pmQueryParams.forEach(param => pmOperation.item.request.url.query.upsert(new QueryParam(param)))
-    pmQueryParams.forEach(param => {
-      pmOperation.item.request.url.query.append(new QueryParam(param))
-    })
-
-    const dto = {
-      overwriteValues,
-      pmOperation,
-      oaOperation
-    }
-
-    const result = overwriteRequestQueryParams(dto)
-
-    expect(result.item.request.url.query.map(qp => ({ key: qp.key, value: qp.value }))).toEqual([
-      { key: 'raw', value: 'true' },
-      { key: 'name', value: 'newName' },
-      { key: 'ids', value: 'newId1' }, // All should be removed
-      // { key: 'ids', value: 'newId2' }, // All should be removed
-      { key: 'ids', value: 'newId3' }, // All should be removed
-      { key: 'first', value: 'newFirst' },
-      { key: 'last', value: 'oldLast' }, // unchanged
-      { key: 'number', value: 'newNumber1' },
-      { key: 'word', value: 'newWord' },
-      { key: 'number', value: 'newNumber2' }
-    ])
-  })
-
-  it.skip('should remove the correct item when multiple duplicate query params', async () => {
-    const overwriteValues = [
-      {
-        key: 'name',
-        value: 'newName',
-        overwrite: true
-      },
-      {
-        key: 'ids',
-        remove: true
-      },
-      {
-        key: 'first',
-        value: 'newFirst',
-        overwrite: true
-      },
-      {
-        key: 'ids',
-        value: 'newId2',
-        overwrite: true
       },
       {
         key: 'ids',
@@ -1076,8 +970,118 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query.map(qp => ({ key: qp.key, value: qp.value }))).toEqual([
       { key: 'raw', value: 'true' },
       { key: 'name', value: 'newName' },
-      { key: 'ids', value: 'newId1' },
-      { key: 'ids', value: 'newId2' },
+      { key: 'ids', value: 'newId1' }, // All should be removed
+      // { key: 'ids', value: 'newId2' }, // All should be removed
+      { key: 'ids', value: 'newId3' }, // All should be removed
+      { key: 'first', value: 'newFirst' },
+      { key: 'last', value: 'oldLast' }, // unchanged
+      { key: 'number', value: 'newNumber1' },
+      { key: 'word', value: 'newWord' },
+      { key: 'number', value: 'newNumber2' }
+    ])
+  })
+
+  it('should remove the all item when multiple duplicate query params', async () => {
+    const overwriteValues = [
+      {
+        key: 'name',
+        value: 'newName',
+        overwrite: true
+      },
+      {
+        key: 'ids',
+        remove: true
+      },
+      {
+        key: 'first',
+        value: 'newFirst',
+        overwrite: true
+      },
+      {
+        key: 'number',
+        value: 'newNumber1',
+        overwrite: true
+      },
+      {
+        key: 'number',
+        value: 'newNumber2',
+        overwrite: true
+      },
+      {
+        key: 'word',
+        value: 'newWord',
+        overwrite: true
+      }
+    ]
+
+    // Set up initial query params
+    const pmQueryParams = [
+      {
+        key: 'name',
+        value: 'oldName',
+        disabled: false
+      },
+      {
+        key: 'ids',
+        value: 'oldId1',
+        disabled: false
+      },
+      {
+        key: 'ids',
+        value: 'oldId2',
+        disabled: false
+      },
+      {
+        key: 'ids',
+        value: 'oldId3',
+        disabled: false
+      },
+      {
+        key: 'first',
+        value: 'oldFirst',
+        disabled: false
+      },
+      {
+        key: 'last',
+        value: 'oldLast',
+        disabled: false
+      },
+      {
+        key: 'number',
+        value: 'oldNumber1',
+        disabled: false
+      },
+      {
+        key: 'word',
+        value: 'oldWord',
+        disabled: false
+      },
+      {
+        key: 'number',
+        value: 'oldNumber2',
+        disabled: false
+      }
+    ]
+
+    // Add the query params to the pmOperation
+    // pmQueryParams.forEach(param => pmOperation.item.request.url.query.upsert(new QueryParam(param)))
+    pmQueryParams.forEach(param => {
+      pmOperation.item.request.url.query.append(new QueryParam(param))
+    })
+
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+
+    const result = overwriteRequestQueryParams(dto)
+
+    expect(result.item.request.url.query.map(qp => ({ key: qp.key, value: qp.value }))).toEqual([
+      { key: 'raw', value: 'true' },
+      { key: 'name', value: 'newName' },
+      // { key: 'ids', value: 'newId1' }, // All should be removed
+      // { key: 'ids', value: 'newId2' }, // All should be removed
       // { key: 'ids', value: 'newId3' }, // All should be removed
       { key: 'first', value: 'newFirst' },
       { key: 'last', value: 'oldLast' }, // unchanged

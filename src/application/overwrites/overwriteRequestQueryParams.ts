@@ -1,5 +1,5 @@
 import { PostmanMappedOperation } from '../../postman'
-import { QueryParam } from 'postman-collection'
+import { Description, QueryParam } from 'postman-collection'
 import { parseTpl, hasTpl, matchWildcard } from '../../utils'
 import { OverwriteRequestDTO } from './applyOverwrites'
 import _ from 'lodash'
@@ -63,8 +63,8 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
     // Increment counter for query param
     const queryKeyIndex = incrementKeyCount(pmQueryParam.key, queryKeyCounters)
 
-    // Track whether the current query param has been overwritten
-    let paramOverwritten = false
+    // Track whether the current query param has been overwritten or removed
+    let paramProcessed = false
 
     // Overwrite values for Keys
     for (let i = 0; i < _overwriteValues.length; i++) {
@@ -85,6 +85,15 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         !matchWildcard(pmQueryParam.key, overwriteItem.key)
       ) {
         continue
+      }
+
+      // Handle removal logic
+      if (overwriteItem.remove) {
+        // Increment the counter for removed duplicate query params
+        incrementKeyCount(overwriteItem.key, duplicateKeyCounters)
+        paramProcessed = true
+        _.remove(_overwriteValues, (item: OverwriteQueryParamConfig) => item === overwriteItem)
+        break
       }
 
       // Increment counter for overwrite key
@@ -147,14 +156,14 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
 
       // Test suite - Overwrite query param description
       if (overwriteItem?.description) {
-        pmQueryParam.description = overwriteItem.description
+        pmQueryParam.description = new Description(overwriteItem.description)
       }
 
       // Overwrite existing query param
       newQueryParams.push(pmQueryParam as QueryParam)
 
       // Mark as overwritten
-      paramOverwritten = true
+      paramProcessed = true
 
       // Remove the overwrite value if it is linked to a duplicated query param
       if (duplicateFound) {
@@ -163,18 +172,18 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       }
     }
 
-    // If not overwritten, add the original param to the new list
-    if (!paramOverwritten) {
+    // If not overwritten or removed, add the original param to the new list
+    if (!paramProcessed) {
       newQueryParams.push(pmQueryParam)
     }
   })
 
   // Test suite - Remove query param
-  _overwriteValues
-    .filter(({ remove }) => remove)
-    .map(paramToRemove => {
-      newQueryParams = newQueryParams.filter(qp => qp.key !== paramToRemove.key)
-    })
+  // _overwriteValues
+  //   .filter(({ remove }) => remove)
+  //   .map(paramToRemove => {
+  //     newQueryParams = newQueryParams.filter(qp => qp.key !== paramToRemove.key)
+  //   })
 
   // Test suite - Add query param
   insertNewKeys
