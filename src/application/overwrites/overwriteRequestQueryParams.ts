@@ -152,15 +152,24 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
     .filter(overwriteItem => !(overwriteItem.remove === true))
     .map(queryToInsert => {
       // Initialize new Postman query param
-      const newPmQueryParam = {
+      let newPmQueryParam = {
         key: queryToInsert.key,
         value: '',
         // description: '',
         disabled: false
       } as QueryParam
 
+      if (queryToInsert?.key && duplicateKeys.includes(queryToInsert.key)) {
+        // Take original param based on key name, as starting point for the form encoded param
+        const queryParamsArray = pmOperation.item.request.url.query.toJSON()
+        const orgParam = _.find(queryParamsArray, { key: queryToInsert.key }) as QueryParam
+        if (orgParam) {
+          newPmQueryParam = orgParam
+        }
+      }
+
       // Set query param properties based on the OverwriteValues
-      if (queryToInsert.value) newPmQueryParam.value = queryToInsert.value
+      if (queryToInsert?.value) newPmQueryParam.value = queryToInsert.value?.toString() ?? ''
       if (queryToInsert.disable === true) newPmQueryParam.disabled = true
       if (queryToInsert.description) newPmQueryParam.description = queryToInsert.description
 

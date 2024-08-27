@@ -769,8 +769,7 @@ describe('overwriteRequestQueryParams', () => {
       },
       {
         key: 'ids',
-        value: 'newId3',
-        overwrite: true
+        value: 3
       },
       {
         key: 'number',
@@ -857,7 +856,7 @@ describe('overwriteRequestQueryParams', () => {
       { key: 'number', value: 'newNumber1' },
       { key: 'word', value: 'newWord' },
       { key: 'number', value: 'newNumber2' },
-      { key: 'ids', value: 'newId3' } // Extra added
+      { key: 'ids', value: '3' } // Extra added
     ])
   })
 
