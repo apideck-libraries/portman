@@ -17,6 +17,13 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
 
   const _overwriteValues = _.cloneDeep(overwriteValues)
 
+  // Test suite - Remove query param
+  _overwriteValues
+    .filter(({ remove }) => remove)
+    .map((paramToRemove: OverwriteQueryParamConfig) => {
+      pmOperation.item.request.url.removeQueryParams(paramToRemove.key)
+    })
+
   // Get all Postman query params
   const queryKeys = pmOperation.item.request.url.query.map(({ key }) => key)
 
@@ -38,7 +45,7 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
     if (queryKeyUsage[key]) {
       // If there's an unused key in queryKeys, decrement the counter
       queryKeyUsage[key]--
-      return false // This key does not need to be inserted
+      return false
     }
     // If no matching key left in queryKeys, this overwriteValue key should be inserted
     return true
@@ -51,18 +58,10 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
     .keys()
     .value()
 
-  // Initialize counters for tracking
-  const queryKeyCounters = {}
-  const overwriteKeyCounters = {}
-  const duplicateKeyCounters = {}
-
   // New list to hold the updated query parameters
-  let newQueryParams: QueryParam[] = []
+  const newQueryParams: QueryParam[] = []
 
   pmOperation.item.request.url.query.each(pmQueryParam => {
-    // Increment counter for query param
-    const queryKeyIndex = incrementKeyCount(pmQueryParam.key, queryKeyCounters)
-
     // Track whether the current query param has been overwritten or removed
     let paramProcessed = false
 
@@ -87,18 +86,6 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         continue
       }
 
-      // Handle removal logic
-      if (overwriteItem.remove) {
-        // Increment the counter for removed duplicate query params
-        incrementKeyCount(overwriteItem.key, duplicateKeyCounters)
-        paramProcessed = true
-        _.remove(_overwriteValues, (item: OverwriteQueryParamConfig) => item === overwriteItem)
-        break
-      }
-
-      // Increment counter for overwrite key
-      const overwriteKeyIndex = incrementKeyCount(overwriteItem.key, overwriteKeyCounters)
-
       const generatedName = parseTpl({
         template: overwriteItem.value,
         oaOperation: oaOperation,
@@ -106,28 +93,9 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
           casing: globals?.variableCasing
         }
       })
-      let overwriteValue =
+
+      const overwriteValue =
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
-
-      // Handle duplicated query params
-      let duplicateFound = false
-      if (
-        duplicateKeys.length > 0 &&
-        duplicateKeys.includes(pmQueryParam.key) &&
-        overwriteItem.key === pmQueryParam.key &&
-        queryKeyIndex === overwriteKeyIndex
-      ) {
-        const matchingOverwriteItems = _overwriteValues.filter(
-          (item: OverwriteQueryParamConfig) => item.key === pmQueryParam.key
-        )
-
-        const overwriteObj = matchingOverwriteItems[0]
-        if (overwriteObj?.value) {
-          overwriteValue = overwriteObj.value
-          incrementKeyCount(overwriteItem.key, duplicateKeyCounters)
-          duplicateFound = true
-        }
-      }
 
       // Test suite - Overwrite/extend query param value
       let hasValue = false
@@ -166,7 +134,7 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       paramProcessed = true
 
       // Remove the overwrite value if it is linked to a duplicated query param
-      if (duplicateFound) {
+      if (duplicateKeys.includes(pmQueryParam.key)) {
         _.remove(_overwriteValues, (item: OverwriteQueryParamConfig) => item === overwriteItem)
         break
       }
@@ -177,13 +145,6 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       newQueryParams.push(pmQueryParam)
     }
   })
-
-  // Test suite - Remove query param
-  // _overwriteValues
-  //   .filter(({ remove }) => remove)
-  //   .map(paramToRemove => {
-  //     newQueryParams = newQueryParams.filter(qp => qp.key !== paramToRemove.key)
-  //   })
 
   // Test suite - Add query param
   insertNewKeys

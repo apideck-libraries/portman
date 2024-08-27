@@ -880,12 +880,12 @@ describe('overwriteRequestQueryParams', () => {
       },
       {
         key: 'ids',
-        remove: true
+        value: 'newId3',
+        overwrite: true
       },
       {
         key: 'ids',
-        value: 'newId3',
-        overwrite: true
+        remove: true
       },
       {
         key: 'number',
@@ -970,14 +970,14 @@ describe('overwriteRequestQueryParams', () => {
     expect(result.item.request.url.query.map(qp => ({ key: qp.key, value: qp.value }))).toEqual([
       { key: 'raw', value: 'true' },
       { key: 'name', value: 'newName' },
-      { key: 'ids', value: 'newId1' }, // All should be removed
-      // { key: 'ids', value: 'newId2' }, // All should be removed
-      { key: 'ids', value: 'newId3' }, // All should be removed
       { key: 'first', value: 'newFirst' },
       { key: 'last', value: 'oldLast' }, // unchanged
       { key: 'number', value: 'newNumber1' },
       { key: 'word', value: 'newWord' },
-      { key: 'number', value: 'newNumber2' }
+      { key: 'number', value: 'newNumber2' },
+      { key: 'ids', value: 'newId1' }, // All should be removed
+      // { key: 'ids', value: 'newId2' }, // All should be removed
+      { key: 'ids', value: 'newId3' } // All should be removed
     ])
   })
 
