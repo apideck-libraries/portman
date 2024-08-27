@@ -3,6 +3,7 @@ import { QueryParam } from 'postman-collection'
 import { parseTpl, hasTpl, matchWildcard } from '../../utils'
 import { OverwriteRequestDTO } from './applyOverwrites'
 import _ from 'lodash'
+import { OverwriteQueryParamConfig } from 'types'
 
 /**
  * Overwrite Postman request query params with values defined by the portman testsuite
@@ -13,6 +14,8 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
 
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
+
+  const _overwriteValues = _.cloneDeep(overwriteValues)
 
   // Get all Postman query params
   const queryKeys = pmOperation.item.request.url.query.map(({ key }) => key)
@@ -53,12 +56,20 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
   const overwriteKeyCounters = {}
   const duplicateKeyCounters = {}
 
+  // New list to hold the updated query parameters
+  let newQueryParams: QueryParam[] = []
+
   pmOperation.item.request.url.query.each(pmQueryParam => {
     // Increment counter for query param
     const queryKeyIndex = incrementKeyCount(pmQueryParam.key, queryKeyCounters)
 
+    // Track whether the current query param has been overwritten
+    let paramOverwritten = false
+
     // Overwrite values for Keys
-    for (const overwriteItem of overwriteValues) {
+    for (let i = 0; i < _overwriteValues.length; i++) {
+      const overwriteItem = _overwriteValues[i]
+
       // Skip keys when no overwrite is defined
       if (
         !(overwriteItem?.key && pmQueryParam?.key && overwriteItem.key === pmQueryParam.key) &&
@@ -97,15 +108,15 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         overwriteItem.key === pmQueryParam.key &&
         queryKeyIndex === overwriteKeyIndex
       ) {
-        const duplicateKeyIndex = getKeyCount(overwriteItem.key, duplicateKeyCounters)
-        const matchingOverwriteItems = overwriteValues.filter(item => item.key === pmQueryParam.key)
+        const matchingOverwriteItems = _overwriteValues.filter(
+          (item: OverwriteQueryParamConfig) => item.key === pmQueryParam.key
+        )
 
-        const overwriteObj = matchingOverwriteItems[duplicateKeyIndex]
+        const overwriteObj = matchingOverwriteItems[0]
         if (overwriteObj?.value) {
           overwriteValue = overwriteObj.value
           incrementKeyCount(overwriteItem.key, duplicateKeyCounters)
           duplicateFound = true
-        } else {
         }
       }
 
@@ -139,21 +150,30 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         pmQueryParam.description = overwriteItem.description
       }
 
-      // Set Postman query param
-      pmOperation.item.request.url.query.upsert(pmQueryParam)
+      // Overwrite existing query param
+      newQueryParams.push(pmQueryParam as QueryParam)
 
-      // Break the loop once a matching overwrite is applied
+      // Mark as overwritten
+      paramOverwritten = true
+
+      // Remove the overwrite value if it is linked to a duplicated query param
       if (duplicateFound) {
+        _.remove(_overwriteValues, (item: OverwriteQueryParamConfig) => item === overwriteItem)
         break
       }
+    }
+
+    // If not overwritten, add the original param to the new list
+    if (!paramOverwritten) {
+      newQueryParams.push(pmQueryParam)
     }
   })
 
   // Test suite - Remove query param
-  overwriteValues
+  _overwriteValues
     .filter(({ remove }) => remove)
     .map(paramToRemove => {
-      pmOperation.item.request.url.removeQueryParams(paramToRemove.key)
+      newQueryParams = newQueryParams.filter(qp => qp.key !== paramToRemove.key)
     })
 
   // Test suite - Add query param
@@ -174,15 +194,13 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       if (queryToInsert.disable === true) newPmQueryParam.disabled = true
       if (queryToInsert.description) newPmQueryParam.description = queryToInsert.description
 
-      // Add Postman query param
-      pmOperation.item.request.url.query.append(newPmQueryParam)
-
-      // Add queryParams
-      if (pmOperation?.queryParams && Array.isArray(pmOperation.queryParams)) {
-        const { disabled, ...reqQueryParam } = newPmQueryParam
-        pmOperation.queryParams.push(reqQueryParam)
-      }
+      // Add to the new list of query params
+      newQueryParams.push(newPmQueryParam)
     })
+
+  // Clear existing query params and the Portman query params ones
+  pmOperation.item.request.url.query.clear()
+  newQueryParams.forEach(param => pmOperation.item.request.url.query.append(param))
 
   return pmOperation
 }
