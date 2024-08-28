@@ -23,6 +23,13 @@ export const setByPath = (
     dot.keepArray = true
   }
 
+  // Check if the path leads to an object that should be replaced
+  const currentValue = dot.pick(path, objectOrArray)
+  if (isObject(currentValue) && !isObject(newValue)) {
+    // Directly replace the object with the new value
+    dot.del(path, objectOrArray)
+  }
+
   // Handle array of objects
   if (Array.isArray(objectOrArray)) {
     // Handle array definition (example: [0])

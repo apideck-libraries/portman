@@ -356,4 +356,21 @@ describe('setByPath', () => {
       numbers: [98618922, -367]
     })
   })
+
+  it('should replace an existing object with a primitive value', () => {
+    const objUnderTest = {
+      event: {
+        startDateTime: {
+          format: 'date-time'
+        }
+      }
+    }
+
+    const result = setByPath(objUnderTest, 'event.startDateTime', '2002-12-01')
+    expect(result).toEqual({
+      event: {
+        startDateTime: '2002-12-01'
+      }
+    })
+  })
 })
