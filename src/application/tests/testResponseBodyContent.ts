@@ -144,7 +144,7 @@ export const testResponseBodyContent = (
         `if (${pathVarName} !== undefined) {\n`,
         `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if value for '${keyLabel}' contains '${check.contains}'", function() {\n`,
-        `  pm.expect(${sourceData}${keyValue}).to.include(${checkContains});\n`,
+        `  pm.expect(${pathVarName}).to.include(${checkContains});\n`,
         `})};\n`
       ].join('')
     }
@@ -173,7 +173,7 @@ export const testResponseBodyContent = (
           `if (${pathVarName} !== undefined) {\n`,
           `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
           ` - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'", function() {\n`,
-          `  pm.expect(${sourceData}${keyValue}).to.be.oneOf([${safeOneOf}]);\n`,
+          `  pm.expect(${pathVarName}).to.be.oneOf([${safeOneOf}]);\n`,
           `})};\n`
         ].join('')
       }

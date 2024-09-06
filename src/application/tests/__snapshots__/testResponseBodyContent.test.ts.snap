@@ -339,7 +339,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'status_code' exists\\",
   "// Response body should be one of the values \\"200,201\\" for \\"status_code\\"
 if (_resStatusCode !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'status_code' is matching one of: '200,201'\\", function() {
-  pm.expect(jsonData.status_code).to.be.oneOf([200,201]);
+  pm.expect(_resStatusCode).to.be.oneOf([200,201]);
 })};
 ",
 ]
@@ -385,7 +385,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].monetary_amount
   "// Response body should contain value \\"{{postman_env_variable}}\\" for \\"data[0].monetary_amount\\"
 if (_resData0MonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].monetary_amount' contains '{{postman_env_variable}}'\\", function() {
-  pm.expect(jsonData.data[0].monetary_amount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
+  pm.expect(_resData0MonetaryAmount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};
 ",
 ]
@@ -408,7 +408,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].name' exists\\"
   "// Response body should contain value \\"Musk\\" for \\"data[0].name\\"
 if (_resData0Name !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].name' contains 'Musk'\\", function() {
-  pm.expect(jsonData.data[0].name).to.include(\\"Musk\\");
+  pm.expect(_resData0Name).to.include(\\"Musk\\");
 })};
 ",
 ]
@@ -672,7 +672,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.monetary_amoun
   "// Response body should contain value \\"{{postman_env_variable}}\\" for \\"[0].data.monetary_amount\\"
 if (_res0DataMonetaryAmount !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.monetary_amount' contains '{{postman_env_variable}}'\\", function() {
-  pm.expect(jsonData[0].data.monetary_amount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
+  pm.expect(_res0DataMonetaryAmount).to.include(pm.collectionVariables.get(\\"postman_env_variable\\"));
 })};
 ",
 ]
@@ -695,7 +695,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.name' exists\\
   "// Response body should contain value \\"Musk\\" for \\"[0].data.name\\"
 if (_res0DataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.name' contains 'Musk'\\", function() {
-  pm.expect(jsonData[0].data.name).to.include(\\"Musk\\");
+  pm.expect(_res0DataName).to.include(\\"Musk\\");
 })};
 ",
 ]
@@ -787,7 +787,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if '[0].data.name' exists\\
   "// Response body should be one of the values \\"Spacex,Tesla\\" for \\"[0].data.name\\"
 if (_res0DataName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].data.name' is matching one of: 'Spacex,Tesla'\\", function() {
-  pm.expect(jsonData[0].data.name).to.be.oneOf([\\"Spacex\\",\\"Tesla\\"]);
+  pm.expect(_res0DataName).to.be.oneOf([\\"Spacex\\",\\"Tesla\\"]);
 })};
 ",
 ]
@@ -850,7 +850,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should be one of the values \\"true,false\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' is matching one of: 'true,false'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.be.oneOf([true,false]);
+  pm.expect(_resData0CompanyName).to.be.oneOf([true,false]);
 })};
 ",
 ]
@@ -873,7 +873,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should be one of the values \\"{{postman_env_variable}},{{postman_env_variable_two}}\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' is matching one of: '{{postman_env_variable}},{{postman_env_variable_two}}'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.be.oneOf([pm.collectionVariables.get(\\"postman_env_variable\\"),pm.collectionVariables.get(\\"postman_env_variable_two\\")]);
+  pm.expect(_resData0CompanyName).to.be.oneOf([pm.collectionVariables.get(\\"postman_env_variable\\"),pm.collectionVariables.get(\\"postman_env_variable_two\\")]);
 })};
 ",
 ]
@@ -896,7 +896,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should be one of the values \\"Spacex,Tesla\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' is matching one of: 'Spacex,Tesla'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.be.oneOf([\\"Spacex\\",\\"Tesla\\"]);
+  pm.expect(_resData0CompanyName).to.be.oneOf([\\"Spacex\\",\\"Tesla\\"]);
 })};
 ",
 ]
@@ -930,7 +930,7 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if 'data[0].company_name' e
   "// Response body should contain value \\"Spacex\\" for \\"data[0].company_name\\"
 if (_resData0CompanyName !== undefined) {
 pm.test(\\"[GET]::/crm/companies/:id - Content check if value for 'data[0].company_name' contains 'Spacex'\\", function() {
-  pm.expect(jsonData.data[0].company_name).to.include(\\"Spacex\\");
+  pm.expect(_resData0CompanyName).to.include(\\"Spacex\\");
 })};
 ",
 ]
