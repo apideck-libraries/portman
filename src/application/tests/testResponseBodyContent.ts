@@ -160,6 +160,7 @@ export const testResponseBodyContent = (
                 /{{|}}/g,
                 ''
               )}")`
+              return checkOneOfItem
             }
             // Quote string value
             return `"${checkOneOfItem}"`
