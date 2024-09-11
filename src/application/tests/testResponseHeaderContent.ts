@@ -77,8 +77,6 @@ export const testResponseHeaderContent = (
     if (check.hasOwnProperty('oneOf')) {
       if (Array.isArray(check.oneOf)) {
         // Make items safe to inject into test
-
-        // Make items safe to inject into test
         const safeOneOf = check.oneOf.map(item => {
           if (typeof item === 'string') {
             let checkOneOfItem = item
