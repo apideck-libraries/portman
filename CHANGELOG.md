@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.30.2 - (2024-09-11)
+
 - testResponseBodyContent - prevent PM variables as string (#650)
 - testResponseHeaderContent - support using PM variables in oneOf check
 - overwrite - handle overwrite of non-empty objects with plain values (#646)
