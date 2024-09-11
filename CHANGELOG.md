@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - testResponseBodyContent - prevent PM variables as string (#650)
+- testResponseHeaderContent - support using PM variables in oneOf check
 - overwrite - handle overwrite of non-empty objects with plain values (#646)
 - Bumped dependencies: openapi-format 1.23.0
 
