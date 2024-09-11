@@ -205,6 +205,18 @@ describe('testResponseHeaderContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content header test for property check & oneOf pm variable values', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        oneOf: ['{{postman_env_variable}}', '{{postman_env_variable_two}}']
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should not add content header test for a property & custom assert', async () => {
     const contentTests = [
       {

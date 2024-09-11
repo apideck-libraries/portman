@@ -77,9 +77,22 @@ export const testResponseHeaderContent = (
     if (check.hasOwnProperty('oneOf')) {
       if (Array.isArray(check.oneOf)) {
         // Make items safe to inject into test
+
+        // Make items safe to inject into test
         const safeOneOf = check.oneOf.map(item => {
-          // Quote string value
-          return `"${item}"`
+          if (typeof item === 'string') {
+            let checkOneOfItem = item
+            if (checkOneOfItem.includes('{{') && checkOneOfItem.includes('}}')) {
+              checkOneOfItem = `pm.collectionVariables.get("${checkOneOfItem.replace(
+                /{{|}}/g,
+                ''
+              )}")`
+              return checkOneOfItem
+            }
+            // Quote string value
+            return `"${checkOneOfItem}"`
+          }
+          return item
         })
 
         pmTestOneOf = [
