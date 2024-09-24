@@ -223,11 +223,9 @@ export class Portman {
     }
 
     if (oaLocal) {
-      try {
-        const oaLocalPath = path.resolve(oaLocal)
-        await fs.copyFile(oaLocalPath, './tmp/converted/spec.yml')
-        openApiSpec = './tmp/converted/spec.yml'
-      } catch (err) {
+      if (path.resolve(oaLocal)) {
+        openApiSpec = oaLocal
+      } else {
         console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
         process.exit(1)
       }
