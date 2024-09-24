@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Improved loading split local OpenAPI files
+- Bumped dependencies: openapi-format 1.23.2
+
 ## v1.30.2 - (2024-09-11)
 
 - testResponseBodyContent - prevent PM variables as string (#650)
