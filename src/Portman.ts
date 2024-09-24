@@ -223,11 +223,11 @@ export class Portman {
     }
 
     if (oaLocal) {
-      if (path.resolve(oaLocal)) {
-        openApiSpec = oaLocal
+      const oaLocalPath = path.resolve(oaLocal)
+      if (fs.existsSync(oaLocalPath)) {
+        openApiSpec = oaLocalPath
       } else {
         console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
-        process.exit(1)
       }
     }
 
