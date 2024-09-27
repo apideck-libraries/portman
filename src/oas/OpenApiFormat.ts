@@ -16,7 +16,9 @@ export class OpenApiFormatter {
     const filterOptions = {} as OpenAPIFilterOptions
 
     // Load OpenAPI file
-    this.oas = (await openapiFormat.parseFile(inputFilePath)) as unknown as OpenAPIV3.Document
+    this.oas = (await openapiFormat.parseFile(inputFilePath, {
+      bundle: true
+    })) as unknown as OpenAPIV3.Document
 
     // Load filter file
     const filterSet = (await openapiFormat.parseFile(filterFilePath)) as OpenAPIFilterSet
