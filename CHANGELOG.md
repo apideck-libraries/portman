@@ -1,7 +1,7 @@
 ## [Unreleased]
 
 - Improved loading split local OpenAPI files
-- Bumped dependencies: openapi-format 1.23.2
+- Bumped dependencies: openapi-format 1.24.0
 
 ## v1.30.2 - (2024-09-11)
 
