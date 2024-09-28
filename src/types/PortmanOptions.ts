@@ -32,6 +32,7 @@ export interface PortmanOptions {
   oaUrl?: string
   init?: boolean
   logAssignVariables?: boolean
+  warn?: boolean
   extraUnknownFormats?: string[]
   syncPostmanCollectionIds?: boolean
 }

@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Warn for missing openApiOperationId (#632 #391)
+
 ## v1.30.3 - (2024-09-27)
 
 - Improved loading split local OpenAPI files
