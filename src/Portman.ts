@@ -201,7 +201,7 @@ export class Portman {
 
     console.log(chalk.green(consoleLine))
 
-    // Display OperationId warning
+    // Display warning
     this.displayMissingTargets(this.testSuite.track)
   }
 
