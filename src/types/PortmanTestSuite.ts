@@ -9,3 +9,7 @@ export type PortmanReqTestType = {
 export interface PortmanTestSuite {
   pmReqTestType?: PortmanReqTestType
 }
+export interface Track {
+  openApiOperationIds: string[]
+  openApiOperations: string[]
+}

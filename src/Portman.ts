@@ -20,7 +20,7 @@ import { clearTmpDirectory, getConfig } from './lib'
 import { OpenApiFormatter, OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
 import { IOpenApiToPostmanConfig, OpenApiToPostmanService, PostmanSyncService } from './services'
-import { PortmanConfig, PortmanTestTypes } from './types'
+import { PortmanConfig, PortmanTestTypes, Track } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
@@ -189,6 +189,7 @@ export class Portman {
 
   async after(): Promise<void> {
     const { consoleLine, collectionFile } = this
+
     await clearTmpDirectory()
     console.log(chalk.green(consoleLine))
 
@@ -199,6 +200,9 @@ export class Portman {
     )
 
     console.log(chalk.green(consoleLine))
+
+    // Display warning
+    this.displayMissingTargets(this.testSuite.track)
   }
 
   async parseOpenApiSpec(): Promise<void> {
@@ -664,6 +668,36 @@ export class Portman {
       console.log(`\n`)
       console.log(chalk.red(consoleLine))
       process.exit(1)
+    }
+  }
+
+  displayMissingTargets = (track: Track): void => {
+    const {
+      consoleLine,
+      options: { warn }
+    } = this
+
+    if (warn === false) {
+      return
+    }
+
+    // Deduplicate missing targets
+    const uniqueOperationIds = Array.from(new Set(track.openApiOperationIds))
+    const uniqueOperations = Array.from(new Set(track.openApiOperations))
+
+    if (uniqueOperationIds.length > 0 || uniqueOperations.length === 0) {
+      console.log(
+        chalk.yellow(`WARNING: The following targets are missing from the OpenAPI specification.`)
+      )
+      if (uniqueOperationIds.length > 0) {
+        const idsList = uniqueOperationIds.join(', ')
+        console.log(chalk.yellow(`operationId:\t\t${idsList}`))
+      }
+      if (uniqueOperations.length > 0) {
+        const opsList = uniqueOperations.join(', ')
+        console.log(chalk.yellow(`openApiOperation:\t${opsList}`))
+      }
+      console.log(chalk.yellow(consoleLine))
     }
   }
 }
