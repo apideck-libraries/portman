@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.30.4 - (2024-10-07)
+
+- Handle Postman API non-200 responses better (#660)
+- Handle scalar $ref: >- (#661)
+
 ## v1.30.3 - (2024-09-27)
 
 - Improved loading split local OpenAPI files
