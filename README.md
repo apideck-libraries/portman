@@ -140,7 +140,7 @@ Options:
  --cliOptionsFile           Path/URL to Portman CLI options file                                             [string]
  --ignoreCircularRefs       Ignore circular references in OpenAPI spec (default: false)                      [boolean]
  --logAssignVariables       Toggle logging of assigned variables (default: true)                             [boolean]
- --warn                     Toggle warnings for missing openApiOperationIds (default: false)                 [boolean]
+ --warn/--no-warn           Toggle warnings for missing openApiOperationIds (default: true)                  [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
  --extraUnknownFormats      Add extra unknown formats to json schema tests                                   [array]
 ```

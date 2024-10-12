@@ -236,7 +236,7 @@ require('dotenv').config()
   const oaOutput = options.oaOutput || ''
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
-  const warn = options?.warn || false
+  const warn = options?.warn || true
   const extraUnknownFormats = options?.extraUnknownFormats || []
   const syncPostmanCollectionIds = options?.syncPostmanCollectionIds || false
 
