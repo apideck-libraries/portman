@@ -39,7 +39,10 @@ export class IntegrationTestWriter {
 
       const pmOperation = testSuite.postmanParser.getOperationById(openApiOperationId)
 
-      if (!pmOperation) return
+      if (!pmOperation) {
+        this.testSuite.track.openApiOperationIds.push(openApiOperationId)
+        return
+      }
 
       const folderId = variationWriter.variationFolder.id
       // const folderName = pmOperation.getParentFolderName()

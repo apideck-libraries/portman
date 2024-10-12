@@ -129,6 +129,10 @@ require('dotenv').config()
       describe: 'Toggle logging of assigned variables',
       type: 'boolean'
     })
+    .option('warn', {
+      describe: 'Toggle warnings for missing openApiOperationIds',
+      type: 'boolean'
+    })
     .option('init', {
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'
@@ -232,6 +236,7 @@ require('dotenv').config()
   const oaOutput = options.oaOutput || ''
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
+  const warn = options?.warn || true
   const extraUnknownFormats = options?.extraUnknownFormats || []
   const syncPostmanCollectionIds = options?.syncPostmanCollectionIds || false
 
@@ -254,6 +259,7 @@ require('dotenv').config()
     oaOutput,
     collectionName,
     logAssignVariables,
+    warn,
     extraUnknownFormats,
     syncPostmanCollectionIds
   })

@@ -36,6 +36,7 @@ import {
   ResponseTime,
   StatusCode,
   TestSuiteOptions,
+  Track,
   VariationTestConfig
 } from '../types'
 import { inRange } from '../utils'
@@ -60,6 +61,9 @@ export class TestSuite {
   options?: PortmanOptions
 
   requestTestTypes: PortmanReqTestType[]
+
+  // Tracker
+  public track = { openApiOperationIds: [], openApiOperations: [] } as Track
 
   constructor(testSuiteOptions: TestSuiteOptions) {
     const { oasParser, postmanParser, config, options } = testSuiteOptions
@@ -168,10 +172,24 @@ export class TestSuite {
 
     if (openApiOperation) {
       pmOperations = this.postmanParser.getOperationsByPath(openApiOperation)
+      // Track missing operations
+      if (pmOperations.length === 0) {
+        this.track.openApiOperations.push(openApiOperation)
+      }
     } else if (openApiOperationId) {
       pmOperations = this.postmanParser.getOperationsByIds([openApiOperationId])
+
+      // Track missing operations
+      if (pmOperations.length === 0) {
+        this.track.openApiOperationIds.push(openApiOperationId)
+      }
     } else if (openApiOperationIds) {
       pmOperations = this.postmanParser.getOperationsByIds(openApiOperationIds)
+
+      // Track missing operations
+      if (pmOperations.length === 0) {
+        this.track.openApiOperationIds.push(...openApiOperationIds)
+      }
     }
 
     if (settings?.excludeForOperations) {

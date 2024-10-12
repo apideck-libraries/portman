@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- Warn for missing targets (#632 #391)
+
 ## v1.30.4 - (2024-10-07)
 
 - Handle Postman API non-200 responses better (#660)
