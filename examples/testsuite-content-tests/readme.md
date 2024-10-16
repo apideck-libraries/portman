@@ -483,6 +483,37 @@ if (jsonData?.service) {
   })};
 ```
 
+> **REMARK**:
+> If you have an API that returns a single value, such as a number or a boolean, instead of a JSON object you can set `value` to `.` to apply the test against the entire result
+
+`non JSON object response` configuration example:
+
+```json
+ "responseBodyTests": [
+  {
+    "key": ".",
+    "value": true
+  }
+]
+```
+
+`non JSON object response` generated test example:
+```js
+// Set property value as variable
+const _res = jsonData;
+
+// Response body should have "ROOT"
+pm.test("[GET]::/return_boolean - Content check if 'ROOT' exists", function() {
+   pm.expect(_res !== undefined).to.be.true;
+});
+
+// Response body should have value "true" for "ROOT"
+if (_res !== undefined) {
+pm.test("[GET]::/return_boolean - Content check if value for 'ROOT' matches 'true'", function() {
+  pm.expect(_res).to.eql(true);
+})};
+
+```
 ---
 
 ### responseHeaderTests
