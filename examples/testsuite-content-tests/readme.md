@@ -484,7 +484,7 @@ if (jsonData?.service) {
 ```
 
 > **REMARK**:
-> If you have an API that returns a single value, such as a number or a boolean, instead of a JSON object you can set `value` to `.` to apply the test against the entire result
+> If you have an API that returns a single value, such as a number or a boolean, instead of a JSON object you can set `key` to `.` to apply the test against the entire result
 
 `non JSON object response` configuration example:
 
