@@ -685,7 +685,7 @@ export class Portman {
     const uniqueOperationIds = Array.from(new Set(track.openApiOperationIds))
     const uniqueOperations = Array.from(new Set(track.openApiOperations))
 
-    if (uniqueOperationIds.length > 0 || uniqueOperations.length === 0) {
+    if (uniqueOperationIds.length > 0 || uniqueOperations.length > 0) {
       console.log(
         chalk.yellow(`WARNING: The following targets are missing from the OpenAPI specification.`)
       )
