@@ -24,7 +24,7 @@ export const matchPath = (targetPath: string | RegExp, operationPath: string): b
 
     // If the last segment of targetPath contains a wildcard (*), allow any suffix
     if (lastTargetSegment.includes('*')) {
-      const baseSegment = lastTargetSegment.replace('*', '')
+      const baseSegment = lastTargetSegment.replace(/\*/g, '')
       if (lastOperationSegment.startsWith(baseSegment)) {
         return true
       }
