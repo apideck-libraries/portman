@@ -84,4 +84,16 @@ describe('matchPath', () => {
     const operationPath = '/messages/123/details'
     expect(matchPath(targetPath, operationPath)).toBe(true)
   })
+
+  it('should match when targetPath contains a wildcard suffix', () => {
+    const targetPath = '/licenses/{licenseKey}/modules*'
+    const operationPath = '/licenses/{licenseKey}/modules'
+    expect(matchPath(targetPath, operationPath)).toBe(true)
+  })
+
+  it('should handle paths with trailing slashes', () => {
+    const targetPath = '/messages/:id/'
+    const operationPath = '/messages/123/'
+    expect(matchPath(targetPath, operationPath)).toBe(true)
+  })
 })
