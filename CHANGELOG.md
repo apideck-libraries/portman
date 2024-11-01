@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.30.5 - (2024-11-01)
+
 - Apply casing to auth variable (#668)
 - Improved path matching (#669)
 - Improved documentation(#671)
