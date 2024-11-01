@@ -22,6 +22,14 @@ export const matchPath = (targetPath: string | RegExp, operationPath: string): b
       return true
     }
 
+    // If the last segment of targetPath contains a wildcard (*), allow any suffix
+    if (lastTargetSegment.includes('*')) {
+      const baseSegment = lastTargetSegment.replace('*', '')
+      if (lastOperationSegment.startsWith(baseSegment)) {
+        return true
+      }
+    }
+
     // If the lengths of the paths don't match and there is no wildcard, return false
     if (targetSegments.length !== operationSegments.length) {
       return false
