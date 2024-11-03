@@ -36,12 +36,7 @@ export const matchPath = (targetPath: string | RegExp, operationPath: string): b
       const basePath = targetPath.slice(0, -1)
       // Check if operationPath starts with basePath (prefix match)
       if (operationPath.startsWith(basePath)) {
-        // Ensure that the remaining path after basePath is valid
-        const remainingPath = operationPath.slice(basePath.length)
-        // If there are remaining segments, they should either be empty or start with '/'
-        if (remainingPath === '' || remainingPath.startsWith('/')) {
-          return true
-        }
+        return true
       }
     }
 
