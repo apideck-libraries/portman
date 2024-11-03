@@ -12,16 +12,6 @@ export const matchPath = (targetPath: string | RegExp, operationPath: string): b
   const targetSegments = typeof targetPath === 'string' ? targetPath.split('/') : []
   const operationSegments = operationPath.split('/')
 
-  // Check if targetPath ends with a wildcard and handle it accordingly
-  if (typeof targetPath === 'string' && targetPath.endsWith('*')) {
-    // Remove the ending '*' from targetPath
-    const basePath = targetPath.slice(0, -1)
-    // Check if operationPath starts with basePath (prefix match)
-    if (operationPath.startsWith(basePath)) {
-      return true
-    }
-  }
-
   // Ensure the segment lengths match when there is no wildcard in targetPath
   if (targetSegments.length > 0 && operationSegments.length > 0) {
     const lastTargetSegment = targetSegments[targetSegments.length - 1]
@@ -37,6 +27,21 @@ export const matchPath = (targetPath: string | RegExp, operationPath: string): b
       const baseSegment = lastTargetSegment.replace(/\*/g, '')
       if (lastOperationSegment.startsWith(baseSegment)) {
         return true
+      }
+    }
+
+    // Check if targetPath ends with a wildcard (*) and handle it accordingly
+    if (typeof targetPath === 'string' && targetPath.endsWith('*')) {
+      // Remove the ending '*' from targetPath
+      const basePath = targetPath.slice(0, -1)
+      // Check if operationPath starts with basePath (prefix match)
+      if (operationPath.startsWith(basePath)) {
+        // Ensure that the remaining path after basePath is valid
+        const remainingPath = operationPath.slice(basePath.length)
+        // If there are remaining segments, they should either be empty or start with '/'
+        if (remainingPath === '' || remainingPath.startsWith('/')) {
+          return true
+        }
       }
     }
 
