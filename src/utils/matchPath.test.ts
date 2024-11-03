@@ -96,4 +96,10 @@ describe('matchPath', () => {
     const operationPath = '/messages/123/'
     expect(matchPath(targetPath, operationPath)).toBe(true)
   })
+
+  it('should handle paths with ending wildcards', () => {
+    const targetPath = '/messages*'
+    const operationPath = '/messages/{licenseKey}'
+    expect(matchPath(targetPath, operationPath)).toBe(true)
+  })
 })
