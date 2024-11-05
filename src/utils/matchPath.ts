@@ -30,6 +30,16 @@ export const matchPath = (targetPath: string | RegExp, operationPath: string): b
       }
     }
 
+    // Check if targetPath ends with a wildcard (*) and handle it accordingly
+    if (typeof targetPath === 'string' && targetPath.endsWith('*')) {
+      // Remove the ending '*' from targetPath
+      const basePath = targetPath.slice(0, -1)
+      // Check if operationPath starts with basePath (prefix match)
+      if (operationPath.startsWith(basePath)) {
+        return true
+      }
+    }
+
     // If the lengths of the paths don't match and there is no wildcard, return false
     if (targetSegments.length !== operationSegments.length) {
       return false

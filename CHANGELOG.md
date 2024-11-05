@@ -1,8 +1,12 @@
 ## [Unreleased]
 
+## v1.30.7 - (2024-11-05)
+
+- matchPath - Improved matching with ending wildcard (#674)
+
 ## v1.30.6 - (2024-11-01)
 
-- Further improved path matching (#672)
+- matchPath - Further improved path matching (#672)
 
 ## v1.30.5 - (2024-11-01)
 
