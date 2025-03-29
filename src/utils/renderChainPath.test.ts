@@ -1,4 +1,9 @@
-import { detectUnsafeCharacters, renderBracketPath, renderChainPath } from './renderChainPath'
+import {
+  detectUnsafeCharacters,
+  renderBracketPath,
+  renderChainPath,
+  sanitizeKeyForVar
+} from './renderChainPath'
 
 describe('renderChainPath', () => {
   it('should return untouched property', () => {
@@ -218,5 +223,23 @@ describe('renderChainPath', () => {
 
     const result = detectUnsafeCharacters(path)
     expect(result).toEqual(false)
+  })
+
+  it('sanitizeKeyForVar should not change a string with only allowed characters', () => {
+    const key = 'context'
+    const result = sanitizeKeyForVar(key)
+    expect(result).toEqual('context')
+  })
+
+  it('sanitizeKeyForVar should replace special characters with underscores', () => {
+    const key = 'abc!@#def'
+    const result = sanitizeKeyForVar(key)
+    expect(result).toEqual('abc___def')
+  })
+
+  it('sanitizeKeyForVar should not replace allowed characters like digits, underscores, and dollar signs', () => {
+    const key = 'var_1$'
+    const result = sanitizeKeyForVar(key)
+    expect(result).toEqual('var_1$')
   })
 })
