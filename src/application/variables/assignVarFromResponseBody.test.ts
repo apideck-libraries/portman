@@ -200,7 +200,7 @@ describe('assignVarFromResponseBody', () => {
   it('should add postman collection var with name and @ key for response body value', async () => {
     const varSetting = {
       responseBodyProp: '@count',
-      name: 'leadsAdd.id'
+      name: 'leadsAdd.@id'
     }
     const dto = {
       varSetting,

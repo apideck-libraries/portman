@@ -9,12 +9,12 @@ try {jsonData = pm.response.json();}catch(e){}
   "// Set property value as variable
 const _resCount = jsonData?.[\\"@count\\"];
 ",
-  "// pm.collectionVariables - Set leadsAdd.id as variable for jsonData[\\"@count\\"]
+  "// pm.collectionVariables - Set leadsAdd.@id as variable for jsonData[\\"@count\\"]
 if (_resCount !== undefined) {
-   pm.collectionVariables.set(\\"leadsAdd.id\\", jsonData[\\"@count\\"]);
-   console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData[\\"@count\\"]);
+   pm.collectionVariables.set(\\"leadsAdd.@id\\", jsonData[\\"@count\\"]);
+   console.log(\\"- use {{leadsAdd.@id}} as collection variable for value\\",jsonData[\\"@count\\"]);
 } else {
-   console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData[\\"@count\\"] is undefined.');
+   console.log('INFO - Unable to assign variable {{leadsAdd.@id}}, as jsonData[\\"@count\\"] is undefined.');
 };
 ",
 ]
