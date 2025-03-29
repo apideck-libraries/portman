@@ -196,4 +196,36 @@ describe('assignVarFromResponseBody', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add postman collection var with name and @ key for response body value', async () => {
+    const varSetting = {
+      responseBodyProp: '@count',
+      name: 'leadsAdd.@id'
+    }
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the response body @ property with the cased templated expression', async () => {
+    const varSetting = {
+      responseBodyProp: '<tag>[0].@id',
+      name: '<tag>Id'
+    }
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromResponseBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

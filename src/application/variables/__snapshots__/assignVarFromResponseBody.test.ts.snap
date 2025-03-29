@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`assignVarFromResponseBody should add postman collection var with name and @ key for response body value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resCount = jsonData?.[\\"@count\\"];
+",
+  "// pm.collectionVariables - Set leadsAdd.@id as variable for jsonData[\\"@count\\"]
+if (_resCount !== undefined) {
+   pm.collectionVariables.set(\\"leadsAdd.@id\\", jsonData[\\"@count\\"]);
+   console.log(\\"- use {{leadsAdd.@id}} as collection variable for value\\",jsonData[\\"@count\\"]);
+} else {
+   console.log('INFO - Unable to assign variable {{leadsAdd.@id}}, as jsonData[\\"@count\\"] is undefined.');
+};
+",
+]
+`;
+
 exports[`assignVarFromResponseBody should add postman collection var with name and response body value 1`] = `
 Array [
   "// Set response object as internal variable
@@ -75,6 +95,26 @@ if (_res !== undefined) {
    console.log(\\"- use {{leadsAdd.id}} as collection variable for value\\",jsonData);
 } else {
    console.log('INFO - Unable to assign variable {{leadsAdd.id}}, as jsonData is undefined.');
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseBody should generate a variable for the response body @ property with the cased templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resCompanies0Id = jsonData?.companies?.[0]?.[\\"@id\\"];
+",
+  "// pm.collectionVariables - Set companies_id as variable for jsonData.companies[0].[\\"@id\\"]
+if (_resCompanies0Id !== undefined) {
+   pm.collectionVariables.set(\\"companies_id\\", jsonData.companies[0].[\\"@id\\"]);
+   console.log(\\"- use {{companies_id}} as collection variable for value\\",jsonData.companies[0].[\\"@id\\"]);
+} else {
+   console.log('INFO - Unable to assign variable {{companies_id}}, as jsonData.companies[0].[\\"@id\\"] is undefined.');
 };
 ",
 ]

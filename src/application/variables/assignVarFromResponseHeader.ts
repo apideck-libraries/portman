@@ -1,6 +1,6 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { hasTpl, parseTpl } from '../../utils'
+import { hasTpl, parseTpl, sanitizeKeyForVar } from '../../utils'
 
 /**
  * Assign PM variables with values defined by the request body
@@ -64,7 +64,7 @@ export const assignVarFromResponseHeader = (
   }
 
   // Safe variable name
-  const safeVarName = varName
+  const safeVarName = sanitizeKeyForVar(varName)
     .replace(/-/g, '')
     .replace(/_/g, '')
     .replace(/ /g, '')

@@ -1,6 +1,12 @@
 import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { parseTpl, hasTpl, renderBracketPath, renderChainPath } from '../../utils'
+import {
+  parseTpl,
+  hasTpl,
+  renderBracketPath,
+  renderChainPath,
+  sanitizeKeyForVar
+} from '../../utils'
 import { changeCase } from 'openapi-format'
 
 /**
@@ -71,7 +77,8 @@ export const assignVarFromResponseBody = (
   }
 
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
-  const pathVarName = `_${changeCase(`res${varProp.replace(/\[/g, '')}`, 'camelCase')}`
+  const sanitizedVarProp = sanitizeKeyForVar(varProp)
+  const pathVarName = `_${changeCase(`res${sanitizedVarProp.replace(/\[/g, '')}`, 'camelCase')}`
 
   // Only set the pathVarName once
   if (!pmOperation.mappedVars.includes(pathVarName)) {
