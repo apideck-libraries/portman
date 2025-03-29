@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.31.0 - (2025-03-29)
+
+- Bumped openapi-to-postman to 5.0.0
+
 ## v1.30.8 - (2025-03-29)
 
 - Generate safe variable names in the Postman scripts (#687)
