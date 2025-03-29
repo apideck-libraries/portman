@@ -1005,6 +1005,29 @@ pm.test(\\"[GET]::/crm/companies/:id - Content check if value for '[0].company_n
 ]
 `;
 
+exports[`testResponseBodyContent should add content test with @ symbol for string for property check & string value 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// Set property value as variable
+const _resCount = jsonData?.[\\"@count\\"];
+",
+  "// Response body should have \\"@count\\"
+pm.test(\\"[GET]==/crm/companies/:id - Content check if '@count' exists\\", function() {
+   pm.expect(_resCount !== undefined).to.be.true;
+});
+",
+  "// Response body should have value \\"Spacex\\" for \\"@count\\"
+if (_resCount !== undefined) {
+pm.test(\\"[GET]==/crm/companies/:id - Content check if value for '@count' matches 'Spacex'\\", function() {
+  pm.expect(_resCount).to.eql(\\"Spacex\\");
+})};
+",
+]
+`;
+
 exports[`testResponseBodyContent should add content test with separator symbol  for string for property check & string value 1`] = `
 Array [
   "// Set response object as internal variable

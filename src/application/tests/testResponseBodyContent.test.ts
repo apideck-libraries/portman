@@ -577,4 +577,17 @@ describe('testResponseBodyContent', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add content test with @ symbol for string for property check & string value', async () => {
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    const contentTests = [
+      {
+        key: '@count',
+        value: 'Spacex'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation, globalConfig)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })

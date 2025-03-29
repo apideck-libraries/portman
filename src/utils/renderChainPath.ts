@@ -139,3 +139,8 @@ export const renderBracketPath = (path: string): string => {
   }
   return newPath.slice(0, -1).replace(/\.$/, '')
 }
+
+export const sanitizeKeyForVar = (key: string): string => {
+  // Remove any character that is not a letter, digit, underscore, or dollar sign.
+  return key.replace(/[^a-zA-Z0-9_$]/g, '_')
+}
