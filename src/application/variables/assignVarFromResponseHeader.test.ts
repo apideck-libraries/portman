@@ -150,4 +150,19 @@ describe('assignVarFromResponseHeader', () => {
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
+
+  it('should add postman collection var with name and response header value with @', async () => {
+    const varSetting = {
+      responseHeaderProp: '@operation-location',
+      name: '@leadsAdd.header'
+    }
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromResponseHeader(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
 })
