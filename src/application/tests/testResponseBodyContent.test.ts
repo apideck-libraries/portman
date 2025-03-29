@@ -565,7 +565,7 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
-  it('should add content test with separator symbol  for string for property check & string value', async () => {
+  it('should add content test with separator symbol for string for property check & string value', async () => {
     const globalConfig = { separatorSymbol: '==' } as GlobalConfig
     const contentTests = [
       {
