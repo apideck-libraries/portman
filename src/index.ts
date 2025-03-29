@@ -145,7 +145,8 @@ require('dotenv').config()
       describe: `Synchronises the IDs of newly created postman collections with those already on Postman, 
         useful when you want to use Postman pull request (default: false)`,
       type: 'boolean'
-    }).argv as PortmanOptions
+    })
+    .strict().argv as PortmanOptions
 
   let cliOptions: Partial<PortmanOptions> = {}
 
