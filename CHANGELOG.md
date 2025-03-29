@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+## v1.30.8 - (2025-03-29)
+
+- Generate safe variable names in the Postman scripts (#687)
+- CLI - Warn about unsupported flags (#686)
+- Bumped dependencies: openapi-format 1.25.1
+
 ## v1.30.7 - (2024-11-05)
 
 - matchPath - Improved matching with ending wildcard (#674)
