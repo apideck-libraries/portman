@@ -29,7 +29,7 @@ With Portman, you can:
 
 - [x] Convert an OpenAPI document to a Postman collection
   - [x] Support for OpenAPI 3.0
-  - [x] Support for OpenAPI 3.1 (beta)
+  - [x] Support for OpenAPI 3.1
 - Extend the Postman collection with capabilities
   - [x] Inject Postman Contract Tests - [learn more](./examples/testsuite-contract-tests/readme.md)
   - [x] Assign collection variables - [learn more](./examples/testsuite-assign-variables/readme.md)
