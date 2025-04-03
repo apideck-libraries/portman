@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.31.1 - (2025-04-03)
+
+- Removed Clearbit references (#693)
+- Bumped dependencies: openapi-format 1.25.2
+
 ## v1.31.0 - (2025-03-29)
 
 - Bumped openapi-to-postman to 5.0.0
