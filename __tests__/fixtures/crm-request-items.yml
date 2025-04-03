@@ -527,7 +527,7 @@ components:
           nullable: true
         image:
           type: string
-          example: 'https://logo.clearbit.com/spacex.com?s=128'
+          example: 'https://logo.dev/spacex.com?s=128'
           nullable: true
         lead_source:
           type: string
@@ -2433,7 +2433,7 @@ components:
           nullable: true
         image:
           type: string
-          example: 'https://logo.clearbit.com/spacex.com?s=128'
+          example: 'https://logo.dev/spacex.com?s=128'
           nullable: true
         language:
           type: string
