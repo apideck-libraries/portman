@@ -18,12 +18,12 @@ Object {
               "listen": "test",
               "script": Object {
                 "exec": Array [
-                  "// Validate response status code
+                  "// Validate response status code 
 pm.test(\\"[POST]::/crm/leads - Response status code is 400\\", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",
-                  "// Validate if response has JSON Body
+                  "// Validate if response has JSON Body 
 pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
     pm.response.to.have.jsonBody();
 });
@@ -47,7 +47,7 @@ pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'l
 })};
 ",
                   "
-pm.test('say hello Portman', function(){
+pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')
 });",
                   "// Set property value as variable
@@ -38694,12 +38694,12 @@ Contact Support:
                   "listen": "test",
                   "script": Object {
                     "exec": Array [
-                      "// Validate response status code
+                      "// Validate response status code 
 pm.test(\\"[POST]::/crm/leads - Response status code is 400\\", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",
-                      "// Validate if response has JSON Body
+                      "// Validate if response has JSON Body 
 pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
     pm.response.to.have.jsonBody();
 });
@@ -38723,7 +38723,7 @@ pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'l
 })};
 ",
                       "
-pm.test('say hello Portman', function(){
+pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')
 });",
                       "// Set property value as variable

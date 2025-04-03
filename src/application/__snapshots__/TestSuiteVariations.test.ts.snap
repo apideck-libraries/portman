@@ -38622,12 +38622,12 @@ Contact Support:
                   "listen": "test",
                   "script": Object {
                     "exec": Array [
-                      "// Validate response status code
+                      "// Validate response status code 
 pm.test(\\"[POST]::/crm/leads - Response status code is 400\\", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",
-                      "// Validate if response has JSON Body
+                      "// Validate if response has JSON Body 
 pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
     pm.response.to.have.jsonBody();
 });
@@ -38635,7 +38635,7 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
                       "// Response Validation
 const schema = {\\"properties\\":{\\"status_code\\":{\\"type\\":\\"number\\",\\"description\\":\\"HTTP status code\\"},\\"error\\":{\\"type\\":\\"string\\",\\"description\\":\\"Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)\\"},\\"typeName\\":{\\"type\\":\\"string\\",\\"description\\":\\"The type of error returned\\"},\\"message\\":{\\"type\\":\\"string\\",\\"description\\":\\"A human-readable message providing more details about the error.\\"},\\"detail\\":{\\"type\\":\\"string\\",\\"description\\":\\"Contains parameter or domain specific information related to the error and why it occured.\\"},\\"ref\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to documentation of error type\\"}}}
 
-// Validate if response matches JSON schema
+// Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
     pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
@@ -38659,7 +38659,7 @@ pm.test(\\"[POST]::/crm/leads - Content check if value for 'resource' matches 'l
 })};
 ",
                       "
-pm.test('say hello Portman', function(){
+pm.test('say hello Portman', function(){ 
   console.log('Hello Portman')
 });",
                       "// Set property value as variable
@@ -40158,12 +40158,12 @@ if (_resData0Id !== undefined) {
                   "listen": "test",
                   "script": Object {
                     "exec": Array [
-                      "// Validate response status code
+                      "// Validate response status code 
 pm.test(\\"[POST]::/crm/leads - Response status code is 333\\", function () {
     pm.expect(pm.response.code).to.equal(333);
 });
 ",
-                      "// Validate if response has JSON Body
+                      "// Validate if response has JSON Body 
 pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
     pm.response.to.have.jsonBody();
 });
@@ -40171,7 +40171,7 @@ pm.test(\\"[POST]::/crm/leads - Response has JSON Body\\", function () {
                       "// Response Validation
 const schema = {\\"properties\\":{\\"status_code\\":{\\"type\\":\\"number\\",\\"description\\":\\"HTTP status code\\"},\\"error\\":{\\"type\\":\\"string\\",\\"description\\":\\"Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)\\"},\\"typeName\\":{\\"type\\":\\"string\\",\\"description\\":\\"The type of error returned\\"},\\"message\\":{\\"type\\":\\"string\\",\\"description\\":\\"A human-readable message providing more details about the error.\\"},\\"detail\\":{\\"anyOf\\":[{\\"type\\":\\"string\\"},{\\"type\\":\\"object\\"}],\\"description\\":\\"Contains parameter or domain specific information related to the error and why it occured.\\"},\\"ref\\":{\\"type\\":\\"string\\",\\"description\\":\\"Link to documentation of error type\\"}}}
 
-// Validate if response matches JSON schema
+// Validate if response matches JSON schema 
 pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
     pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
 });
