@@ -18,7 +18,7 @@ Object {
               "listen": "test",
               "script": Object {
                 "exec": Array [
-                  "// Validate response status code
+                  "// Validate response status code 
 pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () {
     pm.expect(pm.response.code).to.equal(201);
 });
@@ -1564,7 +1564,7 @@ if (_resDataId !== undefined) {
               "listen": "test",
               "script": Object {
                 "exec": Array [
-                  "// Validate status 2xx
+                  "// Validate status 2xx 
 pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
    pm.response.to.be.success;
 });
@@ -39533,7 +39533,7 @@ Contact Support:
                   "listen": "test",
                   "script": Object {
                     "exec": Array [
-                      "// Validate response status code
+                      "// Validate response status code 
 pm.test(\\"[POST]::/crm/companies - Response status code is 201\\", function () {
     pm.expect(pm.response.code).to.equal(201);
 });
@@ -41079,7 +41079,7 @@ if (_resDataId !== undefined) {
                   "listen": "test",
                   "script": Object {
                     "exec": Array [
-                      "// Validate status 2xx
+                      "// Validate status 2xx 
 pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
    pm.response.to.be.success;
 });
