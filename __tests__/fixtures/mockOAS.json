@@ -553,7 +553,7 @@
           "birthday": { "type": "string", "example": "2000-08-12", "nullable": true },
           "image": {
             "type": "string",
-            "example": "https://logo.clearbit.com/spacex.com?s=128",
+            "example": "https://logo.dev/spacex.com?s=128",
             "nullable": true
           },
           "lead_source": {
@@ -2390,7 +2390,7 @@
               "birthday": { "type": "string", "example": "2000-08-12", "nullable": true },
               "image": {
                 "type": "string",
-                "example": "https://logo.clearbit.com/spacex.com?s=128",
+                "example": "https://logo.dev/spacex.com?s=128",
                 "nullable": true
               },
               "lead_source": {
@@ -2660,7 +2660,7 @@
                 "birthday": { "type": "string", "example": "2000-08-12", "nullable": true },
                 "image": {
                   "type": "string",
-                  "example": "https://logo.clearbit.com/spacex.com?s=128",
+                  "example": "https://logo.dev/spacex.com?s=128",
                   "nullable": true
                 },
                 "lead_source": {
@@ -4330,7 +4330,7 @@
               "last_name": { "type": "string", "example": "Musk", "nullable": true },
               "image": {
                 "type": "string",
-                "example": "https://logo.clearbit.com/spacex.com?s=128",
+                "example": "https://logo.dev/spacex.com?s=128",
                 "nullable": true
               },
               "language": { "type": "string", "example": "EN", "nullable": true },
@@ -4395,7 +4395,7 @@
                 "last_name": { "type": "string", "example": "Musk", "nullable": true },
                 "image": {
                   "type": "string",
-                  "example": "https://logo.clearbit.com/spacex.com?s=128",
+                  "example": "https://logo.dev/spacex.com?s=128",
                   "nullable": true
                 },
                 "language": { "type": "string", "example": "EN", "nullable": true },
@@ -5186,7 +5186,7 @@
           "last_name": { "type": "string", "example": "Musk", "nullable": true },
           "image": {
             "type": "string",
-            "example": "https://logo.clearbit.com/spacex.com?s=128",
+            "example": "https://logo.dev/spacex.com?s=128",
             "nullable": true
           },
           "language": { "type": "string", "example": "EN", "nullable": true },
@@ -7996,7 +7996,7 @@
                     },
                     "image": {
                       "type": "string",
-                      "example": "https://logo.clearbit.com/spacex.com?s=128",
+                      "example": "https://logo.dev/spacex.com?s=128",
                       "nullable": true
                     },
                     "lead_source": {
@@ -8386,7 +8386,7 @@
                       },
                       "image": {
                         "type": "string",
-                        "example": "https://logo.clearbit.com/spacex.com?s=128",
+                        "example": "https://logo.dev/spacex.com?s=128",
                         "nullable": true
                       },
                       "lead_source": {
@@ -10496,7 +10496,7 @@
                       },
                       "image": {
                         "type": "string",
-                        "example": "https://logo.clearbit.com/spacex.com?s=128",
+                        "example": "https://logo.dev/spacex.com?s=128",
                         "nullable": true
                       },
                       "language": { "type": "string", "example": "EN", "nullable": true },
@@ -10640,7 +10640,7 @@
                     "last_name": { "type": "string", "example": "Musk", "nullable": true },
                     "image": {
                       "type": "string",
-                      "example": "https://logo.clearbit.com/spacex.com?s=128",
+                      "example": "https://logo.dev/spacex.com?s=128",
                       "nullable": true
                     },
                     "language": { "type": "string", "example": "EN", "nullable": true },
@@ -14770,7 +14770,7 @@
                           },
                           "image": {
                             "type": "string",
-                            "example": "https://logo.clearbit.com/spacex.com?s=128",
+                            "example": "https://logo.dev/spacex.com?s=128",
                             "nullable": true
                           },
                           "lead_source": {
@@ -15456,7 +15456,7 @@
                   "birthday": { "type": "string", "example": "2000-08-12", "nullable": true },
                   "image": {
                     "type": "string",
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true
                   },
                   "lead_source": {
@@ -16208,7 +16208,7 @@
                         },
                         "image": {
                           "type": "string",
-                          "example": "https://logo.clearbit.com/spacex.com?s=128",
+                          "example": "https://logo.dev/spacex.com?s=128",
                           "nullable": true
                         },
                         "lead_source": {
@@ -16839,7 +16839,7 @@
                   "birthday": { "type": "string", "example": "2000-08-12", "nullable": true },
                   "image": {
                     "type": "string",
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true
                   },
                   "lead_source": {
@@ -27860,7 +27860,7 @@
                           },
                           "image": {
                             "type": "string",
-                            "example": "https://logo.clearbit.com/spacex.com?s=128",
+                            "example": "https://logo.dev/spacex.com?s=128",
                             "nullable": true
                           },
                           "language": {
@@ -28289,7 +28289,7 @@
                   "last_name": { "type": "string", "example": "Musk", "nullable": true },
                   "image": {
                     "type": "string",
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true
                   },
                   "language": { "type": "string", "example": "EN", "nullable": true },
@@ -28754,7 +28754,7 @@
                         },
                         "image": {
                           "type": "string",
-                          "example": "https://logo.clearbit.com/spacex.com?s=128",
+                          "example": "https://logo.dev/spacex.com?s=128",
                           "nullable": true
                         },
                         "language": {
@@ -29131,7 +29131,7 @@
                   "last_name": { "type": "string", "example": "Musk", "nullable": true },
                   "image": {
                     "type": "string",
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true
                   },
                   "language": { "type": "string", "example": "EN", "nullable": true },

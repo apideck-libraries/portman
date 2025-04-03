@@ -3130,7 +3130,7 @@ Object {
                       "type": "string",
                     },
                     "image": Object {
-                      "example": "https://logo.clearbit.com/spacex.com?s=128",
+                      "example": "https://logo.dev/spacex.com?s=128",
                       "nullable": true,
                       "type": "string",
                     },
@@ -3570,7 +3570,7 @@ Object {
                         "type": "string",
                       },
                       "image": Object {
-                        "example": "https://logo.clearbit.com/spacex.com?s=128",
+                        "example": "https://logo.dev/spacex.com?s=128",
                         "nullable": true,
                         "type": "string",
                       },
@@ -5905,7 +5905,7 @@ Object {
                       "type": "string",
                     },
                     "image": Object {
-                      "example": "https://logo.clearbit.com/spacex.com?s=128",
+                      "example": "https://logo.dev/spacex.com?s=128",
                       "nullable": true,
                       "type": "string",
                     },
@@ -6025,7 +6025,7 @@ Object {
                         "type": "string",
                       },
                       "image": Object {
-                        "example": "https://logo.clearbit.com/spacex.com?s=128",
+                        "example": "https://logo.dev/spacex.com?s=128",
                         "nullable": true,
                         "type": "string",
                       },
@@ -7946,7 +7946,7 @@ Object {
             "type": "string",
           },
           "image": Object {
-            "example": "https://logo.clearbit.com/spacex.com?s=128",
+            "example": "https://logo.dev/spacex.com?s=128",
             "nullable": true,
             "type": "string",
           },
@@ -10817,7 +10817,7 @@ Object {
                 "type": "string",
               },
               "image": Object {
-                "example": "https://logo.clearbit.com/spacex.com?s=128",
+                "example": "https://logo.dev/spacex.com?s=128",
                 "nullable": true,
                 "type": "string",
               },
@@ -11250,7 +11250,7 @@ Object {
                   "type": "string",
                 },
                 "image": Object {
-                  "example": "https://logo.clearbit.com/spacex.com?s=128",
+                  "example": "https://logo.dev/spacex.com?s=128",
                   "nullable": true,
                   "type": "string",
                 },
@@ -13522,7 +13522,7 @@ Object {
                 "type": "string",
               },
               "image": Object {
-                "example": "https://logo.clearbit.com/spacex.com?s=128",
+                "example": "https://logo.dev/spacex.com?s=128",
                 "nullable": true,
                 "type": "string",
               },
@@ -13635,7 +13635,7 @@ Object {
                   "type": "string",
                 },
                 "image": Object {
-                  "example": "https://logo.clearbit.com/spacex.com?s=128",
+                  "example": "https://logo.dev/spacex.com?s=128",
                   "nullable": true,
                   "type": "string",
                 },
@@ -15432,7 +15432,7 @@ Object {
             "type": "string",
           },
           "image": Object {
-            "example": "https://logo.clearbit.com/spacex.com?s=128",
+            "example": "https://logo.dev/spacex.com?s=128",
             "nullable": true,
             "type": "string",
           },
@@ -22702,7 +22702,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                             "type": "string",
                           },
                           "image": Object {
-                            "example": "https://logo.clearbit.com/spacex.com?s=128",
+                            "example": "https://logo.dev/spacex.com?s=128",
                             "nullable": true,
                             "type": "string",
                           },
@@ -23543,7 +23543,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                     "type": "string",
                   },
                   "image": Object {
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true,
                     "type": "string",
                   },
@@ -24769,7 +24769,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                           "type": "string",
                         },
                         "image": Object {
-                          "example": "https://logo.clearbit.com/spacex.com?s=128",
+                          "example": "https://logo.dev/spacex.com?s=128",
                           "nullable": true,
                           "type": "string",
                         },
@@ -25557,7 +25557,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                     "type": "string",
                   },
                   "image": Object {
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true,
                     "type": "string",
                   },
@@ -37605,7 +37605,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                             "type": "string",
                           },
                           "image": Object {
-                            "example": "https://logo.clearbit.com/spacex.com?s=128",
+                            "example": "https://logo.dev/spacex.com?s=128",
                             "nullable": true,
                             "type": "string",
                           },
@@ -38126,7 +38126,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                     "type": "string",
                   },
                   "image": Object {
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true,
                     "type": "string",
                   },
@@ -39032,7 +39032,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                           "type": "string",
                         },
                         "image": Object {
-                          "example": "https://logo.clearbit.com/spacex.com?s=128",
+                          "example": "https://logo.dev/spacex.com?s=128",
                           "nullable": true,
                           "type": "string",
                         },
@@ -39500,7 +39500,7 @@ Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
                     "type": "string",
                   },
                   "image": Object {
-                    "example": "https://logo.clearbit.com/spacex.com?s=128",
+                    "example": "https://logo.dev/spacex.com?s=128",
                     "nullable": true,
                     "type": "string",
                   },
@@ -40060,7 +40060,7 @@ Object {
                       "type": "string",
                     },
                     "image": Object {
-                      "example": "https://logo.clearbit.com/spacex.com?s=128",
+                      "example": "https://logo.dev/spacex.com?s=128",
                       "nullable": true,
                       "type": "string",
                     },
