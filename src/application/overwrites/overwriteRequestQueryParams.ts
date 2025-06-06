@@ -134,7 +134,7 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
       paramProcessed = true
 
       // Remove the overwrite value if it is linked to a duplicated query param
-      if (duplicateKeys.includes(pmQueryParam.key)) {
+      if (duplicateKeys.includes(pmQueryParam.key ?? '')) {
         _.remove(_overwriteValues, (item: OverwriteQueryParamConfig) => item === overwriteItem)
         break
       }
@@ -159,7 +159,7 @@ export const overwriteRequestQueryParams = (dto: OverwriteRequestDTO): PostmanMa
         disabled: false
       } as QueryParam
 
-      if (queryToInsert?.key && duplicateKeys.includes(queryToInsert.key)) {
+      if (queryToInsert?.key && duplicateKeys.includes(queryToInsert.key ?? '')) {
         // Take original param based on key name, as starting point for the form encoded param
         const queryParamsArray = pmOperation.item.request.url.query.toJSON()
         const orgParam = _.find(queryParamsArray, { key: queryToInsert.key }) as QueryParam

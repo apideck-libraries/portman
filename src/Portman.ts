@@ -26,6 +26,7 @@ import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
 import { changeCase } from 'openapi-format'
 import _ from 'lodash'
+import { postmanToBruno } from '@usebruno/converters'
 
 export class Portman {
   config: PortmanConfig
@@ -108,6 +109,7 @@ export class Portman {
         postmanConfigFile,
         filterFile,
         oaOutput,
+        brunoOutput,
         envFile,
         ignoreCircularRefs,
         includeTests,
@@ -124,6 +126,7 @@ export class Portman {
     oaUrl && console.log(chalk`{cyan  Remote Url: } \t\t{green ${oaUrl}}`)
     oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
     output && console.log(chalk`{cyan  Output Path: } \t\t{green ${output}}`)
+    brunoOutput && console.log(chalk`{cyan  Bruno Output Path: } \t{green ${brunoOutput}}`)
     oaOutput && console.log(chalk`{cyan  OpenAPI Output Path: } \t{green ${oaOutput}}`)
 
     cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${cliOptionsFile}}`)
@@ -494,11 +497,13 @@ export class Portman {
 
   writePortmanCollectionToFile(): void {
     // --- Portman - Write Postman collection to file
-    const { output } = this.options
+    const { output, brunoOutput } = this.options
     const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
     let postmanCollectionFile = `./tmp/converted/${changeCase(fileName, 'camelCase')}.json`
+
+    // Set output as Postman collection file
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {
@@ -508,6 +513,10 @@ export class Portman {
         )
         process.exit(1)
       }
+    }
+    // Set output as Bruno collection file
+    if (brunoOutput) {
+      postmanCollectionFile = brunoOutput as string
     }
 
     try {
@@ -541,6 +550,14 @@ export class Portman {
         this.portmanCollection = new Collection(JSON.parse(collectionString)).toJSON()
       }
 
+      // Convert Postman to Bruno collection
+      if (brunoOutput) {
+        const postmanJson = JSON.parse(collectionString)
+        const brunoCollection = postmanToBruno(postmanJson)
+        collectionString = JSON.stringify(brunoCollection, null, 2)
+      }
+
+      // Write output file
       fs.outputFileSync(postmanCollectionFile, collectionString, 'utf8')
       this.collectionFile = postmanCollectionFile
     } catch (err) {
