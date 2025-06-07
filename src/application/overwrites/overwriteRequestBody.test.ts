@@ -2,7 +2,8 @@ import {
   getPostmanMappedCreateOperation,
   getPostmanMappedCreateArrayOperation,
   getPostmanMappedCreateFormData,
-  getPostmanMappedCreateFormUrlEncoded
+  getPostmanMappedCreateFormUrlEncoded,
+  getPostmanMappedCreateFormDataFile
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import {
   getOasMappedCreateArrayOperation,
@@ -1051,6 +1052,23 @@ describe('overwriteRequestBody', () => {
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+    const result = overwriteRequestBody(dto)
+    expect(result.item.request?.body?.formdata).toMatchSnapshot()
+  })
+
+  it('should overwrite the file form data with src path', async () => {
+    const overwriteValues = [
+      {
+        key: 'reqFile',
+        value: '/mytestfile.txt'
+      }
+    ]
+    const pmOperation = await getPostmanMappedCreateFormDataFile()
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     const result = overwriteRequestBody(dto)
     expect(result.item.request?.body?.formdata).toMatchSnapshot()
   })

@@ -110,3 +110,30 @@ export const getPostmanMappedCreateFormUrlEncoded = async (): Promise<PostmanMap
 
   return pmOp
 }
+
+export const getPostmanMappedCreateFormDataFile = async (): Promise<PostmanMappedOperation> => {
+  await oasParser.convert({ inputFile: oasYml })
+  const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+  const postmanParser = new PostmanParser({
+    collection: new Collection(postmanObj),
+    oasParser: oasParser
+  })
+  const pmOp = postmanParser.mappedOperations[1]
+  const pmFormParam = new FormParam({ key: 'reqFile', value: '' }) as any
+  pmFormParam.type = 'file'
+  pmFormParam.src = ''
+  pmFormParam.disabled = false
+
+  if (pmOp.item.request.body) {
+    pmOp.item.request.body.update({
+      mode: 'formdata',
+      formdata: []
+    })
+  }
+  if (pmOp?.item?.request?.body?.formdata) {
+    pmOp.item.request.body.formdata.clear()
+    pmOp.item.request.body.formdata.assimilate([pmFormParam], false)
+  }
+
+  return pmOp
+}

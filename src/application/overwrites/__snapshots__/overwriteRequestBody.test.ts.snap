@@ -3974,6 +3974,17 @@ exports[`overwriteRequestBody should overwrite the body param with value that co
 ]"
 `;
 
+exports[`overwriteRequestBody should overwrite the file form data with src path 1`] = `
+Array [
+  Object {
+    "disabled": false,
+    "key": "reqFile",
+    "src": "/mytestfile.txt",
+    "type": "file",
+  },
+]
+`;
+
 exports[`overwriteRequestBody should overwrite the form data boolean variable with string value 1`] = `
 Array [
   Object {
