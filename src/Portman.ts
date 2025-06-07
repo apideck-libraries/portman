@@ -503,6 +503,7 @@ export class Portman {
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
     let postmanCollectionFile = `./tmp/converted/${changeCase(fileName, 'camelCase')}.json`
+    let brunoCollectionFile = `./tmp/converted/bruno-${changeCase(fileName, 'camelCase')}.json`
 
     // Set output as Postman collection file
     if (output) {
@@ -517,7 +518,7 @@ export class Portman {
     }
     // Set output as Bruno collection file
     if (brunoOutput) {
-      postmanCollectionFile = brunoOutput as string
+      brunoCollectionFile = brunoOutput as string
     }
 
     try {
@@ -545,7 +546,7 @@ export class Portman {
 
       let collectionString = JSON.stringify(this.portmanCollection, null, 2)
 
-      // --- Portman - Replace & clean-up Portman
+      // --- Portman - Replace & cleanup Portman
       if (globals?.portmanReplacements) {
         collectionString = writeRawReplacements(collectionString, globals.portmanReplacements)
         this.portmanCollection = new Collection(JSON.parse(collectionString)).toJSON()
@@ -555,12 +556,18 @@ export class Portman {
       if (brunoOutput) {
         const postmanJson = normalizePostmanDescriptions(JSON.parse(collectionString))
         const brunoCollection = await postmanToBruno(postmanJson)
-        collectionString = JSON.stringify(brunoCollection, null, 2)
+        const brunoCollectionString = JSON.stringify(brunoCollection, null, 2)
+
+        // Write Bruno collection file
+        fs.outputFileSync(brunoCollectionFile, brunoCollectionString, 'utf8')
+        this.collectionFile = brunoCollectionFile
       }
 
-      // Write output file
-      fs.outputFileSync(postmanCollectionFile, collectionString, 'utf8')
-      this.collectionFile = postmanCollectionFile
+      // Write Postman collection file
+      if (output) {
+        fs.outputFileSync(postmanCollectionFile, collectionString, 'utf8')
+        this.collectionFile = postmanCollectionFile
+      }
     } catch (err) {
       console.error(
         '\x1b[31m',
