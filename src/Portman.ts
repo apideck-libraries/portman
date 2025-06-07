@@ -24,6 +24,7 @@ import { PortmanConfig, PortmanTestTypes, Track } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
+import { normalizePostmanDescriptions } from './utils/normalizePostmanDescriptions'
 import { changeCase } from 'openapi-format'
 import _ from 'lodash'
 import { postmanToBruno } from '@usebruno/converters'
@@ -68,7 +69,7 @@ export class Portman {
     this.injectVariationOverwrites()
     this.injectIntegrationTests()
     this.moveContractTestsToFolder()
-    this.writePortmanCollectionToFile()
+    await this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
 
@@ -495,7 +496,7 @@ export class Portman {
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
-  writePortmanCollectionToFile(): void {
+  async writePortmanCollectionToFile(): Promise<void> {
     // --- Portman - Write Postman collection to file
     const { output, brunoOutput } = this.options
     const { globals } = this.config
@@ -552,8 +553,8 @@ export class Portman {
 
       // Convert Postman to Bruno collection
       if (brunoOutput) {
-        const postmanJson = JSON.parse(collectionString)
-        const brunoCollection = postmanToBruno(postmanJson)
+        const postmanJson = normalizePostmanDescriptions(JSON.parse(collectionString))
+        const brunoCollection = await postmanToBruno(postmanJson)
         collectionString = JSON.stringify(brunoCollection, null, 2)
       }
 
