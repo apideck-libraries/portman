@@ -1,5 +1,6 @@
 import { Collection, Item, ItemGroup } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
+import { OpenAPIV3 } from 'openapi-types'
 import { PostmanMappedOperation } from '../postman'
 import {
   IntegrationTest,
@@ -11,6 +12,7 @@ import {
 import { TestSuite } from './'
 import { Fuzzer } from './Fuzzer'
 import { changeCase } from 'openapi-format'
+import { parseOpenApiResponse, matchWildcard } from '../utils'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -51,51 +53,58 @@ export class VariationWriter {
     variations.map(variation => {
       const folderId = pmOperation.getParentFolderId()
       const folderName = pmOperation.getParentFolderName()
-      const variationName = name || `${pmOperation.item.name}[${variation.name}]`
-      const fuzzingSet = variation.fuzzing
+      const baseName = name || `${pmOperation.item.name}[${variation.name}]`
 
-      if (fuzzingSet) {
-        // Generate new variation for each Fuzz of the request body
-        this.fuzzer.injectFuzzRequestBodyVariations(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta
-        )
-
-        // Generate new variation for each Fuzz of the request query params
-        this.fuzzer.injectFuzzRequestQueryParamsVariations(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta
-        )
-
-        // Generate new variation for each Fuzz of the request headers
-        this.fuzzer.injectFuzzRequestHeadersVariations(
-          pmOperation,
-          oaOperation,
-          variation,
-          variationMeta
-        )
-
-        // Inject fuzzed variations to the folder
-        this.fuzzer.fuzzVariations.map(operationVariation => {
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        })
-      } else {
-        // Normal variation
-        const operationVariation = pmOperation.clone({
-          newId: changeCase(variationName, 'camelCase'),
-          name: variationName
-        })
-
-        // Set/Update Portman operation test type
-        this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
-
-        this.injectVariations(operationVariation, oaOperation, variation, variationMeta)
-        this.addToLocalCollection(operationVariation, folderId, folderName)
+      let targetOaResponse = variation?.openApiResponse
+      if (!targetOaResponse && variationMeta?.openApiResponse) {
+        targetOaResponse = variationMeta.openApiResponse
       }
+      const respInfo = parseOpenApiResponse(targetOaResponse)
+
+      let contentTypes: (string | undefined)[] = []
+      if (
+        respInfo?.contentType &&
+        respInfo.contentType.includes('*') &&
+        oaOperation?.schema?.responses?.[respInfo.code]
+      ) {
+        const respObj = oaOperation.schema.responses[respInfo.code] as OpenAPIV3.ResponseObject
+        if (respObj?.content) {
+          contentTypes = Object.keys(respObj.content).filter(ct =>
+            matchWildcard(ct, respInfo.contentType as string)
+          )
+        }
+      }
+      if (contentTypes.length === 0) {
+        contentTypes = [respInfo?.contentType]
+      }
+
+      contentTypes.forEach(ct => {
+        const ctSuffix = ct && contentTypes.length > 1 ? `[${ct}]` : ''
+        const variationName = `${baseName}${ctSuffix}`
+        const fuzzingSet = variation.fuzzing
+        const updatedVariation = { ...variation, openApiResponse: respInfo ? `${respInfo.code}${ct ? `::${ct}` : ''}` : variation.openApiResponse, name: `${variation.name}${ctSuffix}` }
+
+        if (fuzzingSet) {
+          this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
+          this.fuzzer.injectFuzzRequestBodyVariations(pmOperation, oaOperation, updatedVariation, variationMeta)
+          this.fuzzer.injectFuzzRequestQueryParamsVariations(pmOperation, oaOperation, updatedVariation, variationMeta)
+          this.fuzzer.injectFuzzRequestHeadersVariations(pmOperation, oaOperation, updatedVariation, variationMeta)
+
+          this.fuzzer.fuzzVariations.map(operationVariation => {
+            this.addToLocalCollection(operationVariation, folderId, folderName)
+          })
+        } else {
+          const operationVariation = pmOperation.clone({
+            newId: changeCase(variationName, 'camelCase'),
+            name: variationName
+          })
+
+          this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
+
+          this.injectVariations(operationVariation, oaOperation, updatedVariation, variationMeta)
+          this.addToLocalCollection(operationVariation, folderId, folderName)
+        }
+      })
     })
   }
 
@@ -162,13 +171,15 @@ export class VariationWriter {
       if (!targetOaResponse && variationMeta?.openApiResponse) {
         targetOaResponse = variationMeta.openApiResponse
       }
+      const respInfo = parseOpenApiResponse(targetOaResponse)
 
       // Generate contract tests
       this.testSuite.generateContractTests(
         [pmOperation],
         oaOperation,
         tests.contractTests,
-        targetOaResponse
+        respInfo?.code,
+        respInfo?.contentType
       )
     }
 

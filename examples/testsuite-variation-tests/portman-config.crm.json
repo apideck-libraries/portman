@@ -32,7 +32,7 @@
     "variationTests": [
       {
         "openApiOperation": "*::/crm/*",
-        "openApiResponse": "401",
+        "openApiResponse": "401::application/*",
         "variations": [
           {
             "name": "Unauthorized",
@@ -57,7 +57,7 @@
       },
       {
         "openApiOperationId": "leadsAdd",
-        "openApiResponse": "400",
+        "openApiResponse": "400::application/*",
         "variations": [
           {
             "name": "missingParams",

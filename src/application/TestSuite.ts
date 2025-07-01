@@ -41,6 +41,7 @@ import {
 } from '../types'
 import { inRange } from '../utils'
 import { inOperations } from '../utils/inOperations'
+import { parseOpenApiResponse } from '../utils'
 
 export class TestSuite {
   public collection: Collection
@@ -94,7 +95,8 @@ export class TestSuite {
     pmOperations?: PostmanMappedOperation[],
     oaOperation?: OasMappedOperation,
     contractTests?: ContractTestConfig[],
-    openApiResponseCode?: string
+    openApiResponseCode?: string,
+    openApiContentType?: string
   ): void => {
     const tests = contractTests || this.contractTests
     if (!tests || this.options?.includeTests === false) return
@@ -108,7 +110,13 @@ export class TestSuite {
 
         if (operation) {
           // Inject response tests
-          this.injectContractTests(pmOperation, operation, contractTest, openApiResponseCode)
+          this.injectContractTests(
+            pmOperation,
+            operation,
+            contractTest,
+            openApiResponseCode,
+            openApiContentType
+          )
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
@@ -133,11 +141,14 @@ export class TestSuite {
         if (!variationTest.openApiResponse) {
           // No targeted openApiResponse configured, generate a variation based on the 1st response object
           this.variationWriter.add(pmOperation, oaOperation, variationTest)
-        } else if (oaOperation?.responseCodes.includes(variationTest.openApiResponse)) {
-          // Configured an openApiResponse, only generate variation for the targeted response object
-          this.variationWriter.add(pmOperation, oaOperation, variationTest)
         } else {
-          // Configured a openApiResponse, but it doesn't exist in OpenAPI, do nothing
+          const respInfo = parseOpenApiResponse(variationTest.openApiResponse)
+          if (respInfo && oaOperation?.responseCodes.includes(respInfo.code)) {
+            // Configured an openApiResponse, only generate variation for the targeted response object
+            this.variationWriter.add(pmOperation, oaOperation, variationTest)
+          } else {
+            // Configured an openApiResponse, but it doesn't exist in OpenAPI, do nothing
+          }
         }
       })
     })
@@ -214,7 +225,8 @@ export class TestSuite {
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
     contractTest: ContractTestConfig,
-    openApiResponseCode: string | undefined
+    openApiResponseCode: string | undefined,
+    openApiContentType?: string | undefined
   ): PostmanMappedOperation => {
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -295,17 +307,7 @@ export class TestSuite {
 
     // Add response content checks
     if (responseObject.content) {
-      // TEMPORARY HANDLING of multiple content-types
-      let contentTypesCounter = 0
-
-      // Process all content-types
-      for (const [contentType, content] of Object.entries(responseObject.content)) {
-        // Early skip if no content-types defined
-        if (!contentType) continue
-
-        // TEMPORARY HANDLING of multiple content-types
-        if (contentTypesCounter > 0) continue
-
+      const processContent = (contentType: string, content: OpenAPIV3.MediaTypeObject): void => {
         // Add contentType check
         if (
           optContentType &&
@@ -347,8 +349,21 @@ export class TestSuite {
             this.config?.globals
           )
         }
+      }
 
-        contentTypesCounter++
+      if (openApiContentType) {
+        const content = responseObject.content[openApiContentType]
+        if (content) {
+          processContent(openApiContentType, content)
+        }
+      } else {
+        let contentTypesCounter = 0
+        for (const [contentType, content] of Object.entries(responseObject.content)) {
+          if (!contentType) continue
+          if (contentTypesCounter > 0) continue
+          processContent(contentType, content)
+          contentTypesCounter++
+        }
       }
     }
 
