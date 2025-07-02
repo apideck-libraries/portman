@@ -82,13 +82,34 @@ export class VariationWriter {
         const ctSuffix = ct && contentTypes.length > 1 ? `[${ct}]` : ''
         const variationName = `${baseName}${ctSuffix}`
         const fuzzingSet = variation.fuzzing
-        const updatedVariation = { ...variation, openApiResponse: respInfo ? `${respInfo.code}${ct ? `::${ct}` : ''}` : variation.openApiResponse, name: `${variation.name}${ctSuffix}` }
+        const updatedVariation = {
+          ...variation,
+          openApiResponse: respInfo
+            ? `${respInfo.code}${ct ? `::${ct}` : ''}`
+            : variation.openApiResponse,
+          name: `${variation.name}${ctSuffix}`
+        }
 
         if (fuzzingSet) {
           this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
-          this.fuzzer.injectFuzzRequestBodyVariations(pmOperation, oaOperation, updatedVariation, variationMeta)
-          this.fuzzer.injectFuzzRequestQueryParamsVariations(pmOperation, oaOperation, updatedVariation, variationMeta)
-          this.fuzzer.injectFuzzRequestHeadersVariations(pmOperation, oaOperation, updatedVariation, variationMeta)
+          this.fuzzer.injectFuzzRequestBodyVariations(
+            pmOperation,
+            oaOperation,
+            updatedVariation,
+            variationMeta
+          )
+          this.fuzzer.injectFuzzRequestQueryParamsVariations(
+            pmOperation,
+            oaOperation,
+            updatedVariation,
+            variationMeta
+          )
+          this.fuzzer.injectFuzzRequestHeadersVariations(
+            pmOperation,
+            oaOperation,
+            updatedVariation,
+            variationMeta
+          )
 
           this.fuzzer.fuzzVariations.map(operationVariation => {
             this.addToLocalCollection(operationVariation, folderId, folderName)
