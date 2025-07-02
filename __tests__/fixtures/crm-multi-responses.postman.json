@@ -1,0 +1,29 @@
+{
+  "info": {
+    "_postman_id": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+    "name": "Minimal CRM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://unify.apideck.com" }
+  ],
+  "item": [
+    {
+      "name": "List companies",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "x-apideck-consumer-id", "value": "test_consumer" },
+          { "key": "x-apideck-app-id", "value": "2222" },
+          { "key": "x-apideck-service-id", "value": "salesforce" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/crm/companies",
+          "host": ["{{baseUrl}}"],
+          "path": ["crm", "companies"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

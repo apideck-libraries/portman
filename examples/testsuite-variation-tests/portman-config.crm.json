@@ -32,7 +32,7 @@
     "variationTests": [
       {
         "openApiOperation": "*::/crm/*",
-        "openApiResponse": "401::application/*",
+        "openApiResponse": "401",
         "variations": [
           {
             "name": "Unauthorized",
