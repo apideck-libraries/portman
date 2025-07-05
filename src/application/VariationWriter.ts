@@ -1,4 +1,4 @@
-import { Collection, Item, ItemGroup } from 'postman-collection'
+import { Collection, Item, ItemGroup, Header } from 'postman-collection'
 import { OasMappedOperation } from 'src/oas'
 import { OpenAPIV3 } from 'openapi-types'
 import { PostmanMappedOperation } from '../postman'
@@ -181,19 +181,25 @@ export class VariationWriter {
   ): void {
     const { overwrites, tests, assignVariables, operationPreRequestScripts } = variation
 
+    let targetOaResponse = variation?.openApiResponse
+    if (!targetOaResponse && variationMeta?.openApiResponse) {
+      targetOaResponse = variationMeta.openApiResponse
+    }
+    const respInfo = parseOpenApiResponse(targetOaResponse)
+
+    if (respInfo?.contentType) {
+      pmOperation.item.request.upsertHeader({
+        key: 'Accept',
+        value: respInfo.contentType
+      } as Header)
+    }
+
     if (overwrites) {
       this.overwriteMap[pmOperation.item.id as string] = overwrites
       this.testSuite.injectOverwrites([pmOperation], overwrites)
     }
 
     if (oaOperation && tests?.contractTests) {
-      // Set target OpenAPI response
-      let targetOaResponse = variation?.openApiResponse
-      if (!targetOaResponse && variationMeta?.openApiResponse) {
-        targetOaResponse = variationMeta.openApiResponse
-      }
-      const respInfo = parseOpenApiResponse(targetOaResponse)
-
       // Generate contract tests
       this.testSuite.generateContractTests(
         [pmOperation],
