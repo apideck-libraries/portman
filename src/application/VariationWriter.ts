@@ -12,7 +12,13 @@ import {
 import { TestSuite } from './'
 import { Fuzzer } from './Fuzzer'
 import { changeCase } from 'openapi-format'
-import { parseOpenApiResponse, parseOpenApiRequest, matchWildcard } from '../utils'
+import {
+  parseOpenApiResponse,
+  parseOpenApiRequest,
+  matchWildcard,
+  getRequestBodyExample,
+  getRawLanguageFromContentType
+} from '../utils'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -116,41 +122,41 @@ export class VariationWriter {
             name: `${variation.name}${reqSuffix}${respSuffix}`
           }
 
-        if (fuzzingSet) {
-          this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
-          this.fuzzer.injectFuzzRequestBodyVariations(
-            pmOperation,
-            oaOperation,
-            updatedVariation,
-            variationMeta
-          )
-          this.fuzzer.injectFuzzRequestQueryParamsVariations(
-            pmOperation,
-            oaOperation,
-            updatedVariation,
-            variationMeta
-          )
-          this.fuzzer.injectFuzzRequestHeadersVariations(
-            pmOperation,
-            oaOperation,
-            updatedVariation,
-            variationMeta
-          )
+          if (fuzzingSet) {
+            this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
+            this.fuzzer.injectFuzzRequestBodyVariations(
+              pmOperation,
+              oaOperation,
+              updatedVariation,
+              variationMeta
+            )
+            this.fuzzer.injectFuzzRequestQueryParamsVariations(
+              pmOperation,
+              oaOperation,
+              updatedVariation,
+              variationMeta
+            )
+            this.fuzzer.injectFuzzRequestHeadersVariations(
+              pmOperation,
+              oaOperation,
+              updatedVariation,
+              variationMeta
+            )
 
-          this.fuzzer.fuzzVariations.map(operationVariation => {
+            this.fuzzer.fuzzVariations.map(operationVariation => {
+              this.addToLocalCollection(operationVariation, folderId, folderName)
+            })
+          } else {
+            const operationVariation = pmOperation.clone({
+              newId: changeCase(variationName, 'camelCase'),
+              name: variationName
+            })
+
+            this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
+
+            this.injectVariations(operationVariation, oaOperation, updatedVariation, variationMeta)
             this.addToLocalCollection(operationVariation, folderId, folderName)
-          })
-        } else {
-          const operationVariation = pmOperation.clone({
-            newId: changeCase(variationName, 'camelCase'),
-            name: variationName
-          })
-
-          this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
-
-          this.injectVariations(operationVariation, oaOperation, updatedVariation, variationMeta)
-          this.addToLocalCollection(operationVariation, folderId, folderName)
-        }
+          }
         })
       })
     })
@@ -208,6 +214,12 @@ export class VariationWriter {
   ): void {
     const { overwrites, tests, assignVariables, operationPreRequestScripts } = variation
 
+    let targetOaRequest = variation?.openApiRequest
+    if (!targetOaRequest && (variationMeta as any)?.openApiRequest) {
+      targetOaRequest = (variationMeta as any).openApiRequest
+    }
+    const reqInfo = parseOpenApiRequest(targetOaRequest)
+
     let targetOaResponse = variation?.openApiResponse
     if (!targetOaResponse && variationMeta?.openApiResponse) {
       targetOaResponse = variationMeta.openApiResponse
@@ -219,6 +231,24 @@ export class VariationWriter {
         key: 'Accept',
         value: respInfo.contentType
       } as Header)
+    }
+
+    if (reqInfo?.contentType) {
+      pmOperation.item.request.upsertHeader({
+        key: 'Content-Type',
+        value: reqInfo.contentType
+      } as Header)
+
+      const reqBodyObj = oaOperation?.schema?.requestBody as OpenAPIV3.RequestBodyObject
+      const example = getRequestBodyExample(reqBodyObj, reqInfo.contentType)
+      if (example && pmOperation.item.request.body) {
+        pmOperation.item.request.body.mode = 'raw'
+        pmOperation.item.request.body.raw = example
+        const lang = getRawLanguageFromContentType(reqInfo.contentType)
+        ;(pmOperation.item.request.body as any).options = {
+          raw: { language: lang, headerFamily: lang }
+        }
+      }
     }
 
     if (overwrites) {
