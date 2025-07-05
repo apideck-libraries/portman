@@ -101,3 +101,57 @@ describe('TestSuite Variations openApiResponse content-types', () => {
     expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
   })
 })
+
+describe('TestSuite Variations openApiRequest content-types', () => {
+  let postmanParser: PostmanParser
+  let oasParser: OpenApiParser
+  let testSuite: TestSuite
+
+  const postmanJson = '__tests__/fixtures/request-multi.postman.json'
+  const oasYml = '__tests__/fixtures/request-multi.yml'
+
+  beforeEach(async () => {
+    oasParser = new OpenApiParser()
+    await oasParser.convert({ inputFile: oasYml })
+
+    const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
+  })
+
+  it('should use a specific request content-type when multiple are available', async () => {
+    const configResult = await getConfig(
+      '__tests__/fixtures/portman-variations.request-ct-specific.json'
+    )
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+    const config = configResult.right
+    testSuite = new TestSuite({ oasParser, postmanParser, config })
+    testSuite.variationWriter = new VariationWriter({
+      testSuite: testSuite,
+      variationFolderName: 'Variation Tests'
+    })
+    testSuite.generateVariationTests()
+    expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
+  })
+
+  it('should handle wildcard request content-type and generate multiple variations', async () => {
+    const configResult = await getConfig(
+      '__tests__/fixtures/portman-variations.request-ct-wildcard.json'
+    )
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+    const config = configResult.right
+    testSuite = new TestSuite({ oasParser, postmanParser, config })
+    testSuite.variationWriter = new VariationWriter({
+      testSuite: testSuite,
+      variationFolderName: 'Variation Tests'
+    })
+    testSuite.generateVariationTests()
+    expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
+  })
+})

@@ -398,6 +398,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path for which a variation will be created. (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 - **openApiResponse (String | optional)** : References to the OpenAPI response object code or `code::content-type` (supports wildcards like `text/*`) for which a variation will be created. Examples: `"404"`, `"200::text/plain"`, `"200::text/*"`. If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured response code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
+- **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) for which a variation will be created. If not defined, the default request content-type from OpenAPI will be used.
 
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
 - **fuzzing** : Fuzz testing sets unexpected values for API requests, to cause unexpected behavior and errors in the API response.

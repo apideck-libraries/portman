@@ -12,7 +12,7 @@ import {
 import { TestSuite } from './'
 import { Fuzzer } from './Fuzzer'
 import { changeCase } from 'openapi-format'
-import { parseOpenApiResponse, matchWildcard } from '../utils'
+import { parseOpenApiResponse, parseOpenApiRequest, matchWildcard } from '../utils'
 
 export type VariationWriterOptions = {
   testSuite: TestSuite
@@ -55,13 +55,36 @@ export class VariationWriter {
       const folderName = pmOperation.getParentFolderName()
       const baseName = name || `${pmOperation.item.name}[${variation.name}]`
 
+      let targetOaRequest = variation?.openApiRequest
+      if (!targetOaRequest && (variationMeta as any)?.openApiRequest) {
+        targetOaRequest = (variationMeta as any).openApiRequest
+      }
+      const reqInfo = parseOpenApiRequest(targetOaRequest)
+
+      let reqContentTypes: (string | undefined)[] = []
+      if (
+        reqInfo?.contentType &&
+        reqInfo.contentType.includes('*') &&
+        oaOperation?.schema?.requestBody
+      ) {
+        const reqObj = oaOperation.schema.requestBody as OpenAPIV3.RequestBodyObject
+        if (reqObj?.content) {
+          reqContentTypes = Object.keys(reqObj.content).filter(ct =>
+            matchWildcard(ct, reqInfo.contentType as string)
+          )
+        }
+      }
+      if (reqContentTypes.length === 0) {
+        reqContentTypes = [reqInfo?.contentType]
+      }
+
       let targetOaResponse = variation?.openApiResponse
       if (!targetOaResponse && variationMeta?.openApiResponse) {
         targetOaResponse = variationMeta.openApiResponse
       }
       const respInfo = parseOpenApiResponse(targetOaResponse)
 
-      let contentTypes: (string | undefined)[] = []
+      let respContentTypes: (string | undefined)[] = []
       if (
         respInfo?.contentType &&
         respInfo.contentType.includes('*') &&
@@ -69,26 +92,29 @@ export class VariationWriter {
       ) {
         const respObj = oaOperation.schema.responses[respInfo.code] as OpenAPIV3.ResponseObject
         if (respObj?.content) {
-          contentTypes = Object.keys(respObj.content).filter(ct =>
+          respContentTypes = Object.keys(respObj.content).filter(ct =>
             matchWildcard(ct, respInfo.contentType as string)
           )
         }
       }
-      if (contentTypes.length === 0) {
-        contentTypes = [respInfo?.contentType]
+      if (respContentTypes.length === 0) {
+        respContentTypes = [respInfo?.contentType]
       }
 
-      contentTypes.forEach(ct => {
-        const ctSuffix = ct && contentTypes.length > 1 ? `[${ct}]` : ''
-        const variationName = `${baseName}${ctSuffix}`
-        const fuzzingSet = variation.fuzzing
-        const updatedVariation = {
-          ...variation,
-          openApiResponse: respInfo
-            ? `${respInfo.code}${ct ? `::${ct}` : ''}`
-            : variation.openApiResponse,
-          name: `${variation.name}${ctSuffix}`
-        }
+      reqContentTypes.forEach(reqCt => {
+        respContentTypes.forEach(ct => {
+          const reqSuffix = reqCt && reqContentTypes.length > 1 ? `[${reqCt}]` : ''
+          const respSuffix = ct && respContentTypes.length > 1 ? `[${ct}]` : ''
+          const variationName = `${baseName}${reqSuffix}${respSuffix}`
+          const fuzzingSet = variation.fuzzing
+          const updatedVariation = {
+            ...variation,
+            openApiRequest: reqCt || variation.openApiRequest,
+            openApiResponse: respInfo
+              ? `${respInfo.code}${ct ? `::${ct}` : ''}`
+              : variation.openApiResponse,
+            name: `${variation.name}${reqSuffix}${respSuffix}`
+          }
 
         if (fuzzingSet) {
           this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
@@ -125,6 +151,7 @@ export class VariationWriter {
           this.injectVariations(operationVariation, oaOperation, updatedVariation, variationMeta)
           this.addToLocalCollection(operationVariation, folderId, folderName)
         }
+        })
       })
     })
   }

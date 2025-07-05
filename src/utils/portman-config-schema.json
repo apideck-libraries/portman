@@ -1215,6 +1215,9 @@
                     "openApiResponse": {
                       "type": "string"
                     },
+                    "openApiRequest": {
+                      "type": "string"
+                    },
                     "variations": {
                       "items": {
                         "additionalProperties": false,
@@ -1535,6 +1538,9 @@
                           "openApiResponse": {
                             "type": "string"
                           },
+                          "openApiRequest": {
+                            "type": "string"
+                          },
                           "operationPreRequestScripts": {
                             "items": {
                               "additionalProperties": false,
@@ -1623,6 +1629,9 @@
                 "type": "array"
               },
               "openApiResponse": {
+                "type": "string"
+              },
+              "openApiRequest": {
                 "type": "string"
               },
               "variations": {

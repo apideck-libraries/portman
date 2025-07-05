@@ -67,12 +67,14 @@ export type VariationTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
+  openApiRequest?: string
   openApiResponse?: string
   variations: VariationConfig[]
 }
 
 export type VariationConfig = {
   name: string
+  openApiRequest?: string
   openApiResponse?: string
   overwrites?: any
   fuzzing?: fuzzingConfig[]
