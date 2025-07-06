@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: 460 - Content-types
+  title: Portman Contract tests - Target content-type
   version: 1.0.0
 paths:
   /example:
