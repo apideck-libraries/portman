@@ -45,3 +45,4 @@ This configuration generates two requests in the resulting Postman collection,
 one for `/example1` and another for `/example2`. Both requests will send and
 expect `application/xml` content types and validate a `200` response code.
 
+![Postman collection with Contract tests](./images/img.png)
