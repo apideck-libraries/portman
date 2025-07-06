@@ -1,9 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const getRequestBodyExample = (reqBody: any, contentType: string): string | undefined => {
   if (!reqBody?.content) return undefined
   const content = reqBody.content[contentType]
   if (!content) return undefined
   if (content.example !== undefined) {
-    return typeof content.example === 'string' ? content.example : JSON.stringify(content.example, null, 2)
+    return typeof content.example === 'string'
+      ? content.example
+      : JSON.stringify(content.example, null, 2)
   }
   if (content.examples) {
     const exKey = Object.keys(content.examples)[0]

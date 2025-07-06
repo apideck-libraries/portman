@@ -119,11 +119,7 @@ export class TestSuite {
           if (contractTest.openApiRequest) {
             const reqInfo = parseOpenApiRequest(contractTest.openApiRequest)
             let reqContentType = reqInfo?.contentType
-            if (
-              reqContentType &&
-              reqContentType.includes('*') &&
-              operation.schema?.requestBody
-            ) {
+            if (reqContentType && reqContentType.includes('*') && operation.schema?.requestBody) {
               const reqObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
               const matchCt = Object.keys(reqObj.content || {}).find(ct =>
                 matchWildcard(ct, reqContentType as string)

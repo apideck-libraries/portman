@@ -125,10 +125,10 @@ describe('TestSuite', () => {
         }
       }
       const ops = testSuite.getOperationsFromSetting(contractTest) as PostmanMappedOperation[]
-    const result = ops.map(o => o.method + o.path)
-    expect(result).toMatchSnapshot()
+      const result = ops.map(o => o.method + o.path)
+      expect(result).toMatchSnapshot()
+    })
   })
-})
 })
 
 describe('contractTests openApiRequest content-type', () => {
