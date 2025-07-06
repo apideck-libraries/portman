@@ -4,99 +4,14 @@
     "variationTests": [
       {
         "openApiOperationId": "createExample",
-
+        "openApiRequest": "*",
+        "openApiResponse": "200::*",
         "variations": [
           {
-            "name": "jsonRequestJsonResponse",
-            "openApiRequest": "application/json",
-            "openApiResponse": "200::application/json",
+            "name": "wildcardRequestResponse",
             "tests": {
               "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true
-                  },
-                  "jsonBody": {
-                    "enabled": true
-                  },
-                  "schemaValidation": {
-                    "enabled": true
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "name": "xmlRequestXmlResponse",
-            "openApiRequest": "application/xml",
-            "openApiResponse": "200::application/xml",
-            "tests": {
-              "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true
-                  },
-                  "contentType": {
-                    "enabled": true
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "name": "textRequestTextResponse",
-            "openApiRequest": "text/plain",
-            "openApiResponse": "200::text/plain",
-            "tests": {
-              "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "name": "wildcardContentTypes",
-            "tests": {
-              "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "name": "errorResponse",
-            "openApiRequest": "application/json",
-            "openApiResponse": "400",
-            "overwrites": [
-              {
-                "overwriteRequestBody": [
-                  {
-                    "key": "input",
-                    "value": "",
-                    "overwrite": true
-                  }
-                ]
-              }
-            ],
-            "tests": {
-              "contractTests": [
-                {
-                  "statusCode": {
-                    "enabled": true
-                  },
-                  "jsonBody": {
-                    "enabled": true
-                  },
-                  "schemaValidation": {
-                    "enabled": true
-                  }
-                }
+                { "statusCode": { "enabled": true } }
               ]
             }
           }

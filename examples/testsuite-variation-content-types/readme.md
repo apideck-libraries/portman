@@ -30,7 +30,7 @@ file: examples/testsuite-variation-content-types/portman-config.ct.json >>
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
         "variations": [
           {
             "name": "jsonRequestJsonResponse",
@@ -71,8 +71,6 @@ file: examples/testsuite-variation-content-types/portman-config.ct.json >>
           },
           {
             "name": "wildcardContentTypes",
-            "openApiRequest": "*/*",
-            "openApiResponse": "200::*",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -123,7 +121,7 @@ file: examples/testsuite-variation-content-types/portman-config.ct.json >>
 
 ### `openApiRequest` examples
 
-The `openApiRequest` property controls which request body content type Portman uses for a variation. These examples show complete variation objects that live inside the `variationTests[].variations` array.
+The `openApiRequest` property controls which request body content type Portman uses for a variation. In these examples it is defined next to `openApiOperationId` inside each `variationTests` object.
 
 **Without `openApiRequest`**
 
@@ -132,7 +130,7 @@ The `openApiRequest` property controls which request body content type Portman u
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
         "variations": [
           {
             "name": "defaultRequest",
@@ -149,6 +147,8 @@ The `openApiRequest` property controls which request body content type Portman u
 }
 ```
 
+![Postman collection without openApiRequest](./images/Without-request.png)
+
 **Explicit request types**
 
 ```json
@@ -156,11 +156,11 @@ The `openApiRequest` property controls which request body content type Portman u
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiRequest": "application/json",
         "variations": [
           {
             "name": "jsonRequest",
-            "openApiRequest": "application/json",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -174,16 +174,18 @@ The `openApiRequest` property controls which request body content type Portman u
 }
 ```
 
+![Postman collection with JSON openApiRequest](./images/Single-openApiRequest-json.png)
+
 ```json
 {
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiRequest": "application/xml",
         "variations": [
           {
             "name": "xmlRequest",
-            "openApiRequest": "application/xml",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -197,16 +199,18 @@ The `openApiRequest` property controls which request body content type Portman u
 }
 ```
 
+![Postman collection with XML openApiRequest](./images/Single-openApiRequest-xml.png)
+
 ```json
 {
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiRequest": "text/plain",
         "variations": [
           {
             "name": "textRequest",
-            "openApiRequest": "text/plain",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -219,6 +223,8 @@ The `openApiRequest` property controls which request body content type Portman u
   }
 }
 ```
+
+![Postman collection with Plain Text openApiRequest](./images/Single-openApiRequest-plain.png)
 
 **Wildcard request type**
 
@@ -227,11 +233,11 @@ The `openApiRequest` property controls which request body content type Portman u
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiRequest": "*/*",
         "variations": [
           {
             "name": "wildcardRequest",
-            "openApiRequest": "*/*",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -245,11 +251,13 @@ The `openApiRequest` property controls which request body content type Portman u
 }
 ```
 
+![Postman collection with Wildcard openApiRequest](./images/Single-openApiRequest-wildcard.png)
+
 Supported values include `application/json`, `application/xml` and `text/plain`.
 
 ### `openApiResponse` examples
 
-The `openApiResponse` property selects the expected response code and content type. The examples below include the minimal `tests` block to show how they fit into a variation object.
+The `openApiResponse` property selects the expected response code and content type. In these examples it is defined alongside `openApiOperationId` inside the `variationTests` items.
 
 **Without `openApiResponse`**
 
@@ -258,7 +266,7 @@ The `openApiResponse` property selects the expected response code and content ty
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
         "variations": [
           {
             "name": "defaultResponse",
@@ -275,6 +283,8 @@ The `openApiResponse` property selects the expected response code and content ty
 }
 ```
 
+![Postman collection without openApiResponse](./images/Without-response.png)
+
 **Status code only**
 
 ```json
@@ -282,11 +292,11 @@ The `openApiResponse` property selects the expected response code and content ty
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiResponse": "400",
         "variations": [
           {
             "name": "onlyStatusCode",
-            "openApiResponse": "400",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -299,6 +309,8 @@ The `openApiResponse` property selects the expected response code and content ty
   }
 }
 ```
+
+![Postman collection without openApiResponse](./images/Single-openApiResponse-code.png)
 
 **Status code and content type**
 
@@ -307,11 +319,11 @@ The `openApiResponse` property selects the expected response code and content ty
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiResponse": "200::application/json",
         "variations": [
           {
             "name": "jsonResponse",
-            "openApiResponse": "200::application/json",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -324,6 +336,7 @@ The `openApiResponse` property selects the expected response code and content ty
   }
 }
 ```
+![Postman collection with openApiResponse code](./images/Single-openApiResponse-code-json.png)
 
 **Wildcard content type**
 
@@ -332,11 +345,11 @@ The `openApiResponse` property selects the expected response code and content ty
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
+        "openApiResponse": "200::*",
         "variations": [
           {
             "name": "wildcardResponse",
-            "openApiResponse": "200::*",
             "tests": {
               "contractTests": [
                 { "statusCode": { "enabled": true } }
@@ -349,6 +362,8 @@ The `openApiResponse` property selects the expected response code and content ty
   }
 }
 ```
+
+![Postman collection with wildcard openApiResponse](./images/Single-openApiResponse-wildcard.png)
 
 All combinations of `openApiResponse` for this example include:
 
@@ -358,3 +373,34 @@ All combinations of `openApiResponse` for this example include:
 - `400::application/json`
 - `400::application/xml`
 - `400::text/plain`
+
+### Combined `openApiRequest` and `openApiResponse` example
+
+**Wildcard Request and Response content type**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "createExample",
+        "openApiRequest": "*",
+        "openApiResponse": "*::*",
+        "variations": [
+          {
+            "name": "wildcardRequestResponse",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+![Postman collection with wildcard openApiRequest openApiResponse](./images/full-wildcard.png)
+
