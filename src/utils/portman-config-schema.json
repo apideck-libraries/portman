@@ -1957,6 +1957,9 @@
                     "name": {
                       "type": "string"
                     },
+                    "openApiRequest": {
+                      "type": "string"
+                    },
                     "openApiResponse": {
                       "type": "string"
                     },
