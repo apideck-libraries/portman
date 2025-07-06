@@ -377,6 +377,7 @@ The contract tests are grouped in an array of `contractTests`.
 - **openApiOperationId (String)** : References to the OpenAPI operationId. (example: `leadsAll`)
 - **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, example: `['leadsAll', 'companiesAll', 'contactsAll']`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
+- **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) to use for the contract test. If not defined, the default request content-type from OpenAPI will be used.
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
 
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx

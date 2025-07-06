@@ -54,6 +54,8 @@ tests:
   # The first * means match any request type, ie: GET, POST, etc..
   # The second * means match any endpoint in the /crm/ path
   - openApiOperation: "*::/crm/*"
+    # Specify a preferred request Content-Type when multiple are available
+    openApiRequest: "application/json"
     # Check that the API returned a 200 response
     statusSuccess:
       enabled: true

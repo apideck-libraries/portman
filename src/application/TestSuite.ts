@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types'
-import { Collection } from 'postman-collection'
+import { Collection, Header } from 'postman-collection'
 import {
   applyOverwrites,
   assignCollectionVariables,
@@ -41,7 +41,13 @@ import {
 } from '../types'
 import { inRange } from '../utils'
 import { inOperations } from '../utils/inOperations'
-import { parseOpenApiResponse } from '../utils'
+import {
+  parseOpenApiResponse,
+  parseOpenApiRequest,
+  matchWildcard,
+  getRequestBodyExample
+} from '../utils'
+import { getRawLanguageFromContentType } from '../utils/getRequestBodyExample'
 
 export class TestSuite {
   public collection: Collection
@@ -109,6 +115,40 @@ export class TestSuite {
         const operation = oaOperation || this.oasParser.getOperationByPath(pmOperation.pathRef)
 
         if (operation) {
+          // Apply openApiRequest preferences
+          if (contractTest.openApiRequest) {
+            const reqInfo = parseOpenApiRequest(contractTest.openApiRequest)
+            let reqContentType = reqInfo?.contentType
+            if (
+              reqContentType &&
+              reqContentType.includes('*') &&
+              operation.schema?.requestBody
+            ) {
+              const reqObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
+              const matchCt = Object.keys(reqObj.content || {}).find(ct =>
+                matchWildcard(ct, reqContentType as string)
+              )
+              if (matchCt) reqContentType = matchCt
+            }
+
+            if (reqContentType) {
+              pmOperation.item.request.upsertHeader({
+                key: 'Content-Type',
+                value: reqContentType
+              } as Header)
+
+              const reqBodyObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
+              const example = getRequestBodyExample(reqBodyObj, reqContentType)
+              if (example && pmOperation.item.request.body) {
+                pmOperation.item.request.body.mode = 'raw'
+                pmOperation.item.request.body.raw = example
+                const lang = getRawLanguageFromContentType(reqContentType)
+                ;(pmOperation.item.request.body as any).options = {
+                  raw: { language: lang, headerFamily: lang }
+                }
+              }
+            }
+          }
           // Inject response tests
           this.injectContractTests(
             pmOperation,
