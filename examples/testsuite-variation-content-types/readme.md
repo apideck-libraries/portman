@@ -120,3 +120,241 @@ file: examples/testsuite-variation-content-types/portman-config.ct.json >>
   content types.
 - **errorResponse** - Expects a `400` response by overwriting the request body to
   trigger an error.
+
+### `openApiRequest` examples
+
+The `openApiRequest` property controls which request body content type Portman uses for a variation. These examples show complete variation objects that live inside the `variationTests[].variations` array.
+
+**Without `openApiRequest`**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "defaultRequest",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Explicit request types**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "jsonRequest",
+            "openApiRequest": "application/json",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "xmlRequest",
+            "openApiRequest": "application/xml",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "textRequest",
+            "openApiRequest": "text/plain",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Wildcard request type**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "wildcardRequest",
+            "openApiRequest": "*/*",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Supported values include `application/json`, `application/xml` and `text/plain`.
+
+### `openApiResponse` examples
+
+The `openApiResponse` property selects the expected response code and content type. The examples below include the minimal `tests` block to show how they fit into a variation object.
+
+**Without `openApiResponse`**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "defaultResponse",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Status code only**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "onlyStatusCode",
+            "openApiResponse": "400",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Status code and content type**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "jsonResponse",
+            "openApiResponse": "200::application/json",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Wildcard content type**
+
+```json
+{
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "getExample",
+        "variations": [
+          {
+            "name": "wildcardResponse",
+            "openApiResponse": "200::*",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+All combinations of `openApiResponse` for this example include:
+
+- `200::application/json`
+- `200::application/xml`
+- `200::text/plain`
+- `400::application/json`
+- `400::application/xml`
+- `400::text/plain`
