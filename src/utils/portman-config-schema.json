@@ -1072,6 +1072,9 @@
               "openApiRequest": {
                 "type": "string"
               },
+              "openApiResponse": {
+                "type": "string"
+              },
               "responseTime": {
                 "additionalProperties": false,
                 "properties": {

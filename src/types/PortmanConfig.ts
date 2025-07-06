@@ -32,6 +32,7 @@ export type ContractTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   openApiRequest?: string
+  openApiResponse?: string
   excludeForOperations?: string[]
   statusSuccess?: StatusSuccess
   statusCode?: StatusCode
@@ -47,6 +48,8 @@ export type ContentTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  openApiRequest?: string
+  openApiResponse?: string
   excludeForOperations?: string[]
   responseBodyTests?: ResponseBodyTest[]
   responseHeaderTests?: ResponseHeaderTest[]

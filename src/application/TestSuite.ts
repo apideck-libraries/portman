@@ -145,14 +145,36 @@ export class TestSuite {
               }
             }
           }
+          // Apply openApiResponse preferences
+          let respCode = openApiResponseCode
+          let respContentType = openApiContentType
+          if (contractTest.openApiResponse) {
+            const respInfo = parseOpenApiResponse(contractTest.openApiResponse)
+            if (respInfo) {
+              respCode = respInfo.code
+              respContentType = respInfo.contentType
+              if (
+                respContentType &&
+                respContentType.includes('*') &&
+                operation.schema?.responses?.[respCode]
+              ) {
+                const respObj = operation.schema.responses[respCode] as OpenAPIV3.ResponseObject
+                const matchCt = Object.keys(respObj.content || {}).find(ct =>
+                  matchWildcard(ct, respContentType as string)
+                )
+                if (matchCt) respContentType = matchCt
+              }
+              if (respContentType) {
+                pmOperation.item.request.upsertHeader({
+                  key: 'Accept',
+                  value: respContentType
+                } as Header)
+              }
+            }
+          }
+
           // Inject response tests
-          this.injectContractTests(
-            pmOperation,
-            operation,
-            contractTest,
-            openApiResponseCode,
-            openApiContentType
-          )
+          this.injectContractTests(pmOperation, operation, contractTest, respCode, respContentType)
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)

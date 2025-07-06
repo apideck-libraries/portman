@@ -56,6 +56,8 @@ tests:
   - openApiOperation: "*::/crm/*"
     # Specify a preferred request Content-Type when multiple are available
     openApiRequest: "application/json"
+    # Specify a preferred response Content-Type when multiple are available
+    openApiResponse: "200::application/json"
     # Check that the API returned a 200 response
     statusSuccess:
       enabled: true
