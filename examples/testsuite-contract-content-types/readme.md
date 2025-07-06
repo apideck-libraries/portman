@@ -5,8 +5,7 @@ request and response content types defined in an OpenAPI document.
 The provided OpenAPI spec exposes a single `/example` endpoint that accepts and
 returns XML, JSON and plain text formats.
 
-_use-case_: generate a Postman collection with contract tests for every
-combination of request and response content type.
+_use-case_: generate a Postman collection with a contract test that target a specific request body and response content-type
 
 ## Try this example yourself using the portman CLI
 

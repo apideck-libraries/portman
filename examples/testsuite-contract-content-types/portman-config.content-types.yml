@@ -33,3 +33,7 @@ tests:
       openApiResponse: "200::*"
       statusSuccess:
         enabled: true
+globals:
+  # For every request generated omit the Postman examples
+  # This helps keep the generated test collection leaner
+  stripResponseExamples: true

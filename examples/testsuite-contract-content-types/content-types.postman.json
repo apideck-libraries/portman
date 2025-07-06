@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "2997daa6-1f0a-4d52-9a18-7752589ef02d"
+    "postman_id": "d2503570-4359-4481-a91c-e2288923d8e3"
   },
   "item": [
     {
-      "id": "4843fdf2-f275-4868-878a-9a9a7e7ec80b",
+      "id": "832e2b90-25db-45a8-bd26-ab1d5c277551",
       "name": "Get example response",
       "request": {
         "name": "Get example response",
@@ -43,113 +43,12 @@
           }
         }
       },
-      "response": [
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "32a15c33-9655-4846-9af7-8c036e53f003",
-          "name": "Successful response",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "example"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/xml"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
-              "options": {
-                "raw": {
-                  "headerFamily": "json",
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "OK",
-          "code": 200,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"message\": \"laboris Ut esse\",\n  \"code\": 90096645\n}",
-          "cookie": []
-        },
-        {
-          "_": {
-            "postman_previewlanguage": "json"
-          },
-          "id": "fdb47837-f4ce-45a1-b134-302f47cfe7ff",
-          "name": "Bad request",
-          "originalRequest": {
-            "url": {
-              "path": [
-                "example"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
-              "options": {
-                "raw": {
-                  "headerFamily": "json",
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "status": "Bad Request",
-          "code": 400,
-          "header": [
-            {
-              "key": "Content-Type",
-              "value": "application/json"
-            }
-          ],
-          "body": "{\n  \"error\": \"sed minim exercitation\",\n  \"hint\": \"labore\"\n}",
-          "cookie": []
-        }
-      ],
+      "response": [],
       "event": [
         {
           "listen": "test",
           "script": {
-            "id": "fca32a7e-d366-4768-a005-601ce0db8799",
+            "id": "7b7e9d79-15ed-4121-85f9-ca689fc381f4",
             "type": "text/javascript",
             "exec": [
               "// Validate status 2xx \npm.test(\"[POST]::/example - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -172,11 +71,16 @@
       "type": "any",
       "value": "/",
       "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "12345678901",
+      "key": "bearerToken"
     }
   ],
   "info": {
-    "_postman_id": "2997daa6-1f0a-4d52-9a18-7752589ef02d",
-    "name": "460 - Content-types",
+    "_postman_id": "d2503570-4359-4481-a91c-e2288923d8e3",
+    "name": "Portman Contract tests - Target content-type",
     "version": {
       "raw": "1.0.0",
       "major": 1,
