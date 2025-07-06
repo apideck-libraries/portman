@@ -391,7 +391,7 @@ The contract tests are grouped in an array of `contractTests`.
   - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`.
 - **headersPresent (Boolean)** : Adds the test to verify if the Postman response header has the required header names present, like defined in the OpenAPI spec.
 
-For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests).
+For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests) and the [testsuite-contract-content-types example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-content-types) for some more details about targeting request body & response content-types.
 
 #### variationTests options
 
