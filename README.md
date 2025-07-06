@@ -117,6 +117,7 @@ Options:
  --local, -l                Use local OAS to port to Postman collection                                      [string]
  --baseUrl, -b              Override spec baseUrl to use in Postman                                          [string]
  --output, -o               Write the Postman collection to an output file                                   [string]
+ --brunoOutput              Write the Bruno collection to an output file                                     [string]
  --oaOutput                 Write the (filtered) OpenAPI file to an output file                              [string]
  --runNewman, -n            Run Newman on newly created collection                                           [boolean]
  --newmanRunOptions         JSON stringified object to pass options for configuring Newman                   [string]
@@ -309,6 +310,8 @@ NOTE: Newman is set to ignore redirects to allow for testing redirect response c
 Without specifying the output location, your generated Postman Collection is written to `./tmp/converted/${specName}.json` if you are manually importing to Postman or need to inspect for debugging.
 
 By using `-o` or `--output` parameter, you can define the location where the Postman collection will be written.
+
+To generate a Bruno collection as well, specify the `--brunoOutput` parameter.
 
 ```
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json

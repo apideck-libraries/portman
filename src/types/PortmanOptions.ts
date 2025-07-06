@@ -5,6 +5,7 @@ export interface PortmanOptions {
   local?: string
   baseUrl?: string
   output?: string
+  brunoOutput?: string
   runNewman?: boolean
   newmanIterationData?: string
   newmanRunOptions?: string | Partial<NewmanRunOptions>

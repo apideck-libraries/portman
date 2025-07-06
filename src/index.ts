@@ -32,6 +32,10 @@ require('dotenv').config()
       describe: 'Write the Postman collection to an output file',
       type: 'string'
     })
+    .option('brunoOutput', {
+      describe: 'Write the Bruno collection to an output file',
+      type: 'string'
+    })
     .option('n', {
       alias: 'runNewman',
       describe: 'Run Newman on newly created collection',
@@ -235,6 +239,7 @@ require('dotenv').config()
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
   const oaOutput = options.oaOutput || ''
+  const brunoOutput = options.brunoOutput || ''
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
   const warn = options?.warn || true
@@ -258,6 +263,7 @@ require('dotenv').config()
     envFile,
     filterFile,
     oaOutput,
+    brunoOutput,
     collectionName,
     logAssignVariables,
     warn,

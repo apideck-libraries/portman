@@ -34,6 +34,10 @@ jest.mock('../services/PostmanSyncService', () => {
   }
 })
 
+jest.mock('@usebruno/converters', () => ({
+  postmanToBruno: jest.fn(() => ({ collection: 'bruno' }))
+}))
+
 afterAll(() => {
   jest.restoreAllMocks()
 })
@@ -325,6 +329,28 @@ describe('Portman', () => {
       expect(portman.collectionFile).toBe(jestCollectionFile)
 
       expect(await fs.pathExists(jestCollectionFile)).toBe(true)
+    })
+  })
+
+  describe('Portman.writeBrunoCollectionToFile()', () => {
+    const testBrunoFile = './tmp/test-bruno.json'
+
+    it('should write bruno collection to file', async () => {
+      try {
+        await fs.rm(testBrunoFile)
+      } catch (e) {
+        // ignore
+      }
+      expect(await fs.pathExists(testBrunoFile)).toBe(false)
+
+      const portman = new Portman({
+        ...options,
+        brunoOutput: testBrunoFile
+      })
+
+      await portman.run()
+
+      expect(await fs.pathExists(testBrunoFile)).toBe(true)
     })
   })
 

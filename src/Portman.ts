@@ -24,8 +24,10 @@ import { PortmanConfig, PortmanTestTypes, Track } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
+import { normalizePostmanDescriptions } from './utils/normalizePostmanDescriptions'
 import { changeCase } from 'openapi-format'
 import _ from 'lodash'
+import { postmanToBruno } from '@usebruno/converters'
 
 export class Portman {
   config: PortmanConfig
@@ -67,7 +69,7 @@ export class Portman {
     this.injectVariationOverwrites()
     this.injectIntegrationTests()
     this.moveContractTestsToFolder()
-    this.writePortmanCollectionToFile()
+    await this.writePortmanCollectionToFile()
     await this.runNewmanSuite()
     await this.syncCollectionToPostman()
 
@@ -108,6 +110,7 @@ export class Portman {
         postmanConfigFile,
         filterFile,
         oaOutput,
+        brunoOutput,
         envFile,
         ignoreCircularRefs,
         includeTests,
@@ -124,6 +127,7 @@ export class Portman {
     oaUrl && console.log(chalk`{cyan  Remote Url: } \t\t{green ${oaUrl}}`)
     oaLocal && console.log(chalk`{cyan  Local Path: } \t\t{green ${oaLocal}}`)
     output && console.log(chalk`{cyan  Output Path: } \t\t{green ${output}}`)
+    brunoOutput && console.log(chalk`{cyan  Bruno Output Path: } \t{green ${brunoOutput}}`)
     oaOutput && console.log(chalk`{cyan  OpenAPI Output Path: } \t{green ${oaOutput}}`)
 
     cliOptionsFile && console.log(chalk`{cyan  Portman CLI Config: } \t{green ${cliOptionsFile}}`)
@@ -492,13 +496,16 @@ export class Portman {
     this.portmanCollection = this.postmanParser.collection.toJSON()
   }
 
-  writePortmanCollectionToFile(): void {
+  async writePortmanCollectionToFile(): Promise<void> {
     // --- Portman - Write Postman collection to file
-    const { output } = this.options
+    const { output, brunoOutput } = this.options
     const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
     let postmanCollectionFile = `./tmp/converted/${changeCase(fileName, 'camelCase')}.json`
+    let brunoCollectionFile = `./tmp/converted/bruno-${changeCase(fileName, 'camelCase')}.json`
+
+    // Set output as Postman collection file
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {
@@ -508,6 +515,10 @@ export class Portman {
         )
         process.exit(1)
       }
+    }
+    // Set output as Bruno collection file
+    if (brunoOutput) {
+      brunoCollectionFile = brunoOutput as string
     }
 
     try {
@@ -535,14 +546,28 @@ export class Portman {
 
       let collectionString = JSON.stringify(this.portmanCollection, null, 2)
 
-      // --- Portman - Replace & clean-up Portman
+      // --- Portman - Replace & cleanup Portman
       if (globals?.portmanReplacements) {
         collectionString = writeRawReplacements(collectionString, globals.portmanReplacements)
         this.portmanCollection = new Collection(JSON.parse(collectionString)).toJSON()
       }
 
-      fs.outputFileSync(postmanCollectionFile, collectionString, 'utf8')
-      this.collectionFile = postmanCollectionFile
+      // Convert Postman to Bruno collection
+      if (brunoOutput) {
+        const postmanJson = normalizePostmanDescriptions(JSON.parse(collectionString))
+        const brunoCollection = await postmanToBruno(postmanJson)
+        const brunoCollectionString = JSON.stringify(brunoCollection, null, 2)
+
+        // Write Bruno collection file
+        fs.outputFileSync(brunoCollectionFile, brunoCollectionString, 'utf8')
+        this.collectionFile = brunoCollectionFile
+      }
+
+      // Write Postman collection file
+      if (output) {
+        fs.outputFileSync(postmanCollectionFile, collectionString, 'utf8')
+        this.collectionFile = postmanCollectionFile
+      }
     } catch (err) {
       console.error(
         '\x1b[31m',
