@@ -4,6 +4,7 @@
     "variationTests": [
       {
         "openApiOperationId": "createExample",
+
         "variations": [
           {
             "name": "jsonRequestJsonResponse",
@@ -58,8 +59,6 @@
           },
           {
             "name": "wildcardContentTypes",
-            "openApiRequest": "*/*",
-            "openApiResponse": "200::*",
             "tests": {
               "contractTests": [
                 {
