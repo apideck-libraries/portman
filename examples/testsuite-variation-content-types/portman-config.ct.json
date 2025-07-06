@@ -3,7 +3,7 @@
   "tests": {
     "variationTests": [
       {
-        "openApiOperationId": "getExample",
+        "openApiOperationId": "createExample",
         "variations": [
           {
             "name": "jsonRequestJsonResponse",

@@ -5,8 +5,8 @@ info:
 paths:
   /example:
     post:
-      summary: Get example response
-      operationId: getExample
+      summary: Create example
+      operationId: createExample
       requestBody:
         content:
           application/xml:
