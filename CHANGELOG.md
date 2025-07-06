@@ -1,5 +1,11 @@
 ## [Unreleased]
 
+- Variations: Set content-type for response
+- Variations: Set content-type for request body
+- Contract testing: Set content-type for request body
+- Contract testing: Set content-type for response
+- Bumped dependencies: openapi-format 1.27.1
+
 ## v1.31.1 - (2025-04-03)
 
 - Removed Clearbit references (#693)
