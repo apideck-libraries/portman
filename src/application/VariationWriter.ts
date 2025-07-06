@@ -124,18 +124,23 @@ export class VariationWriter {
 
           if (fuzzingSet) {
             this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
+            // Generate new variation for each Fuzz of the request body
             this.fuzzer.injectFuzzRequestBodyVariations(
               pmOperation,
               oaOperation,
               updatedVariation,
               variationMeta
             )
+
+            // Generate new variation for each Fuzz of the request query params
             this.fuzzer.injectFuzzRequestQueryParamsVariations(
               pmOperation,
               oaOperation,
               updatedVariation,
               variationMeta
             )
+
+            // Generate new variation for each Fuzz of the request headers
             this.fuzzer.injectFuzzRequestHeadersVariations(
               pmOperation,
               oaOperation,
@@ -143,15 +148,18 @@ export class VariationWriter {
               variationMeta
             )
 
+            // Inject fuzzed variations to the folder
             this.fuzzer.fuzzVariations.map(operationVariation => {
               this.addToLocalCollection(operationVariation, folderId, folderName)
             })
           } else {
+            // Normal variation
             const operationVariation = pmOperation.clone({
               newId: changeCase(variationName, 'camelCase'),
               name: variationName
             })
 
+            // Set/Update Portman operation test type
             this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
 
             this.injectVariations(operationVariation, oaOperation, updatedVariation, variationMeta)
