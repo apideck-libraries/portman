@@ -1,0 +1,35 @@
+version: 1
+tests:
+  contractTests:
+    # Use JSON request and expect JSON response with code 200
+    - openApiOperation: "POST::/example"
+      openApiRequest: "application/json"
+      openApiResponse: "200::application/json"
+      statusSuccess:
+        enabled: true
+    # Use XML request and expect XML response with code 200
+    - openApiOperation: "POST::/example"
+      openApiRequest: "application/xml"
+      openApiResponse: "200::application/xml"
+      statusCode:
+        enabled: true
+        code: 200
+    # Use Plain text request and expect Plain text response with code 200
+    - openApiOperation: "POST::/example"
+      openApiRequest: "text/plain"
+      openApiResponse: "200::text/plain"
+      contentType:
+        enabled: true
+    # Use JSON request and expect error code 400 regardless of response content type
+    - openApiOperation: "POST::/example"
+      openApiRequest: "application/json"
+      openApiResponse: "400"
+      statusCode:
+        enabled: true
+        code: 400
+    # Use wildcard request and response content types for all 200 responses
+    - openApiOperation: "POST::/example"
+      openApiRequest: "*/*"
+      openApiResponse: "200::*"
+      statusSuccess:
+        enabled: true

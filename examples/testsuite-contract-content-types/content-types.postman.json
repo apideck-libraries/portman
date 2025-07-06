@@ -1,0 +1,195 @@
+{
+  "_": {
+    "postman_id": "2997daa6-1f0a-4d52-9a18-7752589ef02d"
+  },
+  "item": [
+    {
+      "id": "4843fdf2-f275-4868-878a-9a9a7e7ec80b",
+      "name": "Get example response",
+      "request": {
+        "name": "Get example response",
+        "description": {
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "example"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "<ExampleRequest>\n  <input>Hello, XML!</input>\n  <code>42</code>\n</ExampleRequest>\n",
+          "options": {
+            "raw": {
+              "language": "xml",
+              "headerFamily": "xml"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "32a15c33-9655-4846-9af7-8c036e53f003",
+          "name": "Successful response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "example"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"message\": \"laboris Ut esse\",\n  \"code\": 90096645\n}",
+          "cookie": []
+        },
+        {
+          "_": {
+            "postman_previewlanguage": "json"
+          },
+          "id": "fdb47837-f4ce-45a1-b134-302f47cfe7ff",
+          "name": "Bad request",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "example"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": \"sed minim exercitation\",\n  \"hint\": \"labore\"\n}",
+          "cookie": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "fca32a7e-d366-4768-a005-601ce0db8799",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate status 2xx \npm.test(\"[POST]::/example - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
+              "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n",
+              "// Validate if response header has matching content-type\npm.test(\"[POST]::/example - Content-Type is text/plain\", function () {\n   pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\");\n});\n",
+              "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 400\", function () {\n    pm.expect(pm.response.code).to.equal(400);\n});\n",
+              "// Validate status 2xx \npm.test(\"[POST]::/example - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "any",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2997daa6-1f0a-4d52-9a18-7752589ef02d",
+    "name": "460 - Content-types",
+    "version": {
+      "raw": "1.0.0",
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": [],
+      "build": [],
+      "string": "1.0.0"
+    },
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

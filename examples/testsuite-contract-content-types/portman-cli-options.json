@@ -1,0 +1,9 @@
+{
+  "local": "./examples/testsuite-contract-content-types/content-types.openapi.yml",
+  "output": "./examples/testsuite-contract-content-types/content-types.postman.json",
+  "portmanConfigFile": "./examples/testsuite-contract-content-types/portman-config.content-types.yml",
+  "postmanConfigFile": "./examples/testsuite-contract-content-types/postman-config.content-types.json",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": false
+}
