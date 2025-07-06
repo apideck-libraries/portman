@@ -11698,6 +11698,76 @@ pm.test(\\"[POST]::/multi - Response status code is 200\\", function () {
 }
 `;
 
+exports[`contractTests openApiRequest content-type should use a specific request content-type when multiple are available 2`] = `
+Object {
+  "_": Object {
+    "postman_id": "11111111-1111-1111-1111-111111111111",
+  },
+  "event": Array [],
+  "info": Object {
+    "name": "Request Multi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": undefined,
+  },
+  "item": Array [
+    Object {
+      "event": Array [
+        Object {
+          "listen": "test",
+          "script": Object {
+            "exec": Array [
+              "// Validate response status code 
+pm.test(\\"[POST]::/multi - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+            ],
+            "type": "text/javascript",
+          },
+        },
+      ],
+      "name": "Create multi",
+      "request": Object {
+        "body": Object {
+          "mode": "raw",
+          "options": Object {
+            "raw": Object {
+              "language": "json",
+            },
+          },
+          "raw": "{\\"value\\":\\"example\\"}",
+        },
+        "header": Array [
+          Object {
+            "key": "Content-Type",
+            "value": "text/plain",
+          },
+        ],
+        "method": "POST",
+        "url": Object {
+          "host": Array [
+            "{{baseUrl}}",
+          ],
+          "path": Array [
+            "multi",
+          ],
+          "query": Array [],
+          "variable": Array [],
+        },
+      },
+      "response": Array [],
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "type": "any",
+      "value": "https://example.com",
+    },
+  ],
+}
+`;
+
 exports[`contractTests openApiResponse content-type should use a specific response content-type when multiple are available 1`] = `
 Object {
   "_": Object {
@@ -11740,76 +11810,6 @@ pm.test(\\"[POST]::/multi - Response status code is 200\\", function () {
         "header": Array [
           Object {
             "key": "Accept",
-            "value": "text/plain",
-          },
-        ],
-        "method": "POST",
-        "url": Object {
-          "host": Array [
-            "{{baseUrl}}",
-          ],
-          "path": Array [
-            "multi",
-          ],
-          "query": Array [],
-          "variable": Array [],
-        },
-      },
-      "response": Array [],
-    },
-  ],
-  "variable": Array [
-    Object {
-      "key": "baseUrl",
-      "type": "any",
-      "value": "https://example.com",
-    },
-  ],
-}
-`;
-
-exports[`contractTests openApiRequest content-type should use a specific request content-type when multiple are available 1`] = `
-Object {
-  "_": Object {
-    "postman_id": "11111111-1111-1111-1111-111111111111",
-  },
-  "event": Array [],
-  "info": Object {
-    "name": "Request Multi",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": undefined,
-  },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
-          "listen": "test",
-          "script": Object {
-            "exec": Array [
-              "// Validate response status code 
-pm.test(\\"[POST]::/multi - Response status code is 200\\", function () {
-    pm.expect(pm.response.code).to.equal(200);
-});
-",
-            ],
-            "type": "text/javascript",
-          },
-        },
-      ],
-      "name": "Create multi",
-      "request": Object {
-        "body": Object {
-          "mode": "raw",
-          "options": Object {
-            "raw": Object {
-              "language": "json",
-            },
-          },
-          "raw": "{\\"value\\":\\"example\\"}",
-        },
-        "header": Array [
-          Object {
-            "key": "Content-Type",
             "value": "text/plain",
           },
         ],
