@@ -1,0 +1,10 @@
+{
+  "local": "./examples/testsuite-variation-content-types/content-types.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "output": "./examples/testsuite-variation-content-types/content-types.postman.json",
+  "portmanConfigFile": "./examples/testsuite-variation-content-types/portman-config.ct.json",
+  "postmanConfigFile": "./examples/testsuite-variation-content-types/postman-config.ct.json",
+  "includeTests": true,
+  "syncPostman": false,
+  "runNewman": false
+}

@@ -409,7 +409,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
   - **extendTests** : refers to the custom additions of manual created Postman tests to be included in the variation.
 - **assignVariables** : This refers to setting Postman collection variables that are assigned based on variation.
 
-For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests).
+For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests) and the [content-type variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-content-types).
 
 #### integrationTests options
 

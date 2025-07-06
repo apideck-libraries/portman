@@ -1,0 +1,101 @@
+openapi: 3.1.0
+info:
+  title: 460 - Content-types
+  version: 1.0.0
+paths:
+  /example:
+    post:
+      summary: Get example response
+      operationId: getExample
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                code:
+                  type: integer
+            example: |
+              <ExampleRequest>
+                <input>Hello, XML!</input>
+                <code>42</code>
+              </ExampleRequest>
+          application/json:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                code:
+                  type: integer
+            example:
+              input: "Hello, JSON!"
+              code: 42
+          text/plain:
+            schema:
+              type: object
+              properties:
+                input:
+                  type: string
+                code:
+                  type: integer
+            example: |
+              input: Hello, Plaintext!
+              code: 42
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: integer
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: integer
+            text/plain:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  code:
+                    type: integer
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  hint:
+                    type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  hint:
+                    type: string
+            text/plain:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  hint:
+                    type: string
