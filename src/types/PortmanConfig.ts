@@ -31,6 +31,8 @@ export type ContractTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  openApiRequest?: string
+  openApiResponse?: string
   excludeForOperations?: string[]
   statusSuccess?: StatusSuccess
   statusCode?: StatusCode
@@ -46,6 +48,8 @@ export type ContentTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  openApiRequest?: string
+  openApiResponse?: string
   excludeForOperations?: string[]
   responseBodyTests?: ResponseBodyTest[]
   responseHeaderTests?: ResponseHeaderTest[]
@@ -67,12 +71,14 @@ export type VariationTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
+  openApiRequest?: string
   openApiResponse?: string
   variations: VariationConfig[]
 }
 
 export type VariationConfig = {
   name: string
+  openApiRequest?: string
   openApiResponse?: string
   overwrites?: any
   fuzzing?: fuzzingConfig[]

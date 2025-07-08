@@ -378,6 +378,10 @@ The contract tests are grouped in an array of `contractTests`.
 - **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, example: `['leadsAll', 'companiesAll', 'contactsAll']`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+- **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) to use for the contract test. If not defined, the default request content-type from OpenAPI will be used, with a preference for `application/json`.
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code or `code::content-type` (supports wildcards like `text/*`) for which a contract test will be inserted. Examples: `"404"`, `"200::text/plain"`, `"200::text/*"`. If not defined, the 1st response object from OpenAPI will be taken as expected response.
+
+  Contract tests are always attached to the main request that Portman generates for an operation. When your OpenAPI document lists multiple request or response content types, only one set will be used for that request. You can control which types are selected with the `openApiRequest` and `openApiResponse` options. To create individual requests for every content type, use the variation testing concept described below.
 
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
 - **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
@@ -389,7 +393,7 @@ The contract tests are grouped in an array of `contractTests`.
   - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`.
 - **headersPresent (Boolean)** : Adds the test to verify if the Postman response header has the required header names present, like defined in the OpenAPI spec.
 
-For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests).
+For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests) and the [testsuite-contract-content-types example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-content-types) for some more details about targeting request body & response content-types.
 
 #### variationTests options
 
@@ -397,7 +401,8 @@ For more details, review the [contract-tests example](https://github.com/apideck
 - **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, example: `['leadsAll', 'companiesAll', 'contactsAll']`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path for which a variation will be created. (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
-- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured `openApiResponse` code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code or `code::content-type` (supports wildcards like `text/*`) for which a variation will be created. Examples: `"404"`, `"200::text/plain"`, `"200::text/*"`. If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured response code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
+- **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) for which a variation will be created. If not defined, the default request content-type from OpenAPI will be used.
 
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
 - **fuzzing** : Fuzz testing sets unexpected values for API requests, to cause unexpected behavior and errors in the API response.
@@ -407,7 +412,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
   - **extendTests** : refers to the custom additions of manual created Postman tests to be included in the variation.
 - **assignVariables** : This refers to setting Postman collection variables that are assigned based on variation.
 
-For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests).
+For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests) and the [content-type variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-content-types).
 
 #### integrationTests options
 

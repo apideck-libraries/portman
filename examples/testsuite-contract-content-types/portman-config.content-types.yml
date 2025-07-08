@@ -1,0 +1,14 @@
+version: 1
+tests:
+  contractTests:
+    # Use XML request and expect XML response with code 200
+    - openApiOperation: "POST::/*"
+      openApiRequest: "application/xml"
+      openApiResponse: "200::application/xml"
+      statusCode:
+        enabled: true
+        code: 200
+globals:
+  # For every request generated omit the Postman examples
+  # This helps keep the generated test collection leaner
+  stripResponseExamples: true
