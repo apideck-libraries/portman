@@ -1,0 +1,611 @@
+{
+  "_": {
+    "postman_id": "e35b0960-3a34-4991-af55-192f51bd9d26"
+  },
+  "item": [
+    {
+      "id": "30069f05-15f1-4777-a0b2-6520fd7cfedb",
+      "name": "Create example",
+      "request": {
+        "name": "Create example",
+        "description": {
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "example"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
+          "options": {
+            "raw": {
+              "headerFamily": "json",
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "346e664f-0958-4e4d-a153-c75119eee68f",
+      "name": "Variation Tests",
+      "item": [
+        {
+          "id": "f4e5d7be-7628-47a8-bdb4-5dac5f58bc40",
+          "name": "Portman Variation tests - Target content-type Variations",
+          "item": [
+            {
+              "id": "9cbea7ab-138a-473b-8bb3-189063c0a78d",
+              "name": "Create example[wildcardRequestResponse][application/xml][application/xml]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][application/xml][application/xml]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/xml"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<ExampleRequest>\n  <input>Hello, XML!</input>\n  <code>42</code>\n</ExampleRequest>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml",
+                      "headerFamily": "xml"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "5a413501-f6d8-4f90-81f0-4c105e056f56",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "df1177d1-8b3f-4197-9906-7747cd11fa13",
+              "name": "Create example[wildcardRequestResponse][application/xml][application/json]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][application/xml][application/json]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/xml"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<ExampleRequest>\n  <input>Hello, XML!</input>\n  <code>42</code>\n</ExampleRequest>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml",
+                      "headerFamily": "xml"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "aba1e947-2de1-45de-80db-e1318b8b7356",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "7f8b3db8-e94a-45b3-9a5c-bdb5340643cf",
+              "name": "Create example[wildcardRequestResponse][application/xml][text/plain]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][application/xml][text/plain]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/xml"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<ExampleRequest>\n  <input>Hello, XML!</input>\n  <code>42</code>\n</ExampleRequest>\n",
+                  "options": {
+                    "raw": {
+                      "language": "xml",
+                      "headerFamily": "xml"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "08ec02fc-4a80-4796-9e61-9a202d3fdeae",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "aa31149c-4e22-4d2e-9322-b58f9f4e01bf",
+              "name": "Create example[wildcardRequestResponse][application/json][application/xml]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][application/json][application/xml]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json",
+                      "headerFamily": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "27ee246d-7a26-4da8-9492-861184b65616",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "60f2ea81-dea2-400f-ab81-4ee67fd6a640",
+              "name": "Create example[wildcardRequestResponse][application/json][application/json]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][application/json][application/json]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json",
+                      "headerFamily": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "7d9bf522-2178-4e62-98ab-86151574edd4",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "5f148f71-7e6e-4fef-9639-ffb49b9f3508",
+              "name": "Create example[wildcardRequestResponse][application/json][text/plain]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][application/json][text/plain]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello, JSON!\",\n  \"code\": 42\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json",
+                      "headerFamily": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "4732d118-4259-4755-9f5b-3573611d55ab",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "e06ffe7b-c657-4170-be95-b029d6dcd1a6",
+              "name": "Create example[wildcardRequestResponse][text/plain][application/xml]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][text/plain][application/xml]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "input: Hello, Plaintext!\ncode: 42\n",
+                  "options": {
+                    "raw": {
+                      "language": "text",
+                      "headerFamily": "text"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "be5eed5c-990b-41af-be10-7b63250cc7b8",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "e0311cc3-bf8e-41d4-8c96-5f8be8b6036e",
+              "name": "Create example[wildcardRequestResponse][text/plain][application/json]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][text/plain][application/json]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "input: Hello, Plaintext!\ncode: 42\n",
+                  "options": {
+                    "raw": {
+                      "language": "text",
+                      "headerFamily": "text"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "9629c515-e8e8-4c65-a7a1-821d4873319f",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            },
+            {
+              "id": "b7588d54-28f5-465f-8e3f-1a60acb95464",
+              "name": "Create example[wildcardRequestResponse][text/plain][text/plain]",
+              "request": {
+                "name": "Create example[wildcardRequestResponse][text/plain][text/plain]",
+                "description": {
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "example"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "input: Hello, Plaintext!\ncode: 42\n",
+                  "options": {
+                    "raw": {
+                      "language": "text",
+                      "headerFamily": "text"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "df3deb66-b663-48aa-8ff4-d853736901d3",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Validate response status code \npm.test(\"[POST]::/example - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+                    ]
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              }
+            }
+          ],
+          "event": []
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:3050",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "12345678901",
+      "key": "bearerToken"
+    }
+  ],
+  "info": {
+    "_postman_id": "e35b0960-3a34-4991-af55-192f51bd9d26",
+    "name": "Portman Variation tests - Target content-type",
+    "version": {
+      "raw": "1.0.0",
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": [],
+      "build": [],
+      "string": "1.0.0"
+    },
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
