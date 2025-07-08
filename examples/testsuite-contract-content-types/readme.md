@@ -46,3 +46,25 @@ one for `/example1` and another for `/example2`. Both requests will send and
 expect `application/xml` content types and validate a `200` response code.
 
 ![Postman collection with Contract tests](./images/img.png)
+
+### Understanding the configuration
+
+- **openApiOperation** - can be a specific path/method pair or contain wildcards
+  like `POST::/*` to apply the same test to several operations.
+- **openApiRequest** - tells Portman which request body content type to use when
+  generating the request. Here it is set to `application/xml` so the XML example
+  from the spec is used.
+- **openApiResponse** - selects the expected response status code and content
+  type. This ensures Portman validates the XML schema from the `200` response.
+
+You can duplicate this `contractTests` entry with different settings to create
+additional tests for JSON or plain text. This way you can cover every content
+type your API exposes.
+
+### What's next?
+
+Run the resulting collection in Postman or with Newman to verify your API
+behavior. For more advanced scenarios that combine multiple request and
+response formats, explore the
+[`testsuite-variation-content-types`](../testsuite-variation-content-types)
+example in this repository.

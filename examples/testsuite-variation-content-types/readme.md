@@ -404,3 +404,17 @@ All combinations of `openApiResponse` for this example include:
 
 ![Postman collection with wildcard openApiRequest openApiResponse](./images/full-wildcard.png)
 
+
+### Running the collection
+
+Run the generated Postman collection to see each variation in action. You can use the Postman app or run it headless with Newman:
+
+```bash
+newman run ./content-types.postman.json
+```
+
+Each variation issues a request using the configured `openApiRequest` content type and checks the response as dictated by `openApiResponse`. Feel free to duplicate a variation and adjust these settings to cover any other content types your API supports.
+
+### Tips for combining wildcards
+
+When `openApiRequest` or `openApiResponse` uses wildcards (`*`), Portman picks the first matching example from your specification. This keeps the configuration compact when you want a single test to validate multiple acceptable formats. Mix and match wildcards with explicit values to cover very specific cases alongside broader ones.

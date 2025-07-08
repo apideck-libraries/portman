@@ -381,6 +381,8 @@ The contract tests are grouped in an array of `contractTests`.
 - **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) to use for the contract test. If not defined, the default request content-type from OpenAPI will be used, with a preference for `application/json`.
 - **openApiResponse (String | optional)** : References to the OpenAPI response object code or `code::content-type` (supports wildcards like `text/*`) for which a contract test will be inserted. Examples: `"404"`, `"200::text/plain"`, `"200::text/*"`. If not defined, the 1st response object from OpenAPI will be taken as expected response.
 
+  Contract tests are always attached to the main request that Portman generates for an operation. When your OpenAPI document lists multiple request or response content types, only one set will be used for that request. You can control which types are selected with the `openApiRequest` and `openApiResponse` options. To create individual requests for every content type, use the variation testing concept described below.
+
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
 - **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
 - **responseTime (Boolean)** : Adds the test to verify if the response of the Postman request is returned within a number of ms.
