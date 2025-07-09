@@ -148,7 +148,8 @@ export const overwriteRequestBodyFormData = (dto: OverwriteRequestDTO): PostmanM
       if (pmFormParamAny.type === 'file') {
         pmFormParamAny.src = newValue as string
       } else {
-        pmFormParamAny.value = (newValue || typeof newValue === 'boolean') ? `${newValue}`.toString() : ''
+        pmFormParamAny.value =
+          newValue || typeof newValue === 'boolean' ? `${newValue}`.toString() : ''
       }
     }
 
