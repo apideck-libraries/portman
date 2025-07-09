@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`injectContractTests default response should handle default response code 1`] = `
+exports[`injectContractTests should handle default response code 1`] = `
 Object {
   "members": Array [
     Object {

@@ -273,10 +273,7 @@ describe('injectContractTests', () => {
     testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
     expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
   })
-})
 
-describe('injectContractTests default response', () => {
-  const exclKeys = ['id', 'type', 'listen', 'reference', 'Type', 'packages']
   it('should handle default response code', async () => {
     const oasParser = new OpenApiParser()
     await oasParser.convert({ inputFile: '__tests__/fixtures/request-default.yml' })
