@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.32.0 - (2025-07-09)
+
 - Variations: Set content-type for response
 - Variations: Set content-type for request body
 - Contract testing: Set content-type for request body
