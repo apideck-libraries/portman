@@ -128,8 +128,9 @@ export const overwriteRequestBodyFormData = (dto: OverwriteRequestDTO): PostmanM
     })
 
     // Test suite - Overwrite/extend request body form data param value
-    if (overwriteItem?.value !== undefined && pmFormParam?.value) {
-      const orgValue = pmFormParam.value
+    if (overwriteItem?.value !== undefined) {
+      const pmFormParamAny = pmFormParam as any
+      const orgValue = pmFormParamAny.value || pmFormParamAny.src
       const generatedName = parseTpl({
         template: overwriteItem.value,
         oaOperation: oaOperation,
@@ -140,10 +141,16 @@ export const overwriteRequestBodyFormData = (dto: OverwriteRequestDTO): PostmanM
       let newValue =
         overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
 
-      if (overwriteItem.overwrite === false) {
+      if (overwriteItem.overwrite === false && typeof orgValue === 'string') {
         newValue = orgValue + newValue
       }
-      pmFormParam.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+
+      if (pmFormParamAny.type === 'file') {
+        pmFormParamAny.src = newValue as string
+      } else {
+        pmFormParamAny.value =
+          newValue || typeof newValue === 'boolean' ? `${newValue}`.toString() : ''
+      }
     }
 
     // Test suite - Disable form data param
