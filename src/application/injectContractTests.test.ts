@@ -274,3 +274,29 @@ describe('injectContractTests', () => {
     expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
   })
 })
+
+describe('injectContractTests default response', () => {
+  const exclKeys = ['id', 'type', 'listen', 'reference', 'Type', 'packages']
+  it('should handle default response code', async () => {
+    const oasParser = new OpenApiParser()
+    await oasParser.convert({ inputFile: '__tests__/fixtures/request-default.yml' })
+    const postmanObj = JSON.parse(
+      fs.readFileSync('__tests__/fixtures/request-default.postman.json').toString()
+    )
+    const config: PortmanConfig = {
+      tests: { contractTests: [{ schemaValidation: { enabled: true } }] }
+    }
+    const postmanParser = new PostmanParser({ collection: new Collection(postmanObj), oasParser })
+    const testSuite = new TestSuite({ oasParser, postmanParser, config })
+    const pmOperation = postmanParser.getOperationByPath('GET::/items') as PostmanMappedOperation
+    const oaOperation = oasParser.getOperationByPath('GET::/items') as OasMappedOperation
+    testSuite.injectContractTests(
+      pmOperation,
+      oaOperation,
+      config.tests!.contractTests![0],
+      'default'
+    )
+    expect(pmOperation.item.events.count()).toBeGreaterThan(0)
+    expect(omitKeys(pmOperation.item.events, exclKeys)).toMatchSnapshot()
+  })
+})

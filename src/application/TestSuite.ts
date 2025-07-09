@@ -296,15 +296,20 @@ export class TestSuite {
 
     // Target openApiResponse code
     if (openApiResponseCode && typeof openApiResponseCode === 'string') {
-      response = Object.entries(oaOperation.schema.responses).filter(
-        res => parseInt(res[0]) === parseInt(openApiResponseCode)
-      )
+      if (openApiResponseCode.toLowerCase() === 'default') {
+        response = Object.entries(oaOperation.schema.responses).filter(res => res[0] === 'default')
+      } else {
+        response = Object.entries(oaOperation.schema.responses).filter(
+          res => parseInt(res[0]) === parseInt(openApiResponseCode)
+        )
+      }
     }
 
     // No response object matching
     if (!response[0]?.[1]) return pmOperation
 
-    const responseCode = parseInt(response[0][0]) as number
+    const responseKey = response[0][0]
+    const responseCode = parseInt(responseKey) as number
     const responseObject = response[0][1] as OpenAPIV3.ResponseObject
 
     // List excludeForOperations

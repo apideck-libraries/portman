@@ -15,4 +15,9 @@ describe('parseOpenApiResponse', () => {
     const result = parseOpenApiResponse('200::text/*')
     expect(result).toEqual({ code: '200', contentType: 'text/*' })
   })
+
+  it('should parse default response', () => {
+    const result = parseOpenApiResponse('default::application/json')
+    expect(result).toEqual({ code: 'default', contentType: 'application/json' })
+  })
 })
