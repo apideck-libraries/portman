@@ -897,7 +897,7 @@ export class Fuzzer {
         }
 
         // Register fuzz-able required fields from the 'required' element on an object; exclude properties named 'required'.
-        if (key !== 'properties') {
+        if (key !== 'properties' && Array.isArray(node.required)) {
           const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
           fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
         }

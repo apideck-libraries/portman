@@ -2032,4 +2032,31 @@ describe('Fuzzer', () => {
     const result = fuzzer.analyzeHeaderSchema(reqHeaders[0])
     expect(result).toMatchSnapshot()
   })
+
+  it('should not break when a property is named "required" and is not an array', () => {
+    // Schema with a property named 'required' that is not an array
+    const schema = {
+      type: 'object',
+      properties: {
+        required: {
+          type: 'string',
+          example: 'not-an-array'
+        },
+        name: {
+          type: 'string'
+        }
+      },
+      required: ['name']
+    } as OpenAPIV3.SchemaObject
+
+    const fuzzer = new Fuzzer({
+      testSuite: {} as any,
+      variationWriter: {} as any
+    })
+
+    const result = fuzzer.analyzeFuzzJsonSchema(schema)
+    expect(result).not.toBeNull();
+    expect(result!.requiredFields).toContain('name')
+    expect(result!.requiredFields).not.toContain('required')
+  })
 })
