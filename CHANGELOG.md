@@ -5,6 +5,7 @@
 - Contract testing: Set content-type for request body
 - Contract testing: Set content-type for response
 - Added examples for variation & contract testing with multiple content-types
+- Overwrites: Added support for overwriting file form-data values
 - Bumped dependencies: openapi-format 1.27.1
 
 ## v1.31.1 - (2025-04-03)
