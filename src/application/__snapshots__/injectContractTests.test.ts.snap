@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`injectContractTests should handle default response code 1`] = `
+Object {
+  "members": Array [
+    Object {
+      "script": Object {
+        "exec": Array [
+          "// Response Validation
+const schema = {\\"type\\":\\"object\\",\\"properties\\":{\\"message\\":{\\"type\\":\\"string\\"}}}
+
+// Validate if response matches JSON schema 
+pm.test(\\"[GET]::/items - Schema is valid\\", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: [\\"int32\\", \\"int64\\", \\"float\\", \\"double\\"]});
+});
+",
+        ],
+      },
+    },
+  ],
+}
+`;
+
 exports[`injectContractTests should inject JSON body check 1`] = `
 Object {
   "members": Array [

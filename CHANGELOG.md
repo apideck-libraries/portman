@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Fuzzing - only map required fields if required property is an array (#702)
+- Contract testing: Handle default response code (#431)
+
 ## v1.32.0 - (2025-07-09)
 
 - Variations: Set content-type for response
