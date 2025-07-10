@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## v1.32.1 - (2025-07-10)
+
 - Fuzzing - only map required fields if required property is an array (#702)
 - Contract testing - Handle default response code (#431)
 - Variation testing - Handle default response code (#431)
