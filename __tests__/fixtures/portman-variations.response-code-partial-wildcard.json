@@ -1,0 +1,21 @@
+{
+  "version": 1.0,
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "variations": [
+          {
+            "name": "WildcardCode",
+            "openApiResponse": "2*::*",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -560,6 +560,334 @@ pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
 }
 `;
 
+exports[`TestSuite Variations response codes should handle partial wildcard response codes and generate multiple variations 1`] = `
+Object {
+  "_": Object {
+    "postman_id": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+  },
+  "event": Array [],
+  "info": Object {
+    "name": "Minimal CRM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": undefined,
+  },
+  "item": Array [
+    Object {
+      "event": Array [],
+      "name": "List companies",
+    },
+    Object {
+      "event": Array [],
+      "item": Array [
+        Object {
+          "event": Array [],
+          "item": Array [
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][200][application/xml]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][200][application/json]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][200][text/plain]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 201\\", function () {
+    pm.expect(pm.response.code).to.equal(201);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][201][application/xml]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 201\\", function () {
+    pm.expect(pm.response.code).to.equal(201);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][201][application/json]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 201\\", function () {
+    pm.expect(pm.response.code).to.equal(201);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][201][text/plain]",
+            },
+          ],
+          "name": "Minimal CRM Variations",
+        },
+      ],
+      "name": "Variation Tests",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "value": "https://unify.apideck.com",
+    },
+  ],
+}
+`;
+
+exports[`TestSuite Variations response codes should handle wildcard response codes and generate multiple variations 1`] = `
+Object {
+  "_": Object {
+    "postman_id": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+  },
+  "event": Array [],
+  "info": Object {
+    "name": "Minimal CRM",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": undefined,
+  },
+  "item": Array [
+    Object {
+      "event": Array [],
+      "name": "List companies",
+    },
+    Object {
+      "event": Array [],
+      "item": Array [
+        Object {
+          "event": Array [],
+          "item": Array [
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][200][application/xml]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][200][application/json]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 200\\", function () {
+    pm.expect(pm.response.code).to.equal(200);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][200][text/plain]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 201\\", function () {
+    pm.expect(pm.response.code).to.equal(201);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][201][application/xml]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 201\\", function () {
+    pm.expect(pm.response.code).to.equal(201);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][201][application/json]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 201\\", function () {
+    pm.expect(pm.response.code).to.equal(201);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][201][text/plain]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 400\\", function () {
+    pm.expect(pm.response.code).to.equal(400);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][400][application/json]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 400\\", function () {
+    pm.expect(pm.response.code).to.equal(400);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][400][application/xml]",
+            },
+            Object {
+              "event": Array [
+                Object {
+                  "script": Object {
+                    "exec": Array [
+                      "// Validate response status code 
+pm.test(\\"[GET]::/crm/companies - Response status code is 400\\", function () {
+    pm.expect(pm.response.code).to.equal(400);
+});
+",
+                    ],
+                  },
+                },
+              ],
+              "name": "List companies[WildcardCode][400][text/plain]",
+            },
+            Object {
+              "event": Array [],
+              "name": "List companies[WildcardCode][default][application/xml]",
+            },
+            Object {
+              "event": Array [],
+              "name": "List companies[WildcardCode][default][application/json]",
+            },
+            Object {
+              "event": Array [],
+              "name": "List companies[WildcardCode][default][text/plain]",
+            },
+          ],
+          "name": "Minimal CRM Variations",
+        },
+      ],
+      "name": "Variation Tests",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "value": "https://unify.apideck.com",
+    },
+  ],
+}
+`;
+
 exports[`TestSuite Variations should generateVariationTests for variations 1`] = `
 Object {
   "_": Object {

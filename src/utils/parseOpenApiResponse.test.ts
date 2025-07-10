@@ -16,6 +16,16 @@ describe('parseOpenApiResponse', () => {
     expect(result).toEqual({ code: '200', contentType: 'text/*' })
   })
 
+  it('should support partial wildcard response codes', () => {
+    const result = parseOpenApiResponse('4*::application/json')
+    expect(result).toEqual({ code: '4*', contentType: 'application/json' })
+  })
+
+  it('should support wildcard response codes', () => {
+    const result = parseOpenApiResponse('*::application/json')
+    expect(result).toEqual({ code: '*', contentType: 'application/json' })
+  })
+
   it('should parse default response', () => {
     const result = parseOpenApiResponse('default::application/json')
     expect(result).toEqual({ code: 'default', contentType: 'application/json' })
