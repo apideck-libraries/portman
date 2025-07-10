@@ -201,10 +201,19 @@ export class TestSuite {
           this.variationWriter.add(pmOperation, oaOperation, variationTest)
         } else {
           const respInfo = parseOpenApiResponse(variationTest.openApiResponse)
-          if (respInfo && oaOperation?.responseCodes.includes(respInfo.code)) {
-            // Configured an openApiResponse, only generate variation for the targeted response object
-            this.variationWriter.add(pmOperation, oaOperation, variationTest)
-          } else {
+          if (respInfo && oaOperation) {
+            let matchCodes: string[] = []
+            if (respInfo.code.includes('*')) {
+              matchCodes = oaOperation.responseCodes.filter(code =>
+                matchWildcard(code, respInfo.code)
+              )
+            } else if (oaOperation.responseCodes.includes(respInfo.code)) {
+              matchCodes = [respInfo.code]
+            }
+            if (matchCodes.length > 0) {
+              // Configured an openApiResponse, generate variations for the matched response codes
+              this.variationWriter.add(pmOperation, oaOperation, variationTest)
+            }
             // Configured an openApiResponse, but it doesn't exist in OpenAPI, do nothing
           }
         }

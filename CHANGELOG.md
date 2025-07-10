@@ -1,22 +1,24 @@
 ## [Unreleased]
 
 - Fuzzing - only map required fields if required property is an array (#702)
-- Contract testing: Handle default response code (#431)
+- Contract testing - Handle default response code (#431)
+- Variation testing - Handle default response code (#431)
+- Variations - Support wildcard for response codes
 
 ## v1.32.0 - (2025-07-09)
 
-- Variations: Set content-type for response
-- Variations: Set content-type for request body
-- Contract testing: Set content-type for request body
-- Contract testing: Set content-type for response
+- Variations - Set content-type for response
+- Variations - Set content-type for request body
+- Contract testing - Set content-type for request body
+- Contract testing - Set content-type for response
 - Added examples for variation & contract testing with multiple content-types
-- Overwrites: Added support for overwriting file form-data values
-- Bumped dependencies: openapi-format 1.27.1
+- Overwrites - Added support for overwriting file form-data values
+- Bumped dependencies openapi-format 1.27.1
 
 ## v1.31.1 - (2025-04-03)
 
 - Removed Clearbit references (#693)
-- Bumped dependencies: openapi-format 1.25.2
+- Bumped dependencies openapi-format 1.25.2
 
 ## v1.31.0 - (2025-03-29)
 

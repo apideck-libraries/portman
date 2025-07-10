@@ -90,81 +90,100 @@ export class VariationWriter {
       }
       const respInfo = parseOpenApiResponse(targetOaResponse)
 
-      let respContentTypes: (string | undefined)[] = []
-      if (
-        respInfo?.contentType &&
-        respInfo.contentType.includes('*') &&
-        oaOperation?.schema?.responses?.[respInfo.code]
-      ) {
-        const respObj = oaOperation.schema.responses[respInfo.code] as OpenAPIV3.ResponseObject
-        if (respObj?.content) {
-          respContentTypes = Object.keys(respObj.content).filter(ct =>
-            matchWildcard(ct, respInfo.contentType as string)
-          )
+      let respCodes: (string | undefined)[] = []
+      if (respInfo?.code && respInfo.code.includes('*') && oaOperation) {
+        respCodes = oaOperation.responseCodes.filter(code => matchWildcard(code, respInfo.code))
+      }
+      if (respCodes.length === 0) {
+        respCodes = [respInfo?.code]
+      }
+
+      respCodes.forEach(code => {
+        let respContentTypes: (string | undefined)[] = []
+        if (
+          respInfo?.contentType &&
+          respInfo.contentType.includes('*') &&
+          oaOperation?.schema?.responses?.[code as string]
+        ) {
+          const respObj = oaOperation.schema.responses[code as string] as OpenAPIV3.ResponseObject
+          if (respObj?.content) {
+            respContentTypes = Object.keys(respObj.content).filter(ct =>
+              matchWildcard(ct, respInfo.contentType as string)
+            )
+          }
         }
-      }
-      if (respContentTypes.length === 0) {
-        respContentTypes = [respInfo?.contentType]
-      }
+        if (respContentTypes.length === 0) {
+          respContentTypes = [respInfo?.contentType]
+        }
 
-      reqContentTypes.forEach(reqCt => {
-        respContentTypes.forEach(ct => {
-          const reqSuffix = reqCt && reqContentTypes.length > 1 ? `[${reqCt}]` : ''
-          const respSuffix = ct && respContentTypes.length > 1 ? `[${ct}]` : ''
-          const variationName = `${baseName}${reqSuffix}${respSuffix}`
-          const fuzzingSet = variation.fuzzing
-          const updatedVariation = {
-            ...variation,
-            openApiRequest: reqCt || variation.openApiRequest,
-            openApiResponse: respInfo
-              ? `${respInfo.code}${ct ? `::${ct}` : ''}`
-              : variation.openApiResponse,
-            name: `${variation.name}${reqSuffix}${respSuffix}`
-          }
+        reqContentTypes.forEach(reqCt => {
+          respContentTypes.forEach(ct => {
+            const codeSuffix = code && respCodes.length > 1 ? `[${code}]` : ''
+            const reqSuffix = reqCt && reqContentTypes.length > 1 ? `[${reqCt}]` : ''
+            const respSuffix = ct && respContentTypes.length > 1 ? `[${ct}]` : ''
+            const variationName = `${baseName}${codeSuffix}${reqSuffix}${respSuffix}`
+            const fuzzingSet = variation.fuzzing
+            const updatedVariation = {
+              ...variation,
+              openApiRequest: reqCt || variation.openApiRequest,
+              openApiResponse: respInfo
+                ? `${code}${ct ? `::${ct}` : ''}`
+                : variation.openApiResponse,
+              name: `${variation.name}${codeSuffix}${reqSuffix}${respSuffix}`
+            }
 
-          if (fuzzingSet) {
-            this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
-            // Generate new variation for each Fuzz of the request body
-            this.fuzzer.injectFuzzRequestBodyVariations(
-              pmOperation,
-              oaOperation,
-              updatedVariation,
-              variationMeta
-            )
+            if (fuzzingSet) {
+              this.fuzzer = new Fuzzer({ testSuite: this.testSuite, variationWriter: this })
+              // Generate new variation for each Fuzz of the request body
+              this.fuzzer.injectFuzzRequestBodyVariations(
+                pmOperation,
+                oaOperation,
+                updatedVariation,
+                variationMeta
+              )
 
-            // Generate new variation for each Fuzz of the request query params
-            this.fuzzer.injectFuzzRequestQueryParamsVariations(
-              pmOperation,
-              oaOperation,
-              updatedVariation,
-              variationMeta
-            )
+              // Generate new variation for each Fuzz of the request query params
+              this.fuzzer.injectFuzzRequestQueryParamsVariations(
+                pmOperation,
+                oaOperation,
+                updatedVariation,
+                variationMeta
+              )
 
-            // Generate new variation for each Fuzz of the request headers
-            this.fuzzer.injectFuzzRequestHeadersVariations(
-              pmOperation,
-              oaOperation,
-              updatedVariation,
-              variationMeta
-            )
+              // Generate new variation for each Fuzz of the request headers
+              this.fuzzer.injectFuzzRequestHeadersVariations(
+                pmOperation,
+                oaOperation,
+                updatedVariation,
+                variationMeta
+              )
 
-            // Inject fuzzed variations to the folder
-            this.fuzzer.fuzzVariations.map(operationVariation => {
+              // Inject fuzzed variations to the folder
+              this.fuzzer.fuzzVariations.map(operationVariation => {
+                this.addToLocalCollection(operationVariation, folderId, folderName)
+              })
+            } else {
+              // Normal variation
+              const operationVariation = pmOperation.clone({
+                newId: changeCase(variationName, 'camelCase'),
+                name: variationName
+              })
+
+              // Set/Update Portman operation test type
+              this.testSuite.registerOperationTestType(
+                operationVariation,
+                PortmanTestTypes.variation
+              )
+
+              this.injectVariations(
+                operationVariation,
+                oaOperation,
+                updatedVariation,
+                variationMeta
+              )
               this.addToLocalCollection(operationVariation, folderId, folderName)
-            })
-          } else {
-            // Normal variation
-            const operationVariation = pmOperation.clone({
-              newId: changeCase(variationName, 'camelCase'),
-              name: variationName
-            })
-
-            // Set/Update Portman operation test type
-            this.testSuite.registerOperationTestType(operationVariation, PortmanTestTypes.variation)
-
-            this.injectVariations(operationVariation, oaOperation, updatedVariation, variationMeta)
-            this.addToLocalCollection(operationVariation, folderId, folderName)
-          }
+            }
+          })
         })
       })
     })
