@@ -2055,7 +2055,7 @@ describe('Fuzzer', () => {
     })
 
     const result = fuzzer.analyzeFuzzJsonSchema(schema)
-    expect(result).not.toBeNull();
+    expect(result).not.toBeNull()
     expect(result!.requiredFields).toContain('name')
     expect(result!.requiredFields).not.toContain('required')
   })
