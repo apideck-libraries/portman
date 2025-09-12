@@ -139,7 +139,9 @@ describe('Portman', () => {
       jest
         .spyOn(configLoader, 'getConfig')
         // return a successful config load so validation is reached
-        .mockResolvedValue(Promise.resolve(Either.right({} as unknown as import('../types').PortmanConfig)))
+        .mockResolvedValue(
+          Promise.resolve(Either.right({} as unknown as import('../types').PortmanConfig))
+        )
 
       const validateSpy = jest
         .spyOn(validateJsonSchema, 'validate')
