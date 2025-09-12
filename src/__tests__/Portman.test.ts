@@ -139,7 +139,7 @@ describe('Portman', () => {
       jest
         .spyOn(configLoader, 'getConfig')
         // return a successful config load so validation is reached
-        .mockResolvedValue(
+        .mockReturnValue(
           Promise.resolve(Either.right({} as unknown as import('../types').PortmanConfig))
         )
 
