@@ -53,9 +53,7 @@ export const runNewmanWith = async (
           }
           if (hasFailures) {
             console.error(
-              chalk.red(
-                `Failed assertions: ${assertionFailures}; Failures: ${runFailures}`
-              )
+              chalk.red(`Failed assertions: ${assertionFailures}; Failures: ${runFailures}`)
             )
           }
           // Reject instead of exiting; caller decides process exit code
