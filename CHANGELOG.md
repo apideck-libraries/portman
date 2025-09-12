@@ -1,6 +1,10 @@
 ## [Unreleased]
 
+## v1.33.0 - (2025-09-12)
+
 - CLI - Exits with code 1 when Portman config validation fails (#705)
+- Newman Return process exit code when option is abortOnFailure (#504)
+- Bumped dependencies
 
 ## v1.32.1 - (2025-07-10)
 
