@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- CLI - Exits with code 1 when Portman config validation fails (#705)
+
 ## v1.32.1 - (2025-07-10)
 
 - Fuzzing - only map required fields if required property is an array (#702)
