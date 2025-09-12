@@ -38,14 +38,33 @@ export const runNewmanWith = async (
   return new Promise((resolve, reject) => {
     try {
       newman.run(newmanOptions).on('done', (err: Error, summary) => {
-        if (err || summary.error) {
-          reject(err || summary.error)
+        const assertionFailures = Number(summary?.run?.stats?.assertions?.failed || 0)
+        const runFailures = Array.isArray(summary?.run?.failures) ? summary.run.failures.length : 0
+        const hasError = Boolean(err || summary?.error)
+        const hasFailures = assertionFailures > 0 || runFailures > 0
+
+        if (hasError || hasFailures) {
+          console.error(chalk.red('Collection run encountered failures.'))
+          if (err) {
+            console.error(chalk.red(err.message))
+          }
+          if (summary?.error) {
+            console.error(chalk.red(summary.error.message))
+          }
+          if (hasFailures) {
+            console.error(
+              chalk.red(`Failed assertions: ${assertionFailures}; Failures: ${runFailures}`)
+            )
+          }
+          // Reject instead of exiting; caller decides process exit code
+          reject(err || summary?.error || new Error('Newman run failed with test failures'))
         } else {
           console.log(chalk.green('Collection run completed.'))
           resolve()
         }
       })
-      // eslint-disable-next-line no-empty
-    } catch (_error) {}
+    } catch (caughtError) {
+      reject(caughtError)
+    }
   })
 }
