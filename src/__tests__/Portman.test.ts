@@ -136,22 +136,26 @@ describe('Portman', () => {
 
     it('should exit with code 1 on invalid config', async () => {
       const portman = new Portman(options)
-      jest
+      const getConfigSpy = jest
         .spyOn(configLoader, 'getConfig')
         // return a successful config load so validation is reached
-        .mockReturnValue(
+        .mockReturnValueOnce(
           Promise.resolve(Either.right({} as unknown as import('../types').PortmanConfig))
         )
 
       const validateSpy = jest
         .spyOn(validateJsonSchema, 'validate')
-        // force validation to fail
-        .mockReturnValue(Either.left([] as ValidationError[]))
+        // force validation to fail for this test only
+        .mockReturnValueOnce(Either.left([] as ValidationError[]))
 
       await portman.run()
 
       expect(validateSpy).toHaveBeenCalled()
       expect(process.exit).toHaveBeenCalledWith(1)
+
+      // cleanup to avoid affecting subsequent tests
+      getConfigSpy.mockRestore()
+      validateSpy.mockRestore()
     })
   })
 
