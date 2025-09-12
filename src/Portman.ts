@@ -182,6 +182,7 @@ export class Portman {
       console.log(chalk`{red  Invalid Portman Config: } \t\t{green ${portmanConfigPath}}`)
       console.log(config.left)
       console.log(chalk.red(consoleLine))
+      process.exit(1)
     } else {
       this.config = config.right
     }

@@ -1,5 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser'
 import fs from 'fs-extra'
+import * as Either from 'fp-ts/lib/Either'
+import { ValidationError } from '@apideck/better-ajv-errors'
 import { OpenAPIV3 } from 'openapi-types'
 import { CollectionDefinition } from 'postman-collection'
 import * as mockOAS from '../../__tests__/fixtures/mockOAS.json'
@@ -130,6 +132,24 @@ describe('Portman', () => {
       const spy = jest.spyOn(validateJsonSchema, 'validate')
       await portman.run()
       expect(spy).toHaveBeenCalled()
+    })
+
+    it('should exit with code 1 on invalid config', async () => {
+      const portman = new Portman(options)
+      jest
+        .spyOn(configLoader, 'getConfig')
+        // return a successful config load so validation is reached
+        .mockResolvedValue(Promise.resolve(Either.right({} as unknown as import('../types').PortmanConfig)))
+
+      const validateSpy = jest
+        .spyOn(validateJsonSchema, 'validate')
+        // force validation to fail
+        .mockReturnValue(Either.left([] as ValidationError[]))
+
+      await portman.run()
+
+      expect(validateSpy).toHaveBeenCalled()
+      expect(process.exit).toHaveBeenCalledWith(1)
     })
   })
 
