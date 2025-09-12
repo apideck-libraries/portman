@@ -1,11 +1,10 @@
-import { camelCase } from 'camel-case'
 import chalk from 'chalk'
 import * as Either from 'fp-ts/lib/Either'
 import fs from 'fs-extra'
 import { NewmanRunOptions } from 'newman'
 import emoji from 'node-emoji'
 import path from 'path'
-import { Collection, CollectionDefinition, Item, ItemGroup } from 'postman-collection'
+import { Collection, CollectionDefinition, Item, ItemGroup, Version } from 'postman-collection'
 import {
   CollectionWriter,
   IntegrationTestWriter,
@@ -17,19 +16,16 @@ import {
   writeNewmanEnv,
   writeRawReplacements
 } from './application'
-import { clearTmpDirectory, execShellCommand, getConfig } from './lib'
-import { OpenApiParser } from './oas'
+import { clearTmpDirectory, getConfig } from './lib'
+import { OpenApiFormatter, OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
-import {
-  DownloadService,
-  IOpenApiToPostmanConfig,
-  OpenApiToPostmanService,
-  PostmanSyncService
-} from './services'
-import { PortmanConfig, PortmanTestTypes } from './types'
+import { IOpenApiToPostmanConfig, OpenApiToPostmanService, PostmanSyncService } from './services'
+import { PortmanConfig, PortmanTestTypes, Track } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
+import { changeCase } from 'openapi-format'
+import _ from 'lodash'
 
 export class Portman {
   config: PortmanConfig
@@ -59,13 +55,9 @@ export class Portman {
       await this.parseOpenApiSpec()
     } catch (err) {
       const message = err.toString()
-      const circularRef = message.includes('Circular $ref')
-      console.log(chalk.red(message))
-      if (circularRef) {
-        const docLink = 'https://github.com/apideck-libraries/portman/tree/main/docs/ERRORS.md'
-        console.log(chalk.red(`\nPlease see ${docLink} for more information about this error.`))
-      }
-      console.log(chalk.red(this.consoleLine))
+      console.error('\x1b[31m', `OAS File Error - Unable to process the OpenAPI file.`)
+      console.error('\x1b[31m', message)
+      console.error('\x1b[31m', this.consoleLine)
       process.exit(1)
     }
 
@@ -190,6 +182,7 @@ export class Portman {
       console.log(chalk`{red  Invalid Portman Config: } \t\t{green ${portmanConfigPath}}`)
       console.log(config.left)
       console.log(chalk.red(consoleLine))
+      process.exit(1)
     } else {
       this.config = config.right
     }
@@ -197,6 +190,7 @@ export class Portman {
 
   async after(): Promise<void> {
     const { consoleLine, collectionFile } = this
+
     await clearTmpDirectory()
     console.log(chalk.green(consoleLine))
 
@@ -207,23 +201,38 @@ export class Portman {
     )
 
     console.log(chalk.green(consoleLine))
+
+    // Display warning
+    this.displayMissingTargets(this.testSuite.track)
   }
 
   async parseOpenApiSpec(): Promise<void> {
     // --- OpenApi - Get OpenApi file locally or remote
     const { oaLocal, oaUrl, filterFile, oaOutput, ignoreCircularRefs, collectionName } =
       this.options
+    const oasFormatter = new OpenApiFormatter()
 
-    let openApiSpec = oaUrl && (await new DownloadService().get(oaUrl))
+    let openApiSpec: string | undefined
+
+    if (oaUrl) {
+      try {
+        const openApiObj = await oasFormatter.parseFile(oaUrl as string)
+        const fileName = oaUrl.replace(/\/$/, '').split('?')[0].split('/').pop()
+        openApiSpec = `./tmp/${fileName}`
+        await oasFormatter.writeFile(openApiSpec, openApiObj, { format: 'yaml' })
+      } catch (err) {
+        console.error('\x1b[31m', `OAS URL error - There is a problem with the url: "${oaUrl}"`)
+        console.error('\x1b[31m', err)
+        process.exit(1)
+      }
+    }
 
     if (oaLocal) {
-      try {
-        const oaLocalPath = path.resolve(oaLocal)
-        await fs.copyFile(oaLocalPath, './tmp/converted/spec.yml')
-        openApiSpec = './tmp/converted/spec.yml'
-      } catch (err) {
+      const oaLocalPath = path.resolve(oaLocal)
+      if (fs.existsSync(oaLocalPath)) {
+        openApiSpec = oaLocalPath
+      } else {
         console.error('\x1b[31m', 'Local OAS error - no such file or directory "' + oaLocal + '"')
-        process.exit(1)
       }
     }
 
@@ -237,32 +246,45 @@ export class Portman {
       throw new Error(`${openApiSpec} doesn't exist. `)
     }
 
-    let filterFileExists = false
     if (filterFile) {
-      const filterFileCheck = await fs.pathExists(filterFile)
-      if (!filterFileCheck) {
+      try {
+        const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
+
+        // Create oaOutput file if it doesn't exist
+        fs.outputFileSync(openApiSpecPath, '', 'utf8')
+
+        await oasFormatter.filter({
+          inputFile: openApiSpec,
+          filterFile: filterFile,
+          outputFile: openApiSpecPath
+        })
+        openApiSpec = openApiSpecPath
+      } catch (err) {
         throw new Error(`Filter file error - ${filterFile} doesn't exist. `)
       }
-      filterFileExists = true
-    }
-
-    if (filterFile && filterFileExists) {
-      const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
-
-      // Create oaOutput file if it doesn't exist
-      fs.outputFileSync(openApiSpecPath, '', 'utf8')
-
-      await execShellCommand(
-        `npx openapi-format ${openApiSpec} -o ${openApiSpecPath} --yaml --filterFile ${filterFile}`
-      )
-      openApiSpec = openApiSpecPath
     }
 
     const oasParser = new OpenApiParser()
-    await oasParser.convert({
-      inputFile: openApiSpec,
-      ignoreCircularRefs
-    })
+    try {
+      await oasParser.convert({
+        inputFile: openApiSpec,
+        ignoreCircularRefs
+      })
+    } catch (err) {
+      const message = err.toString()
+      const circularRef = message.includes('Circular $ref')
+      console.error(
+        '\x1b[31m',
+        `OAS File Error - There is an issue with the OpenAPI file, preventing it from being parsed properly.`
+      )
+      console.error('\x1b[31m', message)
+      if (circularRef) {
+        const docLink = 'https://github.com/apideck-libraries/portman/tree/main/docs/ERRORS.md'
+        console.error('\x1b[31m', `\nPlease see ${docLink} for more information about this error.`)
+      }
+      console.error('\x1b[31m', this.consoleLine)
+      process.exit(1)
+    }
 
     // Assign oasParser entity
     this.oasParser = oasParser
@@ -276,13 +298,13 @@ export class Portman {
   async convertToPostmanCollection(): Promise<void> {
     // --- openapi-to-postman - Transform OpenApi to Postman collection
     const { postmanConfigPath, localPostman } = this.options
-
     const oaToPostman = new OpenApiToPostmanService()
-    // TODO investigate better way to keep oasParser untouched
-    // Clone oasParser to prevent altering with added minItems maxItems
-    const { oas } = this.oasParser
+
+    // Clone oasParser to prevent altering with added minItems, maxItems and JSON schema
+    const oasCopy = _.cloneDeep(this.oasParser.oas)
+
     const oaToPostmanConfig: IOpenApiToPostmanConfig = {
-      openApiObj: { ...oas },
+      openApiObj: oasCopy,
       outputFile: `${process.cwd()}/tmp/working/tmpCollection.json`,
       configFile: postmanConfigPath as string
     }
@@ -316,29 +338,30 @@ export class Portman {
   injectTestSuite(): void {
     const { config, options, oasParser, postmanParser } = this
 
+    const testSuite = new TestSuite({ oasParser, postmanParser, config, options })
+
     if (options?.includeTests) {
-      const testSuite = new TestSuite({ oasParser, postmanParser, config, options })
       // Inject automated tests
       testSuite.generateContractTests()
 
       // Inject content tests
       testSuite.injectContentTests()
-
-      // Inject variable assignment
-      testSuite.injectAssignVariables()
-
-      // Inject postman extended tests
-      testSuite.injectExtendedTests()
-
-      // Inject overwrites
-      testSuite.injectOverwrites()
-
-      // Inject PreRequestScripts
-      testSuite.injectPreRequestScripts()
-
-      this.testSuite = testSuite
-      this.portmanCollection = testSuite.collection.toJSON()
     }
+
+    // Inject variable assignment
+    testSuite.injectAssignVariables()
+
+    // Inject postman extended tests
+    testSuite.injectExtendedTests()
+
+    // Inject overwrites
+    testSuite.injectOverwrites()
+
+    // Inject PreRequestScripts
+    testSuite.injectPreRequestScripts()
+
+    this.testSuite = testSuite
+    this.portmanCollection = testSuite.collection.toJSON()
   }
 
   injectVariationTests(): void {
@@ -476,7 +499,7 @@ export class Portman {
     const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
-    let postmanCollectionFile = `./tmp/converted/${camelCase(fileName)}.json`
+    let postmanCollectionFile = `./tmp/converted/${changeCase(fileName, 'camelCase')}.json`
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {
@@ -489,6 +512,23 @@ export class Portman {
     }
 
     try {
+      // --- Portman - Set Postman Version from OpenAPI version
+      if (this.oasParser?.oas?.info?.version && this.postmanParser?.collection) {
+        const postmanVersion = new Version(this.oasParser.oas.info.version)
+
+        if (
+          postmanVersion.major !== undefined &&
+          postmanVersion.minor !== undefined &&
+          postmanVersion.patch !== undefined
+        ) {
+          // Set the version object
+          this.postmanParser.collection.version = postmanVersion
+        }
+      }
+
+      // Set portman collection
+      this.portmanCollection = this.postmanParser.collection.toJSON()
+
       // --- Portman - Strip Response Examples
       if (globals?.stripResponseExamples) {
         this.portmanCollection = stripResponseExamples(this.portmanCollection)
@@ -629,6 +669,36 @@ export class Portman {
       console.log(`\n`)
       console.log(chalk.red(consoleLine))
       process.exit(1)
+    }
+  }
+
+  displayMissingTargets = (track: Track): void => {
+    const {
+      consoleLine,
+      options: { warn }
+    } = this
+
+    if (warn === false) {
+      return
+    }
+
+    // Deduplicate missing targets
+    const uniqueOperationIds = Array.from(new Set(track.openApiOperationIds))
+    const uniqueOperations = Array.from(new Set(track.openApiOperations))
+
+    if (uniqueOperationIds.length > 0 || uniqueOperations.length > 0) {
+      console.log(
+        chalk.yellow(`WARNING: The following targets are missing from the OpenAPI specification.`)
+      )
+      if (uniqueOperationIds.length > 0) {
+        const idsList = uniqueOperationIds.join(', ')
+        console.log(chalk.yellow(`operationId:\t\t${idsList}`))
+      }
+      if (uniqueOperations.length > 0) {
+        const opsList = uniqueOperations.join(', ')
+        console.log(chalk.yellow(`openApiOperation:\t${opsList}`))
+      }
+      console.log(chalk.yellow(consoleLine))
     }
   }
 }

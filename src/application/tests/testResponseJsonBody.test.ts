@@ -1,20 +1,24 @@
-import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { testResponseJsonBody } from '../../application'
-import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('testResponseJsonBody', () => {
-  let oasOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
-    oasOperation = await getOasMappedOperation()
     pmOperation = await getPostmanMappedOperation()
   })
 
   it('should add test for json body', async () => {
-    pmOperation = testResponseJsonBody(pmOperation, oasOperation)
+    pmOperation = testResponseJsonBody(pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add test with separator symbol for json body', async () => {
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    pmOperation = testResponseJsonBody(pmOperation, globalConfig)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

@@ -1,0 +1,12 @@
+{
+  "version": 1.0,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperationId": "multiCreate",
+        "openApiRequest": "text/plain",
+        "statusCode": { "enabled": true }
+      }
+    ]
+  }
+}

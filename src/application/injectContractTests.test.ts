@@ -8,6 +8,7 @@ import { PostmanMappedOperation, PostmanParser } from '../postman'
 import { PortmanError } from '../utils/PortmanError'
 import { PortmanConfig } from '../types'
 import { omitKeys } from '../utils'
+import { OpenAPIV3 } from 'openapi-types'
 
 describe('injectContractTests', () => {
   let postmanParser: PostmanParser
@@ -15,7 +16,7 @@ describe('injectContractTests', () => {
   let testSuite: TestSuite
   let config: PortmanConfig
   let postmanObj: CollectionDefinition
-  const exclKeys = ['id', 'type', 'listen', 'reference', 'Type']
+  const exclKeys = ['id', 'type', 'listen', 'reference', 'Type', 'packages']
 
   const path = 'GET::/crm/leads'
   let pmOperationOne: PostmanMappedOperation
@@ -158,6 +159,49 @@ describe('injectContractTests', () => {
       }
     }
 
+    // Add required response header to OAS
+    const responses = oaOperationOne.schema.responses
+    if (responses) {
+      const response = responses[200] as OpenAPIV3.ResponseObject
+      response.headers = {
+        'x-unify-request-id': {
+          description: 'Request ID',
+          schema: {
+            type: 'string'
+          },
+          required: true
+        }
+      }
+    }
+
+    // Inject response tests
+    testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
+    expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
+  })
+
+  it('should skip non-required header check', async () => {
+    const contractTest = {
+      openApiOperation: path,
+      headersPresent: {
+        enabled: true
+      }
+    }
+
+    // Add required response header to OAS
+    const responses = oaOperationOne.schema.responses
+    if (responses) {
+      const response = responses[200] as OpenAPIV3.ResponseObject
+      response.headers = {
+        'x-unify-request-id': {
+          description: 'Request ID',
+          schema: {
+            type: 'string'
+          },
+          required: false
+        }
+      }
+    }
+
     // Inject response tests
     testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
     expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
@@ -228,5 +272,28 @@ describe('injectContractTests', () => {
     // Inject response tests
     testSuite.injectContractTests(pmOperationOne, oaOperationOne, contractTest, '200')
     expect(omitKeys(pmOperationOne.item.events, exclKeys)).toMatchSnapshot()
+  })
+
+  it('should handle default response code', async () => {
+    const oasParser = new OpenApiParser()
+    await oasParser.convert({ inputFile: '__tests__/fixtures/request-default.yml' })
+    const postmanObj = JSON.parse(
+      fs.readFileSync('__tests__/fixtures/request-default.postman.json').toString()
+    )
+    const config: PortmanConfig = {
+      tests: { contractTests: [{ schemaValidation: { enabled: true } }] }
+    }
+    const postmanParser = new PostmanParser({ collection: new Collection(postmanObj), oasParser })
+    const testSuite = new TestSuite({ oasParser, postmanParser, config })
+    const pmOperation = postmanParser.getOperationByPath('GET::/items') as PostmanMappedOperation
+    const oaOperation = oasParser.getOperationByPath('GET::/items') as OasMappedOperation
+    testSuite.injectContractTests(
+      pmOperation,
+      oaOperation,
+      config.tests!.contractTests![0],
+      'default'
+    )
+    expect(pmOperation.item.events.count()).toBeGreaterThan(0)
+    expect(omitKeys(pmOperation.item.events, exclKeys)).toMatchSnapshot()
   })
 })

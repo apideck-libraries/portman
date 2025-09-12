@@ -16,6 +16,102 @@ if (leadsAddheader !== undefined) {
 ]
 `;
 
+exports[`assignVarFromResponseHeader should add postman collection var with name and response header value with @ 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set @leadsAdd.header as variable for header 
+let leadsAddheader = pm.response.headers.get(\\"@operation-location\\");
+if (leadsAddheader !== undefined) {
+   pm.collectionVariables.set(\\"@leadsAdd.header\\", leadsAddheader);
+   console.log(\\"- use {{@leadsAdd.header}} as collection variable for value\\", leadsAddheader);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header and convert the casing for the templated name 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set CompaniesId as variable for header 
+let CompaniesId = pm.response.headers.get(\\"portman\\");
+if (CompaniesId !== undefined) {
+   pm.collectionVariables.set(\\"CompaniesId\\", CompaniesId);
+   console.log(\\"- use {{CompaniesId}} as collection variable for value\\", CompaniesId);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header and convert the casing for the variable name 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companies_one_portman as variable for header 
+let companiesoneportman = pm.response.headers.get(\\"portman\\");
+if (companiesoneportman !== undefined) {
+   pm.collectionVariables.set(\\"companies_one_portman\\", companiesoneportman);
+   console.log(\\"- use {{companies_one_portman}} as collection variable for value\\", companiesoneportman);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header and not convert the casing for the variable name 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companiesOne.portman as variable for header 
+let companiesOneportman = pm.response.headers.get(\\"portman\\");
+if (companiesOneportman !== undefined) {
+   pm.collectionVariables.set(\\"companiesOne.portman\\", companiesOneportman);
+   console.log(\\"- use {{companiesOne.portman}} as collection variable for value\\", companiesOneportman);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header property with the cased templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companies_id as variable for header 
+let companiesid = pm.response.headers.get(\\"companies-id\\");
+if (companiesid !== undefined) {
+   pm.collectionVariables.set(\\"companies_id\\", companiesid);
+   console.log(\\"- use {{companies_id}} as collection variable for value\\", companiesid);
+};
+",
+]
+`;
+
+exports[`assignVarFromResponseHeader should generate a variable for the response header property with the templated expression 1`] = `
+Array [
+  "// Set response object as internal variable
+let jsonData = {};
+try {jsonData = pm.response.json();}catch(e){}
+",
+  "// pm.collectionVariables - Set companiesOne.Companies-id as variable for header 
+let companiesOneCompaniesid = pm.response.headers.get(\\"Companies-id\\");
+if (companiesOneCompaniesid !== undefined) {
+   pm.collectionVariables.set(\\"companiesOne.Companies-id\\", companiesOneCompaniesid);
+   console.log(\\"- use {{companiesOne.Companies-id}} as collection variable for value\\", companiesOneCompaniesid);
+};
+",
+]
+`;
+
 exports[`assignVarFromResponseHeader should not show the log output for add postman collection var with name and response header value 1`] = `
 Array [
   "// Set response object as internal variable

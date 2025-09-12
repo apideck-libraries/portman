@@ -1,5 +1,230 @@
 ## [Unreleased]
 
+- CLI - Exits with code 1 when Portman config validation fails (#705)
+
+## v1.32.1 - (2025-07-10)
+
+- Fuzzing - only map required fields if required property is an array (#702)
+- Contract testing - Handle default response code (#431)
+- Variation testing - Handle default response code (#431)
+- Variations - Support wildcard for response codes
+
+## v1.32.0 - (2025-07-09)
+
+- Variations - Set content-type for response
+- Variations - Set content-type for request body
+- Contract testing - Set content-type for request body
+- Contract testing - Set content-type for response
+- Added examples for variation & contract testing with multiple content-types
+- Overwrites - Added support for overwriting file form-data values
+- Bumped dependencies openapi-format 1.27.1
+
+## v1.31.1 - (2025-04-03)
+
+- Removed Clearbit references (#693)
+- Bumped dependencies openapi-format 1.25.2
+
+## v1.31.0 - (2025-03-29)
+
+- Bumped openapi-to-postman to 5.0.0
+
+## v1.30.8 - (2025-03-29)
+
+- Generate safe variable names in the Postman scripts (#687)
+- CLI - Warn about unsupported flags (#686)
+- Bumped dependencies: openapi-format 1.25.1
+
+## v1.30.7 - (2024-11-05)
+
+- matchPath - Improved matching with ending wildcard (#674)
+
+## v1.30.6 - (2024-11-01)
+
+- matchPath - Further improved path matching (#672)
+
+## v1.30.5 - (2024-11-01)
+
+- Apply casing to auth variable (#668)
+- Improved path matching (#669)
+- Improved documentation(#671)
+- Warn for missing targets (#632 #391)
+
+## v1.30.4 - (2024-10-07)
+
+- Handle Postman API non-200 responses better (#660)
+- Handle scalar $ref: >- (#661)
+
+## v1.30.3 - (2024-09-27)
+
+- Improved loading split local OpenAPI files
+- Bumped dependencies: openapi-format 1.24.0
+
+## v1.30.2 - (2024-09-11)
+
+- testResponseBodyContent - prevent PM variables as string (#650)
+- testResponseHeaderContent - support using PM variables in oneOf check
+- overwrite - handle overwrite of non-empty objects with plain values (#646)
+- Bumped dependencies: openapi-format 1.23.0
+
+## v1.30.1 - (2024-08-27)
+
+- Improved OpenAPI to JSON schema conversion to handle OpenAPI-specific properties (#642 #494)
+- Strip unneeded OpenAPI-specific properties ('discriminator', 'readOnly', 'writeOnly', 'xml', 'externalDocs', 'example','deprecated') for more compact JSON schemas.
+- Added JSON schema validation warning during conversion, to inform the users. (#644)
+- Fix for unwanted minItems, maxItems addition in the JSON schema
+- overwriteRequestQueryParams - Remove form encoded array query params ((#640))
+- overwriteRequestQueryParams - Insert additional form encoded array query params (#640)
+- Bumped dependencies: newman
+
+## v1.30.0 - (2024-08-23)
+
+- Portman - sort Postman folders based on the "orderOfFolders" configuration (#621)
+- overwriteRequestQueryParams - Handle form encoded array query params (#640)
+
+## v1.29.3 - (2024-08-19)
+
+- Portman - Make OpenAPI data immutable (#630)
+- Bumped dependency openapi-format
+- Removed unused yaml package 
+
+## v1.29.2 - (2024-08-19)
+
+- Skip read-only properties from request body (#628)
+- YAML error fix using latest openapi-format (#631)
+- Bumped dependencies: openapi-to-postman 4.24.0, newman, openapi-format
+
+## v1.29.1 - (2024-08-08)
+
+- Fuzzing - Handle nested plain array values (#629)
+
+## v1.29.0 - (2024-08-06)
+
+> [!IMPORTANT]  
+> **Important Change:** If you are using version 1.28.0 with a custom Postman config file specified by the `--postmanConfigFile` flag, please ensure that the `parametersResolution` option is set to either "Example" or "Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated openapi-to-postman options.
+
+- Conversion - Use convertV2 from openapi-to-postman
+- overwriteRequestSecurity - handle missing auth (#622)
+- Fuzzing - Fix nested path handling (#624)
+- Globals - Strip response example from root requests
+
+## v1.28.0 - (2024-07-22)
+
+- overwriteRequestQueryParams - Added wildcard matching for query param keys (#612)
+- OpenAPI conversion - Use the first-listed content-type as request body (#601)
+- overwriteRequestSecurity - Improved logic to handle OAuth2
+- overwriteRequestHeaders - Fix missing request auth (#600)
+- assignVarFromValue - Add template expressions as value (#595)
+- Template expression: Fix to handle double/triple curly braces (#597)
+- overwriteRequestHeaders - Allow zero value
+- overwriteRequestPathVariables - Allow zero value
+- overwriteRequestQueryParams - Allow zero value (#603)
+- Fuzzing - Improve fuzzing with zero values (#599)
+- Improved OpenAPI parsing error reporting (#591)
+- Dependencies - Replaced faker with @faker-js (#593)
+- Updated overwrite examples and added preRequestScripts example by @jpjpjp (#598)
+- Bumped dependencies: openapi-to-postman 4.23.0, replaced traverse with neotraverse, removed camelCase
+
+## v1.27.0 - (2024-06-16)
+
+- overwrites - Added the removal of Authorization using overwriteRequestHeaders,overwriteRequestSecurity, securityOverwrites (#580)
+- Improved OpenAPI version to Postman version conversion (#578)
+- Updated readme & examples by @jpjpjp 
+- Bumped dependencies
+
+## v1.26.6 - (2024-06-05)
+
+- Add OpenAPI version conversion to Postman Collection version (handy for usage in Microcks) (#577)
+- Bumped dependencies: openapi-to-postman 4.21.0
+
+## v1.26.5 - (2024-03-08)
+
+- headersPresent: Add check only for required headers (#566)
+
+## v1.26.4 - (2024-03-06)
+
+- Bugfix to support http & https remote files (#562)
+
+## v1.26.3 - (2024-02-07)
+
+- overwriteRequestQueryParams - Auto-enable query parameters when overwrite value is set (#559)
+- overwriteRequestHeaders - Auto-enable headers when overwrite value is set (#559)
+- normalizedPathRef: Improve handling colon character (#556)
+
+## v1.26.2 - (2024-01-28)
+
+- Fuzzing - Enable query parameters and headers for fuzzed values (#554)
+
+## v1.26.1 - (2024-01-18)
+
+- overwriteRequestHeaders: Added disable false option (#551)
+- Bumped dependencies: openapi-to-postman 4.19.0 (#551)
+
+## v1.26.0 - (2024-01-16)
+
+- Portman - Change default enableOptionalParameters setting to false (#550)
+
+> [!CAUTION]  
+> **Breaking Change:** The default behaviour of the Query parameters is changed since version 1.26.0.<br>Optional query parameters will be disabled in Postman by default.
+
+This will reduce the need for extra Portman config to disable the optional query parameters in the Postman collection and provide a more expected result in Postman.
+
+OpenAPI:
+```yaml
+    limitParam:
+      name: limit
+      in: query
+      description: (Required) Number of records to return
+      required: true # <----------
+      schema:
+        type: string
+```
+
+**BEFORE**
+
+All the query parameters are enabled in the Postman collection.
+
+<img src="./examples/postman-to-k6/images/enable-optional-parameters-before.png" width="1021" >
+
+**AFTER**
+
+Only the required query parameters are enabled in the Postman collection.
+
+<img src="./examples/postman-to-k6/images/enable-optional-parameters-after.png" width="1018" >
+
+You can modify this default behaviour by using `--postmanConfigFile` parameters.
+This will allow you to provide a specific configuration file that will be used for converting the OpenAPI specification to Postman.
+
+See [postmanConfigFile](https://github.com/apideck-libraries/portman?tab=readme-ov-file#pass-custom-paths-for-config-files) example for more info.
+
+## v1.25.1 - (2024-01-16)
+
+- AssignVariables: Fix casing for template expressions for variable props (#549)
+
+## v1.25.0 - (2024-01-15)
+
+- AssignVariables: Option to use template expressions for variable names (#548)
+- AssignVariables: Option to use template expressions for variable properties for Request body, Response body & header (#548)
+- Overwrites: Option to use template expressions for values (#548)
+- Globals: Define the casing of the generated variable names (#541)
+- Globals: Apply variableCasing for injected .ENV variables (#548)
+- Globals: Define the separatorSymbol used in the Postman test names (#541)
+- Support for loading local or remote JSON/YAML config files (#547)
+- Implement openapi-format as module (#539)
+- Fix includeTests parameter behaviour (#544)
+- Updated examples
+
+## v1.24.0 - (2024-01-05)
+
+- Globals - Added the option set 'collectionVariables' for setting variables on collection level
+
+## v1.23.2 - (2024-01-05)
+
+- Added $schema to the Portman JSON Schema for auto-completion
+- Bumped dependencies: openapi-to-postmanv2 4.18.0, newman 6.1.0, postman-collection 4.3.0, openapi-format 1.15.2, axios 1.6.4
+
+## v1.23.1 - (2023-10-28)
+
+- overwriteRequestSecurity - Handle missing auth config (#509)
 - overwriteRequestQueryParams - Enable disabled query params (#484)
 
 ## v1.23.0 - (2023-10-28)

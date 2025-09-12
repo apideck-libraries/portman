@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  title: Request Multi
+  version: 1.0.0
+paths:
+  /multi:
+    post:
+      operationId: multiCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: string
+            text/plain:
+              schema:
+                type: string

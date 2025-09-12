@@ -40,6 +40,38 @@ Array [
 ]
 `;
 
+exports[`overwriteRequestHeaders should enable the disabled request headers variable 1`] = `
+Array [
+  Object {
+    "description": Object {
+      "content": "(Required) ID of the consumer which you want to get or push data from",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-consumer-id",
+    "value": "test_consumer",
+  },
+  Object {
+    "description": Object {
+      "content": "(Required) The ID of your Unify application",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-app-id",
+    "value": "2222",
+  },
+  Object {
+    "description": Object {
+      "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+      "type": "text/plain",
+    },
+    "disabled": false,
+    "key": "x-apideck-service-id",
+    "value": "salesforce",
+  },
+]
+`;
+
 exports[`overwriteRequestHeaders should insert the request headers variable with description, if key not found 1`] = `
 Object {
   "add-a-header": "foo-bar-baz",
@@ -67,6 +99,42 @@ Object {
 }
 `;
 
+exports[`overwriteRequestHeaders should overwrite & auto-enable the request headers 1`] = `
+Object {
+  "description": Object {
+    "content": "(Required) The ID of your Unify application",
+    "type": "text/plain",
+  },
+  "disabled": false,
+  "key": "x-apideck-app-id",
+  "value": "foo-bar",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite but keep the request headers disabled 1`] = `
+Object {
+  "description": Object {
+    "content": "(Required) The ID of your Unify application",
+    "type": "text/plain",
+  },
+  "disabled": true,
+  "key": "x-apideck-app-id",
+  "value": "foo-bar",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite but keep the request headers enabled 1`] = `
+Object {
+  "description": Object {
+    "content": "(Required) The ID of your Unify application",
+    "type": "text/plain",
+  },
+  "disabled": false,
+  "key": "x-apideck-app-id",
+  "value": "foo-bar",
+}
+`;
+
 exports[`overwriteRequestHeaders should overwrite the header variable with a blank value 1`] = `
 Object {
   "x-apideck-app-id": "",
@@ -78,6 +146,38 @@ Object {
 exports[`overwriteRequestHeaders should overwrite the header variable with a null value 1`] = `
 Object {
   "x-apideck-app-id": "",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request header variable with generated cased string value  with {{}} 1`] = `
+Object {
+  "x-apideck-app-id": "{{CompaniesOneCompanies}}",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request header variable with generated cased string value 1`] = `
+Object {
+  "x-apideck-app-id": "CompaniesOneCompanies",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request header variable with generated string value 1`] = `
+Object {
+  "x-apideck-app-id": "companiesOne_companies",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request header variable with generated string value with {{}} 1`] = `
+Object {
+  "x-apideck-app-id": "{{companiesOne_companies}}",
   "x-apideck-consumer-id": "test_consumer",
   "x-apideck-service-id": "salesforce",
 }
@@ -110,6 +210,35 @@ Object {
 exports[`overwriteRequestHeaders should overwrite the request headers variable even if the existing header has an empty string value 1`] = `
 Object {
   "x-apideck-app-id": "foo-bar-baz",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should overwrite the request headers variable with zero value 1`] = `
+Object {
+  "x-apideck-app-id": "0",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should remove to the Authorization header when remove is true 1`] = `
+Object {
+  "bearer": Array [],
+  "noauth": Array [],
+  "type": "noauth",
+  "x-apideck-app-id": "2222",
+  "x-apideck-consumer-id": "test_consumer",
+  "x-apideck-service-id": "salesforce",
+}
+`;
+
+exports[`overwriteRequestHeaders should remove to the Authorization header when remove is true even when auth is not set 1`] = `
+Object {
+  "noauth": Array [],
+  "type": "noauth",
+  "x-apideck-app-id": "2222",
   "x-apideck-consumer-id": "test_consumer",
   "x-apideck-service-id": "salesforce",
 }

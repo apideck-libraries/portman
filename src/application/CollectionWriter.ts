@@ -6,11 +6,14 @@ import {
   overwriteCollectionValues,
   overwriteCollectionSecurityValues,
   writeCollectionPreRequestScripts,
-  writeRawReplacements
+  writeCollectionVariables,
+  writeRawReplacements,
+  orderCollectionFolders
 } from '.'
 import { GlobalConfig, PortmanConfig, PortmanOptions } from '../types'
 import { isEmptyObject } from '../utils'
 import { writeCollectionTestScripts } from './globals/writeCollectionTestScripts'
+import { changeCase } from 'openapi-format'
 
 export class CollectionWriter {
   public collection: CollectionDefinition
@@ -30,14 +33,43 @@ export class CollectionWriter {
     const {
       collectionPreRequestScripts = [],
       collectionTestScripts = [],
+      collectionVariables = {},
       securityOverwrites = {},
       keyValueReplacements = {},
       valueReplacements = {},
       rawReplacements = [],
-      orderOfOperations = []
+      orderOfOperations = [],
+      orderOfFolders = [],
+      variableCasing
     } = globals as GlobalConfig
 
     let collection = this.collection
+
+    // --- Portman - Apply casing to auth variable
+    if (collection.auth && variableCasing) {
+      if (collection.auth.bearer) {
+        collection.auth.bearer = collection.auth.bearer.map(el =>
+          el.key === 'token' && el.value.includes('{{') && el.value.includes('}}')
+            ? { ...el, value: '{{' + changeCase(el.value, variableCasing ?? 'camelCase') + '}}' }
+            : el
+        )
+      }
+
+      if (collection.auth.apikey) {
+        collection.auth.apikey = collection.auth.apikey.map(el =>
+          (el.key === 'key' || el.key === 'in' || el.key === 'value') &&
+          el.value.includes('{{') &&
+          el.value.includes('}}')
+            ? { ...el, value: '{{' + changeCase(el.value, variableCasing ?? 'camelCase') + '}}' }
+            : el
+        )
+      }
+    }
+
+    // --- Portman - Set Postman collection variables
+    if (collectionVariables && Object.keys(collectionVariables).length > 0) {
+      collection = writeCollectionVariables(collection, collectionVariables)
+    }
 
     // --- Portman - Set Security values for Postman
     if (securityOverwrites && !isEmptyObject(securityOverwrites)) {
@@ -56,12 +88,17 @@ export class CollectionWriter {
 
     // --- Portman - Use .env to inject variables on Collection
     if (envFile) {
-      collection = injectEnvVariables(collection, envFile, baseUrl)
+      collection = injectEnvVariables(collection, envFile, baseUrl, globals)
     }
 
     // --- Portman - Set manually order Postman requests
     if (orderOfOperations && orderOfOperations.length > 0) {
       collection = orderCollectionRequests(collection, orderOfOperations)
+    }
+
+    // --- Portman - Set manually order Postman folders
+    if (orderOfFolders && orderOfFolders.length > 0) {
+      collection = orderCollectionFolders(collection, orderOfFolders)
     }
 
     // --- Portman - Set Postman collection pre-requests scripts

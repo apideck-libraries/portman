@@ -5,6 +5,9 @@
   },
   "description": "Portman by Apideck allows you to port your OpenApi Spec to a Postman Collection, inject a powerful test suite, and run your tests with Newman. Details about all configuration options can be found at http://getportman.com.",
   "properties": {
+    "$schema": {
+      "type": "string"
+    },
     "assignVariables": {
       "items": {
         "additionalProperties": false,
@@ -72,11 +75,21 @@
           },
           "type": "array"
         },
+        "collectionVariables": {
+          "additionalProperties": {},
+          "type": "object"
+        },
         "keyValueReplacements": {
           "additionalProperties": {},
           "type": "object"
         },
         "orderOfOperations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "orderOfFolders": {
           "items": {
             "type": "string"
           },
@@ -328,9 +341,15 @@
                 "type"
               ],
               "type": "object"
+            },
+            "remove": {
+              "type": "boolean"
             }
           },
           "type": "object"
+        },
+        "separatorSymbol": {
+          "type": "string"
         },
         "stripResponseExamples": {
           "type": "boolean"
@@ -338,6 +357,22 @@
         "valueReplacements": {
           "additionalProperties": {},
           "type": "object"
+        },
+        "variableCasing": {
+          "enum": [
+            "camelCase",
+            "pascalCase",
+            "kebabCase",
+            "trainCase",
+            "snakeCase",
+            "adaCase",
+            "constantCase",
+            "cobolCase",
+            "dotNotation",
+            "lowerCase",
+            "upperCase"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -768,6 +803,9 @@
                   "type"
                 ],
                 "type": "object"
+              },
+              "remove": {
+                "type": "boolean"
               }
             },
             "type": "object"
@@ -1031,6 +1069,12 @@
                 },
                 "type": "array"
               },
+              "openApiRequest": {
+                "type": "string"
+              },
+              "openApiResponse": {
+                "type": "string"
+              },
               "responseTime": {
                 "additionalProperties": false,
                 "properties": {
@@ -1175,6 +1219,9 @@
                       "type": "string"
                     },
                     "openApiResponse": {
+                      "type": "string"
+                    },
+                    "openApiRequest": {
                       "type": "string"
                     },
                     "variations": {
@@ -1497,6 +1544,9 @@
                           "openApiResponse": {
                             "type": "string"
                           },
+                          "openApiRequest": {
+                            "type": "string"
+                          },
                           "operationPreRequestScripts": {
                             "items": {
                               "additionalProperties": false,
@@ -1585,6 +1635,9 @@
                 "type": "array"
               },
               "openApiResponse": {
+                "type": "string"
+              },
+              "openApiRequest": {
                 "type": "string"
               },
               "variations": {
@@ -1902,6 +1955,9 @@
                       "type": "array"
                     },
                     "name": {
+                      "type": "string"
+                    },
+                    "openApiRequest": {
                       "type": "string"
                     },
                     "openApiResponse": {

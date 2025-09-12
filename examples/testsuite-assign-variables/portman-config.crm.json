@@ -121,6 +121,7 @@
     }
   ],
   "globals": {
-    "stripResponseExamples": true
+    "stripResponseExamples": true,
+    "variableCasing": "camelCase"
   }
 }

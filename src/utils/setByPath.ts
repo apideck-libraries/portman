@@ -23,6 +23,13 @@ export const setByPath = (
     dot.keepArray = true
   }
 
+  // Check if the path leads to an object that should be replaced
+  const currentValue = dot.pick(path, objectOrArray)
+  if (isObject(currentValue) && !isObject(newValue)) {
+    // Directly replace the object with the new value
+    dot.del(path, objectOrArray)
+  }
+
   // Handle array of objects
   if (Array.isArray(objectOrArray)) {
     // Handle array definition (example: [0])
@@ -48,6 +55,12 @@ export const setByPath = (
       const res = dot.object(flatInput)
       return res[Object.keys(res)[0]]
     }
+  }
+
+  // If the path is an array index, handle it separately
+  if (path.match(/\[\d+\]/)) {
+    const arrayPath = path.replace(/\[(\d+)\]/g, '.$1')
+    return dot.str(arrayPath, newValue, objectOrArray)
   }
 
   // Update property from object

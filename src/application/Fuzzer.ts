@@ -1,4 +1,3 @@
-import { camelCase } from 'camel-case'
 import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import {
@@ -16,12 +15,13 @@ import {
   VariationConfig,
   VariationTestConfig
 } from '../types'
-import traverse from 'traverse'
+import traverse from 'neotraverse/legacy'
 import { TestSuite, VariationWriter } from './'
 import { OpenAPIV3 } from 'openapi-types'
 import { getByPath, getJsonContentType } from '../utils'
 import { QueryParam } from 'postman-collection'
 import { PostmanDynamicVarGenerator } from '../services/PostmanDynamicVarGenerator'
+import { changeCase } from 'openapi-format'
 
 export type FuzzerOptions = {
   testSuite: TestSuite
@@ -298,7 +298,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -374,7 +374,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -402,7 +402,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: numberVal.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as unknown as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -411,7 +412,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: numberVal.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -456,7 +458,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -484,7 +486,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: numberVal.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as unknown as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -493,7 +496,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: numberVal.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -601,7 +605,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -629,7 +633,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: newLenVal.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -638,7 +643,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: newLenVal.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -745,7 +751,7 @@ export class Fuzzer {
 
       // Clone postman operation as new variation operation
       const operationVariation = pmOperation.clone({
-        newId: camelCase(variationFuzzName),
+        newId: changeCase(variationFuzzName, 'camelCase'),
         name: variationFuzzName
       })
 
@@ -773,7 +779,8 @@ export class Fuzzer {
         const fuzzRequestQueryParam = {
           key: field.path,
           value: field.value.toString(), // Query params should passed as string to Postman
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteQueryParamConfig
         this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
       }
@@ -782,7 +789,8 @@ export class Fuzzer {
         const fuzzRequestHeader = {
           key: field.path,
           value: field.value.toString(),
-          overwrite: true
+          overwrite: true,
+          disable: false
         } as OverwriteRequestHeadersConfig
         this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
       }
@@ -819,6 +827,7 @@ export class Fuzzer {
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
       let requiredPath = ``
+      const key = this.key as string
 
       // Merge anyOf, oneOf, allOf OpenAPI schema objects into a simplified schema object
       if (node?.allOf || node?.oneOf || node?.anyOf) {
@@ -847,27 +856,29 @@ export class Fuzzer {
       }
 
       // Remove unwanted anyOf, oneOf, allOf
-      if (this.key === 'anyOf' || this.key === 'oneOf' || this.key === 'allOf') {
+      if (key === 'anyOf' || key === 'oneOf' || key === 'allOf') {
         this.delete()
       }
 
       if (
-        node?.minimum ||
-        node?.maximum ||
-        node?.minLength ||
-        node?.maxLength ||
-        node?.required ||
-        node?.nullable
+        node &&
+        (node.hasOwnProperty('minimum') ||
+          node.hasOwnProperty('maximum') ||
+          node.hasOwnProperty('minLength') ||
+          node.hasOwnProperty('maxLength') ||
+          node?.required ||
+          node?.nullable)
       ) {
         // Build up fuzzing prop schema path from parents array
         this.parents.forEach(item => {
+          const itemKey = item.key as string
           // Handle object
-          if (item?.key && item?.node?.type === 'object' && !skipSchemaKeys.includes(item?.key)) {
-            path += `${item.key}.`
+          if (itemKey && item?.node?.type === 'object' && !skipSchemaKeys.includes(itemKey)) {
+            path += `${itemKey}.`
           }
           // Handle array
           if (item?.key && item?.node?.type === 'array') {
-            path += `${item.key}[0].`
+            path += `${itemKey}[0].`
           }
           // Handle root array
           if (item?.isRoot && item?.node?.type === 'array') {
@@ -881,12 +892,12 @@ export class Fuzzer {
 
       if (node?.required) {
         // Build path for nested required properties
-        if (node?.type === 'object' && this.key && !skipSchemaKeys.includes(this.key)) {
-          requiredPath += `${this.key}.`
+        if (node?.type === 'object' && key && !skipSchemaKeys.includes(key)) {
+          requiredPath += `${key}.`
         }
 
         // Register fuzz-able required fields from the 'required' element on an object; exclude properties named 'required'.
-        if (this.key !== 'properties') {
+        if (key !== 'properties' && Array.isArray(node.required)) {
           const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
           fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
         }
@@ -895,37 +906,48 @@ export class Fuzzer {
       // Unregister fuzz-able nullable required fields
       if (node?.nullable === true && fuzzItems.requiredFields.length > 0) {
         fuzzItems.requiredFields = fuzzItems.requiredFields.filter(
-          item => item !== `${requiredPath}${this.key}`
+          item => item !== `${requiredPath}${key}`
         )
       }
 
       // Register all fuzz-able items, excluding properties that are named after reserved words.
-      if (this.key !== 'properties') {
-        if (node?.minimum) {
+      if (key !== 'properties') {
+        let pathBase = path
+        let pathKey = key
+        let fieldKey = key
+
+        if (key === 'items' && this?.parent?.node?.type === 'array' && node.type !== 'object') {
+          // Set first array item for plain array values
+          pathBase = path.slice(0, path.length - 1)
+          pathKey = ''
+          fieldKey = '[0]'
+        }
+
+        if (node && node.hasOwnProperty('minimum')) {
           fuzzItems?.minimumNumberFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.minimum
           })
         }
-        if (node?.maximum) {
+        if (node && node.hasOwnProperty('maximum')) {
           fuzzItems?.maximumNumberFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.maximum
           })
         }
-        if (node?.minLength && !node?.type?.includes('object')) {
+        if (node && node.hasOwnProperty('minLength') && !node?.type?.includes('object')) {
           fuzzItems?.minLengthFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.minLength
           })
         }
-        if (node?.maxLength && !node?.type?.includes('object')) {
+        if (node && node.hasOwnProperty('maxLength') && !node?.type?.includes('object')) {
           fuzzItems?.maxLengthFields?.push({
-            path: `${path}${this.key}`,
-            field: this.key,
+            path: `${pathBase}${pathKey}`,
+            field: fieldKey,
             value: node.maxLength
           })
         }
@@ -955,28 +977,28 @@ export class Fuzzer {
     if (queryParam?.required) {
       fuzzItems?.requiredFields?.push(queryParam.name)
     }
-    if (schema?.minimum) {
+    if (schema && schema.hasOwnProperty('minimum')) {
       fuzzItems?.minimumNumberFields?.push({
         path: queryParam.name,
         field: queryParam.name,
         value: schema.minimum
       })
     }
-    if (schema?.maximum) {
+    if (schema && schema.hasOwnProperty('maximum')) {
       fuzzItems?.maximumNumberFields?.push({
         path: queryParam.name,
         field: queryParam.name,
         value: schema.maximum
       })
     }
-    if (schema?.minLength) {
+    if (schema && schema.hasOwnProperty('minLength')) {
       fuzzItems?.minLengthFields?.push({
         path: queryParam.name,
         field: queryParam.name,
         value: schema.minLength
       })
     }
-    if (schema?.maxLength) {
+    if (schema && schema.hasOwnProperty('maxLength')) {
       fuzzItems?.maxLengthFields?.push({
         path: queryParam.name,
         field: queryParam.name,
@@ -1007,28 +1029,28 @@ export class Fuzzer {
     if (header?.required) {
       fuzzItems?.requiredFields?.push(header.name)
     }
-    if (schema?.minimum) {
+    if (schema && schema.hasOwnProperty('minimum')) {
       fuzzItems?.minimumNumberFields?.push({
         path: header.name,
         field: header.name,
         value: schema.minimum
       })
     }
-    if (schema?.maximum) {
+    if (schema && schema.hasOwnProperty('maximum')) {
       fuzzItems?.maximumNumberFields?.push({
         path: header.name,
         field: header.name,
         value: schema.maximum
       })
     }
-    if (schema?.minLength) {
+    if (schema && schema.hasOwnProperty('minLength')) {
       fuzzItems?.minLengthFields?.push({
         path: header.name,
         field: header.name,
         value: schema.minLength
       })
     }
-    if (schema?.maxLength) {
+    if (schema && schema.hasOwnProperty('maxLength')) {
       fuzzItems?.maxLengthFields?.push({
         path: header.name,
         field: header.name,

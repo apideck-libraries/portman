@@ -1,12 +1,17 @@
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromValue } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('assignVarFromValue', () => {
+  let oaOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     pmOperation = await getPostmanMappedOperation()
+    oaOperation = await getOasMappedOperation()
   })
 
   afterEach(() => {
@@ -17,7 +22,12 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -27,7 +37,12 @@ describe('assignVarFromValue', () => {
       value: 'portman',
       name: 'portman_string'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -37,7 +52,12 @@ describe('assignVarFromValue', () => {
       value: true,
       name: 'portman_boolean'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 2)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 2)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -47,7 +67,12 @@ describe('assignVarFromValue', () => {
       value: 12345,
       name: 'portman_number'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 3)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 3)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -56,7 +81,15 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: true })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: true
+      }
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -65,8 +98,121 @@ describe('assignVarFromValue', () => {
     const varSetting = {
       value: 'portman'
     }
-    pmOperation = assignVarFromValue(varSetting, pmOperation, 1, { logAssignVariables: false })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: false
+      }
+    }
+    pmOperation = assignVarFromValue(dto, 1)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and convert the casing for the variable name', async () => {
+    const varSetting = {
+      value: 'portman'
+    }
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and not convert the casing for the variable name', async () => {
+    const varSetting = {
+      value: 'portman'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and convert the casing for the templated name', async () => {
+    const varSetting = {
+      value: 'portman',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add postman collection var with name and a template as value', async () => {
+    const varSetting = {
+      value: '<tag>',
+      name: 'portman_number'
+    }
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 3)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable and value and convert the casing for the templated name and value', async () => {
+    const varSetting = {
+      value: '<tag>Id',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should skip postman variable assigning when no value is defined', async () => {
+    const varSetting = {}
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest).toBeUndefined()
+  })
+
+  it('should skip postman variable assigning when no value is defined', async () => {
+    const varSetting = {}
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromValue(dto, 1)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest).toBeUndefined()
   })
 })

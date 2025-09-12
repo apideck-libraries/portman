@@ -1,0 +1,4646 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OpenApiFormat filter should filter an openapispec.yml and return an OpenAPI.Document 1`] = `
+Object {
+  "components": Object {
+    "parameters": Object {
+      "applicationId": Object {
+        "description": "The ID of your Unify application",
+        "in": "header",
+        "name": "x-apideck-app-id",
+        "required": true,
+        "schema": Object {
+          "type": "string",
+        },
+      },
+      "companiesFilter": Object {
+        "description": "Apply filters (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "filter",
+        "schema": Object {
+          "$ref": "#/components/schemas/CompaniesFilter",
+        },
+        "style": "deepObject",
+      },
+      "companiesSort": Object {
+        "description": "Apply sorting (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "sort",
+        "schema": Object {
+          "$ref": "#/components/schemas/CompaniesSort",
+        },
+        "style": "deepObject",
+      },
+      "consumerId": Object {
+        "description": "ID of the consumer which you want to get or push data from",
+        "in": "header",
+        "name": "x-apideck-consumer-id",
+        "required": true,
+        "schema": Object {
+          "type": "string",
+        },
+      },
+      "contactsFilter": Object {
+        "description": "Apply filters (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "filter",
+        "schema": Object {
+          "$ref": "#/components/schemas/ContactsFilter",
+        },
+        "style": "deepObject",
+      },
+      "contactsSort": Object {
+        "description": "Apply sorting (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "sort",
+        "schema": Object {
+          "$ref": "#/components/schemas/ContactsSort",
+        },
+        "style": "deepObject",
+      },
+      "cursor": Object {
+        "description": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
+        "in": "query",
+        "name": "cursor",
+        "schema": Object {
+          "default": null,
+          "nullable": true,
+          "type": "string",
+        },
+      },
+      "id": Object {
+        "description": "ID of the record you are acting upon.",
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": Object {
+          "type": "string",
+        },
+      },
+      "leadsFilter": Object {
+        "description": "Apply filters (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "filter",
+        "schema": Object {
+          "$ref": "#/components/schemas/LeadsFilter",
+        },
+        "style": "deepObject",
+      },
+      "leadsSort": Object {
+        "description": "Apply sorting (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "sort",
+        "schema": Object {
+          "$ref": "#/components/schemas/LeadsSort",
+        },
+        "style": "deepObject",
+      },
+      "limit": Object {
+        "description": "Number of records to return",
+        "in": "query",
+        "name": "limit",
+        "schema": Object {
+          "default": 20,
+          "maximum": 200,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "opportunitiesFilter": Object {
+        "description": "Apply filters (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "filter",
+        "schema": Object {
+          "$ref": "#/components/schemas/OpportunitiesFilter",
+        },
+        "style": "deepObject",
+      },
+      "opportunitiesSort": Object {
+        "description": "Apply sorting (beta)",
+        "explode": true,
+        "in": "query",
+        "name": "sort",
+        "schema": Object {
+          "$ref": "#/components/schemas/OpportunitiesSort",
+        },
+        "style": "deepObject",
+      },
+      "raw": Object {
+        "description": "Include raw response. Mostly used for debugging purposes",
+        "in": "query",
+        "name": "raw",
+        "schema": Object {
+          "default": true,
+          "type": "boolean",
+        },
+      },
+      "serviceId": Object {
+        "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
+        "in": "header",
+        "name": "x-apideck-service-id",
+        "schema": Object {
+          "type": "string",
+        },
+      },
+    },
+    "responses": Object {
+      "BadRequest": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/BadRequest",
+            },
+          },
+        },
+        "description": "Bad Request",
+      },
+      "CreateActivityResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateActivityResponse",
+            },
+          },
+        },
+        "description": "Activity",
+      },
+      "CreateCompany": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateCompanyResponse",
+            },
+          },
+        },
+        "description": "Company created",
+      },
+      "CreateContact": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateContactResponse",
+            },
+          },
+        },
+        "description": "Contact created",
+      },
+      "CreateLead": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateLeadResponse",
+            },
+          },
+        },
+        "description": "Lead created",
+      },
+      "CreateNoteResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateNoteResponse",
+            },
+          },
+        },
+        "description": "Note",
+      },
+      "CreateOpportunity": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateOpportunityResponse",
+            },
+          },
+        },
+        "description": "Opportunity",
+      },
+      "CreatePipeline": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreatePipelineResponse",
+            },
+          },
+        },
+        "description": "Pipeline created",
+      },
+      "CreateUser": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/CreateUserResponse",
+            },
+          },
+        },
+        "description": "User created",
+      },
+      "DeleteActivityResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteActivityResponse",
+            },
+          },
+        },
+        "description": "Activity",
+      },
+      "DeleteCompany": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteCompanyResponse",
+            },
+          },
+        },
+        "description": "Company deleted",
+      },
+      "DeleteContact": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteContactResponse",
+            },
+          },
+        },
+        "description": "Contact deleted",
+      },
+      "DeleteLead": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteLeadResponse",
+            },
+          },
+        },
+        "description": "Lead deleted",
+      },
+      "DeleteNoteResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteNoteResponse",
+            },
+          },
+        },
+        "description": "Note",
+      },
+      "DeleteOpportunity": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteOpportunityResponse",
+            },
+          },
+        },
+        "description": "Opportunity deleted",
+      },
+      "DeletePipeline": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeletePipelineResponse",
+            },
+          },
+        },
+        "description": "Pipeline deleted",
+      },
+      "DeleteUser": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/DeleteUserResponse",
+            },
+          },
+        },
+        "description": "User deleted",
+      },
+      "GetActivitiesResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetActivitiesResponse",
+            },
+          },
+        },
+        "description": "Activities",
+      },
+      "GetActivityResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetActivityResponse",
+            },
+          },
+        },
+        "description": "Activity",
+      },
+      "GetCompanies": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetCompaniesResponse",
+            },
+          },
+        },
+        "description": "Companies",
+      },
+      "GetCompany": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetCompanyResponse",
+            },
+          },
+        },
+        "description": "Company",
+      },
+      "GetContact": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetContactResponse",
+            },
+          },
+        },
+        "description": "Contact",
+      },
+      "GetContacts": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetContactsResponse",
+            },
+          },
+        },
+        "description": "Contacts",
+      },
+      "GetLead": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetLeadResponse",
+            },
+          },
+        },
+        "description": "Lead",
+      },
+      "GetLeads": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetLeadsResponse",
+            },
+          },
+        },
+        "description": "Leads",
+      },
+      "GetNoteResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetNoteResponse",
+            },
+          },
+        },
+        "description": "Note",
+      },
+      "GetNotesResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetNotesResponse",
+            },
+          },
+        },
+        "description": "Notes",
+      },
+      "GetOpportunities": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetOpportunitiesResponse",
+            },
+          },
+        },
+        "description": "Opportunities",
+      },
+      "GetOpportunity": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetOpportunityResponse",
+            },
+          },
+        },
+        "description": "Opportunity",
+      },
+      "GetPipeline": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetPipelineResponse",
+            },
+          },
+        },
+        "description": "Pipeline",
+      },
+      "GetPipelines": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetPipelinesResponse",
+            },
+          },
+        },
+        "description": "Pipelines",
+      },
+      "GetUser": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetUserResponse",
+            },
+          },
+        },
+        "description": "User",
+      },
+      "GetUsers": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/GetUsersResponse",
+            },
+          },
+        },
+        "description": "Users",
+      },
+      "NotFound": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/NotFoundResponse",
+            },
+          },
+        },
+        "description": "The specified resource was not found",
+      },
+      "NotImplemented": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/NotImplemented",
+            },
+          },
+        },
+        "description": "Not Implemented",
+      },
+      "PaymentRequired": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/PaymentRequired",
+            },
+          },
+        },
+        "description": "Payment Required",
+      },
+      "Unauthorized": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/Unauthorized",
+            },
+          },
+        },
+        "description": "Unauthorized",
+      },
+      "UnexpectedError": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UnexpectedError",
+            },
+          },
+        },
+        "description": "Unexpected error",
+      },
+      "Unprocessable": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/Unprocessable",
+            },
+          },
+        },
+        "description": "Unprocessable",
+      },
+      "UpdateActivityResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateActivityResponse",
+            },
+          },
+        },
+        "description": "Activity",
+      },
+      "UpdateCompany": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateCompanyResponse",
+            },
+          },
+        },
+        "description": "Company updated",
+      },
+      "UpdateContact": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateContactResponse",
+            },
+          },
+        },
+        "description": "Contact updated",
+      },
+      "UpdateLead": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateLeadResponse",
+            },
+          },
+        },
+        "description": "Lead updated",
+      },
+      "UpdateNoteResponse": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateNoteResponse",
+            },
+          },
+        },
+        "description": "Note",
+      },
+      "UpdateOpportunity": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateOpportunityResponse",
+            },
+          },
+        },
+        "description": "Opportunity updated",
+      },
+      "UpdatePipeline": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdatePipelineResponse",
+            },
+          },
+        },
+        "description": "Pipeline updated",
+      },
+      "UpdateUser": Object {
+        "content": Object {
+          "application/json": Object {
+            "schema": Object {
+              "$ref": "#/components/schemas/UpdateUserResponse",
+            },
+          },
+        },
+        "description": "User updated",
+      },
+    },
+    "schemas": Object {
+      "Activity": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "account_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "activity_date": Object {
+            "example": "2021-05-01",
+            "nullable": true,
+            "type": "string",
+          },
+          "activity_datetime": Object {
+            "example": "2021-05-01T12:00:00.000Z",
+            "minLength": 1,
+            "nullable": true,
+            "type": "string",
+          },
+          "all_day_event": Object {
+            "example": false,
+            "type": "boolean",
+          },
+          "archived": Object {
+            "example": false,
+            "type": "boolean",
+          },
+          "asset_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "campaign_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "case_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "child": Object {
+            "example": false,
+            "type": "boolean",
+          },
+          "company_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "contact_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "contract_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "created_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "created_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "custom_fields": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/CustomField",
+            },
+            "type": "array",
+          },
+          "custom_object_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "deleted": Object {
+            "example": false,
+            "type": "boolean",
+          },
+          "description": Object {
+            "example": "More info about the meeting",
+            "nullable": true,
+            "type": "string",
+          },
+          "duration_minutes": Object {
+            "example": 30,
+            "nullable": true,
+            "type": "integer",
+          },
+          "duration_seconds": Object {
+            "example": 1800,
+            "minimum": 0,
+            "nullable": true,
+            "type": "integer",
+          },
+          "end_date": Object {
+            "example": "2021-05-01",
+            "nullable": true,
+            "type": "string",
+          },
+          "end_datetime": Object {
+            "example": "2021-05-01T12:30:00.000Z",
+            "nullable": true,
+            "type": "string",
+          },
+          "event_sub_type": Object {
+            "example": "debrief",
+            "nullable": true,
+            "type": "string",
+          },
+          "group_event": Object {
+            "example": true,
+            "type": "boolean",
+          },
+          "group_event_type": Object {
+            "example": "Proposed",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "lead_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "location": Object {
+            "example": "Space",
+            "nullable": true,
+            "type": "string",
+          },
+          "opportunity_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "owner_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "private": Object {
+            "example": true,
+            "type": "boolean",
+          },
+          "product_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "recurrent": Object {
+            "example": false,
+            "type": "boolean",
+          },
+          "reminder_datetime": Object {
+            "example": "2021-05-01T17:00:00.000Z",
+            "nullable": true,
+            "type": "string",
+          },
+          "reminder_set": Object {
+            "example": false,
+            "nullable": true,
+            "type": "boolean",
+          },
+          "show_as": Object {
+            "enum": Array [
+              "free",
+              "busy",
+            ],
+            "example": "busy",
+            "type": "string",
+          },
+          "solution_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "start_datetime": Object {
+            "example": "2021-05-01T12:00:00.000Z",
+            "nullable": true,
+            "type": "string",
+          },
+          "title": Object {
+            "example": "Meeting",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "call",
+              "meeting",
+              "email",
+              "note",
+              "task",
+              "send-letter",
+              "send-quote",
+              "other",
+            ],
+            "example": "meeting",
+            "type": "string",
+          },
+          "updated_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "updated_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "type",
+        ],
+        "type": "object",
+      },
+      "Address": Object {
+        "properties": Object {
+          "city": Object {
+            "description": "Name of city.",
+            "example": "San Francisco",
+            "nullable": true,
+            "type": "string",
+          },
+          "country": Object {
+            "description": "country code according to ISO 3166-1 alpha-2.",
+            "example": "US",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "123",
+            "nullable": true,
+            "type": "string",
+          },
+          "latitude": Object {
+            "example": "40.759211",
+            "nullable": true,
+            "type": "string",
+          },
+          "line1": Object {
+            "description": "Line 1 of the address e.g. number, street, suite, apt #, etc.",
+            "example": "Main street",
+            "nullable": true,
+            "type": "string",
+          },
+          "line2": Object {
+            "description": "Line 2 of the address",
+            "example": "apt #",
+            "nullable": true,
+            "type": "string",
+          },
+          "longitude": Object {
+            "example": "-73.984638",
+            "nullable": true,
+            "type": "string",
+          },
+          "name": Object {
+            "example": "HQ US",
+            "nullable": true,
+            "type": "string",
+          },
+          "postal_code": Object {
+            "description": "Zip code or equivalent.",
+            "example": "94104",
+            "nullable": true,
+            "type": "string",
+          },
+          "state": Object {
+            "description": "Name of state",
+            "example": "CA",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "home",
+              "office",
+              "shipping",
+              "billing",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "AddressType",
+          },
+        },
+        "type": "object",
+      },
+      "BadRequest": Object {
+        "properties": Object {
+          "detail": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Missing property foobar",
+                "type": "string",
+              },
+              Object {
+                "example": Object {
+                  "missing": Array [
+                    Array [
+                      Object {
+                        "foobar": "required",
+                      },
+                    ],
+                  ],
+                },
+                "type": "object",
+              },
+            ],
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Invalid Params",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#requestbodyvalidationerror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 400,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "RequestHeadersValidationError",
+            "type": "string",
+          },
+        },
+      },
+      "BankAccount": Object {
+        "properties": Object {
+          "bic": Object {
+            "example": "AUDSCHGGXXX",
+            "nullable": true,
+            "type": "string",
+          },
+          "iban": Object {
+            "example": "CH2989144532982975332",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+      "CompaniesFilter": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "name": "SpaceX",
+        },
+        "properties": Object {
+          "name": Object {
+            "description": "Name of the company to filter on",
+            "example": "SpaceX",
+            "type": "string",
+          },
+        },
+        "type": "object",
+        "x-graphql-type-name": "CompaniesFilter",
+      },
+      "CompaniesSort": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "by": "created_at",
+          "direction": "desc",
+        },
+        "properties": Object {
+          "by": Object {
+            "description": "The field on which to sort the Companies",
+            "enum": Array [
+              "created_at",
+              "updated_at",
+              "name",
+            ],
+            "example": "created_at",
+            "type": "string",
+          },
+          "direction": Object {
+            "default": "asc",
+            "description": "The direction in which to sort the Companies",
+            "enum": Array [
+              "asc",
+              "desc",
+            ],
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "by",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "CompaniesSort",
+      },
+      "Company": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "addresses": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Address",
+            },
+            "type": "array",
+          },
+          "bank_accounts": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/BankAccount",
+            },
+            "type": "array",
+          },
+          "created_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "created_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "currency": Object {
+            "example": "USD",
+            "nullable": true,
+            "type": "string",
+          },
+          "custom_fields": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/CustomField",
+            },
+            "type": "array",
+          },
+          "description": Object {
+            "example": "A crm that works for you, so you can spend time on relationships instead of data.",
+            "nullable": true,
+            "type": "string",
+          },
+          "emails": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Email",
+            },
+            "type": "array",
+          },
+          "fax": Object {
+            "example": "+12129876543",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "image_url": Object {
+            "example": "https://www.spacex.com/static/images/share.jpg",
+            "nullable": true,
+            "type": "string",
+          },
+          "interaction_count": Object {
+            "example": 1,
+            "nullable": true,
+            "readOnly": true,
+            "type": "integer",
+          },
+          "name": Object {
+            "example": "Copper",
+            "minLength": 1,
+            "type": "string",
+          },
+          "owner_id": Object {
+            "example": "12345",
+            "type": "string",
+          },
+          "phone_numbers": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/PhoneNumber",
+            },
+            "type": "array",
+          },
+          "social_links": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/SocialLink",
+            },
+            "type": "array",
+          },
+          "status": Object {
+            "example": "Open",
+            "minLength": 1,
+            "nullable": true,
+            "type": "string",
+          },
+          "tags": Object {
+            "$ref": "#/components/schemas/Tags",
+          },
+          "updated_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "updated_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "vat_number": Object {
+            "description": "VAT number",
+            "example": "BE0689615164",
+            "nullable": true,
+            "type": "string",
+          },
+          "websites": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Website",
+            },
+            "type": "array",
+          },
+        },
+        "required": Array [
+          "name",
+        ],
+        "type": "object",
+      },
+      "Contact": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "addresses": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Address",
+            },
+            "type": "array",
+          },
+          "birthday": Object {
+            "example": "2000-08-12",
+            "nullable": true,
+            "type": "string",
+          },
+          "company_id": Object {
+            "example": "23456",
+            "nullable": true,
+            "type": "string",
+          },
+          "company_name": Object {
+            "example": "23456",
+            "nullable": true,
+            "type": "string",
+          },
+          "created_at": Object {
+            "example": "2017-08-12T20:43:21.291Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "custom_fields": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/CustomField",
+            },
+            "type": "array",
+          },
+          "department": Object {
+            "example": "Engineering",
+            "nullable": true,
+            "type": "string",
+          },
+          "description": Object {
+            "example": "Internal champion",
+            "nullable": true,
+            "type": "string",
+          },
+          "emails": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Email",
+            },
+            "type": "array",
+          },
+          "fax": Object {
+            "example": "+12129876543",
+            "nullable": true,
+            "type": "string",
+          },
+          "first_name": Object {
+            "example": "Elon",
+            "nullable": true,
+            "type": "string",
+          },
+          "gender": Object {
+            "enum": Array [
+              "male",
+              "female",
+              "unisex",
+            ],
+            "example": "female",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "image": Object {
+            "example": "https://logo.dev/spacex.com?s=128",
+            "nullable": true,
+            "type": "string",
+          },
+          "language": Object {
+            "description": "language code according to ISO 639-1. For the United States - EN",
+            "example": "EN",
+            "nullable": true,
+            "type": "string",
+          },
+          "last_name": Object {
+            "example": "Musk",
+            "nullable": true,
+            "type": "string",
+          },
+          "lead_id": Object {
+            "example": "34567",
+            "nullable": true,
+            "type": "string",
+          },
+          "lead_source": Object {
+            "example": "Cold Call",
+            "minLength": 1,
+            "nullable": true,
+            "type": "string",
+          },
+          "middle_name": Object {
+            "example": "D.",
+            "nullable": true,
+            "type": "string",
+          },
+          "name": Object {
+            "example": "Elon Musk",
+            "minLength": 1,
+            "type": "string",
+          },
+          "owner_id": Object {
+            "example": "54321",
+            "nullable": true,
+            "type": "string",
+          },
+          "phone_numbers": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/PhoneNumber",
+            },
+            "type": "array",
+          },
+          "prefix": Object {
+            "example": "Mr.",
+            "nullable": true,
+            "type": "string",
+          },
+          "social_links": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/SocialLink",
+            },
+            "type": "array",
+          },
+          "status": Object {
+            "example": "open",
+            "nullable": true,
+            "type": "string",
+          },
+          "suffix": Object {
+            "example": "PhD",
+            "nullable": true,
+            "type": "string",
+          },
+          "tags": Object {
+            "$ref": "#/components/schemas/Tags",
+          },
+          "title": Object {
+            "example": "CEO",
+            "nullable": true,
+            "type": "string",
+          },
+          "updated_at": Object {
+            "example": "2017-08-12T20:43:21.291Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "websites": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Website",
+            },
+            "type": "array",
+          },
+        },
+        "required": Array [
+          "name",
+        ],
+        "x-pii": Array [
+          "name",
+          "first_name",
+          "middle_name",
+          "last_name",
+          "email",
+        ],
+      },
+      "ContactsFilter": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "email": "elon@tesla.com",
+          "first_name": "Elon",
+          "last_name": "Musk",
+        },
+        "properties": Object {
+          "email": Object {
+            "description": "E-mail of the contact to filter on",
+            "example": "elon@tesla.com",
+            "type": "string",
+          },
+          "first_name": Object {
+            "description": "First name of the contact to filter on",
+            "example": "Elon",
+            "type": "string",
+          },
+          "last_name": Object {
+            "description": "Last name of the contact to filter on",
+            "example": "Musk",
+            "type": "string",
+          },
+          "name": Object {
+            "description": "Name of the contact to filter on",
+            "example": "Elon Musk",
+            "type": "string",
+          },
+        },
+        "type": "object",
+        "x-graphql-type-name": "ContactsFilter",
+      },
+      "ContactsSort": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "by": "created_at",
+          "direction": "desc",
+        },
+        "properties": Object {
+          "by": Object {
+            "description": "The field on which to sort the Contacts",
+            "enum": Array [
+              "created_at",
+              "updated_at",
+              "name",
+              "first_name",
+              "last_name",
+              "email",
+            ],
+            "example": "created_at",
+            "type": "string",
+          },
+          "direction": Object {
+            "default": "asc",
+            "description": "The direction in which to sort the Contacts",
+            "enum": Array [
+              "asc",
+              "desc",
+            ],
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "by",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "ContactsSort",
+      },
+      "CreateActivityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "activities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreateCompanyResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreateContactResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreateLeadResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreateNoteResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "notes",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreateOpportunityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "opportunities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreatePipelineResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "pipelines",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CreateUserResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "users",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "CustomField": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "id": Object {
+            "example": "custom_technologies",
+            "type": "string",
+          },
+          "value": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Uses Salesforce and Marketo",
+                "nullable": true,
+                "type": "string",
+              },
+              Object {
+                "example": 10,
+                "nullable": true,
+                "type": "number",
+              },
+              Object {
+                "example": true,
+                "nullable": true,
+                "type": "boolean",
+              },
+              Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "type": "array",
+              },
+            ],
+          },
+        },
+        "required": Array [
+          "id",
+        ],
+        "type": "object",
+      },
+      "DeleteActivityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "activities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeleteCompanyResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeleteContactResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeleteLeadResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeleteNoteResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "notes",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeleteOpportunityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeletePipelineResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "DeleteUserResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "users",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "Email": Object {
+        "properties": Object {
+          "email": Object {
+            "example": "elon@musk.com",
+            "format": "email",
+            "minLength": 1,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "123",
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "work",
+              "personal",
+              "billing",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "EmailType",
+          },
+        },
+        "required": Array [
+          "email",
+        ],
+        "type": "object",
+      },
+      "GetActivitiesResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Activity",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "activities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "ActivityList",
+      },
+      "GetActivityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Activity",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "activities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "activity",
+      },
+      "GetCompaniesResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Company",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "CompanyList",
+      },
+      "GetCompanyResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Company",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "company",
+      },
+      "GetContactResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Contact",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "GetContactsResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Contact",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "ContactList",
+      },
+      "GetLeadResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Lead",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "GetLeadsResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Lead",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "LeadList",
+      },
+      "GetNoteResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Note",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "notes",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "note",
+      },
+      "GetNotesResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Note",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "notes",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "NoteList",
+      },
+      "GetOpportunitiesResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Opportunity",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "opportunities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "OpportunityList",
+      },
+      "GetOpportunityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Opportunity",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "opportunities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "GetPipelineResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/Pipeline",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "pipelines",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "GetPipelinesResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Pipeline",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "pipelines",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "PipelinesList",
+      },
+      "GetUserResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/User",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "GetUsersResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/User",
+            },
+            "type": "array",
+          },
+          "links": Object {
+            "$ref": "#/components/schemas/Links",
+          },
+          "meta": Object {
+            "$ref": "#/components/schemas/Meta",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "users",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "UserList",
+      },
+      "Lead": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "addresses": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Address",
+            },
+            "type": "array",
+          },
+          "company_id": Object {
+            "example": "2",
+            "nullable": true,
+            "type": "string",
+          },
+          "company_name": Object {
+            "example": "Spacex",
+            "nullable": true,
+            "type": "string",
+          },
+          "contact_id": Object {
+            "example": "2",
+            "nullable": true,
+            "type": "string",
+          },
+          "created_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "currency": Object {
+            "example": "USD",
+            "nullable": true,
+            "type": "string",
+          },
+          "custom_fields": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/CustomField",
+            },
+            "type": "array",
+          },
+          "description": Object {
+            "example": "A thinker",
+            "nullable": true,
+            "type": "string",
+          },
+          "emails": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Email",
+            },
+            "type": "array",
+          },
+          "fax": Object {
+            "example": "+12129876543",
+            "nullable": true,
+            "type": "string",
+          },
+          "first_name": Object {
+            "example": "Elon",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "language": Object {
+            "description": "language code according to ISO 639-1. For the United States - EN",
+            "example": "EN",
+            "nullable": true,
+            "type": "string",
+          },
+          "last_name": Object {
+            "example": "Musk",
+            "nullable": true,
+            "type": "string",
+          },
+          "lead_source": Object {
+            "example": "Cold Call",
+            "nullable": true,
+            "type": "string",
+          },
+          "monetary_amount": Object {
+            "example": 75000,
+            "nullable": true,
+            "type": "number",
+          },
+          "name": Object {
+            "example": "Elon Musk",
+            "minLength": 1,
+            "type": "string",
+          },
+          "owner_id": Object {
+            "example": "54321",
+            "type": "string",
+          },
+          "phone_numbers": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/PhoneNumber",
+            },
+            "type": "array",
+          },
+          "prefix": Object {
+            "example": "Sir",
+            "nullable": true,
+            "type": "string",
+          },
+          "social_links": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/SocialLink",
+            },
+            "type": "array",
+          },
+          "status": Object {
+            "example": "New",
+            "nullable": true,
+            "type": "string",
+          },
+          "tags": Object {
+            "$ref": "#/components/schemas/Tags",
+          },
+          "title": Object {
+            "example": "CEO",
+            "nullable": true,
+            "type": "string",
+          },
+          "updated_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "websites": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/Website",
+            },
+            "type": "array",
+          },
+        },
+        "required": Array [
+          "name",
+          "company_name",
+        ],
+        "x-pii": Array [
+          "name",
+          "email",
+          "first_name",
+          "last_name",
+        ],
+      },
+      "LeadsFilter": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "email": "elon@tesla.com",
+          "first_name": "Elon",
+          "last_name": "Musk",
+        },
+        "properties": Object {
+          "email": Object {
+            "description": "E-mail of the lead to filter on",
+            "example": "elon@tesla.com",
+            "type": "string",
+          },
+          "first_name": Object {
+            "description": "First name of the lead to filter on",
+            "example": "Elon",
+            "type": "string",
+          },
+          "last_name": Object {
+            "description": "Last name of the lead to filter on",
+            "example": "Musk",
+            "type": "string",
+          },
+          "name": Object {
+            "description": "Name of the lead to filter on",
+            "example": "Elon Musk",
+            "type": "string",
+          },
+        },
+        "type": "object",
+        "x-graphql-type-name": "LeadsFilter",
+      },
+      "LeadsSort": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "by": "created_at",
+          "direction": "desc",
+        },
+        "properties": Object {
+          "by": Object {
+            "description": "The field on which to sort the Leads",
+            "enum": Array [
+              "created_at",
+              "updated_at",
+              "name",
+              "first_name",
+              "last_name",
+              "email",
+            ],
+            "example": "created_at",
+            "type": "string",
+          },
+          "direction": Object {
+            "default": "asc",
+            "description": "The direction in which to sort the Leads",
+            "enum": Array [
+              "asc",
+              "desc",
+            ],
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "by",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "LeadsSort",
+      },
+      "Links": Object {
+        "description": "Links to navigate to previous or next pages through the API",
+        "properties": Object {
+          "current": Object {
+            "description": "Link to navigate to the current page through the API",
+            "example": "https://unify.apideck.com/crm/companies",
+            "type": "string",
+          },
+          "next": Object {
+            "description": "Link to navigate to the previous page through the API",
+            "example": "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM",
+            "nullable": true,
+            "type": "string",
+          },
+          "previous": Object {
+            "description": "Link to navigate to the previous page through the API",
+            "example": "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+      "Meta": Object {
+        "description": "Reponse metadata",
+        "properties": Object {
+          "cursors": Object {
+            "description": "Cursors to navigate to previous or next pages through the API",
+            "properties": Object {
+              "current": Object {
+                "description": "Cursor to navigate to the current page of results through the API",
+                "example": "em9oby1jcm06OnBhZ2U6OjI=",
+                "nullable": true,
+                "type": "string",
+              },
+              "next": Object {
+                "description": "Cursor to navigate to the next page of results through the API",
+                "example": "em9oby1jcm06OnBhZ2U6OjM=",
+                "nullable": true,
+                "type": "string",
+              },
+              "previous": Object {
+                "description": "Cursor to navigate to the previous page of results through the API",
+                "example": "em9oby1jcm06OnBhZ2U6OjE=",
+                "nullable": true,
+                "type": "string",
+              },
+            },
+            "type": "object",
+          },
+          "items_on_page": Object {
+            "description": "Number of items returned in the data property of the response",
+            "example": 50,
+            "type": "integer",
+          },
+        },
+        "type": "object",
+      },
+      "NotFoundResponse": Object {
+        "properties": Object {
+          "detail": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Could not find widget with id: '123'",
+                "type": "string",
+              },
+              Object {
+                "example": Object {
+                  "not_found": Object {
+                    "entity": "widget",
+                    "id": "123",
+                  },
+                },
+                "type": "object",
+              },
+            ],
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Unknown Widget",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#entitynotfounderror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 404,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "EntityNotFoundError",
+            "type": "string",
+          },
+        },
+      },
+      "NotImplemented": Object {
+        "properties": Object {
+          "detail": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Failed to retrieve Widget tokenUrl from 'components.securitySchemes.oauth2.flows'",
+                "type": "string",
+              },
+              Object {
+                "type": "object",
+              },
+            ],
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Not Implemented",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Unmapped Attribute",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#mappingerror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 501,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "MappingError",
+            "type": "string",
+          },
+        },
+      },
+      "Note": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "content": Object {
+            "example": "Office hours are 9AM-6PM",
+            "type": "string",
+          },
+          "created_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "created_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "owner_id": Object {
+            "example": "12345",
+            "type": "string",
+          },
+          "title": Object {
+            "example": "Meeting Notes",
+            "type": "string",
+          },
+          "updated_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "updated_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+        },
+        "type": "object",
+      },
+      "OpportunitiesFilter": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "monetary_amount": 75000,
+          "status": "Completed",
+        },
+        "properties": Object {
+          "monetary_amount": Object {
+            "description": "Monetary amount to filter on",
+            "example": 75000,
+            "type": "number",
+          },
+          "status": Object {
+            "description": "Status to filter on",
+            "example": "Completed",
+            "type": "string",
+          },
+          "title": Object {
+            "description": "Title of the opportunity to filter on",
+            "example": "Tesla deal",
+            "type": "string",
+          },
+          "win_probability": Object {
+            "description": "Win probability to filter on",
+            "example": 50,
+            "type": "number",
+          },
+        },
+        "type": "object",
+        "x-graphql-type-name": "OpportunitiesFilter",
+      },
+      "OpportunitiesSort": Object {
+        "additionalProperties": false,
+        "example": Object {
+          "by": "created_at",
+          "direction": "desc",
+        },
+        "properties": Object {
+          "by": Object {
+            "description": "The field on which to sort the Opportunities",
+            "enum": Array [
+              "created_at",
+              "updated_at",
+              "title",
+              "win_probability",
+              "monetary_amount",
+              "status",
+            ],
+            "example": "created_at",
+            "type": "string",
+          },
+          "direction": Object {
+            "default": "asc",
+            "description": "The direction in which to sort the Opportunities",
+            "enum": Array [
+              "asc",
+              "desc",
+            ],
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "by",
+        ],
+        "type": "object",
+        "x-graphql-type-name": "OpportunitiesSort",
+      },
+      "Opportunity": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "close_date": Object {
+            "example": "2020-10-30",
+            "format": "date",
+            "nullable": true,
+            "type": "string",
+          },
+          "company_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "company_name": Object {
+            "example": "Copper",
+            "nullable": true,
+            "type": "string",
+          },
+          "contact_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "created_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string",
+          },
+          "created_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "currency": Object {
+            "example": "USD",
+            "nullable": true,
+            "type": "string",
+          },
+          "custom_fields": Object {
+            "items": Object {
+              "$ref": "#/components/schemas/CustomField",
+            },
+            "type": "array",
+          },
+          "date_last_contacted": Object {
+            "example": "2020-09-30T00:00:00.000Z",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "date_lead_created": Object {
+            "example": "2020-09-30T00:00:00.000Z",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "date_stage_changed": Object {
+            "example": "2020-09-30T00:00:00.000Z",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "description": Object {
+            "example": "Opportunities are created for People and Companies that are interested in buying your products or services. Create Opportunities for People and Companies to move them through one of your Pipelines.",
+            "minLength": 1,
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "interaction_count": Object {
+            "example": 0,
+            "nullable": true,
+            "readOnly": true,
+            "type": "number",
+          },
+          "lead_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "loss_reason": Object {
+            "example": "No budget",
+            "nullable": true,
+            "type": "string",
+          },
+          "loss_reason_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "monetary_amount": Object {
+            "example": 75000,
+            "nullable": true,
+            "type": "number",
+          },
+          "owner_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "pipeline_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "pipeline_stage_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "primary_contact_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "priority": Object {
+            "example": "None",
+            "minLength": 1,
+            "nullable": true,
+            "type": "string",
+          },
+          "source_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "status": Object {
+            "example": "Open",
+            "minLength": 1,
+            "nullable": true,
+            "type": "string",
+          },
+          "status_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "tags": Object {
+            "$ref": "#/components/schemas/Tags",
+          },
+          "title": Object {
+            "example": "New Rocket",
+            "minLength": 1,
+            "type": "string",
+          },
+          "updated_at": Object {
+            "example": "2020-09-30T07:43:32.000Z",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string",
+          },
+          "updated_by": Object {
+            "example": "12345",
+            "nullable": true,
+            "readOnly": true,
+            "type": "string",
+          },
+          "win_probability": Object {
+            "example": 40,
+            "nullable": true,
+            "type": "number",
+          },
+          "won_reason": Object {
+            "example": "Best pitch",
+            "nullable": true,
+            "type": "string",
+          },
+          "won_reason_id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "title",
+          "primary_contact_id",
+        ],
+        "type": "object",
+      },
+      "PaymentRequired": Object {
+        "properties": Object {
+          "detail": Object {
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+            "example": "You have reached your limit of 2000",
+            "type": "string",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Payment Required",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Request Limit Reached",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#requestlimiterror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 402,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "RequestLimitError",
+            "type": "string",
+          },
+        },
+      },
+      "PhoneNumber": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "number": Object {
+            "example": "111-111-1111",
+            "minLength": 1,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "home",
+              "office",
+              "mobile",
+              "assistant",
+              "fax",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "PhoneType",
+          },
+        },
+        "required": Array [
+          "number",
+        ],
+        "type": "object",
+      },
+      "Pipeline": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "archived": Object {
+            "example": false,
+            "type": "boolean",
+          },
+          "created_at": Object {
+            "example": "2017-08-12T20:43:21.291Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "currency": Object {
+            "example": "USD",
+            "type": "string",
+          },
+          "display_order": Object {
+            "example": 1,
+            "type": "integer",
+          },
+          "id": Object {
+            "example": "default",
+            "type": "string",
+          },
+          "name": Object {
+            "example": "Sales Pipeline",
+            "minLength": 1,
+            "type": "string",
+          },
+          "stages": Object {
+            "items": Object {
+              "properties": Object {
+                "display_order": Object {
+                  "example": 1,
+                  "type": "integer",
+                },
+                "id": Object {
+                  "example": "contractsent",
+                  "readOnly": true,
+                  "type": "string",
+                },
+                "name": Object {
+                  "example": "Contract Sent",
+                  "type": "string",
+                },
+                "value": Object {
+                  "example": "CONTRACT_SENT",
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "type": "array",
+          },
+          "updated_at": Object {
+            "example": "2017-08-12T20:43:21.291Z",
+            "readOnly": true,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "name",
+        ],
+        "x-pii": Array [],
+      },
+      "SocialLink": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "example": "twitter",
+            "nullable": true,
+            "type": "string",
+          },
+          "url": Object {
+            "example": "https://www.twitter.com/apideck-io",
+            "minLength": 1,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "url",
+        ],
+        "type": "object",
+      },
+      "Tags": Object {
+        "example": Array [
+          "New",
+        ],
+        "items": Object {
+          "type": "string",
+        },
+        "type": "array",
+      },
+      "Unauthorized": Object {
+        "properties": Object {
+          "detail": Object {
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+            "example": "Failed to generate valid JWT Session. Verify applicationId is correct",
+            "type": "string",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Unauthorized",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Unauthorized Request",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#unauthorizederror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 401,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "UnauthorizedError",
+            "type": "string",
+          },
+        },
+      },
+      "UnexpectedError": Object {
+        "properties": Object {
+          "detail": Object {
+            "anyOf": Array [
+              Object {
+                "example": "Missing Header: x-apideck-consumer-id",
+                "type": "string",
+              },
+              Object {
+                "example": Object {
+                  "missing": Array [
+                    Array [
+                      Object {
+                        "x-apideck-consumer-id": "required",
+                      },
+                    ],
+                  ],
+                },
+                "type": "object",
+              },
+            ],
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Invalid Params",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#unauthorizederror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 400,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "RequestHeadersValidationError",
+            "type": "string",
+          },
+        },
+      },
+      "UnifiedId": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "id",
+        ],
+        "title": "UnifiedId",
+      },
+      "Unprocessable": Object {
+        "properties": Object {
+          "detail": Object {
+            "description": "Contains parameter or domain specific information related to the error and why it occured.",
+            "example": "State did not include unified_api",
+            "type": "string",
+          },
+          "error": Object {
+            "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+            "example": "Unprocessable Entity",
+            "type": "string",
+          },
+          "message": Object {
+            "description": "A human-readable message providing more details about the error.",
+            "example": "Invalid State",
+            "type": "string",
+          },
+          "ref": Object {
+            "description": "Link to documentation of error type",
+            "example": "https://developers.apideck.com/errors#invalidstateerror",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP status code",
+            "example": 422,
+            "type": "number",
+          },
+          "typeName": Object {
+            "description": "The type of error returned",
+            "example": "InvalidStateError",
+            "type": "string",
+          },
+        },
+      },
+      "UpdateActivityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "activities",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdateCompanyResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdateContactResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdateLeadResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdateNoteResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "notes",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdateOpportunityResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdatePipelineResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "pipelines",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "UpdateUserResponse": Object {
+        "properties": Object {
+          "data": Object {
+            "$ref": "#/components/schemas/UnifiedId",
+          },
+          "operation": Object {
+            "description": "Operation performed",
+            "example": "one",
+            "type": "string",
+          },
+          "resource": Object {
+            "description": "Unified API resource name",
+            "example": "companies",
+            "type": "string",
+          },
+          "service": Object {
+            "description": "Apideck ID of service provider",
+            "example": "zoho-crm",
+            "type": "string",
+          },
+          "status": Object {
+            "description": "HTTP Response Status",
+            "example": "OK",
+            "type": "string",
+          },
+          "status_code": Object {
+            "description": "HTTP Response Status Code",
+            "example": 200,
+            "type": "integer",
+          },
+        },
+        "required": Array [
+          "status_code",
+          "status",
+          "service",
+          "resource",
+          "operation",
+          "data",
+        ],
+        "type": "object",
+      },
+      "User": Object {
+        "properties": Object {
+          "created_at": Object {
+            "example": "2017-08-12T20:43:21.291Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "email": Object {
+            "example": "elon@musk.com",
+            "format": "email",
+            "minLength": 1,
+            "type": "string",
+          },
+          "first_name": Object {
+            "example": "Elon",
+            "nullable": true,
+            "type": "string",
+          },
+          "id": Object {
+            "example": "12345",
+            "readOnly": true,
+            "type": "string",
+          },
+          "image": Object {
+            "example": "https://logo.dev/spacex.com?s=128",
+            "nullable": true,
+            "type": "string",
+          },
+          "language": Object {
+            "example": "EN",
+            "nullable": true,
+            "type": "string",
+          },
+          "last_name": Object {
+            "example": "Musk",
+            "nullable": true,
+            "type": "string",
+          },
+          "parent_id": Object {
+            "example": "54321",
+            "nullable": true,
+            "type": "string",
+          },
+          "password": Object {
+            "example": "supersecretpassword",
+            "type": "string",
+            "writeOnly": true,
+          },
+          "status": Object {
+            "example": "active",
+            "nullable": true,
+            "type": "string",
+          },
+          "updated_at": Object {
+            "example": "2017-08-12T20:43:21.291Z",
+            "readOnly": true,
+            "type": "string",
+          },
+          "username": Object {
+            "example": "masterofcoin",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "email",
+        ],
+        "x-pii": Array [
+          "username",
+          "first_name",
+          "last_name",
+          "email",
+        ],
+      },
+      "Website": Object {
+        "properties": Object {
+          "id": Object {
+            "example": "12345",
+            "nullable": true,
+            "type": "string",
+          },
+          "type": Object {
+            "enum": Array [
+              "primary",
+              "secondary",
+              "work",
+              "personal",
+              "other",
+            ],
+            "example": "primary",
+            "type": "string",
+            "x-graphql-type-name": "WebsiteType",
+          },
+          "url": Object {
+            "example": "http://example.com",
+            "minLength": 1,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "url",
+        ],
+        "type": "object",
+      },
+    },
+    "securitySchemes": Object {
+      "apiKey": Object {
+        "description": "To use API you have to sign up and get your own API key. Unify API accounts have sandbox mode and live mode API keys.
+To change modes just use the appropriate key to get a live or test object. You can find your API keys on the unify settings of your Apideck app.
+Your Apideck application_id can also be found on the same page.
+
+Authenticate your API requests by including your test or live secret API key in the request header.
+
+- Bearer authorization header: \`Authorization: Bearer <your-apideck-api-key>\`
+- Application id header: \`x-apideck-app-id: <your-apideck-app-id>\`
+
+You should use the public keys on the SDKs and the secret keys to authenticate API requests.
+
+**Do not share or include your secret API keys on client side code.** Your API keys carry significant privileges. Please ensure to keep them 100% secure and be sure to not share your secret API keys in areas that are publicly accessible like GitHub.
+
+Learn how to set the Authorization header inside Postman https://learning.postman.com/docs/postman/sending-api-requests/authorization/#api-key
+
+Go to Unify to grab your API KEY https://app.apideck.com/unify/api-keys
+",
+        "scheme": "bearer",
+        "type": "http",
+      },
+      "applicationId": Object {
+        "description": "The ID of your Unify application",
+        "in": "header",
+        "name": "x-apideck-app-id",
+        "type": "apiKey",
+      },
+      "consumerId": Object {
+        "description": "The ID of the consumer which you want to get or push data from",
+        "in": "header",
+        "name": "x-apideck-consumer-id",
+        "type": "apiKey",
+      },
+    },
+  },
+  "externalDocs": Object {
+    "description": "Apideck Developer Docs",
+    "url": "https://developers.apideck.com",
+  },
+  "info": Object {
+    "contact": Object {
+      "email": "hello@apideck.com",
+      "url": "https://developers.apideck.com",
+    },
+    "description": "Welcome to the CRM API.",
+    "license": Object {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+    },
+    "title": "CRM API",
+    "version": "4.1.0",
+    "x-logo": Object {
+      "url": "https://developers.apideck.com/icon.png",
+    },
+  },
+  "openapi": "3.0.3",
+  "paths": Object {
+    "/crm/leads": Object {
+      "get": Object {
+        "description": "List leads",
+        "operationId": "leadsAll",
+        "parameters": Array [
+          Object {
+            "$ref": "#/components/parameters/raw",
+          },
+          Object {
+            "$ref": "#/components/parameters/consumerId",
+          },
+          Object {
+            "$ref": "#/components/parameters/applicationId",
+          },
+          Object {
+            "$ref": "#/components/parameters/serviceId",
+          },
+          Object {
+            "$ref": "#/components/parameters/cursor",
+          },
+          Object {
+            "$ref": "#/components/parameters/limit",
+          },
+          Object {
+            "$ref": "#/components/parameters/leadsFilter",
+          },
+          Object {
+            "$ref": "#/components/parameters/leadsSort",
+          },
+        ],
+        "responses": Object {
+          "200": Object {
+            "$ref": "#/components/responses/GetLeads",
+          },
+          "400": Object {
+            "$ref": "#/components/responses/BadRequest",
+          },
+          "401": Object {
+            "$ref": "#/components/responses/Unauthorized",
+          },
+          "402": Object {
+            "$ref": "#/components/responses/PaymentRequired",
+          },
+          "404": Object {
+            "$ref": "#/components/responses/NotFound",
+          },
+          "422": Object {
+            "$ref": "#/components/responses/Unprocessable",
+          },
+          "default": Object {
+            "$ref": "#/components/responses/UnexpectedError",
+          },
+        },
+        "security": Array [
+          Object {
+            "apiKey": Array [],
+          },
+        ],
+        "summary": "List leads",
+        "tags": Array [
+          "Leads",
+        ],
+        "x-graphql-field-name": "leads",
+      },
+      "post": Object {
+        "description": "Create lead",
+        "operationId": "leadsAdd",
+        "parameters": Array [
+          Object {
+            "$ref": "#/components/parameters/raw",
+          },
+          Object {
+            "$ref": "#/components/parameters/consumerId",
+          },
+          Object {
+            "$ref": "#/components/parameters/applicationId",
+          },
+          Object {
+            "$ref": "#/components/parameters/serviceId",
+          },
+        ],
+        "requestBody": Object {
+          "content": Object {
+            "application/json": Object {
+              "schema": Object {
+                "$ref": "#/components/schemas/Lead",
+              },
+            },
+          },
+          "required": true,
+        },
+        "responses": Object {
+          "201": Object {
+            "$ref": "#/components/responses/CreateLead",
+          },
+          "400": Object {
+            "$ref": "#/components/responses/BadRequest",
+          },
+          "401": Object {
+            "$ref": "#/components/responses/Unauthorized",
+          },
+          "402": Object {
+            "$ref": "#/components/responses/PaymentRequired",
+          },
+          "404": Object {
+            "$ref": "#/components/responses/NotFound",
+          },
+          "422": Object {
+            "$ref": "#/components/responses/Unprocessable",
+          },
+          "default": Object {
+            "$ref": "#/components/responses/UnexpectedError",
+          },
+        },
+        "security": Array [
+          Object {
+            "apiKey": Array [],
+          },
+        ],
+        "summary": "Create lead",
+        "tags": Array [
+          "Leads",
+        ],
+      },
+    },
+    "/crm/leads/{id}": Object {
+      "delete": Object {
+        "description": "Delete lead",
+        "operationId": "leadsDelete",
+        "parameters": Array [
+          Object {
+            "$ref": "#/components/parameters/id",
+          },
+          Object {
+            "$ref": "#/components/parameters/consumerId",
+          },
+          Object {
+            "$ref": "#/components/parameters/applicationId",
+          },
+          Object {
+            "$ref": "#/components/parameters/serviceId",
+          },
+          Object {
+            "$ref": "#/components/parameters/raw",
+          },
+        ],
+        "responses": Object {
+          "200": Object {
+            "$ref": "#/components/responses/DeleteLead",
+          },
+          "400": Object {
+            "$ref": "#/components/responses/BadRequest",
+          },
+          "401": Object {
+            "$ref": "#/components/responses/Unauthorized",
+          },
+          "402": Object {
+            "$ref": "#/components/responses/PaymentRequired",
+          },
+          "404": Object {
+            "$ref": "#/components/responses/NotFound",
+          },
+          "422": Object {
+            "$ref": "#/components/responses/Unprocessable",
+          },
+          "default": Object {
+            "$ref": "#/components/responses/UnexpectedError",
+          },
+        },
+        "security": Array [
+          Object {
+            "apiKey": Array [],
+          },
+        ],
+        "summary": "Delete lead",
+        "tags": Array [
+          "Leads",
+        ],
+      },
+      "get": Object {
+        "description": "Get lead",
+        "operationId": "leadsOne",
+        "parameters": Array [
+          Object {
+            "$ref": "#/components/parameters/id",
+          },
+          Object {
+            "$ref": "#/components/parameters/consumerId",
+          },
+          Object {
+            "$ref": "#/components/parameters/applicationId",
+          },
+          Object {
+            "$ref": "#/components/parameters/serviceId",
+          },
+          Object {
+            "$ref": "#/components/parameters/raw",
+          },
+        ],
+        "responses": Object {
+          "200": Object {
+            "$ref": "#/components/responses/GetLead",
+          },
+          "400": Object {
+            "$ref": "#/components/responses/BadRequest",
+          },
+          "401": Object {
+            "$ref": "#/components/responses/Unauthorized",
+          },
+          "402": Object {
+            "$ref": "#/components/responses/PaymentRequired",
+          },
+          "404": Object {
+            "$ref": "#/components/responses/NotFound",
+          },
+          "422": Object {
+            "$ref": "#/components/responses/Unprocessable",
+          },
+          "default": Object {
+            "$ref": "#/components/responses/UnexpectedError",
+          },
+        },
+        "security": Array [
+          Object {
+            "apiKey": Array [],
+          },
+        ],
+        "summary": "Get lead",
+        "tags": Array [
+          "Leads",
+        ],
+      },
+      "patch": Object {
+        "description": "Update lead",
+        "operationId": "leadsUpdate",
+        "parameters": Array [
+          Object {
+            "$ref": "#/components/parameters/id",
+          },
+          Object {
+            "$ref": "#/components/parameters/consumerId",
+          },
+          Object {
+            "$ref": "#/components/parameters/applicationId",
+          },
+          Object {
+            "$ref": "#/components/parameters/serviceId",
+          },
+          Object {
+            "$ref": "#/components/parameters/raw",
+          },
+        ],
+        "requestBody": Object {
+          "content": Object {
+            "application/json": Object {
+              "schema": Object {
+                "$ref": "#/components/schemas/Lead",
+              },
+            },
+          },
+          "required": true,
+        },
+        "responses": Object {
+          "200": Object {
+            "$ref": "#/components/responses/UpdateLead",
+          },
+          "400": Object {
+            "$ref": "#/components/responses/BadRequest",
+          },
+          "401": Object {
+            "$ref": "#/components/responses/Unauthorized",
+          },
+          "402": Object {
+            "$ref": "#/components/responses/PaymentRequired",
+          },
+          "404": Object {
+            "$ref": "#/components/responses/NotFound",
+          },
+          "422": Object {
+            "$ref": "#/components/responses/Unprocessable",
+          },
+          "default": Object {
+            "$ref": "#/components/responses/UnexpectedError",
+          },
+        },
+        "security": Array [
+          Object {
+            "apiKey": Array [],
+          },
+        ],
+        "summary": "Update lead",
+        "tags": Array [
+          "Leads",
+        ],
+      },
+    },
+  },
+  "security": Array [
+    Object {
+      "apiKey": Array [],
+      "applicationId": Array [],
+      "consumerId": Array [],
+    },
+  ],
+  "servers": Array [
+    Object {
+      "description": "Production",
+      "url": "https://unify.apideck.com",
+    },
+  ],
+  "tags": Array [
+    Object {
+      "description": "",
+      "name": "Leads",
+    },
+  ],
+}
+`;

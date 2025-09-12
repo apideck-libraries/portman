@@ -13,6 +13,9 @@ Portman leverages OpenAPI documents, with all its defined API request/response p
 Let Portman do all the work and inject contract & variation tests with a minimum of configuration.
 Customize the Postman requests & variables with a wide range of options to assign & overwrite variables.
 
+> [!IMPORTANT]  
+> **Important Change:** If you are using version 1.28.0 with a custom Postman config file specified by the `--postmanConfigFile` flag, please ensure that the `parametersResolution` option is set to either "Example" or "Schema". The options `requestParametersResolution` and `exampleParametersResolution` are deprecated openapi-to-postman options.
+
 ## Why use Portman?
 
 Convert your OpenAPI spec to Postman, generate contract & variation tests, upload the Postman collection & run the tests through Newman.
@@ -26,34 +29,48 @@ With Portman, you can:
 
 - [x] Convert an OpenAPI document to a Postman collection
   - [x] Support for OpenAPI 3.0
-  - [x] Support for OpenAPI 3.1 (beta)
+  - [x] Support for OpenAPI 3.1
 - Extend the Postman collection with capabilities
-  - [x] Assign collection variables
-  - [x] Inject Postman Contract Tests
-  - [x] Inject Postman Variation Tests
+  - [x] Inject Postman Contract Tests - [learn more](./examples/testsuite-contract-tests/readme.md)
+  - [x] Assign collection variables - [learn more](./examples/testsuite-assign-variables/readme.md)
+  - [x] Inject Postman Variation Tests - [learn more](./examples/testsuite-variation-tests/readme.md)
   - [x] Inject Postman Integration Tests
-  - [x] Inject Postman with Pre-request & Tests scripts on a collection or operation level
-  - [x] Modify Postman requests
-  - [x] Fuzz Postman requests
-- [x] Upload the Postman collection to your Postman app
-- [x] Test the Postman collection with Newman
+  - [x] Inject Postman with Pre-request & Tests scripts on a collection or operation level - [learn more](./examples/testsuite-pre-request-scripts/readme.md)
+  - [x] Modify Postman requests - learn more [here](./examples/testsuite-overwrites/readme.md) and [here](./examples/testsuite-assign-overwrite/readme.md)
+  - [x] Fuzz Postman requests - [learn more](./examples/testsuite-fuzzing-tests/readme.md)
+- [x] Upload the Postman collection to your Postman app - [learn more](#configure-automatic-upload-to-postman-app)
+- [x] Test the Postman collection with Newman - [learn more](#run-newman-with-newman-options)
 - [x] Split the configuration into multiple files using $ref
-- [x] Manage everything in config file for easy local or CI/CD usage
+- [x] Manage everything in config file for easy local or CI/CD usage - [learn more](#pass-all-cli-options-as-jsonyaml-file)
 
 ## Getting started
 
-1. Install Portman
+1. [Install Portman](#installation)
 2. Initialize Portman CLI configuration by running: `$ portman --init`
 
 OR
 
-1. Install Portman
+1. [Install Portman](#installation)
 2. Copy `.env.example` to `.env` and add environment variables you need available to your collection
 3. Copy/rename and customize each of the \_\_\_\_.default.json config files in the root directory to suit your needs
 4. Start converting your OpenAPI document to Postman
 
+OR
+
+If you have an existing OpenAPI specification, try running Portman without any special setup to see how it can generate a Postman collection with contract tests with it's default configuration.
+
+1. [Install Portman](#installation)
+2. Run portman on your OpenAPI spec, ie: 
+- `npx portman -l my-openapi-spec.yaml` 
+- (if your spec is hosted use the `-u` parameter, ie:
+  - `npx portman -u https://petstore3.swagger.io/api/v3/openapi.json`
+
+This will generate a postman collection that contains a request for every method:endpoint combination defined in your spec, and include a set of "Contract Tests" for each one.  You can learn more about contract tests, and how to examine the generated collection [here](./examples/testsuite-contract-tests/readme.md).
+
+(Running portman with no explicit configuration is the same as running it with [this configuration file](./examples/testsuite-contract-tests/default-portman-config.json))
+
 All configuration options to convert from OpenAPI to Postman can be found in the [openapi-to-postman](https://github.com/postmanlabs/openapi-to-postman/blob/develop/OPTIONS.md) package documentation.
-All configuration options to filter flags/tags/methods/operations/... from OpenAPI can be found in the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package documentation.
+All configuration options to filter flags/tags/methods/operations/... from OpenAPI can be found in the [openapi-format](https://github.com/thim81/openapi-format#openapi-filter-options) package documentation or using the online [openapi-format playground](https://openapi-format-playground.vercel.app/).
 
 ## Installation
 
@@ -103,7 +120,7 @@ Options:
  --oaOutput                 Write the (filtered) OpenAPI file to an output file                              [string]
  --runNewman, -n            Run Newman on newly created collection                                           [boolean]
  --newmanRunOptions         JSON stringified object to pass options for configuring Newman                   [string]
- --newmanOptionsFile        Path to Newman options file to pass options for configuring Newman               [string]
+ --newmanOptionsFile        Path/URL to Newman options file to pass options for configuring Newman           [string]
  --newmanIterationData, -d  Iteration data to run Newman with newly created collection                       [string]
  --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
  --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
@@ -115,14 +132,15 @@ Options:
  --postmanWorkspaceName     Postman Workspace name to target the upload of the generated Postman collection  [string]
  --includeTests, -t         Inject Portman test suite (default: true)                                        [boolean]
  --bundleContractTests      Bundle Portman contract tests in a separate folder in Postman (default: false)   [boolean]
- --portmanConfigFile, -c    Path to Portman settings config file (portman-config.json)                       [string]
+ --portmanConfigFile, -c    Path/URL to Portman settings config file (portman-config.json)                   [string]
  --postmanConfigFile,-s     Path to openapi-to-postman config file (postman-config.json)                     [string]
- --filterFile               Path to openapi-format config file (oas-format-filter.json)                      [string]
+ --filterFile               Path/URL to openapi-format config file (oas-format-filter.json)                  [string]
  --envFile                  Path to the .env file to inject environment variables                            [string]
  --collectionName           Overwrite OpenAPI title to set the Postman collection name                       [string]
- --cliOptionsFile           Path to Portman CLI options file                                                 [string]
+ --cliOptionsFile           Path/URL to Portman CLI options file                                             [string]
  --ignoreCircularRefs       Ignore circular references in OpenAPI spec (default: false)                      [boolean]
  --logAssignVariables       Toggle logging of assigned variables (default: true)                             [boolean]
+ --warn/--no-warn           Toggle warnings for missing openApiOperationIds (default: true)                  [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
  --extraUnknownFormats      Add extra unknown formats to json schema tests                                   [array]
 ```
@@ -146,6 +164,8 @@ It is possible to set a spec-specific `.env` file, that lives next to your confi
 This is useful if you have Portman managing multiple specs that have unique environment requirements.
 
 By default, Portman will leverage any ENVIRONMENT variable that is defined that starts with `PORTMAN_`.
+
+Another option to set variables is by configuring them as `collectionVariables` in the [globals section](#portman---globals-property) of your Portman configuration.
 
 ### CLI Options
 
@@ -334,15 +354,15 @@ the methods & path definitions.
 REMARK: Be sure to put quotes around the target definition.
 
 - **Strict matching** example: `"openApiOperation": "GET::/crm/leads",`
-  This will target only the "GET" method and the specific path "/pets"
+  This will target only the "GET" method and the specific path "/crm/leads"
 
 - **Method wildcard matching** example: `"openApiOperation": "*::/crm/leads",`
   This will target all methods ('get', 'put', 'post', 'delete', 'options', 'head', 'patch', 'trace') and the specific
-  path "/pets"
+  path "/crm/leads"
 
 - **Path wildcard matching** example: `"openApiOperation": "GET::/crm/*"`
-  This will target only the "GET" method and any path matching any folder behind the "/pets", like "/pets/123" and
-  "/pets/123/buy".
+  This will target only the "GET" method and any path matching any folder behind the "/crm", like "/crm/companies" and
+  "/crm/leads".
 
 - **Method & Path wildcard matching** example: `"openApiOperation": "*::/crm/*",`
   A combination of wildcards for the method and path parts is even possible.
@@ -358,6 +378,10 @@ The contract tests are grouped in an array of `contractTests`.
 - **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, example: `['leadsAll', 'companiesAll', 'contactsAll']`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
+- **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) to use for the contract test. If not defined, the default request content-type from OpenAPI will be used, with a preference for `application/json`.
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code or `code::content-type` (supports wildcards like `text/*`) for which a contract test will be inserted. Examples: `"404"`, `"200::text/plain"`, `"200::text/*"`. If not defined, the 1st response object from OpenAPI will be taken as expected response.
+
+  Contract tests are always attached to the main request that Portman generates for an operation. When your OpenAPI document lists multiple request or response content types, only one set will be used for that request. You can control which types are selected with the `openApiRequest` and `openApiResponse` options. To create individual requests for every content type, use the variation testing concept described below.
 
 - **statusSuccess (Boolean)** : Adds the test if the response of the Postman request returned a 2xx
 - **statusCode (Boolean, HTTP code)** : Adds the test if the response of the Postman request return a specific status code.
@@ -367,9 +391,9 @@ The contract tests are grouped in an array of `contractTests`.
 - **jsonBody (Boolean)** : Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
 - **schemaValidation (Boolean)** : Adds the test if the response body is matching the JSON schema defined in the OpenAPI spec. The JSON schema is inserted inline in the Postman test.
   - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`.
-- **headersPresent (Boolean)** : Adds the test to verify if the Postman response header has the header names present, like defined in the OpenAPI spec.
+- **headersPresent (Boolean)** : Adds the test to verify if the Postman response header has the required header names present, like defined in the OpenAPI spec.
 
-For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests).
+For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests) and the [testsuite-contract-content-types example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-content-types) for some more details about targeting request body & response content-types.
 
 #### variationTests options
 
@@ -377,7 +401,8 @@ For more details, review the [contract-tests example](https://github.com/apideck
 - **openApiOperationIds (Array)** : References to an array of OpenAPI operationIds, example: `['leadsAll', 'companiesAll', 'contactsAll']`
 - **openApiOperation (String)** : References to a combination of the OpenAPI method & path for which a variation will be created. (example: `GET::/crm/leads`)
 - **excludeForOperations (Array | optional)** : References to OpenAPI operations that will be skipped for targeting, example: `["leadsAdd", "GET::/crm/leads/{id}"]`
-- **openApiResponse (String | optional)** : References to the OpenAPI response object code/name for which a variation will be created. (example: `"404"`). If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured `openApiResponse` code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
+- **openApiResponse (String | optional)** : References to the OpenAPI response object code or `code::content-type`. Supports wildcards for both the code (e.g. `4*` or `*`) and the content type (e.g. `text/*` or `*`). Examples: `"404"`, `"200::text/plain"`, `"2*::application/json"`, `"2*::application/*"`, `"*::*"`. If not defined, the 1st response object from OpenAPI will be taken as expected response. If the configured response code is not defined in the OpenAPI document, Portman will not generate a variation for the targeted operations.
+- **openApiRequest (String | optional)** : References to the OpenAPI request body content-type (supports wildcards like `application/*`) for which a variation will be created. If not defined, the default request content-type from OpenAPI will be used.
 
 - **overwrites** : which refers to the custom additions/modifications of the OpenAPI/Postman request data, specifically for the variation.
 - **fuzzing** : Fuzz testing sets unexpected values for API requests, to cause unexpected behavior and errors in the API response.
@@ -387,7 +412,7 @@ For more details, review the [contract-tests example](https://github.com/apideck
   - **extendTests** : refers to the custom additions of manual created Postman tests to be included in the variation.
 - **assignVariables** : This refers to setting Postman collection variables that are assigned based on variation.
 
-For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests).
+For more details, review the [content-variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-tests) and the [content-type variation example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-variation-content-types).
 
 #### integrationTests options
 
@@ -408,7 +433,9 @@ While the Portman `tests` verify the "contract" of the API, the `contentTests` w
 
 - **responseBodyTests (Array)** : Array of key/value pairs of properties & values in the Postman response body.
 
-  - **key (String)** : The key that will be targeted in the response body to check if it exists. To look up a key within in array of objects, you can use an array index (example `data.websites[0].url`) or a * wildcard (example: `data.websites[*].url`) which uses the `value` to match an object in an array. 
+  - **key (String)** : The key that will be targeted in the response body to check if it exists. 
+    - To look up a key within in array of objects, you can use an array index (example `data.websites[0].url`) or a * wildcard (example: `data.websites[*].url`) which uses the `value` to match an object in an array. 
+    - To test a response body that is a single value instead of a JSON object, set this to '.'
   - **value (String)** : The value that will be used to check if the value in the response body property matches.
   - **contains (String)** : The value that will be used to check if the value is present in the value of the response body property.
   - **oneOf (String[],Number[],Boolean[])** : The value that will be used to check one of the values is matching the response body property.
@@ -465,10 +492,10 @@ The "assignVariables" allows you to set Postman collection variables for easier 
   - **responseBodyProp (String)** : The property for which the value will be taken from the response body and set the value as the pm.collectionVariables value. To store the root level, use `.` as key.
   - **responseHeaderProp (String)** : The property for which the value will be taken from the response header and set the value as the pm.collectionVariables value.
   - **requestBodyProp (String)** : The property for which the value will be taken from the request body and set the value as the pm.collectionVariables value.
-  - **value (String)** : The defined value that will be set as the pm.collectionVariables value.
-  - **name (string OPTIONAL | Default: openApiOperationId.responseProp)** : The name that will be used to overwrite the default generated variable name
+  - **value (String)** : The defined value that will be set as the pm.collectionVariables value. The value can be generated using template expressions.  For the full list of template expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions)
+  - **name (string OPTIONAL |  Default: <operationId>.<varProp>)** : The desired name that will be used to as the Postman variable name. If the `name` is not provided, Portman will generate a variable name, using the `<operationId>.<varProp>`. You can pass your own template expressions, to dynamically generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
 
-For more details, review the [assign-variables example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-variables).
+For more details, review the [Assign variables example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-variables) and [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
 
 <hr>
 
@@ -487,16 +514,16 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
   Key/value pair to overwrite the Postman Request Base URL.
 
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request base URL. (example: `https://example.com` or `{{baseUrl}}`)
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request base URL. (example: `https://example.com` or `{{baseUrl}}`).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request base URL value OR attach the value to the original request base URL value.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request base URL from Postman.
-  - 
+
 - **overwriteRequestQueryParams (Array)** :
 
   Array of key/value pairs to overwrite in the Postman Request Query params.
 
-  - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend.
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **key (String)** : The key that will be targeted in the request Query Param to overwrite/extend. Supports wildcard * to match any sequence of characters. For example, `filter[*]` matches `filter[0]`, `filter[1]`, etc.
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request Query Param OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. Supports also templating to generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request query param value OR attach the value to the original request query param value.
   - **disable (Boolean true/false | Default: false)** : Disables the request query param in Postman.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request query param from Postman.
@@ -508,7 +535,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
   Array of key/value pairs to overwrite in the Postman Request Path Variables.
 
   - **key (String)** : The key that will be targeted in the request Path variables to overwrite/extend.
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request path variable OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. Supports also templating to generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request path variable value OR attaches the value to the original request Path variable value.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request path variable from Postman.
   - **insert (Boolean true/false | Default: true)** : Insert additional the request path variable in Postman that are not present in OpenAPI.
@@ -519,8 +546,9 @@ To facilitate automation, you might want to modify properties with "randomized" 
   Array of key/value pairs to overwrite in the Postman Request Headers.
 
   - **key (String)** : The key that will be targeted in the request Headers to overwrite/extend.
-  - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`.
+  - **value (String)** : The value that will be used to overwrite/extend the value in the request headers OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. Supports also templating to generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request header value OR attaches the value to the original request header value.
+  - **disable (Boolean true/false | Default: false)** : Disables the request header in Postman.
   - **remove (Boolean true/false | Default: false)** : Removes the targeted request header from Postman.
   - **insert (Boolean true/false | Default: true)** : Insert the additional request header in Postman that are not present in OpenAPI.
   - **description (String)** : Overwrites the request header description in Postman.
@@ -531,7 +559,7 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
   **Applicable for request body types: JSON/form-data/x-www-form-urlencoded**
   - **key (String)** : The key that will be targeted in the request body to overwrite/extend. Use the `.` notation to target nested properties. To target the root level, use `.` as key.
-  - **value (Any)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. The value can be a text/number/boolean/array/object or Postman variable (to pass the Postman variable as type boolean or number, use `{{{variableName}}}` surrounded by 3x {{{ and 3x }}}).
+  - **value (Any)** : The value that will be used to overwrite/extend the key in the request body OR use the [Postman Dynamic variables](https://learning.Postman.com/docs/writing-scripts/script-references/variables-list/) to use dynamic values like `{{$guid}}` or `{{$randomInt}}`. The value can be a text/number/boolean/array/object or Postman variable (to pass the Postman variable as type boolean or number, use `{{{variableName}}}` surrounded by 3x {{{ and 3x }}}). Supports also templating to generate variable names. The template can contain the following dynamic expressions: `<operationId>` results in the OpenAPI operation ID (example `leadsAdd`), `<path>` results in the OpenAPI operation ID (example `/crm/leads`), `<pathRef>` results in the Portman operation (example `POST::/crm/leads_POST`), `<method>` results in the OpenAPI method (example `GET`), `<opsRef>` results in the OpenAPI `operationId` with a fallback to the `pathRef` in case the OpenAPI does not contain an operation ID. For the full list of dynamic expressions, check the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
   - **overwrite (Boolean true/false | Default: true)** : Overwrites the request body value OR attaches the value to the original request body value.
   - **remove (Boolean true/false | Default: false)** : Removes the request body property, including the value.
 
@@ -541,9 +569,52 @@ To facilitate automation, you might want to modify properties with "randomized" 
 
 - **overwriteRequestSecurity (Object)** :
 
-  A Postman RequestAuthDefinition object that will be applied to the request.
+  A Postman RequestAuthDefinition object that will be applied to the request.The security overwrites provides a number of security types:
 
-For more details, review the [overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites).
+  - **remove (Boolean true/false | Default: false)** : Unsets the Authorization type in Postman.
+
+  - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+    - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+    - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+    - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+
+  ```json
+  "overwriteRequestSecurity": {
+        "apiKey": {
+          "value": "{{apiKey}}"
+        }
+      }
+  ```
+
+  - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+    - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+
+  ```json
+  "overwriteRequestSecurity": {
+        "bearer": {
+          "token": "{{bearerToken}}"
+        }
+      }
+  ```
+
+  - **basic**: Basic authentication involves sending a verified username and password with your request.
+    - **username (String)** : The username that will be inserted as the basic authentication username value
+    - **password (String)** : The password that will be inserted as the basic authentication password value
+  
+  ```json
+  "overwriteRequestSecurity": {
+        "basic": {
+          "username": "{{username}}",
+          "password": "{{password}}",
+        }
+      }
+  ```
+  
+  - **Postman security options**: Overwrite/Insert Postman authorization settings.
+    - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+      - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file).
+
+For more details, review the [Overwrites example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-overwrites) and [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#template-expressions).
 
 <hr>
 
@@ -625,8 +696,12 @@ The configuration defined in the `globals` will be executed on the full Postman 
 
 #### globals options
 
+- **stripResponseExamples (Default: false)** : Strip the response examples from the generated Postman collection.
+- **variableCasing** : Change the casing of the auto-generated Postman variables. Supported values are: `camelCase`, `pascalCase`, `kebabCase`, `trainCase`, `snakeCase`, `adaCase`, `constantCase`, `cobolCase`, `dotNotation`. See the [Assign & Overwrite example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-assign-overwrite#globals) for the different casing options.
+- **separatorSymbol (Default: "::")** : Change the separator symbol for the auto-generated Postman testName description (Example: `[GET]::/crm/leads - Status code is 2xx`). Helpful when using the [postman-to-k6](https://github.com/apideck-libraries/postman-to-k6) converter.
 - **collectionPreRequestScripts** : Array of scripts that will be injected as Postman Collection Pre-request Scripts that will be executed by Postman before every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
 - **collectionTestScripts**: Array of scripts that will be injected as Postman Collection Test Scripts will be executed by Postman after every request in this collection. Values can be the script content or path to the script file (with `file:` prefix).
+- **collectionVariables**: A map of key value pairs that will inserted as Postman collection variables.
 - **keyValueReplacements** : A map of parameter key names that will have their values replaced with the provided Postman variables.
 - **valueReplacements** : A map of values that will have their values replaced with the provided values.
 - **rawReplacements** : Consider this a "search & replace" utility, that will search a string/object/... and replace it with another string/object/...
@@ -634,102 +709,104 @@ The configuration defined in the `globals` will be executed on the full Postman 
 - **portmanReplacements** : The "search & replace" utility right before the final Postman file is written, that will search a string/object/... and replace it with another string/object/...
   This is practical to replace any data from the generated Portman collection, before it is used in Postman / Newman test execution.
 - **orderOfOperations** : The `orderOfOperations` is a list of OpenAPI operations, which is used by Portman to sort the Postman requests in the desired order, in their folder. The ordering from `orderOfOperations` is performed per folder. Items that are **not** defined in the `orderOfOperations` list will remain at their current order.
-- **stripResponseExamples (Boolean | optional)** : Strip the response examples from the generated Postman collection.
+- **orderOfFolders** : The `orderOfFolders` is a list of Postman folder names, which is used by Portman to sort the Postman folders in the desired order. Folders that are **not** defined in the `orderOfFolders` list will remain at their current order, after the re-order folders.
 - **securityOverwrites** : Overwrite of the OpenAPI Security Scheme Object (supported types: "apiKey", "http basic auth", "http bearer token") or inject a Postman authorization option (supported types: awsv4, digest, edgegrid, ntlm, oauth1, oauth2) on a collection level. 
 
-The security overwrites provides a number of security types:
+  The security overwrites provides a number of security types:
 
-- **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
-  - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
-  - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
-  - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
-
-```json
-"securityOverwrites": {
-      "apiKey": {
-        "value": "{{apiKey}}"
-      }
-    }
-```
-
-- **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
-  - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
-
-```json
-"securityOverwrites": {
-      "bearer": {
-        "token": "{{bearerToken}}"
-      }
-    }
-```
-
-- **basic**: Basic authentication involves sending a verified username and password with your request.
-  - **username (String)** : The username that will be inserted as the basic authentication username value
-  - **password (String)** : The password that will be inserted as the basic authentication password value
-
-```json
-"securityOverwrites": {
-      "basic": {
-        "username": "{{username}}",
-        "password": "{{password}}",
-      }
-    }
-```
-
-- **Postman security options**: Overwrite/Insert Postman authorization settings.
-  - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
-    - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file). 
-
-```json
-{
-  "globals": {
-    "securityOverwrites": {
-      "oauth1": [
-        {
-          "key": "addEmptyParamsToSign",
-          "value": true,
-          "type": "boolean"
-        },
-        {
-          "key": "timestamp",
-          "value": "1461319769",
-          "type": "string"
-        },
-        {
-          "key": "nonce",
-          "value": "ik3oT5",
-          "type": "string"
-        },
-        {
-          "key": "consumerSecret",
-          "value": "D+EdQ-gs$-%@2Nu7",
-          "type": "string"
-        },
-        {
-          "key": "consumerKey",
-          "value": "RKCGzna7bv9YD57c",
-          "type": "string"
-        },
-        {
-          "key": "signatureMethod",
-          "value": "HMAC-SHA1",
-          "type": "string"
-        },
-        {
-          "key": "version",
-          "value": "1.0",
-          "type": "string"
-        },
-        {
-          "key": "addParamsToHeader",
-          "value": false,
-          "type": "boolean"
+  - **remove (Boolean true/false | Default: false)** : Unsets the Authorization type in Postman.
+  
+  - **apiKey**: The API key auth will send a key-value pair to the API either in the request headers or query parameters.
+    - **value (String)** : The value that will be inserted as the Postman apiKey value. It can be a plain value or a Postman variable.
+    - **key (String | optional)** : The "key" value that will be inserted in the Postman apiKey key field. It can be a plain value or a Postman variable.
+    - **in (String | optional)** : The "in" value that defines where the Api Key will be added in the Postman request Header or Query params. Postman supports `header` for "Header" or `query` for "Query Params".
+  
+  ```json
+  "securityOverwrites": {
+        "apiKey": {
+          "value": "{{apiKey}}"
         }
-      ]
+      }
+  ```
+  
+  - **bearer**: The bearer tokens allow requests to authenticate using an access key, such as a JSON Web Token (JWT).
+    - **token (String)** : The "token" that will be inserted as the Postman bearer token value. It can be a plain value or a Postman variable.
+  
+  ```json
+  "securityOverwrites": {
+        "bearer": {
+          "token": "{{bearerToken}}"
+        }
+      }
+  ```
+  
+  - **basic**: Basic authentication involves sending a verified username and password with your request.
+    - **username (String)** : The username that will be inserted as the basic authentication username value
+    - **password (String)** : The password that will be inserted as the basic authentication password value
+  
+  ```json
+  "securityOverwrites": {
+        "basic": {
+          "username": "{{username}}",
+          "password": "{{password}}",
+        }
+      }
+  ```
+  
+  - **Postman security options**: Overwrite/Insert Postman authorization settings.
+    - **Postman Type (Array)** : The Postman authorization option type. Supported types are: `awsv4`, `digest`, `edgegrid`, `ntlm`, `oauth1`, `oauth2`
+      - **Attributes** : key/value/type as defined in Postman (the easiest way to define it, is to set it manually in Postman, export the collection and extract the matching values from the JSON file). 
+  
+  ```json
+  {
+    "globals": {
+      "securityOverwrites": {
+        "oauth1": [
+          {
+            "key": "addEmptyParamsToSign",
+            "value": true,
+            "type": "boolean"
+          },
+          {
+            "key": "timestamp",
+            "value": "1461319769",
+            "type": "string"
+          },
+          {
+            "key": "nonce",
+            "value": "ik3oT5",
+            "type": "string"
+          },
+          {
+            "key": "consumerSecret",
+            "value": "D+EdQ-gs$-%@2Nu7",
+            "type": "string"
+          },
+          {
+            "key": "consumerKey",
+            "value": "RKCGzna7bv9YD57c",
+            "type": "string"
+          },
+          {
+            "key": "signatureMethod",
+            "value": "HMAC-SHA1",
+            "type": "string"
+          },
+          {
+            "key": "version",
+            "value": "1.0",
+            "type": "string"
+          },
+          {
+            "key": "addParamsToHeader",
+            "value": false,
+            "type": "boolean"
+          }
+        ]
+      }
     }
   }
-}
-```
+  ```
 
 For more details on the `globals` configuration options , review the [globals example](https://github.com/apideck-libraries/portman/tree/main/examples/portman-globals) and [ordering example](https://github.com/apideck-libraries/portman/tree/main/examples/postman-ordering)
 
@@ -788,3 +865,16 @@ Credits for this package for the hard work of [Nick Lloyd](https://github.com/ni
 # Future ideas
 
 - [ ] Make Postman security dynamic
+
+# Resources
+
+A collection of blog posts and resources about Portman
+
+- https://www.andmore.dev/blog/getting-started-portman/ by [andmoredev](https://github.com/andmoredev)
+- https://itnext.io/automating-api-testing-with-portman-postman-and-newman-ec1a869cbc99 by Tyler Owen
+- https://www.codecentric.de/wissens-hub/blog/charge-your-apis-volume-3-optimizing-api-testing-with-contract-testing by [Daniel Kocot](https://github.com/danielkocot)
+- https://blog.apideck.com/portman-api-testing by [Chris Wood](https://www.linkedin.com/in/sensiblewood/)
+- https://dev.to/oneadvanced/api-provider-contract-testing-for-all-with-portman-openapi-and-postman-4ll1 by [Alex Savage](https://github.com/savage-alex)
+- https://github.com/thim81/spec-driven-openapi-contract-performance-testing by [Tim Haselaars](https://github.com/thim81)
+- https://www.codecentric.de/wissens-hub/blog/charge-your-apis-volume-25-contract-testing by Pasquale Brunelli
+- https://qase.io/blog/automated-contract-testing/amp/ Contract Testing in Action by Kirill Ivliev

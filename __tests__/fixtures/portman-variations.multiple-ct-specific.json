@@ -1,0 +1,21 @@
+{
+  "version": 1.0,
+  "tests": {
+    "variationTests": [
+      {
+        "openApiOperationId": "companiesAll",
+        "variations": [
+          {
+            "name": "SpecificContentType",
+            "openApiResponse": "200::application/json",
+            "tests": {
+              "contractTests": [
+                { "statusCode": { "enabled": true } }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

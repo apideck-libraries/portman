@@ -1,15 +1,20 @@
+import { getOasMappedCreateOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import {
   getPostmanMappedCreateArrayOperation,
   getPostmanMappedCreateOperation
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { assignVarFromRequestBody } from '../../application'
+import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('assignVarFromRequestBody', () => {
+  let oaOperation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
   let pmArrayOperation: PostmanMappedOperation
 
   beforeEach(async () => {
+    oaOperation = await getOasMappedCreateOperation()
     pmOperation = await getPostmanMappedCreateOperation()
     pmArrayOperation = await getPostmanMappedCreateArrayOperation()
   })
@@ -23,8 +28,12 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: 'name',
       name: 'leadsAdd.name'
     }
-
-    pmOperation = assignVarFromRequestBody(varSetting, pmOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromRequestBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -33,8 +42,12 @@ describe('assignVarFromRequestBody', () => {
     const varSetting = {
       requestBodyProp: 'name'
     }
-
-    pmOperation = assignVarFromRequestBody(varSetting, pmOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromRequestBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -43,8 +56,12 @@ describe('assignVarFromRequestBody', () => {
     const varSetting = {
       requestBodyProp: 'websites[0].url'
     }
-
-    pmOperation = assignVarFromRequestBody(varSetting, pmOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromRequestBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -53,8 +70,12 @@ describe('assignVarFromRequestBody', () => {
     const varSetting = {
       requestBodyProp: 'foo'
     }
-
-    pmOperation = assignVarFromRequestBody(varSetting, pmOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmOperation = assignVarFromRequestBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -64,8 +85,15 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: 'name',
       name: 'leadsAdd.name'
     }
-
-    pmOperation = assignVarFromRequestBody(varSetting, pmOperation, { logAssignVariables: true })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: true
+      }
+    }
+    pmOperation = assignVarFromRequestBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -75,8 +103,15 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: 'name',
       name: 'leadsAdd.name'
     }
-
-    pmOperation = assignVarFromRequestBody(varSetting, pmOperation, { logAssignVariables: false })
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: false
+      }
+    }
+    pmOperation = assignVarFromRequestBody(dto)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -86,8 +121,12 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: '.',
       name: 'leadsAdd.name'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation)
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -97,8 +136,12 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: '[0].name',
       name: 'leadsAdd.name'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation)
+    const dto = {
+      varSetting,
+      pmOperation: pmArrayOperation,
+      oaOperation
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -107,8 +150,12 @@ describe('assignVarFromRequestBody', () => {
     const varSetting = {
       requestBodyProp: '[0].name'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation)
+    const dto = {
+      varSetting,
+      pmOperation: pmArrayOperation,
+      oaOperation
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -117,8 +164,12 @@ describe('assignVarFromRequestBody', () => {
     const varSetting = {
       requestBodyProp: '[0].websites[0].url'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation)
+    const dto = {
+      varSetting,
+      pmOperation: pmArrayOperation,
+      oaOperation
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -127,8 +178,12 @@ describe('assignVarFromRequestBody', () => {
     const varSetting = {
       requestBodyProp: '[0].foo'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation)
+    const dto = {
+      varSetting,
+      pmOperation: pmArrayOperation,
+      oaOperation
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -138,10 +193,15 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: '[0].name',
       name: 'leadsAdd.name'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation, {
-      logAssignVariables: true
-    })
+    const dto = {
+      varSetting,
+      pmOperation: pmArrayOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: true
+      }
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
@@ -151,11 +211,98 @@ describe('assignVarFromRequestBody', () => {
       requestBodyProp: '[0].name',
       name: 'leadsAdd.name'
     }
-
-    pmArrayOperation = assignVarFromRequestBody(varSetting, pmArrayOperation, {
-      logAssignVariables: false
-    })
+    const dto = {
+      varSetting,
+      pmOperation: pmArrayOperation,
+      oaOperation,
+      options: {
+        logAssignVariables: false
+      }
+    }
+    pmArrayOperation = assignVarFromRequestBody(dto)
     const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body and convert the casing for the variable name', async () => {
+    const varSetting = {
+      requestBodyProp: 'name'
+    }
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body and not convert the casing for the variable name', async () => {
+    const varSetting = {
+      requestBodyProp: 'name'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body and convert the casing for the templated name', async () => {
+    const varSetting = {
+      requestBodyProp: 'name',
+      name: '<tag>Id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body property with the templated expression', async () => {
+    const varSetting = {
+      requestBodyProp: '<tag>[0].id'
+    }
+    const globals = {} as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should generate a variable for the request body property with the cased templated expression', async () => {
+    const varSetting = {
+      requestBodyProp: '<tag>[0].id',
+      name: '<tag>Id'
+    }
+    const globals = { variableCasing: 'snakeCase' } as GlobalConfig
+    const dto = {
+      varSetting,
+      pmOperation,
+      oaOperation,
+      globals
+    }
+    pmOperation = assignVarFromRequestBody(dto)
+    const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 })

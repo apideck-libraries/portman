@@ -1,27 +1,30 @@
-import { writeOperationTestScript } from '../../application'
+import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, PortmanOptions } from '../../types'
-import { renderBracketPath, renderChainPath } from '../../utils'
-import { camelCase } from 'camel-case'
+import {
+  parseTpl,
+  hasTpl,
+  renderBracketPath,
+  renderChainPath,
+  sanitizeKeyForVar
+} from '../../utils'
+import { changeCase } from 'openapi-format'
 
 /**
  * Assign PM variables with values defined by the request body
- * @param varSetting
- * @param pmOperation
- * @param options
+ * @param dto
  */
 export const assignVarFromResponseBody = (
-  varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation,
-  options?: PortmanOptions
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  dto: assignCollectionVariablesDTO
 ): PostmanMappedOperation => {
+  const { pmOperation, oaOperation, varSetting, options, globals } = dto
+
   // Early exit if response body is not defined
   if (!varSetting.responseBodyProp) return pmOperation
 
   let pmJsonData = ''
   let pmMappedData = ''
   let pmVarAssign = ''
+  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
   // Only set the jsonData once
   if (!pmOperation.testJsonDataInjected) {
@@ -33,19 +36,49 @@ export const assignVarFromResponseBody = (
     pmOperation.testJsonDataInjected = true
   }
 
-  // Toggle log output
-  const toggleLog = options?.logAssignVariables === false ? '// ' : ''
-
-  // Set variable name
   const root = varSetting.responseBodyProp === '.'
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
-  const prop = varSetting.responseBodyProp
+
+  // Generate property path from template
+  const casedProp = parseTpl({
+    template: varSetting.responseBodyProp,
+    oaOperation,
+    options: {
+      casing: globals?.variableCasing,
+      caseOnlyExpressions: true
+    }
+  })
+  const prop = hasTpl(varSetting?.responseBodyProp) ? casedProp : varSetting.responseBodyProp
+
   const varSafeProp = renderBracketPath(prop)
   const varProp = varSafeProp.charAt(0) === '[' ? `${varSafeProp}` : root ? '' : `.${varSafeProp}`
   const nameProp = prop.charAt(0) !== '[' ? `.${prop}` : prop
-  const varName = varSetting.name ? varSetting.name : opsRef + nameProp
+
+  // Generate variable name from template
+  const tpl = varSetting?.name || hasTpl(varSetting?.name) ? varSetting?.name : '<opsRef><nameProp>'
+  const casedVarName = parseTpl({
+    template: tpl,
+    oaOperation,
+    dynamicValues: {
+      nameProp: nameProp,
+      opsRef: opsRef
+    },
+    options: {
+      casing: globals?.variableCasing
+    }
+  })
+
+  // Set variable name
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
+
   const varPath = `${renderChainPath(`jsonData${varProp}`)}`
-  const pathVarName = `_${camelCase(`res${varProp.replace(/\[/g, '')}`)}`
+  const sanitizedVarProp = sanitizeKeyForVar(varProp)
+  const pathVarName = `_${changeCase(`res${sanitizedVarProp.replace(/\[/g, '')}`, 'camelCase')}`
 
   // Only set the pathVarName once
   if (!pmOperation.mappedVars.includes(pathVarName)) {

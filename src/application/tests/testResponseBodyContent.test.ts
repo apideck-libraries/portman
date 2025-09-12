@@ -4,6 +4,7 @@ import {
 } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { testResponseBodyContent } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('testResponseBodyContent', () => {
   let pmOperation: PostmanMappedOperation
@@ -561,6 +562,32 @@ describe('testResponseBodyContent', () => {
     ]
     pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
     const pmTest = pmArrayOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test with separator symbol for string for property check & string value', async () => {
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    const contentTests = [
+      {
+        key: 'data[0].company_name',
+        value: 'Spacex'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation, globalConfig)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content test with @ symbol for string for property check & string value', async () => {
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    const contentTests = [
+      {
+        key: '@count',
+        value: 'Spacex'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation, globalConfig)
+    const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 })

@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import traverse from 'traverse'
+import traverse from 'neotraverse/legacy'
 import { CollectionDefinition } from 'postman-collection'
 
 /**
@@ -12,7 +12,12 @@ export const stripResponseExamples = (
   if (!portmanCollection?.item) return portmanCollection
 
   traverse(portmanCollection.item).forEach(function (node) {
+    // Request in a folder
     if (this?.parent?.key === 'item' && node?.response) {
+      node.response = []
+    }
+    // Request on the root
+    if (this.parent?.isRoot === true && node?.response) {
       node.response = []
     }
   })

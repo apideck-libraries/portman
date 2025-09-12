@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from 'openapi-types'
-import { Collection } from 'postman-collection'
+import { Collection, Header } from 'postman-collection'
 import {
   applyOverwrites,
   assignCollectionVariables,
@@ -36,10 +36,18 @@ import {
   ResponseTime,
   StatusCode,
   TestSuiteOptions,
+  Track,
   VariationTestConfig
 } from '../types'
 import { inRange } from '../utils'
 import { inOperations } from '../utils/inOperations'
+import {
+  parseOpenApiResponse,
+  parseOpenApiRequest,
+  matchWildcard,
+  getRequestBodyExample
+} from '../utils'
+import { getRawLanguageFromContentType } from '../utils/getRequestBodyExample'
 
 export class TestSuite {
   public collection: Collection
@@ -60,6 +68,9 @@ export class TestSuite {
   options?: PortmanOptions
 
   requestTestTypes: PortmanReqTestType[]
+
+  // Tracker
+  public track = { openApiOperationIds: [], openApiOperations: [] } as Track
 
   constructor(testSuiteOptions: TestSuiteOptions) {
     const { oasParser, postmanParser, config, options } = testSuiteOptions
@@ -90,10 +101,11 @@ export class TestSuite {
     pmOperations?: PostmanMappedOperation[],
     oaOperation?: OasMappedOperation,
     contractTests?: ContractTestConfig[],
-    openApiResponseCode?: string
+    openApiResponseCode?: string,
+    openApiContentType?: string
   ): void => {
     const tests = contractTests || this.contractTests
-    if (!tests) return
+    if (!tests || this.options?.includeTests === false) return
 
     tests.map(contractTest => {
       const operations = pmOperations || this.getOperationsFromSetting(contractTest)
@@ -103,8 +115,66 @@ export class TestSuite {
         const operation = oaOperation || this.oasParser.getOperationByPath(pmOperation.pathRef)
 
         if (operation) {
+          // Apply openApiRequest preferences
+          if (contractTest.openApiRequest) {
+            const reqInfo = parseOpenApiRequest(contractTest.openApiRequest)
+            let reqContentType = reqInfo?.contentType
+            if (reqContentType && reqContentType.includes('*') && operation.schema?.requestBody) {
+              const reqObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
+              const matchCt = Object.keys(reqObj.content || {}).find(ct =>
+                matchWildcard(ct, reqContentType as string)
+              )
+              if (matchCt) reqContentType = matchCt
+            }
+
+            if (reqContentType) {
+              pmOperation.item.request.upsertHeader({
+                key: 'Content-Type',
+                value: reqContentType
+              } as Header)
+
+              const reqBodyObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
+              const example = getRequestBodyExample(reqBodyObj, reqContentType)
+              if (example && pmOperation.item.request.body) {
+                pmOperation.item.request.body.mode = 'raw'
+                pmOperation.item.request.body.raw = example
+                const lang = getRawLanguageFromContentType(reqContentType)
+                ;(pmOperation.item.request.body as any).options = {
+                  raw: { language: lang, headerFamily: lang }
+                }
+              }
+            }
+          }
+          // Apply openApiResponse preferences
+          let respCode = openApiResponseCode
+          let respContentType = openApiContentType
+          if (contractTest.openApiResponse) {
+            const respInfo = parseOpenApiResponse(contractTest.openApiResponse)
+            if (respInfo) {
+              respCode = respInfo.code
+              respContentType = respInfo.contentType
+              if (
+                respContentType &&
+                respContentType.includes('*') &&
+                operation.schema?.responses?.[respCode]
+              ) {
+                const respObj = operation.schema.responses[respCode] as OpenAPIV3.ResponseObject
+                const matchCt = Object.keys(respObj.content || {}).find(ct =>
+                  matchWildcard(ct, respContentType as string)
+                )
+                if (matchCt) respContentType = matchCt
+              }
+              if (respContentType) {
+                pmOperation.item.request.upsertHeader({
+                  key: 'Accept',
+                  value: respContentType
+                } as Header)
+              }
+            }
+          }
+
           // Inject response tests
-          this.injectContractTests(pmOperation, operation, contractTest, openApiResponseCode)
+          this.injectContractTests(pmOperation, operation, contractTest, respCode, respContentType)
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
@@ -129,11 +199,23 @@ export class TestSuite {
         if (!variationTest.openApiResponse) {
           // No targeted openApiResponse configured, generate a variation based on the 1st response object
           this.variationWriter.add(pmOperation, oaOperation, variationTest)
-        } else if (oaOperation?.responseCodes.includes(variationTest.openApiResponse)) {
-          // Configured an openApiResponse, only generate variation for the targeted response object
-          this.variationWriter.add(pmOperation, oaOperation, variationTest)
         } else {
-          // Configured a openApiResponse, but it doesn't exist in OpenAPI, do nothing
+          const respInfo = parseOpenApiResponse(variationTest.openApiResponse)
+          if (respInfo && oaOperation) {
+            let matchCodes: string[] = []
+            if (respInfo.code.includes('*')) {
+              matchCodes = oaOperation.responseCodes.filter(code =>
+                matchWildcard(code, respInfo.code)
+              )
+            } else if (oaOperation.responseCodes.includes(respInfo.code)) {
+              matchCodes = [respInfo.code]
+            }
+            if (matchCodes.length > 0) {
+              // Configured an openApiResponse, generate variations for the matched response codes
+              this.variationWriter.add(pmOperation, oaOperation, variationTest)
+            }
+            // Configured an openApiResponse, but it doesn't exist in OpenAPI, do nothing
+          }
         }
       })
     })
@@ -168,10 +250,24 @@ export class TestSuite {
 
     if (openApiOperation) {
       pmOperations = this.postmanParser.getOperationsByPath(openApiOperation)
+      // Track missing operations
+      if (pmOperations.length === 0) {
+        this.track.openApiOperations.push(openApiOperation)
+      }
     } else if (openApiOperationId) {
       pmOperations = this.postmanParser.getOperationsByIds([openApiOperationId])
+
+      // Track missing operations
+      if (pmOperations.length === 0) {
+        this.track.openApiOperationIds.push(openApiOperationId)
+      }
     } else if (openApiOperationIds) {
       pmOperations = this.postmanParser.getOperationsByIds(openApiOperationIds)
+
+      // Track missing operations
+      if (pmOperations.length === 0) {
+        this.track.openApiOperationIds.push(...openApiOperationIds)
+      }
     }
 
     if (settings?.excludeForOperations) {
@@ -196,7 +292,8 @@ export class TestSuite {
     pmOperation: PostmanMappedOperation,
     oaOperation: OasMappedOperation,
     contractTest: ContractTestConfig,
-    openApiResponseCode: string | undefined
+    openApiResponseCode: string | undefined,
+    openApiContentType?: string | undefined
   ): PostmanMappedOperation => {
     // Early exit if no responses defined
     if (!oaOperation.schema?.responses) return pmOperation
@@ -208,15 +305,20 @@ export class TestSuite {
 
     // Target openApiResponse code
     if (openApiResponseCode && typeof openApiResponseCode === 'string') {
-      response = Object.entries(oaOperation.schema.responses).filter(
-        res => parseInt(res[0]) === parseInt(openApiResponseCode)
-      )
+      if (openApiResponseCode.toLowerCase() === 'default') {
+        response = Object.entries(oaOperation.schema.responses).filter(res => res[0] === 'default')
+      } else {
+        response = Object.entries(oaOperation.schema.responses).filter(
+          res => parseInt(res[0]) === parseInt(openApiResponseCode)
+        )
+      }
     }
 
     // No response object matching
     if (!response[0]?.[1]) return pmOperation
 
-    const responseCode = parseInt(response[0][0]) as number
+    const responseKey = response[0][0]
+    const responseCode = parseInt(responseKey) as number
     const responseObject = response[0][1] as OpenAPIV3.ResponseObject
 
     // List excludeForOperations
@@ -234,7 +336,7 @@ export class TestSuite {
       optStatusSuccess.enabled &&
       !inOperations(pmOperation, optStatusSuccess?.excludeForOperations)
     ) {
-      pmOperation = testResponseStatusSuccess(pmOperation)
+      pmOperation = testResponseStatusSuccess(pmOperation, this.config?.globals)
     }
 
     // Add status code check
@@ -256,7 +358,11 @@ export class TestSuite {
       optResponseTime.enabled &&
       !inOperations(pmOperation, optResponseTime?.excludeForOperations)
     ) {
-      pmOperation = testResponseTime(optResponseTime as ResponseTime, pmOperation)
+      pmOperation = testResponseTime(
+        optResponseTime as ResponseTime,
+        pmOperation,
+        this.config?.globals
+      )
     }
 
     // Add empty body check for 204 HTTP response
@@ -273,24 +379,19 @@ export class TestSuite {
 
     // Add response content checks
     if (responseObject.content) {
-      // TEMPORARY HANDLING of multiple content-types
-      let contentTypesCounter = 0
-
-      // Process all content-types
-      for (const [contentType, content] of Object.entries(responseObject.content)) {
-        // Early skip if no content-types defined
-        if (!contentType) continue
-
-        // TEMPORARY HANDLING of multiple content-types
-        if (contentTypesCounter > 0) continue
-
+      const processContent = (contentType: string, content: OpenAPIV3.MediaTypeObject): void => {
         // Add contentType check
         if (
           optContentType &&
           optContentType.enabled &&
           !inOperations(pmOperation, optContentType?.excludeForOperations)
         ) {
-          pmOperation = testResponseContentType(contentType, pmOperation, oaOperation)
+          pmOperation = testResponseContentType(
+            contentType,
+            pmOperation,
+            oaOperation,
+            this.config?.globals
+          )
         }
 
         // Add json body check
@@ -300,7 +401,7 @@ export class TestSuite {
           (contentType === 'application/json' || contentType.includes('json')) &&
           !inOperations(pmOperation, optJsonBody?.excludeForOperations)
         ) {
-          pmOperation = testResponseJsonBody(pmOperation, oaOperation)
+          pmOperation = testResponseJsonBody(pmOperation, this.config?.globals)
         }
 
         // Add json schema check
@@ -316,26 +417,51 @@ export class TestSuite {
             content.schema,
             pmOperation,
             oaOperation,
-            this.options?.extraUnknownFormats ?? []
+            this.options?.extraUnknownFormats ?? [],
+            this.config?.globals
           )
         }
+      }
 
-        contentTypesCounter++
+      if (openApiContentType) {
+        const content = responseObject.content[openApiContentType]
+        if (content) {
+          processContent(openApiContentType, content)
+        }
+      } else {
+        let contentTypesCounter = 0
+        for (const [contentType, content] of Object.entries(responseObject.content)) {
+          if (!contentType) continue
+          if (contentTypesCounter > 0) continue
+          processContent(contentType, content)
+          contentTypesCounter++
+        }
       }
     }
 
     if (responseObject.headers) {
-      // Process all response headers
-      for (const [headerName] of Object.entries(responseObject.headers)) {
+      // Loop over all defined response headers
+      for (const headerKey in responseObject.headers) {
         // Early skip if no schema defined
-        if (!headerName) continue
+        if (!headerKey) continue
+
+        const header = responseObject.headers[headerKey] as OpenAPIV3.HeaderObject
+        const headerRequired = header.required || false
+        const headerName = headerKey as string
+
         // Add response header checks headersPresent
         if (
           optHeadersPresent &&
           optHeadersPresent.enabled &&
+          headerRequired &&
           !inOperations(pmOperation, optHeadersPresent?.excludeForOperations)
         ) {
-          pmOperation = testResponseHeader(headerName, pmOperation, oaOperation)
+          pmOperation = testResponseHeader(
+            headerName,
+            pmOperation,
+            oaOperation,
+            this.config?.globals
+          )
         }
       }
     }
@@ -359,7 +485,7 @@ export class TestSuite {
         // check content of response body
         if (contentTest?.responseBodyTests) {
           // Insert response body content check
-          testResponseBodyContent(contentTest.responseBodyTests, pmOperation)
+          testResponseBodyContent(contentTest.responseBodyTests, pmOperation, this.config?.globals)
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
@@ -367,7 +493,11 @@ export class TestSuite {
         // check content of response header
         if (contentTest?.responseHeaderTests) {
           // Insert response header content check
-          testResponseHeaderContent(contentTest.responseHeaderTests, pmOperation)
+          testResponseHeaderContent(
+            contentTest.responseHeaderTests,
+            pmOperation,
+            this.config?.globals
+          )
 
           // Set/Update Portman operation test type
           this.registerOperationTestType(pmOperation, PortmanTestTypes.contract, false)
@@ -392,12 +522,17 @@ export class TestSuite {
       let fixedValueCounter = 0
 
       operations.map(pmOperation => {
+        // Get OpenApi operation
+        const oaOperation = this.oasParser.getOperationByPath(pmOperation.pathRef)
+
         // Loop over all defined variable value sources
         fixedValueCounter = assignCollectionVariables(
           pmOperation,
+          oaOperation,
           assignVarSetting,
           fixedValueCounter,
-          this.options
+          this.options,
+          this.config?.globals
         ) as number
       })
     })
@@ -441,7 +576,7 @@ export class TestSuite {
     settings.map(overwriteSetting => {
       //Get Postman operations to apply overwrites to
       const operations = pmOperations || this.getOperationsFromSetting(overwriteSetting)
-      applyOverwrites(operations, overwriteSetting)
+      applyOverwrites(operations, overwriteSetting, this.oasParser, this.config?.globals)
     })
 
     return this.postmanParser.mappedOperations

@@ -1,0 +1,152 @@
+{
+  "_": {
+    "postman_id": "2f1e2075-c7e8-4875-b386-5ee3e67938c3"
+  },
+  "item": [
+    {
+      "id": "0ebf90e0-3b4c-45bc-9afc-74274dc324d6",
+      "name": "Contract Test Example 1",
+      "request": {
+        "name": "Contract Test Example 1",
+        "description": {
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "example1"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "<ExampleRequest>\n  <input>Hello, XML!</input>\n  <code>42</code>\n</ExampleRequest>\n",
+          "options": {
+            "raw": {
+              "language": "xml",
+              "headerFamily": "xml"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "0ea21a60-84bd-4ca7-a62d-4e42dec7caf4",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate response status code \npm.test(\"[POST]::/example1 - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "27a8e46d-ea71-431b-ac03-000c5ce19722",
+      "name": "Contract Test Example 2",
+      "request": {
+        "name": "Contract Test Example 2",
+        "description": {
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "example2"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml"
+          }
+        ],
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "<ExampleRequest>\n  <input>Hello, XML!</input>\n  <code>42</code>\n</ExampleRequest>\n",
+          "options": {
+            "raw": {
+              "language": "xml",
+              "headerFamily": "xml"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "24a5830c-9340-4be2-a7bb-9b722b00ebca",
+            "type": "text/javascript",
+            "exec": [
+              "// Validate response status code \npm.test(\"[POST]::/example2 - Response status code is 200\", function () {\n    pm.expect(pm.response.code).to.equal(200);\n});\n"
+            ]
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "any",
+      "value": "/",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "12345678901",
+      "key": "bearerToken"
+    }
+  ],
+  "info": {
+    "_postman_id": "2f1e2075-c7e8-4875-b386-5ee3e67938c3",
+    "name": "Portman Contract tests - Target content-type",
+    "version": {
+      "raw": "1.0.0",
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": [],
+      "build": [],
+      "string": "1.0.0"
+    },
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

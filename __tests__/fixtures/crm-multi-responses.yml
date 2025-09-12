@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  title: Minimal CRM
+  version: 1.0.0
+paths:
+  /crm/companies:
+    get:
+      operationId: companiesAll
+      summary: List companies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object

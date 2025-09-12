@@ -1,17 +1,15 @@
 import { PostmanMappedOperation } from '../../postman'
-import { OverwritePathVariableConfig } from '../../types'
 import { Variable } from 'postman-collection'
+import { parseTpl, hasTpl } from '../../utils'
+import { OverwriteRequestDTO } from './applyOverwrites'
 
 /**
  * Overwrite Postman request path variables with values defined by the portman testsuite
- * @param overwriteValues
- * @param pmOperation
+ * @param dto
  */
-export const overwriteRequestPathVariables = (
-  overwriteValues: OverwritePathVariableConfig[],
-  pmOperation: PostmanMappedOperation
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-): PostmanMappedOperation => {
+export const overwriteRequestPathVariables = (dto: OverwriteRequestDTO): PostmanMappedOperation => {
+  const { overwriteValues, pmOperation, oaOperation, globals } = dto
+
   // Early exit if overwrite values are not defined
   if (!(overwriteValues instanceof Array)) return pmOperation
 
@@ -25,26 +23,39 @@ export const overwriteRequestPathVariables = (
 
   pmOperation.item.request.url.variables.each(variable => {
     // Overwrite values for Keys
-    overwriteValues.forEach(overwriteValue => {
+    overwriteValues.forEach(overwriteItem => {
       // Skip keys when no overwrite is defined
-      if (!(overwriteValue.key && variable.key && overwriteValue.key === variable.key)) {
+      if (!(overwriteItem.key && variable.key && overwriteItem.key === variable.key)) {
         return
       }
 
+      const generatedName = parseTpl({
+        template: overwriteItem?.value,
+        oaOperation: oaOperation,
+        options: {
+          casing: globals?.variableCasing
+        }
+      })
+      const overwriteValue =
+        overwriteItem?.value && hasTpl(overwriteItem.value) ? generatedName : overwriteItem?.value
+
       if (
-        overwriteValue.key &&
+        overwriteItem.key &&
         variable.key &&
-        overwriteValue.key === variable.key &&
-        overwriteValue?.value !== undefined
+        overwriteItem.key === variable.key &&
+        overwriteValue !== undefined
       ) {
         const orgValue = variable?.value || null
-        let newValue = overwriteValue.value
+        let newValue = overwriteValue
 
-        if (overwriteValue.overwrite === false) {
+        if (overwriteItem.overwrite === false) {
           newValue = orgValue + newValue
         }
         variable.type = 'string' // Set schema as type string dynamic variable
-        variable.value = newValue || 'boolean' === typeof newValue ? `${newValue}`.toString() : ''
+        variable.value =
+          (newValue !== undefined && newValue !== null) || 'boolean' === typeof newValue
+            ? `${newValue}`.toString()
+            : ''
       }
     })
   })

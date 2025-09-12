@@ -1,6 +1,7 @@
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { testResponseHeaderContent } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
+import { GlobalConfig } from '../../types'
 
 describe('testResponseHeaderContent', () => {
   let pmOperation: PostmanMappedOperation
@@ -204,6 +205,18 @@ describe('testResponseHeaderContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add content header test for property check & oneOf pm variable values', async () => {
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        oneOf: ['{{postman_env_variable}}', '{{postman_env_variable_two}}']
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should not add content header test for a property & custom assert', async () => {
     const contentTests = [
       {
@@ -260,6 +273,19 @@ describe('testResponseHeaderContent', () => {
       }
     ]
     pmOperation = testResponseHeaderContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add content header test with separator symbol for string for property check & string value', async () => {
+    const globalConfig = { separatorSymbol: '==' } as GlobalConfig
+    const contentTests = [
+      {
+        key: 'Operation-Location',
+        value: 'Spacex'
+      }
+    ]
+    pmOperation = testResponseHeaderContent(contentTests, pmOperation, globalConfig)
     const pmTest = pmOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

@@ -1,34 +1,59 @@
-import { writeOperationTestScript } from '../../application'
+import { assignCollectionVariablesDTO, writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { CollectionVariableConfig, PortmanOptions } from '../../types'
+import { hasTpl, parseTpl } from '../../utils'
 
 /**
  * Assign PM variable with value defined by a fixed value, defined the portman config
- * @param varSetting
- * @param pmOperation
+ * @param dto
  * @param fixedValueCounter
- * @param options
  */
 export const assignVarFromValue = (
-  varSetting: CollectionVariableConfig,
-  pmOperation: PostmanMappedOperation,
-  fixedValueCounter: number | string,
-  options?: PortmanOptions
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+  dto: assignCollectionVariablesDTO,
+  fixedValueCounter: number | string
 ): PostmanMappedOperation => {
-  // Early exit if request body is not defined
+  const { pmOperation, oaOperation, varSetting, options, globals } = dto
+
+  // Early exit if value is not defined
   if (!varSetting.value) return pmOperation
 
   let pmVarAssign = ''
-
-  // Toggle log output
   const toggleLog = options?.logAssignVariables === false ? '// ' : ''
 
-  // Set variable name
   const opsRef = pmOperation.id ? pmOperation.id : pmOperation.pathVar
   const varProp = `-var-` + fixedValueCounter
-  const varName = varSetting.name ? varSetting.name : opsRef + '.' + varProp
-  const varValue = typeof varSetting.value === 'string' ? `"${varSetting.value}"` : varSetting.value
+
+  // Generate variable name from template
+  const casedVarName = parseTpl({
+    template: varSetting?.name,
+    oaOperation,
+    dynamicValues: {
+      varProp: varProp,
+      opsRef: opsRef
+    },
+    options: {
+      casing: globals?.variableCasing
+    }
+  })
+
+  // Set variable name
+  let varName = casedVarName
+  if (varSetting?.name === undefined || hasTpl(varSetting.name)) {
+    varName = casedVarName
+  } else if (varSetting.name !== '') {
+    varName = varSetting.name
+  }
+
+  // Set variable value
+  const generatedValue = parseTpl({
+    template: varSetting.value,
+    oaOperation: oaOperation,
+    options: {
+      casing: globals?.variableCasing
+    }
+  })
+  const processedValue =
+    varSetting?.value && hasTpl(varSetting.value) ? generatedValue : varSetting.value
+  const varValue = typeof processedValue === 'string' ? `"${processedValue}"` : processedValue
 
   pmVarAssign = [
     `// pm.collectionVariables - Set fixed value for ${varName} variable \n`,

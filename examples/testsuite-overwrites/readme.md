@@ -1,6 +1,6 @@
 # OpenAPI Postman test suite generation - overwrites
 
-In the "[examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests)" example, we explained the default generated Postman contract tests.
+In the [examples/testsuite-contract-tests](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests) example, we explained the default generated Postman contract tests.
 
 This example focuses on the manipulation of the Postman collection to make it possible to automate, by manipulating:
 
@@ -91,11 +91,13 @@ These target options are both supported for defining a target. In case both are 
 
 ## Example explained
 
-In this example, we are zooming in on only the overwrites usage. For the basics on the testsuite configuration and usage in Portman, have a look at ["examples/testsuite-contract-tests"]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
+In this example, we are zooming in on only the overwrites usage. For the basics on the testsuite configuration and usage in Portman, have a look at [examples/testsuite-contract-tests]("https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests")
 
 file: examples/testsuite-overwrites/portman-config.crm.json >>
 
 ```json
+{
+  "version": 1.0,
   "overwrites": [
     {
       "openApiOperationId": "leadsAdd",
@@ -122,6 +124,11 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
         {
           "key": "social_links[1].url",
           "remove": true
+        },
+        {
+          "key": "@count",
+          "value": false,
+          "overwrite": true
         }
       ]
     },
@@ -139,6 +146,19 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
           "key": "id",
           "value": "123456789",
           "overwrite": true
+        },
+        {
+          "key": "id",
+          "remove": true
+        }
+      ]
+    },
+    {
+      "openApiOperationId": "leadsOne",
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "<operationId>_<pathPart1>"
         }
       ]
     },
@@ -152,8 +172,27 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
         },
         {
           "key": "x-apideck-consumer-id-additional",
-          "value": "portman-id-{{$randomInt}}-additional",
-          "insert": true
+          "value": "portman-id-{{$randomInt}}-additional"
+        }
+      ],
+      "overwriteRequestBody": [
+        {
+          "key": "description",
+          "value": "{{newDescription}}",
+          "overwrite": true
+        },
+        {
+          "key": "monetary_amount",
+          "value": "{{{newMonetaryAmount}}}",
+          "overwrite": true
+        }
+      ],
+      "overwriteRequestPathVariables": [
+        {
+          "key": "id",
+          "value": "123456789",
+          "overwrite": true,
+          "description": "Lead ID"
         }
       ]
     },
@@ -167,11 +206,34 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
         {
           "key": "cursor",
           "remove": true
+        },
+        {
+          "key": "count",
+          "value": "yes",
+          "disable": true,
+          "description": "Get total result count"
         }
       ]
+    },
+    {
+      "openApiOperationId": "leadsAll",
+      "overwriteRequestSecurity": {
+        "bearer": {
+          "token": "{{managementToken}}"
+        }
+      }
     }
-  ]
+  ],
+  "globals": {
+    "stripResponseExamples": true,
+    "collectionVariables": {
+      "newDescription": "a spaceman",
+      "newMonetaryAmount": 150000
+    }
+  }
+}
 ```
+Let's break this down into it's different parts to understand what is happening.
 
 ### overwriteRequestBody
 
@@ -181,16 +243,17 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
   "overwriteRequestBody": [
     {
       "key": "name",
-      "value": "--{{$randomInt}}",
+      "value": "{{$randomName}}",
       "overwrite": false
     },
     {
       "key": "company_name",
       "value": "{{$randomCompanyName}} {{$randomColor}}",
       "overwrite": true
-    },{
+    },
+    {
       "key": "monetary_amount",
-      "value": "{{$randomInt}}",
+      "value": "{{{$randomInt}}}",
       "overwrite": true
     },
     {
@@ -207,11 +270,15 @@ file: examples/testsuite-overwrites/portman-config.crm.json >>
 
 This will target the OpenAPI `"openApiOperationId": "leadsAdd"` and will overwrite the request body.
 
-1. the `name` property will be **extended** (because overwrite:false) with `--{{$randomInt}}`
+1. the `name` property will be **extended** (because overwrite:false) with `{{$randomName}}`
 2. the `company_name`property will be **overwritten** (because overwrite:true) with `{{randomCompanyName}} {{randomColor}}`
-3. the `monetary_amount` property will be **overwritten** (because overwrite:true) with `{{$randomInt}}` which will be a number (not a string).
+3. the `monetary_amount` property will be **overwritten** (because overwrite:true) with `{{$randomInt}}`.
 4. the `"websites[0]` item will be **removed** (because remove:true), which will results in the 1st item in the `websites` array to be removed. The index of the array will be reset.
 5. the `social_links[1].url` property will be **removed** (because remove:true) with the nested `url` property from the 2nd item of the `social_links` array removed.
+
+The first three settings all use [Postman Dynamic variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/).  Indicated by the "$" at the beginning of the variable names, these are predefined variables that are built into Postamn.  Portman is aware of the types of Postman dynamic variables and will put quotes around the variable in the generated request body when the variable is typically treated as a string.   So in our example, {{$randomName}} and {{randomCompanyName}}, will be enclosed in quotes in the generated request body, but  {{$randomInt}} will not be.
+
+This behavior differs slightly when [setting request body properties to Postman Collection Variables](#overwriterequestbody-with-postman-collection-variables)
 
 After the conversion, in the "leadsAdd" request (POST::/crm/leads) in the Postman app, you can find the following result in the request body.
 
@@ -340,7 +407,7 @@ Postman request "Leads" >> "Delete lead" Request query params:
 
 ![](./images/overwriteRequestPathVariables.png)
 
-### overwriteRequestQueryParams
+### overwriteRequestHeaders
 
 ```json
 {
@@ -359,7 +426,7 @@ Postman request "Leads" >> "Delete lead" Request query params:
 }
 ```
 
-This will target the OpenAPI `"openApiOperationId": "leadsUpdate"` and will overwrite the request query params.
+This will target the OpenAPI `"openApiOperationId": "leadsUpdate"` and will overwrite the request query headers.
 
 1. the `x-apideck-consumer-id` header property will be **overwritten** (because overwrite:true) with `portman-id-{{$randomInt}}`
 2. the `x-apideck-consumer-id-additional` header does not exist, so this new header will be **inserted** with `portman-id-{{$randomInt}}-additional`
@@ -371,3 +438,57 @@ file: examples/testsuite-overwrites/crm.postman.json >>
 Postman request "Leads" >> "Update lead" Request headers:
 
 ![](./images/overwriteRequestHeaders.png)
+
+### overwriteRequestBody with Postman Collection Variables
+
+```json
+"overwrites": [
+  {
+    "openApiOperationId": "leadsUpdate",
+    "overwriteRequesBody": [
+      {
+        "key": "description",
+        "value": "{{newDescription}}",
+        "overwrite": true
+      }
+      {
+        "key": "monetary_amount",
+        "value": "{{{newMonetaryAmount}}}",
+        "overwrite": true
+      }
+    ]
+  }
+],
+"globals": {
+  "collectionVariables": [
+    {
+      "name": "newDescription",
+      "value": "a spaceman"
+    },
+    {
+      "name": "newMonetaryAmount",
+      "value": 150000
+    }
+  ]
+}
+```
+
+This will also target the OpenAPI `"openApiOperationId": "leadsUpdate"` and will overwrite the request body using Postman Collection Variables.   In this example we use collection variables that are set using the `collectionVariables` directive in the `globals` section of our configuration
+
+1. the `description` property of the request body will be **overwritten** (because overwrite:true) with `"{{newDescription}}"`.  The variable name will be in quotes, because by default Portman treats Postman collection variables as strings.
+2. the `monetary_amount` property of the request will be **overwritten** (because overwrite:true) with `{{newMonetaryAmount}}`.  The variable name will be *NOT* be in quotes, because we use three curly braces instead of two to instruct Portman to override the default behavior of treating Postman collection variables as strings.
+
+After the conversion, in the "leadsUpdate" request (PATCH::/crm/leads/{id}) in the Postman app, you can inspect the request body and see that the generated request body looks like this.
+
+file: examples/testsuite-overwrites/crm.postman.json >>
+
+
+![](./images/overwriteRequestBody.png)
+
+When assigning request body properties to Postman collection or dynamic variables, the following guidelines can be used: 
+
+- Use Postman Dynamic variable as a string: "{{$randomCompanyName}}"
+- Use Postman Dynamic variable as a number: "{{$randomInt}}"
+- Use Postman variables as a string: "{{yourVar}}"
+- Use Postman variables as number: "{{{yourNumberVar}}}"
+

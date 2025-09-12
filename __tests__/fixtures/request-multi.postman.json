@@ -1,0 +1,30 @@
+{
+  "info": {
+    "_postman_id": "11111111-1111-1111-1111-111111111111",
+    "name": "Request Multi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://example.com" }
+  ],
+  "item": [
+    {
+      "name": "Create multi",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"value\":\"example\"}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/multi",
+          "host": ["{{baseUrl}}"],
+          "path": ["multi"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

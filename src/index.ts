@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires*/
 // yarn ts-node ./src/index.ts -l ./src/specs/crm.yml
 // yarn ts-node ./src/index.ts -u https://specs.apideck.com/crm.yml
-import fs from 'fs-extra'
 import { NewmanRunOptions } from 'newman'
-import path from 'path'
 import { PortmanOptions } from 'types'
-import yaml from 'yaml'
 import yargs from 'yargs'
 import { Portman } from './Portman'
 import { promptInit } from './utils/promptInit'
+import { OpenApiFormatter } from './oas'
 
 require('dotenv').config()
 ;(async () => {
@@ -44,7 +42,7 @@ require('dotenv').config()
       type: 'string'
     })
     .option('newmanOptionsFile', {
-      describe: 'Path to Newman options file to pass options for configuring Newman',
+      describe: 'Path/URL to Newman options file to pass options for configuring Newman',
       type: 'string'
     })
     .option('d', {
@@ -99,7 +97,7 @@ require('dotenv').config()
     })
     .option('c', {
       alias: 'portmanConfigFile',
-      describe: 'Path to Portman settings config file (portman-config.json)n',
+      describe: 'Path/URL to Portman settings config file (portman-config.json)',
       type: 'string'
     })
     .option('s', {
@@ -108,7 +106,7 @@ require('dotenv').config()
       type: 'string'
     })
     .option('filterFile', {
-      describe: 'Path to openapi-format config file (oas-format-filter.json)',
+      describe: 'Path/URL to openapi-format config file (oas-format-filter.json)',
       type: 'string'
     })
     .option('oaOutput', {
@@ -131,6 +129,10 @@ require('dotenv').config()
       describe: 'Toggle logging of assigned variables',
       type: 'boolean'
     })
+    .option('warn', {
+      describe: 'Toggle warnings for missing openApiOperationIds',
+      type: 'boolean'
+    })
     .option('init', {
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'
@@ -143,7 +145,8 @@ require('dotenv').config()
       describe: `Synchronises the IDs of newly created postman collections with those already on Postman, 
         useful when you want to use Postman pull request (default: false)`,
       type: 'boolean'
-    }).argv as PortmanOptions
+    })
+    .strict().argv as PortmanOptions
 
   let cliOptions: Partial<PortmanOptions> = {}
 
@@ -164,15 +167,14 @@ require('dotenv').config()
     process.exit()
   }
 
+  // Initialize
+  const oaf = new OpenApiFormatter()
+
+  // Load CLI options file
   if (options.cliOptionsFile) {
     try {
-      const cliOptionsFilePath = path.resolve(options.cliOptionsFile)
-      // Check if cliOptionsFile is YAML file
-      if (cliOptionsFilePath.includes('.yaml') || cliOptionsFilePath.includes('.yml')) {
-        cliOptions = yaml.parse(fs.readFileSync(cliOptionsFilePath, 'utf8'))
-      } else {
-        cliOptions = JSON.parse(await fs.readFile(cliOptionsFilePath, 'utf8'))
-      }
+      const cliOptionsFilePath = options.cliOptionsFile
+      cliOptions = (await oaf.parseFile(cliOptionsFilePath)) as PortmanOptions
     } catch (err) {
       console.error(
         '\x1b[31m',
@@ -187,8 +189,10 @@ require('dotenv').config()
     : cliOptions.newmanOptionsFile
   if (cliOptions.newmanOptionsFile) {
     try {
-      const newmanOptionsFilePath = path.resolve(cliOptions.newmanOptionsFile)
-      cliOptions.newmanRunOptions = JSON.parse(await fs.readFile(newmanOptionsFilePath, 'utf8'))
+      const newmanOptionsFilePath = cliOptions.newmanOptionsFile
+      cliOptions.newmanRunOptions = (await oaf.parseFile(
+        newmanOptionsFilePath
+      )) as unknown as NewmanRunOptions
     } catch (err) {
       console.error(
         '\x1b[31m',
@@ -224,15 +228,16 @@ require('dotenv').config()
   const syncToPostman = options?.syncPostman || false
   const portmanConfigFile = options?.portmanConfigFile
   const portmanConfigPath =
-    options?.portmanConfigFile || __dirname + '/../portman-config.default.json'
+    options?.portmanConfigFile ?? __dirname + '/../portman-config.default.json'
   const postmanConfigFile = options?.postmanConfigFile
   const postmanConfigPath =
-    options?.postmanConfigFile || __dirname + '/../postman-config.default.json'
+    options?.postmanConfigFile ?? __dirname + '/../postman-config.default.json'
   const envFile = options?.envFile || '.env'
   const filterFile = options.filterFile
   const oaOutput = options.oaOutput || ''
   const collectionName = options.collectionName || ''
   const logAssignVariables = options?.logAssignVariables
+  const warn = options?.warn || true
   const extraUnknownFormats = options?.extraUnknownFormats || []
   const syncPostmanCollectionIds = options?.syncPostmanCollectionIds || false
 
@@ -255,6 +260,7 @@ require('dotenv').config()
     oaOutput,
     collectionName,
     logAssignVariables,
+    warn,
     extraUnknownFormats,
     syncPostmanCollectionIds
   })

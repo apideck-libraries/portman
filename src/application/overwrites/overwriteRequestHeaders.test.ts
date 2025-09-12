@@ -1,7 +1,24 @@
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
-import { overwriteRequestHeaders } from '../../application'
+import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
+import { OasMappedOperation } from '../../oas'
+import { PostmanMappedOperation } from '../../postman'
+import { overwriteRequestHeaders } from './overwriteRequestHeaders'
+import { GlobalConfig } from '../../types'
+import { Header } from 'postman-collection'
 
 describe('overwriteRequestHeaders', () => {
+  let oaOperation: OasMappedOperation
+  let pmOperation: PostmanMappedOperation
+
+  beforeEach(async () => {
+    pmOperation = await getPostmanMappedOperation()
+    oaOperation = await getOasMappedOperation()
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should overwrite the request headers variable', async () => {
     const overwriteValues = [
       {
@@ -9,8 +26,12 @@ describe('overwriteRequestHeaders', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -21,13 +42,17 @@ describe('overwriteRequestHeaders', () => {
         value: 'foo-bar-baz'
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
 
     // Force value to empty string for the existing header
     const header = pmOperation.item.request.headers.one('x-apideck-app-id')
     header.update({ key: 'x-apideck-app-id', value: '' })
 
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -38,8 +63,33 @@ describe('overwriteRequestHeaders', () => {
         disable: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers).toMatchSnapshot()
+  })
+
+  it('should enable the disabled request headers variable', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        disable: false
+      }
+    ]
+
+    pmOperation.item.request.headers
+      .one('x-apideck-app-id')
+      .update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.headers).toMatchSnapshot()
   })
 
@@ -51,8 +101,12 @@ describe('overwriteRequestHeaders', () => {
         overwrite: false
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -64,9 +118,54 @@ describe('overwriteRequestHeaders', () => {
         remove: true
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should remove to the Authorization header when remove is true', async () => {
+    const overwriteValues = [
+      {
+        key: 'Authorization',
+        remove: true
+      }
+    ]
+    const newPmHeader = {
+      key: 'Authorization',
+      value: 'to-be-removed',
+      disabled: false
+    } as Header
+    pmOperation.item.request.headers.add(newPmHeader)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(Object.assign(result.item.request.getHeaders(), result.item.getAuth())).toMatchSnapshot()
+  })
+
+  it('should remove to the Authorization header when remove is true even when auth is not set', async () => {
+    const overwriteValues = [
+      {
+        key: 'Authorization',
+        remove: true
+      }
+    ]
+    pmOperation.item.request.auth?.clear('bearer')
+    pmOperation.item.request.authorizeUsing('noauth')
+    delete pmOperation.item.request.auth
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(Object.assign(result.item.request.getHeaders(), result.item.getAuth())).toMatchSnapshot()
   })
 
   it('should insert the request headers variable, if key not found', async () => {
@@ -76,9 +175,12 @@ describe('overwriteRequestHeaders', () => {
         value: 'foo-bar-baz'
       }
     ]
-
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -90,9 +192,12 @@ describe('overwriteRequestHeaders', () => {
         insert: true
       }
     ]
-
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -104,9 +209,12 @@ describe('overwriteRequestHeaders', () => {
         insert: false
       }
     ]
-
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -118,9 +226,12 @@ describe('overwriteRequestHeaders', () => {
         description: 'Additional header'
       }
     ]
-
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -133,8 +244,12 @@ describe('overwriteRequestHeaders', () => {
       }
     ]
 
-    const pmOperation = await getPostmanMappedOperation()
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -147,10 +262,14 @@ describe('overwriteRequestHeaders', () => {
       }
     ]
 
-    const pmOperation = await getPostmanMappedOperation()
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -161,10 +280,32 @@ describe('overwriteRequestHeaders', () => {
         value: -1
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite the request headers variable with zero value', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 0
+      }
+    ]
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 
@@ -175,10 +316,156 @@ describe('overwriteRequestHeaders', () => {
         value: false
       }
     ]
-    const pmOperation = await getPostmanMappedOperation()
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const result = overwriteRequestHeaders(overwriteValues, pmOperation)
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite & auto-enable the request headers', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar'
+      }
+    ]
+    // Set request header to disabled
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers.one('x-apideck-app-id')).toMatchSnapshot()
+  })
+
+  it('should overwrite but keep the request headers disabled', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar',
+        disable: true
+      }
+    ]
+    // Set request header to disabled
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers.one('x-apideck-app-id')).toMatchSnapshot()
+  })
+
+  it('should overwrite but keep the request headers enabled', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: 'foo-bar',
+        disable: false
+      }
+    ]
+    // Set request header to disabled
+    const header = pmOperation.item.request.headers.one('x-apideck-app-id')
+    header.update({ key: 'x-apideck-app-id', value: '2222', disabled: true })
+
+    const overwriteRequestHeadersDto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const result = overwriteRequestHeaders(overwriteRequestHeadersDto)
+    expect(result.item.request.headers.one('x-apideck-app-id')).toMatchSnapshot()
+  })
+
+  it('should overwrite the request header variable with generated string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '<operationId>_<pathPart2>',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(dto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite the request header variable with generated cased string value', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '<operationId>_<pathPart2>',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestHeaders(dto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite the request header variable with generated string value with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation
+    }
+    const result = overwriteRequestHeaders(dto)
+    expect(result.item.request.getHeaders()).toMatchSnapshot()
+  })
+
+  it('should overwrite the request header variable with generated cased string value  with {{}}', async () => {
+    const overwriteValues = [
+      {
+        key: 'x-apideck-app-id',
+        value: '{{<operationId>_<pathPart2>}}',
+        overwrite: true
+      }
+    ]
+    const dto = {
+      overwriteValues,
+      pmOperation,
+      oaOperation,
+      globals: {
+        variableCasing: 'pascalCase'
+      } as GlobalConfig
+    }
+    const result = overwriteRequestHeaders(dto)
     expect(result.item.request.getHeaders()).toMatchSnapshot()
   })
 })

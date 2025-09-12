@@ -9,3 +9,13 @@ pm.test(\\"[GET]::/crm/companies/:id - Status code is 2xx\\", function () {
 ",
 ]
 `;
+
+exports[`testResponseStatusSuccess should add test with separator symbol for status success 1`] = `
+Array [
+  "// Validate status 2xx 
+pm.test(\\"[GET]==/crm/companies/:id - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});
+",
+]
+`;

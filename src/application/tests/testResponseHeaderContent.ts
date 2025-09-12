@@ -1,10 +1,11 @@
 import { writeOperationTestScript } from '../../application'
 import { PostmanMappedOperation } from '../../postman'
-import { ResponseHeaderTest } from '../../types'
+import { GlobalConfig, ResponseHeaderTest } from '../../types'
 
 export const testResponseHeaderContent = (
   ResponseHeaderTests: ResponseHeaderTest[],
-  pmOperation: PostmanMappedOperation
+  pmOperation: PostmanMappedOperation,
+  config?: GlobalConfig
 ): PostmanMappedOperation => {
   ResponseHeaderTests.map(check => {
     let pmTestKey = ''
@@ -16,6 +17,9 @@ export const testResponseHeaderContent = (
     let pmTestMaxLength = ''
     let pmTestAssert = ''
 
+    // Separator
+    const split = config?.separatorSymbol ?? '::'
+
     if (check.hasOwnProperty('key')) {
       const negate = check.notExist === true ? 'not.have' : 'have'
       const negateLabel = check.notExist === true ? 'does not exists' : 'is present'
@@ -23,7 +27,7 @@ export const testResponseHeaderContent = (
       pmTestKey = [
         // `// Response header should have "${check.key}"\n`,
         `// Validate if response header ${negateLabel} \n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Response header ${check.key} ${negateLabel}", function () {\n`,
         `   pm.response.to.${negate}.header("${check.key}");\n`,
         `});\n`
@@ -43,7 +47,7 @@ export const testResponseHeaderContent = (
 
       pmTestValue = [
         `// Response header should have value "${check.value}" for "${check.key}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if header value for '${check.key}' matches '${check.value}'", function() {\n`,
         `  pm.expect(pm.response.headers.get("${check.key}")).to.eql(${checkValue});\n`,
         `});\n`
@@ -63,7 +67,7 @@ export const testResponseHeaderContent = (
 
       pmTestContains = [
         `// Response header should contain value "${check.contains}" for "${check.key}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if header value for '${check.key}' contains '${check.contains}'", function() {\n`,
         `  pm.expect(pm.response.headers.get("${check.key}")).to.include(${checkContains});\n`,
         `});\n`
@@ -74,13 +78,24 @@ export const testResponseHeaderContent = (
       if (Array.isArray(check.oneOf)) {
         // Make items safe to inject into test
         const safeOneOf = check.oneOf.map(item => {
-          // Quote string value
-          return `"${item}"`
+          if (typeof item === 'string') {
+            let checkOneOfItem = item
+            if (checkOneOfItem.includes('{{') && checkOneOfItem.includes('}}')) {
+              checkOneOfItem = `pm.collectionVariables.get("${checkOneOfItem.replace(
+                /{{|}}/g,
+                ''
+              )}")`
+              return checkOneOfItem
+            }
+            // Quote string value
+            return `"${checkOneOfItem}"`
+          }
+          return item
         })
 
         pmTestOneOf = [
           `// Response header should be one of the values "${check.oneOf}" for "${check.key}"\n`,
-          `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+          `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
           ` - Content check if header value for '${check.key}' is matching one of: '${check.oneOf}'", function() {\n`,
           `  pm.expect(pm.response.headers.get("${check.key}")).to.be.oneOf([${safeOneOf}]);\n`,
           `});\n`
@@ -101,7 +116,7 @@ export const testResponseHeaderContent = (
 
       pmTestLength = [
         `// Response header should have a length of "${check.length}" for "${check.key}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if header value of '${check.key}' has a length of '${check.length}'", function() {\n`,
         `  pm.expect(pm.response.headers.get("${check.key}")).to.have.lengthOf(${checkLength});\n`,
         `});\n`
@@ -121,7 +136,7 @@ export const testResponseHeaderContent = (
 
       pmTestMinLength = [
         `// Response header should have a minimum length of "${check.minLength}" for "${check.key}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if header value of '${check.key}' has a minimum length of '${check.minLength}'", function() {\n`,
         `  pm.expect(pm.response.headers.get("${check.key}").length).is.at.least(${checkMinLength});\n`,
         `});\n`
@@ -141,7 +156,7 @@ export const testResponseHeaderContent = (
 
       pmTestMaxLength = [
         `// Response header should have a maximum length of "${check.maxLength}" for "${check.key}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if header value of '${check.key}' has a maximum length of '${check.maxLength}'", function() {\n`,
         `  pm.expect(pm.response.headers.get("${check.key}").length).is.at.most(${checkMaxLength});\n`,
         `});\n`
@@ -158,7 +173,7 @@ export const testResponseHeaderContent = (
 
       pmTestAssert = [
         `// Response header value for "${check.key}}" "${cleanAssert}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]::${pmOperation.path}`,
+        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
         ` - Content check if header value for '${check.key}' '${cleanAssertLabel}'", function() {\n`,
         `  pm.expect(pm.response.headers.get("${check.key}")).${cleanAssert};\n`,
         `});\n`

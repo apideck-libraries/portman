@@ -8,6 +8,10 @@
     "collectionTestScripts": [
       "pm.collectionVariables.set('applicationId', pm.iterationData.get('applicationId') || '1111');"
     ],
+    "collectionVariables": {
+      "name": "portman",
+      "version": "1"
+    },
     "keyValueReplacements": {
       "x-apideck-app-id": "{{applicationId}}"
     },

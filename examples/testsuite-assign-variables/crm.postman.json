@@ -1,10 +1,10 @@
 {
   "_": {
-    "postman_id": "df4fb7a9-549a-462b-966b-6731b85947cf"
+    "postman_id": "66a387eb-7f82-483f-a402-79d8ba103131"
   },
   "item": [
     {
-      "id": "c2e2ec2d-6bb6-4409-be7b-aa393a938414",
+      "id": "65c98f84-5308-4a82-8540-c9a26fcb1360",
       "name": "Leads",
       "description": {
         "content": "",
@@ -12,7 +12,7 @@
       },
       "item": [
         {
-          "id": "795be23b-ceaa-43e8-a014-5e56a38c5a6c",
+          "id": "b5306807-9772-46a7-bc55-9acf67328480",
           "name": "List leads",
           "request": {
             "name": "List leads",
@@ -98,7 +98,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -109,7 +109,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "cad3c8a2-740c-4fe3-ad40-7e4e00ed0429",
+                "id": "3f9b2bcb-f7a4-43f5-8325-167296f5bfba",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -120,10 +120,13 @@
                 ]
               }
             }
-          ]
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "id": "417d94c1-84c8-4806-b072-c21a1bd08060",
+          "id": "e21a2d3f-0f5d-4dbb-ad9a-906a55b491c8",
           "name": "Create lead",
           "request": {
             "name": "Create lead",
@@ -204,7 +207,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -215,7 +218,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "74789f6e-82b7-48ad-9958-b62aa2a02eb2",
+                "id": "305a93da-e391-400e-a63b-b16519a1451a",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[POST]::/crm/leads - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -236,7 +239,7 @@
           }
         },
         {
-          "id": "90ea20df-f731-45ac-82de-5fc95fd767dd",
+          "id": "4b631b39-1f9e-49ef-9248-2564eb45f402",
           "name": "Get lead",
           "request": {
             "name": "Get lead",
@@ -316,7 +319,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -327,7 +330,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "e1882fc3-b766-4621-85bb-741dbb90beda",
+                "id": "fe4bdd73-d451-4c6b-baa5-edbad8b9a3a8",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[GET]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -339,20 +342,23 @@
                   "// Validate if response header is present \npm.test(\"[GET]::/crm/leads/:id - Response header Operation-Location is present\", function () {\n   pm.response.to.have.header(\"Operation-Location\");\n});\n",
                   "// Set response object as internal variable\nlet jsonData = {};\ntry {jsonData = pm.response.json();}catch(e){}\n",
                   "// Set property value as variable\nconst _resDataCompanyName = jsonData?.data?.company_name;\n",
-                  "// pm.collectionVariables - Set leadsOne.data.company_name as variable for jsonData.data.company_name\nif (_resDataCompanyName !== undefined) {\n   pm.collectionVariables.set(\"leadsOne.data.company_name\", jsonData.data.company_name);\n   // console.log(\"- use {{leadsOne.data.company_name}} as collection variable for value\",jsonData.data.company_name);\n} else {\n   console.log('INFO - Unable to assign variable {{leadsOne.data.company_name}}, as jsonData.data.company_name is undefined.');\n};\n",
+                  "// pm.collectionVariables - Set leadsOneDataCompanyName as variable for jsonData.data.company_name\nif (_resDataCompanyName !== undefined) {\n   pm.collectionVariables.set(\"leadsOneDataCompanyName\", jsonData.data.company_name);\n   // console.log(\"- use {{leadsOneDataCompanyName}} as collection variable for value\",jsonData.data.company_name);\n} else {\n   console.log('INFO - Unable to assign variable {{leadsOneDataCompanyName}}, as jsonData.data.company_name is undefined.');\n};\n",
                   "// Set property value as variable\nconst _res = jsonData;\n",
                   "// pm.collectionVariables - Set leadResponse as variable for jsonData\nif (_res !== undefined) {\n   pm.collectionVariables.set(\"leadResponse\", jsonData);\n   // console.log(\"- use {{leadResponse}} as collection variable for value\",jsonData);\n} else {\n   console.log('INFO - Unable to assign variable {{leadResponse}}, as jsonData is undefined.');\n};\n",
                   "// Set property value as variable\nconst _resCount = jsonData?.[\"@count\"];\n",
-                  "// pm.collectionVariables - Set leadsOne.@count as variable for jsonData[\"@count\"]\nif (_resCount !== undefined) {\n   pm.collectionVariables.set(\"leadsOne.@count\", jsonData[\"@count\"]);\n   // console.log(\"- use {{leadsOne.@count}} as collection variable for value\",jsonData[\"@count\"]);\n} else {\n   console.log('INFO - Unable to assign variable {{leadsOne.@count}}, as jsonData[\"@count\"] is undefined.');\n};\n",
+                  "// pm.collectionVariables - Set leadsOne@count as variable for jsonData[\"@count\"]\nif (_resCount !== undefined) {\n   pm.collectionVariables.set(\"leadsOne@count\", jsonData[\"@count\"]);\n   // console.log(\"- use {{leadsOne@count}} as collection variable for value\",jsonData[\"@count\"]);\n} else {\n   console.log('INFO - Unable to assign variable {{leadsOne@count}}, as jsonData[\"@count\"] is undefined.');\n};\n",
                   "",
-                  "// pm.collectionVariables - Set leadsOne.Operation-Location as variable for header \nlet leadsOneOperationLocation = pm.response.headers.get(\"Operation-Location\");\nif (leadsOneOperationLocation !== undefined) {\n   pm.collectionVariables.set(\"leadsOne.Operation-Location\", leadsOneOperationLocation);\n   // console.log(\"- use {{leadsOne.Operation-Location}} as collection variable for value\", leadsOneOperationLocation);\n};\n"
+                  "// pm.collectionVariables - Set leadsOneOperationLocation as variable for header \nlet leadsOneOperationLocation = pm.response.headers.get(\"Operation-Location\");\nif (leadsOneOperationLocation !== undefined) {\n   pm.collectionVariables.set(\"leadsOneOperationLocation\", leadsOneOperationLocation);\n   // console.log(\"- use {{leadsOneOperationLocation}} as collection variable for value\", leadsOneOperationLocation);\n};\n"
                 ]
               }
             }
-          ]
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         },
         {
-          "id": "36c61cf2-bf8a-42ab-8ddb-3dbda40f7707",
+          "id": "31a46638-7e4f-4268-a3c0-4e6e9a64d664",
           "name": "Update lead",
           "request": {
             "name": "Update lead",
@@ -445,7 +451,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -456,7 +462,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "572dd5f8-1aa3-4a0b-be9c-333c3647ca5b",
+                "id": "1258b391-97aa-4552-ae70-d6af20bfd227",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[PATCH]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -473,7 +479,7 @@
           }
         },
         {
-          "id": "66dc1d90-8a9e-4b09-95ee-2f4fd43027f8",
+          "id": "e86e9d4d-8bdd-4424-ba04-6fc29fa48b7f",
           "name": "Delete lead",
           "request": {
             "name": "Delete lead",
@@ -553,7 +559,7 @@
               "bearer": [
                 {
                   "type": "any",
-                  "value": "<Bearer Token>",
+                  "value": "{{bearerToken}}",
                   "key": "token"
                 }
               ]
@@ -564,7 +570,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "808c75df-48df-49a6-9e76-181ca2247c3b",
+                "id": "9df7333d-e793-456d-9957-dcec0c9909ef",
                 "type": "text/javascript",
                 "exec": [
                   "// Validate status 2xx \npm.test(\"[DELETE]::/crm/leads/:id - Status code is 2xx\", function () {\n   pm.response.to.be.success;\n});\n",
@@ -575,7 +581,10 @@
                 ]
               }
             }
-          ]
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
         }
       ],
       "event": []
@@ -586,7 +595,7 @@
     "bearer": [
       {
         "type": "any",
-        "value": "<Bearer Token>",
+        "value": "{{bearerToken}}",
         "key": "token"
       }
     ]
@@ -625,11 +634,11 @@
     }
   ],
   "info": {
-    "_postman_id": "df4fb7a9-549a-462b-966b-6731b85947cf",
+    "_postman_id": "66a387eb-7f82-483f-a402-79d8ba103131",
     "name": "CRM API - Assign Variables",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
-      "content": "Welcome to the CRM API from Apideck.\n\nContact Support:\n Email: hello@apideck.com",
+      "content": "Welcome to the CRM API.\n\nContact Support:\n Email: hello@apideck.com",
       "type": "text/plain"
     }
   }

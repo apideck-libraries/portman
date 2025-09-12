@@ -192,7 +192,7 @@ export class PostmanApiService {
       )
 
       let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError | undefined
+      let error: AxiosError<Readable> | undefined
 
       try {
         response = await axios.request(config)
@@ -203,8 +203,13 @@ export class PostmanApiService {
 
       const respData = response?.data
 
-      spinner.succeed('Upload to Postman Success')
-      return JSON.stringify({ status: 'success', data: respData }, null, 2)
+      if (responseStatusCode < 300) {
+        spinner.succeed('Upload to Postman Success')
+        return JSON.stringify({ status: 'success', data: respData }, null, 2)
+      } else {
+        spinner.fail(chalk.red(`Upload to Postman Failed with status: ${responseStatusCode}`))
+        return JSON.stringify({ status: 'fail', data: respData }, null, 2)
+      }
     } catch (error) {
       spinner.fail(chalk.red(`Upload to Postman Failed: ${responseStatusCode}`))
       spinner.clear()
@@ -276,7 +281,7 @@ export class PostmanApiService {
       )
 
       let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError | undefined
+      let error: AxiosError<Readable> | undefined
 
       try {
         response = await axios.request(config)
@@ -354,7 +359,7 @@ export class PostmanApiService {
       )
 
       let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError | undefined
+      let error: AxiosError<Readable> | undefined
 
       try {
         response = await axios.request(config)

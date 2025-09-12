@@ -130,3 +130,102 @@ describe('TestSuite', () => {
     })
   })
 })
+
+describe('contractTests openApiRequest content-type', () => {
+  let postmanParser: PostmanParser
+  let oasParser: OpenApiParser
+  let testSuite: TestSuite
+
+  const postmanJson = '__tests__/fixtures/request-multi.postman.json'
+  const oasYml = '__tests__/fixtures/request-multi.yml'
+
+  beforeEach(async () => {
+    oasParser = new OpenApiParser()
+    await oasParser.convert({ inputFile: oasYml })
+
+    const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
+  })
+
+  it('should use a specific request content-type when multiple are available', async () => {
+    const configResult = await getConfig(
+      '__tests__/fixtures/portman-contract.request-ct-specific.json'
+    )
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+    const config = configResult.right
+    testSuite = new TestSuite({ oasParser, postmanParser, config })
+    testSuite.generateContractTests()
+    expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
+  })
+})
+
+describe('contractTests openApiResponse content-type', () => {
+  let postmanParser: PostmanParser
+  let oasParser: OpenApiParser
+  let testSuite: TestSuite
+
+  const postmanJson = '__tests__/fixtures/request-multi.postman.json'
+  const oasYml = '__tests__/fixtures/request-multi.yml'
+
+  beforeEach(async () => {
+    oasParser = new OpenApiParser()
+    await oasParser.convert({ inputFile: oasYml })
+
+    const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
+  })
+
+  it('should use a specific response content-type when multiple are available', async () => {
+    const configResult = await getConfig(
+      '__tests__/fixtures/portman-contract.response-ct-specific.json'
+    )
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+    const config = configResult.right
+    testSuite = new TestSuite({ oasParser, postmanParser, config })
+    testSuite.generateContractTests()
+    expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
+  })
+})
+
+describe('contractTests openApiRequest content-type', () => {
+  let postmanParser: PostmanParser
+  let oasParser: OpenApiParser
+  let testSuite: TestSuite
+
+  const postmanJson = '__tests__/fixtures/request-multi.postman.json'
+  const oasYml = '__tests__/fixtures/request-multi.yml'
+
+  beforeEach(async () => {
+    oasParser = new OpenApiParser()
+    await oasParser.convert({ inputFile: oasYml })
+
+    const postmanObj = JSON.parse(fs.readFileSync(postmanJson).toString())
+    postmanParser = new PostmanParser({
+      collection: new Collection(postmanObj),
+      oasParser: oasParser
+    })
+  })
+
+  it('should use a specific request content-type when multiple are available', async () => {
+    const configResult = await getConfig(
+      '__tests__/fixtures/portman-contract.request-ct-specific.json'
+    )
+    if (Either.isLeft(configResult)) {
+      return PortmanError.render(configResult.left)
+    }
+    const config = configResult.right
+    testSuite = new TestSuite({ oasParser, postmanParser, config })
+    testSuite.generateContractTests()
+    expect(omitKeys(testSuite.collection.toJSON(), ['id', '_postman_id'])).toMatchSnapshot()
+  })
+})

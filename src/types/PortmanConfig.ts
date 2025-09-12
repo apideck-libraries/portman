@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { PortmanOptions } from './PortmanOptions'
 import { OpenApiParser } from '../oas'
 import { PostmanParser } from '../postman'
-import { PortmanOptions } from './PortmanOptions'
 
 type ContractTest = {
   enabled: boolean
@@ -31,6 +31,8 @@ export type ContractTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  openApiRequest?: string
+  openApiResponse?: string
   excludeForOperations?: string[]
   statusSuccess?: StatusSuccess
   statusCode?: StatusCode
@@ -46,6 +48,8 @@ export type ContentTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
   openApiOperation?: string
+  openApiRequest?: string
+  openApiResponse?: string
   excludeForOperations?: string[]
   responseBodyTests?: ResponseBodyTest[]
   responseHeaderTests?: ResponseHeaderTest[]
@@ -67,12 +71,14 @@ export type VariationTestConfig = {
   openApiOperationId?: string
   openApiOperation?: string
   excludeForOperations?: string[]
+  openApiRequest?: string
   openApiResponse?: string
   variations: VariationConfig[]
 }
 
 export type VariationConfig = {
   name: string
+  openApiRequest?: string
   openApiResponse?: string
   overwrites?: any
   fuzzing?: fuzzingConfig[]
@@ -144,10 +150,6 @@ export type OverwriteRequestHeadersConfig = OverwriteConfig & {
   description?: string
 }
 
-export type OverwritePathIdVariableConfig = {
-  enabled: boolean
-}
-
 export type OverwriteRequestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string
@@ -155,7 +157,6 @@ export type OverwriteRequestConfig = {
   excludeForOperations?: string[]
   overwriteRequestQueryParams?: OverwriteQueryParamConfig[]
   overwriteRequestPathVariables?: OverwritePathVariableConfig[]
-  overwriteRequestPathIdVariables?: OverwritePathIdVariableConfig[]
   overwriteRequestBody?: OverwriteRequestBodyConfig[]
   overwriteRequestHeaders?: OverwriteRequestHeadersConfig[]
   overwriteRequestBaseUrl?: OverwriteRequestBaseUrlConfig
@@ -205,7 +206,8 @@ export interface AuthAttribute {
 }
 
 export type SecurityOverwrite = {
-  apiKey?: SecurityApiKey
+  apikey?: SecurityApiKey
+  apiKey?: SecurityApiKey // fallback
   bearer?: SecurityBearer
   basic?: SecurityBasicAuth
   awsv4?: AuthAttribute[]
@@ -219,6 +221,7 @@ export type SecurityOverwrite = {
     type: string
     [key: string]: unknown | unknown[]
   }
+  remove?: boolean
 }
 
 export type SecurityApiKey = {
@@ -244,13 +247,28 @@ export type GlobalReplacement = {
 export type GlobalConfig = {
   collectionPreRequestScripts?: string[]
   collectionTestScripts?: string[]
+  collectionVariables?: Record<string, unknown>
   securityOverwrites?: SecurityOverwrite
   keyValueReplacements?: Record<string, unknown>
   valueReplacements?: Record<string, unknown>
   rawReplacements?: GlobalReplacement[]
   portmanReplacements?: GlobalReplacement[]
   orderOfOperations?: string[]
+  orderOfFolders?: string[]
   stripResponseExamples?: boolean
+  variableCasing?:
+    | 'camelCase'
+    | 'pascalCase'
+    | 'kebabCase'
+    | 'trainCase'
+    | 'snakeCase'
+    | 'adaCase'
+    | 'constantCase'
+    | 'cobolCase'
+    | 'dotNotation'
+    | 'lowerCase'
+    | 'upperCase'
+  separatorSymbol?: string | '::'
 }
 
 export interface TestSuiteOptions {
@@ -280,7 +298,7 @@ export const PortmanFuzzTypes = {
   requestHeader: 'requestHeader'
 } as const
 
-export type PortmanFuzzType = typeof PortmanFuzzTypes[keyof typeof PortmanFuzzTypes]
+export type PortmanFuzzType = (typeof PortmanFuzzTypes)[keyof typeof PortmanFuzzTypes]
 
 export type FuzzingSchemaItems = {
   fuzzType: PortmanFuzzType
@@ -331,6 +349,7 @@ export type fuzzingConfig = {
  */
 export interface PortmanConfig {
   version?: number
+  $schema?: string
   globals?: GlobalConfig
   tests?: TestConfig
   overwrites?: OverwriteRequestConfig[]
