@@ -28,6 +28,21 @@ describe('testResponseJsonSchema', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should add test for valid json schema v4', async () => {
+    const response = (oasOperation.schema?.responses?.['200'] as OpenAPIV3.ResponseObject)?.content
+    const schema = response?.['application/json'].schema
+    schema.$schema = 'http://json-schema.org/draft-04/schema'
+
+    pmOperation = testResponseJsonSchema(
+      { enabled: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add test with separator symbol for valid json schema', async () => {
     const globalConfig = { separatorSymbol: '==' } as GlobalConfig
     const schema = (oasOperation.schema?.responses?.['200'] as OpenAPIV3.ResponseObject)?.content
