@@ -1,10 +1,11 @@
+import { testJsonSchema } from './testJsonSchema'
+import { testJsonSchemav4 } from './testJsonSchemav4'
 import { writeOperationTestScript } from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { additionalProperties, ContractTestConfig, GlobalConfig } from 'types'
 import traverse from 'neotraverse/legacy'
 import { OpenAPIV3 } from 'openapi-types'
-import Ajv from 'ajv'
 import chalk from 'chalk'
 
 export const testResponseJsonSchema = (
@@ -32,17 +33,21 @@ export const testResponseJsonSchema = (
 
   // Validate jsonSchema with AJV
   let validJsonSchema = true
-  try {
-    const ajv = new Ajv({ allErrors: true, strict: false, logger: false })
-    ajv.compile(jsonSchema)
-  } catch (e) {
-    validJsonSchema = false
-    // When invalid JSON schema, show a warning during conversion
+  let validJsonSchemaTest
+  if (jsonSchema?.$schema === 'http://json-schema.org/draft-04/schema#') {
+    validJsonSchemaTest = testJsonSchemav4(jsonSchema)
+    validJsonSchema = validJsonSchemaTest.validJsonSchema
+  } else {
+    validJsonSchemaTest = testJsonSchema(jsonSchema)
+    validJsonSchema = validJsonSchemaTest.validJsonSchema
+  }
+
+  if (validJsonSchemaTest.validJsonSchema === false) {
     console.log(
       chalk.red(
         `schemaValidation skipped for[${pmOperation.method.toUpperCase()}]${split}${
           pmOperation.path
-        }  ` + `${e.message}`
+        }  ` + `${validJsonSchemaTest.error.message}`
       )
     )
   }
