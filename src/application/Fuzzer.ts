@@ -17,7 +17,7 @@ import {
 } from '../types'
 import traverse from 'neotraverse/legacy'
 import { TestSuite, VariationWriter } from './'
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types'
 import { getByPath, getJsonContentType } from '../utils'
 import { QueryParam } from 'postman-collection'
 import { PostmanDynamicVarGenerator } from '../services/PostmanDynamicVarGenerator'
@@ -54,14 +54,18 @@ export class Fuzzer {
     if (!oaOperation?.schema?.requestBody) return
 
     // Analyse request body & content-type
-    const reqBody = oaOperation?.schema?.requestBody as unknown as OpenAPIV3.RequestBodyObject
+    const reqBody = oaOperation?.schema?.requestBody as unknown as
+      | OpenAPIV3.RequestBodyObject
+      | OpenAPIV3_1.RequestBodyObject
     const jsonContentType = getJsonContentType(Object.keys(reqBody?.content))
 
     // No JSON content-type defined
     if (!jsonContentType) return
 
     // Analyse JSON schema
-    const schema = reqBody?.content?.[jsonContentType]?.schema as OpenAPIV3.SchemaObject
+    const schema = reqBody?.content?.[jsonContentType]?.schema as
+      | OpenAPIV3.SchemaObject
+      | OpenAPIV3_1.SchemaObject
     const fuzzItems = this.analyzeFuzzJsonSchema(schema)
 
     const fuzzReqBodySet = fuzzingSet.filter(fuzz => fuzz?.requestBody) as fuzzingConfig[]
@@ -136,7 +140,9 @@ export class Fuzzer {
     // No request query params defined
     if (!oaOperation?.queryParams) return
 
-    const reqQueryParams = oaOperation?.queryParams as unknown as OpenAPIV3.ParameterObject[]
+    const reqQueryParams = oaOperation?.queryParams as unknown as
+      | OpenAPIV3.ParameterObject[]
+      | OpenAPIV3_1.ParameterObject[]
     reqQueryParams.map(queryParam => {
       // Analyse query param schema
       const fuzzItems = this.analyzeQuerySchema(queryParam)
@@ -214,7 +220,9 @@ export class Fuzzer {
     // No request headers defined
     if (!oaOperation?.requestHeaders) return
 
-    const reqHeaders = oaOperation?.requestHeaders as unknown as OpenAPIV3.ParameterObject[]
+    const reqHeaders = oaOperation?.requestHeaders as unknown as
+      | OpenAPIV3.ParameterObject[]
+      | OpenAPIV3_1.ParameterObject[]
     reqHeaders.map(header => {
       // Analyse header schema
       const fuzzItems = this.analyzeHeaderSchema(header)
@@ -808,7 +816,7 @@ export class Fuzzer {
   }
 
   public analyzeFuzzJsonSchema(
-    originalJsonSchema: OpenAPIV3.SchemaObject | undefined
+    originalJsonSchema: OpenAPIV3.SchemaObject | OpenAPIV3_1.SchemaObject | undefined
   ): FuzzingSchemaItems | null {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -821,7 +829,9 @@ export class Fuzzer {
 
     if (!originalJsonSchema) return fuzzItems
     // Copy jsonSchema to keep the original jsonSchema untouched
-    const jsonSchema = { ...originalJsonSchema } as OpenAPIV3.SchemaObject
+    const jsonSchema = { ...originalJsonSchema } as
+      | OpenAPIV3.SchemaObject
+      | OpenAPIV3_1.SchemaObject
 
     const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
@@ -958,7 +968,7 @@ export class Fuzzer {
   }
 
   public analyzeQuerySchema(
-    queryParam: OpenAPIV3.ParameterObject | undefined
+    queryParam: OpenAPIV3.ParameterObject | OpenAPIV3_1.ParameterObject | undefined
   ): FuzzingSchemaItems | null {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestQueryParam,
@@ -971,7 +981,7 @@ export class Fuzzer {
 
     if (!queryParam?.schema || !queryParam.name) return fuzzItems
 
-    const schema = queryParam?.schema as OpenAPIV3.BaseSchemaObject
+    const schema = queryParam?.schema as OpenAPIV3.BaseSchemaObject | OpenAPIV3_1.BaseSchemaObject
 
     // Register all fuzz-able items
     if (queryParam?.required) {
@@ -1010,7 +1020,7 @@ export class Fuzzer {
   }
 
   public analyzeHeaderSchema(
-    header: OpenAPIV3.ParameterObject | undefined
+    header: OpenAPIV3.ParameterObject | OpenAPIV3_1.ParameterObject | undefined
   ): FuzzingSchemaItems | null {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestHeader,
@@ -1023,7 +1033,7 @@ export class Fuzzer {
 
     if (!header?.schema || !header.name) return fuzzItems
 
-    const schema = header?.schema as OpenAPIV3.BaseSchemaObject
+    const schema = header?.schema as OpenAPIV3.BaseSchemaObject | OpenAPIV3_1.BaseSchemaObject
 
     // Register all fuzz-able items
     if (header?.required) {

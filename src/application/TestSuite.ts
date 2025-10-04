@@ -1,4 +1,4 @@
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types'
 import { Collection, Header } from 'postman-collection'
 import {
   applyOverwrites,
@@ -120,7 +120,9 @@ export class TestSuite {
             const reqInfo = parseOpenApiRequest(contractTest.openApiRequest)
             let reqContentType = reqInfo?.contentType
             if (reqContentType && reqContentType.includes('*') && operation.schema?.requestBody) {
-              const reqObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
+              const reqObj = operation.schema.requestBody as
+                | OpenAPIV3.RequestBodyObject
+                | OpenAPIV3_1.RequestBodyObject
               const matchCt = Object.keys(reqObj.content || {}).find(ct =>
                 matchWildcard(ct, reqContentType as string)
               )
@@ -133,7 +135,9 @@ export class TestSuite {
                 value: reqContentType
               } as Header)
 
-              const reqBodyObj = operation.schema.requestBody as OpenAPIV3.RequestBodyObject
+              const reqBodyObj = operation.schema.requestBody as
+                | OpenAPIV3.RequestBodyObject
+                | OpenAPIV3_1.RequestBodyObject
               const example = getRequestBodyExample(reqBodyObj, reqContentType)
               if (example && pmOperation.item.request.body) {
                 pmOperation.item.request.body.mode = 'raw'
@@ -158,7 +162,9 @@ export class TestSuite {
                 respContentType.includes('*') &&
                 operation.schema?.responses?.[respCode]
               ) {
-                const respObj = operation.schema.responses[respCode] as OpenAPIV3.ResponseObject
+                const respObj = operation.schema.responses[respCode] as
+                  | OpenAPIV3.ResponseObject
+                  | OpenAPIV3_1.ResponseObject
                 const matchCt = Object.keys(respObj.content || {}).find(ct =>
                   matchWildcard(ct, respContentType as string)
                 )
@@ -319,7 +325,7 @@ export class TestSuite {
 
     const responseKey = response[0][0]
     const responseCode = parseInt(responseKey) as number
-    const responseObject = response[0][1] as OpenAPIV3.ResponseObject
+    const responseObject = response[0][1] as OpenAPIV3.ResponseObject | OpenAPIV3_1.ResponseObject
 
     // List excludeForOperations
     const optStatusSuccess = contractTest['statusSuccess']
@@ -379,7 +385,10 @@ export class TestSuite {
 
     // Add response content checks
     if (responseObject.content) {
-      const processContent = (contentType: string, content: OpenAPIV3.MediaTypeObject): void => {
+      const processContent = (
+        contentType: string,
+        content: OpenAPIV3.MediaTypeObject | OpenAPIV3_1.MediaTypeObject
+      ): void => {
         // Add contentType check
         if (
           optContentType &&
@@ -445,7 +454,9 @@ export class TestSuite {
         // Early skip if no schema defined
         if (!headerKey) continue
 
-        const header = responseObject.headers[headerKey] as OpenAPIV3.HeaderObject
+        const header = responseObject.headers[headerKey] as
+          | OpenAPIV3.HeaderObject
+          | OpenAPIV3_1.HeaderObject
         const headerRequired = header.required || false
         const headerName = headerKey as string
 
