@@ -1,7 +1,7 @@
 // openapi-format.d.ts
 
 declare module 'openapi-format' {
-  import { OpenAPIV3 } from 'openapi-types'
+  import { OpenAPI } from 'openapi-types'
 
   interface OpenAPIFilterSet {
     methods?: string[]
@@ -24,19 +24,19 @@ declare module 'openapi-format' {
   }
 
   interface OpenAPIResult {
-    data: OpenAPIV3.Document
+    data: OpenAPI.Document
     resultData: Record<string, never>
   }
 
   /**
    * OpenAPI-format filter function
    * Traverse through all keys and based on the key name, filter the props according to the filter configuration.
-   * @param {OpenAPIV3.Document} oaObj OpenAPI document
+   * @param {OpenAPI.Document} oaObj OpenAPI document
    * @param {OpenAPIFilterOptions} options OpenAPI-format filter options
    * @returns {Promise<OpenAPIResult>} Filtered OpenAPI document
    */
   export async function openapiFilter(
-    oaObj: OpenAPIV3.Document,
+    oaObj: OpenAPI.Document,
     options: OpenAPIFilterOptions
   ): Promise<OpenAPIResult>
 
@@ -59,7 +59,7 @@ declare module 'openapi-format' {
    */
   export async function writeFile(
     filePath: string,
-    data: Record<string, unknown> | OpenAPIV3.Document,
+    data: Record<string, unknown> | OpenAPI.Document,
     options: WriteFileOptions = {}
   ): Promise<void>
 

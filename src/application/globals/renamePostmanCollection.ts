@@ -1,10 +1,10 @@
 import { PortmanOptions } from '../../types'
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPI } from 'openapi-types'
 
 export const renamePostmanCollection = (
-  oas: OpenAPIV3.Document,
+  oas: OpenAPI.Document,
   options: PortmanOptions
-): OpenAPIV3.Document => {
+): OpenAPI.Document => {
   if (!oas?.info?.title) {
     throw new Error(`OpenAPI title is required. Please ensure your OpenAPI document has title.`)
   }

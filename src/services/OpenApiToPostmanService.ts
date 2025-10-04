@@ -1,18 +1,18 @@
 import fs from 'fs-extra'
 import oaConverter from 'openapi-to-postmanv2'
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPI } from 'openapi-types'
 import ora from 'ora'
 import path from 'path'
 
 export interface IOpenApiToPostmanConfig {
   inputFile?: string
-  openApiObj?: OpenAPIV3.Document
+  openApiObj?: OpenAPI.Document
   outputFile: string
   configFile: string
 }
 
 export class OpenApiToPostmanService {
-  openApiObj: OpenAPIV3.Document
+  openApiObj: OpenAPI.Document
 
   async convert(options: IOpenApiToPostmanConfig): Promise<Record<string, unknown>> {
     return await new Promise((resolve, reject) => {

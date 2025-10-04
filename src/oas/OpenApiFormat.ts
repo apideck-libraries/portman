@@ -1,4 +1,4 @@
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPI } from 'openapi-types'
 import openapiFormat, { OpenAPIFilterOptions, OpenAPIFilterSet } from 'openapi-format'
 
 export interface IOpenApiFormatterConfig {
@@ -8,9 +8,9 @@ export interface IOpenApiFormatterConfig {
 }
 
 export class OpenApiFormatter {
-  public oas: OpenAPIV3.Document
+  public oas: OpenAPI.Document
 
-  async filter(options: IOpenApiFormatterConfig): Promise<OpenAPIV3.Document> {
+  async filter(options: IOpenApiFormatterConfig): Promise<OpenAPI.Document> {
     const inputFilePath = options.inputFile
     const filterFilePath = options.filterFile
     const filterOptions = {} as OpenAPIFilterOptions
@@ -18,7 +18,7 @@ export class OpenApiFormatter {
     // Load OpenAPI file
     this.oas = (await openapiFormat.parseFile(inputFilePath, {
       bundle: true
-    })) as unknown as OpenAPIV3.Document
+    })) as unknown as OpenAPI.Document
 
     // Load filter file
     const filterSet = (await openapiFormat.parseFile(filterFilePath)) as OpenAPIFilterSet
@@ -26,7 +26,7 @@ export class OpenApiFormatter {
 
     // Filter OpenAPI file
     const resFilter = await openapiFormat.openapiFilter(this.oas, filterOptions)
-    this.oas = resFilter.data as OpenAPIV3.Document
+    this.oas = resFilter.data as OpenAPI.Document
 
     // Write filtered OpenAPI file as YAML
     if (options.outputFile) {
