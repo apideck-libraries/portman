@@ -2,7 +2,7 @@ import SwaggerParser from '@apidevtools/swagger-parser'
 import fs from 'fs-extra'
 import * as Either from 'fp-ts/lib/Either'
 import { ValidationError } from '@apideck/better-ajv-errors'
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPI } from 'openapi-types'
 import { CollectionDefinition } from 'postman-collection'
 import * as mockOAS from '../../__tests__/fixtures/mockOAS.json'
 import * as mockPostman from '../../__tests__/fixtures/mockPostman.json'
@@ -56,10 +56,10 @@ describe('Portman', () => {
     // mock conversions
     jest
       .spyOn(SwaggerParser.prototype, 'dereference')
-      .mockImplementation(() => Promise.resolve(mockOAS as OpenAPIV3.Document))
+      .mockImplementation(() => Promise.resolve(mockOAS as OpenAPI.Document))
     jest
       .spyOn(SwaggerParser.prototype, 'bundle')
-      .mockImplementation(() => Promise.resolve(mockOAS as OpenAPIV3.Document))
+      .mockImplementation(() => Promise.resolve(mockOAS as OpenAPI.Document))
     jest
       .spyOn(OpenApiToPostmanService.prototype, 'convert')
       .mockImplementation(() => Promise.resolve(mockPostman))

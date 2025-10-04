@@ -4,17 +4,22 @@ import { changeCase } from 'openapi-format'
 
 describe('OpenApiFormat', () => {
   let oas: OpenAPI.Document
+  let oas31: OpenAPI.Document
   const oasFormatter = new OpenApiFormatter()
+  const oas31Formatter = new OpenApiFormatter()
 
   describe('filter', () => {
     beforeEach(async () => {
       const oasYml = '__tests__/fixtures/crm.yml'
+      const oas31Yml = '__tests__/fixtures/crm31.yml'
       const filterJson = '__tests__/fixtures/oas-format-filter.json'
       oas = await oasFormatter.filter({ inputFile: oasYml, filterFile: filterJson })
+      oas31 = await oas31Formatter.filter({ inputFile: oas31Yml, filterFile: filterJson })
     })
 
     it('should filter an openapispec.yml and return an OpenAPI.Document', () => {
       expect(oas.info.title).toStrictEqual('CRM API')
+      expect(oas31.info.title).toStrictEqual('CRM API')
       expect(oas).toMatchSnapshot()
     })
   })
