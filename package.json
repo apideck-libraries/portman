@@ -83,7 +83,7 @@
     "node-emoji": "^1.11.0",
     "openapi-format": "^1.28.0",
     "openapi-to-postmanv2": "5.0.0",
-    "openapi-types": "9.1.0",
+    "openapi-types": "^12.1.3",
     "ora": "^5.4.1",
     "pluralize": "^8.0.0",
     "postman-collection": "5.0.2",
