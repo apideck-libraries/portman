@@ -17,7 +17,7 @@ describe('OasMappedOperation', () => {
 
   beforeEach(async () => {
     await parser.convert({ inputFile: oasYml })
-    const paths = parser.oas?.paths
+    const paths = parser.oas?.paths as OpenAPIV3.PathsObject
     expect(paths).toBeDefined()
 
     specOperation = Object.values(paths)?.[0]?.['post'] || {}
@@ -25,7 +25,7 @@ describe('OasMappedOperation', () => {
     mappedOperation = new OasMappedOperation(path, method, specOperation)
 
     await parser31.convert({ inputFile: oas31Yml })
-    const paths31 = parser.oas?.paths
+    const paths31 = parser.oas?.paths as OpenAPIV3_1.PathsObject
     expect(paths31).toBeDefined()
 
     specOperation31 = Object.values(paths31)?.[0]?.['post'] || {}
