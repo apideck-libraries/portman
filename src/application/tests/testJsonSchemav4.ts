@@ -1,11 +1,12 @@
 import Ajv from 'ajv-draft-04'
+import { OpenAPIV3_1 } from 'openapi-types'
 
 interface jsonSchemaTest {
   validJsonSchema: boolean
-  error?: any
+  error?: unknown
 }
 
-export const testJsonSchemav4 = (jsonSchema: any): jsonSchemaTest => {
+export const testJsonSchemav4 = (jsonSchema: OpenAPIV3_1.SchemaObject): jsonSchemaTest => {
   const validJsonSchema: jsonSchemaTest = { validJsonSchema: true }
   try {
     const ajv = new Ajv({ allErrors: true, strict: false, logger: false })
