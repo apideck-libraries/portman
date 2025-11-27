@@ -2,8 +2,8 @@
 export const pathToRegExp = (path: string): RegExp => {
   const pattern = path
     // Transform OpenApi format to Postman format (/crm/leads/{id} => /crm/leads/:id)
-    .replace('{', ':')
-    .replace('}', '')
+    .replace(/{/g, ':')
+    .replace(/}/g, '')
     // Escape literal dots
     .replace(/\./g, '\\.')
     // Escape literal slashes

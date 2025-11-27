@@ -114,4 +114,10 @@ describe('matchPath', () => {
     const operationPath = '/messageses/{licenseKey}'
     expect(matchPath(targetPath, operationPath)).toBe(true)
   })
+
+  it('should match paths with multiple OpenAPI-style parameters', () => {
+    const targetPath = '/users/{userId}/posts/{postId}'
+    const operationPath = '/users/{userId}/posts/{postId}'
+    expect(matchPath(targetPath, operationPath)).toBe(true)
+  })
 })
