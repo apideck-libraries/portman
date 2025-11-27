@@ -13,6 +13,10 @@ describe('pathToRegExp', () => {
   })
 
   it('should handle paths with three or more parameters', () => {
-    expect(pathToRegExp('/orgs/{orgId}/teams/{teamId}/members/{memberId}').test('/orgs/1/teams/2/members/3')).toBe(true)
+    expect(
+      pathToRegExp('/orgs/{orgId}/teams/{teamId}/members/{memberId}').test(
+        '/orgs/1/teams/2/members/3'
+      )
+    ).toBe(true)
   })
 })
