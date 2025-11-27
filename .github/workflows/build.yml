@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Login to GitHub Container Registry
-      uses: docker/login-action@v2
+      uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
@@ -16,7 +16,7 @@ jobs:
 
     - name: Build and push ghcr.io
       id: build-and-push
-      uses: docker/build-push-action@v3.1.0
+      uses: docker/build-push-action@1cb9d22b932e4832bb29793b7777ec860fc1cde0 # v3.1.0
       with:
         push: true
         tags: ghcr.io/${{ github.repository }}:latest
