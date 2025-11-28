@@ -20,7 +20,7 @@ describe('OasMappedOperation', () => {
     const paths = parser.oas?.paths as OpenAPIV3.PathsObject
     expect(paths).toBeDefined()
 
-    specOperation = Object.values(paths)?.[0]?.['post'] || {}
+    specOperation = Object.values(paths)?.[0]?.['post'] || ({} as OpenAPIV3.OperationObject)
     expect(specOperation).toBeDefined()
     mappedOperation = new OasMappedOperation(path, method, specOperation)
 
