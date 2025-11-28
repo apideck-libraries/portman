@@ -1,5 +1,8 @@
-import { OpenAPIV3 } from 'openapi-types'
-import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
+import { OpenAPIV3, OpenAPIV3_1 } from 'openapi-types'
+import {
+  getOasMappedOperation,
+  getOasV31MappedOperation
+} from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
 import { convertUnsupportedJsonSchemaProperties, testResponseJsonSchema } from '../../application'
 import { OasMappedOperation } from '../../oas'
@@ -8,16 +11,52 @@ import { ContractTestConfig, GlobalConfig } from '../../types'
 
 describe('testResponseJsonSchema', () => {
   let oasOperation: OasMappedOperation
+  let oas31Operation: OasMappedOperation
   let pmOperation: PostmanMappedOperation
 
   beforeEach(async () => {
     oasOperation = await getOasMappedOperation()
+    oas31Operation = await getOasV31MappedOperation()
     pmOperation = await getPostmanMappedOperation()
   })
 
   it('should add test for valid json schema', async () => {
     const response = (oasOperation.schema?.responses?.['200'] as OpenAPIV3.ResponseObject)?.content
     const schema = response?.['application/json'].schema
+    pmOperation = testResponseJsonSchema(
+      { enabled: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add test for valid json schema v4', async () => {
+    const response = (
+      oas31Operation.schema?.responses?.['200'] as unknown as OpenAPIV3_1.ResponsesObject
+    )?.content
+    const schema = response?.['application/json'].schema
+    schema.$schema = 'http://json-schema.org/draft-04/schema#'
+
+    pmOperation = testResponseJsonSchema(
+      { enabled: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should add test for valid json schema v7', async () => {
+    const response = (
+      oas31Operation.schema?.responses?.['200'] as unknown as OpenAPIV3_1.ResponsesObject
+    )?.content
+    const schema = response?.['application/json'].schema
+    schema.$schema = 'http://json-schema.org/draft-07/schema#'
+
     pmOperation = testResponseJsonSchema(
       { enabled: true } as ContractTestConfig,
       schema,
@@ -65,6 +104,33 @@ describe('testResponseJsonSchema', () => {
 
   it('should skip test for invalid json schema', async () => {
     const schema = {
+      type: 'array',
+      maxItems: 100,
+      items: {
+        typess: ['object', 'null'],
+        required: ['id', 'name'],
+        properties: {
+          id: { type: 'integer', format: 'int64' },
+          name: { type: 'string' },
+          tag: { type: 'string' }
+        },
+        type: [null, 'null']
+      }
+    }
+
+    pmOperation = testResponseJsonSchema(
+      {} as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation
+    )
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
+  it('should skip test for invalid json schema v4', async () => {
+    const schema = {
+      $schema: 'http://json-schema.org/draft-04/schema#',
       type: 'array',
       maxItems: 100,
       items: {

@@ -1,5 +1,5 @@
 import SwaggerParser from '@apidevtools/swagger-parser'
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPI, OpenAPIV3, OpenAPIV3_1 } from 'openapi-types'
 import path from 'path'
 import { matchPath, METHODS } from '../utils'
 import { OasMappedOperation } from './OasMappedOperation'
@@ -10,7 +10,7 @@ export interface OpenApiParserConfig {
 }
 
 export interface IOpenApiParser {
-  oas: OpenAPIV3.Document
+  oas: OpenAPI.Document
   mappedOperations: OasMappedOperation[]
   operationIdMap: Record<string, OasMappedOperation>
   getOperationById(operationId: string): OasMappedOperation | null
@@ -18,11 +18,11 @@ export interface IOpenApiParser {
 }
 
 export class OpenApiParser {
-  public oas: OpenAPIV3.Document
+  public oas: OpenAPI.Document
   public mappedOperations: OasMappedOperation[]
   public operationIdMap: Record<string, OasMappedOperation>
 
-  async convert(options: OpenApiParserConfig): Promise<OpenAPIV3.Document> {
+  async convert(options: OpenApiParserConfig): Promise<OpenAPI.Document> {
     const inputFile = path.resolve(options.inputFile)
     const ignoreCircularRefs = !!options.ignoreCircularRefs ?? false
 
@@ -46,7 +46,7 @@ export class OpenApiParser {
       validate: {
         spec: false // Don't validate against the Swagger spec
       }
-    })) as OpenAPIV3.Document
+    })) as OpenAPI.Document
 
     this.oas = oasDoc
     this.pathsToOperations()
@@ -55,7 +55,7 @@ export class OpenApiParser {
   }
 
   pathsToOperations = (): OasMappedOperation[] => {
-    const paths = this.oas.paths as OpenAPIV3.PathsObject
+    const paths = this.oas.paths as OpenAPIV3.PathsObject | OpenAPIV3_1.PathsObject
 
     // Merge path parameters with operation parameters
     Object.entries(paths).map(path => {
@@ -75,7 +75,11 @@ export class OpenApiParser {
         return (
           operations &&
           Object.entries(operations).map(([method, operation]): OasMappedOperation => {
-            return new OasMappedOperation(path, method, operation as OpenAPIV3.OperationObject)
+            return new OasMappedOperation(
+              path,
+              method,
+              operation as OpenAPIV3.OperationObject | OpenAPIV3_1.OperationObject
+            )
           })
         )
       })

@@ -1,4 +1,14 @@
-import { OpenAPIV3 } from 'openapi-types'
+import { OpenAPI, OpenAPIV3, OpenAPIV3_1 } from 'openapi-types'
+
+type requestBody = OpenAPIV3.RequestBodyObject | OpenAPIV3_1.RequestBodyObject
+type responseObject = OpenAPIV3.ResponseObject | OpenAPIV3_1.ResponseObject
+type schemaObject =
+  | OpenAPIV3.SchemaObject
+  | OpenAPIV3_1.SchemaObject
+  | OpenAPIV3.ReferenceObject
+  | OpenAPIV3_1.ReferenceObject
+type operationObject = OpenAPIV3.OperationObject | OpenAPIV3_1.OperationObject
+type parameterObject = OpenAPIV3.ParameterObject[] | OpenAPIV3_1.ParameterObject[]
 
 export interface IOasMappedOperation {
   id?: string
@@ -6,13 +16,13 @@ export interface IOasMappedOperation {
   method: string
   pathRef: string
   tags: string[]
-  schema: OpenAPIV3.OperationObject
-  requestHeaders: OpenAPIV3.ParameterObject[]
-  pathParams: OpenAPIV3.ParameterObject[]
-  queryParams: OpenAPIV3.ParameterObject[]
-  cookieParams: OpenAPIV3.ParameterObject[]
+  schema: operationObject
+  requestHeaders: OpenAPI.Parameters
+  pathParams: OpenAPI.Parameters
+  queryParams: OpenAPI.Parameters
+  cookieParams: OpenAPI.Parameters
 
-  requestBody(): OpenAPIV3.RequestBodyObject | undefined
+  requestBody(): requestBody | undefined
 }
 
 export class OasMappedOperation implements IOasMappedOperation {
@@ -21,15 +31,15 @@ export class OasMappedOperation implements IOasMappedOperation {
   public method: string
   public pathRef: string
   public tags: string[]
-  public requestHeaders: OpenAPIV3.ParameterObject[]
-  public pathParams: OpenAPIV3.ParameterObject[]
-  public queryParams: OpenAPIV3.ParameterObject[]
-  public cookieParams: OpenAPIV3.ParameterObject[]
-  public schema: OpenAPIV3.OperationObject
+  public requestHeaders: parameterObject
+  public pathParams: parameterObject
+  public queryParams: parameterObject
+  public cookieParams: parameterObject
+  public schema: operationObject
   public responseCodes: string[]
 
-  constructor(path: string, method: string, operation: OpenAPIV3.OperationObject) {
-    this.schema = { ...operation }
+  constructor(path: string, method: string, operation: operationObject) {
+    this.schema = { ...operation } as operationObject
     this.id = this.schema?.operationId
     this.method = method.toUpperCase()
     this.path = path
@@ -42,30 +52,30 @@ export class OasMappedOperation implements IOasMappedOperation {
     this.tags = this.schema?.tags as string[]
   }
 
-  private mapParameters(paramIn: string): OpenAPIV3.ParameterObject[] {
+  private mapParameters(paramIn: string): parameterObject {
     if (!this.schema?.parameters) return []
 
     return (
-      (this.schema.parameters as OpenAPIV3.ParameterObject[]).filter(
+      (this.schema.parameters as parameterObject).filter(
         parameter => (parameter.in as string) === paramIn
       ) || []
     )
   }
 
-  requestBody(): OpenAPIV3.RequestBodyObject | undefined {
-    return this.schema?.requestBody as OpenAPIV3.RequestBodyObject
+  requestBody(): requestBody | undefined {
+    return this.schema?.requestBody as requestBody
   }
 
-  requestBodySchema(mediaType: string): OpenAPIV3.SchemaObject | undefined {
+  requestBodySchema(mediaType: string): schemaObject | undefined {
     const requestBody = this.requestBody()
     if (!requestBody || !requestBody?.content?.[mediaType]?.schema) return
 
-    return requestBody.content[mediaType].schema as OpenAPIV3.SchemaObject
+    return requestBody.content[mediaType].schema as schemaObject
   }
 
   private mapResponseCodes(): string[] {
     if (this?.schema?.responses) {
-      return Object.keys(this.schema?.responses as OpenAPIV3.ResponsesObject)
+      return Object.keys(this.schema?.responses as unknown as responseObject)
     }
     return []
   }
