@@ -2979,6 +2979,12 @@ exports[`Fuzzer should fuzz the required prop of the request body 1`] = `
 }"
 `;
 
+exports[`Fuzzer should fuzz required fields using matching request body examples 1`] = `
+"{
+    \\"provider\\": \\"apple\\"
+}"
+`;
+
 exports[`Fuzzer should fuzz the required prop of the request header 1`] = `
 Array [
   Object {

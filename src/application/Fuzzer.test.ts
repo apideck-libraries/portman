@@ -100,6 +100,35 @@ describe('Fuzzer', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should fuzz required fields using matching request body examples', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: ['name'],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    const requestBodyExamples = [
+      { device_id: 'a15e3ff0-fb5b-4026-a7d4-a65aa02bbfb8' },
+      { name: 'Ada Lovelace', provider: 'apple' }
+    ]
+
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpBody,
+      oaOpBody,
+      variationTest,
+      variationMeta,
+      fuzzItems,
+      requestBodyExamples
+    )
+
+    expect(fuzzer.fuzzVariations).toHaveLength(1)
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
   it('should fuzz the 2nd required props of the request body', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
