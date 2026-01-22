@@ -330,9 +330,10 @@ export class Fuzzer {
 
         if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
           if (examplePayload !== undefined) {
+            const safeExamplePayload = JSON.parse(JSON.stringify(examplePayload))
             const exampleOverwrite = {
               key: '.',
-              value: examplePayload,
+              value: safeExamplePayload,
               overwrite: true
             } as OverwriteRequestBodyConfig
             this.addOverwriteRequestBody(newVariation, exampleOverwrite)
@@ -374,14 +375,18 @@ export class Fuzzer {
   }
 
   private filterRequestBodyExamples(examples: unknown[], requiredField: string): unknown[] {
-    return examples.filter(example => {
-      if (example === null || typeof example !== 'object') return false
-      const safeExample = JSON.parse(JSON.stringify(example))
-      return getByPath(
-        safeExample as Record<string, unknown> | Record<string, unknown>[],
-        requiredField
-      ) !== undefined
-    })
+    return examples
+      .filter(example => {
+        if (example === null || typeof example !== 'object') return false
+        const safeExample = JSON.parse(JSON.stringify(example))
+        return (
+          getByPath(
+            safeExample as Record<string, unknown> | Record<string, unknown>[],
+            requiredField
+          ) !== undefined
+        )
+      })
+      .map(example => JSON.parse(JSON.stringify(example)))
   }
 
   public injectFuzzMinimumVariation(
