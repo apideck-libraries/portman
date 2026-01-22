@@ -18,7 +18,7 @@ import {
 import traverse from 'neotraverse/legacy'
 import { TestSuite, VariationWriter } from './'
 import { OpenAPIV3 } from 'openapi-types'
-import { getByPath, getJsonContentType } from '../utils'
+import { getByPath, getJsonContentType, getRequestBodyExamples } from '../utils'
 import { QueryParam } from 'postman-collection'
 import { PostmanDynamicVarGenerator } from '../services/PostmanDynamicVarGenerator'
 import { changeCase } from 'openapi-format'
@@ -63,6 +63,7 @@ export class Fuzzer {
     // Analyse JSON schema
     const schema = reqBody?.content?.[jsonContentType]?.schema as OpenAPIV3.SchemaObject
     const fuzzItems = this.analyzeFuzzJsonSchema(schema)
+    const requestBodyExamples = getRequestBodyExamples(reqBody, jsonContentType)
 
     const fuzzReqBodySet = fuzzingSet.filter(fuzz => fuzz?.requestBody) as fuzzingConfig[]
 
@@ -76,7 +77,8 @@ export class Fuzzer {
             oaOperation,
             variation,
             variationMeta,
-            fuzzItems
+            fuzzItems,
+            requestBodyExamples
           )
         }
 
@@ -284,7 +286,8 @@ export class Fuzzer {
     oaOperation: OasMappedOperation | null,
     variation: VariationConfig,
     variationMeta: VariationTestConfig | IntegrationTest | null,
-    fuzzItems: FuzzingSchemaItems | null
+    fuzzItems: FuzzingSchemaItems | null,
+    requestBodyExamples?: unknown[]
   ): void {
     // Early exit if no required fields defined
     const requiredFields = fuzzItems?.requiredFields || []
@@ -293,57 +296,97 @@ export class Fuzzer {
     const clonedVariation = JSON.parse(JSON.stringify(variation))
 
     requiredFields.map(requiredField => {
-      // Set Pm request name
-      const variationFuzzName = `${pmOperation.item.name}[${variation.name}][required ${requiredField}]`
+      const filteredExamples =
+        fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody && requestBodyExamples?.length
+          ? this.filterRequestBodyExamples(requestBodyExamples, requiredField)
+          : []
+      const fallbackExamples =
+        requestBodyExamples && requestBodyExamples.length > 0 ? [requestBodyExamples[0]] : []
+      const examplePayloads = filteredExamples.length > 0 ? filteredExamples : fallbackExamples
+      const examplesToUse = examplePayloads.length > 0 ? examplePayloads : [undefined]
+      const includeExampleSuffix = examplePayloads.length > 1
 
-      // Clone postman operation as new variation operation
-      const operationVariation = pmOperation.clone({
-        newId: changeCase(variationFuzzName, 'camelCase'),
-        name: variationFuzzName
+      examplesToUse.forEach((examplePayload, exampleIndex) => {
+        const exampleSuffix = includeExampleSuffix ? ` [example ${exampleIndex + 1}]` : ''
+        // Set Pm request name
+        const variationFuzzName = `${pmOperation.item.name}[${variation.name}][required ${requiredField}]${exampleSuffix}`
+
+        // Clone postman operation as new variation operation
+        const operationVariation = pmOperation.clone({
+          newId: changeCase(variationFuzzName, 'camelCase'),
+          name: variationFuzzName
+        })
+
+        // Set/Update Portman operation test type
+        this.testSuite.registerOperationTestType(
+          operationVariation,
+          PortmanTestTypes.variation,
+          false
+        )
+
+        // Remove requiredField from Postman operation
+        const newVariation = JSON.parse(JSON.stringify(clonedVariation))
+        if (!newVariation?.overwrites) newVariation.overwrites = []
+
+        if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
+          if (examplePayload !== undefined) {
+            const safeExamplePayload = JSON.parse(JSON.stringify(examplePayload))
+            const exampleOverwrite = {
+              key: '.',
+              value: safeExamplePayload,
+              overwrite: true
+            } as OverwriteRequestBodyConfig
+            this.addOverwriteRequestBody(newVariation, exampleOverwrite)
+          }
+          const fuzzRequestBody = {
+            key: requiredField,
+            remove: true
+          } as OverwriteRequestBodyConfig
+          this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
+        }
+
+        if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
+          const fuzzRequestQueryParam = {
+            key: requiredField,
+            remove: true
+          } as OverwriteQueryParamConfig
+          this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
+        }
+
+        if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
+          const fuzzRequestHeader = {
+            key: requiredField,
+            remove: true
+          } as OverwriteRequestHeadersConfig
+          this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
+        }
+
+        this.variationWriter.injectVariations(
+          operationVariation,
+          oaOperation,
+          newVariation,
+          variationMeta
+        )
+
+        // Build up list of Fuzz Variations
+        this.fuzzVariations.push(operationVariation)
       })
-
-      // Set/Update Portman operation test type
-      this.testSuite.registerOperationTestType(
-        operationVariation,
-        PortmanTestTypes.variation,
-        false
-      )
-
-      // Remove requiredField from Postman operation
-      const newVariation = JSON.parse(JSON.stringify(clonedVariation))
-      if (!newVariation?.overwrites) newVariation.overwrites = []
-
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody) {
-        const fuzzRequestBody = { key: requiredField, remove: true } as OverwriteRequestBodyConfig
-        this.addOverwriteRequestBody(newVariation, fuzzRequestBody)
-      }
-
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestQueryParam) {
-        const fuzzRequestQueryParam = {
-          key: requiredField,
-          remove: true
-        } as OverwriteQueryParamConfig
-        this.addOverwriteRequestQueryParam(newVariation, fuzzRequestQueryParam)
-      }
-
-      if (fuzzItems?.fuzzType === PortmanFuzzTypes.requestHeader) {
-        const fuzzRequestHeader = {
-          key: requiredField,
-          remove: true
-        } as OverwriteRequestHeadersConfig
-        this.addOverwriteRequestHeader(newVariation, fuzzRequestHeader)
-      }
-
-      this.variationWriter.injectVariations(
-        operationVariation,
-        oaOperation,
-        newVariation,
-        variationMeta
-      )
-
-      // Build up list of Fuzz Variations
-      this.fuzzVariations.push(operationVariation)
     })
+  }
+
+  private filterRequestBodyExamples(examples: unknown[], requiredField: string): unknown[] {
+    return examples
+      .filter(example => {
+        if (example === null || typeof example !== 'object') return false
+        const safeExample = JSON.parse(JSON.stringify(example))
+        return (
+          getByPath(
+            safeExample as Record<string, unknown> | Record<string, unknown>[],
+            requiredField
+          ) !== undefined
+        )
+      })
+      .map(example => JSON.parse(JSON.stringify(example)))
   }
 
   public injectFuzzMinimumVariation(

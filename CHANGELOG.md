@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- Fuzzing - Handle multiple request body examples (#464)
+- Bumped dependencies
+
 ## v1.33.0 - (2025-09-12)
 
 - CLI - Exits with code 1 when Portman config validation fails (#705)

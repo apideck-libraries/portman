@@ -100,6 +100,75 @@ describe('Fuzzer', () => {
     expect(result.item.request?.body?.raw).toMatchSnapshot()
   })
 
+  it('should fuzz required fields using matching request body examples', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: ['name'],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    const requestBodyExamples = [
+      { device_id: 'a15e3ff0-fb5b-4026-a7d4-a65aa02bbfb8' },
+      { name: 'Ada Lovelace', provider: 'apple' }
+    ]
+
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpBody,
+      oaOpBody,
+      variationTest,
+      variationMeta,
+      fuzzItems,
+      requestBodyExamples
+    )
+
+    expect(fuzzer.fuzzVariations).toHaveLength(1)
+    const result = fuzzer.fuzzVariations[0]
+    expect(result.item.request?.body?.raw).toMatchSnapshot()
+  })
+
+  it('should fuzz required fields for array examples with nested paths', async () => {
+    const fuzzItems = {
+      fuzzType: PortmanFuzzTypes.requestBody,
+      requiredFields: ['[0].to.device_token'],
+      minimumNumberFields: [],
+      maximumNumberFields: [],
+      minLengthFields: [],
+      maxLengthFields: []
+    } as FuzzingSchemaItems
+
+    const requestBodyExamples = [
+      [
+        {
+          reference: 'ref-123',
+          to: { device_id: 'a15e3ff0-fb5b-4026-a7d4-a65aa02bbfb8' }
+        }
+      ],
+      [
+        {
+          reference: 'ref-123',
+          to: { device_token: 'ed2576bfb93a2e7abc26', provider: 'apple' }
+        }
+      ]
+    ]
+
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpBody,
+      oaOpBody,
+      variationTest,
+      variationMeta,
+      fuzzItems,
+      requestBodyExamples
+    )
+
+    expect(fuzzer.fuzzVariations).toHaveLength(1)
+    const result = fuzzer.fuzzVariations[0]
+    const rawBody = result.item.request?.body?.raw as string
+    expect(JSON.parse(rawBody)).toEqual([{ reference: 'ref-123', to: { provider: 'apple' } }])
+  })
+
   it('should fuzz the 2nd required props of the request body', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,

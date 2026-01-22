@@ -618,9 +618,7 @@ For more details, review the [Overwrites example](https://github.com/apideck-lib
 
 <hr>
 
-### Portman - `fuzzing` properties - BETA 🏗
-
-NOTICE: This feature is considered BETA, since we are investigating additional fuzzing capabilities.
+### Portman - `fuzzing` properties
 
 > Fuzzing or fuzz testing is an automated software testing technique that involves providing invalid, unexpected, or random data as inputs to a computer program (a REST API in the case of Portman).
 
