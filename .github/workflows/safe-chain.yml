@@ -1,0 +1,33 @@
+name: Safe Chain
+on:
+  pull_request:
+  workflow_call:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  safe-chain:
+    name: 'Safe Chain'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.x'
+          cache: '' # Explicitly disable caching - safe-chain needs to scan all packages fresh
+
+      - name: Setup safe-chain
+        run: |
+          npm i -g @aikidosec/safe-chain
+          safe-chain setup-ci
+
+      - name: Install dependencies (full tree scan)
+        run: |
+          # Using npm for full dependency tree scanning (recommended by safe-chain)
+          # Yarn/pnpm only scan install command arguments, not the full tree
+          npm install --safe-chain-logging=silent
