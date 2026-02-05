@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - Fuzzing - Handle multiple request body examples (#464)
+- Fuzzing: Improved required field contexts and examples (#464)
 - Bumped dependencies
 
 ## v1.33.0 - (2025-09-12)

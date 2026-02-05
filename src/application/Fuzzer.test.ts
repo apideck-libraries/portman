@@ -295,7 +295,7 @@ describe('Fuzzer', () => {
 
     const fuzzItems = fuzzer.analyzeFuzzJsonSchema(schema) as FuzzingSchemaItems
     const requestBodyExamples = [{ device_id: 'a15e3ff0-fb5b-4026-a7d4-a65aa02bbfb8' }]
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined)
 
     fuzzer.injectFuzzRequiredVariation(
       pmOpBody,
