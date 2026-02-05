@@ -169,6 +169,148 @@ describe('Fuzzer', () => {
     expect(JSON.parse(rawBody)).toEqual([{ reference: 'ref-123', to: { provider: 'apple' } }])
   })
 
+  it('should select matching examples for anyOf without discriminator', async () => {
+    const schema: OpenAPIV3.SchemaObject = {
+      type: 'object',
+      anyOf: [
+        {
+          type: 'object',
+          required: ['a'],
+          properties: {
+            a: { type: 'string' },
+            common: { type: 'string' }
+          }
+        },
+        {
+          type: 'object',
+          required: ['b'],
+          properties: {
+            b: { type: 'string' },
+            common: { type: 'string' }
+          }
+        }
+      ]
+    }
+
+    const fuzzItems = fuzzer.analyzeFuzzJsonSchema(schema) as FuzzingSchemaItems
+    const requestBodyExamples = [
+      { a: 'first', common: 'alpha' },
+      { b: 'second', common: 'beta' }
+    ]
+
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpBody,
+      oaOpBody,
+      variationTest,
+      variationMeta,
+      fuzzItems,
+      requestBodyExamples
+    )
+
+    expect(fuzzer.fuzzVariations).toHaveLength(2)
+
+    const requiredA = fuzzer.fuzzVariations.find(variation =>
+      variation.item.name.includes('[required a]')
+    )
+    const requiredB = fuzzer.fuzzVariations.find(variation =>
+      variation.item.name.includes('[required b]')
+    )
+
+    expect(requiredA).toBeDefined()
+    expect(requiredB).toBeDefined()
+
+    const bodyA = JSON.parse(requiredA.item.request?.body?.raw as string)
+    const bodyB = JSON.parse(requiredB.item.request?.body?.raw as string)
+
+    expect(bodyA).toEqual({ common: 'alpha' })
+    expect(bodyB).toEqual({ common: 'beta' })
+  })
+
+  it('should select matching examples for anyOf with discriminator', async () => {
+    const schema: OpenAPIV3.SchemaObject = {
+      type: 'object',
+      anyOf: [
+        {
+          type: 'object',
+          required: ['type', 'name'],
+          properties: {
+            type: { enum: ['person'] },
+            name: { type: 'string' }
+          }
+        },
+        {
+          type: 'object',
+          required: ['type', 'company'],
+          properties: {
+            type: { enum: ['company'] },
+            company: { type: 'string' }
+          }
+        }
+      ],
+      discriminator: {
+        propertyName: 'type'
+      }
+    }
+
+    const fuzzItems = fuzzer.analyzeFuzzJsonSchema(schema) as FuzzingSchemaItems
+    const requestBodyExamples = [
+      { type: 'person', name: 'Ada' },
+      { type: 'company', company: 'ACME' }
+    ]
+
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpBody,
+      oaOpBody,
+      variationTest,
+      variationMeta,
+      fuzzItems,
+      requestBodyExamples
+    )
+
+    const requiredName = fuzzer.fuzzVariations.find(variation =>
+      variation.item.name.includes('[required name]')
+    )
+    const requiredCompany = fuzzer.fuzzVariations.find(variation =>
+      variation.item.name.includes('[required company]')
+    )
+
+    expect(requiredName).toBeDefined()
+    expect(requiredCompany).toBeDefined()
+
+    const bodyName = JSON.parse(requiredName.item.request?.body?.raw as string)
+    const bodyCompany = JSON.parse(requiredCompany.item.request?.body?.raw as string)
+
+    expect(bodyName).toEqual({ type: 'person' })
+    expect(bodyCompany).toEqual({ type: 'company' })
+  })
+
+  it('should skip fuzzing when no matching request body example exists', async () => {
+    const schema: OpenAPIV3.SchemaObject = {
+      type: 'object',
+      required: ['name'],
+      properties: {
+        name: { type: 'string' }
+      }
+    }
+
+    const fuzzItems = fuzzer.analyzeFuzzJsonSchema(schema) as FuzzingSchemaItems
+    const requestBodyExamples = [{ device_id: 'a15e3ff0-fb5b-4026-a7d4-a65aa02bbfb8' }]
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+
+    fuzzer.injectFuzzRequiredVariation(
+      pmOpBody,
+      oaOpBody,
+      variationTest,
+      variationMeta,
+      fuzzItems,
+      requestBodyExamples
+    )
+
+    expect(fuzzer.fuzzVariations).toHaveLength(0)
+    expect(warnSpy).toHaveBeenCalled()
+    warnSpy.mockRestore()
+  })
+
   it('should fuzz the 2nd required props of the request body', async () => {
     const fuzzItems = {
       fuzzType: PortmanFuzzTypes.requestBody,
@@ -1109,6 +1251,10 @@ describe('Fuzzer', () => {
     const expected = {
       fuzzType: 'requestBody',
       requiredFields: ['container', 'container.value'],
+      requiredFieldContexts: [
+        { path: 'container', branchPath: undefined },
+        { path: 'container.value', branchPath: undefined }
+      ],
       minimumNumberFields: [
         {
           path: 'container.value',

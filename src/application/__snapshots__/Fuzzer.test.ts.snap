@@ -45,14 +45,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "name",
-    "websites[0].url",
-    "social_links[0].url",
-    "phone_numbers[0].number",
-    "emails[0].email",
-    "custom_fields[0].id",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -85,6 +79,16 @@ Object {
       "field": "numberField",
       "path": "numberField",
       "value": 0,
+    },
+  ],
+  "requiredFieldContexts": Array [
+    Object {
+      "branchPath": undefined,
+      "path": "numberField",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "stringField",
     },
   ],
   "requiredFields": Array [
@@ -145,11 +149,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "code",
-    "nestedArray",
-    "nestedArray[0].code2",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -204,9 +205,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "nestedArray",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -241,9 +241,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "code",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -278,6 +277,7 @@ Object {
       "value": 1,
     },
   ],
+  "requiredFieldContexts": Array [],
   "requiredFields": Array [],
 }
 `;
@@ -313,9 +313,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "nestedArray[0].level1[0].level2[0].code",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -350,6 +349,7 @@ Object {
       "value": 1,
     },
   ],
+  "requiredFieldContexts": Array [],
   "requiredFields": Array [],
 }
 `;
@@ -385,9 +385,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "nestedArray[0].items",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -422,6 +421,7 @@ Object {
       "value": 1,
     },
   ],
+  "requiredFieldContexts": Array [],
   "requiredFields": Array [],
 }
 `;
@@ -457,9 +457,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "nestedArray[0].nestedProperties",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -494,6 +493,7 @@ Object {
       "value": 1,
     },
   ],
+  "requiredFieldContexts": Array [],
   "requiredFields": Array [],
 }
 `;
@@ -529,9 +529,8 @@ Object {
       "value": 1,
     },
   ],
-  "requiredFields": Array [
-    "nestedOb.level1.level2.code",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -542,6 +541,7 @@ Object {
   "maximumNumberFields": Array [],
   "minLengthFields": Array [],
   "minimumNumberFields": Array [],
+  "requiredFieldContexts": Array [],
   "requiredFields": Array [],
 }
 `;
@@ -577,6 +577,7 @@ Object {
       "value": 1,
     },
   ],
+  "requiredFieldContexts": Array [],
   "requiredFields": Array [],
 }
 `;
@@ -588,14 +589,8 @@ Object {
   "maximumNumberFields": Array [],
   "minLengthFields": Array [],
   "minimumNumberFields": Array [],
-  "requiredFields": Array [
-    "nullable",
-    "required",
-    "maximum",
-    "minimum",
-    "maxLength",
-    "minLength",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -638,11 +633,8 @@ Object {
     },
   ],
   "minimumNumberFields": Array [],
-  "requiredFields": Array [
-    "name",
-    "array[0].id",
-    "array[0].scheme",
-  ],
+  "requiredFieldContexts": Array [],
+  "requiredFields": Array [],
 }
 `;
 
@@ -685,8 +677,33 @@ Object {
     },
   ],
   "minimumNumberFields": Array [],
+  "requiredFieldContexts": Array [
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "",
+          "requiredProps": Array [],
+          "type": "anyOf",
+        },
+      ],
+      "path": "array[0].id",
+    },
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "",
+          "requiredProps": Array [],
+          "type": "anyOf",
+        },
+      ],
+      "path": "array[0].scheme",
+    },
+  ],
   "requiredFields": Array [
-    "name",
     "array[0].id",
     "array[0].scheme",
   ],
@@ -712,12 +729,24 @@ Object {
       "value": 1,
     },
   ],
+  "requiredFieldContexts": Array [
+    Object {
+      "branchPath": undefined,
+      "path": "payload",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "payload.order",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "payload.order.address",
+    },
+  ],
   "requiredFields": Array [
     "payload",
     "payload.order",
     "payload.order.address",
-    "payload.order.address.street",
-    "payload.order.address.cityName",
   ],
 }
 `;
@@ -739,6 +768,50 @@ Object {
       "field": "streetNumber",
       "path": "payload.order.address.streetNumber",
       "value": 1,
+    },
+  ],
+  "requiredFieldContexts": Array [
+    Object {
+      "branchPath": undefined,
+      "path": "payload",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "payload.order",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "payload.order.address",
+    },
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "payload.order.address",
+          "requiredProps": Array [
+            "street",
+            "cityName",
+          ],
+          "type": "anyOf",
+        },
+      ],
+      "path": "payload.order.address.street",
+    },
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "payload.order.address",
+          "requiredProps": Array [
+            "street",
+            "cityName",
+          ],
+          "type": "anyOf",
+        },
+      ],
+      "path": "payload.order.address.cityName",
     },
   ],
   "requiredFields": Array [
@@ -768,6 +841,50 @@ Object {
       "field": "streetNumber",
       "path": "payload.order.address.streetNumber",
       "value": 1,
+    },
+  ],
+  "requiredFieldContexts": Array [
+    Object {
+      "branchPath": undefined,
+      "path": "payload",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "payload.order",
+    },
+    Object {
+      "branchPath": undefined,
+      "path": "payload.order.address",
+    },
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "payload.order.address",
+          "requiredProps": Array [
+            "street",
+            "cityName",
+          ],
+          "type": "oneOf",
+        },
+      ],
+      "path": "payload.order.address.street",
+    },
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "payload.order.address",
+          "requiredProps": Array [
+            "street",
+            "cityName",
+          ],
+          "type": "oneOf",
+        },
+      ],
+      "path": "payload.order.address.cityName",
     },
   ],
   "requiredFields": Array [
@@ -819,8 +936,33 @@ Object {
     },
   ],
   "minimumNumberFields": Array [],
+  "requiredFieldContexts": Array [
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "",
+          "requiredProps": Array [],
+          "type": "oneOf",
+        },
+      ],
+      "path": "array[0].id",
+    },
+    Object {
+      "branchPath": Array [
+        Object {
+          "discriminator": undefined,
+          "index": 0,
+          "path": "",
+          "requiredProps": Array [],
+          "type": "oneOf",
+        },
+      ],
+      "path": "array[0].scheme",
+    },
+  ],
   "requiredFields": Array [
-    "name",
     "array[0].id",
     "array[0].scheme",
   ],
@@ -961,6 +1103,12 @@ Object {
     "testParam",
   ],
 }
+`;
+
+exports[`Fuzzer should fuzz required fields using matching request body examples 1`] = `
+"{
+    \\"provider\\": \\"apple\\"
+}"
 `;
 
 exports[`Fuzzer should fuzz the 2nd required props of the request body 1`] = `
@@ -2976,12 +3124,6 @@ exports[`Fuzzer should fuzz the required prop of the request body 1`] = `
     \\"tags\\": [
         \\"New\\"
     ]
-}"
-`;
-
-exports[`Fuzzer should fuzz required fields using matching request body examples 1`] = `
-"{
-    \\"provider\\": \\"apple\\"
 }"
 `;
 
