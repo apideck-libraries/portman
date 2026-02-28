@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+
+## v1.34.0 - (2026-02-28)
+
 - Fuzzing - Handle multiple request body examples (#464)
 - Bumped dependencies
 
