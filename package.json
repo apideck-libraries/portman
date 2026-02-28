@@ -81,7 +81,7 @@
     "newman": "^6.2.2",
     "node-emoji": "^1.11.0",
     "openapi-format": "^1.29.5",
-    "openapi-to-postmanv2": "5.0.0",
+    "openapi-to-postmanv2": "5.8.0",
     "openapi-types": "9.1.0",
     "ora": "^5.4.1",
     "pluralize": "^8.0.0",
