@@ -26,3 +26,6 @@ postman-testsuite.json
 
 # .claude
 .claude/settings.local.json
+.agents
+.codex
+skills
