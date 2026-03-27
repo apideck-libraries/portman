@@ -303,10 +303,27 @@ export type PortmanFuzzType = (typeof PortmanFuzzTypes)[keyof typeof PortmanFuzz
 export type FuzzingSchemaItems = {
   fuzzType: PortmanFuzzType
   requiredFields: string[]
+  requiredFieldContexts?: FuzzingRequiredFieldContext[]
   minimumNumberFields?: fuzzingSchemaItem[]
   maximumNumberFields?: fuzzingSchemaItem[]
   minLengthFields?: fuzzingSchemaItem[]
   maxLengthFields?: fuzzingSchemaItem[]
+}
+
+export type FuzzingRequiredFieldContext = {
+  path: string
+  branchPath?: FuzzingSchemaBranchContext[]
+}
+
+export type FuzzingSchemaBranchContext = {
+  type: 'anyOf' | 'oneOf'
+  index: number
+  path: string
+  discriminator?: {
+    propertyName: string
+    value?: string
+  }
+  requiredProps?: string[]
 }
 
 type fuzzingOptions = {
