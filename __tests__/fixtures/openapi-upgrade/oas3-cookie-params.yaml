@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: Upgrade Cookie Params
+  version: 1.0.0
+paths:
+  /profile:
+    get:
+      operationId: profileByCookie
+      parameters:
+        - in: cookie
+          name: session_id
+          required: true
+          schema:
+            type: string
+            minLength: 6
+          example: sess_123456
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+              example:
+                id: user_1

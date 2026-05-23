@@ -588,6 +588,321 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
 }
 `;
 
+exports[`OpenAPI upgrade risk gate oas3-cookie-params 1`] = `
+Array [
+  Object {
+    "authType": null,
+    "bodyMode": null,
+    "headerKeys": Array [
+      "Accept",
+    ],
+    "id": "profileByCookie",
+    "method": "GET",
+    "name": "profile By Cookie",
+    "parent": "Upgrade Cookie Params",
+    "pathRef": "GET::/profile",
+    "preRequestLines": 0,
+    "queryParamKeys": Array [],
+    "testLines": 1,
+  },
+]
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-cookie-params 2`] = `
+Object {
+  "_": Object {},
+  "event": Array [],
+  "info": Object {
+    "description": Object {
+      "content": "",
+      "type": "text/plain",
+    },
+    "name": "Upgrade Cookie Params",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": Object {
+      "build": Array [],
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": Array [],
+      "raw": "<number>.<number>.<number>",
+      "string": "1.0.0",
+    },
+  },
+  "item": Array [
+    Object {
+      "event": Array [
+        Object {
+          "listen": "test",
+          "script": Object {
+            "exec": Array [
+              "// Validate status 2xx 
+pm.test(\\"[GET]::/profile - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});",
+            ],
+            "type": "text/javascript",
+          },
+        },
+      ],
+      "name": "profile By Cookie",
+      "protocolProfileBehavior": Object {
+        "disableBodyPruning": true,
+      },
+      "request": Object {
+        "body": Object {},
+        "description": Object {
+          "type": "text/plain",
+        },
+        "header": Array [
+          Object {
+            "key": "Accept",
+            "value": "application/json",
+          },
+        ],
+        "method": "GET",
+        "name": "profile By Cookie",
+        "url": Object {
+          "host": Array [
+            "{{baseUrl}}",
+          ],
+          "path": Array [
+            "profile",
+          ],
+          "query": Array [],
+          "variable": Array [],
+        },
+      },
+      "response": Array [
+        Object {
+          "_": Object {
+            "postman_previewlanguage": "json",
+          },
+          "body": "{
+  \\"id\\": \\"user_1\\"
+}",
+          "code": 200,
+          "cookie": Array [],
+          "header": Array [
+            Object {
+              "key": "Content-Type",
+              "value": "application/json",
+            },
+          ],
+          "name": "ok",
+          "originalRequest": Object {
+            "body": Object {},
+            "header": Array [
+              Object {
+                "key": "Accept",
+                "value": "application/json",
+              },
+            ],
+            "method": "GET",
+            "url": Object {
+              "host": Array [
+                "{{baseUrl}}",
+              ],
+              "path": Array [
+                "profile",
+              ],
+              "query": Array [],
+              "variable": Array [],
+            },
+          },
+          "status": "OK",
+        },
+      ],
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "type": "any",
+      "value": "/",
+    },
+  ],
+}
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-deepobject-params 1`] = `
+Array [
+  Object {
+    "authType": null,
+    "bodyMode": null,
+    "headerKeys": Array [
+      "Accept",
+    ],
+    "id": "searchDeepObject",
+    "method": "GET",
+    "name": "search Deep Object",
+    "parent": "Upgrade DeepObject",
+    "pathRef": "GET::/search",
+    "preRequestLines": 0,
+    "queryParamKeys": Array [
+      "filter[limit]",
+      "filter[status]",
+    ],
+    "testLines": 1,
+  },
+]
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-deepobject-params 2`] = `
+Object {
+  "_": Object {},
+  "event": Array [],
+  "info": Object {
+    "description": Object {
+      "content": "",
+      "type": "text/plain",
+    },
+    "name": "Upgrade DeepObject",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": Object {
+      "build": Array [],
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": Array [],
+      "raw": "<number>.<number>.<number>",
+      "string": "1.0.0",
+    },
+  },
+  "item": Array [
+    Object {
+      "event": Array [
+        Object {
+          "listen": "test",
+          "script": Object {
+            "exec": Array [
+              "// Validate status 2xx 
+pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});",
+            ],
+            "type": "text/javascript",
+          },
+        },
+      ],
+      "name": "search Deep Object",
+      "protocolProfileBehavior": Object {
+        "disableBodyPruning": true,
+      },
+      "request": Object {
+        "body": Object {},
+        "description": Object {
+          "type": "text/plain",
+        },
+        "header": Array [
+          Object {
+            "key": "Accept",
+            "value": "application/json",
+          },
+        ],
+        "method": "GET",
+        "name": "search Deep Object",
+        "url": Object {
+          "host": Array [
+            "{{baseUrl}}",
+          ],
+          "path": Array [
+            "search",
+          ],
+          "query": Array [
+            Object {
+              "description": Object {
+                "content": "",
+                "type": "text/plain",
+              },
+              "disabled": false,
+              "key": "filter[status]",
+              "value": "open",
+            },
+            Object {
+              "description": Object {
+                "content": "",
+                "type": "text/plain",
+              },
+              "disabled": false,
+              "key": "filter[limit]",
+              "value": "10",
+            },
+          ],
+          "variable": Array [],
+        },
+      },
+      "response": Array [
+        Object {
+          "_": Object {
+            "postman_previewlanguage": "json",
+          },
+          "body": "{
+  \\"ok\\": true
+}",
+          "code": 200,
+          "cookie": Array [],
+          "header": Array [
+            Object {
+              "key": "Content-Type",
+              "value": "application/json",
+            },
+          ],
+          "name": "ok",
+          "originalRequest": Object {
+            "body": Object {},
+            "header": Array [
+              Object {
+                "key": "Accept",
+                "value": "application/json",
+              },
+            ],
+            "method": "GET",
+            "url": Object {
+              "host": Array [
+                "{{baseUrl}}",
+              ],
+              "path": Array [
+                "search",
+              ],
+              "query": Array [
+                Object {
+                  "description": Object {
+                    "content": "",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "open",
+                },
+                Object {
+                  "description": Object {
+                    "content": "",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "filter[limit]",
+                  "value": "10",
+                },
+              ],
+              "variable": Array [],
+            },
+          },
+          "status": "OK",
+        },
+      ],
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "type": "any",
+      "value": "/",
+    },
+  ],
+}
+`;
+
 exports[`OpenAPI upgrade risk gate oas3-local-refs 1`] = `
 Array [
   Object {
@@ -1274,6 +1589,369 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
         },
       ],
       "name": "Orders",
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "type": "any",
+      "value": "/",
+    },
+  ],
+}
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-oauth2-flow 1`] = `
+Array [
+  Object {
+    "authType": "oauth2",
+    "bodyMode": null,
+    "headerKeys": Array [
+      "Accept",
+    ],
+    "id": "reportsList",
+    "method": "GET",
+    "name": "reports List",
+    "parent": "Upgrade OAuth2",
+    "pathRef": "GET::/reports",
+    "preRequestLines": 0,
+    "queryParamKeys": Array [],
+    "testLines": 1,
+  },
+]
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-oauth2-flow 2`] = `
+Object {
+  "_": Object {},
+  "event": Array [],
+  "info": Object {
+    "description": Object {
+      "content": "",
+      "type": "text/plain",
+    },
+    "name": "Upgrade OAuth2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": Object {
+      "build": Array [],
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": Array [],
+      "raw": "<number>.<number>.<number>",
+      "string": "1.0.0",
+    },
+  },
+  "item": Array [
+    Object {
+      "event": Array [
+        Object {
+          "listen": "test",
+          "script": Object {
+            "exec": Array [
+              "// Validate status 2xx 
+pm.test(\\"[GET]::/reports - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});",
+            ],
+            "type": "text/javascript",
+          },
+        },
+      ],
+      "name": "reports List",
+      "protocolProfileBehavior": Object {
+        "disableBodyPruning": true,
+      },
+      "request": Object {
+        "auth": Object {
+          "oauth2": Array [
+            Object {
+              "key": "scope",
+              "type": "any",
+              "value": "reports:read",
+            },
+            Object {
+              "key": "accessTokenUrl",
+              "type": "any",
+              "value": "https://auth.example.com/token",
+            },
+            Object {
+              "key": "authUrl",
+              "type": "any",
+              "value": "https://auth.example.com/authorize",
+            },
+            Object {
+              "key": "grant_type",
+              "type": "any",
+              "value": "authorization_code",
+            },
+          ],
+          "type": "oauth2",
+        },
+        "body": Object {},
+        "description": Object {
+          "type": "text/plain",
+        },
+        "header": Array [
+          Object {
+            "key": "Accept",
+            "value": "application/json",
+          },
+        ],
+        "method": "GET",
+        "name": "reports List",
+        "url": Object {
+          "host": Array [
+            "{{baseUrl}}",
+          ],
+          "path": Array [
+            "reports",
+          ],
+          "query": Array [],
+          "variable": Array [],
+        },
+      },
+      "response": Array [
+        Object {
+          "_": Object {
+            "postman_previewlanguage": "json",
+          },
+          "body": "{
+  \\"data\\": [
+    \\"r1\\",
+    \\"r2\\"
+  ]
+}",
+          "code": 200,
+          "cookie": Array [],
+          "header": Array [
+            Object {
+              "key": "Content-Type",
+              "value": "application/json",
+            },
+          ],
+          "name": "ok",
+          "originalRequest": Object {
+            "body": Object {},
+            "header": Array [
+              Object {
+                "description": Object {
+                  "content": "Added as a part of security scheme: oauth2",
+                  "type": "text/plain",
+                },
+                "key": "Authorization",
+                "value": "<token>",
+              },
+              Object {
+                "key": "Accept",
+                "value": "application/json",
+              },
+            ],
+            "method": "GET",
+            "url": Object {
+              "host": Array [
+                "{{baseUrl}}",
+              ],
+              "path": Array [
+                "reports",
+              ],
+              "query": Array [],
+              "variable": Array [],
+            },
+          },
+          "status": "OK",
+        },
+      ],
+    },
+  ],
+  "variable": Array [
+    Object {
+      "key": "baseUrl",
+      "type": "any",
+      "value": "/",
+    },
+  ],
+}
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-xml-request-response 1`] = `
+Array [
+  Object {
+    "authType": null,
+    "bodyMode": "raw",
+    "headerKeys": Array [
+      "Accept",
+      "Content-Type",
+      "x-upgrade-gate",
+    ],
+    "id": "feedsCreateXml",
+    "method": "POST",
+    "name": "feeds Create Xml",
+    "parent": "Upgrade XML",
+    "pathRef": "POST::/feeds",
+    "preRequestLines": 1,
+    "queryParamKeys": Array [],
+    "testLines": 1,
+  },
+]
+`;
+
+exports[`OpenAPI upgrade risk gate oas3-xml-request-response 2`] = `
+Object {
+  "_": Object {},
+  "event": Array [],
+  "info": Object {
+    "description": Object {
+      "content": "",
+      "type": "text/plain",
+    },
+    "name": "Upgrade XML",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": Object {
+      "build": Array [],
+      "major": 1,
+      "minor": 0,
+      "patch": 0,
+      "prerelease": Array [],
+      "raw": "<number>.<number>.<number>",
+      "string": "1.0.0",
+    },
+  },
+  "item": Array [
+    Object {
+      "event": Array [
+        Object {
+          "listen": "test",
+          "script": Object {
+            "exec": Array [
+              "// Validate status 2xx 
+pm.test(\\"[POST]::/feeds - Status code is 2xx\\", function () {
+   pm.response.to.be.success;
+});",
+            ],
+            "type": "text/javascript",
+          },
+        },
+        Object {
+          "listen": "prerequest",
+          "script": Object {
+            "exec": Array [
+              "pm.collectionVariables.set('upgradeGate', 'postOperation')",
+            ],
+            "type": "text/javascript",
+          },
+        },
+      ],
+      "name": "feeds Create Xml",
+      "protocolProfileBehavior": Object {
+        "disableBodyPruning": true,
+      },
+      "request": Object {
+        "body": Object {
+          "mode": "raw",
+          "options": Object {
+            "raw": Object {
+              "headerFamily": "xml",
+              "language": "xml",
+            },
+          },
+          "raw": "<?xml version=\\"<number>.<number>\\" encoding=\\"UTF-<number>\\"?>
+<feed>
+  <id>feed_1</id>
+  <name>Main Feed</name>
+</feed>",
+        },
+        "description": Object {
+          "type": "text/plain",
+        },
+        "header": Array [
+          Object {
+            "disabled": false,
+            "key": "x-upgrade-gate",
+            "value": "true",
+          },
+          Object {
+            "key": "Accept",
+            "value": "application/xml",
+          },
+          Object {
+            "key": "Content-Type",
+            "value": "application/xml",
+          },
+        ],
+        "method": "POST",
+        "name": "feeds Create Xml",
+        "url": Object {
+          "host": Array [
+            "{{baseUrl}}",
+          ],
+          "path": Array [
+            "feeds",
+          ],
+          "query": Array [],
+          "variable": Array [],
+        },
+      },
+      "response": Array [
+        Object {
+          "_": Object {
+            "postman_previewlanguage": "xml",
+          },
+          "body": "<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+<feed>
+  <id>feed_1</id>
+  <name>Main Feed</name>
+</feed>
+",
+          "code": 201,
+          "cookie": Array [],
+          "header": Array [
+            Object {
+              "key": "Content-Type",
+              "value": "application/xml",
+            },
+          ],
+          "name": "created",
+          "originalRequest": Object {
+            "body": Object {
+              "mode": "raw",
+              "options": Object {
+                "raw": Object {
+                  "headerFamily": "xml",
+                  "language": "xml",
+                },
+              },
+              "raw": "<?xml version=\\"<number>.<number>\\" encoding=\\"UTF-<number>\\"?>
+<feed>
+  <id>feed_1</id>
+  <name>Main Feed</name>
+</feed>",
+            },
+            "header": Array [
+              Object {
+                "key": "Accept",
+                "value": "application/xml",
+              },
+              Object {
+                "key": "Content-Type",
+                "value": "application/xml",
+              },
+            ],
+            "method": "POST",
+            "url": Object {
+              "host": Array [
+                "{{baseUrl}}",
+              ],
+              "path": Array [
+                "feeds",
+              ],
+              "query": Array [],
+              "variable": Array [],
+            },
+          },
+          "status": "Created",
+        },
+      ],
     },
   ],
   "variable": Array [

@@ -1,0 +1,37 @@
+openapi: 3.0.3
+info:
+  title: Upgrade DeepObject
+  version: 1.0.0
+paths:
+  /search:
+    get:
+      operationId: searchDeepObject
+      parameters:
+        - in: query
+          name: filter
+          style: deepObject
+          explode: true
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                enum: [open, closed]
+              limit:
+                type: integer
+            required: [status]
+          example:
+            status: open
+            limit: 10
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+              example:
+                ok: true

@@ -63,6 +63,43 @@ const FIXTURE_CASES: FixtureCase[] = [
     expectedOperationCount: 2,
     expectedOperationIds: ['thingsCreate', 'thingsOne'],
     fallbackSelectors: ['POST::/things']
+  },
+  {
+    name: 'oas3-deepobject-params',
+    oasFile: '__tests__/fixtures/openapi-upgrade/oas3-deepobject.yaml',
+    portmanConfigFile: '__tests__/fixtures/openapi-upgrade/portman-config.get-only.json',
+    postmanConfigFile: '__tests__/fixtures/openapi-upgrade/postman-config.tags.json',
+    expectedOperationCount: 1,
+    expectedOperationIds: ['searchDeepObject'],
+    fallbackSelectors: ['GET::/search']
+  },
+  {
+    name: 'oas3-cookie-params',
+    oasFile: '__tests__/fixtures/openapi-upgrade/oas3-cookie-params.yaml',
+    portmanConfigFile: '__tests__/fixtures/openapi-upgrade/portman-config.get-only.json',
+    postmanConfigFile: '__tests__/fixtures/openapi-upgrade/postman-config.tags.json',
+    expectedOperationCount: 1,
+    expectedOperationIds: ['profileByCookie'],
+    fallbackSelectors: ['GET::/profile']
+  },
+  {
+    name: 'oas3-xml-request-response',
+    oasFile: '__tests__/fixtures/openapi-upgrade/oas3-xml.yaml',
+    portmanConfigFile: '__tests__/fixtures/openapi-upgrade/portman-config.generic.json',
+    postmanConfigFile: '__tests__/fixtures/openapi-upgrade/postman-config.tags.json',
+    expectedOperationCount: 1,
+    expectedOperationIds: ['feedsCreateXml'],
+    fallbackSelectors: ['POST::/feeds'],
+    expectedInjectedSelectors: ['POST::/feeds']
+  },
+  {
+    name: 'oas3-oauth2-flow',
+    oasFile: '__tests__/fixtures/openapi-upgrade/oas3-oauth2.yaml',
+    portmanConfigFile: '__tests__/fixtures/openapi-upgrade/portman-config.get-only.json',
+    postmanConfigFile: '__tests__/fixtures/openapi-upgrade/postman-config.tags.json',
+    expectedOperationCount: 1,
+    expectedOperationIds: ['reportsList'],
+    fallbackSelectors: ['GET::/reports']
   }
 ]
 

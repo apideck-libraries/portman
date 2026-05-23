@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::*",
+        "statusSuccess": { "enabled": true }
+      }
+    ]
+  }
+}
