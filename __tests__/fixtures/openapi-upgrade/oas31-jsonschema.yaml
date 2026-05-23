@@ -24,6 +24,10 @@ paths:
                 - $ref: "#/components/schemas/ViewEvent"
               discriminator:
                 propertyName: type
+            example:
+              type: "click"
+              target: "primary-cta-button"
+              internalNote: "Synthetic event for upgrade regression tests"
       responses:
         "201":
           description: created

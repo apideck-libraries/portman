@@ -119,9 +119,10 @@ const normalizeCollectionForSnapshot = (input: unknown): unknown => {
         })
       return normalizedObj
     }
-    if (typeof value === 'string') return '<string>'
-    if (typeof value === 'number') return '<number>'
-    if (typeof value === 'boolean') return '<boolean>'
+    // Keep scalar values to make snapshot diffs reflect real converter output.
+    if (typeof value === 'string') return value
+    if (typeof value === 'number') return value
+    if (typeof value === 'boolean') return value
     return value
   }
 

@@ -240,7 +240,7 @@ pm.test(\\"[POST]::/users - Content-Type is application/json\\", function () {
                 },
               },
               "raw": Object {
-                "name": "<string>",
+                "name": "Upgrade Gate User",
               },
             },
             "description": Object {
@@ -406,7 +406,7 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
                 },
               },
               "raw": Object {
-                "name": "<string>",
+                "name": "Jane Updated",
               },
             },
             "description": Object {
@@ -462,7 +462,7 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
                     },
                   },
                   "raw": Object {
-                    "name": "<string>",
+                    "name": "Jane Updated",
                   },
                 },
                 "header": Array [
@@ -1000,7 +1000,7 @@ pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
             },
           },
           "raw": Object {
-            "type": "<string>",
+            "type": "widget",
           },
         },
         "description": Object {
@@ -1062,7 +1062,7 @@ pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
                 },
               },
               "raw": Object {
-                "type": "<string>",
+                "type": "widget",
               },
             },
             "header": Array [
@@ -1355,7 +1355,7 @@ Object {
                 },
               },
               "raw": Object {
-                "sku": "<string>",
+                "sku": "ORDER-123",
               },
             },
             "description": Object {
@@ -1399,7 +1399,7 @@ Object {
                     },
                   },
                   "raw": Object {
-                    "sku": "<string>",
+                    "sku": "ORDER-123",
                   },
                 },
                 "header": Array [
@@ -2061,9 +2061,9 @@ pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
             },
           },
           "raw": Object {
-            "internalNote": "<string>",
-            "target": "<string>",
-            "type": "<string>",
+            "internalNote": "Synthetic event for upgrade regression tests",
+            "target": "primary-cta-button",
+            "type": "click",
           },
         },
         "description": Object {
@@ -2416,7 +2416,7 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
             },
           },
           "raw": Object {
-            "name": "<string>",
+            "name": "Gamma",
           },
         },
         "description": Object {
@@ -2478,7 +2478,7 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
                 },
               },
               "raw": Object {
-                "name": "<string>",
+                "name": "Gamma",
               },
             },
             "header": Array [

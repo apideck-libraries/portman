@@ -101,6 +101,8 @@ paths:
               properties:
                 name:
                   type: string
+            example:
+              name: "Jane Updated"
       responses:
         "200":
           description: updated
