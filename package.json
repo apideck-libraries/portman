@@ -22,6 +22,7 @@
     "lint": "eslint ./src --ext ts,js --cache --fix --quiet",
     "lint:ci": "eslint ./src --ext ts,js --cache --quiet",
     "test": "jest --colors --verbose --reporters=default --collectCoverage --no-cache",
+    "test:openapi-upgrade": "jest --runInBand --colors --verbose src/__tests__/OpenApiUpgradeRisk.test.ts",
     "test:ci": "jest --ci --reporters=jest-progress-bar-reporter --collectCoverage --maxWorkers=2",
     "test:watch": "jest  --verbose --bail --watch",
     "clean": "rm -rf ./dist/*",
