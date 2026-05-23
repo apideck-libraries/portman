@@ -139,8 +139,8 @@ const normalizeCollectionForSnapshot = (input: unknown): unknown => {
 
 describe('Examples normalized snapshots', () => {
   beforeEach(() => {
-    jest.spyOn(global.console, 'log').mockImplementation(() => {})
-    jest.spyOn(global.console, 'error').mockImplementation(() => {})
+    jest.spyOn(global.console, 'log').mockImplementation(() => undefined)
+    jest.spyOn(global.console, 'error').mockImplementation(() => undefined)
     jest.spyOn(process, 'exit').mockImplementation(() => {
       return undefined as never
     })

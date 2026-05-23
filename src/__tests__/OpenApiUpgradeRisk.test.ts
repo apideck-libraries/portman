@@ -220,8 +220,8 @@ const operationSummary = (postmanParser: PostmanParser): Record<string, unknown>
 
 describe('OpenAPI upgrade risk gate', () => {
   beforeEach(() => {
-    jest.spyOn(global.console, 'log').mockImplementation(() => {})
-    jest.spyOn(global.console, 'error').mockImplementation(() => {})
+    jest.spyOn(global.console, 'log').mockImplementation(() => undefined)
+    jest.spyOn(global.console, 'error').mockImplementation(() => undefined)
   })
 
   afterEach(() => {
