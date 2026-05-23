@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`overwriteRequestBaseUrl should append to the request base url when overwrite is false 1`] = `
 {

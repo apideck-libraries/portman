@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`overwriteRequestBody overwrite the request form data with an empty when overwrite is true 1`] = `
 [

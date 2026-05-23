@@ -66,7 +66,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/newman": "^5.3.6",
     "@types/node-emoji": "^1.8.2",
     "@types/postman-collection": "^3.5.10",
@@ -79,7 +79,7 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^3.4.1",
     "husky": "^6.0.0",
-    "jest": "^29.7.0",
+    "jest": "^30.4.2",
     "jest-progress-bar-reporter": "^1.0.25",
     "prettier": "^2.8.8",
     "ts-jest": "^29.2.5",

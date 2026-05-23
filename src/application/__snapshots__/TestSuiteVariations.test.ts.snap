@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`TestSuite Variations openApiRequest content-types should handle wildcard request content-type and generate multiple variations 1`] = `
 {

@@ -40,6 +40,6 @@ describe('renamePostmanCollection', () => {
 
     expect(() => {
       renamePostmanCollection(oas, options)
-    }).toThrowError('required')
+    }).toThrow('required')
   })
 })
