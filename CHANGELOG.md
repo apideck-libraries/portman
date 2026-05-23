@@ -1,5 +1,14 @@
 ## [Unreleased]
 
+## v1.35.0 - (2026-02-28)
+
+- chore: Bump openapi-to-postman to v6.0 version
+- chore: Bump Typescript
+- chore: Bump Jest
+- chore: Bump Faker
+- chore: Bump Lodash
+- chore: Remove pluralize
+
 ## v1.34.1 - (2026-02-28)
 
 - fix: tslib is required at runtime (#726)
