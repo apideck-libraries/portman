@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.34.1 - (2026-02-28)
+
+- fix: tslib is required at runtime (#726)
+- Bumped dependencies
 
 ## v1.34.0 - (2026-02-28)
 
