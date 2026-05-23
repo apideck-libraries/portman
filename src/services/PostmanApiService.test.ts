@@ -113,7 +113,7 @@ describe('PostmanApiService regression behavior', () => {
     const parsed = JSON.parse(response)
 
     expect(parsed.status).toBe('fail')
-    expect(parsed.data).toBeUndefined()
+    expect(parsed.data).toBe('Error: socket hang up')
     expect(spinner.fail).toHaveBeenCalledWith(expect.stringContaining('ECONNRESET'))
   })
 
