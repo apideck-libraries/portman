@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/orders/*",
+        "statusSuccess": { "enabled": true }
+      }
+    ]
+  },
+  "overwrites": [
+    {
+      "openApiOperation": "POST::/orders",
+      "overwriteRequestBody": [
+        {
+          "key": "sku",
+          "value": "ORDER-123",
+          "overwrite": true
+        }
+      ]
+    }
+  ],
+  "operationPreRequestScripts": [
+    {
+      "openApiOperation": "PATCH::/orders/{id}",
+      "scripts": ["pm.collectionVariables.set('upgradeGate', 'ordersPatch')"]
+    }
+  ]
+}

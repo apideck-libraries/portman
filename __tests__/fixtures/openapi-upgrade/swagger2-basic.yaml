@@ -1,0 +1,64 @@
+swagger: "2.0"
+info:
+  title: Upgrade Swagger2
+  version: 1.0.0
+host: api.example.com
+basePath: /v1
+schemes:
+  - https
+paths:
+  /widgets:
+    get:
+      operationId: widgetsList
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Widget"
+    post:
+      operationId: widgetsCreate
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/WidgetCreate"
+      responses:
+        "201":
+          description: created
+  /widgets/{id}:
+    get:
+      operationId: widgetsOne
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+      responses:
+        "200":
+          description: ok
+          schema:
+            $ref: "#/definitions/Widget"
+definitions:
+  Widget:
+    type: object
+    required: [id, name]
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+  WidgetCreate:
+    type: object
+    required: [name]
+    properties:
+      name:
+        type: string
