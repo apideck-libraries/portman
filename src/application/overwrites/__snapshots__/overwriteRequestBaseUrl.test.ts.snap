@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`overwriteRequestBaseUrl should append to the request base url when overwrite is false 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "{{baseUrl}}",
     "example",
     "com",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -23,9 +23,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -39,18 +39,18 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should not overwrite the request base url 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "{{baseUrl}}",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -59,9 +59,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -75,15 +75,15 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a blank value 1`] = `
-Object {
-  "path": Array [
+{
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -92,9 +92,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -108,19 +108,19 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a domain name 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "example",
     "com",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -129,9 +129,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -145,21 +145,21 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a full domain name 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "www",
     "example",
     "com",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
   "protocol": "https",
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -168,9 +168,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -184,22 +184,22 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a full domain name with port 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "www",
     "example",
     "com",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
   "port": "3000",
   "protocol": "https",
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -208,9 +208,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -224,18 +224,18 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a variable 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "{{foo-bar-baz}}",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -244,9 +244,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -260,19 +260,19 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should overwrite the request base url with a variable and path 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "{{foo-bar-baz}}",
   ],
-  "path": Array [
+  "path": [
     "path",
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -281,9 +281,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -297,15 +297,15 @@ Object {
 `;
 
 exports[`overwriteRequestBaseUrl should remove the request base url when remove is true 1`] = `
-Object {
-  "path": Array [
+{
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -314,9 +314,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },

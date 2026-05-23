@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`overwriteRequestPathVariables overwrite overwrite the request path variable when overwrite is true 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -16,9 +16,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables overwrite overwrite the request path variable with an empty when overwrite is true 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -31,9 +31,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should append the request path variable when overwrite is false 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -46,9 +46,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should insert the path variable with description, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -57,8 +57,8 @@ Array [
     "type": "any",
     "value": "123456",
   },
-  Object {
-    "description": Object {
+  {
+    "description": {
       "content": "Additional path param",
       "type": "text/plain",
     },
@@ -71,9 +71,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should insert the path variable with true insert option, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -82,7 +82,7 @@ Array [
     "type": "any",
     "value": "123456",
   },
-  Object {
+  {
     "disabled": false,
     "key": "add-a-path-variable",
     "type": "any",
@@ -92,9 +92,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should insert the path variable, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -103,7 +103,7 @@ Array [
     "type": "any",
     "value": "123456",
   },
-  Object {
+  {
     "disabled": false,
     "key": "add-a-path-variable",
     "type": "any",
@@ -113,9 +113,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should not insert the path variable, if key found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -128,18 +128,18 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should not remove any the request path variable, when a absent key 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "{{baseUrl}}",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
     ":id",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -148,9 +148,9 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [
-    Object {
-      "description": Object {
+  "variable": [
+    {
+      "description": {
         "content": "(Required) ID of the record you are acting upon.",
         "type": "text/plain",
       },
@@ -164,9 +164,9 @@ Object {
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path boolean variable with string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -179,9 +179,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path number variable with string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -194,9 +194,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -209,9 +209,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with a null value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -224,9 +224,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with an empty value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -239,9 +239,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with generated cased string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -254,9 +254,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with generated cased string value with {{}} 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -269,9 +269,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with generated string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -284,9 +284,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with generated string value with {{}} 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -299,9 +299,9 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should overwrite the request path variable with zero value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },
@@ -314,17 +314,17 @@ Array [
 `;
 
 exports[`overwriteRequestPathVariables should remove the request path variable, when remove is true 1`] = `
-Object {
-  "host": Array [
+{
+  "host": [
     "{{baseUrl}}",
   ],
-  "path": Array [
+  "path": [
     "crm",
     "companies",
   ],
-  "query": Array [
-    Object {
-      "description": Object {
+  "query": [
+    {
+      "description": {
         "content": "Include raw response. Mostly used for debugging purposes",
         "type": "text/plain",
       },
@@ -333,14 +333,14 @@ Object {
       "value": "true",
     },
   ],
-  "variable": Array [],
+  "variable": [],
 }
 `;
 
 exports[`overwriteRequestPathVariables should skip the path variable with false insert option, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "(Required) ID of the record you are acting upon.",
       "type": "text/plain",
     },

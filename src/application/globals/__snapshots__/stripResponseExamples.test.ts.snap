@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`stripResponseExamples should remove response examples from the collection 1`] = `
-Object {
-  "event": Array [],
+{
+  "event": [],
   "id": "9a4aae6e-1708-4bef-9364-69909b7d2ada",
   "name": "List companies",
-  "request": Object {
-    "auth": Object {
-      "bearer": Array [
-        Object {
+  "request": {
+    "auth": {
+      "bearer": [
+        {
           "key": "token",
           "type": "any",
           "value": "<Bearer Token>",
@@ -16,13 +16,13 @@ Object {
       ],
       "type": "bearer",
     },
-    "description": Object {
+    "description": {
       "content": "List companies",
       "type": "text/plain",
     },
-    "header": Array [
-      Object {
-        "description": Object {
+    "header": [
+      {
+        "description": {
           "content": "(Required) ID of the consumer which you want to get or push data from",
           "type": "text/plain",
         },
@@ -30,8 +30,8 @@ Object {
         "key": "x-apideck-consumer-id",
         "value": "test_consumer",
       },
-      Object {
-        "description": Object {
+      {
+        "description": {
           "content": "(Required) The ID of your Unify application",
           "type": "text/plain",
         },
@@ -39,8 +39,8 @@ Object {
         "key": "x-apideck-app-id",
         "value": "2222",
       },
-      Object {
-        "description": Object {
+      {
+        "description": {
           "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
           "type": "text/plain",
         },
@@ -51,17 +51,17 @@ Object {
     ],
     "method": "GET",
     "name": "List companies",
-    "url": Object {
-      "host": Array [
+    "url": {
+      "host": [
         "{{baseUrl}}",
       ],
-      "path": Array [
+      "path": [
         "crm",
         "companies",
       ],
-      "query": Array [
-        Object {
-          "description": Object {
+      "query": [
+        {
+          "description": {
             "content": "Include raw response. Mostly used for debugging purposes",
             "type": "text/plain",
           },
@@ -69,8 +69,8 @@ Object {
           "key": "raw",
           "value": "true",
         },
-        Object {
-          "description": Object {
+        {
+          "description": {
             "content": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response.",
             "type": "text/plain",
           },
@@ -78,8 +78,8 @@ Object {
           "key": "cursor",
           "value": "",
         },
-        Object {
-          "description": Object {
+        {
+          "description": {
             "content": "Number of records to return",
             "type": "text/plain",
           },
@@ -87,8 +87,8 @@ Object {
           "key": "limit",
           "value": "20",
         },
-        Object {
-          "description": Object {
+        {
+          "description": {
             "content": "Apply filters (beta)",
             "type": "text/plain",
           },
@@ -97,9 +97,9 @@ Object {
           "value": "SpaceX",
         },
       ],
-      "variable": Array [],
+      "variable": [],
     },
   },
-  "response": Array [],
+  "response": [],
 }
 `;

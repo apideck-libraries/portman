@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`orderCollectionRequests() should not order the postman request items  1`] = `
-Object {
-  "item": Array [
-    Object {
-      "item": Array [
-        Object {
+{
+  "item": [
+    {
+      "item": [
+        {
           "_portman_operation": "GET::/crm/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -27,18 +27,18 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "POST::/crm/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "POST",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -49,17 +49,17 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -70,17 +70,17 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "POST::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "POST",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -99,21 +99,21 @@ Object {
 `;
 
 exports[`orderCollectionRequests() should order the postman request items in folder in the order like defined 1`] = `
-Object {
-  "item": Array [
-    Object {
-      "item": Array [
-        Object {
+{
+  "item": [
+    {
+      "item": [
+        {
           "_portman_operation": "POST::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "POST",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -124,18 +124,18 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "POST::/crm/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "POST",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -146,26 +146,26 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/:crmId/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":crmId",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the crm you are acting upon.",
                   "disabled": false,
                   "key": "crmId",
                   "type": "any",
                   "value": "<string>",
                 },
-                Object {
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -176,18 +176,18 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -198,17 +198,17 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -227,19 +227,19 @@ Object {
 `;
 
 exports[`orderCollectionRequests() should order the postman request items in root in the order like defined 1`] = `
-Object {
-  "item": Array [
-    Object {
+{
+  "item": [
+    {
       "_portman_operation": "POST::/crm/:id",
-      "request": Object {
+      "request": {
         "method": "POST",
-        "url": Object {
-          "path": Array [
+        "url": {
+          "path": [
             "crm",
             ":id",
           ],
-          "variable": Array [
-            Object {
+          "variable": [
+            {
               "description": "(Required) ID of the monkey you are acting upon.",
               "disabled": false,
               "key": "id",
@@ -250,18 +250,18 @@ Object {
         },
       },
     },
-    Object {
+    {
       "_portman_operation": "POST::/crm/monkies/:id",
-      "request": Object {
+      "request": {
         "method": "POST",
-        "url": Object {
-          "path": Array [
+        "url": {
+          "path": [
             "crm",
             "monkies",
             ":id",
           ],
-          "variable": Array [
-            Object {
+          "variable": [
+            {
               "description": "(Required) ID of the monkey you are acting upon.",
               "disabled": false,
               "key": "id",
@@ -272,26 +272,26 @@ Object {
         },
       },
     },
-    Object {
+    {
       "_portman_operation": "GET::/crm/:crmId/monkies/:id",
-      "request": Object {
+      "request": {
         "method": "GET",
-        "url": Object {
-          "path": Array [
+        "url": {
+          "path": [
             "crm",
             ":crmId",
             "monkies",
             ":id",
           ],
-          "variable": Array [
-            Object {
+          "variable": [
+            {
               "description": "(Required) ID of the crm you are acting upon.",
               "disabled": false,
               "key": "crmId",
               "type": "any",
               "value": "<string>",
             },
-            Object {
+            {
               "description": "(Required) ID of the monkey you are acting upon.",
               "disabled": false,
               "key": "id",
@@ -302,18 +302,18 @@ Object {
         },
       },
     },
-    Object {
+    {
       "_portman_operation": "POST::/crm/:id/status",
-      "request": Object {
+      "request": {
         "method": "POST",
-        "url": Object {
-          "path": Array [
+        "url": {
+          "path": [
             "crm",
             ":id",
             "status",
           ],
-          "variable": Array [
-            Object {
+          "variable": [
+            {
               "description": "(Required) ID of the monkey you are acting upon.",
               "disabled": false,
               "key": "id",
@@ -324,18 +324,18 @@ Object {
         },
       },
     },
-    Object {
+    {
       "_portman_operation": "GET::/crm/monkies/:id",
-      "request": Object {
+      "request": {
         "method": "GET",
-        "url": Object {
-          "path": Array [
+        "url": {
+          "path": [
             "crm",
             "monkies",
             ":id",
           ],
-          "variable": Array [
-            Object {
+          "variable": [
+            {
               "description": "(Required) ID of the monkey you are acting upon.",
               "disabled": false,
               "key": "id",
@@ -346,17 +346,17 @@ Object {
         },
       },
     },
-    Object {
+    {
       "_portman_operation": "GET::/crm/:id",
-      "request": Object {
+      "request": {
         "method": "GET",
-        "url": Object {
-          "path": Array [
+        "url": {
+          "path": [
             "crm",
             ":id",
           ],
-          "variable": Array [
-            Object {
+          "variable": [
+            {
               "description": "(Required) ID of the monkey you are acting upon.",
               "disabled": false,
               "key": "id",
@@ -372,22 +372,22 @@ Object {
 `;
 
 exports[`orderCollectionRequests() should order the postman request items in the wildcard order 1`] = `
-Object {
-  "item": Array [
-    Object {
-      "item": Array [
-        Object {
+{
+  "item": [
+    {
+      "item": [
+        {
           "_portman_operation": "POST::/crm/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "POST",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -398,17 +398,17 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "POST::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "POST",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -419,18 +419,18 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -441,26 +441,26 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/:crmId/monkies/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":crmId",
                 "monkies",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the crm you are acting upon.",
                   "disabled": false,
                   "key": "crmId",
                   "type": "any",
                   "value": "<string>",
                 },
-                Object {
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -471,17 +471,17 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "GET::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "GET",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",
@@ -492,17 +492,17 @@ Object {
             },
           },
         },
-        Object {
+        {
           "_portman_operation": "PUT::/crm/:id",
-          "request": Object {
+          "request": {
             "method": "PUT",
-            "url": Object {
-              "path": Array [
+            "url": {
+              "path": [
                 "crm",
                 ":id",
               ],
-              "variable": Array [
-                Object {
+              "variable": [
+                {
                   "description": "(Required) ID of the monkey you are acting upon.",
                   "disabled": false,
                   "key": "id",

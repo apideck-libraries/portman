@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PostmanMappedOperation clone() should create a clean copy of itself 1`] = `
-Object {
-  "auth": Object {
-    "bearer": Array [
-      Object {
+{
+  "auth": {
+    "bearer": [
+      {
         "key": "token",
         "type": "any",
         "value": "<Bearer Token>",
@@ -12,13 +12,13 @@ Object {
     ],
     "type": "bearer",
   },
-  "description": Object {
+  "description": {
     "content": "Get company",
     "type": "text/plain",
   },
-  "header": Array [
-    Object {
-      "description": Object {
+  "header": [
+    {
+      "description": {
         "content": "(Required) ID of the consumer which you want to get or push data from",
         "type": "text/plain",
       },
@@ -26,8 +26,8 @@ Object {
       "key": "x-apideck-consumer-id",
       "value": "test_consumer",
     },
-    Object {
-      "description": Object {
+    {
+      "description": {
         "content": "(Required) The ID of your Unify application",
         "type": "text/plain",
       },
@@ -35,8 +35,8 @@ Object {
       "key": "x-apideck-app-id",
       "value": "2222",
     },
-    Object {
-      "description": Object {
+    {
+      "description": {
         "content": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
         "type": "text/plain",
       },
@@ -47,18 +47,18 @@ Object {
   ],
   "method": "GET",
   "name": "Get Company - Variation",
-  "url": Object {
-    "host": Array [
+  "url": {
+    "host": [
       "{{baseUrl}}",
     ],
-    "path": Array [
+    "path": [
       "crm",
       "companies",
       ":id",
     ],
-    "query": Array [
-      Object {
-        "description": Object {
+    "query": [
+      {
+        "description": {
           "content": "Include raw response. Mostly used for debugging purposes",
           "type": "text/plain",
         },
@@ -67,9 +67,9 @@ Object {
         "value": "true",
       },
     ],
-    "variable": Array [
-      Object {
-        "description": Object {
+    "variable": [
+      {
+        "description": {
           "content": "(Required) ID of the record you are acting upon.",
           "type": "text/plain",
         },
