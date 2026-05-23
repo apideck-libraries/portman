@@ -10,7 +10,21 @@ type ExampleCase = {
   cliOptionsFile: string
 }
 
-const EXAMPLE_OPTION_FILES = ['examples/testsuite-contract-tests/portman-cli-options.json']
+const EXAMPLE_OPTION_FILES = [
+  'examples/cli-filtering/portman-cli-options.json',
+  'examples/cli-options/portman-cli-options.json',
+  'examples/config-references/portman-cli-options.json',
+  'examples/portman-globals/portman-cli-options.json',
+  'examples/testsuite-assign-overwrite/portman-cli-options.json',
+  'examples/testsuite-assign-variables/portman-cli-options.json',
+  'examples/testsuite-content-tests/portman-cli-options.json',
+  'examples/testsuite-contract-content-types/portman-cli-options.json',
+  'examples/testsuite-contract-tests/portman-cli-options.json',
+  'examples/testsuite-fuzzing-tests/portman-cli-options.json',
+  'examples/testsuite-overwrites/portman-cli-options.json',
+  'examples/testsuite-variation-content-types/portman-cli-options.json',
+  'examples/testsuite-variation-tests/portman-cli-options.json'
+]
 
 const EXAMPLE_CASES: ExampleCase[] = EXAMPLE_OPTION_FILES.map(cliOptionsFile => ({
   name: path.dirname(cliOptionsFile).replace('examples/', ''),
@@ -80,7 +94,6 @@ const normalizeCollectionForSnapshot = (input: unknown): unknown => {
           '<uuid>'
         )
         .replace(/\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z\b/g, '<iso-datetime>')
-        .replace(/\b\d+\b/g, '<number>')
     }
   }
 

@@ -1643,12 +1643,14 @@ components:
       description: The ID of your Unify application
       schema:
         type: string
+        example: app_12345
     serviceId:
       name: x-apideck-service-id
       in: header
       description: 'Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.'
       schema:
         type: string
+        example: service_1234
     consumerId:
       name: x-apideck-consumer-id
       in: header
@@ -1656,6 +1658,7 @@ components:
       description: ID of the consumer which you want to get or push data from
       schema:
         type: string
+        example: consumer_12345
     raw:
       name: raw
       in: query
@@ -1668,6 +1671,7 @@ components:
       name: id
       schema:
         type: string
+        example: lead_12345
       required: true
       description: ID of the record you are acting upon.
     limit:
