@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: Upgrade OAuth2
+  version: 1.0.0
+paths:
+  /reports:
+    get:
+      operationId: reportsList
+      security:
+        - oauth2Auth:
+            - reports:read
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+              example:
+                data: [r1, r2]
+components:
+  securitySchemes:
+    oauth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.example.com/authorize
+          tokenUrl: https://auth.example.com/token
+          scopes:
+            reports:read: Read reports

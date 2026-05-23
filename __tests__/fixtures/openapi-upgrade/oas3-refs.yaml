@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Upgrade Local Refs
+  version: 1.0.0
+paths:
+  /things:
+    post:
+      operationId: thingsCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "./refs/components.yaml#/components/schemas/RefThingInput"
+            example:
+              type: widget
+      responses:
+        "201":
+          description: created
+          content:
+            application/json:
+              schema:
+                $ref: "./refs/components.yaml#/components/schemas/RefThing"
+              example:
+                id: thing_1
+                type: widget
+  /things/{id}:
+    get:
+      operationId: thingsOne
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            example: thing_1
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "./refs/components.yaml#/components/schemas/RefThing"
+              example:
+                id: thing_1
+                type: widget

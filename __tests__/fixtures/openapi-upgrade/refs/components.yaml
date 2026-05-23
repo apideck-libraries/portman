@@ -1,0 +1,20 @@
+openapi: 3.0.3
+info:
+  title: Ref Components
+  version: 1.0.0
+components:
+  schemas:
+    RefThing:
+      type: object
+      required: [id, type]
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+    RefThingInput:
+      type: object
+      required: [type]
+      properties:
+        type:
+          type: string

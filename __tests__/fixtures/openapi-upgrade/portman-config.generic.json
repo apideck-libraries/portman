@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::*",
+        "statusSuccess": { "enabled": true }
+      }
+    ]
+  },
+  "overwrites": [
+    {
+      "openApiOperation": "POST::*",
+      "overwriteRequestHeaders": [
+        {
+          "key": "x-upgrade-gate",
+          "value": "true",
+          "overwrite": true
+        }
+      ]
+    }
+  ],
+  "operationPreRequestScripts": [
+    {
+      "openApiOperation": "POST::*",
+      "scripts": ["pm.collectionVariables.set('upgradeGate', 'postOperation')"]
+    }
+  ]
+}

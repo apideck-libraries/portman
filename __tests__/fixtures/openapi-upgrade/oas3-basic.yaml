@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Upgrade OAS3 Basic
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/{version}
+    variables:
+      version:
+        default: v1
+tags:
+  - name: Users
+paths:
+  /users:
+    get:
+      operationId: usersList
+      tags: [Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            example: 25
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+            schema:
+              type: object
+              required: [data]
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/User"
+            example:
+              data:
+                - id: user_1
+                  name: Jane
+                - id: user_2
+                  name: John
+    post:
+      operationId: usersCreate
+      tags: [Users]
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            examples:
+              one:
+                value:
+                  name: Jane
+      responses:
+        "201":
+          description: created
+          content:
+            application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+            example:
+              id: user_3
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          example: user_1
+    get:
+      operationId: usersOne
+      tags: [Users]
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                id: user_1
+                name: Jane
+    patch:
+      operationId: usersUpdate
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+            example:
+              name: "Jane Updated"
+      responses:
+        "200":
+          description: updated
+    delete:
+      operationId: usersDelete
+      tags: [Users]
+      responses:
+        "204":
+          description: deleted
+components:
+  schemas:
+    User:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    bearerAuth:
+      type: http
+      scheme: bearer

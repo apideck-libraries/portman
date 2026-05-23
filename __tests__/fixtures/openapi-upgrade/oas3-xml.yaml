@@ -1,0 +1,42 @@
+openapi: 3.0.3
+info:
+  title: Upgrade XML
+  version: 1.0.0
+paths:
+  /feeds:
+    post:
+      operationId: feedsCreateXml
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Feed"
+            example: |
+              <feed>
+                <id>feed_1</id>
+                <name>Main Feed</name>
+              </feed>
+      responses:
+        "201":
+          description: created
+          content:
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/Feed"
+              example: |
+                <feed>
+                  <id>feed_1</id>
+                  <name>Main Feed</name>
+                </feed>
+components:
+  schemas:
+    Feed:
+      type: object
+      xml:
+        name: feed
+      properties:
+        id:
+          type: string
+        name:
+          type: string

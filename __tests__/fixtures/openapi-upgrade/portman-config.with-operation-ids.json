@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperationIds": ["usersList", "usersCreate", "usersOne", "usersUpdate", "usersDelete"],
+        "statusSuccess": { "enabled": true },
+        "statusCode": { "enabled": true },
+        "contentType": { "enabled": true }
+      }
+    ]
+  },
+  "overwrites": [
+    {
+      "openApiOperationId": "usersCreate",
+      "overwriteRequestBody": [
+        {
+          "key": "name",
+          "value": "Upgrade Gate User",
+          "overwrite": true
+        }
+      ]
+    }
+  ],
+  "operationPreRequestScripts": [
+    {
+      "openApiOperationId": "usersCreate",
+      "scripts": ["pm.collectionVariables.set('upgradeGate', 'usersCreate')"]
+    }
+  ]
+}

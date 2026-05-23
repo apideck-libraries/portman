@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Upgrade OAS31 JSON Schema
+  version: 1.0.0
+paths:
+  /events:
+    post:
+      operationId: eventsCreate
+      parameters:
+        - in: header
+          name: x-trace-id
+          required: true
+          schema:
+            type: string
+            minLength: 3
+            example: trace-123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/ClickEvent"
+                - $ref: "#/components/schemas/ViewEvent"
+              discriminator:
+                propertyName: type
+            example:
+              type: "click"
+              target: "primary-cta-button"
+              internalNote: "Synthetic event for upgrade regression tests"
+      responses:
+        "201":
+          description: created
+          content:
+            application/json:
+            schema:
+              anyOf:
+                - $ref: "#/components/schemas/AcceptedEvent"
+                - $ref: "#/components/schemas/RejectedEvent"
+            example:
+              status: accepted
+  /events/{id}:
+    get:
+      operationId: eventsOne
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            example: evt_1
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    required: [id]
+                    properties:
+                      id:
+                        type: string
+                  - type: object
+                    properties:
+                      archivedAt:
+                        type:
+                          - "string"
+                          - "null"
+              example:
+                id: evt_1
+                archivedAt: null
+components:
+  schemas:
+    ClickEvent:
+      type: object
+      required: [type, target]
+      properties:
+        type:
+          type: string
+          const: click
+        target:
+          type: string
+          example: button-1
+        internalNote:
+          type: string
+          writeOnly: true
+    ViewEvent:
+      type: object
+      required: [type, path]
+      properties:
+        type:
+          type: string
+          const: view
+        path:
+          type: string
+          example: /home
+        processedAt:
+          type: string
+          readOnly: true
+    AcceptedEvent:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [accepted]
+    RejectedEvent:
+      type: object
+      required: [status, reason]
+      properties:
+        status:
+          type: string
+          enum: [rejected]
+        reason:
+          type: string

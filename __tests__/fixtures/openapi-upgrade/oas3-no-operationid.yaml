@@ -1,0 +1,46 @@
+openapi: 3.0.3
+info:
+  title: Upgrade No OperationId
+  version: 1.0.0
+paths:
+  /orders:
+    get:
+      tags: [Orders]
+      responses:
+        "200":
+          description: ok
+    post:
+      tags: [Orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sku]
+              properties:
+                sku:
+                  type: string
+            example:
+              sku: ORDER-123
+      responses:
+        "201":
+          description: created
+  /orders/{id}:
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          example: order_1
+    get:
+      tags: [Orders]
+      responses:
+        "200":
+          description: ok
+    patch:
+      tags: [Orders]
+      responses:
+        "200":
+          description: updated
