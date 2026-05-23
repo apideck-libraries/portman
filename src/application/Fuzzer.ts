@@ -2,6 +2,8 @@ import { OasMappedOperation } from 'src/oas'
 import { PostmanMappedOperation } from '../postman'
 import {
   fuzzingConfig,
+  FuzzingRequiredFieldContext,
+  FuzzingSchemaBranchContext,
   FuzzingSchemaItems,
   fuzzRequestBody,
   fuzzRequestHeader,
@@ -296,15 +298,33 @@ export class Fuzzer {
     const clonedVariation = JSON.parse(JSON.stringify(variation))
 
     requiredFields.map(requiredField => {
+      const requiredFieldContexts =
+        fuzzItems?.requiredFieldContexts?.filter(ctx => ctx.path === requiredField) || []
+      const hasExamples = !!requestBodyExamples && requestBodyExamples.length > 0
       const filteredExamples =
-        fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody && requestBodyExamples?.length
-          ? this.filterRequestBodyExamples(requestBodyExamples, requiredField)
+        fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody && hasExamples
+          ? this.filterRequestBodyExamples(
+              requestBodyExamples,
+              requiredField,
+              requiredFieldContexts
+            )
           : []
-      const fallbackExamples =
-        requestBodyExamples && requestBodyExamples.length > 0 ? [requestBodyExamples[0]] : []
-      const examplePayloads = filteredExamples.length > 0 ? filteredExamples : fallbackExamples
-      const examplesToUse = examplePayloads.length > 0 ? examplePayloads : [undefined]
-      const includeExampleSuffix = examplePayloads.length > 1
+      const examplesToUse =
+        hasExamples && fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody
+          ? filteredExamples
+          : [undefined]
+      const includeExampleSuffix = examplesToUse.length > 1
+
+      if (
+        fuzzItems?.fuzzType === PortmanFuzzTypes.requestBody &&
+        hasExamples &&
+        examplesToUse.length === 0
+      ) {
+        console.warn(
+          `[portman] No matching request body example found for required field "${requiredField}" in operation "${pmOperation.item.name}". Skipping fuzz variation.`
+        )
+        return
+      }
 
       examplesToUse.forEach((examplePayload, exampleIndex) => {
         const exampleSuffix = includeExampleSuffix ? ` [example ${exampleIndex + 1}]` : ''
@@ -374,19 +394,66 @@ export class Fuzzer {
     })
   }
 
-  private filterRequestBodyExamples(examples: unknown[], requiredField: string): unknown[] {
+  private filterRequestBodyExamples(
+    examples: unknown[],
+    requiredField: string,
+    requiredFieldContexts: FuzzingRequiredFieldContext[] = []
+  ): unknown[] {
     return examples
       .filter(example => {
         if (example === null || typeof example !== 'object') return false
         const safeExample = JSON.parse(JSON.stringify(example))
-        return (
+        const hasRequiredField =
           getByPath(
             safeExample as Record<string, unknown> | Record<string, unknown>[],
             requiredField
           ) !== undefined
+        if (!hasRequiredField) return false
+
+        if (requiredFieldContexts.length === 0) return true
+
+        return requiredFieldContexts.some(context =>
+          this.matchesBranchContext(safeExample, context)
         )
       })
       .map(example => JSON.parse(JSON.stringify(example)))
+  }
+
+  private matchesBranchContext(
+    example: Record<string, unknown> | Record<string, unknown>[],
+    requiredFieldContext: FuzzingRequiredFieldContext
+  ): boolean {
+    const branchPath = requiredFieldContext.branchPath || []
+    if (branchPath.length === 0) return true
+
+    return branchPath.every(branchContext => {
+      const exampleSegment =
+        branchContext.path === ''
+          ? example
+          : (getByPath(
+              example as Record<string, unknown> | Record<string, unknown>[],
+              branchContext.path
+            ) as Record<string, unknown> | Record<string, unknown>[] | undefined)
+      if (!exampleSegment || typeof exampleSegment !== 'object') return false
+
+      const discriminator = branchContext.discriminator
+      if (discriminator?.value !== undefined) {
+        const discriminatorValue = (exampleSegment as Record<string, unknown>)[
+          discriminator.propertyName
+        ]
+        return discriminatorValue === discriminator.value
+      }
+
+      const requiredProps = branchContext.requiredProps || []
+      if (requiredProps.length === 0) return true
+
+      return requiredProps.every(prop => {
+        return (
+          getByPath(exampleSegment as Record<string, unknown> | Record<string, unknown>[], prop) !==
+          undefined
+        )
+      })
+    })
   }
 
   public injectFuzzMinimumVariation(
@@ -865,11 +932,15 @@ export class Fuzzer {
     if (!originalJsonSchema) return fuzzItems
     // Copy jsonSchema to keep the original jsonSchema untouched
     const jsonSchema = { ...originalJsonSchema } as OpenAPIV3.SchemaObject
+    const requiredFieldContexts = this.collectRequiredFieldsWithContext(jsonSchema)
+    fuzzItems.requiredFieldContexts = requiredFieldContexts
+    fuzzItems.requiredFields = Array.from(
+      new Set(requiredFieldContexts.map(context => context.path))
+    )
 
     const skipSchemaKeys = ['properties', 'items', 'allOf', 'anyOf', 'oneOf']
     traverse(jsonSchema).forEach(function (node) {
       let path = ``
-      let requiredPath = ``
       const key = this.key as string
 
       // Merge anyOf, oneOf, allOf OpenAPI schema objects into a simplified schema object
@@ -927,30 +998,7 @@ export class Fuzzer {
           if (item?.isRoot && item?.node?.type === 'array') {
             path += `[0].`
           }
-
-          // Handle required path
-          requiredPath = path
         })
-      }
-
-      if (node?.required) {
-        // Build path for nested required properties
-        if (node?.type === 'object' && key && !skipSchemaKeys.includes(key)) {
-          requiredPath += `${key}.`
-        }
-
-        // Register fuzz-able required fields from the 'required' element on an object; exclude properties named 'required'.
-        if (key !== 'properties' && Array.isArray(node.required)) {
-          const requiredFuzz = node.required.map(req => `${requiredPath}${req}`)
-          fuzzItems.requiredFields = fuzzItems.requiredFields.concat(requiredFuzz) || []
-        }
-      }
-
-      // Unregister fuzz-able nullable required fields
-      if (node?.nullable === true && fuzzItems.requiredFields.length > 0) {
-        fuzzItems.requiredFields = fuzzItems.requiredFields.filter(
-          item => item !== `${requiredPath}${key}`
-        )
       }
 
       // Register all fuzz-able items, excluding properties that are named after reserved words.
@@ -998,6 +1046,111 @@ export class Fuzzer {
     })
 
     return fuzzItems
+  }
+
+  private collectRequiredFieldsWithContext(
+    schema: OpenAPIV3.SchemaObject | undefined,
+    basePath = '',
+    branchPath: FuzzingSchemaBranchContext[] = []
+  ): FuzzingRequiredFieldContext[] {
+    if (!schema) return []
+
+    const results: FuzzingRequiredFieldContext[] = []
+    const schemaAnyOf = (schema as OpenAPIV3.SchemaObject).anyOf
+    const schemaOneOf = (schema as OpenAPIV3.SchemaObject).oneOf
+    const modelType = schemaAnyOf ? 'anyOf' : schemaOneOf ? 'oneOf' : undefined
+    const branches = (schemaAnyOf || schemaOneOf) as OpenAPIV3.SchemaObject[] | undefined
+
+    if (Array.isArray(branches) && modelType) {
+      branches.forEach((branchSchema, index) => {
+        const discriminator = schema.discriminator
+        const discriminatorValue = discriminator
+          ? this.getDiscriminatorValue(branchSchema, discriminator)
+          : undefined
+        const branchContext: FuzzingSchemaBranchContext = {
+          type: modelType,
+          index,
+          path: basePath,
+          discriminator: discriminator?.propertyName
+            ? {
+                propertyName: discriminator.propertyName,
+                value: discriminatorValue
+              }
+            : undefined,
+          requiredProps: Array.isArray(branchSchema.required)
+            ? branchSchema.required.map(req => `${req}`)
+            : []
+        }
+        results.push(
+          ...this.collectRequiredFieldsWithContext(
+            branchSchema,
+            basePath,
+            branchPath.concat(branchContext)
+          )
+        )
+      })
+    }
+
+    if (schema.type === 'object' && schema.required && schema.properties) {
+      schema.required.forEach(requiredProp => {
+        const propSchema = schema.properties?.[requiredProp] as OpenAPIV3.SchemaObject | undefined
+        if (propSchema?.nullable === true) return
+        const path = this.appendPath(basePath, requiredProp)
+        results.push({
+          path,
+          branchPath: branchPath.length > 0 ? [...branchPath] : undefined
+        })
+      })
+    }
+
+    if (schema.type === 'object' && schema.properties) {
+      Object.entries(schema.properties).forEach(([propName, propSchema]) => {
+        results.push(
+          ...this.collectRequiredFieldsWithContext(
+            propSchema as OpenAPIV3.SchemaObject,
+            this.appendPath(basePath, propName),
+            branchPath
+          )
+        )
+      })
+    }
+
+    if (schema.type === 'array' && schema.items) {
+      results.push(
+        ...this.collectRequiredFieldsWithContext(
+          schema.items as OpenAPIV3.SchemaObject,
+          this.appendPath(basePath, '[0]'),
+          branchPath
+        )
+      )
+    }
+
+    return results
+  }
+
+  private appendPath(basePath: string, segment: string): string {
+    if (!basePath) return segment
+    if (segment.startsWith('[')) return `${basePath}${segment}`
+    return `${basePath}.${segment}`
+  }
+
+  private getDiscriminatorValue(
+    branchSchema: OpenAPIV3.SchemaObject,
+    discriminator: OpenAPIV3.DiscriminatorObject
+  ): string | undefined {
+    const propSchema = (branchSchema as OpenAPIV3.SchemaObject).properties?.[
+      discriminator.propertyName
+    ] as OpenAPIV3.SchemaObject | undefined
+
+    if (propSchema && Array.isArray((propSchema as any).enum) && (propSchema as any).enum.length) {
+      return `${(propSchema as any).enum[0]}`
+    }
+
+    if (propSchema && (propSchema as any).const !== undefined) {
+      return `${(propSchema as any).const}`
+    }
+
+    return undefined
   }
 
   public analyzeQuerySchema(
