@@ -283,8 +283,14 @@ export class PostmanApiService {
         spinner.succeed('Upload to Postman Success')
         return JSON.stringify({ status: 'success', data: respData }, null, 2)
       } else {
+        const errorData =
+          error?.response?.data || error?.response || error?.toJSON?.() || error?.toString()
         spinner.fail(chalk.red(`Upload to Postman Failed with status: ${responseStatusCode}`))
-        return JSON.stringify({ status: 'fail', data: respData }, null, 2)
+        return JSON.stringify(
+          { status: 'fail', data: respData !== undefined ? respData : errorData },
+          null,
+          2
+        )
       }
     } catch (error) {
       const err = error as RequestError
@@ -362,7 +368,10 @@ export class PostmanApiService {
         )
       }
       return JSON.stringify(
-        { status: 'success', data: { ...((respData as object) || {}), collection } },
+        {
+          status: 'success',
+          data: { ...((respData as Record<string, unknown>) || {}), collection }
+        },
         null,
         2
       )
@@ -430,7 +439,7 @@ export class PostmanApiService {
       ) {
         spinner.succeed(`Delete from Postman Completed`)
         return JSON.stringify(
-          { status: 'success', data: { ...((respData as object) || {}) } },
+          { status: 'success', data: { ...((respData as Record<string, unknown>) || {}) } },
           null,
           2
         )
