@@ -24,7 +24,7 @@ export class OpenApiParser {
 
   async convert(options: OpenApiParserConfig): Promise<OpenAPIV3.Document> {
     const inputFile = path.resolve(options.inputFile)
-    const ignoreCircularRefs = !!options.ignoreCircularRefs ?? false
+    const ignoreCircularRefs = options.ignoreCircularRefs === true
 
     // Dereference the spec so all entities have encapsulated schemas
     const api = await SwaggerParser.dereference(inputFile, {

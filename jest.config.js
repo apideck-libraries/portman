@@ -7,6 +7,7 @@ module.exports = {
   },
   modulePaths: ['src'],
   moduleNameMapper: {
+    '^@faker-js/faker$': '<rootDir>/src/__tests__/mocks/faker.ts',
     '^src/(.*)': '<rootDir>/src/$1',
     '^lib/(.*)': '<rootDir>/src/lib/$1',
     '^utils/(.*)': '<rootDir>/src/utils/$1',

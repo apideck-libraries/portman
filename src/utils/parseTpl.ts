@@ -45,15 +45,14 @@ export const parseTpl = (dto: GenerateVarNameDTO): string => {
   }, {})
 
   // Get the OpenAPI info object
-  const openApiInfo =
-    {
-      operationId: oaOperation?.id,
-      path: oaOperation?.path,
-      pathRef: oaOperation?.pathRef,
-      method: oaOperation?.method,
-      opsRef: oaOperation?.id ?? oaOperation?.pathRef,
-      tag: oaOperation?.tags?.[0]
-    } || {}
+  const openApiInfo = {
+    operationId: oaOperation?.id,
+    path: oaOperation?.path,
+    pathRef: oaOperation?.pathRef,
+    method: oaOperation?.method,
+    opsRef: oaOperation?.id ?? oaOperation?.pathRef,
+    tag: oaOperation?.tags?.[0]
+  }
 
   // Merge dynamic values with OpenAPI info into the template values object
   const tplValues = { ...pathPartsObj, ...tagsObj, ...openApiInfo, ...dynamicValues } as Record<
