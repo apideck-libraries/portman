@@ -1395,7 +1395,6 @@ pm.test(\\"[GET]::/crm/leads - Schema is valid\\", function() {
   \\"detail\\": \\"Missing Header: x-apideck-consumer-id\\",
   \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
 }",
-              "code": 500,
               "cookie": Array [],
               "header": Array [
                 Object {
@@ -1533,7 +1532,6 @@ pm.test(\\"[GET]::/crm/leads - Schema is valid\\", function() {
                   "variable": Array [],
                 },
               },
-              "status": "Internal Server Error",
             },
           ],
         },
@@ -3050,7 +3048,6 @@ pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
   \\"detail\\": \\"Missing Header: x-apideck-consumer-id\\",
   \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
 }",
-              "code": 500,
               "cookie": Array [],
               "header": Array [
                 Object {
@@ -3246,7 +3243,6 @@ pm.test(\\"[POST]::/crm/leads - Schema is valid\\", function() {
                   "variable": Array [],
                 },
               },
-              "status": "Internal Server Error",
             },
           ],
         },
@@ -3576,7 +3572,18 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -3666,7 +3673,18 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Bad Request",
@@ -3756,7 +3774,18 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Unauthorized",
@@ -3846,7 +3875,18 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Payment Required",
@@ -3936,7 +3976,18 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Not Found",
@@ -4026,7 +4077,18 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
@@ -4043,7 +4105,6 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
   \\"detail\\": \\"Missing Header: x-apideck-consumer-id\\",
   \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
 }",
-              "code": 500,
               "cookie": Array [],
               "header": Array [
                 Object {
@@ -4116,10 +4177,20 @@ pm.test(\\"[GET]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
-              "status": "Internal Server Error",
             },
           ],
         },
@@ -4582,7 +4653,18 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -4793,7 +4875,18 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Bad Request",
@@ -5004,7 +5097,18 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Unauthorized",
@@ -5215,7 +5319,18 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Payment Required",
@@ -5426,7 +5541,18 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Not Found",
@@ -5637,7 +5763,18 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
@@ -5654,7 +5791,6 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
   \\"detail\\": \\"Missing Header: x-apideck-consumer-id\\",
   \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
 }",
-              "code": 500,
               "cookie": Array [],
               "header": Array [
                 Object {
@@ -5848,10 +5984,20 @@ pm.test(\\"[PATCH]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
-              "status": "Internal Server Error",
             },
           ],
         },
@@ -6072,7 +6218,18 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -6162,7 +6319,18 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Bad Request",
@@ -6252,7 +6420,18 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Unauthorized",
@@ -6342,7 +6521,18 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Payment Required",
@@ -6432,7 +6622,18 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Not Found",
@@ -6522,7 +6723,18 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
@@ -6539,7 +6751,6 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
   \\"detail\\": \\"Missing Header: x-apideck-consumer-id\\",
   \\"ref\\": \\"https://developers.apideck.com/errors#unauthorizederror\\"
 }",
-              "code": 500,
               "cookie": Array [],
               "header": Array [
                 Object {
@@ -6612,10 +6823,20 @@ pm.test(\\"[DELETE]::/crm/leads/:id - Schema is valid\\", function() {
                       "value": "true",
                     },
                   ],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ID of the record you are acting upon.",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "12345",
+                    },
+                  ],
                 },
               },
-              "status": "Internal Server Error",
             },
           ],
         },

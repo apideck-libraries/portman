@@ -366,7 +366,18 @@ pm.test(\\"[GET]::/users/:id - Content-Type is application/json\\", function () 
                     ":id",
                   ],
                   "query": Array [],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "user_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -481,7 +492,18 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
                     ":id",
                   ],
                   "query": Array [],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "user_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -562,7 +584,18 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
                     ":id",
                   ],
                   "query": Array [],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "user_1",
+                    },
+                  ],
                 },
               },
               "status": "No Content",
@@ -1182,7 +1215,18 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
                 ":id",
               ],
               "query": Array [],
-              "variable": Array [],
+              "variable": Array [
+                Object {
+                  "description": Object {
+                    "content": "(Required) ",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "id",
+                  "type": "any",
+                  "value": "thing_1",
+                },
+              ],
             },
           },
           "status": "OK",
@@ -1494,7 +1538,18 @@ pm.test(\\"[GET]::/orders/:id - Status code is 2xx\\", function () {
                     ":id",
                   ],
                   "query": Array [],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "order_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -1580,7 +1635,18 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
                     ":id",
                   ],
                   "query": Array [],
-                  "variable": Array [],
+                  "variable": Array [
+                    Object {
+                      "description": Object {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "order_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -2195,7 +2261,18 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
                 ":id",
               ],
               "query": Array [],
-              "variable": Array [],
+              "variable": Array [
+                Object {
+                  "description": Object {
+                    "content": "(Required) ",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "id",
+                  "type": "any",
+                  "value": "evt_1",
+                },
+              ],
             },
           },
           "status": "OK",
@@ -2598,7 +2675,18 @@ pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
                 ":id",
               ],
               "query": Array [],
-              "variable": Array [],
+              "variable": Array [
+                Object {
+                  "description": Object {
+                    "content": "(Required) ",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "id",
+                  "type": "any",
+                  "value": "wid_1",
+                },
+              ],
             },
           },
           "status": "OK",
