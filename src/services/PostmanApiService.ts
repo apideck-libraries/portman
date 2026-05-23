@@ -1,9 +1,27 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import chalk from 'chalk'
 import * as Either from 'fp-ts/lib/Either'
 import ora from 'ora'
 import { CollectionDefinition } from 'postman-collection'
-import { Readable } from 'stream'
+
+type RequestConfig = {
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  url: string
+  headers: Record<string, string>
+  body?: string
+}
+
+type RequestResult = {
+  status?: number
+  statusText?: string
+  data: unknown
+}
+
+type RequestError = {
+  code?: string
+  response?: RequestResult
+  toJSON?: () => unknown
+  toString: () => string
+}
 
 export type PostmanApiWorkspaceResult = {
   id: string
@@ -46,19 +64,88 @@ export class PostmanApiService {
     this.apiKey = `${process.env.POSTMAN_API_KEY}`
   }
 
+  private async parseResponseData(response: Response): Promise<unknown> {
+    const responseText = await response.text()
+
+    if (!responseText) {
+      return undefined
+    }
+
+    try {
+      return JSON.parse(responseText)
+    } catch (error) {
+      return responseText
+    }
+  }
+
+  private normalizeNetworkError(error: unknown): RequestError {
+    const err = error as {
+      code?: string
+      toString?: () => string
+    }
+
+    return {
+      code: err?.code || 'FETCH_ERROR',
+      toJSON: undefined,
+      toString: () => (err?.toString ? err.toString() : String(error))
+    }
+  }
+
+  private async request<T = unknown>(
+    config: RequestConfig,
+    spinner?: {
+      onRequest?: () => void
+      onResponse?: (statusCode: number) => void
+    }
+  ): Promise<RequestResult> {
+    spinner?.onRequest?.()
+
+    let response: Response
+    try {
+      response = await fetch(config.url, {
+        method: config.method,
+        headers: config.headers,
+        body: config.body
+      })
+    } catch (error) {
+      throw this.normalizeNetworkError(error)
+    }
+
+    spinner?.onResponse?.(response.status)
+
+    const data = await this.parseResponseData(response)
+
+    if (!response.ok) {
+      throw {
+        response: {
+          status: response.status,
+          statusText: response.statusText,
+          data
+        },
+        toString: () => `Error: Request failed with status code ${response.status}`
+      } as RequestError
+    }
+
+    return {
+      status: response.status,
+      statusText: response.statusText,
+      data: data as T
+    }
+  }
+
   async getWorkspaces(): Promise<Either.Either<string, PostmanApiWorkspaceResult[]>> {
     const config = {
-      method: 'get',
+      method: 'GET',
       url: `${this.baseUrl}/workspaces`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       }
-    } as AxiosRequestConfig
+    } as RequestConfig
 
     try {
-      const res = await axios(config)
-      const data = res.data
+      const res = await this.request(config)
+      const data = res.data as { workspaces?: PostmanApiWorkspaceResult[] }
 
       if (Array.isArray(data?.workspaces)) {
         return Either.right(data.workspaces)
@@ -66,23 +153,23 @@ export class PostmanApiService {
         return Either.left('No workspaces found')
       }
     } catch (error) {
-      return Either.left(`Postman API List Workspaces ${error.toString()}`)
+      return Either.left(`Postman API List Workspaces ${String(error)}`)
     }
   }
 
   async getWorkspace(id: string): Promise<Either.Either<string, PostmanApiWorkspaceDetailResult>> {
     const config = {
-      method: 'get',
+      method: 'GET',
       url: `${this.baseUrl}/workspaces/${id}`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       }
-    } as AxiosRequestConfig
+    } as RequestConfig
 
     try {
-      const res = await axios(config)
-      const data = res.data
+      const res = await this.request(config)
+      const data = res.data as { workspace?: PostmanApiWorkspaceDetailResult }
 
       if (data?.workspace) {
         return Either.right(data.workspace)
@@ -90,23 +177,23 @@ export class PostmanApiService {
         return Either.left('Workspace not found')
       }
     } catch (error) {
-      return Either.left(`Postman API Get Workspace ${error.toString()} (Workspace ID: ${id})`)
+      return Either.left(`Postman API Get Workspace ${String(error)} (Workspace ID: ${id})`)
     }
   }
 
   async getCollections(): Promise<Either.Either<string, PostmanApiCollectionResult[]>> {
     const config = {
-      method: 'get',
+      method: 'GET',
       url: `${this.baseUrl}/collections`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       }
-    } as AxiosRequestConfig
+    } as RequestConfig
 
     try {
-      const res = await axios(config)
-      const data = res.data
+      const res = await this.request(config)
+      const data = res.data as { collections?: PostmanApiCollectionResult[] }
 
       if (Array.isArray(data?.collections)) {
         return Either.right(data.collections)
@@ -114,23 +201,25 @@ export class PostmanApiService {
         return Either.left('No collections found')
       }
     } catch (error) {
-      return Either.left(`Postman API Get Collections ${error.toString()}`)
+      return Either.left(`Postman API Get Collections ${String(error)}`)
     }
   }
 
   async getCollection(collectionId: string): Promise<Either.Either<string, CollectionDefinition>> {
     const config = {
-      method: 'get',
+      method: 'GET',
       url: `${this.baseUrl}/collections/${collectionId}`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       }
-    } as AxiosRequestConfig
+    } as RequestConfig
 
     try {
-      const res = await axios(config)
-      const data = res.data
+      const res = await this.request(config)
+      const data = res.data as {
+        collection?: { info?: { _postman_id?: string } } & CollectionDefinition
+      }
 
       collectionId = collectionId.replace(`${collectionId.split('-')[0]}-`, '')
 
@@ -140,7 +229,7 @@ export class PostmanApiService {
         return Either.left(`The collection with the id "${collectionId}" was not found.`)
       }
     } catch (error) {
-      return Either.left(`Postman API Get Collections ${error.toString()}`)
+      return Either.left(`Postman API Get Collections ${String(error)}`)
     }
   }
 
@@ -150,14 +239,14 @@ export class PostmanApiService {
     })
     const workspaceIdParam = workspaceId ? `?workspace=${workspaceId}` : ''
     const config = {
-      method: 'post',
+      method: 'POST',
       url: `${this.baseUrl}/collections${workspaceIdParam}`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       },
-      data: data
-    } as AxiosRequestConfig
+      body: data
+    } as RequestConfig
 
     const spinner = ora({
       prefixText: ' ',
@@ -166,44 +255,31 @@ export class PostmanApiService {
 
     // Start Spinner
     spinner.start()
-    let responseStatusCode
+    let responseStatusCode: number | string | undefined
 
     try {
-      axios.interceptors.request.use(req => {
-        spinner.text = `Executing Request. Waiting on response...\n`
-        return req
-      })
-
-      axios.interceptors.response.use(
-        response => {
-          spinner.text = `Response Received: ${response?.status}\n`
-
-          responseStatusCode = response.status
-          return response
-        },
-        error => {
-          // Some errors don't have a response
-          if (!error.response) {
-            error.response = {}
-          }
-          responseStatusCode = error?.response?.status || error?.code
-          return error
-        }
-      )
-
-      let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError<Readable> | undefined
+      let response: RequestResult | undefined
+      let error: RequestError | undefined
 
       try {
-        response = await axios.request(config)
+        response = await this.request(config, {
+          onRequest: () => {
+            spinner.text = `Executing Request. Waiting on response...\n`
+          },
+          onResponse: statusCode => {
+            spinner.text = `Response Received: ${statusCode}\n`
+            responseStatusCode = statusCode
+          }
+        })
       } catch (err) {
-        error = err
+        error = err as RequestError
         response = error?.response
+        responseStatusCode = error?.response?.status || error?.code
       }
 
       const respData = response?.data
 
-      if (responseStatusCode < 300) {
+      if (typeof responseStatusCode === 'number' && responseStatusCode < 300) {
         spinner.succeed('Upload to Postman Success')
         return JSON.stringify({ status: 'success', data: respData }, null, 2)
       } else {
@@ -211,12 +287,13 @@ export class PostmanApiService {
         return JSON.stringify({ status: 'fail', data: respData }, null, 2)
       }
     } catch (error) {
+      const err = error as RequestError
       spinner.fail(chalk.red(`Upload to Postman Failed: ${responseStatusCode}`))
       spinner.clear()
       return JSON.stringify(
         {
           status: 'fail',
-          data: error?.response?.data || error.response || error?.toJSON() || error?.toString()
+          data: err?.response?.data || err?.response || err?.toJSON?.() || err?.toString()
         },
         null,
         2
@@ -234,16 +311,14 @@ export class PostmanApiService {
     })
     const workspaceIdParam = workspaceId ? `?workspace=${workspaceId}` : ''
     const config = {
-      method: 'put',
+      method: 'PUT',
       url: `${this.baseUrl}/collections/${postmanUid}${workspaceIdParam}`,
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       },
-      data: data
-    } as AxiosRequestConfig
+      body: data
+    } as RequestConfig
 
     const spinner = ora({
       prefixText: ' ',
@@ -252,55 +327,47 @@ export class PostmanApiService {
 
     // Start Spinner
     spinner.start()
-    let responseStatusCode
-    let responseStatusMessage
+    let responseStatusCode: number | string | undefined
+    let responseStatusMessage: string | undefined
 
     try {
-      axios.interceptors.request.use(req => {
-        spinner.text = `Executing Request. Waiting on response...\n`
-        return req
-      })
-
-      axios.interceptors.response.use(
-        response => {
-          spinner.text = `Response Received: ${response?.status}\n`
-
-          responseStatusCode = response.status
-          responseStatusMessage = response.statusText
-          return response
-        },
-        error => {
-          // Some errors don't have a response
-          if (!error.response) {
-            error.response = {}
-          }
-          responseStatusCode = error?.response?.status || error?.code
-          responseStatusMessage = error?.response?.statusText || error?.code
-          return error
-        }
-      )
-
-      let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError<Readable> | undefined
+      let response: RequestResult | undefined
+      let error: RequestError | undefined
 
       try {
-        response = await axios.request(config)
+        response = await this.request(config, {
+          onRequest: () => {
+            spinner.text = `Executing Request. Waiting on response...\n`
+          },
+          onResponse: statusCode => {
+            spinner.text = `Response Received: ${statusCode}\n`
+            responseStatusCode = statusCode
+          }
+        })
+        responseStatusMessage = response.statusText
       } catch (err) {
-        error = err
+        error = err as RequestError
         response = error?.response
+        responseStatusCode = error?.response?.status || error?.code
+        responseStatusMessage = error?.response?.statusText || error?.code
       }
 
       const respData = response?.data ?? {}
 
-      if (responseStatusCode < 300) {
+      if (typeof responseStatusCode === 'number' && responseStatusCode < 300) {
         spinner.succeed(`Upload to Postman Succeeded`)
       } else {
         spinner.succeed(
           `Upload to Postman completed with status: ${responseStatusCode} - ${responseStatusMessage} \n\n Please review your collection within Postman as they can respond with a 5xx but still import your collection`
         )
       }
-      return JSON.stringify({ status: 'success', data: { ...respData, collection } }, null, 2)
+      return JSON.stringify(
+        { status: 'success', data: { ...((respData as object) || {}), collection } },
+        null,
+        2
+      )
     } catch (error) {
+      const err = error as RequestError
       spinner.fail(
         chalk.red(`Upload to Postman Failed: ${responseStatusCode} - ${responseStatusMessage}`)
       )
@@ -308,7 +375,7 @@ export class PostmanApiService {
       return JSON.stringify(
         {
           status: 'fail',
-          data: error?.response?.data || error.response || error?.toJSON() || error?.toString()
+          data: err?.response?.data || err?.response || err?.toJSON?.() || err?.toString()
         },
         null,
         2
@@ -318,13 +385,13 @@ export class PostmanApiService {
 
   async deleteCollection(postmanUid: string): Promise<string> {
     const config = {
-      method: 'delete',
+      method: 'DELETE',
       url: `${this.baseUrl}/collections/${postmanUid}`,
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': this.apiKey
       }
-    } as AxiosRequestConfig
+    } as RequestConfig
 
     const spinner = ora({
       prefixText: ' ',
@@ -333,65 +400,60 @@ export class PostmanApiService {
 
     // Start Spinner
     spinner.start()
-    let responseStatusCode
+    let responseStatusCode: number | string | undefined
 
     try {
-      axios.interceptors.request.use(req => {
-        spinner.text = `Executing Request. Waiting on response...\n`
-        return req
-      })
-
-      axios.interceptors.response.use(
-        response => {
-          spinner.text = `Response Received: ${response?.status}\n`
-
-          responseStatusCode = response.status
-          return response
-        },
-        error => {
-          // Some errors don't have a response
-          if (!error.response) {
-            error.response = {}
-          }
-          responseStatusCode = error?.response?.status || error?.code
-          return error
-        }
-      )
-
-      let response: AxiosResponse<Readable> | undefined
-      let error: AxiosError<Readable> | undefined
+      let response: RequestResult | undefined
+      let error: RequestError | undefined
 
       try {
-        response = await axios.request(config)
+        response = await this.request(config, {
+          onRequest: () => {
+            spinner.text = `Executing Request. Waiting on response...\n`
+          },
+          onResponse: statusCode => {
+            spinner.text = `Response Received: ${statusCode}\n`
+            responseStatusCode = statusCode
+          }
+        })
       } catch (err) {
-        error = err
+        error = err as RequestError
         response = error?.response
+        responseStatusCode = error?.response?.status || error?.code
       }
 
       const respData = response?.data ?? {}
 
-      if (responseStatusCode < 300 || responseStatusCode === 404) {
+      if (
+        (typeof responseStatusCode === 'number' && responseStatusCode < 300) ||
+        responseStatusCode === 404
+      ) {
         spinner.succeed(`Delete from Postman Completed`)
-        return JSON.stringify({ status: 'success', data: { ...respData } }, null, 2)
+        return JSON.stringify(
+          { status: 'success', data: { ...((respData as object) || {}) } },
+          null,
+          2
+        )
       } else {
         spinner.fail(`Delete from Postman Failed: ${responseStatusCode}`)
         spinner.clear()
         return JSON.stringify(
           {
             status: 'fail',
-            data: error?.response?.data || error?.response || error?.toJSON() || error?.toString()
+            data: error?.response?.data || error?.response || error?.toJSON?.() || error?.toString()
           },
           null,
           2
         )
       }
     } catch (error) {
+      const err = error as RequestError
       spinner.fail(chalk.red(`Delete from Postman Failed: ${responseStatusCode}`))
       spinner.clear()
       return JSON.stringify(
         {
           status: 'fail',
-          data: error?.response?.data || error.response || error?.toJSON() || error?.toString()
+          data: err?.response?.data || err?.response || err?.toJSON?.() || err?.toString()
         },
         null,
         2

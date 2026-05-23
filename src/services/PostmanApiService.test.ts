@@ -1,10 +1,8 @@
 import * as Either from 'fp-ts/lib/Either'
 import { CollectionDefinition } from 'postman-collection'
-import axios from 'axios'
 import ora from 'ora'
 import { PostmanApiService } from './PostmanApiService'
 
-jest.mock('axios')
 jest.mock('ora')
 
 type SpinnerMock = {
@@ -15,9 +13,8 @@ type SpinnerMock = {
   text: string
 }
 
-const mockedAxios = axios as jest.Mocked<typeof axios>
-const mockedAxiosCall = axios as unknown as jest.Mock
 const mockedOra = ora as jest.MockedFunction<typeof ora>
+const mockFetch = jest.fn()
 
 const collection: CollectionDefinition = {
   info: {
@@ -34,23 +31,40 @@ const createSpinnerMock = (): SpinnerMock => ({
   text: ''
 })
 
+const createFetchResponse = ({
+  ok,
+  status,
+  statusText = '',
+  body
+}: {
+  ok: boolean
+  status: number
+  statusText?: string
+  body: string
+}) => ({
+  ok,
+  status,
+  statusText,
+  text: jest.fn().mockResolvedValue(body)
+})
+
 describe('PostmanApiService regression behavior', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     process.env.POSTMAN_API_KEY = 'test-api-key'
-
-    mockedAxios.interceptors = {
-      request: { use: jest.fn() },
-      response: { use: jest.fn() }
-    } as unknown as typeof axios.interceptors
+    ;(global as unknown as { fetch: typeof fetch }).fetch = mockFetch as unknown as typeof fetch
   })
 
   it('returns Either.right(workspaces) for successful getWorkspaces response', async () => {
-    mockedAxiosCall.mockResolvedValue({
-      data: {
-        workspaces: [{ id: 'ws_1', name: 'Workspace 1', type: 'team' }]
-      }
-    } as never)
+    mockFetch.mockResolvedValue(
+      createFetchResponse({
+        ok: true,
+        status: 200,
+        body: JSON.stringify({
+          workspaces: [{ id: 'ws_1', name: 'Workspace 1', type: 'team' }]
+        })
+      })
+    )
 
     const service = new PostmanApiService()
     const result = await service.getWorkspaces()
@@ -66,27 +80,14 @@ describe('PostmanApiService regression behavior', () => {
     const spinner = createSpinnerMock()
     mockedOra.mockReturnValue(spinner as never)
 
-    let onResponseError: ((error: unknown) => unknown) | undefined
-    ;(mockedAxios.interceptors.response.use as jest.Mock).mockImplementation(
-      (_onSuccess: unknown, onError: (error: unknown) => unknown) => {
-        onResponseError = onError
-      }
+    mockFetch.mockResolvedValue(
+      createFetchResponse({
+        ok: false,
+        status: 500,
+        statusText: 'Internal Server Error',
+        body: JSON.stringify({ error: { message: 'Server error' } })
+      })
     )
-
-    mockedAxios.request.mockImplementation(async () => {
-      const error = {
-        response: {
-          status: 500,
-          data: { error: { message: 'Server error' } }
-        }
-      }
-
-      if (onResponseError) {
-        onResponseError(error)
-      }
-
-      throw error
-    })
 
     const service = new PostmanApiService()
     const response = await service.createCollection(collection)
@@ -95,31 +96,17 @@ describe('PostmanApiService regression behavior', () => {
     expect(parsed.status).toBe('fail')
     expect(parsed.data).toEqual({ error: { message: 'Server error' } })
     expect(spinner.fail).toHaveBeenCalledWith(expect.stringContaining('status: 500'))
+    expect(spinner.text).toContain('Response Received: 500')
   })
 
-  it('returns fail envelope for createCollection network failures without HTTP response', async () => {
+  it('returns fail envelope for createCollection network failures', async () => {
     const spinner = createSpinnerMock()
     mockedOra.mockReturnValue(spinner as never)
 
-    let onResponseError: ((error: unknown) => unknown) | undefined
-    ;(mockedAxios.interceptors.response.use as jest.Mock).mockImplementation(
-      (_onSuccess: unknown, onError: (error: unknown) => unknown) => {
-        onResponseError = onError
-      }
-    )
+    const networkError = new Error('socket hang up')
+    ;(networkError as Error & { code?: string }).code = 'ECONNRESET'
 
-    mockedAxios.request.mockImplementation(async () => {
-      const error = {
-        code: 'ECONNRESET',
-        toJSON: () => ({ message: 'network down', code: 'ECONNRESET' })
-      }
-
-      if (onResponseError) {
-        onResponseError(error)
-      }
-
-      throw error
-    })
+    mockFetch.mockRejectedValue(networkError)
 
     const service = new PostmanApiService()
     const response = await service.createCollection(collection)
@@ -130,10 +117,14 @@ describe('PostmanApiService regression behavior', () => {
     expect(spinner.fail).toHaveBeenCalledWith(expect.stringContaining('ECONNRESET'))
   })
 
-  it('returns Either.left when response payload shape is malformed for getWorkspaces', async () => {
-    mockedAxiosCall.mockResolvedValue({
-      data: 'not-a-workspaces-object'
-    } as never)
+  it('handles malformed JSON responses safely by falling back to non-object behavior', async () => {
+    mockFetch.mockResolvedValue(
+      createFetchResponse({
+        ok: true,
+        status: 200,
+        body: '{"workspaces":'
+      })
+    )
 
     const service = new PostmanApiService()
     const result = await service.getWorkspaces()
