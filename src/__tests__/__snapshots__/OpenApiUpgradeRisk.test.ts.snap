@@ -1,39 +1,39 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`OpenAPI upgrade risk gate oas3-basic-operation-ids 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [],
+    "headerKeys": [],
     "id": "usersDelete",
     "method": "DELETE",
     "name": "users Delete",
     "parent": "Users",
     "pathRef": "DELETE::/users/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 2,
   },
-  Object {
+  {
     "authType": "bearer",
     "bodyMode": null,
-    "headerKeys": Array [],
+    "headerKeys": [],
     "id": "usersList",
     "method": "GET",
     "name": "users List",
     "parent": "Users",
     "pathRef": "GET::/users",
     "preRequestLines": 0,
-    "queryParamKeys": Array [
+    "queryParamKeys": [
       "limit",
     ],
     "testLines": 3,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "usersOne",
@@ -42,13 +42,13 @@ Array [
     "parent": "Users",
     "pathRef": "GET::/users/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 3,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Content-Type",
     ],
     "id": "usersUpdate",
@@ -57,13 +57,13 @@ Array [
     "parent": "Users",
     "pathRef": "PATCH::/users/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 2,
   },
-  Object {
+  {
     "authType": "apikey",
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Content-Type",
     ],
     "id": "usersCreate",
@@ -72,58 +72,58 @@ Array [
     "parent": "Users",
     "pathRef": "POST::/users",
     "preRequestLines": 1,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 3,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-basic-operation-ids 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade OAS3 Basic",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "description": Object {
+  "item": [
+    {
+      "description": {
         "content": "",
         "type": "text/plain",
       },
-      "event": Array [],
-      "item": Array [
-        Object {
-          "event": Array [
-            Object {
+      "event": [],
+      "item": [
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[GET]::/users - Status code is 2xx\\", function () {
+pm.test("[GET]::/users - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                   "// Validate response status code 
-pm.test(\\"[GET]::/users - Response status code is 200\\", function () {
+pm.test("[GET]::/users - Response status code is 200", function () {
     pm.expect(pm.response.code).to.equal(200);
 });",
                   "// Validate if response header has matching content-type
-pm.test(\\"[GET]::/users - Content-Type is application/json\\", function () {
-   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+pm.test("[GET]::/users - Content-Type is application/json", function () {
+   pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
 });",
                 ],
                 "type": "text/javascript",
@@ -131,13 +131,13 @@ pm.test(\\"[GET]::/users - Content-Type is application/json\\", function () {
             },
           ],
           "name": "users List",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "auth": Object {
-              "bearer": Array [
-                Object {
+          "request": {
+            "auth": {
+              "bearer": [
+                {
                   "key": "token",
                   "type": "any",
                   "value": "{{bearerToken}}",
@@ -145,22 +145,22 @@ pm.test(\\"[GET]::/users - Content-Type is application/json\\", function () {
               ],
               "type": "bearer",
             },
-            "body": Object {},
-            "description": Object {
+            "body": {},
+            "description": {
               "type": "text/plain",
             },
             "method": "GET",
             "name": "users List",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "users",
               ],
-              "query": Array [
-                Object {
-                  "description": Object {
+              "query": [
+                {
+                  "description": {
                     "content": "",
                     "type": "text/plain",
                   },
@@ -169,37 +169,37 @@ pm.test(\\"[GET]::/users - Content-Type is application/json\\", function () {
                   "value": "25",
                 },
               ],
-              "variable": Array [],
+              "variable": [],
             },
           },
-          "response": Array [],
+          "response": [],
         },
-        Object {
-          "event": Array [
-            Object {
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[POST]::/users - Status code is 2xx\\", function () {
+pm.test("[POST]::/users - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                   "// Validate response status code 
-pm.test(\\"[POST]::/users - Response status code is 201\\", function () {
+pm.test("[POST]::/users - Response status code is 201", function () {
     pm.expect(pm.response.code).to.equal(201);
 });",
                   "// Validate if response header has matching content-type
-pm.test(\\"[POST]::/users - Content-Type is application/json\\", function () {
-   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+pm.test("[POST]::/users - Content-Type is application/json", function () {
+   pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
 });",
                 ],
                 "type": "text/javascript",
               },
             },
-            Object {
+            {
               "listen": "prerequest",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "pm.collectionVariables.set('upgradeGate', 'usersCreate')",
                 ],
                 "type": "text/javascript",
@@ -207,23 +207,23 @@ pm.test(\\"[POST]::/users - Content-Type is application/json\\", function () {
             },
           ],
           "name": "users Create",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "auth": Object {
-              "apikey": Array [
-                Object {
+          "request": {
+            "auth": {
+              "apikey": [
+                {
                   "key": "key",
                   "type": "any",
                   "value": "X-API-Key",
                 },
-                Object {
+                {
                   "key": "value",
                   "type": "any",
                   "value": "{{apiKey}}",
                 },
-                Object {
+                {
                   "key": "in",
                   "type": "any",
                   "value": "header",
@@ -231,59 +231,59 @@ pm.test(\\"[POST]::/users - Content-Type is application/json\\", function () {
               ],
               "type": "apikey",
             },
-            "body": Object {
+            "body": {
               "mode": "raw",
-              "options": Object {
-                "raw": Object {
+              "options": {
+                "raw": {
                   "headerFamily": "json",
                   "language": "json",
                 },
               },
-              "raw": Object {
+              "raw": {
                 "name": "Upgrade Gate User",
               },
             },
-            "description": Object {
+            "description": {
               "type": "text/plain",
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Content-Type",
                 "value": "application/json",
               },
             ],
             "method": "POST",
             "name": "users Create",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "users",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
-          "response": Array [],
+          "response": [],
         },
-        Object {
-          "event": Array [
-            Object {
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[GET]::/users/:id - Status code is 2xx\\", function () {
+pm.test("[GET]::/users/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                   "// Validate response status code 
-pm.test(\\"[GET]::/users/:id - Response status code is 200\\", function () {
+pm.test("[GET]::/users/:id - Response status code is 200", function () {
     pm.expect(pm.response.code).to.equal(200);
 });",
                   "// Validate if response header has matching content-type
-pm.test(\\"[GET]::/users/:id - Content-Type is application/json\\", function () {
-   pm.expect(pm.response.headers.get(\\"Content-Type\\")).to.include(\\"application/json\\");
+pm.test("[GET]::/users/:id - Content-Type is application/json", function () {
+   pm.expect(pm.response.headers.get("Content-Type")).to.include("application/json");
 });",
                 ],
                 "type": "text/javascript",
@@ -291,34 +291,34 @@ pm.test(\\"[GET]::/users/:id - Content-Type is application/json\\", function () 
             },
           ],
           "name": "users One",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {},
-            "description": Object {
+          "request": {
+            "body": {},
+            "description": {
               "type": "text/plain",
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
             "name": "users One",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "users",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [
-                Object {
-                  "description": Object {
+              "query": [],
+              "variable": [
+                {
+                  "description": {
                     "content": "(Required) ",
                     "type": "text/plain",
                   },
@@ -330,61 +330,72 @@ pm.test(\\"[GET]::/users/:id - Content-Type is application/json\\", function () 
               ],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "json",
               },
               "body": "{
-  \\"id\\": \\"user_1\\",
-  \\"name\\": \\"Jane\\"
+  "id": "user_1",
+  "name": "Jane"
 }",
               "code": 200,
-              "cookie": Array [],
-              "header": Array [
-                Object {
+              "cookie": [],
+              "header": [
+                {
                   "key": "Content-Type",
                   "value": "application/json",
                 },
               ],
               "name": "ok",
-              "originalRequest": Object {
-                "body": Object {},
-                "header": Array [
-                  Object {
+              "originalRequest": {
+                "body": {},
+                "header": [
+                  {
                     "key": "Accept",
                     "value": "application/json",
                   },
                 ],
                 "method": "GET",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "users",
                     ":id",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "user_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
             },
           ],
         },
-        Object {
-          "event": Array [
-            Object {
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[PATCH]::/users/:id - Status code is 2xx\\", function () {
+pm.test("[PATCH]::/users/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                   "// Validate response status code 
-pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
+pm.test("[PATCH]::/users/:id - Response status code is 200", function () {
     pm.expect(pm.response.code).to.equal(200);
 });",
                 ],
@@ -393,45 +404,45 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
             },
           ],
           "name": "users Update",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {
+          "request": {
+            "body": {
               "mode": "raw",
-              "options": Object {
-                "raw": Object {
+              "options": {
+                "raw": {
                   "headerFamily": "json",
                   "language": "json",
                 },
               },
-              "raw": Object {
+              "raw": {
                 "name": "Jane Updated",
               },
             },
-            "description": Object {
+            "description": {
               "type": "text/plain",
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Content-Type",
                 "value": "application/json",
               },
             ],
             "method": "PATCH",
             "name": "users Update",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "users",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [
-                Object {
-                  "description": Object {
+              "query": [],
+              "variable": [
+                {
+                  "description": {
                     "content": "(Required) ",
                     "type": "text/plain",
                   },
@@ -443,63 +454,74 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
               ],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "text",
               },
               "code": 200,
-              "cookie": Array [],
-              "header": Array [],
+              "cookie": [],
+              "header": [],
               "name": "updated",
-              "originalRequest": Object {
-                "body": Object {
+              "originalRequest": {
+                "body": {
                   "mode": "raw",
-                  "options": Object {
-                    "raw": Object {
+                  "options": {
+                    "raw": {
                       "headerFamily": "json",
                       "language": "json",
                     },
                   },
-                  "raw": Object {
+                  "raw": {
                     "name": "Jane Updated",
                   },
                 },
-                "header": Array [
-                  Object {
+                "header": [
+                  {
                     "key": "Content-Type",
                     "value": "application/json",
                   },
                 ],
                 "method": "PATCH",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "users",
                     ":id",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "user_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
             },
           ],
         },
-        Object {
-          "event": Array [
-            Object {
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[DELETE]::/users/:id - Status code is 2xx\\", function () {
+pm.test("[DELETE]::/users/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                   "// Validate response status code 
-pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
+pm.test("[DELETE]::/users/:id - Response status code is 204", function () {
     pm.expect(pm.response.code).to.equal(204);
 });",
                 ],
@@ -508,28 +530,28 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
             },
           ],
           "name": "users Delete",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {},
-            "description": Object {
+          "request": {
+            "body": {},
+            "description": {
               "type": "text/plain",
             },
             "method": "DELETE",
             "name": "users Delete",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "users",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [
-                Object {
-                  "description": Object {
+              "query": [],
+              "variable": [
+                {
+                  "description": {
                     "content": "(Required) ",
                     "type": "text/plain",
                   },
@@ -541,28 +563,39 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
               ],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "text",
               },
               "code": 204,
-              "cookie": Array [],
-              "header": Array [],
+              "cookie": [],
+              "header": [],
               "name": "deleted",
-              "originalRequest": Object {
-                "body": Object {},
+              "originalRequest": {
+                "body": {},
                 "method": "DELETE",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "users",
                     ":id",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "user_1",
+                    },
+                  ],
                 },
               },
               "status": "No Content",
@@ -573,13 +606,13 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
       "name": "Users",
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "version",
       "type": "any",
       "value": "v1",
     },
-    Object {
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "https://api.example.com/{{version}}",
@@ -589,11 +622,11 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-cookie-params 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "profileByCookie",
@@ -602,42 +635,42 @@ Array [
     "parent": "Upgrade Cookie Params",
     "pathRef": "GET::/profile",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-cookie-params 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade Cookie Params",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/profile - Status code is 2xx\\", function () {
+pm.test("[GET]::/profile - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -646,68 +679,68 @@ pm.test(\\"[GET]::/profile - Status code is 2xx\\", function () {
         },
       ],
       "name": "profile By Cookie",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {},
-        "description": Object {
+      "request": {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "profile By Cookie",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "profile",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"user_1\\"
+  "id": "user_1"
 }",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "profile",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
           "status": "OK",
@@ -715,8 +748,8 @@ pm.test(\\"[GET]::/profile - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -726,11 +759,11 @@ pm.test(\\"[GET]::/profile - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-deepobject-params 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "searchDeepObject",
@@ -739,7 +772,7 @@ Array [
     "parent": "Upgrade DeepObject",
     "pathRef": "GET::/search",
     "preRequestLines": 0,
-    "queryParamKeys": Array [
+    "queryParamKeys": [
       "filter[limit]",
       "filter[status]",
     ],
@@ -749,35 +782,35 @@ Array [
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-deepobject-params 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade DeepObject",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
+pm.test("[GET]::/search - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -786,32 +819,32 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
         },
       ],
       "name": "search Deep Object",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {},
-        "description": Object {
+      "request": {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "search Deep Object",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "search",
           ],
-          "query": Array [
-            Object {
-              "description": Object {
+          "query": [
+            {
+              "description": {
                 "content": "",
                 "type": "text/plain",
               },
@@ -819,8 +852,8 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
               "key": "filter[status]",
               "value": "open",
             },
-            Object {
-              "description": Object {
+            {
+              "description": {
                 "content": "",
                 "type": "text/plain",
               },
@@ -829,45 +862,45 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
               "value": "10",
             },
           ],
-          "variable": Array [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"ok\\": true
+  "ok": true
 }",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "search",
               ],
-              "query": Array [
-                Object {
-                  "description": Object {
+              "query": [
+                {
+                  "description": {
                     "content": "",
                     "type": "text/plain",
                   },
@@ -875,8 +908,8 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
                   "key": "filter[status]",
                   "value": "open",
                 },
-                Object {
-                  "description": Object {
+                {
+                  "description": {
                     "content": "",
                     "type": "text/plain",
                   },
@@ -885,7 +918,7 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
                   "value": "10",
                 },
               ],
-              "variable": Array [],
+              "variable": [],
             },
           },
           "status": "OK",
@@ -893,8 +926,8 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -904,11 +937,11 @@ pm.test(\\"[GET]::/search - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-local-refs 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "thingsOne",
@@ -917,13 +950,13 @@ Array [
     "parent": "Upgrade Local Refs",
     "pathRef": "GET::/things/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
       "Content-Type",
       "x-upgrade-gate",
@@ -934,52 +967,52 @@ Array [
     "parent": "Upgrade Local Refs",
     "pathRef": "POST::/things",
     "preRequestLines": 1,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-local-refs 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade Local Refs",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
+pm.test("[POST]::/things - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
             "type": "text/javascript",
           },
         },
-        Object {
+        {
           "listen": "prerequest",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "pm.collectionVariables.set('upgradeGate', 'postOperation')",
             ],
             "type": "text/javascript",
@@ -987,118 +1020,118 @@ pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
         },
       ],
       "name": "things Create",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {
+      "request": {
+        "body": {
           "mode": "raw",
-          "options": Object {
-            "raw": Object {
+          "options": {
+            "raw": {
               "headerFamily": "json",
               "language": "json",
             },
           },
-          "raw": Object {
+          "raw": {
             "type": "widget",
           },
         },
-        "description": Object {
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "disabled": false,
             "key": "x-upgrade-gate",
             "value": "true",
           },
-          Object {
+          {
             "key": "Accept",
             "value": "application/json",
           },
-          Object {
+          {
             "key": "Content-Type",
             "value": "application/json",
           },
         ],
         "method": "POST",
         "name": "things Create",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "things",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"thing_1\\",
-  \\"type\\": \\"widget\\"
+  "id": "thing_1",
+  "type": "widget"
 }",
           "code": 201,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "created",
-          "originalRequest": Object {
-            "body": Object {
+          "originalRequest": {
+            "body": {
               "mode": "raw",
-              "options": Object {
-                "raw": Object {
+              "options": {
+                "raw": {
                   "headerFamily": "json",
                   "language": "json",
                 },
               },
-              "raw": Object {
+              "raw": {
                 "type": "widget",
               },
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
-              Object {
+              {
                 "key": "Content-Type",
                 "value": "application/json",
               },
             ],
             "method": "POST",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "things",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
           "status": "Created",
         },
       ],
     },
-    Object {
-      "event": Array [
-        Object {
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
+pm.test("[GET]::/things/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -1107,34 +1140,34 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
         },
       ],
       "name": "things One",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {},
-        "description": Object {
+      "request": {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "things One",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "things",
             ":id",
           ],
-          "query": Array [],
-          "variable": Array [
-            Object {
-              "description": Object {
+          "query": [],
+          "variable": [
+            {
+              "description": {
                 "content": "(Required) ",
                 "type": "text/plain",
               },
@@ -1146,43 +1179,54 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
           ],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"thing_1\\",
-  \\"type\\": \\"widget\\"
+  "id": "thing_1",
+  "type": "widget"
 }",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "things",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "id",
+                  "type": "any",
+                  "value": "thing_1",
+                },
+              ],
             },
           },
           "status": "OK",
@@ -1190,8 +1234,8 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -1201,50 +1245,50 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-no-operation-ids-fallback 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [],
+    "headerKeys": [],
     "id": null,
     "method": "GET",
     "name": "/orders",
     "parent": "Orders",
     "pathRef": "GET::/orders",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 0,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [],
+    "headerKeys": [],
     "id": null,
     "method": "GET",
     "name": "/orders/:id",
     "parent": "Orders",
     "pathRef": "GET::/orders/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [],
+    "headerKeys": [],
     "id": null,
     "method": "PATCH",
     "name": "/orders/:id",
     "parent": "Orders",
     "pathRef": "PATCH::/orders/{id}",
     "preRequestLines": 1,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Content-Type",
     ],
     "id": null,
@@ -1253,185 +1297,185 @@ Array [
     "parent": "Orders",
     "pathRef": "POST::/orders",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 0,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-no-operation-ids-fallback 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade No OperationId",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "description": Object {
+  "item": [
+    {
+      "description": {
         "content": "",
         "type": "text/plain",
       },
-      "event": Array [],
-      "item": Array [
-        Object {
-          "event": Array [],
+      "event": [],
+      "item": [
+        {
+          "event": [],
           "name": "/orders",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {},
-            "description": Object {
+          "request": {
+            "body": {},
+            "description": {
               "type": "text/plain",
             },
             "method": "GET",
             "name": "/orders",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "orders",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "text",
               },
               "code": 200,
-              "cookie": Array [],
-              "header": Array [],
+              "cookie": [],
+              "header": [],
               "name": "ok",
-              "originalRequest": Object {
-                "body": Object {},
+              "originalRequest": {
+                "body": {},
                 "method": "GET",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "orders",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [],
                 },
               },
               "status": "OK",
             },
           ],
         },
-        Object {
-          "event": Array [],
+        {
+          "event": [],
           "name": "/orders",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {
+          "request": {
+            "body": {
               "mode": "raw",
-              "options": Object {
-                "raw": Object {
+              "options": {
+                "raw": {
                   "headerFamily": "json",
                   "language": "json",
                 },
               },
-              "raw": Object {
+              "raw": {
                 "sku": "ORDER-123",
               },
             },
-            "description": Object {
+            "description": {
               "type": "text/plain",
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Content-Type",
                 "value": "application/json",
               },
             ],
             "method": "POST",
             "name": "/orders",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "orders",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "text",
               },
               "code": 201,
-              "cookie": Array [],
-              "header": Array [],
+              "cookie": [],
+              "header": [],
               "name": "created",
-              "originalRequest": Object {
-                "body": Object {
+              "originalRequest": {
+                "body": {
                   "mode": "raw",
-                  "options": Object {
-                    "raw": Object {
+                  "options": {
+                    "raw": {
                       "headerFamily": "json",
                       "language": "json",
                     },
                   },
-                  "raw": Object {
+                  "raw": {
                     "sku": "ORDER-123",
                   },
                 },
-                "header": Array [
-                  Object {
+                "header": [
+                  {
                     "key": "Content-Type",
                     "value": "application/json",
                   },
                 ],
                 "method": "POST",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "orders",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [],
                 },
               },
               "status": "Created",
             },
           ],
         },
-        Object {
-          "event": Array [
-            Object {
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[GET]::/orders/:id - Status code is 2xx\\", function () {
+pm.test("[GET]::/orders/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                 ],
@@ -1440,28 +1484,28 @@ pm.test(\\"[GET]::/orders/:id - Status code is 2xx\\", function () {
             },
           ],
           "name": "/orders/:id",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {},
-            "description": Object {
+          "request": {
+            "body": {},
+            "description": {
               "type": "text/plain",
             },
             "method": "GET",
             "name": "/orders/:id",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "orders",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [
-                Object {
-                  "description": Object {
+              "query": [],
+              "variable": [
+                {
+                  "description": {
                     "content": "(Required) ",
                     "type": "text/plain",
                   },
@@ -1473,52 +1517,63 @@ pm.test(\\"[GET]::/orders/:id - Status code is 2xx\\", function () {
               ],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "text",
               },
               "code": 200,
-              "cookie": Array [],
-              "header": Array [],
+              "cookie": [],
+              "header": [],
               "name": "ok",
-              "originalRequest": Object {
-                "body": Object {},
+              "originalRequest": {
+                "body": {},
                 "method": "GET",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "orders",
                     ":id",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "order_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
             },
           ],
         },
-        Object {
-          "event": Array [
-            Object {
+        {
+          "event": [
+            {
               "listen": "test",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "// Validate status 2xx 
-pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
+pm.test("[PATCH]::/orders/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
                 ],
                 "type": "text/javascript",
               },
             },
-            Object {
+            {
               "listen": "prerequest",
-              "script": Object {
-                "exec": Array [
+              "script": {
+                "exec": [
                   "pm.collectionVariables.set('upgradeGate', 'ordersPatch')",
                 ],
                 "type": "text/javascript",
@@ -1526,28 +1581,28 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
             },
           ],
           "name": "/orders/:id",
-          "protocolProfileBehavior": Object {
+          "protocolProfileBehavior": {
             "disableBodyPruning": true,
           },
-          "request": Object {
-            "body": Object {},
-            "description": Object {
+          "request": {
+            "body": {},
+            "description": {
               "type": "text/plain",
             },
             "method": "PATCH",
             "name": "/orders/:id",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "orders",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [
-                Object {
-                  "description": Object {
+              "query": [],
+              "variable": [
+                {
+                  "description": {
                     "content": "(Required) ",
                     "type": "text/plain",
                   },
@@ -1559,28 +1614,39 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
               ],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
+          "response": [
+            {
+              "_": {
                 "postman_previewlanguage": "text",
               },
               "code": 200,
-              "cookie": Array [],
-              "header": Array [],
+              "cookie": [],
+              "header": [],
               "name": "updated",
-              "originalRequest": Object {
-                "body": Object {},
+              "originalRequest": {
+                "body": {},
                 "method": "PATCH",
-                "url": Object {
-                  "host": Array [
+                "url": {
+                  "host": [
                     "{{baseUrl}}",
                   ],
-                  "path": Array [
+                  "path": [
                     "orders",
                     ":id",
                   ],
-                  "query": Array [],
-                  "variable": Array [],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain",
+                      },
+                      "disabled": false,
+                      "key": "id",
+                      "type": "any",
+                      "value": "order_1",
+                    },
+                  ],
                 },
               },
               "status": "OK",
@@ -1591,8 +1657,8 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
       "name": "Orders",
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -1602,11 +1668,11 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-oauth2-flow 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": "oauth2",
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "reportsList",
@@ -1615,42 +1681,42 @@ Array [
     "parent": "Upgrade OAuth2",
     "pathRef": "GET::/reports",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-oauth2-flow 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade OAuth2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/reports - Status code is 2xx\\", function () {
+pm.test("[GET]::/reports - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -1659,28 +1725,28 @@ pm.test(\\"[GET]::/reports - Status code is 2xx\\", function () {
         },
       ],
       "name": "reports List",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "auth": Object {
-          "oauth2": Array [
-            Object {
+      "request": {
+        "auth": {
+          "oauth2": [
+            {
               "key": "scope",
               "type": "any",
               "value": "reports:read",
             },
-            Object {
+            {
               "key": "accessTokenUrl",
               "type": "any",
               "value": "https://auth.example.com/token",
             },
-            Object {
+            {
               "key": "authUrl",
               "type": "any",
               "value": "https://auth.example.com/authorize",
             },
-            Object {
+            {
               "key": "grant_type",
               "type": "any",
               "value": "authorization_code",
@@ -1688,75 +1754,75 @@ pm.test(\\"[GET]::/reports - Status code is 2xx\\", function () {
           ],
           "type": "oauth2",
         },
-        "body": Object {},
-        "description": Object {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "reports List",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "reports",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"data\\": [
-    \\"r1\\",
-    \\"r2\\"
+  "data": [
+    "r1",
+    "r2"
   ]
 }",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
-                "description": Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
+                "description": {
                   "content": "Added as a part of security scheme: oauth2",
                   "type": "text/plain",
                 },
                 "key": "Authorization",
                 "value": "<token>",
               },
-              Object {
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "reports",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
           "status": "OK",
@@ -1764,8 +1830,8 @@ pm.test(\\"[GET]::/reports - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -1775,11 +1841,11 @@ pm.test(\\"[GET]::/reports - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-xml-request-response 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
       "Content-Type",
       "x-upgrade-gate",
@@ -1790,52 +1856,52 @@ Array [
     "parent": "Upgrade XML",
     "pathRef": "POST::/feeds",
     "preRequestLines": 1,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas3-xml-request-response 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade XML",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[POST]::/feeds - Status code is 2xx\\", function () {
+pm.test("[POST]::/feeds - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
             "type": "text/javascript",
           },
         },
-        Object {
+        {
           "listen": "prerequest",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "pm.collectionVariables.set('upgradeGate', 'postOperation')",
             ],
             "type": "text/javascript",
@@ -1843,110 +1909,110 @@ pm.test(\\"[POST]::/feeds - Status code is 2xx\\", function () {
         },
       ],
       "name": "feeds Create Xml",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {
+      "request": {
+        "body": {
           "mode": "raw",
-          "options": Object {
-            "raw": Object {
+          "options": {
+            "raw": {
               "headerFamily": "xml",
               "language": "xml",
             },
           },
-          "raw": "<?xml version=\\"<number>.<number>\\" encoding=\\"UTF-<number>\\"?>
+          "raw": "<?xml version="<number>.<number>" encoding="UTF-<number>"?>
 <feed>
   <id>feed_1</id>
   <name>Main Feed</name>
 </feed>",
         },
-        "description": Object {
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "disabled": false,
             "key": "x-upgrade-gate",
             "value": "true",
           },
-          Object {
+          {
             "key": "Accept",
             "value": "application/xml",
           },
-          Object {
+          {
             "key": "Content-Type",
             "value": "application/xml",
           },
         ],
         "method": "POST",
         "name": "feeds Create Xml",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "feeds",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "xml",
           },
-          "body": "<?xml version=\\"1.0\\" encoding=\\"UTF-8\\"?>
+          "body": "<?xml version="1.0" encoding="UTF-8"?>
 <feed>
   <id>feed_1</id>
   <name>Main Feed</name>
 </feed>
 ",
           "code": 201,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/xml",
             },
           ],
           "name": "created",
-          "originalRequest": Object {
-            "body": Object {
+          "originalRequest": {
+            "body": {
               "mode": "raw",
-              "options": Object {
-                "raw": Object {
+              "options": {
+                "raw": {
                   "headerFamily": "xml",
                   "language": "xml",
                 },
               },
-              "raw": "<?xml version=\\"<number>.<number>\\" encoding=\\"UTF-<number>\\"?>
+              "raw": "<?xml version="<number>.<number>" encoding="UTF-<number>"?>
 <feed>
   <id>feed_1</id>
   <name>Main Feed</name>
 </feed>",
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/xml",
               },
-              Object {
+              {
                 "key": "Content-Type",
                 "value": "application/xml",
               },
             ],
             "method": "POST",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "feeds",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
           "status": "Created",
@@ -1954,8 +2020,8 @@ pm.test(\\"[POST]::/feeds - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -1965,11 +2031,11 @@ pm.test(\\"[POST]::/feeds - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate oas31-jsonschema-features 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "eventsOne",
@@ -1978,13 +2044,13 @@ Array [
     "parent": "Upgrade OAS31 JSON Schema",
     "pathRef": "GET::/events/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Content-Type",
       "x-trace-id",
       "x-upgrade-gate",
@@ -1995,52 +2061,52 @@ Array [
     "parent": "Upgrade OAS31 JSON Schema",
     "pathRef": "POST::/events",
     "preRequestLines": 1,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate oas31-jsonschema-features 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade OAS31 JSON Schema",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
+pm.test("[POST]::/events - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
             "type": "text/javascript",
           },
         },
-        Object {
+        {
           "listen": "prerequest",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "pm.collectionVariables.set('upgradeGate', 'postOperation')",
             ],
             "type": "text/javascript",
@@ -2048,30 +2114,30 @@ pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
         },
       ],
       "name": "events Create",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {
+      "request": {
+        "body": {
           "mode": "raw",
-          "options": Object {
-            "raw": Object {
+          "options": {
+            "raw": {
               "headerFamily": "json",
               "language": "json",
             },
           },
-          "raw": Object {
+          "raw": {
             "internalNote": "Synthetic event for upgrade regression tests",
             "target": "primary-cta-button",
             "type": "click",
           },
         },
-        "description": Object {
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
-            "description": Object {
+        "header": [
+          {
+            "description": {
               "content": "(Required) ",
               "type": "text/plain",
             },
@@ -2079,39 +2145,39 @@ pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
             "key": "x-trace-id",
             "value": "trace-123",
           },
-          Object {
+          {
             "disabled": false,
             "key": "x-upgrade-gate",
             "value": "true",
           },
-          Object {
+          {
             "key": "Content-Type",
             "value": "application/json",
           },
         ],
         "method": "POST",
         "name": "events Create",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "events",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [],
+      "response": [],
     },
-    Object {
-      "event": Array [
-        Object {
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
+pm.test("[GET]::/events/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -2120,34 +2186,34 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
         },
       ],
       "name": "events One",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {},
-        "description": Object {
+      "request": {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "events One",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "events",
             ":id",
           ],
-          "query": Array [],
-          "variable": Array [
-            Object {
-              "description": Object {
+          "query": [],
+          "variable": [
+            {
+              "description": {
                 "content": "(Required) ",
                 "type": "text/plain",
               },
@@ -2159,43 +2225,54 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
           ],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"evt_1\\",
-  \\"archivedAt\\": null
+  "id": "evt_1",
+  "archivedAt": null
 }",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "events",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "id",
+                  "type": "any",
+                  "value": "evt_1",
+                },
+              ],
             },
           },
           "status": "OK",
@@ -2203,8 +2280,8 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "/",
@@ -2214,11 +2291,11 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
 `;
 
 exports[`OpenAPI upgrade risk gate swagger2-basic 1`] = `
-Array [
-  Object {
+[
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "widgetsList",
@@ -2227,13 +2304,13 @@ Array [
     "parent": "Upgrade Swagger2",
     "pathRef": "GET::/widgets",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": null,
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
     ],
     "id": "widgetsOne",
@@ -2242,13 +2319,13 @@ Array [
     "parent": "Upgrade Swagger2",
     "pathRef": "GET::/widgets/{id}",
     "preRequestLines": 0,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
-  Object {
+  {
     "authType": null,
     "bodyMode": "raw",
-    "headerKeys": Array [
+    "headerKeys": [
       "Accept",
       "Content-Type",
       "x-upgrade-gate",
@@ -2259,42 +2336,42 @@ Array [
     "parent": "Upgrade Swagger2",
     "pathRef": "POST::/widgets",
     "preRequestLines": 1,
-    "queryParamKeys": Array [],
+    "queryParamKeys": [],
     "testLines": 1,
   },
 ]
 `;
 
 exports[`OpenAPI upgrade risk gate swagger2-basic 2`] = `
-Object {
-  "_": Object {},
-  "event": Array [],
-  "info": Object {
-    "description": Object {
+{
+  "_": {},
+  "event": [],
+  "info": {
+    "description": {
       "content": "",
       "type": "text/plain",
     },
     "name": "Upgrade Swagger2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": Object {
-      "build": Array [],
+    "version": {
+      "build": [],
       "major": 1,
       "minor": 0,
       "patch": 0,
-      "prerelease": Array [],
+      "prerelease": [],
       "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
-  "item": Array [
-    Object {
-      "event": Array [
-        Object {
+  "item": [
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/widgets - Status code is 2xx\\", function () {
+pm.test("[GET]::/widgets - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -2303,99 +2380,99 @@ pm.test(\\"[GET]::/widgets - Status code is 2xx\\", function () {
         },
       ],
       "name": "widgets List",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {},
-        "description": Object {
+      "request": {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "widgets List",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "widgets",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "[
   {
-    \\"id\\": \\"wid_1\\",
-    \\"name\\": \\"Alpha\\"
+    "id": "wid_1",
+    "name": "Alpha"
   },
   {
-    \\"id\\": \\"wid_2\\",
-    \\"name\\": \\"Beta\\"
+    "id": "wid_2",
+    "name": "Beta"
   }
 ]",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "widgets",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
           "status": "OK",
         },
       ],
     },
-    Object {
-      "event": Array [
-        Object {
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
+pm.test("[POST]::/widgets - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
             "type": "text/javascript",
           },
         },
-        Object {
+        {
           "listen": "prerequest",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "pm.collectionVariables.set('upgradeGate', 'postOperation')",
             ],
             "type": "text/javascript",
@@ -2403,118 +2480,118 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
         },
       ],
       "name": "widgets Create",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {
+      "request": {
+        "body": {
           "mode": "raw",
-          "options": Object {
-            "raw": Object {
+          "options": {
+            "raw": {
               "headerFamily": "json",
               "language": "json",
             },
           },
-          "raw": Object {
+          "raw": {
             "name": "Gamma",
           },
         },
-        "description": Object {
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "disabled": false,
             "key": "x-upgrade-gate",
             "value": "true",
           },
-          Object {
+          {
             "key": "Accept",
             "value": "*/*",
           },
-          Object {
+          {
             "key": "Content-Type",
             "value": "application/json",
           },
         ],
         "method": "POST",
         "name": "widgets Create",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "widgets",
           ],
-          "query": Array [],
-          "variable": Array [],
+          "query": [],
+          "variable": [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"wid_3\\",
-  \\"name\\": \\"Gamma\\"
+  "id": "wid_3",
+  "name": "Gamma"
 }",
           "code": 201,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "created",
-          "originalRequest": Object {
-            "body": Object {
+          "originalRequest": {
+            "body": {
               "mode": "raw",
-              "options": Object {
-                "raw": Object {
+              "options": {
+                "raw": {
                   "headerFamily": "json",
                   "language": "json",
                 },
               },
-              "raw": Object {
+              "raw": {
                 "name": "Gamma",
               },
             },
-            "header": Array [
-              Object {
+            "header": [
+              {
                 "key": "Accept",
                 "value": "*/*",
               },
-              Object {
+              {
                 "key": "Content-Type",
                 "value": "application/json",
               },
             ],
             "method": "POST",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "widgets",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [],
             },
           },
           "status": "Created",
         },
       ],
     },
-    Object {
-      "event": Array [
-        Object {
+    {
+      "event": [
+        {
           "listen": "test",
-          "script": Object {
-            "exec": Array [
+          "script": {
+            "exec": [
               "// Validate status 2xx 
-pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
+pm.test("[GET]::/widgets/:id - Status code is 2xx", function () {
    pm.response.to.be.success;
 });",
             ],
@@ -2523,34 +2600,34 @@ pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
         },
       ],
       "name": "widgets One",
-      "protocolProfileBehavior": Object {
+      "protocolProfileBehavior": {
         "disableBodyPruning": true,
       },
-      "request": Object {
-        "body": Object {},
-        "description": Object {
+      "request": {
+        "body": {},
+        "description": {
           "type": "text/plain",
         },
-        "header": Array [
-          Object {
+        "header": [
+          {
             "key": "Accept",
             "value": "application/json",
           },
         ],
         "method": "GET",
         "name": "widgets One",
-        "url": Object {
-          "host": Array [
+        "url": {
+          "host": [
             "{{baseUrl}}",
           ],
-          "path": Array [
+          "path": [
             "widgets",
             ":id",
           ],
-          "query": Array [],
-          "variable": Array [
-            Object {
-              "description": Object {
+          "query": [],
+          "variable": [
+            {
+              "description": {
                 "content": "(Required) ",
                 "type": "text/plain",
               },
@@ -2562,43 +2639,54 @@ pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
           ],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
+      "response": [
+        {
+          "_": {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"wid_1\\",
-  \\"name\\": \\"Alpha\\"
+  "id": "wid_1",
+  "name": "Alpha"
 }",
           "code": 200,
-          "cookie": Array [],
-          "header": Array [
-            Object {
+          "cookie": [],
+          "header": [
+            {
               "key": "Content-Type",
               "value": "application/json",
             },
           ],
           "name": "ok",
-          "originalRequest": Object {
-            "body": Object {},
-            "header": Array [
-              Object {
+          "originalRequest": {
+            "body": {},
+            "header": [
+              {
                 "key": "Accept",
                 "value": "application/json",
               },
             ],
             "method": "GET",
-            "url": Object {
-              "host": Array [
+            "url": {
+              "host": [
                 "{{baseUrl}}",
               ],
-              "path": Array [
+              "path": [
                 "widgets",
                 ":id",
               ],
-              "query": Array [],
-              "variable": Array [],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "(Required) ",
+                    "type": "text/plain",
+                  },
+                  "disabled": false,
+                  "key": "id",
+                  "type": "any",
+                  "value": "wid_1",
+                },
+              ],
             },
           },
           "status": "OK",
@@ -2606,8 +2694,8 @@ pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
       ],
     },
   ],
-  "variable": Array [
-    Object {
+  "variable": [
+    {
       "key": "baseUrl",
       "type": "any",
       "value": "https://api.example.com/v1",

@@ -34,7 +34,7 @@ describe('PostmanDynamicVariables', () => {
     it('should be throw an error for non-existing dynamic variable: fooBar', async () => {
       expect(() => {
         pmVars.renderDynamicVar('fooBar')
-      }).toThrowError('Unsupported')
+      }).toThrow('Unsupported')
     })
   })
 })

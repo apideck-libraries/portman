@@ -1,43 +1,43 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`injectEnvVariables should add environment variables to collection variables 1`] = `
-Array [
-  Object {
+[
+  {
     "key": "baseUrl",
     "type": "string",
     "value": "https://unify.apideck.com",
   },
-  Object {
+  {
     "key": "bearerToken",
     "type": "string",
     "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48",
   },
-  Object {
+  {
     "key": "unifiedApi",
     "type": "string",
     "value": "crm",
   },
-  Object {
+  {
     "key": "applicationId",
     "type": "string",
     "value": "2222",
   },
-  Object {
+  {
     "key": "serviceId",
     "type": "string",
     "value": "activecampaign",
   },
-  Object {
+  {
     "key": "consumerId",
     "type": "string",
     "value": "testing_user_id",
   },
-  Object {
+  {
     "key": "resource",
     "type": "string",
     "value": "lead",
   },
-  Object {
+  {
     "key": "connectorApiKey",
     "type": "string",
     "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",
@@ -46,43 +46,43 @@ Array [
 `;
 
 exports[`injectEnvVariables should add environment variables to collection variables with casing 1`] = `
-Array [
-  Object {
+[
+  {
     "key": "baseUrl",
     "type": "string",
     "value": "https://unify.apideck.com",
   },
-  Object {
+  {
     "key": "bearer_token",
     "type": "string",
     "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48",
   },
-  Object {
+  {
     "key": "unified_api",
     "type": "string",
     "value": "crm",
   },
-  Object {
+  {
     "key": "application_id",
     "type": "string",
     "value": "2222",
   },
-  Object {
+  {
     "key": "service_id",
     "type": "string",
     "value": "activecampaign",
   },
-  Object {
+  {
     "key": "consumer_id",
     "type": "string",
     "value": "testing_user_id",
   },
-  Object {
+  {
     "key": "resource",
     "type": "string",
     "value": "lead",
   },
-  Object {
+  {
     "key": "connector_api_key",
     "type": "string",
     "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",
@@ -91,9 +91,9 @@ Array [
 `;
 
 exports[`injectEnvVariables should add environment variables to collection variables with overwriting cased original baseUrl 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "the API URL",
       "type": "text/plain",
     },
@@ -101,42 +101,42 @@ Array [
     "type": "any",
     "value": "https://api.example.com",
   },
-  Object {
+  {
     "key": "baseUrl",
     "type": "string",
     "value": "https://api.foo.bar",
   },
-  Object {
+  {
     "key": "bearer_token",
     "type": "string",
     "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48",
   },
-  Object {
+  {
     "key": "unified_api",
     "type": "string",
     "value": "crm",
   },
-  Object {
+  {
     "key": "application_id",
     "type": "string",
     "value": "2222",
   },
-  Object {
+  {
     "key": "service_id",
     "type": "string",
     "value": "activecampaign",
   },
-  Object {
+  {
     "key": "consumer_id",
     "type": "string",
     "value": "testing_user_id",
   },
-  Object {
+  {
     "key": "resource",
     "type": "string",
     "value": "lead",
   },
-  Object {
+  {
     "key": "connector_api_key",
     "type": "string",
     "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",
@@ -145,9 +145,9 @@ Array [
 `;
 
 exports[`injectEnvVariables should add environment variables to collection variables with overwriting original baseUrl 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "the API URL",
       "type": "text/plain",
     },
@@ -155,42 +155,42 @@ Array [
     "type": "any",
     "value": "https://api.example.com",
   },
-  Object {
+  {
     "key": "baseUrl",
     "type": "string",
     "value": "https://api.foo.bar",
   },
-  Object {
+  {
     "key": "bearerToken",
     "type": "string",
     "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48",
   },
-  Object {
+  {
     "key": "unifiedApi",
     "type": "string",
     "value": "crm",
   },
-  Object {
+  {
     "key": "applicationId",
     "type": "string",
     "value": "2222",
   },
-  Object {
+  {
     "key": "serviceId",
     "type": "string",
     "value": "activecampaign",
   },
-  Object {
+  {
     "key": "consumerId",
     "type": "string",
     "value": "testing_user_id",
   },
-  Object {
+  {
     "key": "resource",
     "type": "string",
     "value": "lead",
   },
-  Object {
+  {
     "key": "connectorApiKey",
     "type": "string",
     "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",
@@ -199,9 +199,9 @@ Array [
 `;
 
 exports[`injectEnvVariables should add environment variables to collection variables without overwriting original baseUrl 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "the API URL",
       "type": "text/plain",
     },
@@ -209,42 +209,42 @@ Array [
     "type": "any",
     "value": "https://api.example.com",
   },
-  Object {
+  {
     "key": "baseUrl",
     "type": "string",
     "value": "{{url}}/content",
   },
-  Object {
+  {
     "key": "bearerToken",
     "type": "string",
     "value": "f7a82583-e42a-47ec-8325-f9e5ef231303-KAwRX5cg3DgAhvz5BKs8-9200e88f-b82e-4980-99ef-79aabd71ee48",
   },
-  Object {
+  {
     "key": "unifiedApi",
     "type": "string",
     "value": "crm",
   },
-  Object {
+  {
     "key": "applicationId",
     "type": "string",
     "value": "2222",
   },
-  Object {
+  {
     "key": "serviceId",
     "type": "string",
     "value": "activecampaign",
   },
-  Object {
+  {
     "key": "consumerId",
     "type": "string",
     "value": "testing_user_id",
   },
-  Object {
+  {
     "key": "resource",
     "type": "string",
     "value": "lead",
   },
-  Object {
+  {
     "key": "connectorApiKey",
     "type": "string",
     "value": "a1ffa05a296f99780689a6ebd44b7c966e5591ee13cd38e5116c26e22104ac1bfaa9e00a",

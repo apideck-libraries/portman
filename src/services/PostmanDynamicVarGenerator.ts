@@ -1,4 +1,6 @@
-import * as faker from '@faker-js/faker/locale/en'
+import { fakerEN } from '@faker-js/faker'
+
+const faker: any = fakerEN
 
 // Ported from the original Postman implementation for dynamic-variables
 // https://github.com/postmanlabs/postman-collection/blob/develop/lib/superstring/dynamic-variables.js

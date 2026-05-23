@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`testResponseStatusCode should add test for status code 1`] = `
-Array [
+[
   "// Validate response status code 
-pm.test(\\"[GET]::/crm/companies/:id - Response status code is 400\\", function () {
+pm.test("[GET]::/crm/companies/:id - Response status code is 400", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",
@@ -11,9 +11,9 @@ pm.test(\\"[GET]::/crm/companies/:id - Response status code is 400\\", function 
 `;
 
 exports[`testResponseStatusCode should add test with separator symbol for status code 1`] = `
-Array [
+[
   "// Validate response status code 
-pm.test(\\"[GET]==/crm/companies/:id - Response status code is 400\\", function () {
+pm.test("[GET]==/crm/companies/:id - Response status code is 400", function () {
     pm.expect(pm.response.code).to.equal(400);
 });
 ",

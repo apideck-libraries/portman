@@ -20,6 +20,7 @@ module.exports = {
     // the next two are disabled until all of repo can be cleaned up
     '@typescript-eslint/no-var-requires': OFF,
     '@typescript-eslint/explicit-module-boundary-types': OFF,
+    '@typescript-eslint/no-explicit-any': OFF,
     'no-extra-semi': OFF,
     'no-console': OFF,
     'no-unused-vars': OFF,

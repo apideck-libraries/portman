@@ -1,70 +1,70 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`OasMappedOperation requestBodySchema should have access to the requestBody for mediaType 1`] = `
-Object {
+{
   "additionalProperties": false,
-  "properties": Object {
-    "addresses": Object {
-      "items": Object {
-        "properties": Object {
-          "city": Object {
+  "properties": {
+    "addresses": {
+      "items": {
+        "properties": {
+          "city": {
             "description": "Name of city.",
             "example": "San Francisco",
             "nullable": true,
             "type": "string",
           },
-          "country": Object {
+          "country": {
             "description": "country code according to ISO 3166-1 alpha-2.",
             "example": "US",
             "nullable": true,
             "type": "string",
           },
-          "id": Object {
+          "id": {
             "example": "123",
             "nullable": true,
             "type": "string",
           },
-          "latitude": Object {
+          "latitude": {
             "example": "40.759211",
             "nullable": true,
             "type": "string",
           },
-          "line1": Object {
+          "line1": {
             "description": "Line 1 of the address e.g. number, street, suite, apt #, etc.",
             "example": "Main street",
             "nullable": true,
             "type": "string",
           },
-          "line2": Object {
+          "line2": {
             "description": "Line 2 of the address",
             "example": "apt #",
             "nullable": true,
             "type": "string",
           },
-          "longitude": Object {
+          "longitude": {
             "example": "-73.984638",
             "nullable": true,
             "type": "string",
           },
-          "name": Object {
+          "name": {
             "example": "HQ US",
             "nullable": true,
             "type": "string",
           },
-          "postal_code": Object {
+          "postal_code": {
             "description": "Zip code or equivalent.",
             "example": "94104",
             "nullable": true,
             "type": "string",
           },
-          "state": Object {
+          "state": {
             "description": "Name of state",
             "example": "CA",
             "nullable": true,
             "type": "string",
           },
-          "type": Object {
-            "enum": Array [
+          "type": {
+            "enum": [
               "primary",
               "secondary",
               "home",
@@ -82,15 +82,15 @@ Object {
       },
       "type": "array",
     },
-    "bank_accounts": Object {
-      "items": Object {
-        "properties": Object {
-          "bic": Object {
+    "bank_accounts": {
+      "items": {
+        "properties": {
+          "bic": {
             "example": "AUDSCHGGXXX",
             "nullable": true,
             "type": "string",
           },
-          "iban": Object {
+          "iban": {
             "example": "CH2989144532982975332",
             "nullable": true,
             "type": "string",
@@ -100,49 +100,49 @@ Object {
       },
       "type": "array",
     },
-    "created_at": Object {
+    "created_at": {
       "example": "2020-09-30T07:43:32.000Z",
       "readOnly": true,
       "type": "string",
     },
-    "created_by": Object {
+    "created_by": {
       "example": "12345",
       "nullable": true,
       "readOnly": true,
       "type": "string",
     },
-    "currency": Object {
+    "currency": {
       "example": "USD",
       "nullable": true,
       "type": "string",
     },
-    "custom_fields": Object {
-      "items": Object {
+    "custom_fields": {
+      "items": {
         "additionalProperties": false,
-        "properties": Object {
-          "id": Object {
+        "properties": {
+          "id": {
             "example": "custom_technologies",
             "type": "string",
           },
-          "value": Object {
-            "anyOf": Array [
-              Object {
+          "value": {
+            "anyOf": [
+              {
                 "example": "Uses Salesforce and Marketo",
                 "nullable": true,
                 "type": "string",
               },
-              Object {
+              {
                 "example": 10,
                 "nullable": true,
                 "type": "number",
               },
-              Object {
+              {
                 "example": true,
                 "nullable": true,
                 "type": "boolean",
               },
-              Object {
-                "items": Object {
+              {
+                "items": {
                   "type": "string",
                 },
                 "type": "array",
@@ -150,33 +150,33 @@ Object {
             ],
           },
         },
-        "required": Array [
+        "required": [
           "id",
         ],
         "type": "object",
       },
       "type": "array",
     },
-    "description": Object {
+    "description": {
       "example": "A crm that works for you, so you can spend time on relationships instead of data.",
       "nullable": true,
       "type": "string",
     },
-    "emails": Object {
-      "items": Object {
-        "properties": Object {
-          "email": Object {
+    "emails": {
+      "items": {
+        "properties": {
+          "email": {
             "example": "elon@musk.com",
             "format": "email",
             "minLength": 1,
             "type": "string",
           },
-          "id": Object {
+          "id": {
             "example": "123",
             "type": "string",
           },
-          "type": Object {
-            "enum": Array [
+          "type": {
+            "enum": [
               "primary",
               "secondary",
               "work",
@@ -189,58 +189,58 @@ Object {
             "x-graphql-type-name": "EmailType",
           },
         },
-        "required": Array [
+        "required": [
           "email",
         ],
         "type": "object",
       },
       "type": "array",
     },
-    "fax": Object {
+    "fax": {
       "example": "+12129876543",
       "nullable": true,
       "type": "string",
     },
-    "id": Object {
+    "id": {
       "example": "12345",
       "readOnly": true,
       "type": "string",
     },
-    "image_url": Object {
+    "image_url": {
       "example": "https://www.spacex.com/static/images/share.jpg",
       "nullable": true,
       "type": "string",
     },
-    "interaction_count": Object {
+    "interaction_count": {
       "example": 1,
       "nullable": true,
       "readOnly": true,
       "type": "integer",
     },
-    "name": Object {
+    "name": {
       "example": "Copper",
       "minLength": 1,
       "type": "string",
     },
-    "owner_id": Object {
+    "owner_id": {
       "example": "12345",
       "type": "string",
     },
-    "phone_numbers": Object {
-      "items": Object {
-        "properties": Object {
-          "id": Object {
+    "phone_numbers": {
+      "items": {
+        "properties": {
+          "id": {
             "example": "12345",
             "nullable": true,
             "type": "string",
           },
-          "number": Object {
+          "number": {
             "example": "111-111-1111",
             "minLength": 1,
             "type": "string",
           },
-          "type": Object {
-            "enum": Array [
+          "type": {
+            "enum": [
               "primary",
               "secondary",
               "home",
@@ -255,81 +255,81 @@ Object {
             "x-graphql-type-name": "PhoneType",
           },
         },
-        "required": Array [
+        "required": [
           "number",
         ],
         "type": "object",
       },
       "type": "array",
     },
-    "social_links": Object {
-      "items": Object {
-        "properties": Object {
-          "id": Object {
+    "social_links": {
+      "items": {
+        "properties": {
+          "id": {
             "example": "12345",
             "nullable": true,
             "type": "string",
           },
-          "type": Object {
+          "type": {
             "example": "twitter",
             "nullable": true,
             "type": "string",
           },
-          "url": Object {
+          "url": {
             "example": "https://www.twitter.com/apideck-io",
             "minLength": 1,
             "type": "string",
           },
         },
-        "required": Array [
+        "required": [
           "url",
         ],
         "type": "object",
       },
       "type": "array",
     },
-    "status": Object {
+    "status": {
       "example": "Open",
       "minLength": 1,
       "nullable": true,
       "type": "string",
     },
-    "tags": Object {
-      "example": Array [
+    "tags": {
+      "example": [
         "New",
       ],
-      "items": Object {
+      "items": {
         "type": "string",
       },
       "type": "array",
     },
-    "updated_at": Object {
+    "updated_at": {
       "example": "2020-09-30T07:43:32.000Z",
       "readOnly": true,
       "type": "string",
     },
-    "updated_by": Object {
+    "updated_by": {
       "example": "12345",
       "nullable": true,
       "readOnly": true,
       "type": "string",
     },
-    "vat_number": Object {
+    "vat_number": {
       "description": "VAT number",
       "example": "BE0689615164",
       "nullable": true,
       "type": "string",
     },
-    "websites": Object {
-      "items": Object {
-        "properties": Object {
-          "id": Object {
+    "websites": {
+      "items": {
+        "properties": {
+          "id": {
             "example": "12345",
             "nullable": true,
             "type": "string",
           },
-          "type": Object {
-            "enum": Array [
+          "type": {
+            "enum": [
               "primary",
               "secondary",
               "work",
@@ -340,13 +340,13 @@ Object {
             "type": "string",
             "x-graphql-type-name": "WebsiteType",
           },
-          "url": Object {
+          "url": {
             "example": "http://example.com",
             "minLength": 1,
             "type": "string",
           },
         },
-        "required": Array [
+        "required": [
           "url",
         ],
         "type": "object",
@@ -354,7 +354,7 @@ Object {
       "type": "array",
     },
   },
-  "required": Array [
+  "required": [
     "name",
   ],
   "type": "object",
@@ -363,52 +363,52 @@ Object {
 
 exports[`OasMappedOperation should set itself up using operation and params 1`] = `
 OasMappedOperation {
-  "cookieParams": Array [],
+  "cookieParams": [],
   "id": "companiesAdd",
   "method": "POST",
   "path": "/crm/companies",
-  "pathParams": Array [],
+  "pathParams": [],
   "pathRef": "POST::/crm/companies",
-  "queryParams": Array [
-    Object {
+  "queryParams": [
+    {
       "description": "Include raw response. Mostly used for debugging purposes",
       "in": "query",
       "name": "raw",
-      "schema": Object {
+      "schema": {
         "default": true,
         "type": "boolean",
       },
     },
   ],
-  "requestHeaders": Array [
-    Object {
+  "requestHeaders": [
+    {
       "description": "ID of the consumer which you want to get or push data from",
       "in": "header",
       "name": "x-apideck-consumer-id",
       "required": true,
-      "schema": Object {
+      "schema": {
         "type": "string",
       },
     },
-    Object {
+    {
       "description": "The ID of your Unify application",
       "in": "header",
       "name": "x-apideck-app-id",
       "required": true,
-      "schema": Object {
+      "schema": {
         "type": "string",
       },
     },
-    Object {
+    {
       "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
       "in": "header",
       "name": "x-apideck-service-id",
-      "schema": Object {
+      "schema": {
         "type": "string",
       },
     },
   ],
-  "responseCodes": Array [
+  "responseCodes": [
     "201",
     "400",
     "401",
@@ -417,113 +417,113 @@ OasMappedOperation {
     "422",
     "default",
   ],
-  "schema": Object {
+  "schema": {
     "description": "Create company",
     "operationId": "companiesAdd",
-    "parameters": Array [
-      Object {
+    "parameters": [
+      {
         "description": "Include raw response. Mostly used for debugging purposes",
         "in": "query",
         "name": "raw",
-        "schema": Object {
+        "schema": {
           "default": true,
           "type": "boolean",
         },
       },
-      Object {
+      {
         "description": "ID of the consumer which you want to get or push data from",
         "in": "header",
         "name": "x-apideck-consumer-id",
         "required": true,
-        "schema": Object {
+        "schema": {
           "type": "string",
         },
       },
-      Object {
+      {
         "description": "The ID of your Unify application",
         "in": "header",
         "name": "x-apideck-app-id",
         "required": true,
-        "schema": Object {
+        "schema": {
           "type": "string",
         },
       },
-      Object {
+      {
         "description": "Provide the service id you want to call (e.g., pipedrive). [See the full list in the connector section.](#section/Connectors) Only needed when a consumer has activated multiple integrations for a Unified API.",
         "in": "header",
         "name": "x-apideck-service-id",
-        "schema": Object {
+        "schema": {
           "type": "string",
         },
       },
     ],
-    "requestBody": Object {
-      "content": Object {
-        "application/json": Object {
-          "schema": Object {
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
             "additionalProperties": false,
-            "properties": Object {
-              "addresses": Object {
-                "items": Object {
-                  "properties": Object {
-                    "city": Object {
+            "properties": {
+              "addresses": {
+                "items": {
+                  "properties": {
+                    "city": {
                       "description": "Name of city.",
                       "example": "San Francisco",
                       "nullable": true,
                       "type": "string",
                     },
-                    "country": Object {
+                    "country": {
                       "description": "country code according to ISO 3166-1 alpha-2.",
                       "example": "US",
                       "nullable": true,
                       "type": "string",
                     },
-                    "id": Object {
+                    "id": {
                       "example": "123",
                       "nullable": true,
                       "type": "string",
                     },
-                    "latitude": Object {
+                    "latitude": {
                       "example": "40.759211",
                       "nullable": true,
                       "type": "string",
                     },
-                    "line1": Object {
+                    "line1": {
                       "description": "Line 1 of the address e.g. number, street, suite, apt #, etc.",
                       "example": "Main street",
                       "nullable": true,
                       "type": "string",
                     },
-                    "line2": Object {
+                    "line2": {
                       "description": "Line 2 of the address",
                       "example": "apt #",
                       "nullable": true,
                       "type": "string",
                     },
-                    "longitude": Object {
+                    "longitude": {
                       "example": "-73.984638",
                       "nullable": true,
                       "type": "string",
                     },
-                    "name": Object {
+                    "name": {
                       "example": "HQ US",
                       "nullable": true,
                       "type": "string",
                     },
-                    "postal_code": Object {
+                    "postal_code": {
                       "description": "Zip code or equivalent.",
                       "example": "94104",
                       "nullable": true,
                       "type": "string",
                     },
-                    "state": Object {
+                    "state": {
                       "description": "Name of state",
                       "example": "CA",
                       "nullable": true,
                       "type": "string",
                     },
-                    "type": Object {
-                      "enum": Array [
+                    "type": {
+                      "enum": [
                         "primary",
                         "secondary",
                         "home",
@@ -541,15 +541,15 @@ OasMappedOperation {
                 },
                 "type": "array",
               },
-              "bank_accounts": Object {
-                "items": Object {
-                  "properties": Object {
-                    "bic": Object {
+              "bank_accounts": {
+                "items": {
+                  "properties": {
+                    "bic": {
                       "example": "AUDSCHGGXXX",
                       "nullable": true,
                       "type": "string",
                     },
-                    "iban": Object {
+                    "iban": {
                       "example": "CH2989144532982975332",
                       "nullable": true,
                       "type": "string",
@@ -559,49 +559,49 @@ OasMappedOperation {
                 },
                 "type": "array",
               },
-              "created_at": Object {
+              "created_at": {
                 "example": "2020-09-30T07:43:32.000Z",
                 "readOnly": true,
                 "type": "string",
               },
-              "created_by": Object {
+              "created_by": {
                 "example": "12345",
                 "nullable": true,
                 "readOnly": true,
                 "type": "string",
               },
-              "currency": Object {
+              "currency": {
                 "example": "USD",
                 "nullable": true,
                 "type": "string",
               },
-              "custom_fields": Object {
-                "items": Object {
+              "custom_fields": {
+                "items": {
                   "additionalProperties": false,
-                  "properties": Object {
-                    "id": Object {
+                  "properties": {
+                    "id": {
                       "example": "custom_technologies",
                       "type": "string",
                     },
-                    "value": Object {
-                      "anyOf": Array [
-                        Object {
+                    "value": {
+                      "anyOf": [
+                        {
                           "example": "Uses Salesforce and Marketo",
                           "nullable": true,
                           "type": "string",
                         },
-                        Object {
+                        {
                           "example": 10,
                           "nullable": true,
                           "type": "number",
                         },
-                        Object {
+                        {
                           "example": true,
                           "nullable": true,
                           "type": "boolean",
                         },
-                        Object {
-                          "items": Object {
+                        {
+                          "items": {
                             "type": "string",
                           },
                           "type": "array",
@@ -609,33 +609,33 @@ OasMappedOperation {
                       ],
                     },
                   },
-                  "required": Array [
+                  "required": [
                     "id",
                   ],
                   "type": "object",
                 },
                 "type": "array",
               },
-              "description": Object {
+              "description": {
                 "example": "A crm that works for you, so you can spend time on relationships instead of data.",
                 "nullable": true,
                 "type": "string",
               },
-              "emails": Object {
-                "items": Object {
-                  "properties": Object {
-                    "email": Object {
+              "emails": {
+                "items": {
+                  "properties": {
+                    "email": {
                       "example": "elon@musk.com",
                       "format": "email",
                       "minLength": 1,
                       "type": "string",
                     },
-                    "id": Object {
+                    "id": {
                       "example": "123",
                       "type": "string",
                     },
-                    "type": Object {
-                      "enum": Array [
+                    "type": {
+                      "enum": [
                         "primary",
                         "secondary",
                         "work",
@@ -648,58 +648,58 @@ OasMappedOperation {
                       "x-graphql-type-name": "EmailType",
                     },
                   },
-                  "required": Array [
+                  "required": [
                     "email",
                   ],
                   "type": "object",
                 },
                 "type": "array",
               },
-              "fax": Object {
+              "fax": {
                 "example": "+12129876543",
                 "nullable": true,
                 "type": "string",
               },
-              "id": Object {
+              "id": {
                 "example": "12345",
                 "readOnly": true,
                 "type": "string",
               },
-              "image_url": Object {
+              "image_url": {
                 "example": "https://www.spacex.com/static/images/share.jpg",
                 "nullable": true,
                 "type": "string",
               },
-              "interaction_count": Object {
+              "interaction_count": {
                 "example": 1,
                 "nullable": true,
                 "readOnly": true,
                 "type": "integer",
               },
-              "name": Object {
+              "name": {
                 "example": "Copper",
                 "minLength": 1,
                 "type": "string",
               },
-              "owner_id": Object {
+              "owner_id": {
                 "example": "12345",
                 "type": "string",
               },
-              "phone_numbers": Object {
-                "items": Object {
-                  "properties": Object {
-                    "id": Object {
+              "phone_numbers": {
+                "items": {
+                  "properties": {
+                    "id": {
                       "example": "12345",
                       "nullable": true,
                       "type": "string",
                     },
-                    "number": Object {
+                    "number": {
                       "example": "111-111-1111",
                       "minLength": 1,
                       "type": "string",
                     },
-                    "type": Object {
-                      "enum": Array [
+                    "type": {
+                      "enum": [
                         "primary",
                         "secondary",
                         "home",
@@ -714,81 +714,81 @@ OasMappedOperation {
                       "x-graphql-type-name": "PhoneType",
                     },
                   },
-                  "required": Array [
+                  "required": [
                     "number",
                   ],
                   "type": "object",
                 },
                 "type": "array",
               },
-              "social_links": Object {
-                "items": Object {
-                  "properties": Object {
-                    "id": Object {
+              "social_links": {
+                "items": {
+                  "properties": {
+                    "id": {
                       "example": "12345",
                       "nullable": true,
                       "type": "string",
                     },
-                    "type": Object {
+                    "type": {
                       "example": "twitter",
                       "nullable": true,
                       "type": "string",
                     },
-                    "url": Object {
+                    "url": {
                       "example": "https://www.twitter.com/apideck-io",
                       "minLength": 1,
                       "type": "string",
                     },
                   },
-                  "required": Array [
+                  "required": [
                     "url",
                   ],
                   "type": "object",
                 },
                 "type": "array",
               },
-              "status": Object {
+              "status": {
                 "example": "Open",
                 "minLength": 1,
                 "nullable": true,
                 "type": "string",
               },
-              "tags": Object {
-                "example": Array [
+              "tags": {
+                "example": [
                   "New",
                 ],
-                "items": Object {
+                "items": {
                   "type": "string",
                 },
                 "type": "array",
               },
-              "updated_at": Object {
+              "updated_at": {
                 "example": "2020-09-30T07:43:32.000Z",
                 "readOnly": true,
                 "type": "string",
               },
-              "updated_by": Object {
+              "updated_by": {
                 "example": "12345",
                 "nullable": true,
                 "readOnly": true,
                 "type": "string",
               },
-              "vat_number": Object {
+              "vat_number": {
                 "description": "VAT number",
                 "example": "BE0689615164",
                 "nullable": true,
                 "type": "string",
               },
-              "websites": Object {
-                "items": Object {
-                  "properties": Object {
-                    "id": Object {
+              "websites": {
+                "items": {
+                  "properties": {
+                    "id": {
                       "example": "12345",
                       "nullable": true,
                       "type": "string",
                     },
-                    "type": Object {
-                      "enum": Array [
+                    "type": {
+                      "enum": [
                         "primary",
                         "secondary",
                         "work",
@@ -799,13 +799,13 @@ OasMappedOperation {
                       "type": "string",
                       "x-graphql-type-name": "WebsiteType",
                     },
-                    "url": Object {
+                    "url": {
                       "example": "http://example.com",
                       "minLength": 1,
                       "type": "string",
                     },
                   },
-                  "required": Array [
+                  "required": [
                     "url",
                   ],
                   "type": "object",
@@ -813,7 +813,7 @@ OasMappedOperation {
                 "type": "array",
               },
             },
-            "required": Array [
+            "required": [
               "name",
             ],
             "type": "object",
@@ -822,52 +822,52 @@ OasMappedOperation {
       },
       "required": true,
     },
-    "responses": Object {
-      "201": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "data": Object {
-                  "properties": Object {
-                    "id": Object {
+    "responses": {
+      "201": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "data": {
+                  "properties": {
+                    "id": {
                       "example": "12345",
                       "readOnly": true,
                       "type": "string",
                     },
                   },
-                  "required": Array [
+                  "required": [
                     "id",
                   ],
                   "title": "UnifiedId",
                 },
-                "operation": Object {
+                "operation": {
                   "description": "Operation performed",
                   "example": "one",
                   "type": "string",
                 },
-                "resource": Object {
+                "resource": {
                   "description": "Unified API resource name",
                   "example": "companies",
                   "type": "string",
                 },
-                "service": Object {
+                "service": {
                   "description": "Apideck ID of service provider",
                   "example": "zoho-crm",
                   "type": "string",
                 },
-                "status": Object {
+                "status": {
                   "description": "HTTP Response Status",
                   "example": "OK",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP Response Status Code",
                   "example": 200,
                   "type": "integer",
                 },
               },
-              "required": Array [
+              "required": [
                 "status_code",
                 "status",
                 "service",
@@ -881,22 +881,22 @@ OasMappedOperation {
         },
         "description": "Company created",
       },
-      "400": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "detail": Object {
-                  "anyOf": Array [
-                    Object {
+      "400": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "detail": {
+                  "anyOf": [
+                    {
                       "example": "Missing property foobar",
                       "type": "string",
                     },
-                    Object {
-                      "example": Object {
-                        "missing": Array [
-                          Array [
-                            Object {
+                    {
+                      "example": {
+                        "missing": [
+                          [
+                            {
                               "foobar": "required",
                             },
                           ],
@@ -907,27 +907,27 @@ OasMappedOperation {
                   ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                 },
-                "error": Object {
+                "error": {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
                   "example": "Bad Request",
                   "type": "string",
                 },
-                "message": Object {
+                "message": {
                   "description": "A human-readable message providing more details about the error.",
                   "example": "Invalid Params",
                   "type": "string",
                 },
-                "ref": Object {
+                "ref": {
                   "description": "Link to documentation of error type",
                   "example": "https://developers.apideck.com/errors#requestbodyvalidationerror",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP status code",
                   "example": 400,
                   "type": "number",
                 },
-                "typeName": Object {
+                "typeName": {
                   "description": "The type of error returned",
                   "example": "RequestHeadersValidationError",
                   "type": "string",
@@ -938,37 +938,37 @@ OasMappedOperation {
         },
         "description": "Bad Request",
       },
-      "401": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "detail": Object {
+      "401": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "detail": {
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                   "example": "Failed to generate valid JWT Session. Verify applicationId is correct",
                   "type": "string",
                 },
-                "error": Object {
+                "error": {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
                   "example": "Unauthorized",
                   "type": "string",
                 },
-                "message": Object {
+                "message": {
                   "description": "A human-readable message providing more details about the error.",
                   "example": "Unauthorized Request",
                   "type": "string",
                 },
-                "ref": Object {
+                "ref": {
                   "description": "Link to documentation of error type",
                   "example": "https://developers.apideck.com/errors#unauthorizederror",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP status code",
                   "example": 401,
                   "type": "number",
                 },
-                "typeName": Object {
+                "typeName": {
                   "description": "The type of error returned",
                   "example": "UnauthorizedError",
                   "type": "string",
@@ -979,37 +979,37 @@ OasMappedOperation {
         },
         "description": "Unauthorized",
       },
-      "402": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "detail": Object {
+      "402": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "detail": {
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                   "example": "You have reached your limit of 2000",
                   "type": "string",
                 },
-                "error": Object {
+                "error": {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
                   "example": "Payment Required",
                   "type": "string",
                 },
-                "message": Object {
+                "message": {
                   "description": "A human-readable message providing more details about the error.",
                   "example": "Request Limit Reached",
                   "type": "string",
                 },
-                "ref": Object {
+                "ref": {
                   "description": "Link to documentation of error type",
                   "example": "https://developers.apideck.com/errors#requestlimiterror",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP status code",
                   "example": 402,
                   "type": "number",
                 },
-                "typeName": Object {
+                "typeName": {
                   "description": "The type of error returned",
                   "example": "RequestLimitError",
                   "type": "string",
@@ -1020,20 +1020,20 @@ OasMappedOperation {
         },
         "description": "Payment Required",
       },
-      "404": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "detail": Object {
-                  "anyOf": Array [
-                    Object {
+      "404": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "detail": {
+                  "anyOf": [
+                    {
                       "example": "Could not find widget with id: '123'",
                       "type": "string",
                     },
-                    Object {
-                      "example": Object {
-                        "not_found": Object {
+                    {
+                      "example": {
+                        "not_found": {
                           "entity": "widget",
                           "id": "123",
                         },
@@ -1043,27 +1043,27 @@ OasMappedOperation {
                   ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                 },
-                "error": Object {
+                "error": {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
                   "example": "Not Found",
                   "type": "string",
                 },
-                "message": Object {
+                "message": {
                   "description": "A human-readable message providing more details about the error.",
                   "example": "Unknown Widget",
                   "type": "string",
                 },
-                "ref": Object {
+                "ref": {
                   "description": "Link to documentation of error type",
                   "example": "https://developers.apideck.com/errors#entitynotfounderror",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP status code",
                   "example": 404,
                   "type": "number",
                 },
-                "typeName": Object {
+                "typeName": {
                   "description": "The type of error returned",
                   "example": "EntityNotFoundError",
                   "type": "string",
@@ -1074,37 +1074,37 @@ OasMappedOperation {
         },
         "description": "The specified resource was not found",
       },
-      "422": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "detail": Object {
+      "422": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "detail": {
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                   "example": "State did not include unified_api",
                   "type": "string",
                 },
-                "error": Object {
+                "error": {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
                   "example": "Unprocessable Entity",
                   "type": "string",
                 },
-                "message": Object {
+                "message": {
                   "description": "A human-readable message providing more details about the error.",
                   "example": "Invalid State",
                   "type": "string",
                 },
-                "ref": Object {
+                "ref": {
                   "description": "Link to documentation of error type",
                   "example": "https://developers.apideck.com/errors#invalidstateerror",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP status code",
                   "example": 422,
                   "type": "number",
                 },
-                "typeName": Object {
+                "typeName": {
                   "description": "The type of error returned",
                   "example": "InvalidStateError",
                   "type": "string",
@@ -1115,22 +1115,22 @@ OasMappedOperation {
         },
         "description": "Unprocessable",
       },
-      "default": Object {
-        "content": Object {
-          "application/json": Object {
-            "schema": Object {
-              "properties": Object {
-                "detail": Object {
-                  "anyOf": Array [
-                    Object {
+      "default": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "detail": {
+                  "anyOf": [
+                    {
                       "example": "Missing Header: x-apideck-consumer-id",
                       "type": "string",
                     },
-                    Object {
-                      "example": Object {
-                        "missing": Array [
-                          Array [
-                            Object {
+                    {
+                      "example": {
+                        "missing": [
+                          [
+                            {
                               "x-apideck-consumer-id": "required",
                             },
                           ],
@@ -1141,27 +1141,27 @@ OasMappedOperation {
                   ],
                   "description": "Contains parameter or domain specific information related to the error and why it occured.",
                 },
-                "error": Object {
+                "error": {
                   "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
                   "example": "Bad Request",
                   "type": "string",
                 },
-                "message": Object {
+                "message": {
                   "description": "A human-readable message providing more details about the error.",
                   "example": "Invalid Params",
                   "type": "string",
                 },
-                "ref": Object {
+                "ref": {
                   "description": "Link to documentation of error type",
                   "example": "https://developers.apideck.com/errors#unauthorizederror",
                   "type": "string",
                 },
-                "status_code": Object {
+                "status_code": {
                   "description": "HTTP status code",
                   "example": 400,
                   "type": "number",
                 },
-                "typeName": Object {
+                "typeName": {
                   "description": "The type of error returned",
                   "example": "RequestHeadersValidationError",
                   "type": "string",
@@ -1173,17 +1173,17 @@ OasMappedOperation {
         "description": "Unexpected error",
       },
     },
-    "security": Array [
-      Object {
-        "apiKey": Array [],
+    "security": [
+      {
+        "apiKey": [],
       },
     ],
     "summary": "Create company",
-    "tags": Array [
+    "tags": [
       "Companies",
     ],
   },
-  "tags": Array [
+  "tags": [
     "Companies",
   ],
 }

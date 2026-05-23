@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`overwriteRequestQueryParams overwrite overwrite the request query param with an empty when overwrite is true 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -11,7 +11,7 @@ Array [
     "key": "raw",
     "value": "true",
   },
-  Object {
+  {
     "disabled": false,
     "key": "id",
     "value": "",
@@ -20,9 +20,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should append the request query param when overwrite is false 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -34,9 +34,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should append the request query param when overwrite is true 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -48,9 +48,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should disable the request query param 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -62,9 +62,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should enable the request query param 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -76,9 +76,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should insert the query param variable with description, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -86,7 +86,7 @@ Array [
     "key": "raw",
     "value": "true",
   },
-  Object {
+  {
     "description": "Additional query param",
     "disabled": false,
     "key": "add-a-query-param",
@@ -96,9 +96,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should insert the query param variable with true insert option, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -106,7 +106,7 @@ Array [
     "key": "raw",
     "value": "true",
   },
-  Object {
+  {
     "disabled": false,
     "key": "add-a-query-param",
     "value": "foo-bar-baz",
@@ -115,9 +115,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should insert the query param variable, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -125,7 +125,7 @@ Array [
     "key": "raw",
     "value": "true",
   },
-  Object {
+  {
     "disabled": false,
     "key": "add-a-query-param",
     "value": "foo-bar-baz",
@@ -134,9 +134,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should not insert the query param, if key found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -144,7 +144,7 @@ Array [
     "key": "raw",
     "value": "true",
   },
-  Object {
+  {
     "disabled": false,
     "key": "id",
     "value": "foo-bar-baz",
@@ -153,9 +153,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should not remove any the request query param, when a absent key 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -167,9 +167,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite & auto-enable the query param variable 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -181,9 +181,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite but keep the query param variable disabled 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -195,9 +195,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param boolean variable with string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -209,9 +209,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param number variable with string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -223,9 +223,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable that matches the wildcard 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -233,22 +233,22 @@ Array [
     "key": "raw",
     "value": "true",
   },
-  Object {
+  {
     "disabled": false,
     "key": "filter[abc]",
     "value": "123",
   },
-  Object {
+  {
     "disabled": false,
     "key": "filter[foo-bar]",
     "value": "123",
   },
-  Object {
+  {
     "disabled": false,
     "key": "filter[bar-foo]",
     "value": "ABC",
   },
-  Object {
+  {
     "disabled": false,
     "key": "filter[*]",
     "value": "123",
@@ -257,9 +257,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with a blank value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -271,9 +271,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with a null value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -285,9 +285,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with generated cased string variable 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -299,9 +299,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with generated cased string variable with {{}} 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -313,9 +313,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with generated string value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -327,9 +327,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with generated string variable 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -341,9 +341,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with generated string variable with {{}} 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -355,9 +355,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the query param variable with zero value 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -369,9 +369,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the request query param 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },
@@ -383,9 +383,9 @@ Array [
 `;
 
 exports[`overwriteRequestQueryParams should overwrite the request query param description 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "foo bar",
       "type": "text/plain",
     },
@@ -396,12 +396,12 @@ Array [
 ]
 `;
 
-exports[`overwriteRequestQueryParams should remove to the query param when remove is true 1`] = `Array []`;
+exports[`overwriteRequestQueryParams should remove to the query param when remove is true 1`] = `[]`;
 
 exports[`overwriteRequestQueryParams should skip the query param variable with false insert option, if key not found 1`] = `
-Array [
-  Object {
-    "description": Object {
+[
+  {
+    "description": {
       "content": "Include raw response. Mostly used for debugging purposes",
       "type": "text/plain",
     },

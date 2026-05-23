@@ -1,74 +1,74 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`overwriteRequestSecurity should overwrite the request Oauth2 auth 1`] = `
-Object {
-  "oauth2": Array [
-    Object {
+{
+  "oauth2": [
+    {
       "key": "scope",
       "type": "any",
       "value": "{{PC_SCOPE}}",
     },
-    Object {
+    {
       "key": "password",
       "type": "any",
       "value": "{{PC_PASSWORD}}",
     },
-    Object {
+    {
       "key": "username",
       "type": "any",
       "value": "{{PC_USERNAME}}",
     },
-    Object {
+    {
       "key": "clientSecret",
       "type": "any",
       "value": "{{PC_CLIENT_SECRET}}",
     },
-    Object {
+    {
       "key": "clientId",
       "type": "any",
       "value": "{{PC_CLIENT_ID}}",
     },
-    Object {
+    {
       "key": "accessTokenUrl",
       "type": "any",
       "value": "{{PC_ACCESS_TOKEN__URL}}",
     },
-    Object {
+    {
       "key": "tokenName",
       "type": "any",
       "value": "{{PC_TOKEN_NAME}}",
     },
-    Object {
+    {
       "key": "grant_type",
       "type": "any",
       "value": "password_credentials",
     },
-    Object {
+    {
       "key": "refreshRequestParams",
       "type": "any",
-      "value": Array [],
+      "value": [],
     },
-    Object {
+    {
       "key": "tokenRequestParams",
       "type": "any",
-      "value": Array [],
+      "value": [],
     },
-    Object {
+    {
       "key": "authRequestParams",
       "type": "any",
-      "value": Array [],
+      "value": [],
     },
-    Object {
+    {
       "key": "challengeAlgorithm",
       "type": "any",
       "value": "S256",
     },
-    Object {
+    {
       "key": "addTokenTo",
       "type": "any",
       "value": "header",
     },
-    Object {
+    {
       "key": "client_authentication",
       "type": "any",
       "value": "body",
@@ -79,14 +79,14 @@ Object {
 `;
 
 exports[`overwriteRequestSecurity should overwrite the request apiKey definition 1`] = `
-Object {
-  "apikey": Array [
-    Object {
+{
+  "apikey": [
+    {
       "key": "key",
       "type": "any",
       "value": "x-apideck-app-id",
     },
-    Object {
+    {
       "key": "value",
       "type": "any",
       "value": "foo-bar-baz",
@@ -97,14 +97,14 @@ Object {
 `;
 
 exports[`overwriteRequestSecurity should overwrite the request basic auth 1`] = `
-Object {
-  "basic": Array [
-    Object {
+{
+  "basic": [
+    {
       "key": "username",
       "type": "any",
       "value": "foo",
     },
-    Object {
+    {
       "key": "password",
       "type": "any",
       "value": "bar",
@@ -115,9 +115,9 @@ Object {
 `;
 
 exports[`overwriteRequestSecurity should overwrite the request bearer token auth 1`] = `
-Object {
-  "bearer": Array [
-    Object {
+{
+  "bearer": [
+    {
       "key": "token",
       "type": "any",
       "value": "foo",
@@ -128,9 +128,9 @@ Object {
 `;
 
 exports[`overwriteRequestSecurity should remove the request bearer token auth 1`] = `
-Object {
-  "bearer": Array [],
-  "noauth": Array [],
+{
+  "bearer": [],
+  "noauth": [],
   "type": "noauth",
 }
 `;
