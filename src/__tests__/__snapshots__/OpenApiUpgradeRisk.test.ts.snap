@@ -18,9 +18,7 @@ Array [
   Object {
     "authType": "bearer",
     "bodyMode": null,
-    "headerKeys": Array [
-      "Accept",
-    ],
+    "headerKeys": Array [],
     "id": "usersList",
     "method": "GET",
     "name": "users List",
@@ -66,7 +64,6 @@ Array [
     "authType": "apikey",
     "bodyMode": "raw",
     "headerKeys": Array [
-      "Accept",
       "Content-Type",
     ],
     "id": "usersCreate",
@@ -98,7 +95,7 @@ Object {
       "minor": 0,
       "patch": 0,
       "prerelease": Array [],
-      "raw": "1.0.0",
+      "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
@@ -152,12 +149,6 @@ pm.test(\\"[GET]::/users - Content-Type is application/json\\", function () {
             "description": Object {
               "type": "text/plain",
             },
-            "header": Array [
-              Object {
-                "key": "Accept",
-                "value": "application/json",
-              },
-            ],
             "method": "GET",
             "name": "users List",
             "url": Object {
@@ -175,79 +166,13 @@ pm.test(\\"[GET]::/users - Content-Type is application/json\\", function () {
                   },
                   "disabled": false,
                   "key": "limit",
-                  "value": "88",
+                  "value": "25",
                 },
               ],
               "variable": Array [],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
-                "postman_previewlanguage": "json",
-              },
-              "body": "{
-  \\"data\\": [
-    {
-      \\"id\\": \\"culpa exercitation laboris\\",
-      \\"name\\": \\"laboris dolore\\"
-    },
-    {
-      \\"id\\": \\"ullamco dolor tempor Duis\\",
-      \\"name\\": \\"incididunt elit dolor nostrud\\"
-    }
-  ]
-}",
-              "code": 200,
-              "cookie": Array [],
-              "header": Array [
-                Object {
-                  "key": "Content-Type",
-                  "value": "application/json",
-                },
-              ],
-              "name": "ok",
-              "originalRequest": Object {
-                "body": Object {},
-                "header": Array [
-                  Object {
-                    "description": Object {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain",
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>",
-                  },
-                  Object {
-                    "key": "Accept",
-                    "value": "application/json",
-                  },
-                ],
-                "method": "GET",
-                "url": Object {
-                  "host": Array [
-                    "{{baseUrl}}",
-                  ],
-                  "path": Array [
-                    "users",
-                  ],
-                  "query": Array [
-                    Object {
-                      "description": Object {
-                        "content": "",
-                        "type": "text/plain",
-                      },
-                      "disabled": false,
-                      "key": "limit",
-                      "value": "88",
-                    },
-                  ],
-                  "variable": Array [],
-                },
-              },
-              "status": "OK",
-            },
-          ],
+          "response": Array [],
         },
         Object {
           "event": Array [
@@ -314,18 +239,14 @@ pm.test(\\"[POST]::/users - Content-Type is application/json\\", function () {
                   "language": "json",
                 },
               },
-              "raw": "{
-    \\"name\\": \\"Upgrade Gate User\\"
-}",
+              "raw": Object {
+                "name": "<string>",
+              },
             },
             "description": Object {
               "type": "text/plain",
             },
             "header": Array [
-              Object {
-                "key": "Accept",
-                "value": "application/json",
-              },
               Object {
                 "key": "Content-Type",
                 "value": "application/json",
@@ -344,69 +265,7 @@ pm.test(\\"[POST]::/users - Content-Type is application/json\\", function () {
               "variable": Array [],
             },
           },
-          "response": Array [
-            Object {
-              "_": Object {
-                "postman_previewlanguage": "json",
-              },
-              "body": "{
-  \\"id\\": \\"exercitation in et\\"
-}",
-              "code": 201,
-              "cookie": Array [],
-              "header": Array [
-                Object {
-                  "key": "Content-Type",
-                  "value": "application/json",
-                },
-              ],
-              "name": "created",
-              "originalRequest": Object {
-                "body": Object {
-                  "mode": "raw",
-                  "options": Object {
-                    "raw": Object {
-                      "headerFamily": "json",
-                      "language": "json",
-                    },
-                  },
-                  "raw": "{
-  \\"name\\": \\"Jane\\"
-}",
-                },
-                "header": Array [
-                  Object {
-                    "description": Object {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain",
-                    },
-                    "key": "X-API-Key",
-                    "value": "<API Key>",
-                  },
-                  Object {
-                    "key": "Accept",
-                    "value": "application/json",
-                  },
-                  Object {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                  },
-                ],
-                "method": "POST",
-                "url": Object {
-                  "host": Array [
-                    "{{baseUrl}}",
-                  ],
-                  "path": Array [
-                    "users",
-                  ],
-                  "query": Array [],
-                  "variable": Array [],
-                },
-              },
-              "status": "Created",
-            },
-          ],
+          "response": Array [],
         },
         Object {
           "event": Array [
@@ -466,7 +325,7 @@ pm.test(\\"[GET]::/users/:id - Content-Type is application/json\\", function () 
                   "disabled": false,
                   "key": "id",
                   "type": "any",
-                  "value": "amet id in",
+                  "value": "user_1",
                 },
               ],
             },
@@ -477,8 +336,8 @@ pm.test(\\"[GET]::/users/:id - Content-Type is application/json\\", function () 
                 "postman_previewlanguage": "json",
               },
               "body": "{
-  \\"id\\": \\"velit tempor voluptate\\",
-  \\"name\\": \\"eu officia\\"
+  \\"id\\": \\"user_1\\",
+  \\"name\\": \\"Jane\\"
 }",
               "code": 200,
               "cookie": Array [],
@@ -546,9 +405,9 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
                   "language": "json",
                 },
               },
-              "raw": "{
-  \\"name\\": \\"officia tempor ipsum\\"
-}",
+              "raw": Object {
+                "name": "<string>",
+              },
             },
             "description": Object {
               "type": "text/plain",
@@ -579,7 +438,7 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
                   "disabled": false,
                   "key": "id",
                   "type": "any",
-                  "value": "amet id in",
+                  "value": "user_1",
                 },
               ],
             },
@@ -602,9 +461,9 @@ pm.test(\\"[PATCH]::/users/:id - Response status code is 200\\", function () {
                       "language": "json",
                     },
                   },
-                  "raw": "{
-  \\"name\\": \\"officia tempor ipsum\\"
-}",
+                  "raw": Object {
+                    "name": "<string>",
+                  },
                 },
                 "header": Array [
                   Object {
@@ -677,7 +536,7 @@ pm.test(\\"[DELETE]::/users/:id - Response status code is 204\\", function () {
                   "disabled": false,
                   "key": "id",
                   "type": "any",
-                  "value": "amet id in",
+                  "value": "user_1",
                 },
               ],
             },
@@ -783,7 +642,7 @@ Object {
       "minor": 0,
       "patch": 0,
       "prerelease": Array [],
-      "raw": "1.0.0",
+      "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
@@ -825,9 +684,9 @@ pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
               "language": "json",
             },
           },
-          "raw": "{
-  \\"type\\": \\"minim id\\"
-}",
+          "raw": Object {
+            "type": "<string>",
+          },
         },
         "description": Object {
           "type": "text/plain",
@@ -866,8 +725,8 @@ pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"commodo fugiat\\",
-  \\"type\\": \\"\\"
+  \\"id\\": \\"thing_1\\",
+  \\"type\\": \\"widget\\"
 }",
           "code": 201,
           "cookie": Array [],
@@ -887,9 +746,9 @@ pm.test(\\"[POST]::/things - Status code is 2xx\\", function () {
                   "language": "json",
                 },
               },
-              "raw": "{
-  \\"type\\": \\"minim id\\"
-}",
+              "raw": Object {
+                "type": "<string>",
+              },
             },
             "header": Array [
               Object {
@@ -967,7 +826,7 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
               "disabled": false,
               "key": "id",
               "type": "any",
-              "value": "aliquip ipsum",
+              "value": "thing_1",
             },
           ],
         },
@@ -978,8 +837,8 @@ pm.test(\\"[GET]::/things/:id - Status code is 2xx\\", function () {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"commodo fugiat\\",
-  \\"type\\": \\"\\"
+  \\"id\\": \\"thing_1\\",
+  \\"type\\": \\"widget\\"
 }",
           "code": 200,
           "cookie": Array [],
@@ -1102,7 +961,7 @@ Object {
       "minor": 0,
       "patch": 0,
       "prerelease": Array [],
-      "raw": "1.0.0",
+      "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
@@ -1180,9 +1039,9 @@ Object {
                   "language": "json",
                 },
               },
-              "raw": "{
-    \\"sku\\": \\"ORDER-123\\"
-}",
+              "raw": Object {
+                "sku": "<string>",
+              },
             },
             "description": Object {
               "type": "text/plain",
@@ -1224,9 +1083,9 @@ Object {
                       "language": "json",
                     },
                   },
-                  "raw": "{
-  \\"sku\\": \\"elit dolore\\"
-}",
+                  "raw": Object {
+                    "sku": "<string>",
+                  },
                 },
                 "header": Array [
                   Object {
@@ -1294,7 +1153,7 @@ pm.test(\\"[GET]::/orders/:id - Status code is 2xx\\", function () {
                   "disabled": false,
                   "key": "id",
                   "type": "any",
-                  "value": "mollit conseq",
+                  "value": "order_1",
                 },
               ],
             },
@@ -1380,7 +1239,7 @@ pm.test(\\"[PATCH]::/orders/:id - Status code is 2xx\\", function () {
                   "disabled": false,
                   "key": "id",
                   "type": "any",
-                  "value": "mollit conseq",
+                  "value": "order_1",
                 },
               ],
             },
@@ -1448,7 +1307,6 @@ Array [
     "authType": null,
     "bodyMode": "raw",
     "headerKeys": Array [
-      "Accept",
       "Content-Type",
       "x-trace-id",
       "x-upgrade-gate",
@@ -1482,7 +1340,7 @@ Object {
       "minor": 0,
       "patch": 0,
       "prerelease": Array [],
-      "raw": "1.0.0",
+      "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
@@ -1524,11 +1382,11 @@ pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
               "language": "json",
             },
           },
-          "raw": "{
-  \\"type\\": \\"dolore anim enim non\\",
-  \\"target\\": \\"aute officia veniam\\",
-  \\"internalNote\\": \\"occaecat tempor\\"
-}",
+          "raw": Object {
+            "internalNote": "<string>",
+            "target": "<string>",
+            "type": "<string>",
+          },
         },
         "description": Object {
           "type": "text/plain",
@@ -1541,16 +1399,12 @@ pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
             },
             "disabled": false,
             "key": "x-trace-id",
-            "value": "aute",
+            "value": "trace-123",
           },
           Object {
             "disabled": false,
             "key": "x-upgrade-gate",
             "value": "true",
-          },
-          Object {
-            "key": "Accept",
-            "value": "application/json",
           },
           Object {
             "key": "Content-Type",
@@ -1570,72 +1424,7 @@ pm.test(\\"[POST]::/events - Status code is 2xx\\", function () {
           "variable": Array [],
         },
       },
-      "response": Array [
-        Object {
-          "_": Object {
-            "postman_previewlanguage": "json",
-          },
-          "body": "{
-  \\"status\\": \\"accepted\\"
-}",
-          "code": 201,
-          "cookie": Array [],
-          "header": Array [
-            Object {
-              "key": "Content-Type",
-              "value": "application/json",
-            },
-          ],
-          "name": "created",
-          "originalRequest": Object {
-            "body": Object {
-              "mode": "raw",
-              "options": Object {
-                "raw": Object {
-                  "headerFamily": "json",
-                  "language": "json",
-                },
-              },
-              "raw": "{
-  \\"type\\": \\"dolore anim enim non\\",
-  \\"target\\": \\"aute officia veniam\\",
-  \\"internalNote\\": \\"occaecat tempor\\"
-}",
-            },
-            "header": Array [
-              Object {
-                "description": Object {
-                  "content": "(Required) ",
-                  "type": "text/plain",
-                },
-                "disabled": false,
-                "key": "x-trace-id",
-                "value": "aute",
-              },
-              Object {
-                "key": "Accept",
-                "value": "application/json",
-              },
-              Object {
-                "key": "Content-Type",
-                "value": "application/json",
-              },
-            ],
-            "method": "POST",
-            "url": Object {
-              "host": Array [
-                "{{baseUrl}}",
-              ],
-              "path": Array [
-                "events",
-              ],
-              "query": Array [],
-              "variable": Array [],
-            },
-          },
-          "status": "Created",
-        },
-      ],
+      "response": Array [],
     },
     Object {
       "event": Array [
@@ -1687,7 +1476,7 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
               "disabled": false,
               "key": "id",
               "type": "any",
-              "value": "cillum anim amet sed",
+              "value": "evt_1",
             },
           ],
         },
@@ -1698,7 +1487,7 @@ pm.test(\\"[GET]::/events/:id - Status code is 2xx\\", function () {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"eu\\",
+  \\"id\\": \\"evt_1\\",
   \\"archivedAt\\": null
 }",
           "code": 200,
@@ -1782,6 +1571,7 @@ Array [
     "authType": null,
     "bodyMode": "raw",
     "headerKeys": Array [
+      "Accept",
       "Content-Type",
       "x-upgrade-gate",
     ],
@@ -1814,7 +1604,7 @@ Object {
       "minor": 0,
       "patch": 0,
       "prerelease": Array [],
-      "raw": "1.0.0",
+      "raw": "<number>.<number>.<number>",
       "string": "1.0.0",
     },
   },
@@ -1869,12 +1659,12 @@ pm.test(\\"[GET]::/widgets - Status code is 2xx\\", function () {
           },
           "body": "[
   {
-    \\"id\\": \\"in laboris elit exercitation\\",
-    \\"name\\": \\"ea aliqua ut ut do\\"
+    \\"id\\": \\"wid_1\\",
+    \\"name\\": \\"Alpha\\"
   },
   {
-    \\"id\\": \\"exercitation amet\\",
-    \\"name\\": \\"laborum i\\"
+    \\"id\\": \\"wid_2\\",
+    \\"name\\": \\"Beta\\"
   }
 ]",
           "code": 200,
@@ -1947,9 +1737,9 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
               "language": "json",
             },
           },
-          "raw": "{
-  \\"name\\": \\"pariatur consequat\\"
-}",
+          "raw": Object {
+            "name": "<string>",
+          },
         },
         "description": Object {
           "type": "text/plain",
@@ -1959,6 +1749,10 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
             "disabled": false,
             "key": "x-upgrade-gate",
             "value": "true",
+          },
+          Object {
+            "key": "Accept",
+            "value": "*/*",
           },
           Object {
             "key": "Content-Type",
@@ -1981,11 +1775,20 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
       "response": Array [
         Object {
           "_": Object {
-            "postman_previewlanguage": "text",
+            "postman_previewlanguage": "json",
           },
+          "body": "{
+  \\"id\\": \\"wid_3\\",
+  \\"name\\": \\"Gamma\\"
+}",
           "code": 201,
           "cookie": Array [],
-          "header": Array [],
+          "header": Array [
+            Object {
+              "key": "Content-Type",
+              "value": "application/json",
+            },
+          ],
           "name": "created",
           "originalRequest": Object {
             "body": Object {
@@ -1996,11 +1799,15 @@ pm.test(\\"[POST]::/widgets - Status code is 2xx\\", function () {
                   "language": "json",
                 },
               },
-              "raw": "{
-  \\"name\\": \\"pariatur consequat\\"
-}",
+              "raw": Object {
+                "name": "<string>",
+              },
             },
             "header": Array [
+              Object {
+                "key": "Accept",
+                "value": "*/*",
+              },
               Object {
                 "key": "Content-Type",
                 "value": "application/json",
@@ -2072,7 +1879,7 @@ pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
               "disabled": false,
               "key": "id",
               "type": "any",
-              "value": "in do qui exercitation",
+              "value": "wid_1",
             },
           ],
         },
@@ -2083,8 +1890,8 @@ pm.test(\\"[GET]::/widgets/:id - Status code is 2xx\\", function () {
             "postman_previewlanguage": "json",
           },
           "body": "{
-  \\"id\\": \\"Lorem in irure ut\\",
-  \\"name\\": \\"est dolor\\"
+  \\"id\\": \\"wid_1\\",
+  \\"name\\": \\"Alpha\\"
 }",
           "code": 200,
           "cookie": Array [],

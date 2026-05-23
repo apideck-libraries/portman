@@ -13,6 +13,7 @@ paths:
           schema:
             type: string
             minLength: 3
+            example: trace-123
       requestBody:
         required: true
         content:
@@ -28,10 +29,12 @@ paths:
           description: created
           content:
             application/json:
-              schema:
-                anyOf:
-                  - $ref: "#/components/schemas/AcceptedEvent"
-                  - $ref: "#/components/schemas/RejectedEvent"
+            schema:
+              anyOf:
+                - $ref: "#/components/schemas/AcceptedEvent"
+                - $ref: "#/components/schemas/RejectedEvent"
+            example:
+              status: accepted
   /events/{id}:
     get:
       operationId: eventsOne
@@ -41,6 +44,7 @@ paths:
           required: true
           schema:
             type: string
+            example: evt_1
       responses:
         "200":
           description: ok
@@ -59,6 +63,9 @@ paths:
                         type:
                           - "string"
                           - "null"
+              example:
+                id: evt_1
+                archivedAt: null
 components:
   schemas:
     ClickEvent:
@@ -70,6 +77,7 @@ components:
           const: click
         target:
           type: string
+          example: button-1
         internalNote:
           type: string
           writeOnly: true
@@ -82,6 +90,7 @@ components:
           const: view
         path:
           type: string
+          example: /home
         processedAt:
           type: string
           readOnly: true

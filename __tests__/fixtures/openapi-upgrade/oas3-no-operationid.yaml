@@ -21,6 +21,8 @@ paths:
               properties:
                 sku:
                   type: string
+            example:
+              sku: ORDER-123
       responses:
         "201":
           description: created
@@ -31,6 +33,7 @@ paths:
         required: true
         schema:
           type: string
+          example: order_1
     get:
       tags: [Orders]
       responses:

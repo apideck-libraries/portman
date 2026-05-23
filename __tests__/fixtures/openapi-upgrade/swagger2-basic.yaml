@@ -19,6 +19,12 @@ paths:
             type: array
             items:
               $ref: "#/definitions/Widget"
+          examples:
+            application/json:
+              - id: wid_1
+                name: Alpha
+              - id: wid_2
+                name: Beta
     post:
       operationId: widgetsCreate
       consumes:
@@ -32,6 +38,12 @@ paths:
       responses:
         "201":
           description: created
+          schema:
+            $ref: "#/definitions/Widget"
+          examples:
+            application/json:
+              id: wid_3
+              name: Gamma
   /widgets/{id}:
     get:
       operationId: widgetsOne
@@ -42,11 +54,16 @@ paths:
           name: id
           required: true
           type: string
+          x-example: wid_1
       responses:
         "200":
           description: ok
           schema:
             $ref: "#/definitions/Widget"
+          examples:
+            application/json:
+              id: wid_1
+              name: Alpha
 definitions:
   Widget:
     type: object
@@ -54,11 +71,14 @@ definitions:
     properties:
       id:
         type: string
+        example: wid_1
       name:
         type: string
+        example: Alpha
   WidgetCreate:
     type: object
     required: [name]
     properties:
       name:
         type: string
+        example: Gamma

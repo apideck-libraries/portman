@@ -69,6 +69,44 @@ const FIXTURE_CASES: FixtureCase[] = [
 const SUPPORTED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']
 
 const normalizeCollectionForSnapshot = (input: unknown): unknown => {
+  const normalizeScalar = (value: unknown): unknown => {
+    if (value === null) return null
+    if (Array.isArray(value)) return value.map(item => normalizeScalar(item))
+    if (typeof value === 'object') {
+      const obj = value as Record<string, unknown>
+      const normalizedObj: Record<string, unknown> = {}
+      Object.keys(obj)
+        .sort()
+        .forEach(key => {
+          normalizedObj[key] = normalizeScalar(obj[key])
+        })
+      return normalizedObj
+    }
+    if (typeof value === 'string') return '<string>'
+    if (typeof value === 'number') return '<number>'
+    if (typeof value === 'boolean') return '<boolean>'
+    return value
+  }
+
+  const normalizeRawText = (value: string): unknown => {
+    const trimmed = value.trim()
+    if (!trimmed) return ''
+
+    try {
+      const parsed = JSON.parse(trimmed) as unknown
+      return normalizeScalar(parsed)
+    } catch (e) {
+      // best-effort normalization for non-JSON raw payloads
+      return trimmed
+        .replace(
+          /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/gi,
+          '<uuid>'
+        )
+        .replace(/\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z\b/g, '<iso-datetime>')
+        .replace(/\b\d+\b/g, '<number>')
+    }
+  }
+
   const normalize = (value: unknown): unknown => {
     if (Array.isArray(value)) {
       return value.map(item => normalize(item))
@@ -94,6 +132,9 @@ const normalizeCollectionForSnapshot = (input: unknown): unknown => {
           nextValue = [...(nextValue as unknown[])].sort((a, b) =>
             JSON.stringify(a).localeCompare(JSON.stringify(b))
           )
+        }
+        if (key === 'raw' && typeof nextValue === 'string') {
+          nextValue = normalizeRawText(nextValue)
         }
 
         normalized[key] = nextValue
