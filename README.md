@@ -3,6 +3,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@apideck/portman"><img src="https://img.shields.io/npm/v/@apideck/portman.svg" alt="Total Downloads"></a>
   <a href="https://www.npmjs.com/package/@apideck/portman"><img src="https://img.shields.io/npm/dw/@apideck/portman.svg" alt="Latest Stable Version"></a>
+  <a href="https://www.npmjs.com/package/@apideck/portman"><img src="https://img.shields.io/npm/dt/@apideck/portman.svg" alt="Total Downloads"></a>
 </p>
 
 # Portman 👨🏽‍🚀
