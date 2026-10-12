@@ -55,7 +55,7 @@
     "neotraverse": "^0.6.18",
     "newman": "^6.2.2",
     "node-emoji": "^1.11.0",
-    "openapi-format": "^1.32.1",
+    "openapi-format": "^1.34.0",
     "openapi-to-postmanv2": "^6.0.1",
     "openapi-types": "9.1.0",
     "ora": "^5.4.1",
