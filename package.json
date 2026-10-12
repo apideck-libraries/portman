@@ -16,8 +16,8 @@
   "bugs": {
     "url": "https://github.com/apideck-libraries/portman/issues"
   },
-  "main": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
     "lint": "oxlint ./src --fix",
     "lint:ci": "oxlint ./src && npm run format:check",
@@ -99,6 +99,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=18"
+    "node": "^22.13.0 || ^23.5.0 || >=24.0.0"
   }
 }
