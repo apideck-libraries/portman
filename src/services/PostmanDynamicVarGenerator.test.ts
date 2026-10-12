@@ -1,10 +1,7 @@
 import { PostmanDynamicVarGenerator } from './PostmanDynamicVarGenerator'
 
-// Use real faker, not the global mock, so removed faker APIs fail here. Jest can't load the
-// ESM-only package, so this goes through Node's own require.
-jest.mock('@faker-js/faker', () =>
-  (process as any).getBuiltinModule('module').createRequire(__filename)('@faker-js/faker')
-)
+// Use the real-package alias to bypass the global mock. ts-jest transforms Faker's ESM.
+jest.mock('@faker-js/faker', () => jest.requireActual('@faker-js/faker/real'))
 
 describe('PostmanDynamicVariables', () => {
   let pmVars: PostmanDynamicVarGenerator
