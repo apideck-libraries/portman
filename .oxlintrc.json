@@ -16,7 +16,7 @@
     "src/application/preRequests/__fixtures__"
   ],
   "rules": {
-    "eslint/no-unused-vars": [
+    "no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "^_",
@@ -24,20 +24,20 @@
         "caughtErrors": "none"
       }
     ],
-    "typescript/ban-ts-comment": "error",
-    "typescript/ban-types": "error",
-    "eslint/no-array-constructor": "error",
-    "typescript/no-duplicate-enum-values": "error",
-    "typescript/no-extra-non-null-assertion": "error",
-    "eslint/no-loss-of-precision": "error",
-    "typescript/no-misused-new": "error",
+    "ban-ts-comment": "error",
+    "ban-types": "error",
+    "no-array-constructor": "error",
+    "no-duplicate-enum-values": "error",
+    "no-extra-non-null-assertion": "error",
+    "no-loss-of-precision": "error",
+    "no-misused-new": "error",
     "typescript/no-namespace": "error",
-    "typescript/no-non-null-asserted-optional-chain": "error",
-    "typescript/no-this-alias": "error",
-    "typescript/no-unnecessary-type-constraint": "error",
-    "typescript/no-unsafe-declaration-merging": "error",
-    "typescript/prefer-as-const": "error",
-    "typescript/triple-slash-reference": "error",
+    "no-non-null-asserted-optional-chain": "error",
+    "no-this-alias": "error",
+    "no-unnecessary-type-constraint": "error",
+    "no-unsafe-declaration-merging": "error",
+    "prefer-as-const": "error",
+    "triple-slash-reference": "error",
     "constructor-super": "error",
     "for-direction": "error",
     "getter-return": "error",
@@ -96,8 +96,8 @@
     {
       "files": ["**/*.ts", "**/*.tsx"],
       "rules": {
-        "typescript/no-var-requires": "error",
-        "typescript/explicit-module-boundary-types": "error",
+        "no-var-requires": "error",
+        "explicit-module-boundary-types": "error",
         "constructor-super": "off",
         "getter-return": "off",
         "no-const-assign": "off",
