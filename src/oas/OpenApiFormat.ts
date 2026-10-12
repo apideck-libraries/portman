@@ -30,13 +30,17 @@ export class OpenApiFormatter {
 
     // Write filtered OpenAPI file as YAML
     if (options.outputFile) {
-      await openapiFormat.writeFile(options.outputFile, this.oas, { format: 'yaml' })
+      await openapiFormat.writeFile(
+        options.outputFile,
+        this.oas as unknown as Record<string, unknown>,
+        { format: 'yaml' }
+      )
     }
 
     return this.oas
   }
 
-  async parseFile(filePath: string): Promise<Record<string, unknown>> {
+  async parseFile(filePath: string): Promise<Awaited<ReturnType<typeof openapiFormat.parseFile>>> {
     return await openapiFormat.parseFile(filePath)
   }
 

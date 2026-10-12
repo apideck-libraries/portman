@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     /* Basic Options */
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es2022",
+    "module": "node20",
+    "useDefineForClassFields": false,
     "skipLibCheck": true,
     "sourceMap": true,
-    "moduleResolution": "node",
     "removeComments": true,
     "declaration": true,
     "importHelpers": true,
@@ -13,6 +13,7 @@
     "allowJs": true,
     "outDir": "./dist",
     /* Strict Type-Checking Options */
+    "strict": false,
     "noImplicitAny": false,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -24,15 +25,14 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     /* Module Resolution Options */
-    "baseUrl": ".",
     "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     /* Experimental Options */
     "emitDecoratorMetadata": true,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "paths": {
+      "src/*": ["./src/*"],
       "application": ["./src/application"],
       "utils": ["./src/utils"],
       "lib": ["./src/lib/"],
@@ -41,7 +41,8 @@
       "services": ["./src/services"],
       "types": ["./src/types/"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": ["node", "jest"]
   },
   "include": ["src", "src/**/*.ts"],
   "exclude": ["node_modules/**/*", ".vscode/**/*", "__tests__", "src/**/*.test.ts"]

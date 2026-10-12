@@ -19,7 +19,7 @@
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "lint": "oxlint ./src --fix && npm run format",
+    "lint": "oxlint ./src --fix",
     "lint:ci": "oxlint ./src && npm run format:check",
     "test": "jest --colors --verbose --reporters=default --collectCoverage --no-cache --testPathIgnorePatterns=\"src/__tests__/OpenApiUpgradeRisk.test.ts|src/__tests__/testUtils/\"",
     "test:openapi-upgrade": "jest --runInBand --colors --verbose src/__tests__/OpenApiUpgradeRisk.test.ts",
@@ -27,10 +27,10 @@
     "test:watch": "jest  --verbose --bail --watch",
     "clean": "rm -rf ./dist/*",
     "build": "tsc --project ./tsconfig.json",
-    "ts-script": "TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register --project ./tsconfig.json",
+    "ts-script": "TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true TS_NODE_BASEURL=. ts-node -r tsconfig-paths/register --project ./tsconfig.json",
     "format": "oxfmt --write \"src/**/*.{ts,js}\"",
     "format:check": "oxfmt --check \"src/**/*.{ts,js}\"",
-    "generate-schema": "npx ts-json-schema-generator --path './src/types/PortmanConfig.ts' --type 'PortmanConfig' --out './src/utils/portman-config-schema.json' -f ./tsconfig.json --no-ref-encode true --expose none --no-top-ref true",
+    "generate-schema": "ts-json-schema-generator --path './src/types/PortmanConfig.ts' --type 'PortmanConfig' --out './src/utils/portman-config-schema.json' -f ./tsconfig.json --no-ref-encode --expose none --no-top-ref",
     "release": "npx np --branch main"
   },
   "files": [
@@ -73,16 +73,17 @@
     "@types/postman-collection": "^3.5.10",
     "@types/uuid": "^8.3.4",
     "@types/yargs": "^17.0.32",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "husky": "^6.0.0",
     "jest": "^30.5.2",
     "jest-progress-bar-reporter": "^1.0.25",
     "oxfmt": "^0.72.0",
     "oxlint": "^1.87.0",
-    "ts-jest": "^29.2.5",
-    "ts-json-schema-generator": "^0.95.0",
+    "ts-jest": "^29.4.14",
+    "ts-json-schema-generator": "^2.9.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^3.15.0",
-    "typescript": "^5.6.3"
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
   },
   "keywords": [
     "apideck",

@@ -26,5 +26,8 @@ jobs:
       - name: Update browserslist
         run: npx browserslist@latest --update-db
 
+      - name: Build
+        run: npm run build
+
       - name: Run Unit Tests
         run: npm run test:ci
