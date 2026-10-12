@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## v1.35.1 - (2026-10-12)
+
+- fix: Port dynamic variable generator to the faker 10 (#744)
+- chore: Bump openapi-format to v1.34.0
+
 ## v1.35.0 - (2026-02-28)
 
 - chore: Bump openapi-to-postman to v6.0 version
