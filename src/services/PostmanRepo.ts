@@ -18,7 +18,10 @@ export type PostmanCache = {
 export class PostmanRepo {
   public cache: PostmanCache
 
-  constructor(private cacheFile: string, private postmanApi: PostmanApiService) {
+  constructor(
+    private cacheFile: string,
+    private postmanApi: PostmanApiService
+  ) {
     this.cacheFile = cacheFile
   }
 
