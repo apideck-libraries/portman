@@ -6,7 +6,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      with:
+        ref: ${{ github.event.release.tag_name }}
+
+    - name: Read release version
+      id: release
+      env:
+        RELEASE_TAG: ${{ github.event.release.tag_name }}
+      run: |
+        PORTMAN_VERSION="${RELEASE_TAG#v}"
+        printf 'version=%s\n' "$PORTMAN_VERSION" >> "$GITHUB_OUTPUT"
+
     - name: Login to GitHub Container Registry
       uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2
       with:
@@ -18,5 +34,10 @@ jobs:
       id: build-and-push
       uses: docker/build-push-action@1cb9d22b932e4832bb29793b7777ec860fc1cde0 # v3.1.0
       with:
+        context: .
         push: true
-        tags: ghcr.io/${{ github.repository }}:latest
+        build-args: |
+          PORTMAN_VERSION=${{ steps.release.outputs.version }}
+        tags: |
+          ghcr.io/${{ github.repository }}:${{ steps.release.outputs.version }}
+          ghcr.io/${{ github.repository }}:latest
