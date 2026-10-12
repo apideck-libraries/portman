@@ -141,7 +141,7 @@ describe('injectContractTests', () => {
     const schema = oaOperationOne.schema.responses[200].content['application/json']
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    oaOperationOne?.schema.responses[200].content['plain/text'] = schema
+    oaOperationOne.schema.responses[200].content['plain/text'] = schema
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     delete oaOperationOne.schema.responses[200].content['application/json']
@@ -247,7 +247,7 @@ describe('injectContractTests', () => {
     const schema = oaOperationOne.schema.responses[200].content['application/json']
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    oaOperationOne?.schema.responses[200].content['plain/text'] = schema
+    oaOperationOne.schema.responses[200].content['plain/text'] = schema
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     delete oaOperationOne.schema.responses[200].content['application/json']

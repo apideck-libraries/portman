@@ -10,7 +10,9 @@ export const runNewmanWith = async (
   newmanRunOptions: Partial<NewmanRunOptions>
 ): Promise<void> => {
   const defaultNewmanOptions = {
+    // oxlint-disable-next-line typescript/no-var-requires -- Load the user-provided JSON file.
     collection: require(path.resolve(postmanCollectionFile)),
+    // oxlint-disable-next-line typescript/no-var-requires -- Load the user-provided JSON file.
     environment: require(path.resolve(newmanEnvFile)),
     reporters: ['cli'],
     reporter: {

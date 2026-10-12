@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "semi": false,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "node_modules",
+    ".vscode",
+    ".webpack",
+    "src/application/globals/__fixtures__",
+    "src/application/preRequests/__fixtures__"
+  ]
+}

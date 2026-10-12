@@ -77,8 +77,8 @@ export const testResponseBodyContent = (
     const keyValue = isRoot
       ? ``
       : isArray || keySafeValue.startsWith('[')
-      ? `${keySafeValue}`
-      : `.${keySafeValue}`
+        ? `${keySafeValue}`
+        : `.${keySafeValue}`
     const keyPath = `${renderChainPath(`${sourceData}${keyValue}`)}`
     const safeKeyForVar = sanitizeKeyForVar(keyValue.replace(/\[/g, ''))
     const pathVarName = `_${changeCase(`res${safeKeyForVar}`, 'camelCase')}`
