@@ -1,5 +1,11 @@
 import { PostmanDynamicVarGenerator } from './PostmanDynamicVarGenerator'
 
+// Use real faker, not the global mock, so removed faker APIs fail here. Jest can't load the
+// ESM-only package, so this goes through Node's own require.
+jest.mock('@faker-js/faker', () =>
+  (process as any).getBuiltinModule('module').createRequire(__filename)('@faker-js/faker')
+)
+
 describe('PostmanDynamicVariables', () => {
   let pmVars: PostmanDynamicVarGenerator
 
@@ -10,6 +16,14 @@ describe('PostmanDynamicVariables', () => {
   describe('constructor', () => {
     it('should load from json input file and set PostmanCollection', () => {
       expect(pmVars.dynamicGenerators).toBeDefined()
+    })
+  })
+
+  describe('dynamicGenerators', () => {
+    it('should generate a value for every dynamic variable', () => {
+      Object.values(pmVars.dynamicGenerators).forEach((dynamicVar: any) => {
+        expect(dynamicVar.generator()).toBeDefined()
+      })
     })
   })
 

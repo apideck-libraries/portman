@@ -1,6 +1,6 @@
 import { fakerEN } from '@faker-js/faker'
 
-const faker: any = fakerEN
+const faker = fakerEN
 
 // Ported from the original Postman implementation for dynamic-variables
 // https://github.com/postmanlabs/postman-collection/blob/develop/lib/superstring/dynamic-variables.js
@@ -245,7 +245,7 @@ export class PostmanDynamicVarGenerator {
       $randomPhoneNumber: {
         description: 'A random 10-digit phone number',
         generator: function () {
-          return faker.phone.phoneNumberFormat(0)
+          return faker.phone.number({ style: 'national' })
         }
       },
 
@@ -254,7 +254,9 @@ export class PostmanDynamicVarGenerator {
       $randomPhoneNumberExt: {
         description: 'A random phone number with extension (12 digits)',
         generator: function () {
-          return faker.datatype.number({ min: 1, max: 99 }) + '-' + faker.phone.phoneNumberFormat(0)
+          return (
+            faker.number.int({ min: 1, max: 99 }) + '-' + faker.phone.number({ style: 'national' })
+          )
         }
       },
 
@@ -263,7 +265,7 @@ export class PostmanDynamicVarGenerator {
       $randomLocale: {
         description: 'A random two-letter language code (ISO 639-1)',
         generator: function () {
-          return faker.random.arrayElement(LOCALES) as string
+          return faker.helpers.arrayElement(LOCALES) as string
         }
       },
 
@@ -273,9 +275,9 @@ export class PostmanDynamicVarGenerator {
         description: 'Some random words',
         generator: function () {
           let words = ''
-          const count = faker.random.number({ min: 2, max: 5 })
+          const count = faker.number.int({ min: 2, max: 5 })
           for (let i = 0; i < count; i++) {
-            const rndWord = faker.random.word() || ''
+            const rndWord = faker.word.sample() || ''
             words += rndWord
           }
           return words
@@ -296,42 +298,42 @@ export class PostmanDynamicVarGenerator {
       $randomDirectoryPath: {
         description: 'A random directory path',
         generator: function () {
-          return faker.random.arrayElement(DIRECTORY_PATHS)
+          return faker.helpers.arrayElement(DIRECTORY_PATHS)
         }
       },
 
       $randomCity: {
         description: 'A random city name',
-        generator: faker.address.city
+        generator: faker.location.city
       },
       $randomStreetName: {
         description: 'A random street name',
-        generator: faker.address.streetName
+        generator: faker.location.street
       },
       $randomStreetAddress: {
         description: 'A random street address (e.g. 1234 Main Street)',
-        generator: faker.address.streetAddress
+        generator: faker.location.streetAddress
       },
       $randomCountry: {
         description: 'A random country',
-        generator: faker.address.country
+        generator: faker.location.country
       },
       $randomCountryCode: {
         description: 'A random 2-letter country code (ISO 3166-1 alpha-2)',
-        generator: faker.address.countryCode
+        generator: faker.location.countryCode
       },
       $randomLatitude: {
         description: 'A random latitude coordinate',
-        generator: faker.address.latitude
+        generator: faker.location.latitude
       },
       $randomLongitude: {
         description: 'A random longitude coordinate',
-        generator: faker.address.longitude
+        generator: faker.location.longitude
       },
 
       $randomColor: {
         description: 'A random color',
-        generator: faker.commerce.color
+        generator: faker.color.human
       },
       $randomDepartment: {
         description: 'A random commerce category (e.g. electronics, clothing)',
@@ -356,11 +358,11 @@ export class PostmanDynamicVarGenerator {
 
       $randomCompanyName: {
         description: 'A random company name',
-        generator: faker.company.companyName
+        generator: faker.company.name
       },
       $randomCompanySuffix: {
         description: 'A random company suffix (e.g. Inc, LLC, Group)',
-        generator: faker.company.companySuffix
+        generator: () => faker.helpers.arrayElement(['Inc', 'and Sons', 'LLC', 'Group'])
       },
       $randomCatchPhrase: {
         description: 'A random catchphrase',
@@ -368,7 +370,7 @@ export class PostmanDynamicVarGenerator {
       },
       $randomBs: {
         description: 'A random phrase of business speak',
-        generator: faker.company.bs
+        generator: faker.company.buzzPhrase
       },
       $randomCatchPhraseAdjective: {
         description: 'A random catchphrase adjective',
@@ -384,15 +386,15 @@ export class PostmanDynamicVarGenerator {
       },
       $randomBsAdjective: {
         description: 'A random business speak adjective',
-        generator: faker.company.bsAdjective
+        generator: faker.company.buzzAdjective
       },
       $randomBsBuzz: {
         description: 'A random business speak buzzword',
-        generator: faker.company.bsBuzz
+        generator: faker.company.buzzVerb
       },
       $randomBsNoun: {
         description: 'A random business speak noun',
-        generator: faker.company.bsNoun
+        generator: faker.company.buzzNoun
       },
 
       $randomDatabaseColumn: {
@@ -435,7 +437,7 @@ export class PostmanDynamicVarGenerator {
 
       $randomBankAccount: {
         description: 'A random 8-digit bank account number',
-        generator: faker.finance.account
+        generator: faker.finance.accountNumber
       },
       $randomBankAccountName: {
         description: 'A random bank account name (e.g. savings account, checking account)',
@@ -443,7 +445,7 @@ export class PostmanDynamicVarGenerator {
       },
       $randomCreditCardMask: {
         description: 'A random masked credit card number',
-        generator: faker.finance.mask
+        generator: () => faker.string.numeric(4)
       },
       $randomPrice: {
         description: 'A random price between 0.00 and 1000.00',
@@ -509,55 +511,55 @@ export class PostmanDynamicVarGenerator {
       },
       $randomImageUrl: {
         description: 'A URL for a random image',
-        generator: faker.image.imageUrl
+        generator: faker.image.url
       },
       $randomAbstractImage: {
         description: 'A URL for a random abstract image',
-        generator: faker.image.abstract
+        generator: faker.image.url
       },
       $randomAnimalsImage: {
         description: 'A URL for a random animal image',
-        generator: faker.image.animals
+        generator: faker.image.url
       },
       $randomBusinessImage: {
         description: 'A URL for a random stock business image',
-        generator: faker.image.business
+        generator: faker.image.url
       },
       $randomCatsImage: {
         description: 'A URL for a random cat image',
-        generator: faker.image.cats
+        generator: faker.image.url
       },
       $randomCityImage: {
         description: 'A URL for a random city image',
-        generator: faker.image.city
+        generator: faker.image.url
       },
       $randomFoodImage: {
         description: 'A URL for a random food image',
-        generator: faker.image.food
+        generator: faker.image.url
       },
       $randomNightlifeImage: {
         description: 'A URL for a random nightlife image',
-        generator: faker.image.nightlife
+        generator: faker.image.url
       },
       $randomFashionImage: {
         description: 'A URL for a random fashion image',
-        generator: faker.image.fashion
+        generator: faker.image.url
       },
       $randomPeopleImage: {
         description: 'A URL for a random image of a person',
-        generator: faker.image.people
+        generator: faker.image.url
       },
       $randomNatureImage: {
         description: 'A URL for a random nature image',
-        generator: faker.image.nature
+        generator: faker.image.url
       },
       $randomSportsImage: {
         description: 'A URL for a random sports image',
-        generator: faker.image.sports
+        generator: faker.image.url
       },
       $randomTransportImage: {
         description: 'A URL for a random transportation image',
-        generator: faker.image.transport
+        generator: faker.image.url
       },
       $randomImageDataUri: {
         description: 'A random image data URI',
@@ -574,7 +576,7 @@ export class PostmanDynamicVarGenerator {
       },
       $randomUserName: {
         description: 'A random username',
-        generator: faker.internet.userName
+        generator: faker.internet.username
       },
       $randomProtocol: {
         description: 'A random internet protocol',
@@ -610,7 +612,7 @@ export class PostmanDynamicVarGenerator {
       },
       $randomHexColor: {
         description: 'A random hex value',
-        generator: faker.internet.color
+        generator: faker.color.rgb
       },
       $randomMACAddress: {
         description: 'A random MAC address',
@@ -660,44 +662,44 @@ export class PostmanDynamicVarGenerator {
 
       $randomFirstName: {
         description: 'A random first name',
-        generator: faker.name.firstName
+        generator: faker.person.firstName
       },
       $randomLastName: {
         description: 'A random last name',
-        generator: faker.name.lastName
+        generator: faker.person.lastName
       },
       $randomFullName: {
         description: 'A random first and last name',
-        generator: faker.name.findName
+        generator: faker.person.fullName
       },
       $randomJobTitle: {
         description: 'A random job title (e.g. senior software developer)',
-        generator: faker.name.jobTitle
+        generator: faker.person.jobTitle
       },
       $randomNamePrefix: {
         description: 'A random name prefix (e.g. Mr., Mrs., Dr.)',
-        generator: faker.name.prefix
+        generator: faker.person.prefix
       },
       $randomNameSuffix: {
         description: 'A random name suffix (e.g. Jr., MD, PhD)',
-        generator: faker.name.suffix
+        generator: faker.person.suffix
       },
       $randomJobDescriptor: {
         description: 'A random job descriptor (e.g., senior, chief, corporate, etc.)',
-        generator: faker.name.jobDescriptor
+        generator: faker.person.jobDescriptor
       },
       $randomJobArea: {
         description: 'A random job area (e.g. branding, functionality, usability)',
-        generator: faker.name.jobArea
+        generator: faker.person.jobArea
       },
       $randomJobType: {
         description: 'A random job type (e.g. supervisor, manager, coordinator, etc.)',
-        generator: faker.name.jobType
+        generator: faker.person.jobType
       },
 
       $randomUUID: {
         description: 'A random 36-character UUID',
-        generator: faker.datatype.uuid
+        generator: faker.string.uuid
       },
       $randomBoolean: {
         description: 'A random boolean value (true/false)',
@@ -705,11 +707,11 @@ export class PostmanDynamicVarGenerator {
       },
       $randomWord: {
         description: 'A random word',
-        generator: faker.random.word
+        generator: faker.word.sample
       },
       $randomAlphaNumeric: {
         description: 'A random alpha-numeric character',
-        generator: faker.random.alphaNumeric
+        generator: faker.string.alphanumeric
       },
 
       $randomFileName: {
