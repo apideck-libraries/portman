@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## v1.35.1 - (2026-10-12)
+## v1.35.1 - (2026-10-13)
 
 - fix: Port dynamic variable generator to the faker 10 (#744)
 - chore: Bump openapi-format to v1.34.0
