@@ -16,8 +16,8 @@
   "bugs": {
     "url": "https://github.com/apideck-libraries/portman/issues"
   },
-  "main": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
     "lint": "oxlint ./src --fix && npm run format",
     "lint:ci": "oxlint ./src && npm run format:check",
@@ -27,6 +27,7 @@
     "test:watch": "jest  --verbose --bail --watch",
     "clean": "rm -rf ./dist/*",
     "build": "tsc --project ./tsconfig.json",
+    "prepack": "npm run build",
     "ts-script": "TS_NODE_FILES=true TS_NODE_TRANSPILE_ONLY=true ts-node -r tsconfig-paths/register --project ./tsconfig.json",
     "format": "oxfmt --write \"src/**/*.{ts,js}\"",
     "format:check": "oxfmt --check \"src/**/*.{ts,js}\"",
