@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.35.2 - (2026-10-14)
+
+- fix: ensure compiled output (#748)
+
 ## v1.35.1 - (2026-10-13)
 
 - fix: Port dynamic variable generator to the faker 10 (#744)
