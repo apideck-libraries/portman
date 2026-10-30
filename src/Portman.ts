@@ -16,7 +16,7 @@ import {
   writeNewmanEnv,
   writeRawReplacements
 } from './application'
-import { clearTmpDirectory, getConfig } from './lib'
+import { clearTmpDirectory, createPortmanTmpRoot, getConfig } from './lib'
 import { OpenApiFormatter, OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
 import { IOpenApiToPostmanConfig, OpenApiToPostmanService, PostmanSyncService } from './services'
@@ -41,6 +41,7 @@ export class Portman {
   consoleLine: string
 
   public collectionFile: string
+  portmanTmpRoot: string
 
   constructor(options: PortmanOptions) {
     this.options = options
@@ -166,9 +167,10 @@ export class Portman {
       )
       console.log(chalk.red(consoleLine))
     }
-    await fs.ensureDir('./tmp/working/')
-    await fs.ensureDir('./tmp/converted/')
-    await fs.ensureDir('./tmp/newman/')
+    this.portmanTmpRoot = await createPortmanTmpRoot()
+    await fs.ensureDir(path.join(this.portmanTmpRoot, 'working'))
+    await fs.ensureDir(path.join(this.portmanTmpRoot, 'converted'))
+    await fs.ensureDir(path.join(this.portmanTmpRoot, 'newman'))
 
     const configData = await getConfig(portmanConfigPath)
 
@@ -191,7 +193,7 @@ export class Portman {
   async after(): Promise<void> {
     const { consoleLine, collectionFile } = this
 
-    await clearTmpDirectory()
+    await clearTmpDirectory(path.join(this.portmanTmpRoot, 'working'))
     console.log(chalk.green(consoleLine))
 
     console.log(
@@ -218,7 +220,7 @@ export class Portman {
       try {
         const openApiObj = await oasFormatter.parseFile(oaUrl as string)
         const fileName = oaUrl.replace(/\/$/, '').split('?')[0].split('/').pop()
-        openApiSpec = `./tmp/${fileName}`
+        openApiSpec = path.join(this.portmanTmpRoot, fileName as string)
         await oasFormatter.writeFile(openApiSpec, openApiObj, { format: 'yaml' })
       } catch (err) {
         console.error('\x1b[31m', `OAS URL error - There is a problem with the url: "${oaUrl}"`)
@@ -248,7 +250,9 @@ export class Portman {
 
     if (filterFile) {
       try {
-        const openApiSpecPath = oaOutput ? oaOutput : './tmp/converted/filtered.yml'
+        const openApiSpecPath = oaOutput
+          ? oaOutput
+          : path.join(this.portmanTmpRoot, 'converted', 'filtered.yml')
 
         // Create oaOutput file if it doesn't exist
         fs.outputFileSync(openApiSpecPath, '', 'utf8')
@@ -305,7 +309,7 @@ export class Portman {
 
     const oaToPostmanConfig: IOpenApiToPostmanConfig = {
       openApiObj: oasCopy,
-      outputFile: `${process.cwd()}/tmp/working/tmpCollection.json`,
+      outputFile: path.join(this.portmanTmpRoot, 'working', 'tmpCollection.json'),
       configFile: postmanConfigPath as string
     }
 
@@ -499,7 +503,7 @@ export class Portman {
     const { globals } = this.config
     const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
 
-    let postmanCollectionFile = `./tmp/converted/${changeCase(fileName, 'camelCase')}.json`
+    let postmanCollectionFile: string
     if (output) {
       postmanCollectionFile = output as string
       if (!postmanCollectionFile.includes('.json')) {
@@ -509,6 +513,12 @@ export class Portman {
         )
         process.exit(1)
       }
+    } else {
+      postmanCollectionFile = path.join(
+        this.portmanTmpRoot,
+        'converted',
+        `${changeCase(fileName, 'camelCase')}.json`
+      )
     }
 
     try {
@@ -562,7 +572,7 @@ export class Portman {
 
     if (runNewman) {
       const fileName = this?.portmanCollection?.info?.name || 'portman-collection'
-      const newmanEnvFile = `./tmp/newman/${fileName}-env.json`
+      const newmanEnvFile = path.join(this.portmanTmpRoot, 'newman', `${fileName}-env.json`)
       writeNewmanEnv(this.portmanCollection, newmanEnvFile)
 
       try {

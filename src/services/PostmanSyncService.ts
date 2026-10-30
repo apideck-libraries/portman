@@ -7,6 +7,7 @@ import {
 import { PostmanApiCollectionResult, PostmanApiService, PostmanApiWorkspaceResult } from './'
 import { PostmanRepo } from './PostmanRepo'
 import * as Either from 'fp-ts/Either'
+import { defaultPostmanCacheFile } from '../lib/portmanTmpDir'
 
 type PostmanCache = {
   collections: PostmanApiCollectionResult[]
@@ -55,7 +56,7 @@ export class PostmanSyncService {
     this.postmanUid = postmanUid
     this.postmanWorkspaceName = postmanWorkspaceName
 
-    this.cacheFile = cacheFile || `${process.cwd()}/tmp/.portman.cache.json`
+    this.cacheFile = cacheFile || defaultPostmanCacheFile()
     this.postmanRepo = new PostmanRepo(this.cacheFile, this.postmanApi)
 
     this.portmanCollection = portmanCollection
