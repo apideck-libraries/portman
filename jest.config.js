@@ -4,9 +4,20 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|test).+(ts|tsx|js)'],
   testPathIgnorePatterns: ['/node_modules/', '/src/__tests__/testUtils/'],
   transform: {
-    '^.+\\.(ts|tsx|js)$': 'ts-jest'
+    '^.+\\.(ts|tsx|js)$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          module: 'CommonJS',
+          moduleResolution: 'Bundler'
+        }
+      }
+    ]
   },
-  transformIgnorePatterns: ['/node_modules/(?!@faker-js/faker/)'],
+  transformIgnorePatterns: [
+    '/node_modules/(?!@faker-js/faker/)',
+    '<rootDir>/__tests__/testUtils/.*\\.js$'
+  ],
   modulePaths: ['src'],
   moduleNameMapper: {
     // Resolve the real package entry for tests that need Faker's actual API.
