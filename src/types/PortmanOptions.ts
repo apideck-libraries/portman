@@ -31,6 +31,7 @@ export interface PortmanOptions {
   oaLocal?: string
   oaUrl?: string
   init?: boolean
+  initAgents?: boolean
   logAssignVariables?: boolean
   warn?: boolean
   extraUnknownFormats?: string[]

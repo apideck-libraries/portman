@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- feat: Add `--initAgents` option to write Portman instructions for coding agents to AGENTS.md/CLAUDE.md
+
 ## v1.35.2 - (2026-10-14)
 
 - fix: ensure compiled output (#748)

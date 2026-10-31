@@ -143,6 +143,7 @@ Options:
  --logAssignVariables       Toggle logging of assigned variables (default: true)                             [boolean]
  --warn/--no-warn           Toggle warnings for missing openApiOperationIds (default: true)                  [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
+ --initAgents               Add Portman instructions for coding agents to AGENTS.md (and CLAUDE.md)          [boolean]
  --extraUnknownFormats      Add extra unknown formats to json schema tests                                   [array]
 ```
 
@@ -177,6 +178,22 @@ portman --init
 ```
 
 The `init` option will help you to configure the cliConfig options and put the default config, env file in place to kick-start the usage of Portman.
+
+###### Add Portman instructions for coding agents
+
+```
+portman --initAgents
+```
+
+The `initAgents` option writes a Portman section to `AGENTS.md` in the current directory, and to `CLAUDE.md` when that
+file exists. It tells coding agents how to run the contract tests (using your `portman-cli.json` when present, in the
+current directory or in `./portman`), that a failing contract test means the code or the OpenAPI spec needs fixing,
+never the generated collection or `portman-config.json`, and where to find the docs and the docs MCP server
+(`https://getportman.com/mcp`).
+
+The section is wrapped in `<!-- portman:start -->` and `<!-- portman:end -->` markers. Existing content is kept,
+and running the command again replaces the Portman section instead of adding a second one. The command is
+non-interactive, so agents and scripts can run it too.
 
 ###### Pass in the remotely hosted spec
 
