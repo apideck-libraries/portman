@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- CLI - Add `--jsonReport` option to write a machine-readable JSON report of the Newman run
+
 ## v1.35.2 - (2026-10-14)
 
 - fix: ensure compiled output (#748)

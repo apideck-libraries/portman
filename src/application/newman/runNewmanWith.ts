@@ -2,12 +2,19 @@ import chalk from 'chalk'
 import newman, { NewmanRunOptions } from 'newman'
 import path from 'path'
 import { changeCase } from 'openapi-format'
+import { buildJsonReport, JsonReportContext, writeJsonReport } from './jsonReport'
+
+export interface RunNewmanReportOptions extends JsonReportContext {
+  /** Write a machine-readable JSON run report to this path */
+  jsonReport?: string
+}
 
 export const runNewmanWith = async (
   postmanCollectionFile: string,
   newmanEnvFile: string,
   newmanDataFile: string | undefined,
-  newmanRunOptions: Partial<NewmanRunOptions>
+  newmanRunOptions: Partial<NewmanRunOptions>,
+  reportOptions: RunNewmanReportOptions = {}
 ): Promise<void> => {
   const defaultNewmanOptions = {
     // oxlint-disable-next-line typescript/no-var-requires -- Load the user-provided JSON file.
@@ -44,6 +51,18 @@ export const runNewmanWith = async (
         const runFailures = Array.isArray(summary?.run?.failures) ? summary.run.failures.length : 0
         const hasError = Boolean(err || summary?.error)
         const hasFailures = assertionFailures > 0 || runFailures > 0
+
+        // Write the JSON report before resolving/rejecting, so it exists on success and failure.
+        // A report writing problem is logged but never changes the run outcome / exit code.
+        if (reportOptions.jsonReport) {
+          try {
+            const { jsonReport, ...context } = reportOptions
+            writeJsonReport(jsonReport, buildJsonReport(summary, context, err))
+            console.log(chalk.green(`JSON report written to ${jsonReport}`))
+          } catch (reportError) {
+            console.error(chalk.red(`Unable to write JSON report: ${reportError?.message}`))
+          }
+        }
 
         if (hasError || hasFailures) {
           console.error(chalk.red('Collection run encountered failures.'))
