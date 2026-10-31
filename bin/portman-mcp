@@ -1,0 +1,8 @@
+#! /usr/bin/env node
+'use strict'
+;(() => {
+  // Portman MCP server (stdio)
+  return () => {
+    require('../dist/mcp/main')
+  }
+})()()

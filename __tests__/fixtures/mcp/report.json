@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "portmanVersion": "1.35.2",
+  "spec": "./examples/testsuite-contract-tests/crm.openapi.yml",
+  "baseUrl": "http://localhost:3050",
+  "startedAt": "2026-10-31T17:11:29.860Z",
+  "finishedAt": "2026-10-31T17:11:29.969Z",
+  "summary": { "requests": 3, "assertions": 12, "failedAssertions": 2, "failures": 3, "passed": false },
+  "runError": null,
+  "failures": [
+    {
+      "request": "Get lead",
+      "method": "GET",
+      "url": "http://localhost:3050/crm/leads/123",
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "openApiOperationId": "leadsOne",
+      "variation": false,
+      "failureType": "assertion",
+      "assertion": "[GET]::/crm/leads/:id - Schema is valid",
+      "testType": "schemaValidation",
+      "message": "expected data to satisfy schema but found following errors: \ndata.data.name should be string",
+      "response": { "status": 200, "responseTime": 3, "body": "{\"status_code\":200,\"data\":{\"name\":42}}", "bodyTruncated": false }
+    },
+    {
+      "request": "List leads",
+      "method": "GET",
+      "url": "http://localhost:3050/crm/leads",
+      "openApiOperation": "GET::/crm/leads",
+      "openApiOperationId": "leadsAll",
+      "variation": false,
+      "failureType": "assertion",
+      "assertion": "[GET]::/crm/leads - Content-Type is application/json",
+      "testType": "contentType",
+      "message": "expected response to have header with key 'Content-Type'",
+      "response": { "status": 200, "responseTime": 2, "body": "ok", "bodyTruncated": false }
+    },
+    {
+      "request": "Delete lead",
+      "method": "DELETE",
+      "url": "http://localhost:3050/crm/leads/123",
+      "openApiOperation": "DELETE::/crm/leads/{id}",
+      "openApiOperationId": "leadsDelete",
+      "variation": false,
+      "failureType": "requestError",
+      "assertion": null,
+      "testType": null,
+      "message": "connect ECONNREFUSED 127.0.0.1:3050",
+      "response": null
+    }
+  ]
+}

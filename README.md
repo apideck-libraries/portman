@@ -43,6 +43,7 @@ With Portman, you can:
 - [x] Test the Postman collection with Newman - [learn more](#run-newman-with-newman-options)
 - [x] Split the configuration into multiple files using $ref
 - [x] Manage everything in config file for easy local or CI/CD usage - [learn more](#pass-all-cli-options-as-jsonyaml-file)
+- [x] Let AI coding agents run your contract tests through the Portman MCP server - [learn more](#mcp-server)
 
 ## Getting started
 
@@ -375,6 +376,72 @@ By using `-o` or `--output` parameter, you can define the location where the Pos
 ```
 portman -l ./tmp/specs/crm.yml -o ./tmp/specs/crm.Postman.json
 ```
+
+## MCP server
+
+Portman ships an [MCP](https://modelcontextprotocol.io) server, `portman-mcp`, so AI coding agents (Claude Code, Cursor,
+VS Code, ...) can generate and run Portman contract tests and act on the results. It runs locally over stdio and uses the
+same Portman internals as the CLI.
+
+Claude Code:
+
+```
+claude mcp add portman -- npx -y -p @apideck/portman portman-mcp
+```
+
+Cursor (`.cursor/mcp.json`) and other clients that use the `mcpServers` format:
+
+```json
+{
+  "mcpServers": {
+    "portman": {
+      "command": "npx",
+      "args": ["-y", "-p", "@apideck/portman", "portman-mcp"]
+    }
+  }
+}
+```
+
+VS Code (`.vscode/mcp.json`):
+
+```json
+{
+  "servers": {
+    "portman": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "-p", "@apideck/portman", "portman-mcp"]
+    }
+  }
+}
+```
+
+If Portman is installed in the project, `npx portman-mcp` (or `node_modules/.bin/portman-mcp`) works as well.
+
+| Tool                  | Description                                                                                                                                                                                      |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `list_operations`     | List the operations of an OpenAPI spec (local path or URL): method, path, `openApiOperation` target, operationId, summary, tags and documented status codes. Read-only.                         |
+| `validate_config`     | Validate a Portman config (path or inline JSON) against the Portman config schema. Returns errors with JSON paths. With `spec`, also warns about targets that match no operation. Read-only.   |
+| `scaffold_config`     | Create a starter `portman-config.json` with contract tests for all operations (`statusSuccess`, `contentType`, `jsonBody`, `schemaValidation` by default). Only writes with `outputPath`, and never replaces a file unless `overwrite: true`. |
+| `generate_collection` | Generate the Postman collection with tests, without running it.                                                                                                                                 |
+| `run_contract_tests`  | Generate the collection and run it with Newman against `baseUrl`. Returns the summary, up to 50 failures and the path of the full [JSON report](#write-a-json-report-of-the-newman-run). Newman runs with `abortOnFailure: false` by default, so all failures are reported. |
+| `explain_failure`     | Explain one failure of a report: the OpenAPI operation, the expected status codes, content types and response schema, and a next step.                                                         |
+
+The server instructions describe the workflow: `list_operations` → `scaffold_config` / `validate_config` →
+`run_contract_tests` → `explain_failure`. For questions about Portman itself, point your agent to the docs at
+[getportman.com/docs](https://getportman.com/docs), also available as a Docs MCP server at `https://getportman.com/mcp`.
+
+Safety notes:
+
+- The server runs locally. It reads the files and URLs you pass, and only writes the Portman config (`scaffold_config`
+  with `outputPath`), the collection (`generate_collection`), and temporary files (collection and report in the OS temp
+  directory, Portman's `./tmp` working directory).
+- `run_contract_tests` sends HTTP requests only to the `baseUrl` you pass (http or https), plus any URLs your own Portman
+  config or scripts add. The requests include `POST`, `PUT`, `PATCH` and `DELETE` operations from the spec: run them
+  against a local, staging or mock API, not against production data.
+- The server never uploads to Postman: Postman sync options in a CLI options file are ignored.
+- Relative paths are resolved against the working directory of the server, which is usually the project directory your
+  MCP client starts it in.
 
 ## Portman settings
 
