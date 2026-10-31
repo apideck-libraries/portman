@@ -35,4 +35,5 @@ export interface PortmanOptions {
   warn?: boolean
   extraUnknownFormats?: string[]
   syncPostmanCollectionIds?: boolean
+  requireChecks?: string | string[]
 }

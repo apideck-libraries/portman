@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+- feat: Add `--requireChecks` option to enforce required contract tests for every operation
+
 ## v1.35.2 - (2026-10-14)
 
 - fix: ensure compiled output (#748)
