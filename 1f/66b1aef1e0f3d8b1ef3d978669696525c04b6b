@@ -1,0 +1,39 @@
+src/application/newman/jsonReport.ts
+  s_2075e0810faefb::t_3db1d6e907ceff 1-309
+  s_2075e0810faefb::t_4e63312c74b8f0 310-325
+src/application/newman/jsonReport.test.ts
+  s_2075e0810faefb::t_1db261eec6a9b9 1-280
+  s_2075e0810faefb::t_c185557eda717b 281-299
+CHANGELOG.md
+  s_2075e0810faefb::t_05eccf489cd4ec 3-4
+README.md
+  s_2075e0810faefb::t_549d7131637883 125,305-364
+src/Portman.ts
+  s_2075e0810faefb::t_ce2bd05ead1410 117-118,149,562-571,588-595
+src/application/newman/index.ts
+  s_2075e0810faefb::t_d1381e15c8f065 3
+src/application/newman/runNewmanWith.test.ts
+  s_2075e0810faefb::t_4eaf902a3c2bb9 1,3-4,52-125
+src/application/newman/runNewmanWith.ts
+  s_2075e0810faefb::t_3c22a7c6363f62 5-10,16-17,55-66
+src/index.ts
+  s_2075e0810faefb::t_771f1c47c4992a 48-51,224-234
+src/types/PortmanOptions.ts
+  s_2075e0810faefb::t_b0f7fdeee156de 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1f66b1aef1e0f3d8b1ef3d978669696525c04b6b",
+  "prompts": {},
+  "sessions": {
+    "s_2075e0810faefb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dae35396-9bcf-4862-acff-edbe2ad9dbf1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    }
+  }
+}
