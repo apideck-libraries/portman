@@ -1,0 +1,30 @@
+package-lock.json
+  s_1216b7ab38d26c::t_6b14316fcac625 14,711-713,722
+  s_2075e0810faefb::t_ff05bbabbc3057 723
+package.json
+  s_2075e0810faefb::t_c6021520c1cdc9 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c1fd2012e2e32fc79e90f2fc207e4fee4ba1ba02",
+  "prompts": {},
+  "sessions": {
+    "s_1216b7ab38d26c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a14a97-820b-72f2-85b1-9bee130548e5",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    },
+    "s_2075e0810faefb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dae35396-9bcf-4862-acff-edbe2ad9dbf1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    }
+  }
+}
