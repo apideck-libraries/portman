@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+import fs from 'fs-extra'
 import newman, { NewmanRunOptions } from 'newman'
 import path from 'path'
 import { changeCase } from 'openapi-format'
@@ -17,10 +18,10 @@ export const runNewmanWith = async (
   reportOptions: RunNewmanReportOptions = {}
 ): Promise<void> => {
   const defaultNewmanOptions = {
-    // oxlint-disable-next-line typescript/no-var-requires -- Load the user-provided JSON file.
-    collection: require(path.resolve(postmanCollectionFile)),
-    // oxlint-disable-next-line typescript/no-var-requires -- Load the user-provided JSON file.
-    environment: require(path.resolve(newmanEnvFile)),
+    // Read the files on every run (not via require), so a long-lived process such as the MCP
+    // server never runs a stale, cached collection or environment.
+    collection: fs.readJsonSync(path.resolve(postmanCollectionFile)),
+    environment: fs.readJsonSync(path.resolve(newmanEnvFile)),
     reporters: ['cli'],
     reporter: {
       htmlextra: {
