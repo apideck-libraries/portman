@@ -1,0 +1,19 @@
+src/application/newman/runNewmanWith.ts
+  s_2075e0810faefb::t_a100d6f509d832 2,21-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4da4bf84c395c8a303220abea1ccffb98f35ee6d",
+  "prompts": {},
+  "sessions": {
+    "s_2075e0810faefb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dae35396-9bcf-4862-acff-edbe2ad9dbf1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    }
+  }
+}
