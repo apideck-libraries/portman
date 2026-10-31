@@ -178,6 +178,8 @@ portman --init
 
 The `init` option will help you to configure the cliConfig options and put the default config, env file in place to kick-start the usage of Portman.
 
+The `init` option is interactive and needs a terminal (TTY). In non-interactive environments (CI, scripts, AI agents) `portman --init` exits with code 1; configure Portman with `--cliOptionsFile` or CLI flags instead.
+
 ###### Pass in the remotely hosted spec
 
 ```
