@@ -141,6 +141,11 @@ require('dotenv').config()
       describe: 'Add extra unknown formats to json schema tests',
       type: 'array'
     })
+    .option('requireChecks', {
+      describe:
+        'Comma-separated list of contract tests that must be enabled for every operation, e.g. statusSuccess,schemaValidation',
+      type: 'string'
+    })
     .option('syncPostmanCollectionIds', {
       describe: `Synchronises the IDs of newly created postman collections with those already on Postman, 
         useful when you want to use Postman pull request (default: false)`,

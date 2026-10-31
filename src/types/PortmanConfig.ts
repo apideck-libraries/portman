@@ -44,6 +44,18 @@ export type ContractTestConfig = {
   responseTime?: ResponseTime
 }
 
+export const contractTestChecks = [
+  'statusSuccess',
+  'statusCode',
+  'responseTime',
+  'contentType',
+  'jsonBody',
+  'schemaValidation',
+  'headersPresent'
+] as const
+
+export type ContractTestCheck = (typeof contractTestChecks)[number]
+
 export type ContentTestConfig = {
   openApiOperationIds?: string[]
   openApiOperationId?: string

@@ -23,6 +23,7 @@ import { PostmanMappedOperation, PostmanParser } from '../postman'
 import {
   AssignVariablesConfig,
   ContentTestConfig,
+  ContractTestCheck,
   ContractTestConfig,
   ExtendTestsConfig,
   IntegrationTestConfig,
@@ -181,6 +182,34 @@ export class TestSuite {
         }
       })
     })
+  }
+
+  // List the required contract test checks that are not enabled for each targeted operation
+  public getMissingRequiredChecks = (
+    requiredChecks: ContractTestCheck[]
+  ): { pmOperation: PostmanMappedOperation; missingChecks: ContractTestCheck[] }[] => {
+    const enabledChecks = new Map<PostmanMappedOperation, Set<ContractTestCheck>>()
+    const contractTests = this.options?.includeTests === false ? [] : this.contractTests || []
+
+    contractTests.map(contractTest => {
+      this.getOperationsFromSetting(contractTest).map(pmOperation => {
+        const checks = enabledChecks.get(pmOperation) || new Set<ContractTestCheck>()
+        requiredChecks.map(check => {
+          const optCheck = contractTest[check]
+          if (optCheck?.enabled && !inOperations(pmOperation, optCheck?.excludeForOperations)) {
+            checks.add(check)
+          }
+        })
+        enabledChecks.set(pmOperation, checks)
+      })
+    })
+
+    return this.postmanParser.mappedOperations
+      .map(pmOperation => ({
+        pmOperation,
+        missingChecks: requiredChecks.filter(check => !enabledChecks.get(pmOperation)?.has(check))
+      }))
+      .filter(({ missingChecks }) => missingChecks.length > 0)
   }
 
   public generateVariationTests = (): void => {

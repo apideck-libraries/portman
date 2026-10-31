@@ -20,8 +20,9 @@ import { clearTmpDirectory, getConfig } from './lib'
 import { OpenApiFormatter, OpenApiParser } from './oas'
 import { PostmanParser } from './postman'
 import { IOpenApiToPostmanConfig, OpenApiToPostmanService, PostmanSyncService } from './services'
-import { PortmanConfig, PortmanTestTypes, Track } from './types'
+import { ContractTestCheck, PortmanConfig, PortmanTestTypes, Track } from './types'
 import { PortmanOptions } from './types/PortmanOptions'
+import { parseRequiredChecks } from './utils'
 import { validate } from './utils/PortmanConfig.validator'
 import { PortmanError } from './utils/PortmanError'
 import { changeCase } from 'openapi-format'
@@ -39,6 +40,7 @@ export class Portman {
   integrationTestWriter: IntegrationTestWriter
   postmanSyncService: PostmanSyncService
   consoleLine: string
+  requiredChecks: ContractTestCheck[] = []
 
   public collectionFile: string
 
@@ -62,6 +64,7 @@ export class Portman {
     }
 
     await this.convertToPostmanCollection()
+    this.verifyRequiredChecks()
     this.injectTestSuite()
     this.injectVariationTests()
     this.injectVariationOverwrites()
@@ -185,6 +188,14 @@ export class Portman {
       process.exit(1)
     } else {
       this.config = config.right
+    }
+
+    try {
+      this.requiredChecks = parseRequiredChecks(this.options.requireChecks)
+    } catch (err) {
+      console.error(chalk.red(`Portman CLI Config error - requireChecks: ${err.message}`))
+      console.error(chalk.red(consoleLine))
+      process.exit(1)
     }
   }
 
@@ -333,6 +344,31 @@ export class Portman {
     })
 
     this.portmanCollection = this.postmanParser.collection.toJSON()
+  }
+
+  verifyRequiredChecks(): void {
+    const { config, options, oasParser, postmanParser, consoleLine, requiredChecks } = this
+    if (requiredChecks.length === 0) return
+
+    // Use a separate test suite, to keep the tracking of missing targets for the generation run
+    const testSuite = new TestSuite({ oasParser, postmanParser, config, options })
+    const violations = testSuite.getMissingRequiredChecks(requiredChecks)
+    if (violations.length === 0) return
+
+    console.error(chalk.red(consoleLine))
+    console.error(
+      chalk.red(
+        `Required contract tests are missing (--requireChecks ${requiredChecks.join(',')}):`
+      )
+    )
+    violations.map(({ pmOperation, missingChecks }) => {
+      const operation = pmOperation.id
+        ? `${pmOperation.pathRef} (${pmOperation.id})`
+        : pmOperation.pathRef
+      console.error(chalk.red(`  - ${operation} -> ${missingChecks.join(', ')}`))
+    })
+    console.error(chalk.red(consoleLine))
+    process.exit(1)
   }
 
   injectTestSuite(): void {

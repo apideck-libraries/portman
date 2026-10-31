@@ -144,6 +144,8 @@ Options:
  --warn/--no-warn           Toggle warnings for missing openApiOperationIds (default: true)                  [boolean]
  --init                     Configure Portman CLI options in an interactive manner                           [string]
  --extraUnknownFormats      Add extra unknown formats to json schema tests                                   [array]
+ --requireChecks            Comma-separated contract tests that must be enabled for every operation, e.g.
+                            statusSuccess,contentType,schemaValidation. Fails without generating if missing [string]
 ```
 
 ### Environment variables as Postman variables
@@ -290,6 +292,28 @@ All the available Portman CLI options can be used in the config file.
 By passing the CLI options as parameter, you can overwrite the defined CLI options defined in the file.
 
 For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
+
+###### Enforce required contract tests
+
+Contract tests are only as strong as the `portman-config.json` that generates them. A failing build can be turned green
+by disabling a check or excluding an operation, something AI coding agents in particular tend to do. Use
+`--requireChecks` in CI to enforce a minimum set of contract tests for every operation of your OpenAPI document.
+
+```
+portman -l ./openapi.yml -c ./portman-config.json --requireChecks statusSuccess,contentType,schemaValidation
+```
+
+After loading the configuration, Portman verifies that each required check is enabled by at least one `contractTests`
+entry targeting the operation, taking `openApiOperation` wildcards and `excludeForOperations` (both on the contract
+test and on the check itself) into account. If a required check is missing for any operation, Portman lists the
+operations with their missing checks and exits with code 1, without generating a collection.
+
+Supported checks: `statusSuccess`, `statusCode`, `responseTime`, `contentType`, `jsonBody`, `schemaValidation` and
+`headersPresent`. Unknown names result in an error. The option can also be set in the CLI options file, as a string or
+an array.
+
+Keep the `--requireChecks` value in your CI workflow (or another file the team reviews closely), so that relaxing the
+requirements is a deliberate, visible change.
 
 ###### Run Newman with Newman options
 
