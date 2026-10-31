@@ -861,6 +861,20 @@ Portman is a valuable tool in any OpenAPI workflow, for local development or as 
 
 Credits for this package for the hard work of [Nick Lloyd](https://github.com/nicklloyd) and [Tim Haselaars](https://github.com/thim81).
 
+# Related projects
+
+Open-source tools from the Portman maintainers that fit around it:
+
+- [openapi-format](https://github.com/thim81/openapi-format): format, sort and filter OpenAPI documents. Portman uses it for its filtering options.
+- [postman-to-k6](https://github.com/apideck-libraries/postman-to-k6): convert the Postman collection Portman generates into a k6 load test. See the [postman-to-k6 example](./examples/postman-to-k6).
+- [Inspectr](https://github.com/inspectr-hq/inspectr): inspect API requests, MCP server calls and webhook events while you debug.
+
+For AI coding agents:
+
+- **Docs MCP server:** `https://getportman.com/mcp` gives agents the Portman docs, config templates and comparisons (`claude mcp add --transport http portman-docs https://getportman.com/mcp`).
+- **Agent skill:** `npx skills add apideck/api-skills --skill apideck-portman`.
+- **Config schema:** `https://getportman.com/schema/portman-config.json` for editor and agent validation.
+
 # Future ideas
 
 - [ ] Make Postman security dynamic
