@@ -15,7 +15,28 @@ type InitConfigOptions = {
   postmanApiKey?: string
 }
 
+/**
+ * `portman --init` is interactive. Without a TTY (CI, scripts, AI agents) the prompt would hang,
+ * so bail out with a clear message and a non-zero exit code instead.
+ * Returns true when an interactive terminal is available.
+ */
+export const ensureInteractiveInit = (): boolean => {
+  if (process.stdin.isTTY) return true
+
+  console.error(
+    [
+      'Portman --init is interactive and requires a TTY, but stdin is not a terminal.',
+      'Configure Portman non-interactively with `--cliOptionsFile <path>` or by passing CLI flags.',
+      'See https://github.com/apideck-libraries/portman#cli-options'
+    ].join('\n')
+  )
+  process.exit(1)
+  return false
+}
+
 export const promptInit = async (): Promise<void> => {
+  if (!ensureInteractiveInit()) return
+
   const config: InitConfigOptions = {}
   const localPath = JSON.stringify(process.cwd())
   const consoleLine = process.stdout.columns ? '='.repeat(process.stdout.columns) : '='.repeat(80)

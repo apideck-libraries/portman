@@ -5,7 +5,7 @@ import { NewmanRunOptions } from 'newman'
 import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
-import { promptInit } from './utils/promptInit'
+import { ensureInteractiveInit, promptInit } from './utils/promptInit'
 import { OpenApiFormatter } from './oas'
 
 require('dotenv').config()
@@ -151,6 +151,7 @@ require('dotenv').config()
   let cliOptions: Partial<PortmanOptions> = {}
 
   if (options.init) {
+    ensureInteractiveInit()
     console.log(
       '\x1b[32m',
       `
