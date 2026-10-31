@@ -1,0 +1,21 @@
+src/__tests__/PortmanNewmanExitCode.test.ts
+  s_2075e0810faefb::t_8b0ffae145be0d 1-58
+src/application/newman/runNewmanWith.test.ts
+  s_2075e0810faefb::t_2af12b76c00734 49-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7ae0bfa5e6a4abc02a23e36ee28bef463a38e713",
+  "prompts": {},
+  "sessions": {
+    "s_2075e0810faefb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dae35396-9bcf-4862-acff-edbe2ad9dbf1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    }
+  }
+}
