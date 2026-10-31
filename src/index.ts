@@ -5,6 +5,7 @@ import { NewmanRunOptions } from 'newman'
 import { PortmanOptions } from 'types'
 import yargs from 'yargs'
 import { Portman } from './Portman'
+import { initAgents } from './utils/initAgents'
 import { promptInit } from './utils/promptInit'
 import { OpenApiFormatter } from './oas'
 
@@ -137,6 +138,11 @@ require('dotenv').config()
       describe: 'Initialize Portman and generate a Portman CLI configuration file',
       type: 'boolean'
     })
+    .option('initAgents', {
+      describe:
+        'Add Portman instructions for coding agents to AGENTS.md (and CLAUDE.md if present)',
+      type: 'boolean'
+    })
     .option('extraUnknownFormats', {
       describe: 'Add extra unknown formats to json schema tests',
       type: 'array'
@@ -164,6 +170,12 @@ require('dotenv').config()
     `
     )
     await promptInit()
+    process.exit()
+  }
+
+  if (options.initAgents) {
+    const files = initAgents()
+    files.map(file => console.log('\x1b[32m', `Portman agent instructions written to ${file}`))
     process.exit()
   }
 
