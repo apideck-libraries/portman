@@ -1,6 +1,7 @@
 ## [Unreleased]
 
 - CLI - Add `--jsonReport` option to write a machine-readable JSON report of the Newman run
+- MCP - Add the `portman-mcp` MCP server (stdio) with tools to list operations, validate and scaffold Portman configs, generate collections, run contract tests and explain failures
 
 ## v1.35.2 - (2026-10-14)
 
