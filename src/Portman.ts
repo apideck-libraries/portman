@@ -114,7 +114,8 @@ export class Portman {
         bundleContractTests,
         runNewman,
         newmanIterationData,
-        syncPostman
+        syncPostman,
+        jsonReport
       }
     } = this
 
@@ -145,6 +146,7 @@ export class Portman {
     bundleContractTests &&
       console.log(chalk`{cyan  Bundle Tests: } \t{green ${bundleContractTests}}`)
     console.log(chalk`{cyan  Run Newman: } \t\t{green ${!!runNewman}}`)
+    runNewman && jsonReport && console.log(chalk`{cyan  JSON Report: } \t\t{green ${jsonReport}}`)
     console.log(
       chalk`{cyan  Newman Iteration Data: }{green ${
         newmanIterationData ? newmanIterationData : false
@@ -557,7 +559,16 @@ export class Portman {
     // --- Portman - Execute Newman tests
     const {
       consoleLine,
-      options: { runNewman, baseUrl, newmanIterationData, newmanRunOptions = {} }
+      options: {
+        runNewman,
+        baseUrl,
+        newmanIterationData,
+        newmanRunOptions = {},
+        jsonReport,
+        oaLocal,
+        oaUrl,
+        localPostman
+      }
     } = this
 
     if (runNewman) {
@@ -574,7 +585,14 @@ export class Portman {
           this.collectionFile,
           newmanEnvFile,
           newmanIterationData,
-          newmanRunOptions as Partial<NewmanRunOptions>
+          newmanRunOptions as Partial<NewmanRunOptions>,
+          {
+            jsonReport,
+            spec: oaLocal || oaUrl || localPostman,
+            baseUrl,
+            operationIdMap: this.oasParser?.operationIdMap,
+            separatorSymbol: this.config?.globals?.separatorSymbol
+          }
         )
       } catch (error) {
         console.log(`\n`)

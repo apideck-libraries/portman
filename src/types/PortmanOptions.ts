@@ -9,6 +9,7 @@ export interface PortmanOptions {
   newmanIterationData?: string
   newmanRunOptions?: string | Partial<NewmanRunOptions>
   newmanOptionsFile?: string
+  jsonReport?: string
   postmanUid?: string
   postmanWorkspaceName?: string
   postmanRefreshCache?: boolean

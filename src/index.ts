@@ -45,6 +45,10 @@ require('dotenv').config()
       describe: 'Path/URL to Newman options file to pass options for configuring Newman',
       type: 'string'
     })
+    .option('jsonReport', {
+      describe: 'Write a machine-readable JSON report of the Newman run to this file path',
+      type: 'string'
+    })
     .option('d', {
       alias: 'newmanIterationData',
       describe: 'Iteration data to run Newman with newly created collection',
@@ -216,6 +220,17 @@ require('dotenv').config()
 
   // Merge CLI configuration file with CLI parameters
   options = { ...cliOptions, ...options }
+
+  if (options.jsonReport !== undefined) {
+    if (!options.jsonReport || options.jsonReport === '-') {
+      // stdout is shared with the Newman CLI reporter, so the report is only written to a file
+      console.error('\x1b[31m', 'Portman CLI Config error - jsonReport requires a file path')
+      process.exit(1)
+    }
+    if (!options.runNewman) {
+      console.warn('\x1b[33m', 'Portman CLI - jsonReport is ignored without runNewman')
+    }
+  }
 
   // Load all Portman CLI options & configuration files
   const oaUrl = options?.url || ''

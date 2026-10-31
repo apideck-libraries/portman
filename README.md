@@ -122,6 +122,7 @@ Options:
  --runNewman, -n            Run Newman on newly created collection                                           [boolean]
  --newmanRunOptions         JSON stringified object to pass options for configuring Newman                   [string]
  --newmanOptionsFile        Path/URL to Newman options file to pass options for configuring Newman           [string]
+ --jsonReport               Write a machine-readable JSON report of the Newman run to this file path          [string]
  --newmanIterationData, -d  Iteration data to run Newman with newly created collection                       [string]
  --localPostman             Use local Postman collection, skips OpenAPI conversion                           [string]
  --syncPostman              Upload generated collection to Postman (default: false)                          [boolean]
@@ -300,6 +301,66 @@ portman -u https://specs.apideck.com/crm.yml -c ./tmp/crm/portman-config.json --
 ```
 
 For more details, review the [cli-options example](https://github.com/apideck-libraries/portman/tree/main/examples/cli-options).
+
+###### Write a JSON report of the Newman run
+
+Use `--jsonReport <path>` together with `--runNewman` to write a machine-readable report of the Newman run. The report is
+meant for CI tooling and AI coding agents: every failure is mapped back to the OpenAPI operation and Portman test type, so
+there is no need to parse the Newman CLI output.
+
+```
+portman -l ./tmp/specs/crm.yml -b http://localhost:3050 --runNewman --jsonReport ./tmp/newman/report.json
+```
+
+The option can also be set in the [CLI options file](#pass-all-cli-options-as-jsonyaml-file) as `"jsonReport": "./tmp/newman/report.json"`.
+
+The report is written on success and on failure, before Portman exits. The exit code does not change: a run with
+failures still exits with code `1`. The report is only written to a file; stdout is shared with the Newman CLI reporter.
+
+Example report:
+
+```json
+{
+  "version": 1,
+  "portmanVersion": "1.35.2",
+  "spec": "./tmp/specs/crm.yml",
+  "baseUrl": "http://localhost:3050",
+  "startedAt": "2026-10-31T17:11:29.860Z",
+  "finishedAt": "2026-10-31T17:11:29.969Z",
+  "summary": { "requests": 2, "assertions": 8, "failedAssertions": 1, "failures": 1, "passed": false },
+  "runError": null,
+  "failures": [
+    {
+      "request": "Get lead",
+      "method": "GET",
+      "url": "http://localhost:3050/crm/leads/123",
+      "openApiOperation": "GET::/crm/leads/{id}",
+      "openApiOperationId": "leadsOne",
+      "variation": false,
+      "failureType": "assertion",
+      "assertion": "[GET]::/crm/leads/:id - Schema is valid",
+      "testType": "schemaValidation",
+      "message": "expected data to satisfy schema but found following errors: \ndata.name should be string",
+      "response": { "status": 200, "responseTime": 3, "body": "{\"id\":\"123\",\"name\":42}", "bodyTruncated": false }
+    }
+  ]
+}
+```
+
+| Field                            | Description                                                                                                                                                                            |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `version`                        | Report format version. It is only increased for breaking changes; new fields can be added without a version change.                                                                    |
+| `summary.passed`                 | `true` when there are no failures and no run error.                                                                                                                                    |
+| `runError`                       | Error that stopped the Newman run, if any.                                                                                                                                             |
+| `failures[].failureType`         | `assertion`, `requestError` (e.g. connection refused), `scriptError` or `other`.                                                                                                       |
+| `failures[].openApiOperation`    | The OpenAPI operation as `METHOD::/path`, the same notation used for `openApiOperation` targeting in the Portman config.                                                               |
+| `failures[].openApiOperationId`  | The OpenAPI `operationId`, when the spec defines one.                                                                                                                                  |
+| `failures[].testType`            | For assertions: `schemaValidation`, `statusSuccess`, `statusCode`, `contentType`, `jsonBody`, `headersPresent`, `responseTime`, `content`, `variation` or `unknown` (custom tests).  |
+| `failures[].variation`           | `true` when the request is part of the Portman variation tests.                                                                                                                        |
+| `failures[].response.body`       | Response body, truncated to 4096 characters (`bodyTruncated` indicates truncation).                                                                                                    |
+
+TIP: Newman stops at the first failure by default (`abortOnFailure`). To collect all failures in the report, pass
+`--newmanRunOptions '{"abortOnFailure": false}'`.
 
 NOTE: Newman is set to ignore redirects to allow for testing redirect response codes. If you are running collections within Postman UI, you'll need to ensure Postman is set to the same, or your redirect tests will fail.
 
