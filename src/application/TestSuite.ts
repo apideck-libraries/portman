@@ -39,7 +39,7 @@ import {
   Track,
   VariationTestConfig
 } from '../types'
-import { inRange } from '../utils'
+import { inRange, resolveLocalRef } from '../utils'
 import { inOperations } from '../utils/inOperations'
 import {
   parseOpenApiResponse,
@@ -319,7 +319,11 @@ export class TestSuite {
 
     const responseKey = response[0][0]
     const responseCode = parseInt(responseKey) as number
-    const responseObject = response[0][1] as OpenAPIV3.ResponseObject
+    // With ignoreCircularRefs, a response that contains a circular schema can stay a $ref
+    const responseObject = resolveLocalRef(
+      response[0][1],
+      this.oasParser?.oas as unknown as Record<string, unknown>
+    ) as OpenAPIV3.ResponseObject
 
     // List excludeForOperations
     const optStatusSuccess = contractTest['statusSuccess']
@@ -418,7 +422,8 @@ export class TestSuite {
             pmOperation,
             oaOperation,
             this.options?.extraUnknownFormats ?? [],
-            this.config?.globals
+            this.config?.globals,
+            this.oasParser?.oas
           )
         }
       }

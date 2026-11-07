@@ -63,6 +63,44 @@ describe('testResponseJsonSchema', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should validate json schema with circular $ref when the OpenAPI document is given', async () => {
+    const schema = {
+      type: 'array',
+      items: { $ref: '#/components/schemas/Node' }
+    }
+    const oasDoc = {
+      components: {
+        schemas: {
+          Node: {
+            type: 'object',
+            properties: {
+              label: { type: 'string', nullable: true },
+              children: { type: 'array', items: { $ref: '#/components/schemas/Node' } }
+            }
+          }
+        }
+      }
+    } as unknown as OpenAPIV3.Document
+
+    pmOperation = testResponseJsonSchema(
+      { enabled: true } as ContractTestConfig,
+      schema,
+      pmOperation,
+      oasOperation,
+      [],
+      undefined,
+      oasDoc
+    )
+    const exec = pmOperation.getTests().script.exec as string[]
+    const script = exec.join('\n')
+    expect(script).not.toContain('Disabled due to Circular Reference')
+    expect(script).toContain('pm.response.to.have.jsonSchema(schema')
+    expect(script).toContain('"$ref":"#/definitions/Node"')
+    // nullable is converted inside the embedded definitions too
+    expect(script).toContain('"label":{"type":["string","null"]}')
+    expect(exec).toMatchSnapshot()
+  })
+
   it('should skip test for invalid json schema', async () => {
     const schema = {
       type: 'array',
