@@ -1,0 +1,39 @@
+examples/testsuite-security-tests/readme.md
+  s_586471bdcc24f3::t_a5b1944f95b925 1-57
+CHANGELOG.md
+  s_586471bdcc24f3::t_c5a852875c9527 3-5
+README.md
+  s_586471bdcc24f3::t_71e636f8b34c48 42,395
+examples/testsuite-security-tests/crm.openapi.yml
+  s_586471bdcc24f3::t_827d90c990e969 1-1075
+examples/testsuite-security-tests/crm.postman.json
+  s_586471bdcc24f3::t_e3c2d92a9e9b4f 1-7808
+examples/testsuite-security-tests/portman-cli-options.json
+  s_586471bdcc24f3::t_715adb30677d0b 1-9
+examples/testsuite-security-tests/portman-config.security.json
+  s_586471bdcc24f3::t_de692edc8f7d1f 1-172
+src/__tests__/ExamplesNormalizedSnapshots.test.ts
+  s_586471bdcc24f3::t_4a69c793b46a37 25
+src/__tests__/__snapshots__/ExamplesNormalizedSnapshots.test.ts.snap
+  s_586471bdcc24f3::t_cf82a1c57cc7a3 31586-44028
+src/application/tests/testResponseJsonSchema.test.ts
+  s_586471bdcc24f3::t_dcfe4354a24241 4-9,646-699
+src/application/tests/testResponseJsonSchema.ts
+  s_586471bdcc24f3::t_aba2ff9de5e333 155-162,174-178,181,183-194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5e8540a592d0d9478dfbd2d2cfac4d163c41aff",
+  "prompts": {},
+  "sessions": {
+    "s_586471bdcc24f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ee634938-9519-415c-b372-053483a0aca3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    }
+  }
+}
