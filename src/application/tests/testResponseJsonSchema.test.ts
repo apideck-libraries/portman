@@ -1,7 +1,12 @@
 import { OpenAPIV3 } from 'openapi-types'
 import { getOasMappedOperation } from '../../../__tests__/testUtils/getOasMappedOperation'
 import { getPostmanMappedOperation } from '../../../__tests__/testUtils/getPostmanMappedOperation'
-import { convertUnsupportedJsonSchemaProperties, testResponseJsonSchema } from '../../application'
+import Ajv from 'ajv'
+import {
+  convertJsonSchemaAdditionalProperties,
+  convertUnsupportedJsonSchemaProperties,
+  testResponseJsonSchema
+} from '../../application'
 import { OasMappedOperation } from '../../oas'
 import { PostmanMappedOperation } from '../../postman'
 import { ContractTestConfig, GlobalConfig } from '../../types'
@@ -636,6 +641,60 @@ describe('testResponseJsonSchema', () => {
         maxItems: 2,
         minItems: 1
       }
+    })
+  })
+
+  describe('convertJsonSchemaAdditionalProperties with additionalProperties false', () => {
+    const validate = (schema: object, data: unknown): boolean =>
+      new Ajv({ strict: false }).compile(
+        convertJsonSchemaAdditionalProperties(schema as OpenAPIV3.SchemaObject, false)
+      )(data) as boolean
+
+    it('closes objects that declare properties', () => {
+      const schema = { type: 'object', properties: { id: { type: 'string' } } }
+      expect(validate(schema, { id: 'a' })).toBe(true)
+      expect(validate(schema, { id: 'a', password_hash: 'x' })).toBe(false)
+    })
+
+    it('leaves free-form objects open', () => {
+      const schema = {
+        type: 'object',
+        properties: { id: { type: 'string' }, metadata: { type: 'object' } }
+      }
+      expect(validate(schema, { id: 'a', metadata: { anything: 1 } })).toBe(true)
+      expect(validate(schema, { id: 'a', extra: 1 })).toBe(false)
+    })
+
+    it('keeps the value schema of maps', () => {
+      const schema = {
+        type: 'object',
+        properties: { labels: { type: 'object', additionalProperties: { type: 'string' } } }
+      }
+      expect(validate(schema, { labels: { env: 'prod' } })).toBe(true)
+      expect(validate(schema, { labels: { env: 1 } })).toBe(false)
+    })
+
+    it('leaves allOf members open so composed objects still validate', () => {
+      const schema = {
+        allOf: [
+          { type: 'object', properties: { id: { type: 'string' } } },
+          { type: 'object', properties: { name: { type: 'string' } } }
+        ]
+      }
+      expect(validate(schema, { id: 'a', name: 'b' })).toBe(true)
+    })
+
+    it('still closes nested objects inside allOf members', () => {
+      const schema = {
+        allOf: [
+          {
+            type: 'object',
+            properties: { owner: { type: 'object', properties: { id: { type: 'string' } } } }
+          }
+        ]
+      }
+      expect(validate(schema, { owner: { id: 'a' } })).toBe(true)
+      expect(validate(schema, { owner: { id: 'a', email: 'x' } })).toBe(false)
     })
   })
 })

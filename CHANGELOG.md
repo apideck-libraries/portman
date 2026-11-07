@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- feat: Security regression test example mapped to the OWASP API Top 10 (`examples/testsuite-security-tests`)
+- fix: Strict schema validation (`additionalProperties: false`) no longer closes free-form objects, maps and `allOf` members, which made valid responses fail
+
 ## v1.35.2 - (2026-10-14)
 
 - fix: ensure compiled output (#748)
