@@ -152,7 +152,14 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
 }
 
 /**
- * function to convert all additional properties of the OpenAPI(3.0) JSON schema
+ * function to set additionalProperties on the object schemas of the OpenAPI(3.0) JSON schema
+ *
+ * `true` opens every object. `false` (strict mode) closes only the objects that declare their
+ * properties, so the check fails on undeclared response fields without breaking schemas that
+ * can't be closed:
+ * - free-form objects (no `properties`) would reject every key
+ * - maps (`additionalProperties` set to a schema in the spec) keep their value schema
+ * - `allOf` members are left open, since each member only declares part of the properties
  * @param {*} oaSchema openAPI schema
  * @param additionalProperties
  */
@@ -164,11 +171,27 @@ export const convertJsonSchemaAdditionalProperties = (
 
   // Recurse through schema
   traverse(jsonSchema).forEach(function (node) {
-    // Handle object
-    if (node?.type === 'object') {
+    const isObject =
+      node?.type === 'object' || (Array.isArray(node?.type) && node.type.includes('object'))
+    if (!isObject) return
+
+    if (additionalProperties !== false) {
       node.additionalProperties = additionalProperties
       this.update(node)
+      return
     }
+
+    const declaresProperties =
+      node.properties &&
+      typeof node.properties === 'object' &&
+      Object.keys(node.properties).length > 0
+    const isAllOfMember = this.parent?.key === 'allOf'
+    const isMap =
+      node.additionalProperties !== null && typeof node.additionalProperties === 'object'
+    if (!declaresProperties || isMap || isAllOfMember) return
+
+    node.additionalProperties = false
+    this.update(node)
   })
 
   return jsonSchema

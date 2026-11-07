@@ -22,6 +22,7 @@ const EXAMPLE_OPTION_FILES = [
   'examples/testsuite-contract-tests/portman-cli-options.json',
   'examples/testsuite-fuzzing-tests/portman-cli-options.json',
   'examples/testsuite-overwrites/portman-cli-options.json',
+  'examples/testsuite-security-tests/portman-cli-options.json',
   'examples/testsuite-variation-content-types/portman-cli-options.json',
   'examples/testsuite-variation-tests/portman-cli-options.json'
 ]

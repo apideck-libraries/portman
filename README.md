@@ -39,6 +39,7 @@ With Portman, you can:
   - [x] Inject Postman with Pre-request & Tests scripts on a collection or operation level - [learn more](./examples/testsuite-pre-request-scripts/readme.md)
   - [x] Modify Postman requests - learn more [here](./examples/testsuite-overwrites/readme.md) and [here](./examples/testsuite-assign-overwrite/readme.md)
   - [x] Fuzz Postman requests - [learn more](./examples/testsuite-fuzzing-tests/readme.md)
+  - [x] Security regression tests mapped to the OWASP API Top 10 - [learn more](./examples/testsuite-security-tests/readme.md)
 - [x] Upload the Postman collection to your Postman app - [learn more](#configure-automatic-upload-to-postman-app)
 - [x] Test the Postman collection with Newman - [learn more](#run-newman-with-newman-options)
 - [x] Split the configuration into multiple files using $ref
@@ -391,7 +392,7 @@ The contract tests are grouped in an array of `contractTests`.
 - **contentType (Boolean)** : Adds the test if the response header is matching the expected content-type defined in the OpenAPI spec.
 - **jsonBody (Boolean)** : Adds the test if the response body is matching the expected content-type defined in the OpenAPI spec.
 - **schemaValidation (Boolean)** : Adds the test if the response body is matching the JSON schema defined in the OpenAPI spec. The JSON schema is inserted inline in the Postman test.
-  - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`.
+  - **additionalProperties (Boolean)** : Extend the expected JSON schema used for the `schemaValidation` by setting all the `additionalProperties`. With `false`, every object schema that declares `properties` is closed, so undeclared response fields fail the check. Free-form objects, maps (`additionalProperties` set to a schema) and `allOf` members stay open.
 - **headersPresent (Boolean)** : Adds the test to verify if the Postman response header has the required header names present, like defined in the OpenAPI spec.
 
 For more details, review the [contract-tests example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-tests) and the [testsuite-contract-content-types example](https://github.com/apideck-libraries/portman/tree/main/examples/testsuite-contract-content-types) for some more details about targeting request body & response content-types.

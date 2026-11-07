@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "tests": {
+    "contractTests": [
+      {
+        "openApiOperation": "*::/*",
+        "statusSuccess": {
+          "enabled": true
+        },
+        "contentType": {
+          "enabled": true
+        },
+        "jsonBody": {
+          "enabled": true
+        },
+        "schemaValidation": {
+          "enabled": true,
+          "additionalProperties": false
+        }
+      }
+    ],
+    "contentTests": [
+      {
+        "openApiOperation": "*::/*",
+        "responseHeaderTests": [
+          {
+            "key": "Strict-Transport-Security",
+            "contains": "max-age"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          }
+        ]
+      }
+    ],
+    "extendTests": [
+      {
+        "openApiOperation": "*::/*",
+        "tests": [
+          "pm.test('[security] API8 No X-Powered-By header (stack disclosure)', function () {\n  pm.expect(pm.response.headers.has('X-Powered-By')).to.be.false;\n});",
+          "pm.test('[security] API8 Server header does not disclose a version', function () {\n  const server = pm.response.headers.get('Server') || '';\n  pm.expect(server).to.not.match(/\\d+\\.\\d+/);\n});",
+          "pm.test('[security] API8 CORS does not allow any origin with credentials', function () {\n  const origin = pm.response.headers.get('Access-Control-Allow-Origin');\n  const creds = pm.response.headers.get('Access-Control-Allow-Credentials');\n  pm.expect(origin === '*' && creds === 'true').to.be.false;\n});"
+        ]
+      }
+    ],
+    "variationTests": [
+      {
+        "openApiOperation": "*::/*",
+        "variations": [
+          {
+            "name": "Security - API2 No credentials",
+            "overwrites": [
+              {
+                "overwriteRequestSecurity": {
+                  "remove": true
+                }
+              }
+            ],
+            "tests": {
+              "extendTests": [
+                {
+                  "tests": [
+                    "pm.test('[security] API2 Rejected without credentials (401/403)', function () {\n  pm.expect(pm.response.code).to.be.oneOf([401, 403]);\n});",
+                    "pm.test('[security] API3 Error response leaks no stack trace', function () {\n  pm.expect(pm.response.text()).to.not.match(/at [\\w.$<>]+ \\(.*:\\d+:\\d+\\)|Traceback \\(most recent call last\\)|\\.java:\\d+\\)/);\n});"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "Security - API2 Invalid credentials",
+            "overwrites": [
+              {
+                "overwriteRequestSecurity": {
+                  "bearer": {
+                    "token": "portman-invalid-token"
+                  }
+                }
+              }
+            ],
+            "tests": {
+              "extendTests": [
+                {
+                  "tests": [
+                    "pm.test('[security] API2 Rejected with invalid credentials (401/403)', function () {\n  pm.expect(pm.response.code).to.be.oneOf([401, 403]);\n});"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "name": "Security - API4/API8 Out-of-spec input",
+            "fuzzing": [
+              {
+                "requestBody": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ],
+                "requestQueryParams": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ],
+                "requestHeaders": [
+                  {
+                    "requiredFields": {
+                      "enabled": true
+                    },
+                    "minimumNumberFields": {
+                      "enabled": true
+                    },
+                    "maximumNumberFields": {
+                      "enabled": true
+                    },
+                    "minLengthFields": {
+                      "enabled": true
+                    },
+                    "maxLengthFields": {
+                      "enabled": true
+                    }
+                  }
+                ]
+              }
+            ],
+            "tests": {
+              "extendTests": [
+                {
+                  "tests": [
+                    "pm.test('[security] API4/API8 Out-of-spec input is rejected with a 4xx, not a 5xx or accepted', function () {\n  pm.expect(pm.response.code).to.be.within(400, 499);\n});"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "globals": {
+    "stripResponseExamples": true
+  }
+}
