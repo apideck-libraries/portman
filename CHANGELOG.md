@@ -1,5 +1,8 @@
 ## [Unreleased]
 
+- feat: Validate responses with circular `$ref`s when using `ignoreCircularRefs`, by embedding the referenced schemas as JSON schema definitions (#680)
+- fix: Generate content-type, JSON body and schema tests for responses that stay a `$ref` when `ignoreCircularRefs` is set
+
 ## v1.35.2 - (2026-10-14)
 
 - fix: ensure compiled output (#748)

@@ -184,3 +184,16 @@ pm.test("[GET]::/crm/companies/:id - Schema is valid", function() {
 ",
 ]
 `;
+
+exports[`testResponseJsonSchema should validate json schema with circular $ref when the OpenAPI document is given 1`] = `
+[
+  "// Response Validation
+const schema = {"allOf":[{"type":"array","items":{"$ref":"#/definitions/Node"}}],"definitions":{"Node":{"type":"object","properties":{"label":{"type":["string","null"]},"children":{"type":"array","items":{"$ref":"#/definitions/Node"}}}}}}
+
+// Validate if response matches JSON schema 
+pm.test("[GET]::/crm/companies/:id - Schema is valid", function() {
+    pm.response.to.have.jsonSchema(schema,{unknownFormats: ["int32", "int64", "float", "double"]});
+});
+",
+]
+`;

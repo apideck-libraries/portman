@@ -6,6 +6,7 @@ import traverse from 'neotraverse/legacy'
 import { OpenAPIV3 } from 'openapi-types'
 import Ajv from 'ajv'
 import chalk from 'chalk'
+import { embedRefDefinitions } from '../../utils'
 
 export const testResponseJsonSchema = (
   schemaValidation: ContractTestConfig,
@@ -14,8 +15,14 @@ export const testResponseJsonSchema = (
   pmOperation: PostmanMappedOperation,
   _oaOperation: OasMappedOperation,
   extraUnknownFormats: string[] = [],
-  config?: GlobalConfig
+  config?: GlobalConfig,
+  oasDoc?: OpenAPIV3.Document
 ): PostmanMappedOperation => {
+  // Schemas with circular references keep their $refs after dereferencing. Embed the referenced
+  // schemas as definitions so the (recursive) schema can still be validated.
+  const embedded = embedRefDefinitions(jsonSchema, oasDoc as unknown as Record<string, unknown>)
+  jsonSchema = embedded.schema
+
   // overwrite JSON schema validation for additionalProperties
   if (schemaValidation.additionalProperties || schemaValidation.additionalProperties === false) {
     jsonSchema = convertJsonSchemaAdditionalProperties(
@@ -48,7 +55,7 @@ export const testResponseJsonSchema = (
   }
 
   const jsonSchemaString = JSON.stringify(jsonSchema)
-  const containsRef = jsonSchemaString.includes('$ref')
+  const containsRef = !embedded.resolved
   let pmTest = ''
 
   const unknownFormats =
