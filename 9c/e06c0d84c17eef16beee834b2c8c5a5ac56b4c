@@ -1,0 +1,38 @@
+src/utils/embedRefDefinitions.test.ts
+  s_586471bdcc24f3::t_7538903dc2a37a 1-108
+src/utils/embedRefDefinitions.ts
+  s_586471bdcc24f3::t_d3130c6f632340 1-109
+  s_586471bdcc24f3::t_501ddea2ab8c13 110-129
+CHANGELOG.md
+  s_586471bdcc24f3::t_d3a69f907f339f 3-5
+docs/ERRORS.md
+  s_586471bdcc24f3::t_8a94f7cb13f6ea 7,11,13,15-17,19,21
+src/Portman.ts
+  s_586471bdcc24f3::t_2280dded1e0fce 163
+src/application/TestSuite.ts
+  s_586471bdcc24f3::t_52889dfea8220c 42,322-326,425-426
+src/application/tests/__snapshots__/testResponseJsonSchema.test.ts.snap
+  s_586471bdcc24f3::t_d262c1555b46c4 187-199
+src/application/tests/testResponseJsonSchema.test.ts
+  s_586471bdcc24f3::t_dd2e803c71ae83 66-103
+src/application/tests/testResponseJsonSchema.ts
+  s_586471bdcc24f3::t_aa1bc7733b9e13 9,18-19,21-25,58
+src/utils/index.ts
+  s_586471bdcc24f3::t_3b13e5a1509d9e 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ce06c0d84c17eef16beee834b2c8c5a5ac56b4c",
+  "prompts": {},
+  "sessions": {
+    "s_586471bdcc24f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ee634938-9519-415c-b372-053483a0aca3",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "GJ <info@gertjandewilde.com>"
+    }
+  }
+}
