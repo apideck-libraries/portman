@@ -125,14 +125,38 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
             if (!obj[k].type.includes('null')) {
               obj[k].type.push('null')
             }
-          } else {
+          } else if (obj[k].type) {
             // deletes nullable and adds "null" to type array if nullable is true
             const jsonTypes: string[] = []
             jsonTypes.push(obj[k].type)
             jsonTypes.push('null')
             obj[k].type = jsonTypes
+          } else if (Array.isArray(obj[k].oneOf)) {
+            obj[k].oneOf.push({ type: 'null' })
+          } else if (Array.isArray(obj[k].anyOf)) {
+            obj[k].anyOf.push({ type: 'null' })
+          } else if (Array.isArray(obj[k].allOf)) {
+            obj[k].anyOf = [{ allOf: obj[k].allOf }, { type: 'null' }]
+            delete obj[k].allOf
           }
+        }
+        if (typeof obj[k]?.nullable === 'boolean') {
           delete obj[k].nullable
+        }
+
+        // OpenAPI 3.0 boolean exclusiveMinimum/exclusiveMaximum to the JSON schema number form
+        for (const [exclusive, bound] of [
+          ['exclusiveMinimum', 'minimum'],
+          ['exclusiveMaximum', 'maximum']
+        ]) {
+          if (typeof obj[k]?.[exclusive] === 'boolean') {
+            if (obj[k][exclusive] && obj[k][bound] !== undefined) {
+              obj[k][exclusive] = obj[k][bound]
+              delete obj[k][bound]
+            } else {
+              delete obj[k][exclusive]
+            }
+          }
         }
 
         // Remove OpenAPI-specific fields
@@ -147,8 +171,10 @@ export const convertUnsupportedJsonSchemaProperties = (oaSchema: any): any => {
       }
     }
   }
-  traverse(jsonSchema)
-  return jsonSchema
+  // Wrap the schema so the root node is converted as well
+  const wrapper = { schema: jsonSchema }
+  traverse(wrapper)
+  return wrapper.schema
 }
 
 /**
