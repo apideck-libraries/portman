@@ -1,6 +1,6 @@
 ## [Unreleased]
 
-## v1.35.4 - (2026-11-25)
+## v1.35.3 - (2026-11-25)
 
 - chore: bump dependencies
 
