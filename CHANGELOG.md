@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## v1.35.4 - (2026-11-25)
+
+- chore: bump dependencies
+
 ## v1.35.2 - (2026-10-14)
 
 - fix: ensure compiled output (#748)
