@@ -550,6 +550,58 @@ describe('testResponseJsonSchema', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should convert OpenAPI 3.0 nullable without type to a valid json schema', async () => {
+    const pet = { type: 'object', properties: { name: { type: 'string' } } }
+    const schema = {
+      type: 'object',
+      properties: {
+        a: { nullable: true, allOf: [pet] },
+        b: { nullable: true, oneOf: [pet] },
+        c: { nullable: true, anyOf: [pet] }
+      }
+    }
+
+    expect(convertUnsupportedJsonSchemaProperties(schema)).toEqual({
+      type: 'object',
+      properties: {
+        a: { anyOf: [{ allOf: [pet] }, { type: 'null' }] },
+        b: { oneOf: [pet, { type: 'null' }] },
+        c: { anyOf: [pet, { type: 'null' }] }
+      }
+    })
+  })
+
+  it('should convert OpenAPI 3.0 boolean exclusiveMinimum and exclusiveMaximum', async () => {
+    const schema = {
+      type: 'object',
+      properties: {
+        price: { type: 'number', minimum: 0, exclusiveMinimum: true },
+        ratio: { type: 'number', maximum: 1, exclusiveMaximum: true },
+        count: { type: 'integer', minimum: 1, exclusiveMinimum: false }
+      }
+    }
+
+    expect(convertUnsupportedJsonSchemaProperties(schema)).toEqual({
+      type: 'object',
+      properties: {
+        price: { type: 'number', exclusiveMinimum: 0 },
+        ratio: { type: 'number', exclusiveMaximum: 1 },
+        count: { type: 'integer', minimum: 1 }
+      }
+    })
+  })
+
+  it('should convert OpenAPI 3.0 nullable and exclusiveMinimum on the root schema', async () => {
+    const pet = { type: 'object', properties: { name: { type: 'string' } } }
+
+    expect(convertUnsupportedJsonSchemaProperties({ nullable: true, allOf: [pet] })).toEqual({
+      anyOf: [{ allOf: [pet] }, { type: 'null' }]
+    })
+    expect(
+      convertUnsupportedJsonSchemaProperties({ type: 'number', minimum: 0, exclusiveMinimum: true })
+    ).toEqual({ type: 'number', exclusiveMinimum: 0 })
+  })
+
   it('should convert OpenAPI schema to valid json schema', async () => {
     const schema = {
       type: 'array',
