@@ -405,6 +405,22 @@ describe('testResponseBodyContent', () => {
     expect(pmTest.script.exec).toMatchSnapshot()
   })
 
+  it('should handle property keys with spaces or colons correctly (e.g., hydra:totalItems, first name)', async () => {
+    const contentTests = [
+      {
+        key: 'hydra:totalItems',
+        value: 10
+      },
+      {
+        key: 'first name',
+        value: 'John'
+      }
+    ]
+    pmOperation = testResponseBodyContent(contentTests, pmOperation)
+    const pmTest = pmOperation.getTests()
+    expect(pmTest.script.exec).toMatchSnapshot()
+  })
+
   it('should add content test for root array property check & result oneOf value', async () => {
     const contentTests = [
       {
@@ -412,7 +428,7 @@ describe('testResponseBodyContent', () => {
         oneOf: ['Spacex', 'Tesla']
       }
     ]
-    pmArrayOperation = testResponseBodyContent(contentTests, pmOperation)
+    pmArrayOperation = testResponseBodyContent(contentTests, pmArrayOperation)
     const pmTest = pmArrayOperation.getTests()
     expect(pmTest.script.exec).toMatchSnapshot()
   })

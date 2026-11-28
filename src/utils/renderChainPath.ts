@@ -25,12 +25,17 @@ export const renderChainPath = (path: string, legacyMode = false): string => {
 }
 
 export const detectUnsafeCharacters = (path: string): boolean => {
-  // Special characters that require brackets
-  const specialChars = ['`', '@', '^', '-', '?', '*', ')', '/', '>', 'ル']
+  // If path is wrapped in quotes already, it's safe/handled
+  if (
+    (path.startsWith("'") && path.endsWith("'")) ||
+    (path.startsWith('"') && path.endsWith('"'))
+  ) {
+    return false
+  }
 
-  // check if an array of characters is present in a string
-  const hasSpecialChars = (str: string, chars: string[]): boolean => {
-    return chars.some(char => str.includes(char))
+  // Check if a segment is a valid JS identifier (/^[A-Za-z_$][\w$]*$/)
+  const isValidIdentifier = (str: string): boolean => {
+    return /^[A-Za-z_$][\w$]*$/.test(str)
   }
 
   // Get string between brackets
@@ -45,29 +50,24 @@ export const detectUnsafeCharacters = (path: string): boolean => {
   const matches = path.match(regexCharacterInBrackets)
   if (matches) {
     for (const match of matches) {
-      const str = getStringBetweenBrackets(match)
-      // Detect if the path contains special characters
-      if (hasSpecialChars(str, specialChars)) {
-        // string is within single or double quotes
-        if (
-          (str.startsWith("'") && str.endsWith("'")) ||
-          (str.startsWith('"') && str.endsWith('"'))
-        ) {
-          return false
-        }
+      let str = getStringBetweenBrackets(match)
+      if (
+        (str.startsWith("'") && str.endsWith("'")) ||
+        (str.startsWith('"') && str.endsWith('"'))
+      ) {
+        str = str.slice(1, -1)
+      }
+      if (!isValidIdentifier(str)) {
         return true
       }
     }
   }
 
-  // Detect if the path contains special characters
-  if (hasSpecialChars(path, specialChars)) {
-    // Detect unsafe, not within quotes
-    if (path.includes(`'`) || path.includes(`"`)) {
-      return false
-    }
+  // If it's a dotted segment or top-level path
+  if (!isValidIdentifier(path)) {
     return true
   }
+
   return false
 }
 
