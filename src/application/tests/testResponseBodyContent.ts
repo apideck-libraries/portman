@@ -59,7 +59,7 @@ export const testResponseBodyContent = (
 
           pmHelperContains = [
             `const ${pathArrayVarName} = ${keyArrayPath};\n`,
-            `const ${sourceVarName} = ${pathArrayVarName}.find(c => c.${keyPaths[1]} === "${check.value}");\n`
+            `const ${sourceVarName} = ${pathArrayVarName}.find(c => c.${keyPaths[1]} === ${JSON.stringify(check.value)});\n`
           ].join('')
 
           // Set last part as key
@@ -99,9 +99,8 @@ export const testResponseBodyContent = (
       const label = check.notExist === true ? 'not have' : 'have'
 
       pmTestKey = [
-        `// Response body should ${label} "${keyLabel}"\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if '${keyLabel}' ${negateLabel}", function() {\n`,
+        `// Response body should ${label} ${JSON.stringify(keyLabel)}\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if '${keyLabel}' ${negateLabel}`)}, function() {\n`,
         `   pm.expect(${pathVarName} ${negate} undefined).to.be.true;\n`,
         `});\n`
       ].join('')
@@ -111,18 +110,19 @@ export const testResponseBodyContent = (
       let checkValue = check.value
       if (typeof check.value === 'string') {
         // Quote string value
-        checkValue = `"${check.value}"`
+        checkValue = JSON.stringify(check.value)
         // Get collection variables
         if (check.value.includes('{{') && check.value.includes('}}')) {
-          checkValue = `pm.collectionVariables.get("${check.value.replace(/{{|}}/g, '')}")`
+          checkValue = `pm.collectionVariables.get(${JSON.stringify(check.value.replace(/{{|}}/g, ''))})`
         }
+      } else {
+        checkValue = JSON.stringify(check.value)
       }
 
       pmTestValue = [
-        `// Response body should have value "${check.value}" for "${keyLabel}"\n`,
+        `// Response body should have value ${JSON.stringify(check.value)} for ${JSON.stringify(keyLabel)}\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if value for '${keyLabel}' matches '${check.value}'", function() {\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value for '${keyLabel}' matches '${check.value}'`)}, function() {\n`,
         `  pm.expect(${pathVarName}).to.eql(${checkValue});\n`,
         `})};\n`
       ].join('')
@@ -132,18 +132,19 @@ export const testResponseBodyContent = (
       let checkContains = check.contains
       if (typeof check.contains === 'string') {
         // Quote string value
-        checkContains = `"${check.contains}"`
+        checkContains = JSON.stringify(check.contains)
         // Get collection variables
         if (check.contains.includes('{{') && check.contains.includes('}}')) {
-          checkContains = `pm.collectionVariables.get("${check.contains.replace(/{{|}}/g, '')}")`
+          checkContains = `pm.collectionVariables.get(${JSON.stringify(check.contains.replace(/{{|}}/g, ''))})`
         }
+      } else {
+        checkContains = JSON.stringify(check.contains)
       }
 
       pmTestContains = [
-        `// Response body should contain value "${check.contains}" for "${keyLabel}"\n`,
+        `// Response body should contain value ${JSON.stringify(check.contains)} for ${JSON.stringify(keyLabel)}\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if value for '${keyLabel}' contains '${check.contains}'", function() {\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value for '${keyLabel}' contains '${check.contains}'`)}, function() {\n`,
         `  pm.expect(${pathVarName}).to.include(${checkContains});\n`,
         `})};\n`
       ].join('')
@@ -156,24 +157,22 @@ export const testResponseBodyContent = (
           if (typeof item === 'string') {
             let checkOneOfItem = item
             if (checkOneOfItem.includes('{{') && checkOneOfItem.includes('}}')) {
-              checkOneOfItem = `pm.collectionVariables.get("${checkOneOfItem.replace(
-                /{{|}}/g,
-                ''
-              )}")`
+              checkOneOfItem = `pm.collectionVariables.get(${JSON.stringify(
+                checkOneOfItem.replace(/{{|}}/g, '')
+              )})`
               return checkOneOfItem
             }
             // Quote string value
-            return `"${checkOneOfItem}"`
+            return JSON.stringify(checkOneOfItem)
           }
-          return item
+          return JSON.stringify(item)
         })
 
         pmTestOneOf = [
-          `// Response body should be one of the values "${check.oneOf}" for "${keyLabel}"\n`,
+          `// Response body should be one of the values ${JSON.stringify(check.oneOf)} for ${JSON.stringify(keyLabel)}\n`,
           `if (${pathVarName} !== undefined) {\n`,
-          `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-          ` - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'", function() {\n`,
-          `  pm.expect(${pathVarName}).to.be.oneOf([${safeOneOf}]);\n`,
+          `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value for '${keyLabel}' is matching one of: '${check.oneOf}'`)}, function() {\n`,
+          `  pm.expect(${pathVarName}).to.be.oneOf([${safeOneOf.join(', ')}]);\n`,
           `})};\n`
         ].join('')
       }
@@ -183,18 +182,19 @@ export const testResponseBodyContent = (
       let checkLength = check.length
       if (typeof check.length === 'string') {
         // Quote string value
-        checkLength = `"${check.length}"`
+        checkLength = JSON.stringify(check.length)
         // Get collection variables
         if (check.length.includes('{{') && check.length.includes('}}')) {
-          checkLength = `pm.collectionVariables.get("${check.length.replace(/{{|}}/g, '')}")`
+          checkLength = `pm.collectionVariables.get(${JSON.stringify(check.length.replace(/{{|}}/g, ''))})`
         }
+      } else {
+        checkLength = JSON.stringify(check.length)
       }
 
       pmTestLength = [
-        `// Response body should have a length of "${check.length}" for "${keyLabel}"\n`,
+        `// Response body should have a length of ${JSON.stringify(check.length)} for ${JSON.stringify(keyLabel)}\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if value of '${keyLabel}' has a length of '${check.length}'", function() {\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value of '${keyLabel}' has a length of '${check.length}'`)}, function() {\n`,
         `  pm.expect(${sourceData}${keyValue}.length).to.equal(${checkLength});\n`,
         `})};\n`
       ].join('')
@@ -204,18 +204,19 @@ export const testResponseBodyContent = (
       let checkMinLength = check.minLength
       if (typeof check.minLength === 'string') {
         // Quote string value
-        checkMinLength = `"${check.minLength}"`
+        checkMinLength = JSON.stringify(check.minLength)
         // Get collection variables
         if (check.minLength.includes('{{') && check.minLength.includes('}}')) {
-          checkMinLength = `pm.collectionVariables.get("${check.minLength.replace(/{{|}}/g, '')}")`
+          checkMinLength = `pm.collectionVariables.get(${JSON.stringify(check.minLength.replace(/{{|}}/g, ''))})`
         }
+      } else {
+        checkMinLength = JSON.stringify(check.minLength)
       }
 
       pmTestMinLength = [
-        `// Response body should have a minimum length of "${check.minLength}" for "${keyLabel}"\n`,
+        `// Response body should have a minimum length of ${JSON.stringify(check.minLength)} for ${JSON.stringify(keyLabel)}\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if value of '${keyLabel}' has a minimum length of '${check.minLength}'", function() {\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value of '${keyLabel}' has a minimum length of '${check.minLength}'`)}, function() {\n`,
         `  pm.expect(${sourceData}${keyValue}.length).is.at.least(${checkMinLength});\n`,
         `})};\n`
       ].join('')
@@ -225,18 +226,19 @@ export const testResponseBodyContent = (
       let checkMaxLength = check.maxLength
       if (typeof check.maxLength === 'string') {
         // Quote string value
-        checkMaxLength = `"${check.maxLength}"`
+        checkMaxLength = JSON.stringify(check.maxLength)
         // Get collection variables
         if (check.maxLength.includes('{{') && check.maxLength.includes('}}')) {
-          checkMaxLength = `pm.collectionVariables.get("${check.maxLength.replace(/{{|}}/g, '')}")`
+          checkMaxLength = `pm.collectionVariables.get(${JSON.stringify(check.maxLength.replace(/{{|}}/g, ''))})`
         }
+      } else {
+        checkMaxLength = JSON.stringify(check.maxLength)
       }
 
       pmTestMaxLength = [
-        `// Response body should have a maximum length of "${check.maxLength}" for "${keyLabel}"\n`,
+        `// Response body should have a maximum length of ${JSON.stringify(check.maxLength)} for ${JSON.stringify(keyLabel)}\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if value of '${keyLabel}' has a maximum length of '${check.maxLength}'", function() {\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value of '${keyLabel}' has a maximum length of '${check.maxLength}'`)}, function() {\n`,
         `  pm.expect(${sourceData}${keyValue}.length).is.at.most(${checkMaxLength});\n`,
         `})};\n`
       ].join('')
@@ -251,10 +253,9 @@ export const testResponseBodyContent = (
       const cleanAssertLabel = cleanAssert.replace(/"/g, "'")
 
       pmTestAssert = [
-        `// Response body value for "${keyLabel}" "${cleanAssert}"\n`,
+        `// Response body value for ${JSON.stringify(keyLabel)} ${JSON.stringify(cleanAssert)}\n`,
         `if (${pathVarName} !== undefined) {\n`,
-        `pm.test("[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path}`,
-        ` - Content check if value for '${keyLabel}' '${cleanAssertLabel}'", function() {\n`,
+        `pm.test(${JSON.stringify(`[${pmOperation.method.toUpperCase()}]${split}${pmOperation.path} - Content check if value for '${keyLabel}' '${cleanAssertLabel}'`)}, function() {\n`,
         `  pm.expect(${sourceData}${keyValue}).${cleanAssert};\n`,
         `})};\n`
       ].join('')
